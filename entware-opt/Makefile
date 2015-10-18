@@ -17,12 +17,12 @@ define Package/entware-opt
 	SECTION:=libs
 	CATEGORY:=Libraries
 	DEPENDS:=+libc +libgcc +libstdcpp +libpthread +librt \
-		+ldconfig +findutils +terminfo @USE_GLIBC:locales
+		+ldconfig +findutils +terminfo +@USE_GLIBC:locales
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, entware.wl500g.info, Zyxmon
 endef
 
-define Package/entware-opt
+define Package/entware-opt/description
  entware-opt is a metapackage to install Entware basic libraries and scripts.
 endef
 
@@ -48,7 +48,7 @@ define Package/entware-opt/conffiles
 /opt/etc/profile
 endef
 
-define Package/uclibc-opt/postinst
+define Package/entware-opt/postinst
 #!/bin/sh
 
 echo -n "Updating /opt/etc/ld.so.cache... "
@@ -56,4 +56,4 @@ echo -n "Updating /opt/etc/ld.so.cache... "
 echo "done."
 endef
 
-$(eval $(call BuildPackage,uclibc-opt))
+$(eval $(call BuildPackage,entware-opt))
