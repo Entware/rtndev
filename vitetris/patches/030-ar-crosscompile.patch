@@ -1,0 +1,94 @@
+--- a/src/game/Makefile	2012-05-08 20:27:52.351161417 +0400
++++ b/src/game/Makefile	2012-05-08 20:28:05.151000501 +0400
+@@ -4,7 +4,7 @@
+ HEADERS = tetris.h ../timer.h ../input/input.h ../draw/draw.h
+ 
+ game.a: $(OBJS)
+-	ar rs game.a $(OBJS)
++	$(AR) rs game.a $(OBJS)
+ 
+ tetris.o: tetris.c $(HEADERS)
+ 	$(CC) $(CCFLAGS) -I..  -c tetris.c
+--- a/src/input/Makefile	2012-05-08 20:28:52.978399230 +0400
++++ b/src/input/Makefile	2012-05-08 20:29:11.158170664 +0400
+@@ -6,19 +6,19 @@
+ 
+ unixterm: $(OBJS) inp_unixterm.o escseq.o select.o $(joylinux_obj)
+ 	rm -f input.a
+-	ar rcs input.a $(OBJS) inp_unixterm.o escseq.o select.o $(joylinux_obj)
++	$(AR) rcs input.a $(OBJS) inp_unixterm.o escseq.o select.o $(joylinux_obj)
+ 
+ curses: $(OBJS) inp_curses.o $(joylinux_obj) $(select_obj)
+ 	rm -f input.a
+-	ar rcs input.a $(OBJS) inp_curses.o $(joylinux_obj) $(select_obj)
++	$(AR) rcs input.a $(OBJS) inp_curses.o $(joylinux_obj) $(select_obj)
+ 
+ conio: $(OBJS) inp_con.o
+ 	rm -f input.a
+-	ar rcs input.a $(OBJS) inp_con.o
++	$(AR) rcs input.a $(OBJS) inp_con.o
+ 
+ allegro: $(OBJS) inp_allegro.o $(select_obj)
+ 	rm -f input.a
+-	ar rcs input.a $(OBJS) inp_allegro.o $(select_obj)
++	$(AR) rcs input.a $(OBJS) inp_allegro.o $(select_obj)
+ 
+ input.o: input.c input.h keyboard.h joystick.h \
+ 	 ../timer.h ../draw/draw.h ../game/tetris.h ../netw/sock.h \
+--- a/src/menu/Makefile	2012-05-08 20:29:52.793647257 +0400
++++ b/src/menu/Makefile	2012-05-08 20:30:05.025493475 +0400
+@@ -12,11 +12,11 @@
+ all: menu.a $(menuext_lib)
+ 
+ menu.a: $(OBJS)
+-	ar rs menu.a $(OBJS)
++	$(AR) rs menu.a $(OBJS)
+ 
+ menuext.a: $(EXT_OBJS)
+ 	rm -f menuext.a
+-	ar rcs menuext.a $(EXT_OBJS)
++	$(AR) rcs menuext.a $(EXT_OBJS)
+ 
+ menucore.o: menucore.c $(HEADERS) ../src-conf.mk
+ 	$(CC) $(CCFLAGS) $(DNO_MENU) -c menucore.c 
+--- a/src/textgfx/Makefile	2012-05-08 20:32:32.871634795 +0400
++++ b/src/textgfx/Makefile	2012-05-08 20:32:45.439476796 +0400
+@@ -5,7 +5,7 @@
+ 
+ textgfx.a: $(OBJS)
+ 	rm -f textgfx.a
+-	ar rcs textgfx.a $(OBJS)
++	$(AR) rcs textgfx.a $(OBJS)
+ 
+ term.o: term.c textgfx.h ../options.h ../config.h
+ 	$(CC) $(CCFLAGS) -I.. -c term.c
+--- a/src/draw/Makefile	2008-08-18 13:09:46.000000000 +0400
++++ b/src/draw/Makefile	2012-05-08 20:39:48.761256457 +0400
+@@ -4,7 +4,7 @@
+ HEADERS = draw.h internal.h ../textgfx/textgfx.h
+ 
+ draw.a: $(OBJS)
+-	ar rs draw.a $(OBJS)
++	$(AR) rs draw.a $(OBJS)
+ 
+ draw.o: draw.c $(HEADERS) ../game/tetris.h ../hiscore.h \
+ 			  ../netw/sock.h ../src-conf.mk
+--- a/src/netw/Makefile	2008-10-16 22:39:35.000000000 +0400
++++ b/src/netw/Makefile	2012-05-08 20:51:33.496049935 +0400
+@@ -6,12 +6,12 @@
+ all: $(netw_lib)$(inet_obj)
+ 
+ netw.ainet.o: $(OBJS) comm_inet.o
+-	-ar dc netw.a no_inet.o
+-	ar rs netw.a $(OBJS) comm_inet.o
++	-$(AR) dc netw.a no_inet.o
++	$(AR) rs netw.a $(OBJS) comm_inet.o
+ 
+ netw.a: $(OBJS) no_inet.o ../src-conf.mk
+-	-ar dc netw.a inet.o comm_inet.o
+-	ar rs netw.a $(OBJS) no_inet.o
++	-$(AR) dc netw.a inet.o comm_inet.o
++	$(AR) rs netw.a $(OBJS) no_inet.o
+ 
+ socket.o: socket.c sock.h internal.h ../input/input.h $(config_h)
+ 

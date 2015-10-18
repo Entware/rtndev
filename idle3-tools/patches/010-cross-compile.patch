@@ -1,0 +1,14 @@
+--- a/Makefile
++++ b/Makefile
+@@ -13,9 +13,9 @@
+ CC = gcc
+ STRIP = strip
+ 
+-CFLAGS := -g -O2 -W -Wall -Wbad-function-cast -Wcast-align -Wpointer-arith -Wcast-qual -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fkeep-inline-functions -Wwrite-strings -Waggregate-return -Wnested-externs -Wtrigraphs $(CFLAGS)
++CFLAGS += -g -W -Wall -Wbad-function-cast -Wcast-align -Wpointer-arith -Wcast-qual -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fkeep-inline-functions -Wwrite-strings -Waggregate-return -Wnested-externs -Wtrigraphs
+ 
+-LDFLAGS = -s
++LDFLAGS += -s
+ #LDFLAGS = -s -static
+ INSTALL = install
+ INSTALL_DATA = $(INSTALL) -m 644

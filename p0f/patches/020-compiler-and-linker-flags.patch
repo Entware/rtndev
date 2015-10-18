@@ -1,0 +1,18 @@
+--- a/build.sh	2012-03-26 17:13:45.528966368 +0400
++++ b/build.sh	2012-03-26 17:14:56.951762946 +0400
+@@ -13,12 +13,11 @@
+ 
+ test "$CC" = "" && CC="gcc"
+ 
+-BASIC_CFLAGS="-Wall -Wno-format -I/usr/local/include/ \
+-              -I/opt/local/include/ -DVERSION=\"$VERSION\" $CFLAGS"
++BASIC_CFLAGS="-Wall -Wno-format -DVERSION=\"$VERSION\" $CFLAGS"
+ 
+-BASIC_LDFLAGS="-L/usr/local/lib/ -L/opt/local/lib $LDFLAGS"
++BASIC_LDFLAGS="$LDFLAGS"
+ 
+-USE_CFLAGS="-fstack-protector-all -fPIE -D_FORTIFY_SOURCE=2 -g -ggdb \
++USE_CFLAGS="-fPIE -g -ggdb \
+             $BASIC_CFLAGS"
+ 
+ USE_LDFLAGS="-Wl,-z,relro -pie $BASIC_LDFLAGS"

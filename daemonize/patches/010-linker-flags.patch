@@ -1,0 +1,11 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -22,7 +22,7 @@
+ all: daemonize 
+ 
+ daemonize: daemonize.o getopt.o $(MISSING_OBJECTS)
+-	$(CC) $(CFLAGS) -o daemonize daemonize.o getopt.o $(MISSING_OBJECTS)
++	$(CC) $(CFLAGS) -o daemonize daemonize.o getopt.o $(MISSING_OBJECTS) $(LDFLAGS)
+ 
+ testdaemon: testdaemon.o
+ 	$(CC) $(CFLAGS) -o testdaemon testdaemon.o

@@ -1,0 +1,10 @@
+--- a/console/Subdir.mk
++++ b/console/Subdir.mk
+@@ -20,7 +20,6 @@
+ ifeq ($(FOUND_OS),linux)
+ TARGETS-console += \
+ 	console/radio \
+-	console/fbtv \
+ 	console/v4l-info
+ TARGETS-v4l-conf += \
+ 	console/v4l-conf

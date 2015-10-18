@@ -1,0 +1,19 @@
+--- a/makefile	2012-05-07 23:59:30.106826318 +0400
++++ b/makefile	2012-05-08 00:00:39.473954258 +0400
+@@ -1,5 +1,3 @@
+-CFLAGS=     -O
+-
+ .c.o:
+ 	$(CC) $(CFLAGS) -c $<
+ 
+@@ -7,8 +5,8 @@
+ 
+ HFILES=     sst.h
+ 
+-sstos2.exe:  $(OFILES)
+-	gcc  -o sst $(OFILES) -lm
++sst:  $(OFILES)
++	$(GCC)  -o sst $(OFILES) $(LDFLAGS) -lm
+ 
+         
+ $(OFILES):  $(HFILES)

@@ -1,0 +1,27 @@
+--- a/util.cpp
++++ b/util.cpp
+@@ -228,13 +228,9 @@
+ 		return boost::filesystem::path(std::string(localAppData) + "\\" + appName);
+ #else
+ 		if (i2p::util::config::GetArg("-service", 0)) // use system folder
+-			return boost::filesystem::path(std::string ("/var/lib/") + appName);
++			return boost::filesystem::path(std::string ("/opt/var/") + appName);
+ 		boost::filesystem::path pathRet;
+-		char* pszHome = getenv("HOME");
+-		if (pszHome == NULL || strlen(pszHome) == 0)
+-			pathRet = boost::filesystem::path("/");
+-		else
+-			pathRet = boost::filesystem::path(pszHome);
++		pathRet = boost::filesystem::path("/opt/var");
+ #ifdef MAC_OSX
+ 		// Mac
+ 		pathRet /= "Library/Application Support";
+@@ -242,7 +238,7 @@
+ 		return pathRet / appName;
+ #else
+ 		// Unix
+-		return pathRet / (std::string (".") + appName);
++		return pathRet / appName;
+ #endif
+ #endif
+ 	}

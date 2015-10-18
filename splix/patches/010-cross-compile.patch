@@ -1,0 +1,17 @@
+--- ./rules.mk.orig	2013-11-16 20:38:26.847342363 +0400
++++ ./rules.mk	2013-11-16 20:38:44.611342887 +0400
+@@ -6,12 +6,12 @@
+ 
+ $(rastertoqpdl_TARGET): $(rastertoqpdl_OBJ)
+ 	$(call printCmd, $(cmd_link))
+-	$(Q)g++ -o $@ $^ $(rastertoqpdl_CXXFLAGS) $(rastertoqpdl_LDFLAGS) \
++	$(Q)$(LINKER) -o $@ $^ $(rastertoqpdl_CXXFLAGS) $(rastertoqpdl_LDFLAGS) \
+ 		$(rastertoqpdl_LIBS)
+ 
+ $(pstoqpdl_TARGET): $(pstoqpdl_OBJ)
+ 	$(call printCmd, $(cmd_link))
+-	$(Q)g++ -o $@ $^ $(pstoqpdl_CXXFLAGS) $(pstoqpdl_LDFLAGS) \
++	$(Q)$(LINKER) -o $@ $^ $(pstoqpdl_CXXFLAGS) $(pstoqpdl_LDFLAGS) \
+ 		$(pstoqpdl_LIBS)
+ 
+ .PHONY: install installcms

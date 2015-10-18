@@ -1,0 +1,11 @@
+--- a/src/wdfs-main.c
++++ b/src/wdfs-main.c
+@@ -32,7 +32,7 @@
+ #include <assert.h>
+ #include <unistd.h>
+ #include <glib.h>
+-#include <fuse_opt.h>
++#include <fuse/fuse_opt.h>
+ #include <ne_props.h>
+ #include <ne_dates.h>
+ #include <ne_redirect.h>

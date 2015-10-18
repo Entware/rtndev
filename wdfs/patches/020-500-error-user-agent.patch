@@ -1,0 +1,31 @@
+From 3a6a8137be2fcc61e06c17cb6a6fdc1cf21829e7 Mon Sep 17 00:00:00 2001
+From: jmesmon <jmesmon@gmail.com>
+Date: Wed, 2 Jun 2010 20:50:39 -0400
+Subject: [PATCH] fix a remote '500' error due to the lack of a useragent
+
+---
+ src/webdav.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/webdav.c b/src/webdav.c
+index ce4bd35..e54b828 100644
+--- a/src/webdav.c
++++ b/src/webdav.c
+@@ -204,6 +204,8 @@ int setup_webdav_session(
+ 	/* if no port was defined use the default port */
+ 	uri.port = uri.port ? uri.port : ne_uri_defaultport(uri.scheme);
+ 
++	ne_debug_init(stderr,0);
++
+ 	/* needed for ssl connections. it's not documented. nice to know... ;-) */
+ 	ne_sock_init();
+ 
+@@ -242,6 +244,8 @@ int setup_webdav_session(
+ 		return -1;
+ 	}
+ 
++	ne_set_useragent(session,"wdfs");
++
+ 	/* try to access the server */
+ 	ne_server_capabilities capabilities;
+ 	int ret = ne_options(session, path, &capabilities);

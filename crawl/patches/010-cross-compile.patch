@@ -1,0 +1,93 @@
+--- ./source/Makefile.orig	2013-06-01 08:17:58.000000000 +0400
++++ ./source/Makefile	2013-06-10 15:33:18.009456663 +0400
+@@ -101,7 +101,7 @@
+ #
+ 
+ 
+-CFOTHERS := -pipe $(EXTERNAL_FLAGS)
++CFOTHERS := $(EXTERNAL_FLAGS)
+ CFWARN := -Wall -Wformat-security
+ CFWARN_L := -Wundef
+ 
+@@ -110,7 +110,7 @@
+ ifdef ANDROID
+ LDFLAGS := $(EXTERNAL_LDFLAGS) $(LDFLAGS)
+ else
+-LDFLAGS := $(EXTERNAL_LDFLAGS)
++LDFLAGS += $(EXTERNAL_LDFLAGS)
+ endif
+ 
+ #
+@@ -183,6 +183,7 @@
+ 	endif
+ 
+ endif
++BUILD_LUA = yes
+ ifneq (,$(findstring MINGW,$(uname_S)))
+ 	GAME = crawl.exe
+ 	bin_prefix = .
+@@ -253,7 +254,7 @@
+ LIBPNG := contrib/install/$(ARCH)/lib/libpng.a
+ LIBSDLIMAGE := contrib/install/$(ARCH)/lib/libSDL_image.a
+ LIBFREETYPE := contrib/install/$(ARCH)/lib/libfreetype.a
+-LIBSQLITE := contrib/install/$(ARCH)/lib/libsqlite3.a
++LIBSQLITE := -lsqlite3
+ ifdef USE_LUAJIT
+ LIBLUA := contrib/install/$(ARCH)/lib/libluajit.a
+ else
+@@ -262,7 +263,7 @@
+ LIBZ := contrib/install/$(ARCH)/lib/libz.a
+ 
+ ifndef CROSSHOST
+-	SQLITE_INCLUDE_DIR := /usr/include
++	SQLITE_INCLUDE_DIR := .
+ else
+ 	# This is totally wrong, works only with some old-style setups, and
+ 	# on some architectures of Debian/new FHS multiarch -- excluding, for
+@@ -377,7 +378,6 @@
+ 
+ 
+ INCLUDES_L += -Icontrib/install/$(ARCH)/include
+-LIBS += -Lcontrib/install/$(ARCH)/lib
+ 
+ INCLUDES_L += -Iutil -I.
+ 
+@@ -929,10 +929,8 @@
+ NC_INCLUDE = $(NC_PREFIX)/include/ncursesw
+ endif
+ 
+-INCLUDES_L += -I$(NC_INCLUDE)
+-
+ ifndef TILES
+-LIBS += -L$(NC_PREFIX)/lib -l$(NC_LIB)
++LIBS += -l$(NC_LIB)
+ endif
+ 
+ endif
+@@ -953,7 +951,6 @@
+ CFWARN_L :=
+ endif
+ 
+-LDFLAGS += $(CFOPTIMIZE) $(CFOPTIMIZE_L)
+ 
+ ifdef REPORT
+ CFOTHERS += -ftime-report
+@@ -962,7 +959,7 @@
+ ifdef ANDROID
+ CFLAGS   := $(CFOPTIMIZE) $(CFOTHERS) $(CFWARN) $(CFLAGS)
+ else
+-CFLAGS   := $(CFOPTIMIZE) $(CFOTHERS) $(CFWARN)
++CFLAGS   += $(CFOTHERS) $(CFWARN)
+ endif
+ CFLAGS_L := $(CFOPTIMIZE_L) $(DEFINES_L) $(CFWARN_L) $(INCLUDES_L) $(CFOTHERS_L)
+ ALL_CFLAGS := $(CFLAGS) $(CFLAGS_L)
+@@ -1058,8 +1055,7 @@
+ CONTRIB_LIBS += $(LIBLUA)
+ endif
+ ifdef BUILD_SQLITE
+-CONTRIBS += sqlite
+-CONTRIB_LIBS += $(LIBSQLITE)
++LIBS += $(LIBSQLITE)
+ endif
+ 
+ EXTRA_OBJECTS += version.o

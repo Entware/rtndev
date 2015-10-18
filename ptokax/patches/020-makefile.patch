@@ -1,0 +1,29 @@
+--- a/makefile
++++ b/makefile
+@@ -22,12 +22,12 @@
+ #*******************************************************************************
+ # Release flags
+ #*******************************************************************************
+-CXXFLAGS = -O -g -Wall -Wextra
++#CXXFLAGS = -O -g -Wall -Wextra
+ 
+ #*******************************************************************************
+ # Include
+ #*******************************************************************************
+-INCLUDE = -Itinyxml -Iskein/Optimized_32bit -I/usr/include -I/usr/include/lua5.1
++INCLUDE = -Itinyxml -Iskein/Optimized_32bit $(CXXFLAGS)
+ 
+ #*******************************************************************************
+ # Files to compile and link
+@@ -52,10 +52,9 @@
+ # then remove -llua5.1 and after tinyxml/tinyxml.a add /usr/local/lib/liblua.a (default path when is Lua compiled from sources).
+ #*******************************************************************************
+ 
+-PtokaX: INCLUDE = -Iskein/Optimized_32bit -I/usr/include -I/usr/include/lua5.1
+ PtokaX: $(OBJS)
+ 	cd skein; $(MAKE)
+-	$(CXX) $(OBJS) $(CURDIR)/skein/skein.a -o PtokaX -lstdc++ -lpthread -lm -lrt -lz -llua5.1 -ltinyxml
++	$(CXX) $(LDFLAGS) $(OBJS) $(CURDIR)/skein/skein.a $(CURDIR)/tinyxml/tinyxml.a -o PtokaX -lstdc++ -lpthread -llua -lrt -lz
+ 
+ lua52: INCLUDE = -Iskein/Optimized_32bit -I/usr/include -I/usr/include/lua5.2
+ lua52: $(OBJS)

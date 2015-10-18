@@ -1,0 +1,12 @@
+--- a/Makefile.tgl
++++ b/Makefile.tgl
+@@ -28,9 +28,6 @@
+ ${LIB}/libtgl.a: ${TGL_OBJECTS} ${TGL_COMMON_OBJECTS} ${TGL_OBJECTS_AUTO}
+ 	rm -f $@ && ar ruv $@ $^
+ 
+-${EXE}/generate: ${GENERATE_OBJECTS} ${TGL_COMMON_OBJECTS}
+-	${CC} ${GENERATE_OBJECTS} ${TGL_COMMON_OBJECTS} ${LINK_FLAGS} -o $@
+-
+ ${AUTO}/scheme.tlo: ${AUTO}/scheme.tl ${EXE}/tl-parser
+ 	${EXE}/tl-parser -e $@ ${AUTO}/scheme.tl
+ 

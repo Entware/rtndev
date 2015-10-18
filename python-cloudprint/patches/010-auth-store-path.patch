@@ -1,0 +1,11 @@
+--- a/cloudprint/cloudprint.py
++++ b/cloudprint/cloudprint.py
+@@ -416,7 +416,7 @@
+                         help='logout of the google account')
+     parser.add_argument('-p', metavar='pid_file', dest='pidfile', default='cloudprint.pid',
+                         help='path to write the pid to (default %(default)s)')
+-    parser.add_argument('-a', metavar='account_file', dest='authfile', default=os.path.expanduser('~/.cloudprintauth.json'),
++    parser.add_argument('-a', metavar='account_file', dest='authfile', default='/opt/var/.cloudprintauth.json',
+                         help='path to google account ident data (default %(default)s)')
+     parser.add_argument('-c', dest='authonly', action='store_true',
+                         help='establish and store login credentials, then exit')

@@ -1,0 +1,22 @@
+--- a/Makefile.orig	2014-11-30 16:59:17.158859428 +0300
++++ b/Makefile	2014-11-30 16:59:23.754775962 +0300
+@@ -4,7 +4,7 @@
+ CC = gcc
+ 
+ # Options for the compiler: A high optimization level is suggested
+-CFLAGS = -O2 -W -Wno-unused-result
++CFLAGS = -O2 -W
+ # CFLAGS = -O -g -W -Wall -Wno-unused-result -ansi -pedantic # -DDEBUG
+ 
+ export CC CFLAGS
+--- a/pbmtools/Makefile.orig	2014-11-30 16:58:17.881844359 +0300
++++ b/pbmtools/Makefile	2014-11-30 16:58:45.056816706 +0300
+@@ -4,7 +4,7 @@
+ CC = gcc
+ 
+ # Options for the compiler
+-CFLAGS = -g -O -W -Wall -Wno-unused-result -ansi -pedantic # --coverage
++CFLAGS = -g -O -W -Wall -ansi # --coverage
+ CPPFLAGS = -I../libjbig 
+ 
+ .SUFFIXES: .1 .5 .txt $(SUFFIXES)

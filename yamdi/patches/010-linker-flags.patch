@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -4,7 +4,7 @@
+ CFLAGS=-O2 -Wall
+ 
+ yamdi: yamdi.c Makefile
+-	$(CC) $(CFLAGS) yamdi.c -o yamdi
++	$(CC) $(CFLAGS) yamdi.c $(LDFLAGS) -o yamdi
+ 
+ clean: yamdi
+ 	rm -f yamdi

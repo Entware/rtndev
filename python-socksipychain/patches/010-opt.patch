@@ -1,0 +1,9 @@
+--- a/setup.cfg	2012-11-29 21:19:37.000000000 +0400
++++ b/setup.cfg	2013-06-23 15:11:41.641281630 +0400
+@@ -10,4 +10,4 @@
+ [install]
+-prefix = /usr
+-install_lib = /usr/lib/python2.7/site-packages
++prefix = /opt
++install_lib = /opt/lib/python2.7/site-packages
+ single_version_externally_managed = yes

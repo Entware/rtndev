@@ -1,0 +1,21 @@
+--- a/src/chk.c	2011-12-12 16:28:15.000000000 +0400
++++ b/src/chk.c	2012-06-05 10:00:52.525969382 +0400
+@@ -30,15 +30,9 @@
+ char *get_data_dir(int verbose)
+ {
+   if (verbose) puts("Looking for data directory:");
+-  if (verbose) puts("./data/ ..");
+-  if (!chk_file("./data/", "spgraf"))
+-    return "./data/";
+-  if (verbose) puts("/usr/local/share/phear/data/ ..");
+-  if (!chk_file("/usr/local/share/phear/data/", "spgraf"))
+-    return "/usr/local/share/phear/data/";
+-  if (verbose) puts("/usr/share/phear/data/ ..");
+-  if (!chk_file("/usr/share/phear/data/", "spgraf"))
+-    return "/usr/share/phear/data/";
++  if (verbose) puts("/opt/share/phear/data/ ..");
++  if (!chk_file("/opt/share/phear/data/", "spgraf"))
++    return "/opt/share/phear/data/";
+   if (verbose) puts("Data not found");
+   return NULL;
+ }

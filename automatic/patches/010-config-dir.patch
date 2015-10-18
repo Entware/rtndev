@@ -1,0 +1,11 @@
+--- a/src/automatic.c
++++ b/src/automatic.c
+@@ -17,7 +17,7 @@
+  * 02111-1307, USA.
+  */
+ 
+-#define AM_DEFAULT_CONFIGFILE      "/etc/automatic.conf"
++#define AM_DEFAULT_CONFIGFILE      "/opt/etc/automatic.conf"
+ #define AM_DEFAULT_STATEFILE       ".automatic.state"
+ #define AM_DEFAULT_VERBOSE         P_MSG
+ #define AM_DEFAULT_NOFORK          false

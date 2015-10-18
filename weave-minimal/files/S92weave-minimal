@@ -1,0 +1,12 @@
+#!/bin/sh
+
+ENABLED=yes
+PROCS=weave-minimal
+SOCK=/opt/var/weave.sock
+[ -e $SOCK ] && rm -f $SOCK
+ARGS="--data-dir=/opt/var/weave --host=127.0.0.1 --port=8080"
+PREARGS="dtach -n $SOCK"
+DESC=$PROCS
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func

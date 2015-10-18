@@ -1,0 +1,20 @@
+--- a/DVERB2.C	2010-10-10 15:10:36.000000000 +0400
++++ b/DVERB2.C	2012-05-08 16:48:26.956189973 +0400
+@@ -22,7 +22,7 @@
+ /* 						!DISABLE GAME. */
+ /* Note: save file format is different for PDP vs. non-PDP versions */
+ 
+-    if ((e = fopen("dsave.dat", BINWRITE)) == NULL)
++    if ((e = fopen("/opt/var/dsave.dat", BINWRITE)) == NULL)
+ 	goto L100;
+ 
+     gttime_(&i);
+@@ -113,7 +113,7 @@
+ /* 						!DISABLE GAME. */
+ /* Note: save file format is different for PDP vs. non-PDP versions */
+ 
+-    if ((e = fopen("dsave.dat", BINREAD)) == NULL)
++    if ((e = fopen("/opt/var/dsave.dat", BINREAD)) == NULL)
+ 	goto L100;
+ 
+ #define do_uio(i, zbuf, cbytes) \

@@ -1,0 +1,31 @@
+--- a/incroncfg.cpp	2012-04-07 02:19:27.000000000 +0400
++++ b/incroncfg.cpp	2012-06-05 12:04:12.535424437 +0400
+@@ -24,7 +24,7 @@
+ #include "incroncfg.h"
+ 
+ 
+-#define INCRON_CFG_DEFAULT "/etc/incron.conf"
++#define INCRON_CFG_DEFAULT "/opt/etc/incron.conf"
+ 
+ 
+ typedef std::map<std::string, std::string> CFG_MAP;
+@@ -37,13 +37,13 @@
+ 
+ void IncronCfg::Init()
+ {
+-  m_defaults.insert(CFG_MAP::value_type("system_table_dir", "/etc/incron.d"));
+-  m_defaults.insert(CFG_MAP::value_type("user_table_dir", "/var/spool/incron"));
+-  m_defaults.insert(CFG_MAP::value_type("allowed_users", "/etc/incron.allow"));
+-  m_defaults.insert(CFG_MAP::value_type("denied_users", "/etc/incron.deny"));
+-  m_defaults.insert(CFG_MAP::value_type("lockfile_dir", "/var/run"));
++  m_defaults.insert(CFG_MAP::value_type("system_table_dir", "/opt/etc/incron.d"));
++  m_defaults.insert(CFG_MAP::value_type("user_table_dir", "/opt/var/spool/incron"));
++  m_defaults.insert(CFG_MAP::value_type("allowed_users", "/opt/etc/incron.allow"));
++  m_defaults.insert(CFG_MAP::value_type("denied_users", "/opt/etc/incron.deny"));
++  m_defaults.insert(CFG_MAP::value_type("lockfile_dir", "/opt/var/run"));
+   m_defaults.insert(CFG_MAP::value_type("lockfile_name", "incrond"));
+-  m_defaults.insert(CFG_MAP::value_type("editor", ""));
++  m_defaults.insert(CFG_MAP::value_type("editor", "/bin/vi"));
+ }
+ 
+ void IncronCfg::Load(const std::string& rPath)

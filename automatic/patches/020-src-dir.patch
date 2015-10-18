@@ -1,0 +1,160 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -10,28 +10,28 @@
+ endif
+ 
+ automatic_SOURCES = \
+-   $(top_srcdir)/src/automatic.c      \
+-   $(top_srcdir)/src/base64.c         \
+-   $(top_srcdir)/src/config_parser.c  \
+-   $(top_srcdir)/src/downloads.c      \
+-   $(top_srcdir)/src/feed_item.c      \
+-   $(top_srcdir)/src/file.c           \
+-   $(top_srcdir)/src/json.c           \
+-   $(top_srcdir)/src/list.c           \
+-   $(top_srcdir)/src/output.c         \
+-   $(top_srcdir)/src/filters.c        \
+-   $(top_srcdir)/src/prowl.c          \
+-   $(top_srcdir)/src/pushalot.c       \
+-   $(top_srcdir)/src/regex.c          \
+-   $(top_srcdir)/src/rss_feed.c       \
+-   $(top_srcdir)/src/state.c          \
+-   $(top_srcdir)/src/toasty.c         \
+-   $(top_srcdir)/src/torrent.c        \
+-   $(top_srcdir)/src/transmission.c   \
+-   $(top_srcdir)/src/urlcode.c        \
+-   $(top_srcdir)/src/utils.c          \
+-   $(top_srcdir)/src/web.c            \
+-   $(top_srcdir)/src/xml_parser.c
++   automatic.c      \
++   base64.c         \
++   config_parser.c  \
++   downloads.c      \
++   feed_item.c      \
++   file.c           \
++   json.c           \
++   list.c           \
++   output.c         \
++   filters.c        \
++   prowl.c          \
++   pushalot.c       \
++   regex.c          \
++   rss_feed.c       \
++   state.c          \
++   toasty.c         \
++   torrent.c        \
++   transmission.c   \
++   urlcode.c        \
++   utils.c          \
++   web.c            \
++   xml_parser.c
+ 
+ noinst_HEADERS =    \
+    $(top_srcdir)/include/automatic.h      \
+@@ -59,7 +59,7 @@
+ 
+ automatic_mw_SOURCES =  \
+   $(automatic_SOURCES) \
+-	$(top_srcdir)/src/memwatch.c
++	memwatch.c
+ 
+ if DBG_BUILD
+   automatic_mwdir = .
+--- a/src/tests/Makefile.am
++++ b/src/tests/Makefile.am
+@@ -5,65 +5,65 @@
+ TESTS = $(check_PROGRAMS)
+ 
+ GLOBAL_SOURCES = \
+-   $(top_srcdir)/src/output.c     \
+-   $(top_srcdir)/src/memwatch.c   \
+-   $(top_srcdir)/src/utils.c
++   ../output.c     \
++   ../memwatch.c   \
++   ../utils.c
+ 
+ http_test_SOURCES = $(GLOBAL_SOURCES)  \
+-   $(top_srcdir)/src/file.c            \
+-   $(top_srcdir)/src/regex.c           \
+-   $(top_srcdir)/src/urlcode.c         \
+-   $(top_srcdir)/src/web.c             \
++   ../file.c            \
++   ../regex.c           \
++   ../urlcode.c         \
++   ../web.c             \
+    http_test.c
+ 
+ list_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/list.c           \
++   ../list.c           \
+    list_test.c
+ 
+ base64_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/base64.c           \
++   ../base64.c           \
+    base64_test.c
+ 
+ utils_test_SOURCES = $(GLOBAL_SOURCES) \
+    utils_test.c
+ 
+ regex_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/regex.c           \
++   ../regex.c           \
+    regex_test.c
+ 
+ json_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/base64.c         \
+-   $(top_srcdir)/src/json.c           \
+-   $(top_srcdir)/src/regex.c          \
++   ../base64.c         \
++   ../json.c           \
++   ../regex.c          \
+    json_test.c
+ 
+ prowl_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/prowl.c           \
+-   $(top_srcdir)/src/regex.c           \
+-   $(top_srcdir)/src/urlcode.c         \
+-   $(top_srcdir)/src/web.c             \
++   ../prowl.c           \
++   ../regex.c           \
++   ../urlcode.c         \
++   ../web.c             \
+    prowl_test.c
+ 
+ pushalot_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/pushalot.c           \
+-   $(top_srcdir)/src/regex.c              \
+-   $(top_srcdir)/src/urlcode.c            \
+-   $(top_srcdir)/src/web.c                \
++   ../pushalot.c           \
++   ../regex.c              \
++   ../urlcode.c            \
++   ../web.c                \
+    pushalot_test.c
+ 
+ toasty_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/toasty.c           \
+-   $(top_srcdir)/src/regex.c            \
+-   $(top_srcdir)/src/urlcode.c          \
+-   $(top_srcdir)/src/web.c              \
++   ../toasty.c           \
++   ../regex.c            \
++   ../urlcode.c          \
++   ../web.c              \
+    toasty_test.c
+ 
+ parser_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/config_parser.c    \
+-   $(top_srcdir)/src/filters.c          \
+-   $(top_srcdir)/src/list.c             \
+-   $(top_srcdir)/src/regex.c            \
+-   $(top_srcdir)/src/rss_feed.c         \
++   ../config_parser.c    \
++   ../filters.c          \
++   ../list.c             \
++   ../regex.c            \
++   ../rss_feed.c         \
+    parser_test.c
+ 
+ noinst_HEADERS = \

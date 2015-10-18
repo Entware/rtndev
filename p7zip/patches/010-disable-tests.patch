@@ -1,0 +1,10 @@
+--- ./makefile.orig	2015-02-18 10:02:52.672452180 +0300
++++ ./makefile	2015-02-18 10:03:46.900448957 +0300
+@@ -26,7 +26,6 @@
+ 
+ 7za: common
+ 	$(MAKE) -C CPP/7zip/Bundles/Alone all
+-	$(MAKE) -C check/my_86_filter     all
+ 
+ 7zr: common
+ 	$(MAKE) -C CPP/7zip/Bundles/Alone7z all

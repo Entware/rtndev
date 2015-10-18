@@ -1,0 +1,11 @@
+--- a/Daemon.cpp
++++ b/Daemon.cpp
+@@ -94,7 +94,7 @@
+ 			{
+ 				if (isDaemon)
+ 				{
+-					std::string logfile_path = IsService () ? "/var/log" : i2p::util::filesystem::GetDataDir().string();
++					std::string logfile_path = IsService () ? "/opt/var/log" : i2p::util::filesystem::GetDataDir().string();
+ #ifndef _WIN32
+ 					logfile_path.append("/i2pd.log");
+ #else

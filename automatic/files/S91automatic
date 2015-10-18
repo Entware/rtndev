@@ -1,0 +1,13 @@
+#!/bin/sh
+
+LOGFILE=/opt/var/log/automatic.log
+touch $LOGFILE
+
+ENABLED=yes
+PROCS=automatic
+ARGS="-l $LOGFILE -a"
+PREARGS=""
+DESC=$PROCS
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func

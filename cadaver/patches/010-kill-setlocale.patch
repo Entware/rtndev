@@ -1,0 +1,11 @@
+--- a/configure   2009-12-16 01:36:26.000000000 +0300
++++ b/configure  2012-11-21 18:49:32.000000000 +0400
+@@ -28839,7 +28839,7 @@
+
+
+
+-for ac_func in asprintf fwprintf putenv setenv setlocale snprintf wcslen
++for ac_func in asprintf fwprintf putenv setenv snprintf wcslen
+ do
+ as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ { $as_echo "$as_me:$LINENO: checking for $ac_func" >&5

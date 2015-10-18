@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ENABLED=yes
+PROCS=mediatomb
+ARGS="-d -u root -g root -P /opt/var/run/mediatomb.pid -l /opt/var/log/mediatomb.log -m /opt/etc -f mediatomb -p 50501"
+PREARGS=""
+DESC=$PROCS
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func

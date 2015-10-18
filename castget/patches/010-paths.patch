@@ -1,0 +1,20 @@
+--- ./src/castget.c.orig	2013-07-10 18:41:43.000000000 +0400
++++ ./src/castget.c	2014-04-15 20:24:46.004572871 +0400
+@@ -157,7 +157,7 @@
+   LIBXML_TEST_VERSION;
+ 
+   /* Build the channel directory path and ensure that it exists. */
+-  channeldir = g_build_filename(g_get_home_dir(), ".castget", NULL);
++  channeldir = g_build_filename("/opt/var", ".castget", NULL);
+ 
+   if (!g_file_test(channeldir, G_FILE_TEST_IS_DIR)) {
+     if (g_mkdir(channeldir, 0755) < 0) {
+@@ -169,7 +169,7 @@
+   /* Try opening configuration file. */
+   if (!rcfile)
+     /* Supply default path name. */
+-    rcfile = g_build_filename(g_get_home_dir(), ".castgetrc", NULL);
++    rcfile = g_build_filename("/opt/etc", "castgetrc", NULL);
+ 
+   kf = _configuration_file_open(rcfile);
+ 

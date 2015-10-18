@@ -1,0 +1,11 @@
+--- a/asciinema/config.py
++++ b/asciinema/config.py
+@@ -9,7 +9,7 @@
+ import uuid
+ 
+ 
+-DEFAULT_CONFIG_FILE_PATH = "~/.asciinema/config"
++DEFAULT_CONFIG_FILE_PATH = "/opt/etc/asciinema/config"
+ DEFAULT_API_URL = 'http://asciinema.org'
+ 
+ class Config:

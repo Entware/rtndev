@@ -1,0 +1,22 @@
+--- ./src/gnuchess.ini.orig	2013-08-22 05:04:35.000000000 +0400
++++ ./src/gnuchess.ini	2013-11-12 13:22:04.634115646 +0400
+@@ -6,16 +6,16 @@
+ Resign = true
+ ResignMoves = 1 # 1 is safe for Fruit
+ 
+-Book = false
++Book = true
+ BookFile = smallbook.bin
+ 
+ [Engine]
+ 
+ # standard UCI options
+ 
+-Hash = 256 # in MB
++Hash = 16 # in MB
+ 
+-NalimovCache = 16 # in MB
++NalimovCache = 2 # in MB
+ 
+ OwnBook =  false # false for no book (e.g. Nunn-like matches)
+ BookFile = smallbook.bin

@@ -1,0 +1,5 @@
+--- a/lib/markdown/__init__.py	2012-07-18 12:12:41.000000000 +0400
++++ b/lib/markdown/__init__.py	2012-07-18 17:58:39.000000000 +0400
+@@ -288 +288 @@
+-            if newRoot:
++            if newRoot is not None:

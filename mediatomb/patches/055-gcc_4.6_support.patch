@@ -1,0 +1,17 @@
+Description: Fix a FTBFS when using gcc-4.6
+Origin: other, http://pkgs.fedoraproject.org/gitweb/?p=mediatomb.git;a=commitdiff;h=ff59631d
+Bug-Debian: http://bugs.debian.org/624921
+Forwarded: http://sourceforge.net/tracker/?func=detail&aid=3173314&group_id=129766&atid=715782
+Last-Update: 2012-03-03
+
+diff -up ./src/zmm/object.h.buildfix ./src/zmm/object.h
+--- ./src/zmm/object.h.buildfix	2011-02-08 21:16:48.504638003 -0500
++++ ./src/zmm/object.h	2011-02-08 21:17:55.876638630 -0500
+@@ -32,6 +32,7 @@
+ #ifndef __ZMM_OBJECT_H__
+ #define __ZMM_OBJECT_H__
+ 
++#include "stddef.h" //for size_t
+ #include <new> // for size_t
+ #include "atomic.h"
+ 

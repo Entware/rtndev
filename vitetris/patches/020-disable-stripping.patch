@@ -1,0 +1,20 @@
+--- a/Makefile	2012-05-08 20:20:46.584514027 +0400
++++ b/Makefile	2012-05-08 20:24:16.013881143 +0400
+@@ -3,7 +3,7 @@
+ PROGNAME = tetris$(EXE)
+ 
+ # Uncomment to change the default.  (Only used in Unix-like systems.)
+-#HISCORE_FILENAME = /var/games/vitetris-hiscores
++HISCORE_FILENAME = /opt/var/vitetris-hiscores
+ 
+ INSTALL = install -oroot -groot
+ 
+@@ -17,8 +17,6 @@
+ build: src/src-conf.mk
+ 	cd src; $(MAKE) tetris
+ 	mv -f src/tetris$(EXE) $(PROGNAME)
+-	@echo stripping symbols to reduce program size:
+-	-strip --strip-all $(PROGNAME)
+ 
+ gameserver: src/netw/gameserver.c
+ 	cd src/netw; $(MAKE) gameserver

@@ -1,0 +1,26 @@
+--- a/Makefile.cmdline
++++ b/Makefile.cmdline
+@@ -8,17 +8,17 @@
+ DUKTAPE_CMDLINE_SOURCES = \
+ 	examples/cmdline/duk_cmdline.c
+ 
+-CC	= gcc
+-CCOPTS	= -Os -pedantic -std=c99 -Wall -fstrict-aliasing -fomit-frame-pointer
++CC	?= gcc
++CCOPTS	= $(CFLAGS) -pedantic -std=c99 -Wall -fstrict-aliasing -fomit-frame-pointer
+ CCOPTS += -I./src
+-CCLIBS	= -lm
++CCLIBS	= $(LDFLAGS) -lm
+ 
+ # If you have readline, you may want to enable these.  On some platforms
+ # -lreadline also requires -lncurses (e.g. RHEL), so it is added by default
+ # (you may be able to remove it)
+-#CCOPTS += -DDUK_CMDLINE_FANCY
+-#CCLIBS += -lreadline
+-#CCLIBS += -lncurses
++CCOPTS += -DDUK_CMDLINE_FANCY
++CCLIBS += -lreadline
++CCLIBS += -lncurses
+ 
+ # Optional feature defines, see: http://duktape.org/guide.html#compiling
+ CCOPTS += -DDUK_OPT_SELF_TESTS

@@ -1,0 +1,11 @@
+--- a/git/fake-hwclock
++++ b/git/fake-hwclock
+@@ -11,7 +11,7 @@
+ # License: GPLv2, see COPYING
+ 
+ if [ "$FILE"x = ""x ] ; then
+-    FILE=/etc/fake-hwclock.data
++    FILE=/opt/etc/fake-hwclock.data
+ fi
+ 
+ COMMAND=$1

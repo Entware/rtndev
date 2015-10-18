@@ -1,0 +1,10 @@
+--- a/src/plugins/ssc-ffmpeg.c
++++ b/src/plugins/ssc-ffmpeg.c
+@@ -29,6 +29,7 @@
+ # define AV_SAMPLE_FMT_S32 SAMPLE_FMT_S32
+ #endif
+ 
++#define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000
+ #define BUFFER_SIZE (AVCODEC_MAX_AUDIO_FRAME_SIZE * 3)/2
+ 
+ typedef struct tag_ssc_handle {

@@ -1,0 +1,29 @@
+--- a/Makefile
++++ b/Makefile
+@@ -50,7 +50,7 @@
+ UNIX2MAC	= unix2mac
+ 
+ # Native Language Support (NLS)
+-ENABLE_NLS	= 1
++#ENABLE_NLS	= 1
+ # Large File Support (LFS)
+ LFS             = 1
+ DEBUG = 0
+@@ -295,7 +295,7 @@
+ endif
+ 
+ LDFLAGS_USER	=
+-LDFLAGS = $(RPM_OPT_FLAGS) $(LDFLAGS_EXTRA) $(LDFLAGS_USER)
++LDFLAGS += $(RPM_OPT_FLAGS) $(LDFLAGS_EXTRA) $(LDFLAGS_USER)
+ LIBS    = $(LIBS_EXTRA)
+ 
+ DEFS_USER	=
+@@ -303,7 +303,7 @@
+ 
+ # .......................................................... targets ...
+ 
+-all: $(BIN) $(MAC2UNIX_BIN) $(UNIX2DOS_BIN) $(UNIX2MAC_BIN) $(DOCFILES) $(MOFILES) man/man1/dos2unix.1 $(MANFILES) $(MANPOTFILE)
++all: $(BIN) $(MAC2UNIX_BIN) $(UNIX2DOS_BIN) $(UNIX2MAC_BIN)
+ 
+ status:
+ 	@echo "D2U_OS       = $(D2U_OS)"

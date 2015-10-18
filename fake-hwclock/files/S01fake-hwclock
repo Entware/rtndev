@@ -1,0 +1,29 @@
+#!/bin/sh
+
+prefix="/opt"
+PATH=${prefix}/bin:${prefix}/sbin:/sbin:/bin:/usr/sbin:/usr/bin
+
+start() {
+	echo "Loading system clock from file..."
+	fake-hwclock load
+	}
+
+stop() {
+	echo "Saving system clock to file..."
+	fake-hwclock save
+	}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	*)
+		echo "Usage: $0 (start|stop)"
+		exit 1
+		;;
+esac
+
+exit 0

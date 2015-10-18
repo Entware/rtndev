@@ -1,0 +1,11 @@
+--- a/source/initfile.cc
++++ b/source/initfile.cc
+@@ -728,7 +728,7 @@
+     if (macro_dir.empty())
+     {
+ #ifdef UNIX
+-        macro_dir = _user_home_subpath(".crawl");
++        macro_dir = "/opt/var/crawl/macro";
+ #else
+         macro_dir = "settings/";
+ #endif

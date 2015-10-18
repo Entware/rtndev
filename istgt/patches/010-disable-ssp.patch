@@ -1,0 +1,18 @@
+--- a/configure.in
++++ b/configure.in
+@@ -143,15 +143,6 @@
+   esac])
+ AC_SUBST([rcdir])
+ 
+-# test for -fstack-protector
+-saved_CFLAGS="$CFLAGS"
+-AC_MSG_CHECKING([whether the C compiler accepts -fstack-protector])
+-CFLAGS="$CFLAGS -fstack-protector"
+-AC_TRY_COMPILE(,,
+-  AC_MSG_RESULT(yes); saved_CFLAGS="$CFLAGS",
+-  AC_MSG_RESULT(no))
+-CFLAGS="$saved_CFLAGS"
+-
+ # test for -Wall
+ saved_CFLAGS="$CFLAGS"
+ AC_MSG_CHECKING([whether the C compiler accepts -Wall])

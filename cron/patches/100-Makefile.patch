@@ -1,0 +1,37 @@
+--- a/Makefile	2012-04-01 20:19:12.000000000 +0400
++++ b/Makefile	2012-04-01 20:16:42.765798762 +0400
+@@ -51,10 +51,10 @@
+ 
+ #################################### begin configurable stuff
+ #<<DESTROOT is assumed to have ./etc, ./bin, and ./man subdirectories>>
+-DESTROOT	=	$(DESTDIR)/usr
++DESTROOT	=	$(DESTDIR)
+ DESTSBIN	=	$(DESTROOT)/sbin
+ DESTBIN		=	$(DESTROOT)/bin
+-DESTMAN		=	$(DESTROOT)/share/man
++DESTMAN		=	$(DESTROOT)/man
+ #<<need bitstring.h>>
+ INCLUDE		=	-I.
+ #INCLUDE	=
+@@ -66,7 +66,7 @@
+ #<<lint flags of choice?>>
+ LINTFLAGS	=	-hbxa $(INCLUDE) $(DEBUGGING)
+ #<<want to use a nonstandard CC?>>
+-CC		=	gcc -Wall -Wno-unused -Wno-comment
++CC		=	$(TARGET_CC) -Wall -Wno-unused -Wno-comment
+ #<<manifest defines>>
+ DEFS		=
+ #(SGI IRIX systems need this)
+@@ -75,11 +75,10 @@
+ #INSTALL = installbsd
+ INSTALL = install
+ #<<any special load flags>>
+-LDFLAGS		=
+ #################################### end configurable stuff
+ 
+ SHELL		=	/bin/sh
+-CFLAGS		=	$(CDEBUG) $(INCLUDE) $(DEFS)
++CFLAGS		+=	$(CDEBUG) $(INCLUDE) $(DEFS)
+ 
+ INFOS		=	README CHANGES FEATURES INSTALL CONVERSION THANKS MAIL
+ MANPAGES	=	bitstring.3 crontab.5 crontab.1 cron.8 putman.sh

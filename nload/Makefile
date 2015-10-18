@@ -1,0 +1,38 @@
+#
+# Copyright (C) 2011-2015 Entware
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=nload
+PKG_VERSION:=0.7.4
+PKG_RELEASE:=2
+
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=@SF/$(PKG_NAME)
+PKG_MD5SUM:=3c733c528f244ca5a4f76bf185729c39
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/nload
+	SECTION:=net
+	CATEGORY:=Network
+	DEPENDS:=+libstdcpp +libncurses
+	TITLE:=real time monitor for network traffic
+	URL:=http://nload.sourceforge.net
+	MAINTAINER:=Entware team, entware.wl500g.info
+endef
+
+define Package/nload/description
+ nload is a real time monitor for network traffic
+endef
+
+define Package/nload/install
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/$(PKG_NAME) $(1)/opt/bin/
+endef
+
+$(eval $(call BuildPackage,nload))

@@ -1,0 +1,7 @@
+--- a/contrib/mt-daapd.conf
++++ b/contrib/mt-daapd.conf
+@@ -196,3 +196,3 @@
+ 
+-logfile = /var/log/mt-daapd.log
++logfile = /opt/var/log/mt-daapd.log
+ 

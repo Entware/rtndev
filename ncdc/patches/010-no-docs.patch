@@ -1,0 +1,42 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -3,38 +3,8 @@
+ AM_CFLAGS=$(GLIB_CFLAGS) $(GNUTLS_CFLAGS) $(SQLITE_CFLAGS)
+ AM_CPPFLAGS=-I$(builddir)/src -I$(srcdir)/deps -I$(srcdir)/deps/ylib
+ 
+-
+-
+-if INSTALL_MANPAGE
+-man_MANS=doc/ncdc.1
+-endif
+-
+-EXTRA_DIST+=doc/ncdc.1 doc/ncdc.pod.in
+-
+-if USE_POD2MAN
+-noinst_PROGRAMS+=gendoc
+-gendoc_SOURCES=doc/gendoc.c
+-
+-CLEANFILES=doc/ncdc.1 doc/ncdc.pod
+-
+-doc/ncdc.pod: $(srcdir)/doc/ncdc.pod.in gendoc$(EXEEXT)
+-	$(AM_V_GEN)./gendoc$(EXEEXT) <"$(srcdir)/doc/ncdc.pod.in" >doc/ncdc.pod
+-
+-doc/ncdc.1: doc/ncdc.pod
+-	$(AM_V_GEN)pod2man --center "ncdc manual" --release "@PACKAGE@-@VERSION@" doc/ncdc.pod >doc/ncdc.1
+-endif
+-
+-
+-if HAVE_MH
+-mkhdr=makeheaders
++mkhdr=./makeheaders
+ mkhdr_dep=
+-else
+-mkhdr=./makeheaders$(EXEEXT)
+-mkhdr_dep=makeheaders$(EXEEXT)
+-noinst_PROGRAMS+=makeheaders
+-endif
+-makeheaders_SOURCES=deps/makeheaders.c
+-
+ 
+ noinst_LIBRARIES=libdeps.a
+ libdeps_a_SOURCES=deps/ylib/yuri.c deps/yxml.c

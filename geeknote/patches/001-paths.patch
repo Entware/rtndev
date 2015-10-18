@@ -1,0 +1,34 @@
+--- a/deb/geeknote.py	2012-07-18 12:12:41.000000000 +0400
++++ b/deb/geeknote.py	2012-07-18 12:47:16.000000000 +0400
+@@ -4,10 +4,10 @@
+ import os, sys
+ 
+ # path to libs in unix systems
+-sys.path.insert(0, os.path.join('/', 'usr', 'local', 'lib', 'geeknone'))
+-sys.path.insert(0, os.path.join('/', 'usr', 'local', 'lib', 'geeknone', 'lib'))
++sys.path.insert(0, os.path.join('/', 'opt', 'usr', 'lib', 'geeknone'))
++sys.path.insert(0, os.path.join('/', 'opt', 'usr', 'lib', 'geeknone', 'lib'))
+ 
+ import geeknote
+ 
+ # start application
+-geeknote.main()
+\ В конце файла нет новой строки
++geeknote.main()
+--- gnsync.py.orig	2012-07-18 12:12:41.000000000 +0400
++++ b/deb/gnsync.py	2012-07-18 12:47:52.000000000 +0400
+@@ -4,10 +4,10 @@
+ import os, sys
+ 
+ # path to libs in unix systems
+-sys.path.insert(0, os.path.join('/', 'usr', 'local', 'lib', 'geeknone'))
+-sys.path.insert(0, os.path.join('/', 'usr', 'local', 'lib', 'geeknone', 'lib'))
++sys.path.insert(0, os.path.join('/', 'opt', 'usr', 'lib', 'geeknone'))
++sys.path.insert(0, os.path.join('/', 'opt', 'usr', 'lib', 'geeknone', 'lib'))
+ 
+ import gnsync
+ 
+ # start application
+-gnsync.main()
+\ В конце файла нет новой строки
++gnsync.main()

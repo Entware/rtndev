@@ -1,0 +1,68 @@
+--- a/appargs.cpp	2012-04-07 02:19:27.000000000 +0400
++++ b/appargs.cpp	2012-06-05 12:04:12.407426046 +0400
+@@ -21,6 +21,7 @@
+  *   Christian Ruppert (new include to build with GCC 4.4+)
+  * 
+  */
++#include <stdio.h>
+ 
+ 
+ #include <cstdio>
+--- a/icd-main.cpp	2012-04-07 02:19:27.000000000 +0400
++++ b/icd-main.cpp	2012-06-05 12:04:12.407426046 +0400
+@@ -18,12 +18,14 @@
+
+ #include <map>
+ #include <signal.h>
++#include <stdio.h>
+ #include <wait.h>
+ #include <fcntl.h>
+ #include <pwd.h>
+ #include <dirent.h>
+ #include <syslog.h>
+ #include <errno.h>
++#include <unistd.h>
+ #include <sys/poll.h>
+ #include <sys/stat.h>
+ #include <cstdio>
+--- a/ict-main.cpp	2012-04-07 02:19:27.000000000 +0400
++++ b/ict-main.cpp	2012-06-05 12:04:12.487425039 +0400
+@@ -18,7 +18,8 @@
+  */
+ 
+ 
+-#include <argp.h>
++#include <errno.h>
++#include <unistd.h>
+ #include <pwd.h>
+ #include <string>
+ #include <unistd.h>
+@@ -493,7 +494,7 @@
+       if (uid != 0) {
+         fprintf(stderr, "insufficient privileges to use custom configuration (will use default)\n");
+       }
+-      else if (euidaccess(cfg.c_str(), R_OK) != 0) {
++      else if (access(cfg.c_str(), R_OK) != 0) {
+         perror("cannot read configuration file (will use default)");
+       }
+     }
+--- ./inotify-cxx.cpp.orig	2012-04-07 02:19:27.000000000 +0400
++++ ./inotify-cxx.cpp	2012-06-05 12:04:12.511424742 +0400
+@@ -24,6 +24,7 @@
+  
+ 
+ #include <errno.h>
++#include <stdio.h>
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <cstdio>
+--- a/usertable.cpp	2012-04-07 02:19:27.000000000 +0400
++++ b/usertable.cpp	2012-06-05 12:04:12.511424742 +0400
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include <stdio.h>
+ #include <pwd.h>
+ #include <syslog.h>
+ #include <errno.h>

@@ -1,0 +1,81 @@
+--- ./accel-pppd/accel-ppp.conf.orig	2015-09-23 10:42:47.000000000 +0300
++++ ./accel-pppd/accel-ppp.conf	2015-09-23 10:45:24.035420025 +0300
+@@ -1,5 +1,5 @@
+ [modules]
+-log_file
++#log_file
+ #log_syslog
+ #log_tcp
+ #log_pgsql
+@@ -31,7 +31,7 @@
+ #ipv6pool
+ 
+ [core]
+-log-error=/var/log/accel-ppp/core.log
++log-error=/opt/var/log/accel-ppp/core.log
+ thread-count=4
+ 
+ [common]
+@@ -83,7 +83,7 @@
+ 
+ [l2tp]
+ verbose=1
+-#dictionary=/usr/local/share/accel-ppp/l2tp/dictionary
++#dictionary=/opt/share/accel-ppp/l2tp/dictionary
+ #hello-interval=60
+ #timeout=60
+ #rtimeout=1
+@@ -128,7 +128,7 @@
+ #attr-l4-redirect-table=4
+ #attr-l4-redirect-ipset=l4-redirect
+ #local-net=192.168.0.0/16
+-#lua-file=/etc/accel-ppp.lua
++#lua-file=/opt/etc/accel-ppp.lua
+ #offer-delay=0,100:100,200:200,-1:1000
+ #vlan-mon=eth0,10-200
+ #vlan-timeout=60
+@@ -151,7 +151,7 @@
+ #wins2=172.16.1.1
+ 
+ [radius]
+-#dictionary=/usr/local/share/accel-ppp/radius/dictionary
++#dictionary=/opt/share/accel-ppp/radius/dictionary
+ nas-identifier=accel-ppp
+ nas-ip-address=127.0.0.1
+ gw-ip-address=192.168.100.1
+@@ -180,9 +180,9 @@
+ 192.168.4.0/24
+ 
+ [log]
+-log-file=/var/log/accel-ppp/accel-ppp.log
+-log-emerg=/var/log/accel-ppp/emerg.log
+-log-fail-file=/var/log/accel-ppp/auth-fail.log
++log-file=/opt/var/log/accel-ppp/accel-ppp.log
++log-emerg=/opt/var/log/accel-ppp/emerg.log
++log-fail-file=/opt/var/log/accel-ppp/auth-fail.log
+ #log-debug=/dev/stdout
+ #syslog=accel-pppd,daemon
+ #log-tcp=127.0.0.1:3000
+@@ -198,16 +198,16 @@
+ log-table=log
+ 
+ [pppd-compat]
+-#ip-pre-up=/etc/ppp/ip-pre-up
+-ip-up=/etc/ppp/ip-up
+-ip-down=/etc/ppp/ip-down
+-ip-change=/etc/ppp/ip-change
+-radattr-prefix=/var/run/radattr
++#ip-pre-up=/opt/etc/ppp/ip-pre-up
++ip-up=/opt/etc/ppp/ip-up
++ip-down=/opt/etc/ppp/ip-down
++ip-change=/opt/etc/ppp/ip-change
++radattr-prefix=/opt/var/run/radattr
+ verbose=1
+ 
+ [chap-secrets]
+ gw-ip-address=192.168.100.1
+-#chap-secrets=/etc/ppp/chap-secrets
++#chap-secrets=/opt/etc/ppp/chap-secrets
+ #encrypted=0
+ #username-hash=md5
+ 

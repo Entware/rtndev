@@ -1,0 +1,18 @@
+--- a/config.h
++++ b/config.h
+@@ -16,3 +16,3 @@
+ #ifdef linux
+-# define ENABLE_NLS
++/* # define ENABLE_NLS */
+ #endif
+--- a/Makefile
++++ b/Makefile
+@@ -56,7 +56,7 @@
+ CPPFLAGS += $(DEFS) $(INCLUDES)
+ 
+ ##############################################################################
+-all: Makefile.depend whois mkpasswd pos
++all: Makefile.depend whois
+ 
+ ##############################################################################
+ %.o: %.c

@@ -1,0 +1,10 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -32,7 +32,6 @@
+ create_dirs: ${DIR_LIST}
+ dump-tl: ${EXE}/dump-tl-file
+ 
+-include ${srcdir}/Makefile.tl-parser
+ include ${srcdir}/Makefile.tgl
+ 
+ ${DIR_LIST}:

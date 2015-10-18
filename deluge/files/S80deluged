@@ -1,0 +1,64 @@
+#!/bin/sh
+
+prefix="/opt"
+PATH=${prefix}/bin:${prefix}/sbin:/sbin:/bin:/usr/sbin:/usr/bin
+
+daemon_status ()
+{
+        [ -n "`pidof deluged`" ]
+}
+
+
+start() {
+	echo "starting deluged"
+	deluged
+	}
+
+stop() {
+	echo "stopping deluged"
+	killall deluged
+	}
+
+case "$1" in
+	start)
+		if daemon_status
+		then
+			echo "deluged already running"
+		else
+			start
+		fi
+		;;
+	stop)
+		if daemon_status
+		then
+			stop
+		else
+			echo "deluged is not running"
+		fi
+		;;
+	restart)
+		if daemon_status
+		then
+			stop
+		fi
+		sleep 4
+		if ! daemon_status
+		then
+			start
+		fi
+		;;
+	status) 
+		if daemon_status
+		then
+			echo "deluged is running"
+		else
+			echo "deluged is not running"
+		fi
+		;;
+	*)
+		echo "Usage: $0 (start|stop|restart|status)"
+		exit 1
+		;;
+esac
+
+exit 0

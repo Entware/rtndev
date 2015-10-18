@@ -1,0 +1,127 @@
+--- loadwatch-1.0+1.1alpha1.orig/loadwatch.c
++++ loadwatch-1.0+1.1alpha1/loadwatch.c
+@@ -1,3 +1,6 @@
++/* for getpgid() */
++#define _XOPEN_SOURCE 500
++
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+@@ -20,7 +23,7 @@
+ 
+ pid_t           child;
+ pid_t           attach = -1;
+-pid_t           children[100];
++pid_t           *children;
+ int             copies = 1;
+ #define         RUNNING 1
+ #define         STOPPED 2
+@@ -35,7 +38,7 @@
+ 
+     now = time(0);
+     outline = ctime(&now);
+-    if (p = strchr(outline, '\n'))
++    if ((p = strchr(outline, '\n')))
+         *p = 0;
+ 
+     return outline;
+@@ -86,7 +89,7 @@
+     }
+ 
+     tbr = 0;
+-    cmd = malloc(size);
++    cmd = malloc(size+1);
+     if (cmd)
+     {
+         while (1)
+@@ -107,6 +110,7 @@
+             }
+             else if (br == 0)
+             {
++                cmd[tbr] = '\0';
+                 break;
+             }
+ 
+@@ -143,18 +147,26 @@
+ 
+     if (setpgid(0,0) == -1)
+     {
+-        fprintf(stderr, "%s (%s): cannot set process group (%s)\n",
++        fprintf(stderr, "%s (%d): cannot set process group (%s)\n",
+                 current_time(), getpid(), strerror(errno));
+         exit(1);
+     }
+ 
++    children = (pid_t *)malloc(copies*sizeof(pid_t));
++    if (children == NULL)
++    {
++        fprintf(stderr, "%s (%d): cannot allocate memory\n",
++                current_time(), getpid());
++        exit(1);
++    }
++
+     for (i = 0; i < copies; i++)
+     {
+         if ((children[i] = fork()) == 0)
+         {
+-            if (execv(*argv, argv) < 0)
++            if (execvp(*argv, argv) < 0)
+             {
+-                fprintf(stderr, "%s (%s): error exec'ing command (%s)\n",
++                fprintf(stderr, "%s (%d): error exec'ing command (%s)\n",
+                         current_time(), getpid(), strerror(errno));
+                 exit(1);
+             }
+@@ -164,8 +176,6 @@
+     while (1)
+     {
+         pid_t       status;
+-        time_t      now;
+-        char        *p;
+ 
+         switch(status = waitpid(0, 0, 0))
+         {
+@@ -221,23 +231,17 @@
+ void
+ usage()
+ {
+-    fprintf(stderr, "loadwatch [-d <time>] [-h <load>] [-l <load>] [-n <copies] [-p <pid>] [-- <command>]\n");
++    fprintf(stderr, "loadwatch [-d <time>] [-h <load>] [-l <load>] [-n <copies>] [-p <pid>] [-- <command>]\n");
+     fprintf(stderr, "\t-d <int>\tload sampling interval (10 seconds)\n");
+     fprintf(stderr, "\t-h <float>\thigh load mark (1.25)\n");
+     fprintf(stderr, "\t-l <float>\tlow load mark (0.25)\n");
+     fprintf(stderr, "\t-n <copies>\tnumber of children to fork (1)\n");
+     fprintf(stderr, "\t-u <filename>\tfile that will be used to externally control a\n\t\t\tloadwatch process.\n");
+-    fprintf(stderr, "\t-c <command>\tmust be used in conjunction with -u.  use -c to send a\n"
+-            "\t\t\tcommand to an already running loadwatch.\n"
+-            "\t\tRUN -> put loadwatch into RUN mode, that is the child process\n"
+-            "\t\t\truns without regard to load.\n"
+-            "\t\tSTOP -> put loadwatch into STOP mode, that is, the child\n"
+-            "\t\t\tprocess will not run.\n"
+-            "\t\tWATCH -> WATCH mode, the normal loadwatch mode.\n");
+     fprintf(stderr, "\t-p <pid>\tpid of process to control (loadwatch will actually\n\t\t\t  send signals to the group containing this pid)\n");
+     fprintf(stderr, "\tNOTE: -p and <command> are mutually exclusive, but one has to be\n\t\tspecified.\n");
+ }
+ 
++int
+ main(int argc, char **argv)
+ {
+     int         delay = 10;
+@@ -249,7 +253,7 @@
+     struct sigaction   handler;
+     sockname[0] = 0;
+ 
+-    while ((c = getopt(argc, argv, "d:l:h:p:u:")) != -1)
++    while ((c = getopt(argc, argv, "d:l:h:p:u:n:")) != -1)
+     {
+         switch (c)
+         {
+@@ -434,6 +438,8 @@
+             }
+         }
+     }
++
++    return 0;
+ }
+ 
+ #ifdef linux

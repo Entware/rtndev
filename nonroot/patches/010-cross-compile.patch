@@ -1,0 +1,20 @@
+--- a/Makefile	2012-08-28 09:47:31.993442679 +0400
++++ b/Makefile	2012-08-28 09:48:23.641442689 +0400
+@@ -2,8 +2,6 @@
+ # Makefile for building nonroot
+ #
+ 
+-CC = gcc
+-CFLAGS = -std=c99 -Wall -Wextra -pedantic -O2 -g
+ INSTALL = install -D
+ INSTALL_PROGRAM = $(INSTALL)
+ INSTALL_DATA = $(INSTALL) -m 644
+@@ -22,7 +20,7 @@
+ all: nonroot
+ 
+ nonroot: nonroot.c
+-	$(CC) $(CFLAGS) -o nonroot nonroot.c
++	$(CC) $(CFLAGS) $(LDFLAGS) -o nonroot nonroot.c
+ 
+ install: nonroot
+ 	$(INSTALL_PROGRAM) nonroot $(DESTDIR)$(bindir)/nonroot

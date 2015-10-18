@@ -1,0 +1,42 @@
+--- a/libjbig/Makefile
++++ b/libjbig/Makefile
+@@ -6,7 +6,7 @@
+ # Options for the compiler: A high optimization level is suggested
+ CFLAGS = -g -O -W -Wall -ansi -pedantic # --coverage
+ 
+-all: libjbig.a libjbig85.a tstcodec tstcodec85
++all: libjbig.so libjbig85.so libjbig.a libjbig85.a
+ 
+ tstcodec: tstcodec.o jbig.o jbig_ar.o
+ 	$(CC) $(CFLAGS) -o tstcodec tstcodec.o jbig.o jbig_ar.o
+@@ -16,13 +16,26 @@
+ 
+ libjbig.a: jbig.o jbig_ar.o
+ 	rm -f libjbig.a
+-	ar rc libjbig.a jbig.o jbig_ar.o
+-	-ranlib libjbig.a
++	$(AR) rc libjbig.a jbig.o jbig_ar.o
++	-$(RANLIB) libjbig.a
+ 
+ libjbig85.a: jbig85.o jbig_ar.o
+ 	rm -f libjbig85.a
+-	ar rc libjbig85.a jbig85.o jbig_ar.o
+-	-ranlib libjbig85.a
++	$(AR) rc libjbig85.a jbig85.o jbig_ar.o
++	-$(RANLIB) libjbig85.a
++
++SOBJS = jbig.lo jbig_ar.lo
++
++libjbig.so: $(SOBJS)
++	$(CC) -shared $(LDFLAGS) -o $@ -Wl,-soname -Wl,$@ $(SOBJS)
++
++SOBJS85 = jbig85.lo jbig_ar.lo
++
++libjbig85.so: $(SOBJS85)
++	$(CC) -shared $(LDFLAGS) -o $@ -Wl,-soname -Wl,$@ $(SOBJS85)
++
++%.lo: %.c jbig.h jbig85.h jbig_ar.h
++	$(CC) -fPIC -c $< -o $@
+ 
+ jbig.o: jbig.c jbig.h jbig_ar.h
+ jbig85.o: jbig85.c jbig85.h jbig_ar.h

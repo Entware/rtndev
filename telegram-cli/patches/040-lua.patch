@@ -1,0 +1,46 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -3,7 +3,6 @@
+ AC_CONFIG_SRCDIR([config.h.in])
+ AC_CONFIG_HEADERS([config.h])
+ 
+-m4_include([ax_lua.m4])
+ m4_include([ax_python.m4])
+ m4_include([m4_ax_check_openssl.m4])
+ m4_include([m4_ax_check_zlib.m4])
+@@ -64,31 +63,15 @@
+     AC_MSG_RESULT([disabled])
+   else
+     AC_MSG_RESULT([enabled])
+-    AX_PROG_LUA([],[],
+-      [
+-        AX_LUA_HEADERS([],[AC_MSG_ERROR([No lua headers found. Try --disable-liblua])])
+-        AX_LUA_LIBS([],[AC_MSG_ERROR([No lua libs found. Try --disable-liblua])])
+-        [EXTRA_LIBS="${EXTRA_LIBS} ${LUA_LIB}" ; ]
+-        [CPPFLAGS="${CPPFLAGS} ${LUA_INCLUDE}" ; ]
++        EXTRA_LIBS="${EXTRA_LIBS} ${LUA_LIB}"
++        CPPFLAGS="${CPPFLAGS} ${LUA_INCLUDE}"
+         AC_DEFINE(USE_LUA,1,[use lua])
+-      ],
+-      [
+-        AC_MSG_ERROR([No lua found. Try --disable-liblua])
+-      ])
+   fi 
+   ],[
+     AC_MSG_RESULT([enabled])
+-    AX_PROG_LUA([],[],
+-      [
+-        AX_LUA_HEADERS([],[AC_MSG_ERROR([No lua headers found. Try --disable-liblua])])
+-        AX_LUA_LIBS([],[AC_MSG_ERROR([No lua libs found. Try --disable-liblua])])
+-        [EXTRA_LIBS="${EXTRA_LIBS} ${LUA_LIB}" ; ]
+-        [CPPFLAGS="${CPPFLAGS} ${LUA_INCLUDE}" ; ]
++        EXTRA_LIBS="${EXTRA_LIBS} ${LUA_LIB}"
++        CPPFLAGS="${CPPFLAGS} ${LUA_INCLUDE}"
+         AC_DEFINE(USE_LUA,1,[use lua])
+-      ],
+-      [
+-        AC_MSG_ERROR([No lua found. Try --disable-liblua])
+-      ])
+   ])
+ 
+ AC_MSG_CHECKING([for python])

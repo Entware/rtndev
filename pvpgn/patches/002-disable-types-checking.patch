@@ -1,0 +1,20 @@
+--- a/ConfigureChecks.cmake	2012-04-24 12:06:14.124069487 +0400
++++ b/ConfigureChecks.cmake	2012-04-24 12:06:32.719836218 +0400
+@@ -119,17 +119,6 @@
+ check_include_file_cxx(winsock2.h HAVE_WINSOCK2_H)
+ check_include_file_cxx(process.h HAVE_PROCESS_H)
+ 
+-check_type_size_cxx("unsigned char" SIZEOF_UNSIGNED_CHAR)
+-check_type_size_cxx("unsigned short" SIZEOF_UNSIGNED_SHORT)
+-check_type_size_cxx("unsigned int" SIZEOF_UNSIGNED_INT)
+-check_type_size_cxx("unsigned long" SIZEOF_UNSIGNED_LONG)
+-check_type_size_cxx("unsigned long long" SIZEOF_UNSIGNED_LONG_LONG)
+-check_type_size_cxx("signed char" SIZEOF_SIGNED_CHAR)
+-check_type_size_cxx("signed short" SIZEOF_SIGNED_SHORT)
+-check_type_size_cxx("signed int" SIZEOF_SIGNED_INT)
+-check_type_size_cxx("signed long" SIZEOF_SIGNED_LONG)
+-check_type_size_cxx("signed long long" SIZEOF_SIGNED_LONG_LONG)
+-
+ check_function_exists(mmap HAVE_MMAP)
+ check_function_exists(gettimeofday HAVE_GETTIMEOFDAY)
+ check_function_exists(strdup HAVE_STRDUP)

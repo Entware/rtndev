@@ -1,0 +1,40 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -73,6 +73,8 @@
+ case "`uname -s`" in
+ 	Linux)
+ 		FOUND_OS="linux"
++		CFLAGS="$CPPFLAGS"
++		LDLIBS="$LDFLAGS"
+ 		;;
+ 	OpenBSD | FreeBSD | NetBSD)
+ 		# *BSD has important stuff (from ports)
+@@ -131,7 +133,7 @@
+   exit 1
+ fi
+ if test "$LIBCURSES" = "-lncursesw"; then
+-  CFLAGS="$CFLAGS -I/usr/include/ncursesw"
++  CFLAGS="$CFLAGS -I$STAGING_DIR/opt/include/ncursesw"
+ fi
+ AC_SUBST(LIBPTHREAD)
+ AC_SUBST(LIBOSS)
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -3,7 +3,7 @@
+ 
+ # for package builds (buildroot install + no root privs needed)
+ DESTDIR=
+-SUID_ROOT=-m4755 -o root
++SUID_ROOT=
+ STRIP_FLAG=
+ 
+ # install paths
+@@ -30,7 +30,7 @@
+ # for CFLAGS
+ WARN_FLAGS	:= -Wall -Wmissing-prototypes -Wstrict-prototypes -Wpointer-arith -Wno-pointer-sign
+ LFS_FLAGS	:= -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-X11_FLAGS	:= @X_CFLAGS@ @XFT_FLAGS@ -I/usr/include/X11/fonts
++X11_FLAGS	:= @X_CFLAGS@ @XFT_FLAGS@
+ LIB_FLAGS	:= -I. -I./vbistuff -I./x11 \
+ 		   -I$(srcdir)/jwz -I$(srcdir)/common -I$(srcdir)/console \
+ 		   -I$(srcdir)/x11 -I$(srcdir)/structs \

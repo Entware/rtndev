@@ -1,0 +1,24 @@
+--- a/Distribution/doc/example/oscam.conf
++++ b/Distribution/doc/example/oscam.conf
+@@ -8,9 +8,9 @@
+ 
+ # logging
+ 
+-logfile       = /var/log/oscam/oscam.log
+-usrfile       = /var/log/oscam/oscamuser.log
+-cwlogdir      = /var/log/oscam/cw
++logfile       = /opt/var/log/oscam/oscam.log
++usrfile       = /opt/var/log/oscam/oscamuser.log
++cwlogdir      = /opt/var/log/oscam/cw
+ 
+ # monitor
+ 
+@@ -35,7 +35,7 @@
+ sampletime    = 2
+ samples       = 5
+ penalty       = 1
+-aclogfile     = /var/log/oscam/aclog.log
++aclogfile     = /opt/var/log/oscam/aclog.log
+ denysamples   = 9
+ 
+ # protocols

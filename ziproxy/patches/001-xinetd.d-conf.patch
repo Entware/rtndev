@@ -1,0 +1,13 @@
+--- a/etc/xinetd.d/ziproxy
++++ b/etc/xinetd.d/ziproxy
+@@ -4,8 +4,8 @@
+  	socket_type		= stream
+  	wait			= no
+  	user			= root
+- 	server			= /usr/bin/ziproxy
+-	server_args		= -i -c /etc/ziproxy/ziproxy.conf
++ 	server			= /opt/bin/ziproxy
++	server_args		= -i -c /opt/etc/ziproxy/ziproxy.conf
+  	log_on_success		+= USERID
+  	log_on_failure		+= USERID
+  	disable			= yes
