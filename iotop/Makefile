@@ -13,7 +13,7 @@ PKG_VERSION:=0.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://guichaz.free.fr/iotop/files/$(PKG_SOURCE)
+PKG_SOURCE_URL:=http://guichaz.free.fr/iotop/files
 PKG_MD5SUM:=5ef9456b26d7694abf3101a72e1e0d1d
 
 include $(INCLUDE_DIR)/package.mk
