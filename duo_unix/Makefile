@@ -21,7 +21,7 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/duo_unix/Default
-	DEPENDS:=+libopenssl +libssp
+	DEPENDS:=+libopenssl
 	TITLE:=two-factor authentication for Unix systems
 	URL:=https://www.duosecurity.com/
 	MAINTAINER:=Entware team, entware.wl500g.info
