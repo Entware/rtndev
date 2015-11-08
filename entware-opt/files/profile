@@ -4,7 +4,7 @@
 # terminal session. Point your f\w (if necessery) to execute /opt/etc/profile
 # at console logon.
 
-export PATH='/opt/usr/sbin:/opt/sbin:/opt/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin'
+export PATH=/opt/bin:/opt/sbin:$PATH
 export TERMINFO=/opt/share/terminfo
 export TERM=xterm
 export TMP=/opt/tmp
