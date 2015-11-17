@@ -1,5 +1,7 @@
 #!/bin/sh
 
+PATH=/opt/sbin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 # Start/stop all init scripts in /opt/etc/init.d including symlinks
 # starting them in numerical order and
 # stopping them in reverse numerical order
