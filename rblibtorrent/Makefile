@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
-PKG_VERSION:=1.0.5
-PKG_RELEASE:=1a
+PKG_VERSION:=1.0.7
+PKG_RELEASE:=1
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@SF/libtorrent
-PKG_MD5SUM:=d09521d34092ba430f430572c9e2b3d3
+PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_7
+PKG_MD5SUM:=c1a5b8aee18640cbe01826403525dd14
 PKG_BUILD_DIR:=$(BUILD_DIR)/libtorrent-rasterbar-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=libtool
 
