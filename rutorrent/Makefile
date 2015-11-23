@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=rutorrent
 PKG_VERSION:=3.7
 PKG_REV:=ac2db1536302bdc5b27aff6b15d54b0e9837fa59
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -23,12 +23,14 @@ include $(INCLUDE_DIR)/package.mk
 
 RUTORRENT_PLUGINS := \
 	autotools check_port chunks cookies cpuload create data datadir \
-	diskspace edit erasedata extratio extsearch feeds filedrop \
-	geoip _getdir history httprpc ipad loginmgr lookat mediainfo _noty \
-	_noty2 ratio retrackers rpc rss rssurlrewrite rutracker_check scheduler \
-	screenshots seedingtime show_peers_like_wtorrent source _task \
-	theme throttle tracklabels trafic unpack
+	diskspace edit erasedata extratio extsearch feeds filedrop geoip \
+	_getdir history httprpc ipad loginmgr lookat mediainfo _noty _noty2 \
+	ratio retrackers rpc rss rssurlrewrite rutracker_check scheduler \
+	screenshots seedingtime show_peers_like_wtorrent source _task theme \
+	throttle tracklabels trafic unpack
 
+DEPENDS_rss = +php5-mod-json
+DEPENDS__task = +procps-ng-pgrep
 DEPENDS_screenshots = +ffmpeg
 DEPENDS_unpack = +unrar
 

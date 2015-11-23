@@ -1,5 +1,5 @@
---- a/bindings/python//Makefile.in
-+++ b/bindings/python//Makefile.in
+--- a/bindings/python/Makefile.in
++++ b/bindings/python/Makefile.in
 @@ -522,7 +522,7 @@
  
  
