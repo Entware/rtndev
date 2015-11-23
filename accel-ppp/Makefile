@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=accel-ppp
 PKG_VERSION:=1.9.0-20150819
 PKG_REV:=30cff41b56be0d4c3e407e8aa4de5b289eef2ab0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -79,10 +79,10 @@ define Package/accel-ppp/install
 	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/opt/share/accel-ppp/radius/dictionary* \
 		$(1)/opt/share/accel-ppp/radius
-	$(INSTALL_DIR) $(1)/opt/etc
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/accel-pppd/accel-ppp.conf $(1)/opt/etc
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/accel-pppd/accel-ppp.conf $(1)/opt/etc
 	$(INSTALL_BIN) files/S60accel-ppp $(1)/opt/etc/init.d/
+	$(INSTALL_DIR) $(1)/opt/var/log/accel-ppp
 endef
 
 $(eval $(call BuildPackage,accel-ppp))
