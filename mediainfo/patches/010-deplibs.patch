@@ -1,0 +1,104 @@
+--- a/Project/GNU/CLI/configure.ac
++++ b/Project/GNU/CLI/configure.ac
+@@ -65,17 +65,7 @@
+ dnl -------------------------------------------------------------------------
+ dnl Unicode
+ dnl
+-if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
+-	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
+-elif test "$(libzen-config Exists)" = "yes" ; then
+-	enable_unicode="$(libzen-config Unicode)"
+-else
+-	if pkg-config --exists libzen; then
+-		enable_unicode="$(pkg-config --variable=Unicode libzen)"
+-	else
+-		AC_MSG_ERROR([libzen configuration is not found])
+-	fi
+-fi
++enable_unicode="yes"
+ 
+ dnl #########################################################################
+ dnl ### Parsing options
+@@ -157,81 +147,10 @@
+ dnl -------------------------------------------------------------------------
+ dnl MediaInfoLib
+ dnl
+-if test "$with_dll" != "yes"; then
+-	if test -e ../../../../MediaInfoLib/Project/GNU/Library/lib$with_libmediainfo_name.la; then
+-		CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
+-		if test "$enable_staticlibs" = "yes"; then
+-			with_mediainfolib="builtin (static)"
+-			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS_Static)"
+-		else
+-			with_mediainfolib="builtin"
+-			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
+-		fi
+-	elif test "$(libmediainfo-config Exists)" = "yes" ; then
+-		CXXFLAGS="$CXXFLAGS $(libmediainfo-config CXXFLAGS)"
+-		if test "$enable_staticlibs" = "yes"; then
+-			with_mediainfolib="system (static)"
+-			LIBS="$LIBS $(libmediainfo-config LIBS_Static)"
+-		else
+-			with_mediainfolib="system"
+-			LIBS="$LIBS $(libmediainfo-config LIBS)"
+-		fi
+-	else
+-		if pkg-config --exists lib$with_libmediainfo_name; then
+-			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
+-			if test "$enable_staticlibs" = "yes"; then
+-				with_mediainfolib="system (static)"
+-				LIBS="$LIBS $(pkg-config --variable=Libs_Static lib$with_libmediainfo_name)"
+-			else
+-				with_mediainfolib="system"
+-				LIBS="$LIBS $(pkg-config --libs lib$with_libmediainfo_name)"
+-			fi
+-		else
+-			AC_MSG_ERROR([libmediainfo configuration is not found])
+-		fi
+-	fi
+-else
+-	with_mediainfolib="load at runtime"
+-fi
+-
++LIBS="$LIBS -lz -lmediainfo -lzen -lpthread"
+ dnl -------------------------------------------------------------------------
+ dnl ZenLib
+ dnl
+-if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
+-	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+-	if test "$enable_staticlibs" = "yes"; then
+-		with_zenlib="builtin (static)"
+-		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
+-	else
+-		with_zenlib="builtin"
+-		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+-	fi
+-elif test "$(libzen-config Exists)" = "yes" ; then
+-	CXXFLAGS="$CXXFLAGS $(libzen-config CXXFLAGS)"
+-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(libzen-config CXXFLAGS)"
+-	if test "$enable_staticlibs" = "yes"; then
+-		with_zenlib="system (static)"
+-		LIBS="$LIBS $(libzen-config LIBS_Static)"
+-	else
+-		with_zenlib="system"
+-		LIBS="$LIBS $(libzen-config LIBS)"
+-	fi
+-else
+-	if pkg-config --exists libzen; then
+-		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
+-		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
+-		if test "$enable_staticlibs" = "yes"; then
+-			with_zenlib="system (static)"
+-			LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
+-		else
+-			with_zenlib="system"
+-			LIBS="$LIBS $(pkg-config --libs libzen)"
+-		fi
+-	else
+-		AC_MSG_ERROR([libzen configuration is not found])
+-	fi
+-fi
+ 
+ dnl #########################################################################
+ dnl ### Compiler specific
