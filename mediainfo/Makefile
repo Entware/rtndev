@@ -24,7 +24,7 @@ define Package/mediainfo
 	CATEGORY:=Multimedia
 	TITLE:=Mediainfo
 	URL:=http://mediaarea.net/
-	DEPENDS:=+zlib +libstdcpp +libpthread
+	DEPENDS:=+zlib +libstdcpp +USE_UCLIBC:libpthread
 	MAINTAINER:=Entware team, entware.wl500g.info
 endef
 
