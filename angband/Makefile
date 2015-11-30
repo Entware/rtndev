@@ -10,13 +10,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=angband
-PKG_VERSION:=4.0.1
+PKG_VERSION:=4.0.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://rephial.org/downloads/4.0/
-PKG_MD5SUM:=242dca62b4c4cd1749305287b7636691
+PKG_MD5SUM:=d1d065d2d13221755a2a689c17e7a895
 
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
