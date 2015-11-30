@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=balance
-PKG_VERSION:=3.56
+PKG_VERSION:=3.57
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.inlab.de
-PKG_MD5SUM:=7c1ed362bc98c4c5fe388963d9e85770
+PKG_MD5SUM:=12ab710435bc4119293837375c6e1f97
 
 include $(INCLUDE_DIR)/package.mk
 
