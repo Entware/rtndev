@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=3proxy
-PKG_VERSION:=0.7.1.2
+PKG_VERSION:=0.7.1.3
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://3proxy.ru/$(PKG_VERSION)
-PKG_MD5SUM:=79ee900e3bb94862d17baadd1c12e159
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/z3APA3A/3proxy/archive
+PKG_MD5SUM:=4754d5cf7071db9eb8013bbd739836f8
 
 include $(INCLUDE_DIR)/package.mk
 

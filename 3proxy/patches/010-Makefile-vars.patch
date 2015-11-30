@@ -1,25 +1,26 @@
 --- a/Makefile.Linux
 +++ b/Makefile.Linux
-@@ -9,19 +9,16 @@
+@@ -9,19 +9,18 @@
  # library support. Add -DSAFESQL for poorely written ODBC library / drivers.
  
  BUILDDIR =
 -CC = gcc
--
+ 
 -CFLAGS = -Wall -g -O2 -c -pthread -DGETHOSTBYNAME_R -D_THREAD_SAFE -D_REENTRANT -DNOODBC -DWITH_STD_MALLOC -DFD_SETSIZE=4096 -DWITH_POLL
-+CFLAGS = -c -pthread -DGETHOSTBYNAME_R -D_THREAD_SAFE -D_REENTRANT -DNOODBC -DWITH_STD_MALLOC -DFD_SETSIZE=4096 -DWITH_POLL
++CFLAGS += -Wall -g -c -pthread -DGETHOSTBYNAME_R -D_THREAD_SAFE -D_REENTRANT -DNOODBC -DWITH_STD_MALLOC -DFD_SETSIZE=4096 -DWITH_POLL
  COUT = -o 
 -LN = gcc
 +LN = $(CC)
  DCFLAGS = -fpic
 -LDFLAGS = -Wall -O2 -pthread
++LDFLAGS += -pthread
  DLFLAGS = -shared
  DLSUFFICS = .ld.so
  # -lpthreads may be reuqired on some platforms instead of -pthreads
  #LIBS = -lcrypto -lssl -ldl 
  # libcrypto and libssl are required for SSLPlugin
 -LIBS = -ldl 
-+LIBS = -ldl -pthread 
++LIBS = -ldl -pthread
  LNOUT = -o 
  EXESUFFICS =
  OBJSUFFICS = .o
