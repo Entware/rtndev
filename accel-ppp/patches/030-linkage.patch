@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -6,7 +6,7 @@
+@@ -10,7 +10,7 @@
  
  include(cmake/cpack.cmake)
  

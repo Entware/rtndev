@@ -11,7 +11,7 @@
  	memset(l2tp_conn, 0, (UINT16_MAX + 1) * sizeof(struct l2tp_conn_t *));
 --- a/accel-pppd/ctrl/pppoe/pppoe.c
 +++ b/accel-pppd/ctrl/pppoe/pppoe.c
-@@ -1663,8 +1663,6 @@
+@@ -1558,8 +1558,6 @@
  	fd = socket(AF_PPPOX, SOCK_STREAM, PX_PROTO_OE);
  	if (fd >= 0)
  		close(fd);

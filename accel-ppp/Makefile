@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=accel-ppp
-PKG_VERSION:=1.9.0-20150819
-PKG_REV:=30cff41b56be0d4c3e407e8aa4de5b289eef2ab0
-PKG_RELEASE:=2
+PKG_VERSION:=1.9.0-20151130
+PKG_REV:=504e7b995913956f71fe76c93e439df63701c0b3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -27,7 +27,7 @@ define Package/accel-ppp
 	SUBMENU:=VPN
 	DEPENDS:=+libopenssl +libpcre +libpthread +librt
 	TITLE:=accel-ppp VPN server
-	URL:=http://sourceforge.net/apps/trac/accel-ppp/wiki
+	URL:=https://accel-ppp.org/
 	MAINTAINER:=Entware team, entware.wl500g.info
 endef
 
