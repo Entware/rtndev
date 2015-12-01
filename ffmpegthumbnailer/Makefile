@@ -9,13 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ffmpegthumbnailer
-PKG_VERSION:=2.0.10
+PKG_VERSION:=2.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/2.0.10/
-PKG_MD5SUM:=3918d43b9d76c6e3eaf17e1c0c7dd5bc
-
+PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/$(PKG_VERSION)
+PKG_MD5SUM:=df378586475f1ff08d5845bda1c0dbb5
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -25,7 +24,7 @@ define Package/libffmpegthumbnailer
   CATEGORY:=Libraries
   TITLE:=library to create thumbnails
   URL:=https://github.com/dirkvdb/ffmpegthumbnailer
-  DEPENDS:=+ffmpeg +libpng +libjpeg +zlib +libstdcpp
+  DEPENDS:=+ffmpeg +libpng +libjpeg +libstdcpp
 endef
 
 define Package/libffmpegthumbnailer/description
