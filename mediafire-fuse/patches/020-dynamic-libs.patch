@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -36,7 +36,7 @@
+@@ -40,7 +40,7 @@
  find_package(Jansson 2.2 REQUIRED)
  include_directories(${JANSSON_INCLUDE_DIRS})
  
@@ -9,7 +9,7 @@
  	mfapi/mfconn.c
  	mfapi/file.c
  	mfapi/account.c
-@@ -67,7 +67,7 @@
+@@ -71,7 +71,7 @@
  	mfapi/apicalls/upload_poll_upload.c
  	)
  
@@ -18,8 +18,11 @@
  	utils/http.c
  	utils/strings.c
  	utils/stringv.c
-@@ -151,3 +151,4 @@
+@@ -155,6 +155,7 @@
  add_test(valgrind_shell ${CMAKE_SOURCE_DIR}/tests/valgrind_shell.sh ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
  
  install (TARGETS mediafire-fuse mediafire-shell DESTINATION bin)
 +install (TARGETS mfapi mfutils DESTINATION lib)
+ 
+ SET(CPACK_GENERATOR "DEB")
+ 
