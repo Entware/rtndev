@@ -12,8 +12,9 @@ PKG_VERSION:=0.4.32
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://mediaarea.net/download/source/libzen/0.4.32
+PKG_SOURCE_URL:=http://mediaarea.net/download/source/libzen/$(PKG_VERSION)
 PKG_MD5SUM:=ed9cae405b204919fe40531adf888a43
+
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk

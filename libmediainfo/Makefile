@@ -8,12 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
-PKG_VERSION:=0.7.79
+PKG_VERSION:=0.7.80
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://mediaarea.net/download/source/libmediainfo/0.7.79/
-PKG_MD5SUM:=ae2de22384acb8b46b2e99112d68943e
+PKG_SOURCE_URL:=http://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
+PKG_MD5SUM:=59335e5fe8810647eebd9426d7272816
+
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
@@ -23,7 +24,7 @@ define Package/libmediainfo
 	CATEGORY:=Libraries
 	TITLE:=Mediainfo support library
 	URL:=http://mediaarea.net/
-	DEPENDS:=libzen
+	DEPENDS:=+libzen
 	MAINTAINER:=Entware team, entware.wl500g.info
 endef
 
