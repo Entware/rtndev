@@ -11,12 +11,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pagekite
-PKG_VERSION:=0.5.6d
+PKG_VERSION:=0.5.8a
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pagekite.net/pk/src/$(PKG_SOURCE)
-PKG_MD5SUM:=2e1982c3fc9dc9461e7b1e24ffffe468
+PKG_MD5SUM:=e49fd1e5946817e86fcfc007c5c6d514
 
 PKG_BUILD_DEPENDS:=python
 
@@ -54,7 +54,7 @@ define Package/$(PKG_NAME)/install
 	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
 	    $(1)$(PYTHON_PKG_DIR)/
 
-	$(INSTALL_DIR) $(1)/opt/bin $(1)/opt/etc/pagekite.d $(1)/opt/var/log $(1)/opt/etc/init.d
+	$(INSTALL_DIR) $(1)/opt/bin $(1)/opt/etc/pagekite.d $(1)/opt/etc
 	$(CP) \
 	    $(PKG_INSTALL_DIR)/opt/bin/* \
 	    $(1)/opt/bin/
