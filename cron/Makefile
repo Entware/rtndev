@@ -6,6 +6,7 @@
 #
 # Original patches ported from Optware
 #
+# Not updated since 2004
 
 include $(TOPDIR)/rules.mk
 

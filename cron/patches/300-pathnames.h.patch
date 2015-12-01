@@ -1,5 +1,5 @@
---- cron/pathnames.h	2005-03-26 17:42:09.000000000 +1030
-+++ cron/pathnames.h	2005-03-26 17:42:37.000000000 +1030
+--- a/pathnames.h
++++ b/pathnames.h
 @@ -35,7 +35,7 @@
  			 * to; SPOOL_DIR, CRON_ALLOW, CRON_DENY, and LOG_FILE
  			 * are all relative to this directory.
