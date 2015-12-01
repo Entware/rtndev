@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 # vovic67 @ forum.zyxmon.org, mediatomb for Keenetic
-#
+# Abandoned in 2010
 
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/nls.mk

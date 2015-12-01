@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# Can't update to 15.09 while some errors in sources aren't fixed
 
 include $(TOPDIR)/rules.mk
 

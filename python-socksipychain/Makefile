@@ -9,12 +9,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-socksipychain
-PKG_VERSION:=2.0.12
-PKG_RELEASE:=2
+PKG_VERSION:=2.0.15
+PKG_RELEASE:=1
 
 PKG_SOURCE:=SocksipyChain-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pagekite.net/pk/src/$(PKG_SOURCE)
-PKG_MD5SUM:=e909f2041328ad3172b3c8d1bdf32bd5
+PKG_MD5SUM:=6b0a0bf44ef6a6300e13216a2998f8ba
+
 PKG_BUILD_DIR:=$(BUILD_DIR)/SocksipyChain-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
@@ -50,7 +51,7 @@ define Package/$(PKG_NAME)/install
 	    $(1)$(PYTHON_PKG_DIR)/
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin/
-	$(SED) 's,$(HOST_PYTHON_BIN),/opt/bin/python,g' $(1)/opt/bin/sockschain
+	$(SED) 's,/opt/bin/python2.7,/opt/bin/python,g' $(1)/opt/bin/sockschain
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
