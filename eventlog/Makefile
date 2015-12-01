@@ -9,11 +9,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=eventlog
 PKG_VERSION:=0.2.12
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://my.balabit.com/downloads/eventlog/0.2
-#PKG_MD5SUM:=76e3d7a0b8f335c12099e9b91191fbf1
+PKG_MD5SUM:=3d6ebda8a161d36cb40d09328f78786b
 
 PKG_INSTALL:=1
 
@@ -22,7 +22,6 @@ include $(INCLUDE_DIR)/package.mk
 define Package/eventlog
 	SECTION:=libs
 	CATEGORY:=Libraries
-#	DEPENDS:=+libstdcpp
 	TITLE:=Extensible Binary Meta Language access library
 	URL:=http://matroska.org/
 	MAINTAINER:=Entware team, entware.wl500g.info
