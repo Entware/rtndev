@@ -1,6 +1,6 @@
 --- a/util.cpp
 +++ b/util.cpp
-@@ -228,13 +228,9 @@
+@@ -236,13 +236,9 @@
  		return boost::filesystem::path(std::string(localAppData) + "\\" + appName);
  #else
  		if (i2p::util::config::GetArg("-service", 0)) // use system folder
@@ -16,7 +16,7 @@
  #ifdef MAC_OSX
  		// Mac
  		pathRet /= "Library/Application Support";
-@@ -242,7 +238,7 @@
+@@ -250,7 +246,7 @@
  		return pathRet / appName;
  #else
  		// Unix
