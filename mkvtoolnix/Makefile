@@ -14,7 +14,7 @@ PKG_VERSION:=4.2.0
 PKG_RELEASE:=1d
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://bunkus.org/videotools/mkvtoolnix/sources
+PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
 PKG_MD5SUM:=de3e99598d47d0a2226269f79faabbfd
 
 include $(INCLUDE_DIR)/package.mk
@@ -41,7 +41,8 @@ CONFIGURE_ARGS += \
 	--with-boost=$(STAGING_DIR)/opt \
 
 TARGET_LDFLAGS += \
-	-lstdc++ -lintl \
+	-lstdc++ \
+	-lintl \
 
 define Package/mkvtoolnix/install
 	$(INSTALL_DIR) $(1)/opt/bin
