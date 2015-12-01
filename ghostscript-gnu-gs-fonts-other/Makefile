@@ -6,6 +6,7 @@
 # See /LICENSE for more information.
 #
 # Makefile taken from http://github.com/FranciscoBorges/openwrt-printing-packages
+# Abandoned in 2000
 
 include $(TOPDIR)/rules.mk
 

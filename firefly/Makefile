@@ -4,7 +4,8 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-#
+# Patches taken from https://bitbucket.org/padavan/rt-n56u project
+# No any updates will be provided in future
 
 include $(TOPDIR)/rules.mk
 

@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gnuchess
-PKG_VERSION:=6.2.1
+PKG_VERSION:=6.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@GNU/chess
-PKG_MD5SUM:=389ef6f98b61f432cb15065277d0ad71
+PKG_MD5SUM:=c181b5e218695a154a550292fddedc6d
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -33,13 +33,6 @@ endef
 
 define Package/gnuchess/conffiles
 /opt/share/gnuchess/gnuchess.ini
-endef
-
-define Build/Configure
-	$(call Build/Configure/Default, \
-		--prefix=/opt \
-		--exec-prefix=/opt \
-	)
 endef
 
 define Package/gnuchess/install

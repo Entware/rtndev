@@ -1,5 +1,5 @@
---- ./src/gnuchess.ini.orig	2013-08-22 05:04:35.000000000 +0400
-+++ ./src/gnuchess.ini	2013-11-12 13:22:04.634115646 +0400
+--- a/src/gnuchess.ini
++++ b/src/gnuchess.ini
 @@ -6,16 +6,16 @@
  Resign = true
  ResignMoves = 1 # 1 is safe for Fruit
