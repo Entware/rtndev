@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libebml
-PKG_VERSION:=1.3.1
+PKG_VERSION:=1.3.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://dl.matroska.org/downloads/libebml
-PKG_MD5SUM:=2d5a0e502fabedfded2a890c6b5513a5
+PKG_MD5SUM:=a8b270482620970d9891958618b54d77
 
 PKG_INSTALL:=1
 
