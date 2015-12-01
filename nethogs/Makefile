@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# There is some syntax error in the newer versions, we should update nethogs later
 
 include $(TOPDIR)/rules.mk
 
