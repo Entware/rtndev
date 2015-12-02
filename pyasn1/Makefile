@@ -7,11 +7,11 @@
 
 include $(TOPDIR)/rules.mk
 PKG_NAME:=pyasn1
-PKG_VERSION:=0.1.7
+PKG_VERSION:=0.1.9
 PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/pyasn1/
-PKG_MD5SUM:=2cbd80fcd4c7b1c82180d3d76fee18c8
+PKG_MD5SUM:=f00a02a631d4016818659d1cc38d229a
 
 PKG_BUILD_DEPENDS:=python
 
