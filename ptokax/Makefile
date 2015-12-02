@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ptokax
-PKG_VERSION:=0.5.1.0
+PKG_VERSION:=0.5.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_VERSION)-nix-src.tgz
 PKG_SOURCE_URL:=http://www.ptokax.org/files
-PKG_MD5SUM:=9f2c563dd6e165bb39235893e51b617b
+PKG_MD5SUM:=3f8364d3d36f6f67652cc14c855004e7
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -34,6 +34,7 @@ define Package/ptokax/description
  for Neo-Modus Direct Connect Peer-To-Peer sharing network.
 endef
 
+TARGET_CFLAGS += -DTIXML_USE_STL
 TARGET_LDFLAGS += -ldl
 
 define Build/Compile

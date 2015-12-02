@@ -19,10 +19,10 @@
  # then remove -llua5.1 and after tinyxml/tinyxml.a add /usr/local/lib/liblua.a (default path when is Lua compiled from sources).
  #*******************************************************************************
  
--PtokaX: INCLUDE = -Iskein/Optimized_32bit -I/usr/include -I/usr/include/lua5.1
+-PtokaX: INCLUDE = -Iskein/Optimized_32bit -I/usr/include -I/usr/include/lua5.3
  PtokaX: $(OBJS)
  	cd skein; $(MAKE)
--	$(CXX) $(OBJS) $(CURDIR)/skein/skein.a -o PtokaX -lstdc++ -lpthread -lm -lrt -lz -llua5.1 -ltinyxml
+-	$(CXX) $(OBJS) $(CURDIR)/skein/skein.a -o PtokaX -lstdc++ -lpthread -lm -lrt -lz -llua5.3 -ltinyxml
 +	$(CXX) $(LDFLAGS) $(OBJS) $(CURDIR)/skein/skein.a $(CURDIR)/tinyxml/tinyxml.a -o PtokaX -lstdc++ -lpthread -llua -lrt -lz
  
  lua52: INCLUDE = -Iskein/Optimized_32bit -I/usr/include -I/usr/include/lua5.2

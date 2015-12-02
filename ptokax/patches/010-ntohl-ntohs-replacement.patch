@@ -1,6 +1,6 @@
 --- a/core/hashRegManager.cpp
 +++ b/core/hashRegManager.cpp
-@@ -41,6 +41,22 @@
+@@ -36,6 +36,22 @@
      #include "../gui.win/RegisteredUserDialog.h"
      #include "../gui.win/RegisteredUsersDialog.h"
  #endif
@@ -23,7 +23,7 @@
  //---------------------------------------------------------------------------
  clsRegManager * clsRegManager::mPtr = NULL;
  //---------------------------------------------------------------------------
-@@ -606,7 +622,7 @@
+@@ -583,7 +599,7 @@
      }
  
      {
@@ -32,7 +32,7 @@
  
          if(ui32FileVersion < 1) {
              return;
-@@ -628,7 +644,7 @@
+@@ -605,7 +621,7 @@
  
      while(bSuccess == true) {
  		if(pxbRegs.ui16ItemLengths[0] < 65 && pxbRegs.ui16ItemLengths[1] < 65 && pxbRegs.ui16ItemLengths[2] == 2) {
