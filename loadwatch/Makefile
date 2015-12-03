@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=loadwatch
 PKG_VERSION:=1.0+1.1alpha1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
 PKG_SOURCE_URL:=ftp://ftp.debian.org/debian/pool/main/l/loadwatch/
@@ -27,7 +27,7 @@ define Package/loadwatch
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=CPU tools
-	DEPENDS:=+libelf
+	DEPENDS:=+libelf1
 	TITLE:=run processes only at acceptable system load
 	URL:=http://loadwatch.sourceforge.net
 	MAINTAINER:=Entware team, entware.wl500g.info
