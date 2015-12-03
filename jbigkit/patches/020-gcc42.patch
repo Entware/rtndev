@@ -1,5 +1,5 @@
---- a/Makefile.orig	2014-11-30 16:59:17.158859428 +0300
-+++ b/Makefile	2014-11-30 16:59:23.754775962 +0300
+--- a/Makefile
++++ b/Makefile
 @@ -4,7 +4,7 @@
  CC = gcc
  
@@ -9,8 +9,8 @@
  # CFLAGS = -O -g -W -Wall -Wno-unused-result -ansi -pedantic # -DDEBUG
  
  export CC CFLAGS
---- a/pbmtools/Makefile.orig	2014-11-30 16:58:17.881844359 +0300
-+++ b/pbmtools/Makefile	2014-11-30 16:58:45.056816706 +0300
+--- a/pbmtools/Makefile
++++ b/pbmtools/Makefile
 @@ -4,7 +4,7 @@
  CC = gcc
  

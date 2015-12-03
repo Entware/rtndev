@@ -1,5 +1,5 @@
---- a/src/chk.c	2011-12-12 16:28:15.000000000 +0400
-+++ b/src/chk.c	2012-06-05 10:00:52.525969382 +0400
+--- a/src/chk.c
++++ b/src/chk.c
 @@ -30,15 +30,9 @@
  char *get_data_dir(int verbose)
  {

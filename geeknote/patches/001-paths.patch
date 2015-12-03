@@ -1,5 +1,5 @@
---- a/deb/geeknote.py	2012-07-18 12:12:41.000000000 +0400
-+++ b/deb/geeknote.py	2012-07-18 12:47:16.000000000 +0400
+--- a/deb/geeknote.py
++++ b/deb/geeknote.py
 @@ -4,10 +4,10 @@
  import os, sys
  
@@ -15,8 +15,8 @@
 -geeknote.main()
 \ В конце файла нет новой строки
 +geeknote.main()
---- gnsync.py.orig	2012-07-18 12:12:41.000000000 +0400
-+++ b/deb/gnsync.py	2012-07-18 12:47:52.000000000 +0400
+--- a/deb/gnsync.py
++++ b/deb/gnsync.py
 @@ -4,10 +4,10 @@
  import os, sys
  

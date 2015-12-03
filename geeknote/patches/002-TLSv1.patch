@@ -1,13 +1,13 @@
---- a/oauth.py	2012-07-18 12:12:41.000000000 +0400
-+++ b/oauth.py	2012-07-18 17:58:39.000000000 +0400
+--- a/oauth.py
++++ b/oauth.py
 @@ -4 +4 @@
 -import httplib
 +import httplib_TLSv1
 @@ -94 +94 @@
 -        conn = httplib.HTTPSConnection(url)
 +        conn = httplib_TLSv1.HTTPSConnection(url)
---- lib/thrift/transport/THttpClient.py.orig	2012-07-18 12:12:41.000000000 +0400
-+++ b/lib/thrift/transport/THttpClient.py	2012-07-18 17:58:39.000000000 +0400
+--- a/lib/thrift/transport/THttpClient.py
++++ b/lib/thrift/transport/THttpClient.py
 @@ -24 +24 @@
 -import httplib
 +import httplib_TLSv1

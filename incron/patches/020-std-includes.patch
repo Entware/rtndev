@@ -1,5 +1,5 @@
---- a/appargs.cpp	2012-04-07 02:19:27.000000000 +0400
-+++ b/appargs.cpp	2012-06-05 12:04:12.407426046 +0400
+--- a/appargs.cpp
++++ b/appargs.cpp
 @@ -21,6 +21,7 @@
   *   Christian Ruppert (new include to build with GCC 4.4+)
   * 
@@ -8,8 +8,8 @@
  
  
  #include <cstdio>
---- a/icd-main.cpp	2012-04-07 02:19:27.000000000 +0400
-+++ b/icd-main.cpp	2012-06-05 12:04:12.407426046 +0400
+--- a/icd-main.cpp
++++ b/icd-main.cpp
 @@ -18,12 +18,14 @@
 
  #include <map>
@@ -25,8 +25,8 @@
  #include <sys/poll.h>
  #include <sys/stat.h>
  #include <cstdio>
---- a/ict-main.cpp	2012-04-07 02:19:27.000000000 +0400
-+++ b/ict-main.cpp	2012-06-05 12:04:12.487425039 +0400
+--- a/ict-main.cpp
++++ b/ict-main.cpp
 @@ -18,7 +18,8 @@
   */
  
@@ -46,8 +46,8 @@
          perror("cannot read configuration file (will use default)");
        }
      }
---- ./inotify-cxx.cpp.orig	2012-04-07 02:19:27.000000000 +0400
-+++ ./inotify-cxx.cpp	2012-06-05 12:04:12.511424742 +0400
+--- ./inotify-cxx.cpp
++++ ./inotify-cxx.cpp
 @@ -24,6 +24,7 @@
   
  
@@ -56,8 +56,8 @@
  #include <unistd.h>
  #include <fcntl.h>
  #include <cstdio>
---- a/usertable.cpp	2012-04-07 02:19:27.000000000 +0400
-+++ b/usertable.cpp	2012-06-05 12:04:12.511424742 +0400
+--- a/usertable.cpp
++++ b/usertable.cpp
 @@ -19,6 +19,7 @@
   */
  

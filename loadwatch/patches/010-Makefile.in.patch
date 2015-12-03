@@ -1,5 +1,5 @@
---- a/Makefile.in	2000-02-06 05:05:57.000000000 +0300
-+++ b/Makefile.in	2012-08-14 15:47:44.880812037 +0400
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -6,23 +6,25 @@
  INSTALL = @INSTALL@
  INSTALL_PROGRAM = @INSTALL_PROGRAM@

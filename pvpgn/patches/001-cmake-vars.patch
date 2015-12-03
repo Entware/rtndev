@@ -1,5 +1,5 @@
---- a/config.h.cmake	2012-04-24 12:02:07.402478573 +0400
-+++ b/config.h.cmake	2012-04-24 12:03:35.757521568 +0400
+--- a/config.h.cmake
++++ b/config.h.cmake
 @@ -39,16 +39,16 @@
  #cmakedefine HAVE_WINSOCK2_H
  #cmakedefine HAVE_PROCESS_H

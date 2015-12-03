@@ -1,5 +1,5 @@
---- a/ConfigureChecks.cmake	2012-04-24 12:06:14.124069487 +0400
-+++ b/ConfigureChecks.cmake	2012-04-24 12:06:32.719836218 +0400
+--- a/ConfigureChecks.cmake
++++ b/ConfigureChecks.cmake
 @@ -119,17 +119,6 @@
  check_include_file_cxx(winsock2.h HAVE_WINSOCK2_H)
  check_include_file_cxx(process.h HAVE_PROCESS_H)

@@ -1,5 +1,5 @@
---- a/Makefile	2012-08-28 09:47:31.993442679 +0400
-+++ b/Makefile	2012-08-28 09:48:23.641442689 +0400
+--- a/Makefile
++++ b/Makefile
 @@ -2,8 +2,6 @@
  # Makefile for building nonroot
  #

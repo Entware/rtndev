@@ -1,5 +1,5 @@
---- ./Makefile.orig	2015-12-03 09:10:27.000000000 +0300
-+++ ./Makefile	2015-12-03 09:38:49.202782853 +0300
+--- a/Makefile
++++ b/Makefile
 @@ -1,11 +1,11 @@
  # Makefile for dungeon
  

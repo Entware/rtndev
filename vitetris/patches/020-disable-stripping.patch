@@ -1,5 +1,5 @@
---- a/Makefile	2012-05-08 20:20:46.584514027 +0400
-+++ b/Makefile	2012-05-08 20:24:16.013881143 +0400
+--- a/Makefile
++++ b/Makefile
 @@ -3,7 +3,7 @@
  PROGNAME = tetris$(EXE)
  

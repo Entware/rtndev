@@ -1,5 +1,5 @@
---- ./source/Makefile.orig	2013-06-01 08:17:58.000000000 +0400
-+++ ./source/Makefile	2013-06-10 15:33:18.009456663 +0400
+--- a/source/Makefile
++++ b/source/Makefile
 @@ -101,7 +101,7 @@
  #
  

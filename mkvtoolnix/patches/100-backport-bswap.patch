@@ -41,8 +41,8 @@
  
 -#endif  // __MTX_COMMON_BSWAP_H
 +#endif  // MTX_COMMON_BSWAP_H
---- a/src/common/mm_multi_file_io.cpp	2010-07-28 16:56:32.000000000 +0400
-+++ b/src/common/mm_multi_file_io.cpp	2014-12-07 21:13:27.000000000 +0300
+--- a/src/common/mm_multi_file_io.cpp
++++ b/src/common/mm_multi_file_io.cpp
 @@ -15,6 +15,7 @@
  
  #include <algorithm>

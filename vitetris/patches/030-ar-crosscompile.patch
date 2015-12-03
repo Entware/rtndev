@@ -1,5 +1,5 @@
---- a/src/game/Makefile	2012-05-08 20:27:52.351161417 +0400
-+++ b/src/game/Makefile	2012-05-08 20:28:05.151000501 +0400
+--- a/src/game/Makefile
++++ b/src/game/Makefile
 @@ -4,7 +4,7 @@
  HEADERS = tetris.h ../timer.h ../input/input.h ../draw/draw.h
  
@@ -9,8 +9,8 @@
  
  tetris.o: tetris.c $(HEADERS)
  	$(CC) $(CCFLAGS) -I..  -c tetris.c
---- a/src/input/Makefile	2012-05-08 20:28:52.978399230 +0400
-+++ b/src/input/Makefile	2012-05-08 20:29:11.158170664 +0400
+--- a/src/input/Makefile
++++ b/src/input/Makefile
 @@ -6,19 +6,19 @@
  
  unixterm: $(OBJS) inp_unixterm.o escseq.o select.o $(joylinux_obj)
@@ -35,8 +35,8 @@
  
  input.o: input.c input.h keyboard.h joystick.h \
  	 ../timer.h ../draw/draw.h ../game/tetris.h ../netw/sock.h \
---- a/src/menu/Makefile	2012-05-08 20:29:52.793647257 +0400
-+++ b/src/menu/Makefile	2012-05-08 20:30:05.025493475 +0400
+--- a/src/menu/Makefile
++++ b/src/menu/Makefile
 @@ -12,11 +12,11 @@
  all: menu.a $(menuext_lib)
  
@@ -51,8 +51,8 @@
  
  menucore.o: menucore.c $(HEADERS) ../src-conf.mk
  	$(CC) $(CCFLAGS) $(DNO_MENU) -c menucore.c 
---- a/src/textgfx/Makefile	2012-05-08 20:32:32.871634795 +0400
-+++ b/src/textgfx/Makefile	2012-05-08 20:32:45.439476796 +0400
+--- a/src/textgfx/Makefile
++++ b/src/textgfx/Makefile
 @@ -5,7 +5,7 @@
  
  textgfx.a: $(OBJS)
@@ -62,8 +62,8 @@
  
  term.o: term.c textgfx.h ../options.h ../config.h
  	$(CC) $(CCFLAGS) -I.. -c term.c
---- a/src/draw/Makefile	2008-08-18 13:09:46.000000000 +0400
-+++ b/src/draw/Makefile	2012-05-08 20:39:48.761256457 +0400
+--- a/src/draw/Makefile
++++ b/src/draw/Makefile
 @@ -4,7 +4,7 @@
  HEADERS = draw.h internal.h ../textgfx/textgfx.h
  
@@ -73,8 +73,8 @@
  
  draw.o: draw.c $(HEADERS) ../game/tetris.h ../hiscore.h \
  			  ../netw/sock.h ../src-conf.mk
---- a/src/netw/Makefile	2008-10-16 22:39:35.000000000 +0400
-+++ b/src/netw/Makefile	2012-05-08 20:51:33.496049935 +0400
+--- a/src/netw/Makefile
++++ b/src/netw/Makefile
 @@ -6,12 +6,12 @@
  all: $(netw_lib)$(inet_obj)
  

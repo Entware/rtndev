@@ -1,5 +1,5 @@
---- ./pbmtools/Makefile.orig	2015-02-21 18:55:34.558061226 +0300
-+++ ./pbmtools/Makefile	2015-02-21 18:58:17.894042427 +0300
+--- a/pbmtools/Makefile
++++ b/pbmtools/Makefile
 @@ -15,16 +15,16 @@
  txt: pbmtojbg.txt jbgtopbm.txt pbm.txt pgm.txt
  
