@@ -7,6 +7,7 @@
 # Copyright (C) 2009 Brice DUBOST
 # L. Trifonov used as template for transcode 
 #
+# Abandoned in 2009
 
 include $(TOPDIR)/rules.mk
 
