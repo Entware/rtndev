@@ -27,7 +27,6 @@ define Package/loadwatch
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=CPU tools
-	DEPENDS:=+libelf1
 	TITLE:=run processes only at acceptable system load
 	URL:=http://loadwatch.sourceforge.net
 	MAINTAINER:=Entware team, entware.wl500g.info
