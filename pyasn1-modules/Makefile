@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pyasn1-modules
 PKG_VERSION:=0.0.8
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/pyasn1-modules/
 PKG_MD5SUM:=178129bc7fbf07215c25230c5f053f81
@@ -25,7 +25,7 @@ define Package/pyasn1-modules
   CATEGORY:=Languages
   TITLE:=pyasn1-modules
   URL:=https://pypi.python.org/pypi/pyasn1-modules/0.0.5
-  DEPENDS:=+python +pyasn1
+  DEPENDS:=+python-pyasn1
 endef
 
 define Package/pyasn1-modules/description
