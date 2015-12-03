@@ -38,7 +38,7 @@ endef
 define Package/twisted
 $(call Package/twisted/default)
   TITLE:=Python networking engine
-  DEPENDS+= +zope.interface +python-service-identity
+  DEPENDS+= +zope-interface +python-service-identity
 endef
 
 define Build/Compile
