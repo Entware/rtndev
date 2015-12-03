@@ -17,7 +17,6 @@ PKG_SOURCE_URL:=@SF/p7zip/p7zip/$(PKG_VERSION)
 PKG_MD5SUM:=6cba8402ccab2370d3b70c5e28b3d651
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)_$(PKG_VERSION)
-PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -46,7 +45,7 @@ MAKE_FLAGS += \
 
 define Package/p7zip/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/7z{r,a} $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/7z{r,a} $(1)/opt/bin/
 endef
 
 $(eval $(call BuildPackage,p7zip))
