@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=twisted
-PKG_VERSION:=15.1.0
+PKG_VERSION:=15.5.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Twisted-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/T/Twisted/
-PKG_MD5SUM:=df65e3da0bee81140e7637156802a518
+PKG_MD5SUM:=0831d7c90d0020062de0f7287530a285
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/Twisted-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=python
