@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-onedrive
-PKG_VERSION:=15.7.3
-PKG_RELEASE:=2
+PKG_VERSION:=15.10.5
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/$(PKG_NAME)/
-PKG_MD5SUM:=c98ab38b00f6f3fcc752dcd3debe5a4d
+PKG_MD5SUM:=ae3161084be31c5d8b6a14a71706391a
 
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
