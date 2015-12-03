@@ -1,42 +1,37 @@
 --- a/make-linux.mk
 +++ b/make-linux.mk
-@@ -1,6 +1,6 @@
- # Pick clang or gcc, with preference for clang
--CC=$(shell if [ -e /usr/bin/clang ]; then echo clang; else echo gcc; fi)
--CXX=$(shell if [ -e /usr/bin/clang++ ]; then echo clang++; else echo g++; fi)
-+CC?=$(shell if [ -e /usr/bin/clang ]; then echo clang; else echo gcc; fi)
-+CXX?=$(shell if [ -e /usr/bin/clang++ ]; then echo clang++; else echo g++; fi)
+@@ -17,15 +17,6 @@
+ #   clean: removes all built files, objects, other trash
+ #
+ 
+-# Automagically pick clang or gcc, with preference for clang
+-# This is only done if we have not overridden these with an environment or CLI variable
+-ifeq ($(origin CC),default)
+-	CC=$(shell if [ -e /usr/bin/clang ]; then echo clang; else echo gcc; fi)
+-endif
+-ifeq ($(origin CXX),default)
+-	CXX=$(shell if [ -e /usr/bin/clang++ ]; then echo clang++; else echo g++; fi)
+-endif
+-
+ UNAME_M=$(shell $(CC) -dumpmachine | cut -d '-' -f 1)
  
  INCLUDES=
- DEFS=
-@@ -17,7 +17,7 @@
+@@ -50,7 +41,7 @@
  # Build with ZT_ENABLE_NETWORK_CONTROLLER=1 to build with the Sqlite network controller
  ifeq ($(ZT_ENABLE_NETWORK_CONTROLLER),1)
          DEFS+=-DZT_ENABLE_NETWORK_CONTROLLER 
--        LIBS+=-L/usr/local/lib -lsqlite3
-+        LIBS+=-lsqlite3
+-        LDLIBS+=-L/usr/local/lib -lsqlite3
++        LDLIBS+=-lsqlite3
          OBJS+=controller/SqliteNetworkController.o 
  endif
  
-@@ -31,9 +31,9 @@
- 	# C25519 in particular is almost UNUSABLE in heavy testing without it.
- ext/lz4/lz4.o node/Salsa20.o node/SHA512.o node/C25519.o node/Poly1305.o: CFLAGS = -Wall -O2 -g -pthread $(INCLUDES) $(DEFS)
- else
--	CFLAGS=-Wall -O3 -fPIE -fvisibility=hidden -fstack-protector -pthread $(INCLUDES) -DNDEBUG $(DEFS)
+@@ -74,8 +65,7 @@
+ 	CFLAGS+=-Wall -fPIE -fvisibility=hidden -pthread $(INCLUDES) -DNDEBUG $(DEFS)
+ 	CXXFLAGS?=-O3 -fstack-protector
+ 	CXXFLAGS+=-Wall -fPIE -fvisibility=hidden -fno-rtti -pthread $(INCLUDES) -DNDEBUG $(DEFS)
 -	LDFLAGS=-pie -Wl,-z,relro,-z,now
 -	STRIP=strip --strip-all
-+	CFLAGS+=-Wall -fPIE -fvisibility=hidden -pthread $(INCLUDES) -DNDEBUG $(DEFS)
-+	LDFLAGS+=-pie -Wl,-z,relro,-z,now -lpthread
-+	STRIP?=strip --strip-all
++	LDFLAGS+=-pie -Wl,-z,relro,-z,now
  endif
- 
- # Uncomment for gprof profile build
-@@ -41,7 +41,7 @@
- #LDFLAGS=
- #STRIP=echo
- 
--CXXFLAGS=$(CFLAGS) -fno-rtti
-+CXXFLAGS+=-fno-rtti -fPIC
- 
- all:	one
- 
+ ifeq ($(ZT_TRACE),1)
+ 	DEFS+=-DZT_TRACE 
