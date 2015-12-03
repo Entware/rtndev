@@ -1,6 +1,11 @@
---- a/MAKEFILE_original	1991-05-16 11:17:28.000000000 +0300
-+++ b/MAKEFILE_original	2012-05-08 16:32:27.247298878 +0400
-@@ -4,7 +4,7 @@
+--- ./Makefile.orig	2015-12-03 09:10:27.000000000 +0300
++++ ./Makefile	2015-12-03 09:38:49.202782853 +0300
+@@ -1,11 +1,11 @@
+ # Makefile for dungeon
+ 
+-CC = gcc
++#CC = gcc
+ # Where to install the program
  BINDIR = /usr/games
  
  # Where to install the data file
@@ -9,56 +14,43 @@
  
  # The dungeon program provides a ``more'' facility which tries to
  # figure out how many rows the terminal has.  Several mechanisms are
-@@ -15,16 +15,16 @@
- # more option 1: use the termcap routines.  On some systems the LIBS
+@@ -17,8 +17,8 @@
  # variable may need to be set to -lcurses.  On some it may need to
  # be /usr/lib/termcap.o.  These options are commented out below.
--LIBS = -ltermcap
+ # LIBS = -ltermcap
 -TERMFLAG =
-+#LIBS = -ltermcap
+-LIBS = -lcurses
 +#TERMFLAG =
- # LIBS = -lcurses
++#LIBS = -lcurses
  # LIBS = /usr/lib/termcap.o
  
  # more option 2: use the terminfo routines.  On some systems the LIBS
- # variable needs to be -lcursesX, but probably all such systems support
- # the termcap routines (option 1) anyhow.
--# LIBS = -lcurses
--# TERMFLAG = -DMORE_TERMINFO
-+LIBS =
-+TERMFLAG = -DMORE_NONE
+@@ -28,8 +28,8 @@
+ # TERMFLAG = -DMORE_TERMINFO
  
  # more option 3: assume all terminals have 24 rows
+-# LIBS =
+-# TERMFLAG = -DMORE_24
++LIBS =
++TERMFLAG = -DMORE_24
+ 
+ # more option 4: don't use the more facility at all
  # LIBS =
-@@ -42,7 +42,7 @@
- # GDTFLAG = -DALLOW_GDT
+@@ -44,7 +44,7 @@
  
  # Compilation flags
--CFLAGS = -O
-+#CFLAGS = -O
+ # CFLAGS = -g -DDEBUG
+-CFLAGS = -O3
++#CFLAGS = -O3
  # On SCO Unix Development System 3.2.2a, the const type qualifier does
  # not work correctly when using cc.  The following line will cause it
  # to not be used and should be uncommented.
-@@ -62,19 +62,16 @@
- 	dverb2.o gdt.o lightp.o local.o nobjs.o np.o np1.o np2.o np3.o\
- 	nrooms.o objcts.o rooms.o sobjs.o supp.o sverbs.o verbs.o villns.o
- 
--dungeon: $(OBJS) dtextc.dat
--	$(CC) $(CFLAGS) -o dungeon $(OBJS) $(LIBS)
-+dungeon: $(OBJS)
-+	$(CC) -o dungeon $(OBJS) $(LIBS)
- 
--install: dungeon dtextc.dat
-+install: dungeon
- 	cp dungeon $(BINDIR)
- 	cp dtextc.dat $(LIBDIR)
- 
- clean:
+@@ -75,7 +75,7 @@
  	rm -f $(OBJS) dungeon dtextc.dat core dsave.dat *~
  
--dtextc.dat:
+ dtextc.dat:
 -	cat dtextc.uu1 dtextc.uu2 dtextc.uu3 dtextc.uu4 | uudecode
--
++	cat dtextc.uu1 dtextc.uu2 dtextc.uu3 dtextc.uu4 | ./uudecode
+ 
  dinit.o: dinit.c funcs.h vars.h
  	$(CC) $(CFLAGS) $(GDTFLAG) -DTEXTFILE=\"$(LIBDIR)/dtextc.dat\" -c dinit.c
- 

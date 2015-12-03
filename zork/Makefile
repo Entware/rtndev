@@ -8,14 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zork
-PKG_VERSION:=1.0
+PKG_VERSION:=1.0-20140806
+PKG_REV:=ba0426c1e568a35d7a8d86a1160fea24e4915885
 PKG_RELEASE:=1
 
-PKG_SOURCE:=GameZorkSource_1_0.zip
-PKG_SOURCE_URL:=http://richelbilderbeek.nl
-PKG_MD5SUM:=9b5a9f1717b467ae4e32e0a2a70ddde7
-
-PKG_UNPACK=unzip -d  $(PKG_BUILD_DIR) $(DL_DIR)/$(PKG_SOURCE)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/mgius/zork.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -32,21 +33,13 @@ define Package/zork/description
  Tim Anderson, Marc Blank, Bruce Daniels, and Dave Lebling in 1980.
 endef
 
-define Build/Configure
-	cd $(PKG_BUILD_DIR); \
-	for srcfile in `ls -1 *.C`; do \
-		if [ ! -f $$$$srcfile ]; then \
-			continue; \
-		fi; \
-		lc=`echo $$$$srcfile | tr '[A-Z]' '[a-z]'`; \
-		if [ $$$$lc != $$$$srcfile ]; then \
-			mv -i $$$$srcfile $$$$lc; \
-		fi; \
-	done;
-	cat $(PKG_BUILD_DIR)/MAKEFILE_original | tr "\032" "\n" > $(PKG_BUILD_DIR)/Makefile
-endef
-
 MAKE_FLAGS += LIBS="$(TARGET_LDFLAGS)"
+
+define Build/Compile
+	$(CP) ./files/uudecode.c  $(PKG_BUILD_DIR)
+	$(HOSTCC) -o $(PKG_BUILD_DIR)/uudecode $(PKG_BUILD_DIR)/uudecode.c
+	$(call Build/Compile/Default)
+endef
 
 define Package/zork/install
 	$(INSTALL_DIR) $(1)/opt/bin
