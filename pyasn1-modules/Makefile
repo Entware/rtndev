@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pyasn1-modules
-PKG_VERSION:=0.0.5
+PKG_VERSION:=0.0.8
 PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/pyasn1-modules/
-PKG_MD5SUM:=6c5c9dd61a5784ff22695ac233cb11f8
+PKG_MD5SUM:=178129bc7fbf07215c25230c5f053f81
 
 PKG_BUILD_DEPENDS:=python
 
