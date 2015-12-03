@@ -4,17 +4,16 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Newer versions tries to import _ssl without catching exceptions
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-requests
-PKG_VERSION:=2.4.1
-PKG_RELEASE:=2
+PKG_VERSION:=2.8.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=requests-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/r/requests/
-PKG_MD5SUM:=931461f761c70708c46ea65b7889da58
+PKG_MD5SUM:=a27ea3d72d7822906ddce5e252d6add9
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/requests-$(PKG_VERSION)
 
