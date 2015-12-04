@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lcms
 PKG_VERSION:=2.7
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)2-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
@@ -25,7 +25,7 @@ define Package/lcms
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+libtiff
+	DEPENDS:=+libtiff +libpthread
 	TITLE:=little CMS color engine
 	URL:=http://www.littlecms.com/
 	MAINTAINER:=Entware team, entware.wl500g.info
