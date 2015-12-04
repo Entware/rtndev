@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
 PKG_VERSION:=1.0.7
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_7
@@ -41,6 +41,7 @@ CONFIGURE_ARGS+= \
 	--with-ssl=$(STAGING_DIR)/opt \
 	--with-boost=$(STAGING_DIR)/opt/include \
 	--with-boost-libdir=$(STAGING_DIR)/opt/lib \
+	--with-boost-python=boost_python-mt \
 	--with-zlib=detect
 
 CONFIGURE_VARS+=CC="$(TARGET_CXX)"
