@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=1.3.12
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.deluge-torrent.org/source/
@@ -105,6 +105,7 @@ define Package/deluge-ui-web/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S81deluge-web $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/deluge-web-reset_password $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/etc/deluge/state
 endef
 
 $(eval $(call BuildPackage,deluge))
