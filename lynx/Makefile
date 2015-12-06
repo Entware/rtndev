@@ -12,7 +12,7 @@ PKG_VERSION:=2.8.8rel.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://lynx.isc.org/current
+PKG_SOURCE_URL:=http://invisible-mirror.net/archives/lynx/tarballs
 PKG_MD5SUM:=b231c2aa34dfe7ca25681ef4e55ee7e8
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)2-8-8
