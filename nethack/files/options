@@ -1,0 +1,15 @@
+
+    NetHack version 3.6.0
+
+Options compiled into this edition:
+
+    color, data file compression, insurance files for recovering from
+    crashes, log file, mail daemon, news file, screen clipping, shell
+    command, suspend command, terminal info library, system configuration at
+    run-time, save and bones files accepted from version 3.6.0 only, and
+    basic NetHack features.
+
+Supported windowing system:
+
+    traditional tty-based graphics.
+

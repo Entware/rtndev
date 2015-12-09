@@ -1,0 +1,20 @@
+--- a/sys/unix/Makefile.utl
++++ b/sys/unix/Makefile.utl
+@@ -191,13 +191,13 @@
+ 	perl mdgrep.pl
+ 
+ ../include/onames.h: makedefs
+-	./makedefs -o
++	./makedefs.host -o
+ ../include/pm.h: makedefs
+-	./makedefs -p
++	./makedefs.host -p
+ ../src/monstr.c: makedefs
+-	./makedefs -m
++	./makedefs.host -m
+ ../include/vis_tab.h: makedefs
+-	./makedefs -z
++	./makedefs.host -z
+ # makedefs -z makes both vis_tab.h and vis_tab.c, but writes the .h first
+ ../src/vis_tab.c: ../include/vis_tab.h
+ 

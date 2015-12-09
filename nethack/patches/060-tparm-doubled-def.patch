@@ -1,0 +1,13 @@
+--- a/win/tty/termcap.c
++++ b/win/tty/termcap.c
+@@ -851,10 +851,6 @@
+ 
+ #include <curses.h>
+ 
+-#if !defined(LINUX) && !defined(__FreeBSD__) && !defined(NOTPARMDECL)
+-extern char *tparm();
+-#endif
+-
+ #ifndef COLOR_BLACK /* trust include file */
+ #ifndef _M_UNIX     /* guess BGR */
+ #define COLOR_BLACK 0

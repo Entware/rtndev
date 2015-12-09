@@ -1,0 +1,22 @@
+--- a/sys/unix/Makefile.src
++++ b/sys/unix/Makefile.src
+@@ -222,8 +222,8 @@
+ 
+ #
+ #
+-#WINSRC = $(WINTTYSRC)
+-#WINOBJ = $(WINTTYOBJ)
++WINSRC = $(WINTTYSRC)
++WINOBJ = $(WINTTYOBJ)
+ 
+ # on some systems the termcap library is in -ltermcap or -lcurses
+ # on 386 Xenix, the -ltermlib tputs() seems not to work; use -lcurses instead
+@@ -522,7 +522,7 @@
+ #	hack.h depends on makedefs' output, so we know makedefs will be
+ #	up to date before being executed
+ ../include/date.h:	$(VERSOURCES) $(HACK_H)
+-	../util/makedefs -v
++	true
+ 
+ 
+ lint:

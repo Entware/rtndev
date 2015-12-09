@@ -1,0 +1,55 @@
+--- a/sys/unix/Makefile.top
++++ b/sys/unix/Makefile.top
+@@ -213,23 +213,21 @@
+ # set up their permissions
+ 	-( cd $(INSTDIR) ; $(CHOWN) $(GAMEUID) $(GAME) recover ; \
+ 			$(CHGRP) $(GAMEGRP) $(GAME) recover )
+-	chmod $(GAMEPERM) $(INSTDIR)/$(GAME)
+-	chmod $(EXEPERM) $(INSTDIR)/recover
+ 	-if test -n '$(SHELLDIR)'; then \
+ 		$(CHOWN) $(GAMEUID) $(SHELLDIR)/$(GAME); fi
+ 	if test -n '$(SHELLDIR)'; then \
+ 		$(CHGRP) $(GAMEGRP) $(SHELLDIR)/$(GAME); \
+-		chmod $(EXEPERM) $(SHELLDIR)/$(GAME); fi
++		fi
+ 	-( cd $(INSTDIR) ; $(CHOWN) $(GAMEUID) symbols ; \
+ 			$(CHGRP) $(GAMEGRP) symbols ; \
+-			chmod $(FILEPERM) symbols )
++			)
+ 
+ dofiles-dlb: check-dlb
+ 	( cd dat ; cp nhdat $(DATNODLB) $(INSTDIR) )
+ # set up their permissions
+ 	-( cd $(INSTDIR) ; $(CHOWN) $(GAMEUID) nhdat $(DATNODLB) ; \
+ 			$(CHGRP) $(GAMEGRP) nhdat $(DATNODLB) ; \
+-			chmod $(FILEPERM) nhdat $(DATNODLB) )
++			)
+ 
+ dofiles-nodlb:
+ # copy over the game files
+@@ -237,7 +235,7 @@
+ # set up their permissions
+ 	-( cd $(INSTDIR) ; $(CHOWN) $(GAMEUID) $(DAT) ; \
+ 			$(CHGRP) $(GAMEGRP) $(DAT) ; \
+-			chmod $(FILEPERM) $(DAT) )
++			)
+ 
+ update: $(GAME) recover $(VARDAT) dungeon spec_levs
+ #	(don't yank the old version out from under people who're playing it)
+@@ -270,15 +268,13 @@
+ 	-$(CHOWN) $(GAMEUID) $(INSTDIR) $(VARDIR) $(VARDIR)/save
+ 	$(CHGRP) $(GAMEGRP) $(INSTDIR) $(VARDIR) $(VARDIR)/save
+ # order counts here:
+-	chmod $(DIRPERM) $(INSTDIR)
+-	chmod $(VARDIRPERM) $(VARDIR) $(VARDIR)/save
+ # set up the game files
+ 	( $(MAKE) dofiles )
+ # set up some additional files
+ 	touch $(VARDIR)/perm $(VARDIR)/record $(VARDIR)/logfile $(VARDIR)/xlogfile
+ 	-( cd $(VARDIR) ; $(CHOWN) $(GAMEUID) perm record logfile xlogfile ; \
+ 			$(CHGRP) $(GAMEGRP) perm record logfile xlogfile ; \
+-			chmod $(VARFILEPERM) perm record logfile xlogfile )
++			)
+ 	true; $(POSTINSTALL)
+ # and a reminder
+ 	@echo You may also want to reinstall the man pages via the doc Makefile.

@@ -10,13 +10,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethack
-PKG_VERSION:=3.4.3
+PKG_VERSION:=3.6.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-343-src.tgz
-PKG_SOURCE_URL:=@SF/project/nethack/nethack/$(PKG_VERSION)/
-PKG_MD5SUM:=21479c95990eefe7650df582426457f9
+PKG_SOURCE:=$(PKG_NAME)-360-src.tgz
+PKG_SOURCE_URL:=@SF/project/nethack/nethack/$(PKG_VERSION)
+PKG_MD5SUM:=d42147b26e5fb4746fb72536ce145984
 
+PKG_INSTALL:=1
+PKG_BUILD_DEPENDS:=nethack/host
+
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/nethack
@@ -35,78 +39,90 @@ define Package/nethack/description
  to die quickly.
 endef
 
+TARGET_CFLAGS += \
+	$(TARGET_CPPFLAGS) \
+	-I../include \
+
+MAKE_VARS += \
+	LFLAGS="$(TARGET_LDFLAGS) -lncurses" \
+	LINK="$(TARGET_CC)" \
+	PREFIX="$(PKG_INSTALL_DIR)/opt" \
+	HACKDIR="/opt/share/nethackdir" \
+	SHELLDIR="$(PKG_INSTALL_DIR)/opt/bin" \
+	INSTDIR="$(PKG_INSTALL_DIR)/opt/share/nethackdir" \
+	VARDIR="$(PKG_INSTALL_DIR)/opt/share/nethackdir" \
+	CHOWN=true \
+	CHGRP=true \
+
+define Host/Patch
+endef
+
+define Host/Configure
+	$(CP) $(HOST_BUILD_DIR)/sys/unix/Makefile.utl $(HOST_BUILD_DIR)/util/Makefile
+endef
+
+define Host/Compile
+	touch $(HOST_BUILD_DIR)/src/{config,hack}.h-t
+	make -C $(HOST_BUILD_DIR)/util makedefs \
+		CFLAGS="$(HOST_CPPFLAGS) -I../include"
+	(cd $(HOST_BUILD_DIR)/util; ./makedefs -v; ./makedefs -p; ./makedefs -o)
+	make -C $(HOST_BUILD_DIR)/util dgn_comp lev_comp \
+		CFLAGS="$(HOST_CPPFLAGS) -I../include"
+endef
+
+define Host/Install
+endef
+
 define Build/Configure
 	$(CP) $(PKG_BUILD_DIR)/sys/unix/Makefile.top $(PKG_BUILD_DIR)/Makefile
 	$(CP) $(PKG_BUILD_DIR)/sys/unix/Makefile.dat $(PKG_BUILD_DIR)/dat/Makefile
 	$(CP) $(PKG_BUILD_DIR)/sys/unix/Makefile.doc $(PKG_BUILD_DIR)/doc/Makefile
 	$(CP) $(PKG_BUILD_DIR)/sys/unix/Makefile.src $(PKG_BUILD_DIR)/src/Makefile
 	$(CP) $(PKG_BUILD_DIR)/sys/unix/Makefile.utl $(PKG_BUILD_DIR)/util/Makefile
-endef
-
-define Build/Compile
-	make install -C $(PKG_BUILD_DIR) \
-		CC=$(TARGET_CC) \
-		AR=$(TARGET_AR) \
-		RANLIB=$(TARGET_RANLIB) \
-		CFLAGS="$(TARGET_CPPFLAGS) -I../include" \
-		LFLAGS="$(TARGET_LDFLAGS)" \
-		PREFIX=$(PKG_INSTALL_DIR)
+	$(LN) $(HOST_BUILD_DIR)/util/makedefs $(PKG_BUILD_DIR)/util/makedefs.host
+	$(LN) $(HOST_BUILD_DIR)/util/dgn_comp $(PKG_BUILD_DIR)/util/dgn_comp.host
+	$(LN) $(HOST_BUILD_DIR)/util/lev_comp $(PKG_BUILD_DIR)/util/lev_comp.host
 endef
 
 define Package/nethack/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/nethackdir/nethack.sh $(1)/opt/bin
-	$(INSTALL_DIR) $(1)/opt/share/nethackdir/{dat,save,util}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/nethackdir/util/{dgn_comp,lev_comp,makedefs} $(1)/opt/share/nethackdir/util
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/nethackdir/{nethack,recover} $(1)/opt/share/nethackdir
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/nethackdir/dat/* $(1)/opt/share/nethackdir/dat
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/nethackdir/{cmdhelp,data,Guidebook.txt,help,hh,history,license,logfile,opthelp,options,oracles,perm,record,rumors,wizhelp} $(1)/opt/share/nethackdir
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/nethack $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/share
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/nethackdir $(1)/opt/share
+	$(RM) $(1)/opt/share/nethackdir/*.lev
+	$(INSTALL_DIR) $(1)/opt/share/nethackdir/dat
+	$(CP) $(PKG_BUILD_DIR)/dat/{*.des,dungeon.def,oracles.txt,rumors*,quest.txt} \
+		$(1)/opt/share/nethackdir/dat
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/sys/unix/sysconf $(1)/opt/share/nethackdir
+	$(INSTALL_DIR) $(1)/opt/share/nethackdir/util
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/util/{dgn_comp,lev_comp,makedefs} \
+		$(1)/opt/share/nethackdir/util
 endef
 
 define Package/nethack/postinst
-#!/bin/sh 
-#
-# $Id: postinst 4954 2007-01-01 18:02:58Z marceln $
+#!/bin/sh
 
-cd /opt/share/nethackdir/dat
-../util/dgn_comp dungeon.pdf
-../util/lev_comp bigroom.des
-../util/lev_comp castle.des
-../util/lev_comp endgame.des
-../util/lev_comp gehennom.des
-../util/lev_comp knox.des
-../util/lev_comp medusa.des
-../util/lev_comp mines.des
-../util/lev_comp oracle.des
-../util/lev_comp sokoban.des
-../util/lev_comp tower.des
-../util/lev_comp yendor.des
-../util/lev_comp Arch.des
-../util/lev_comp Barb.des
-../util/lev_comp Caveman.des
-../util/lev_comp Healer.des
-../util/lev_comp Knight.des
-../util/lev_comp Monk.des
-../util/lev_comp Priest.des
-../util/lev_comp Ranger.des
-../util/lev_comp Rogue.des
-../util/lev_comp Samurai.des
-../util/lev_comp Tourist.des
-../util/lev_comp Valkyrie.des
-../util/lev_comp Wizard.des
-cp *.lev /opt/share/nethackdir/
-cp dungeon /opt/share/nethackdir/dungeon
-cd /opt/share/nethackdir/util
-./makedefs -q
-cp /opt/share/nethackdir/dat/quest.dat /opt/share/nethackdir/quest.dat
-#
-# This should be solved with a sgid games!
-#
-chmod 777 /opt/share/nethackdir
-chmod 777 /opt/share/nethackdir/record
-chmod 777 /opt/share/nethackdir/logfile
-chmod 777 /opt/share/nethackdir/perm
-chmod 1777 /opt/share/nethackdir/save
+cd /opt/share/nethackdir
+echo 'Compiling levels...'
+for level in dat/*.des; do
+        ./util/lev_comp $$level
+done
+cd util
+echo 'Generating dungeon.pdf...'
+../util/makedefs -e
+echo 'Generating quest.dat...'
+../util/makedefs -q
+mv -f ../dat/quest.dat ..
+echo 'Generating rumors file...'
+../util/makedefs -r
+mv -f ../dat/rumors ..
+echo 'Generating oracles file...'
+../util/makedefs -h
+mv -f ../dat/oracles ..
+echo 'Compiling dungeon file...'
+../util/dgn_comp ../dat/dungeon.pdf
+mv -f ../dat/dungeon ..
 endef
 
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,nethack))
