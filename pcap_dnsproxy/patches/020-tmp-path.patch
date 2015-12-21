@@ -1,0 +1,11 @@
+--- a/Source/Pcap_DNSProxy/Base.h
++++ b/Source/Pcap_DNSProxy/Base.h
+@@ -256,7 +256,7 @@
+ 	#if defined(PLATFORM_LINUX)
+ 		#define COMMAND_DISABLE_DAEMON                ("--disable-daemon")
+ 	#endif
+-	#define FIFO_PATH_NAME                        ("/tmp/pcap_dnsproxy_fifo")                                                                   //FIFO pathname
++	#define FIFO_PATH_NAME                        ("/opt/tmp/pcap_dnsproxy_fifo")                                                                   //FIFO pathname
+ 	#define FIFO_MESSAGE_FLUSH_DNS                ("Flush DNS cache of Pcap_DNSProxy.")                                                         //The FIFO message to flush dns cache
+ #endif
+ #define DEFAULT_HTTP_VERSION                  "1.1"                                                                                             //Default HTTP version
