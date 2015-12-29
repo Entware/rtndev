@@ -19,12 +19,12 @@
 +my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
  my $wd = "@working_dir@";
 -
-+print $dir_conf;
++# print $dir_conf;
  sub dump_sqlite3
  {
      my %args = @_;
 -
-+print "starting sqlite dump";
++# print "starting sqlite dump";
      exec("echo .dump | sqlite3 '$wd/$args{db_name}.db' > '$wd/$args{db_name}.sql'");
      print "Error while executing sqlite dump $!\n";
      return 1;
@@ -33,7 +33,7 @@
      my ($mode, %args) = @_;
      if ($args{db_type} eq 'SQLite3') {
 -	$ENV{PATH}="@SQLITE_BINDIR@:$ENV{PATH}";
-+	$ENV{PATH}="/opt/include:$ENV{PATH}";
++	$ENV{PATH}="/opt/bin:$ENV{PATH}";
  	if ($mode eq 'dump') {
  	    dump_sqlite3(%args);
  	}
