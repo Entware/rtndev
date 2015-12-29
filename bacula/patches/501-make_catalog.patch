@@ -11,12 +11,15 @@
    mysql)
 --- a/src/cats/make_catalog_backup.pl.in
 +++ b/src/cats/make_catalog_backup.pl.in
-@@ -27,13 +27,13 @@
-     $cat = shift or die "Usage: $0 [-m] catalogname";
- }
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/opt/bin/perl
+ #
+ # Author: Eric Bollengier, Copyright, 2006
+ # License: BSD 2-Clause; see file LICENSE-FOSS
+@@ -29,11 +29,11 @@
  
--my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
-+my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
+ my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
  my $wd = "@working_dir@";
 -
 +# print $dir_conf;
@@ -24,7 +27,7 @@
  {
      my %args = @_;
 -
-+# print "starting sqlite dump";
++#   print "starting sqlite dump";
      exec("echo .dump | sqlite3 '$wd/$args{db_name}.db' > '$wd/$args{db_name}.sql'");
      print "Error while executing sqlite dump $!\n";
      return 1;
