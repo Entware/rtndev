@@ -1,0 +1,259 @@
+--- a/scripts/bacula-ctl-dir.in
++++ b/scripts/bacula-ctl-dir.in
+@@ -30,14 +30,14 @@
+ # License: BSD 2-Clause; see file LICENSE-FOSS
+ #
+ 
+-PSCMD="@PSCMD@"
++PSCMD="ps -w"
+ PS="ps"
+ 
+ #
+ # On Solaris, you may need to use nawk, or alternatively,
+ #  add the GNU binaries to your path, such as /usr/xpg4/bin
+ #
+-AWK=@AWK@
++AWK=/opt/bin/gawk
+ 
+ # All these are not *really* needed but it makes it
+ #  easier to "steal" this code for the development 
+@@ -82,27 +82,27 @@
+    # Kill it.
+    if [ "$pid" != "" ] ; then
+       if [ "$notset" = "1" ] ; then
+-         if ${PS} -p "$pid">/dev/null 2>&1; then
++         if status $1 $2 >/dev/null 2>&1; then
+              # TERM first, then KILL if not dead
+              kill -TERM $pid 2>/dev/null
+              sleep 1
+-             if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++             if status $1 $2 >/dev/null 2>&1; then
+                  sleep 1
+-                 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                 if status $1 $2 >/dev/null 2>&1; then
+                      sleep 3
+-                     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                     if status $1 $2 >/dev/null 2>&1; then
+                          kill -KILL $pid 2>/dev/null
+                      fi
+                  fi
+              fi
+           fi
+-          ${PS} -p "$pid" >/dev/null 2>&1
+-          RC=$?
+-          [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
++#          ${PS} -p "$pid" >/dev/null 2>&1
++          RC=`pidofproc $base $2`
++          [ "$RC" != "" ] && failure "$base shutdown" || success "$base shutdown"
+       #    RC=$((! $RC))
+       # use specified level only
+       else
+-         if ${PS} -p "$pid" >/dev/null 2>&1; then
++         if status $1 $2 >/dev/null 2>&1; then
+             kill $killlevel $pid 2>/dev/null
+             RC=$?
+             [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
+@@ -141,7 +141,7 @@
+ 
+    # Next try "pidof"
+    if [ -x ${PIDOF} ] ; then
+-      pid=`${PIDOF} $1`
++      pid=`${PIDOF} $base`
+    fi
+    if [ "$pid" != "" ] ; then
+       echo $pid
+@@ -167,7 +167,7 @@
+ 
+    # First try "pidof"
+    if [ -x ${PIDOF} ] ; then
+-      pid=`${PIDOF} $1`
++      pid=`${PIDOF} $base`
+    fi
+    if [ "$pid" != "" ] ; then
+       echo "$base (pid $pid) is running..."
+@@ -255,8 +255,12 @@
+       [ -x ${BACDIRBIN}/bacula-dir ] && status ${BACDIRBIN}/bacula-dir ${DIR_PORT}
+       ;;
+ 
++   test)
++      echo `${BACDIRBIN}/bacula-dir $2 $3 -t -c ${BACDIRCFG}/bacula-dir.conf`
++      ;;
++
+    *)
+-      echo "Usage: $0 {start|stop|restart|status}"
++      echo "Usage: $0 {start|stop|restart|status|test}"
+       exit 1
+       ;;
+ esac
+--- a/scripts/bacula-ctl-fd.in
++++ b/scripts/bacula-ctl-fd.in
+@@ -27,14 +27,14 @@
+ # description: The Leading Open Source Backup Solution.
+ #
+ 
+-PSCMD="@PSCMD@"
++PSCMD="ps -w"
+ PS="ps"
+ 
+ #
+ # On Solaris, you may need to use nawk, or alternatively,
+ #  add the GNU binaries to your path, such as /usr/xpg4/bin
+ #
+-AWK=@AWK@
++AWK=/opt/bin/gawk
+ 
+ # All these are not *really* needed but it makes it
+ #  easier to "steal" this code for the development 
+@@ -79,27 +79,27 @@
+    # Kill it.
+    if [ "$pid" != "" ] ; then
+       if [ "$notset" = "1" ] ; then
+-         if ${PS} -p "$pid">/dev/null 2>&1; then
++          if status $1 $2 >/dev/null 2>&1; then
+              # TERM first, then KILL if not dead
+              kill -TERM $pid 2>/dev/null
+              sleep 1
+-             if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++             if status $1 $2 >/dev/null 2>&1 ; then
+                  sleep 1
+-                 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                 if status $1 $2 >/dev/null 2>&1 ; then
+                      sleep 3
+-                     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                     if status $1 $2 >/dev/null 2>&1 ; then
+                          kill -KILL $pid 2>/dev/null
+                      fi
+                  fi
+              fi
+           fi
+-          ${PS} -p "$pid" >/dev/null 2>&1
+-          RC=$?
+-          [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
++#          ${PS} -p "$pid" >/dev/null 2>&1
++          RC=`pidofproc $base $2`
++          [ "$RC" != "" ] && failure "$base shutdown" || success "$base shutdown"
+       #    RC=$((! $RC))
+       # use specified level only
+       else
+-         if ${PS} -p "$pid" >/dev/null 2>&1; then
++         if status $1 $2 >/dev/null 2>&1; then
+             kill $killlevel $pid 2>/dev/null
+             RC=$?
+             [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
+@@ -138,7 +138,7 @@
+ 
+    # Next try "pidof"
+    if [ -x ${PIDOF} ] ; then
+-      pid=`${PIDOF} $1`
++      pid=`${PIDOF} $base`
+    fi
+    if [ "$pid" != "" ] ; then
+       echo $pid
+@@ -164,7 +164,7 @@
+ 
+    # First try "pidof"
+    if [ -x ${PIDOF} ] ; then
+-      pid=`${PIDOF} $1`
++      pid=`${PIDOF} $base`
+    fi
+    if [ "$pid" != "" ] ; then
+       echo "$base (pid $pid) is running..."
+@@ -252,8 +252,11 @@
+       [ -x ${BACFDBIN}/bacula-fd ] && status ${BACFDBIN}/bacula-fd  ${FD_PORT}
+       ;;
+ 
++   test)
++      echo `${BACFDBIN}/bacula-fd $2 $3 -t -c ${BACFDCFG}/bacula-fd.conf`
++      ;;
+    *)
+-      echo "Usage: $0 {start|stop|restart|status}"
++      echo "Usage: $0 {start|stop|restart|status|test}"
+       exit 1
+       ;;
+ esac
+--- a/scripts/bacula-ctl-sd.in
++++ b/scripts/bacula-ctl-sd.in
+@@ -27,14 +27,14 @@
+ # description: The Leading Open Source Backup Solution.
+ #
+ 
+-PSCMD="@PSCMD@"
++PSCMD="ps -w"
+ PS="ps"
+ 
+ #
+ # On Solaris, you may need to use nawk, or alternatively,
+ #  add the GNU binaries to your path, such as /usr/xpg4/bin
+ #
+-AWK=@AWK@
++AWK=/opt/bin/gawk
+ 
+ # All these are not *really* needed but it makes it
+ #  easier to "steal" this code for the development 
+@@ -79,27 +79,27 @@
+    # Kill it.
+    if [ "$pid" != "" ] ; then
+       if [ "$notset" = "1" ] ; then
+-         if ${PS} -p "$pid">/dev/null 2>&1; then
++         if status $1 $2 >/dev/null 2>&1; then
+              # TERM first, then KILL if not dead
+              kill -TERM $pid 2>/dev/null
+              sleep 1
+-             if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++             if status $1 $2 >/dev/null 2>&1; then
+                  sleep 1
+-                 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                 if status $1 $2 >/dev/null 2>&1; then
+                      sleep 3
+-                     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                     if status $1 $2 >/dev/null 2>&1; then
+                          kill -KILL $pid 2>/dev/null
+                      fi
+                  fi
+              fi
+           fi
+-          ${PS} -p "$pid" >/dev/null 2>&1
+-          RC=$?
+-          [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
++#          ${PS} -p "$pid" >/dev/null 2>&1
++          RC=`pidofproc $base $2`
++          [ "$RC" != "" ] && failure "$base shutdown" || success "$base shutdown"
+       #    RC=$((! $RC))
+       # use specified level only
+       else
+-         if ${PS} -p "$pid" >/dev/null 2>&1; then
++         if status $1 $2 >/dev/null 2>&1; then
+             kill $killlevel $pid 2>/dev/null
+             RC=$?
+             [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
+@@ -138,7 +138,7 @@
+ 
+    # Next try "pidof"
+    if [ -x ${PIDOF} ] ; then
+-      pid=`${PIDOF} $1`
++      pid=`${PIDOF} $base`
+    fi
+    if [ "$pid" != "" ] ; then
+       echo $pid
+@@ -164,7 +164,7 @@
+ 
+    # First try "pidof"
+    if [ -x ${PIDOF} ] ; then
+-      pid=`${PIDOF} $1`
++      pid=`${PIDOF} $base`
+    fi
+    if [ "$pid" != "" ] ; then
+       echo "$base (pid $pid) is running..."
+@@ -252,8 +252,11 @@
+       [ -x ${BACSDBIN}/bacula-sd   ] && status ${BACSDBIN}/bacula-sd  ${SD_PORT}
+       ;;
+ 
++    test)
++	  echo `${BACSDBIN}/bacula-sd $2 $3 -t -c ${BACSDCFG}/bacula-sd.conf`
++	  ;;
+    *)
+-      echo "Usage: $0 {start|stop|restart|status}"
++      echo "Usage: $0 {start|stop|restart|status|test}"
+       exit 1
+       ;;
+ esac

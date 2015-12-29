@@ -1,0 +1,39 @@
+--- a/src/cats/make_catalog_backup.in
++++ b/src/cats/make_catalog_backup.in
+@@ -59,7 +59,7 @@
+ 
+ case ${db_type} in
+   sqlite3)
+-    BINDIR=@SQLITE_BINDIR@
++    BINDIR=/opt/bin
+     echo ".dump" | ${BINDIR}/sqlite3 $1.db >$1.sql
+     ;;
+   mysql)
+--- a/src/cats/make_catalog_backup.pl.in
++++ b/src/cats/make_catalog_backup.pl.in
+@@ -27,13 +27,13 @@
+     $cat = shift or die "Usage: $0 [-m] catalogname";
+ }
+ 
+-my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
++my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
+ my $wd = "@working_dir@";
+-
++print $dir_conf;
+ sub dump_sqlite3
+ {
+     my %args = @_;
+-
++print "starting sqlite dump";
+     exec("echo .dump | sqlite3 '$wd/$args{db_name}.db' > '$wd/$args{db_name}.sql'");
+     print "Error while executing sqlite dump $!\n";
+     return 1;
+@@ -136,7 +136,7 @@
+ {
+     my ($mode, %args) = @_;
+     if ($args{db_type} eq 'SQLite3') {
+-	$ENV{PATH}="@SQLITE_BINDIR@:$ENV{PATH}";
++	$ENV{PATH}="/opt/include:$ENV{PATH}";
+ 	if ($mode eq 'dump') {
+ 	    dump_sqlite3(%args);
+ 	}
