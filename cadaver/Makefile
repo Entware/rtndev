@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2012 Erinome.net
-# Copyright (C) 2013-2015 Entware
+# Copyright (C) 2013-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -14,7 +14,7 @@ PKG_VERSION:=0.23.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.webdav.org/cadaver/
+PKG_SOURCE_URL:=http://www.webdav.org/cadaver
 PKG_MD5SUM:=502ecd601e467f8b16056d2acca39a6f
 
 PKG_INSTALL:=1
@@ -29,7 +29,7 @@ define Package/cadaver
 	DEPENDS:=+libncurses +libexpat +libneon +libopenssl +libreadline
 	TITLE:=Command-line WebDAV client
 	URL:=http://www.webdav.org/cadaver/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/cadaver/description

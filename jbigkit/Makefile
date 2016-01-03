@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -21,7 +21,7 @@ define Package/jbigkit/Default
 	SUBMENU:=Printing
 	TITLE:=JBIG1 implementation
 	URL:=http://www.cl.cam.ac.uk/~mgk25/jbigkit/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/libjbig

@@ -1,10 +1,8 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
-#
-# Thanks to MercuryV @ wl500g.info
 #
 
 include $(TOPDIR)/rules.mk
@@ -14,7 +12,7 @@ PKG_VERSION:=4.0.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://rephial.org/downloads/4.0/
+PKG_SOURCE_URL:=http://rephial.org/downloads/4.0
 PKG_MD5SUM:=d1d065d2d13221755a2a689c17e7a895
 
 PKG_FIXUP:=autoreconf
@@ -28,7 +26,7 @@ define Package/angband
 	DEPENDS:=+libncursesw
 	TITLE:=single-player, text-based, dungeon simulation game
 	URL:=http://rephial.org
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/angband/description

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -13,7 +13,7 @@ PKG_VERSION:=1.3.12
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://download.deluge-torrent.org/source/
+PKG_SOURCE_URL:=http://download.deluge-torrent.org/source
 PKG_MD5SUM:=fdc3b496b676c3ef0dcf9cfdc46facce
 
 
@@ -26,6 +26,7 @@ define Package/deluge/Default
   CATEGORY:=Network
   TITLE:=A lightweight BitTorrent client
   URL:=http://deluge-torrent.org/
+  MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/deluge

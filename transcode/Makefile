@@ -1,11 +1,9 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2009 Brice DUBOST
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
-#
-# Copyright (C) 2009 Brice DUBOST
-# L. Trifonov used as template for transcode 
 #
 # Abandoned in 2009
 
@@ -29,7 +27,7 @@ define Package/transcode
 	DEPENDS:=+zlib +libpthread
 	TITLE:=A/V transcoding suite
 	URL:=http://tcforge.berlios.de/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/transcode/description

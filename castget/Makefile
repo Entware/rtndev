@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -30,7 +30,7 @@ define Package/castget
 	DEPENDS:=+libcurl +glib2 +libxml2 $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=a command-line podcast downloader
 	URL:=http://www.nongnu.org/castget
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/castget/description

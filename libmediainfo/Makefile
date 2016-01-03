@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,7 +26,7 @@ define Package/libmediainfo
 	CATEGORY:=Libraries
 	TITLE:=Mediainfo support library
 	URL:=http://mediaarea.net/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/libmediainfo/description
@@ -34,7 +34,6 @@ define Package/libmediainfo/description
 endef
 
 CONFIGURE_PATH:=Project/GNU/Library
-#TARGET_CFLAGS += -I$(STAGING_DIR)/opt/include/ZenLib
 
 define Build/Configure
 	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \

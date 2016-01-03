@@ -1,9 +1,8 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
-#
 #
 
 include $(TOPDIR)/rules.mk
@@ -41,7 +40,7 @@ define Package/rutorrent/Default
 	DEPENDS:=+rtorrent-rpc +coreutils-stat +coreutils-id +gzip +curl
 	TITLE:=Yet another web front-end for rTorrent
 	URL:=$(PKG_SOURCE_URL)
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/rutorrent

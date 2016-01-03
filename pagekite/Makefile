@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -29,7 +29,7 @@ define Package/$(PKG_NAME)
 	TITLE:=Make localhost servers publicly visible.
 	URL:=http://pagekite.net
 	DEPENDS+=+python +python-openssl +openssl-util +python-socksipychain +net-tools-arp
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/$(PKG_NAME)/description

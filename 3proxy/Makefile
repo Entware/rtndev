@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware, 2012 Zyxmon.org
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,7 +26,7 @@ define Package/3proxy
 	DEPENDS:=+libpthread
 	TITLE:=3proxy free proxy server
 	URL:=http://www.3proxy.ru
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/3proxy/description

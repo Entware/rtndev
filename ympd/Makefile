@@ -1,10 +1,9 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-
 
 include $(TOPDIR)/rules.mk
 
@@ -28,7 +27,7 @@ define Package/ympd
 	DEPENDS:=+libmpdclient +libpthread
 	TITLE:=MPD Web GUI
 	URL:=http://www.ympd.org/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/ympd/description

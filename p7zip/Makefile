@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -27,7 +27,7 @@ define Package/p7zip
 	DEPENDS:=+libpthread +libstdcpp
 	TITLE:=Command line version of 7-zip for POSIX systems
 	URL:=http://p7zip.sourceforge.net
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/p7zip/description

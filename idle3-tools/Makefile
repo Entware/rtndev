@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2011-2015 Entware
+# (c) Cezary Jackiewicz <cezary@eko.one.pl>
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# (c) Cezary Jackiewicz <cezary@eko.one.pl>
 
 include $(TOPDIR)/rules.mk
 
@@ -27,7 +27,7 @@ define Package/idle3-tools
 	SUBMENU:=disc
 	TITLE:=WD idle3 timer settings
 	URL:=http://idle3-tools.sourceforge.net/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/idle3-tools/description

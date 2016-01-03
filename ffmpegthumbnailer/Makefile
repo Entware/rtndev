@@ -25,6 +25,7 @@ define Package/libffmpegthumbnailer
   TITLE:=library to create thumbnails
   URL:=https://github.com/dirkvdb/ffmpegthumbnailer
   DEPENDS:=+ffmpeg +libpng +libjpeg +libstdcpp
+  MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/libffmpegthumbnailer/description

@@ -1,10 +1,9 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-
 
 include $(TOPDIR)/rules.mk
 
@@ -26,7 +25,7 @@ define Package/$(PKG_NAME)
 	TITLE:=Python and CLI interface to MS OneDrive REST API v5.0
 	URL:=https://github.com/mk-fg/python-onedrive
 	DEPENDS:=+python-requests +python-yaml
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/$(PKG_NAME)/description

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -12,7 +12,7 @@ PKG_VERSION:=1.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://sites.google.com/site/columscode/files/
+PKG_SOURCE_URL:=https://sites.google.com/site/columscode/files
 PKG_MD5SUM:=db162d6963b9753d6235f23419d08a5a
 
 include $(INCLUDE_DIR)/package.mk
@@ -23,7 +23,7 @@ define Package/movgrab
 	DEPENDS:=+zlib +libopenssl
 	TITLE:=movgrab is a commandline video downloader
 	URL:=https://sites.google.com/site/columscode/home/movgrab
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/movgrab/description

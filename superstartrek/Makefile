@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -16,7 +16,6 @@ PKG_SOURCE_URL:=http://www.almy.us/files
 PKG_MD5SUM:=e5ce8d6bfd867afdbf6681a95ce0fd8f
 
 PKG_UNPACK:=unzip -j $(DL_DIR)/$(PKG_SOURCE) sstsrc/* -d $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-#PKG_BUILD_DIR:=$(BUILD_DIR)/sstsrc
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -25,7 +24,7 @@ define Package/superstartrek
 	CATEGORY:=Games
 	TITLE:=A quite possibly the best of the Star Trek games from the 1970s
 	URL:=http://www.almy.us/sst.html
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/superstartrek/description

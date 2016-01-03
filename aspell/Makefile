@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -25,7 +25,7 @@ define Package/aspell
 	DEPENDS:=+libncursesw +libaspell
 	TITLE:=spell checker
 	URL:=http://aspell.net/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/libaspell
@@ -34,7 +34,7 @@ define Package/libaspell
 	DEPENDS:=+libstdcpp
 	TITLE:=spell checker library
 	URL:=http://aspell.net/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/aspell/description

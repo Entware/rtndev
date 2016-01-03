@@ -27,7 +27,7 @@ define Package/python-werkzeug
 	DEPENDS:=+python
 	TITLE:=python utilities for WSGI applications
 	URL:=http://werkzeug.pocoo.org/
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/python-werkzeug/description

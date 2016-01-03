@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# FUSE module not working! https://github.com/MediaFire/mediafire-fuse/issues/36
+# FUSE module is not working! https://github.com/MediaFire/mediafire-fuse/issues/36
 #
 
 include $(TOPDIR)/rules.mk
@@ -30,7 +30,7 @@ define Package/mediafire-fuse
 	DEPENDS:=+libcurl +libfuse +jansson
 	TITLE:=mediafire account utilities
 	URL:=https://github.com/TurboGit/mediafire-fuse
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/mediafire-fuse/description

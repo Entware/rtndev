@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware, Zyxmon.org
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,7 +23,7 @@ define Package/balance
 	SUBMENU:=Web Servers/Proxies
 	TITLE:=load balancing proxy
 	URL:=http://www.inlab.de/balance.html
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/balance/description
