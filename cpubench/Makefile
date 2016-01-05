@@ -18,7 +18,7 @@ define Package/cpubench
 	CATEGORY:=Utilities
 	SUBMENU:=CPU tools
 	TITLE:=OpenWRT's CPU Benchmark
-	URL:=http://wl500g.info/showthread.php?30444-%D1%F0%E0%E2%ED%E5%ED%E8%E5-%EF%F0%EE%E8%E7%E2%EE%E4%E8%F2%E5%EB%FC%ED%EE%F1%F2%E8-%EF%F0%EE%F6%E5%F1%F1%EE%F0%EE%E2-%F0%EE%F3%F2%E5%F0%EE%E2
+	URL:=http://wl500g.info/showthread.php?30444
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
