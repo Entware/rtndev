@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=castget
-PKG_VERSION:=1.2.0
+PKG_VERSION:=1.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://download.savannah.gnu.org/releases/castget
-PKG_MD5SUM:=8410fb01d1ff66125c60250398d8c565
+PKG_MD5SUM:=227a61af947c7fb50a76c011e262d37a
 
 PKG_INSTALL:=1
 
@@ -27,7 +27,7 @@ define Package/castget
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libcurl +glib2 +libxml2 $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+libcurl +glib2 +libxml2 +id3lib $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=a command-line podcast downloader
 	URL:=http://www.nongnu.org/castget
 	MAINTAINER:=Entware team, http://entware.net
@@ -37,9 +37,6 @@ define Package/castget/description
  castget is a simple, command-line based RSS enclosure downloader.
  It is primarily intended for automatic, unattended downloading of podcasts.
 endef
-
-CONFIGURE_ARGS += \
-	--disable-id3lib
 
 define Package/castget/conffiles
 /opt/etc/castgetrc
