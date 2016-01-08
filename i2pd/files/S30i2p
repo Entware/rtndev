@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ENABLED=yes
-PROCS=i2p
+PROCS=i2pd
 ARGS="--conf=/opt/etc/i2p.conf"
 PREARGS=""
 DESC=$PROCS

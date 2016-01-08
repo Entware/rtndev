@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=i2pd
-PKG_VERSION:=0.10.0-20151201
-PKG_REV:=988007a8c9105b5ff94888d908458fd7cf71a72f
-PKG_RELEASE:=3
+PKG_VERSION:=2.20
+PKG_REV:=ca315c51a0de0160db69df5bb89db8e9cb770c35
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -46,7 +46,7 @@ endef
 
 define Package/i2pd/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/i2p $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/i2pd $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_CONF) ./files/i2p.conf $(1)/opt/etc
 	$(INSTALL_BIN) ./files/S30i2p $(1)/opt/etc/init.d
