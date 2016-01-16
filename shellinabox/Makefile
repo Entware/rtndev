@@ -1,3 +1,4 @@
+#
 # Copyright (C) 2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
@@ -20,6 +21,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/shellinabox/shellinabox.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
@@ -28,12 +30,13 @@ define Package/shellinabox
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=Shell In A Box
-	DEPENDS:= +zlib +libopenssl
+	DEPENDS:=+libopenssl
 	URL:=https://github.com/shellinabox/shellinabox
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/shellinabox/description
-Web based AJAX terminal emulator
+ Web based AJAX terminal emulator
 endef
 
 CONFIGURE_ARGS += \
@@ -44,7 +47,7 @@ CONFIGURE_ARGS += \
 define Package/shellinabox/install
 	# install the binary
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/shellinaboxd $(1)/opt/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/shellinaboxd $(1)/opt/sbin
 	# install the init.d file
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S88shellinaboxd $(1)/opt/etc/init.d
