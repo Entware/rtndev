@@ -1,0 +1,11 @@
+--- a/shellinabox/launcher.c
++++ b/shellinabox/launcher.c
+@@ -1685,6 +1685,8 @@
+            (void *)0, environment);
+     execle("/usr/bin/login", "login", "-p", "-h", remoteHost,
+            (void *)0, environment);
++    execle("/opt/bin/login", "login", "-p", "-h", remoteHost,
++           (void *)0, environment);
+   } else {
+     // Launch user provied service
+     execService(width, height, service, peerName, realIP, environment, url);
