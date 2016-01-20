@@ -1,0 +1,17 @@
+--- a/makefile
++++ b/makefile
+@@ -26,12 +26,12 @@
+ CCFLAGS:=-g -D_FILE_OFFSET_BITS=64 -DDEBUG -D_DEBUG
+ endif
+ 
+-PCS_CCFLAGS = -fPIC $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS)
++PCS_CCFLAGS = -fPIC $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) $(CFLAGS)
+ 
+ all: bin/libpcs.a bin/pcs
+ 
+ bin/pcs : pre bin/libpcs.a $(SHELL_OBJS)
+-	$(CC) -o $@ $(SHELL_OBJS) $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) -L./bin -lpcs -lm -lcurl -lssl -lcrypto -lpthread
++	$(CC) -o $@ $(SHELL_OBJS) $(LDFLAGS) $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) -L./bin -lpcs -lm -lcurl -lssl -lcrypto -lpthread
+ 
+ bin/shell_arg.o: arg.c arg.h
+ 	$(CC) -o $@ -c $(PCS_CCFLAGS) arg.c
