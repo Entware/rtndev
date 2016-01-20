@@ -40,7 +40,7 @@ define Package/libserf/description
  Serf is the default client library of Apache Subversion and Apache OpenOffice 
 endef
 
-# Dirty trick to define PATH_MAX. It is needed by apr.h. PATH_MAX is defined in <linux/limits> and is the save for all feeds
+# Dirty trick to define PATH_MAX. It is needed by apr.h. PATH_MAX is defined in <linux/limits> and is the same for all feeds
 
 SCONS_OPTIONS += \
 	CC="$(TOOLCHAIN_DIR)/bin/$(TARGET_CC_NOCACHE)" \
