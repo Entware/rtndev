@@ -43,10 +43,8 @@ CONFIGURE_ARGS += --enable-openssl
 
 TARGET_CFLAGS += -Iinclude
 
-MAKE_VARS += _PATH_VARRUN="/opt/var/run"
-
 define Package/inadyn/install
-	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/bin $(1)/opt/var/run/inadyn
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/inadyn $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_CONF) ./files/inadyn.conf $(1)/opt/etc
