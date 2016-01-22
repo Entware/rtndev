@@ -1,13 +1,11 @@
 --- a/include/ddns.h
 +++ b/include/ddns.h
-@@ -37,8 +37,8 @@
+@@ -39,7 +39,7 @@
  #define SUPPORT_ADDR	PACKAGE_BUGREPORT
  
  /* Test values */
 -#define DEFAULT_CONFIG_FILE	"/etc/inadyn.conf"
--#define DEFAULT_CACHE_DIR       "/var/cache/inadyn/"
 +#define DEFAULT_CONFIG_FILE	"/opt/etc/inadyn.conf"
-+#define DEFAULT_CACHE_DIR       "/opt/var/inadyn/"
+ #define RUNTIME_DATA_DIR        _PATH_VARRUN     "inadyn/"
+ #define DEFAULT_PIDFILE         RUNTIME_DATA_DIR "inadyn.pid"
  
- #define DYNDNS_MY_IP_SERVER	"checkip.dyndns.org"
- #define DYNDNS_MY_CHECKIP_URL	"/"

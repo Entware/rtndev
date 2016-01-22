@@ -8,10 +8,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=inadyn
-PKG_VERSION:=1.99.15-20151012
+PKG_VERSION:=1.99.15
 PKG_RELEASE:=1
 
-PKG_REV:=880a0e34cb6874ec62bf2ce9755a30577c00aee7
+PKG_REV:=45a66f953f1601296048d928d003aac2863477e8
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_PROTO:=git
@@ -26,7 +26,7 @@ define Package/inadyn
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=IP Addresses and Names
-	DEPENDS:=+libopenssl +confuse
+	DEPENDS:=+libopenssl
 	TITLE:=a simple and small DDNS client
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, http://entware.net
@@ -46,11 +46,11 @@ TARGET_CFLAGS += -Iinclude
 MAKE_VARS += _PATH_VARRUN="/opt/var/run"
 
 define Package/inadyn/install
-	$(INSTALL_DIR) $(1)/opt/bin $(1)/opt/var/inadyn
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/inadyn $(1)/opt/bin/
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/inadyn $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_CONF) ./files/inadyn.conf $(1)/opt/etc/
-	$(INSTALL_BIN) ./files/S52inadyn $(1)/opt/etc/init.d/
+	$(INSTALL_CONF) ./files/inadyn.conf $(1)/opt/etc
+	$(INSTALL_BIN) ./files/S52inadyn $(1)/opt/etc/init.d
 endef
 
 define Package/inadyn/conffiles
