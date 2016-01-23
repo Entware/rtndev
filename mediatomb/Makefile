@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2015 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -11,26 +11,30 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/nls.mk
 
 PKG_NAME:=mediatomb
-PKG_VERSION:=0.12.1
-PKG_RELEASE:=6
+PKG_VERSION:=0.12.1-20140713
+PKG_RELEASE:=1
+PKG_FIXUP:=autoreconf
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@SF/mediatomb
-PKG_MD5SUM:=e927dd5dc52d3cfcebd8ca1af6f0d3c2
+PKG_REV:=7ab761696354868bd5d67ff4f2d849994e4c98e2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=git://git.code.sf.net/p/mediatomb/code
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_BUILD_PARALLEL:=0
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/mediatomb
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	DEPENDS:=+libexif +libsqlite3 +id3lib +file +libpthread +libmagic \
-		+libjs +libexpat +libffmpeg +libstdcpp +libcurl +libopenssl \
-		+$(ICONV_DEPENDS)
+	DEPENDS:=+libexif +libsqlite3 +id3lib +file +libpthread +libjs +libexpat +libffmpeg +libstdcpp \
+		+$(ICONV_DEPENDS) +libuuid +libflac +libffmpegthumbnailer
 	TITLE:=A powerfull UPNP media server
 	URL:=http://www.mediatomb.cc
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, entware.wl500g.info
 endef
 
 define Package/mediatomb/description
@@ -42,6 +46,9 @@ define Package/mediatomb/conffiles
 /opt/etc/mediatomb/config.xml
 /opt/etc/mediatomb/mediatomb.db
 endef
+
+TARGET_LDFLAGS += -lm -ldl -ljs
+TARGET_CXXFLAGS += -I$(STAGING_DIR)/opt/include/js $(TARGET_CFLAGS) $(TARGET_LDFLAGS)
 
 CONFIGURE_ARGS += \
 	--prefix=/opt \
@@ -63,23 +70,22 @@ CONFIGURE_ARGS += \
 	--enable-sqlite3 \
 	--enable-sqlite-backup-defaults \
 	--disable-mysql \
-	--disable-external-transcoding \
-	--disable-ffmpegthumbnailer \
+	--enable-external-transcoding \
+	--enable-ffmpegthumbnailer \
 	--disable-libmp4v2 \
 	--disable-lastfmlib \
 	--enable-libexif \
 	--enable-iconv-lib \
 	--with-iconv-h=$(ICONV_PREFIX)/include \
 	--with-iconv-libs=$(ICONV_PREFIX)/lib \
-	--with-js-h=$(STAGING_DIR)/opt/include/js \
 	--disable-libmp4v2
 
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		HOSTCC="$(HOSTCC)" \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		all install
-endef
+#define Build/Compile
+#	$(MAKE) -C $(PKG_BUILD_DIR) \
+#		HOSTCC="$(HOSTCC)" \
+#		DESTDIR="$(PKG_INSTALL_DIR)" \
+#		all install
+#endef
 
 define Package/mediatomb/install
 	$(INSTALL_DIR) $(1)/opt/etc/mediatomb $(1)/opt/bin $(1)/opt/share $(1)/opt/var/mediatomb

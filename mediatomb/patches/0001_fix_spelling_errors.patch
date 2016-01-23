@@ -1,0 +1,89 @@
+Description: Fix spelling errors.
+ Fix the spelling errors mentioned by lintian.
+Author: Miguel A. Colón Vélez <debian.micove@gmail.com>
+Last-Update: 2012-03-24
+
+--- a/src/web_request_handler.h
++++ b/src/web_request_handler.h
+@@ -150,7 +150,7 @@
+                                      IN enum UpnpOpenFileMode mode,
+                                      IN zmm::String range);
+     
+-    /// \brief This method must be overriden by the subclasses that actually process the given request.
++    /// \brief This method must be overridden by the subclasses that actually process the given request.
+     virtual void process() = 0;
+     
+     /// \brief builds full path to a script for the given relative filename
+--- a/src/youtube_service.cc
++++ b/src/youtube_service.cc
+@@ -337,7 +337,7 @@
+         return temp;
+     else
+         throw _Exception(_("Tag <") + xml->getName() +
+-                _("> is missing the requred \"") + attrname + 
++                _("> is missing the required \"") + attrname + 
+                 _("\" attribute!"));
+     return nil;
+ }
+@@ -350,7 +350,7 @@
+         itmp = temp.toInt();
+     else
+         throw _Exception(_("Tag <") + xml->getName() +
+-                _("> is missing the requred \"") + attrname + 
++                _("> is missing the required \"") + attrname + 
+                 _("\" attribute!"));
+ 
+     if (itmp < 1)
+--- a/src/online_service.cc
++++ b/src/online_service.cc
+@@ -98,7 +98,7 @@
+         return temp;
+     else
+         throw _Exception(getServiceName() + _(": Tag <") + xml->getName() +
+-                _("> is missing the requred \"") + attrname +
++                _("> is missing the required \"") + attrname +
+                 _("\" attribute!"));
+     return nil;
+ }
+@@ -111,7 +111,7 @@
+         itmp = temp.toInt();
+     else
+         throw _Exception(getServiceName() + _(": Tag <") + xml->getName() +
+-                _("> is missing the requred \"") + attrname +
++                _("> is missing the required \"") + attrname +
+                 _("\" attribute!"));
+ 
+     if (itmp < 1)
+--- a/src/main.cc
++++ b/src/main.cc
+@@ -197,7 +197,7 @@
+                 break;
+ 
+             case 'd':
+-                log_debug("Starting in deamon mode...");
++                log_debug("Starting in daemon mode...");
+                 daemon = true;
+                 break;
+ 
+--- a/src/storage/sql_storage.h
++++ b/src/storage/sql_storage.h
+@@ -242,7 +242,7 @@
+     void addToInsertBuffer(zmm::Ref<zmm::StringBuffer> query);
+     void flushInsertBuffer(bool dontLock = false);
+     
+-    /* insert buffer functions to be overriden by implementing classes */
++    /* insert buffer functions to be overridden by implementing classes */
+     virtual void _addToInsertBuffer(zmm::Ref<zmm::StringBuffer> query) = 0;
+     virtual void _flushInsertBuffer() = 0;
+     
+--- a/src/storage/sql_storage.cc
++++ b/src/storage/sql_storage.cc
+@@ -136,7 +136,7 @@
+ void SQLStorage::init()
+ {
+     if (table_quote_begin == '\0' || table_quote_end == '\0')
+-        throw _Exception(_("quote vars need to be overriden!"));
++        throw _Exception(_("quote vars need to be overridden!"));
+     
+     Ref<StringBuffer> buf(new StringBuffer());
+     *buf << SQL_QUERY_FOR_STRINGBUFFER;

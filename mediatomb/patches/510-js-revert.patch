@@ -1,0 +1,917 @@
+diff -Naur mediatomb-git/src/scripting/dvd_image_import_script.cc mediatomb-0.12.1/src/scripting/dvd_image_import_script.cc
+--- mediatomb-git/src/scripting/dvd_image_import_script.cc	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/dvd_image_import_script.cc	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: dvd_image_import_script.cc 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file dvd_image_import_script.cc
+@@ -69,7 +69,7 @@
+             return JS_TRUE;
+         }
+ 
+-        arg = JS_ARGV(cx, argv)[0];
++        arg = argv[0];
+         if (!JSVAL_IS_OBJECT(arg))
+         {
+             log_error("Invalid argument!");
+@@ -83,27 +83,27 @@
+         }
+ 
+         // root it
+-        JS_ARGV(cx, argv)[0] = OBJECT_TO_JSVAL(js_cds_obj);
++        argv[0] = OBJECT_TO_JSVAL(js_cds_obj);
+ 
+-        if (!JS_ValueToInt32(cx, JS_ARGV(cx, argv)[1], &title))
++        if (!JS_ValueToInt32(cx, argv[1], &title))
+         {
+             log_error("addDVDObject: Invalid DVD title number given!\n");
+             return JS_TRUE;
+         }
+ 
+-        if (!JS_ValueToInt32(cx, JS_ARGV(cx, argv)[2], &chapter))
++        if (!JS_ValueToInt32(cx, argv[2], &chapter))
+         {
+             log_error("addDVDObject: Invalid DVD chapter number given!\n");
+             return JS_TRUE;
+         }
+ 
+-        if (!JS_ValueToInt32(cx, JS_ARGV(cx, argv)[3], &audio_track))
++        if (!JS_ValueToInt32(cx, argv[3], &audio_track))
+         {
+             log_error("addDVDObject: Invalid DVD audio track number given!\n");
+             return JS_TRUE;
+         }
+ 
+-        str = JS_ValueToString(cx, JS_ARGV(cx, argv)[4]);
++        str = JS_ValueToString(cx, argv[4]);
+         if (!str)
+         {
+             log_error("addDVDObject: Invalid DVD container chain given!\n");
+@@ -117,7 +117,7 @@
+             return JS_TRUE;
+         }
+ 
+-        JSString *cont = JS_ValueToString(cx, JS_ARGV(cx, argv)[5]);
++        JSString *cont = JS_ValueToString(cx, argv[5]);
+         if (cont)
+         {
+             containerclass = JS_GetStringBytes(cont);
+diff -Naur mediatomb-git/src/scripting/dvd_image_import_script.h mediatomb-0.12.1/src/scripting/dvd_image_import_script.h
+--- mediatomb-git/src/scripting/dvd_image_import_script.h	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/dvd_image_import_script.h	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: dvd_image_import_script.h 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file dvd_image_import_script.h
+diff -Naur mediatomb-git/src/scripting/import_script.cc mediatomb-0.12.1/src/scripting/import_script.cc
+--- mediatomb-git/src/scripting/import_script.cc	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/import_script.cc	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: import_script.cc 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file import_script.cc
+@@ -53,7 +53,8 @@
+     try 
+     {
+         load(scriptPath);
+-        JS_AddNamedObjectRoot(cx, &script, "ImportScript");
++        root = JS_NewScriptObject(cx, script);
++        JS_AddNamedRoot(cx, &root, "ImportScript");
+     }
+     catch (Exception ex)
+     {
+@@ -69,7 +70,7 @@
+ #endif
+ }
+ 
+-void ImportScript::processCdsObject(Ref<CdsObject> obj, String scriptpath)
++void ImportScript::processCdsObject(Ref<CdsObject> obj, String rootpath)
+ {
+ #ifdef JS_THREADSAFE
+     JS_SetContextThread(cx);
+@@ -81,7 +82,7 @@
+         JSObject *orig = JS_NewObject(cx, NULL, NULL, glob);
+         setObjectProperty(glob, _("orig"), orig);
+         cdsObject2jsObject(obj, orig);
+-        setProperty(glob, _("object_script_path"), scriptpath);
++        setProperty(glob, _("object_root_path"), rootpath);
+         execute();
+     }
+     catch (Exception ex)
+@@ -115,8 +116,8 @@
+     JS_BeginRequest(cx);
+ #endif
+     
+-    if (script)
+-        JS_RemoveObjectRoot(cx, &script);
++    if (root)
++        JS_RemoveRoot(cx, &root);
+ 
+ #ifdef JS_THREADSAFE
+     JS_EndRequest(cx);
+diff -Naur mediatomb-git/src/scripting/import_script.h mediatomb-0.12.1/src/scripting/import_script.h
+--- mediatomb-git/src/scripting/import_script.h	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/import_script.h	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: import_script.h 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file import_script.h
+diff -Naur mediatomb-git/src/scripting/js_functions.cc mediatomb-0.12.1/src/scripting/js_functions.cc
+--- mediatomb-git/src/scripting/js_functions.cc	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/js_functions.cc	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: js_functions.cc 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file js_functions.cc
+@@ -46,74 +46,59 @@
+ 
+ using namespace zmm;
+ 
+-//extern "C" {
++extern "C" {
+ 
+ JSBool 
+-js_print(JSContext *cx, uintN argc, jsval *argv)
++js_print(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+     uintN i;
+     JSString *str;
+ 
+-    if (!JS_ConvertArguments(cx, argc, JS_ARGV(cx, argv), "*"))
+-    {
+-        return JS_FALSE;
+-    }
+-
+-    Ref<StringBuffer> buf(new StringBuffer());
+     for (i = 0; i < argc; i++) 
+     {
+-        str = JS_ValueToString(cx, JS_ARGV(cx, argv)[i]);
++        str = JS_ValueToString(cx, argv[i]);
+         if (!str)
+-        {
+-            return JS_FALSE;
+-        }
+-        JS_ARGV(cx, argv)[i] = STRING_TO_JSVAL(str);
+-        char *temp = JS_EncodeString(cx, str);
+-        if (temp)
+-        {
+-            *buf << temp;
+-            free(temp);
+-        }
++            return JS_TRUE;
++        argv[i] = STRING_TO_JSVAL(str);
++        log_js("%s\n", JS_GetStringBytes(str));
+     }
+-    log_js("%s\n", buf->toString().c_str());
+-    JS_SET_RVAL(cx, argv, JSVAL_VOID);
+     return JS_TRUE;
+ }
+ 
+ JSBool
+-js_copyObject(JSContext *cx, uintN argc, jsval *argv)
++js_copyObject(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+     jsval arg;
+     JSObject *js_cds_obj;
+     JSObject *js_cds_clone_obj;
+ 
+-    Script *self = (Script *)JS_GetContextPrivate(cx);
++    Script *self = (Script *)JS_GetPrivate(cx, obj);
+ 
+     try
+     {
+-        arg = JS_ARGV(cx, argv)[0];
++        arg = argv[0];
+         if (!JSVAL_IS_OBJECT(arg))
+             return JS_TRUE;
+ 
+         if (!JS_ValueToObject(cx, arg, &js_cds_obj))
+             return JS_TRUE;
+ 
+-        JS_ARGV(cx, argv)[0] = OBJECT_TO_JSVAL(js_cds_obj);
++        argv[0] = OBJECT_TO_JSVAL(js_cds_obj);
+ 
+         Ref<CdsObject> cds_obj = self->jsObject2cdsObject(js_cds_obj, nil);
+         js_cds_clone_obj = JS_NewObject(cx, NULL, NULL, NULL);
+-        JS_ARGV(cx, argv)[1] = OBJECT_TO_JSVAL(js_cds_clone_obj);
++        argv[1] = OBJECT_TO_JSVAL(js_cds_clone_obj);
+ 
+         self->cdsObject2jsObject(cds_obj, js_cds_clone_obj);
+ 
+-        JS_SET_RVAL(cx, argv, OBJECT_TO_JSVAL(js_cds_clone_obj));
++        *rval = OBJECT_TO_JSVAL(js_cds_clone_obj);
++
+         return JS_TRUE;
+ 
+     }
+     catch (ServerShutdownException se)
+     {
+         log_warning("Aborting script execution due to server shutdown.\n");
+-        JS_SET_RVAL(cx, argv, JSVAL_VOID);
+         return JS_FALSE;
+     }
+     catch (Exception e)
+@@ -121,12 +106,11 @@
+         log_error("%s\n", e.getMessage().c_str());
+         e.printStackTrace();
+     }
+-    JS_SET_RVAL(cx, argv, JSVAL_VOID);
+     return JS_TRUE;
+ }
+ 
+ JSBool
+-js_addCdsObject(JSContext *cx, uintN argc, jsval *argv)
++js_addCdsObject(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+     try
+     {
+@@ -134,7 +118,6 @@
+         JSString *str;
+         String path;
+         String containerclass;
+-        char *ts;
+ 
+         JSObject *js_cds_obj;
+         JSObject *js_orig_obj = NULL;
+@@ -143,7 +126,7 @@
+         Ref<StringConverter> p2i;
+         Ref<StringConverter> i2i;
+ 
+-        Script *self = (Script *)JS_GetContextPrivate(cx);
++        Script *self = (Script *)JS_GetPrivate(cx, obj);
+ 
+         if (self == NULL)
+         {
+@@ -160,51 +143,29 @@
+             i2i = StringConverter::i2i();
+         }
+  
+-        arg = JS_ARGV(cx, argv)[0];
++        arg = argv[0];
+         if (!JSVAL_IS_OBJECT(arg))
+-        {
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_TRUE;
+-        }
+         if (!JS_ValueToObject(cx, arg, &js_cds_obj))
+-        {
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_TRUE;
+-        }
+ 
+         // root it
+-        JS_ARGV(cx, argv)[0] = OBJECT_TO_JSVAL(js_cds_obj);
++        argv[0] = OBJECT_TO_JSVAL(js_cds_obj);
+ 
+-        str = JS_ValueToString(cx, JS_ARGV(cx, argv)[1]);
++        str = JS_ValueToString(cx, argv[1]);
+         if (!str)
+-        {
+             path = _("/");
+-        }
+         else
+-        {
+-            ts = JS_EncodeString(cx, str);
+-            if (ts)
+-            {
+-                path = ts;
+-                JS_free(cx, ts);
+-            }
+-        }
++            path = JS_GetStringBytes(str);
+ 
+-        JSString *cont = JS_ValueToString(cx, JS_ARGV(cx, argv)[2]);
++        JSString *cont = JS_ValueToString(cx, argv[2]);
+         if (cont)
+         {
+-            ts = JS_EncodeString(cx, cont);
+-            if (ts)
+-            {
+-                containerclass = ts;
+-                JS_free(cx, ts);
+-            }
+-            containerclass = ts;
++            containerclass = JS_GetStringBytes(cont);
+             if (!string_ok(containerclass) || containerclass == "undefined")
+                 containerclass = nil;
+         }
+ 
+-        JSObject *obj = JS_THIS_OBJECT(cx, argv);
+         if (self->whoami() == S_PLAYLIST)
+             js_orig_obj = self->getObjectProperty(obj, _("playlist"));
+         else if (self->whoami() == S_IMPORT)
+@@ -213,19 +174,15 @@
+         if (js_orig_obj == NULL)
+         {
+             log_debug("Could not retrieve orig/playlist object\n");
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_TRUE;
+         }
+ 
+         // root it
+-        JS_ARGV(cx, argv)[1] = OBJECT_TO_JSVAL(js_orig_obj);
++        argv[1] = OBJECT_TO_JSVAL(js_orig_obj);
+ 
+         orig_object = self->jsObject2cdsObject(js_orig_obj, self->getProcessedObject());
+         if (orig_object == nil)
+-        {
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_TRUE;
+-        }
+ 
+         Ref<CdsObject> cds_obj;
+         Ref<ContentManager> cm = ContentManager::getInstance();
+@@ -237,7 +194,6 @@
+             if (otype == -1)
+             {
+                 log_error("missing objectType property\n");
+-                JS_SET_RVAL(cx, argv, JSVAL_VOID);
+                 return JS_TRUE;
+             }
+ 
+@@ -251,10 +207,7 @@
+ 
+                 pcd_id = cm->addFile(loc, false, false, true);
+                 if (pcd_id == INVALID_OBJECT_ID)
+-                {
+-                    JS_SET_RVAL(cx, argv, JSVAL_VOID);
+                     return JS_TRUE;
+-                }
+ 
+                 Ref<CdsObject> mainObj = Storage::getInstance()->loadObject(pcd_id);
+                 cds_obj = self->jsObject2cdsObject(js_cds_obj, mainObj);
+@@ -266,10 +219,7 @@
+             cds_obj = self->jsObject2cdsObject(js_cds_obj, orig_object);
+         
+         if (cds_obj == nil)
+-        {
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_TRUE;
+-        }
+ 
+         int id;
+ 
+@@ -302,10 +252,7 @@
+             if (self->whoami() == S_PLAYLIST)
+             {
+                 if (pcd_id == INVALID_OBJECT_ID)
+-                {
+-                    JS_SET_RVAL(cx, argv, JSVAL_VOID);
+                     return JS_TRUE;
+-                }
+ 
+                 /// \todo check why this if is needed?
+                 if (IS_CDS_ACTIVE_ITEM(cds_obj->getObjectType()))
+@@ -337,18 +284,14 @@
+ 
+         JSString *str2 = JS_NewStringCopyN(cx, tmp.c_str(), tmp.length());
+         if (!str2)
+-        {
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_TRUE;
+-        }
+-        
+-        JS_SET_RVAL(cx, argv, STRING_TO_JSVAL(str2));
++        *rval = STRING_TO_JSVAL(str2);
++
+         return JS_TRUE;
+     }
+     catch (ServerShutdownException se)
+     {
+         log_warning("Aborting script execution due to server shutdown.\n");
+-        JS_SET_RVAL(cx, argv, JSVAL_VOID);
+         return JS_FALSE;
+     }
+     catch (Exception e)
+@@ -356,39 +299,29 @@
+         log_error("%s\n", e.getMessage().c_str());
+         e.printStackTrace();
+     }
+-    JS_SET_RVAL(cx, argv, JSVAL_VOID);
+     return JS_TRUE;
+ }
+ 
+-static JSBool convert_charset_generic(JSContext *cx, uintN argc, jsval *argv, charset_convert_t chr)
++static JSBool convert_charset_generic(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval, charset_convert_t chr)
+ {
+     try
+     {
+         JSString *str;
+         String result;
+ 
+-        Script *self = (Script *)JS_GetContextPrivate(cx);
++        Script *self = (Script *)JS_GetPrivate(cx, obj);
+ 
+         if (self == NULL)
+         {
+             log_debug("Could not retrieve class instance from global object\n");
+-            JS_SET_RVAL(cx, argv, JSVAL_VOID);
+             return JS_FALSE;
+         }
+ 
+-        if (JSVAL_IS_STRING(JS_ARGV(cx, argv)[0]))
++        if (JSVAL_IS_STRING(argv[0]))
+         {
+-            str = JS_ValueToString(cx, JS_ARGV(cx, argv)[0]);
++            str = JS_ValueToString(cx, argv[0]);
+             if (str)
+-            {
+-                 
+-                char *ts = JS_EncodeString(cx, str);
+-                if (ts)
+-                {
+-                    result = ts;
+-                    JS_free(cx, ts);
+-                }
+-            }
++                result = JS_GetStringBytes(str);
+         }
+ 
+         if (result != nil)
+@@ -396,17 +329,13 @@
+             result = self->convertToCharset(result, chr);
+             JSString *str2 = JS_NewStringCopyN(cx, result.c_str(), result.length());
+             if (!str2)
+-            {
+-                JS_SET_RVAL(cx, argv, JSVAL_VOID);
+                 return JS_TRUE;
+-            }
+-            JS_SET_RVAL(cx, argv, STRING_TO_JSVAL(str2));
++            *rval = STRING_TO_JSVAL(str2);
+         }
+     }
+     catch (ServerShutdownException se)
+     {
+         log_warning("Aborting script execution due to server shutdown.\n");
+-        JS_SET_RVAL(cx, argv, JSVAL_VOID);
+         return JS_FALSE;
+     }
+     catch (Exception e)
+@@ -414,31 +343,30 @@
+         log_error("%s\n", e.getMessage().c_str());
+         e.printStackTrace();
+     }
+-    JS_SET_RVAL(cx, argv, JSVAL_VOID);
+     return JS_TRUE;
+ }
+ 
+ 
+-JSBool js_f2i(JSContext *cx, uintN argc, jsval *argv)
++JSBool js_f2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+-     return convert_charset_generic(cx, argc, argv, F2I);
++     return convert_charset_generic(cx, obj, argc, argv, rval, F2I);
+ }
+ 
+-JSBool js_m2i(JSContext *cx, uintN argc, jsval *argv)
++JSBool js_m2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+-     return convert_charset_generic(cx, argc, argv, M2I);
++     return convert_charset_generic(cx, obj, argc, argv, rval, M2I);
+ }
+ 
+-JSBool js_p2i(JSContext *cx, uintN argc, jsval *argv)
++JSBool js_p2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+-     return convert_charset_generic(cx, argc, argv, P2I);
++     return convert_charset_generic(cx, obj, argc, argv, rval, P2I);
+ }
+ 
+-JSBool js_j2i(JSContext *cx, uintN argc, jsval *argv)
++JSBool js_j2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+-     return convert_charset_generic(cx, argc, argv, J2I);
++     return convert_charset_generic(cx, obj, argc, argv, rval, J2I);
+ }
+ 
+-//} // extern "C"
++} // extern "C"
+ 
+ #endif //HAVE_JS
+diff -Naur mediatomb-git/src/scripting/js_functions.h mediatomb-0.12.1/src/scripting/js_functions.h
+--- mediatomb-git/src/scripting/js_functions.h	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/js_functions.h	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: js_functions.h 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file js_functions.h
+@@ -33,23 +33,25 @@
+ #ifndef __SCRIPTING_JS_FUNCTIONS_H__
+ #define __SCRIPTING_JS_FUNCTIONS_H__
+ 
++#define XP_UNIX 1
++
+ #include <jsapi.h>
+ 
+ extern "C" {
+ 
+ /// \brief Log output.
+-JSBool js_print(JSContext *cx, uintN argc, jsval *argv);
++JSBool js_print(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
+ 
+ /// \brief Adds an object to the database.
+-JSBool js_addCdsObject(JSContext *cx, uintN argc, jsval *argv);
++JSBool js_addCdsObject(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
+ 
+ /// \brief Makes a copy of an CDS object.
+-JSBool js_copyObject(JSContext *cx, uintN argc, jsval *argv);
++JSBool js_copyObject(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
+ 
+-JSBool js_f2i(JSContext *cx, uintN argc, jsval *argv);
+-JSBool js_m2i(JSContext *cx, uintN argc, jsval *argv);
+-JSBool js_p2i(JSContext *cx, uintN argc, jsval *argv);
+-JSBool js_j2i(JSContext *cx, uintN argc, jsval *argv);
++JSBool js_f2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
++JSBool js_m2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
++JSBool js_p2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
++JSBool js_j2i(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval);
+ 
+ } // extern "C"
+ 
+diff -Naur mediatomb-git/src/scripting/playlist_parser_script.cc mediatomb-0.12.1/src/scripting/playlist_parser_script.cc
+--- mediatomb-git/src/scripting/playlist_parser_script.cc	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/playlist_parser_script.cc	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: playlist_parser_script.cc 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file playlist_parser_script.cc
+@@ -46,9 +46,9 @@
+ extern "C" {
+ 
+ static JSBool
+-js_readln(JSContext *cx, uintN argc, jsval *vp)
++js_readln(JSContext *cx, JSObject *obj, uintN argc, jsval *argv, jsval *rval)
+ {
+-    PlaylistParserScript *self = (PlaylistParserScript *)JS_GetContextPrivate(cx);
++    PlaylistParserScript *self = (PlaylistParserScript *)JS_GetPrivate(cx, obj);
+ 
+     String line;
+     
+@@ -69,7 +69,7 @@
+ 
+     JSString *jsline = JS_NewStringCopyZ(cx, line.c_str());
+ 
+-    JS_SET_RVAL(cx, vp, STRING_TO_JSVAL(jsline));
++    *rval = STRING_TO_JSVAL(jsline);
+   
+     return JS_TRUE;
+ }
+@@ -93,7 +93,8 @@
+ 
+         String scriptPath = ConfigManager::getInstance()->getOption(CFG_IMPORT_SCRIPTING_PLAYLIST_SCRIPT); 
+         load(scriptPath);
+-        JS_AddNamedObjectRoot(cx, &script, "PlaylistScript");
++        root = JS_NewScriptObject(cx, script);
++        JS_AddNamedRoot(cx, &root, "PlaylistScript");
+     }
+     catch (Exception ex)
+     {
+@@ -243,8 +244,8 @@
+     JS_BeginRequest(cx);
+ #endif
+ 
+-    if (script)
+-        JS_RemoveObjectRoot(cx, &script);
++    if (root)
++        JS_RemoveRoot(cx, &root);
+ 
+ #ifdef JS_THREADSAFE
+     JS_EndRequest(cx);
+diff -Naur mediatomb-git/src/scripting/playlist_parser_script.h mediatomb-0.12.1/src/scripting/playlist_parser_script.h
+--- mediatomb-git/src/scripting/playlist_parser_script.h	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/playlist_parser_script.h	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: playlist_parser_script.h 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file playlist_parser_script.h
+@@ -52,6 +52,7 @@
+     int currentObjectID;
+     char *currentLine;
+     zmm::Ref<GenericTask> currentTask;
++    JSObject *root;
+ };
+ 
+ #endif // __SCRIPTING_PLAYLIST_PARSER_SCRIPT_H__
+diff -Naur mediatomb-git/src/scripting/runtime.cc mediatomb-0.12.1/src/scripting/runtime.cc
+--- mediatomb-git/src/scripting/runtime.cc	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/runtime.cc	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: runtime.cc 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file runtime.cc
+@@ -53,7 +53,6 @@
+     if (rt)
+         JS_DestroyRuntime(rt);
+     rt = NULL;
+-    JS_ShutDown();
+ }
+ 
+ #endif // HAVE_JS
+diff -Naur mediatomb-git/src/scripting/runtime.h mediatomb-0.12.1/src/scripting/runtime.h
+--- mediatomb-git/src/scripting/runtime.h	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/runtime.h	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: runtime.h 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file runtime.h
+diff -Naur mediatomb-git/src/scripting/script.cc mediatomb-0.12.1/src/scripting/script.cc
+--- mediatomb-git/src/scripting/script.cc	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/script.cc	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: script.cc 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file script.cc
+@@ -63,39 +63,31 @@
+ 
+ using namespace zmm;
+ 
+-static JSFunctionSpec js_global_functions[] =
+-{
+-    JS_FS("print",          js_print,          1, 0),
+-    JS_FS("addCdsObject",   js_addCdsObject,   3, 0),
+-    JS_FS("copyObject",     js_copyObject,     2, 0),
+-    JS_FS("f2i",            js_f2i,            1, 0),
+-    JS_FS("m2i",            js_m2i,            1, 0),
+-    JS_FS("p2i",            js_m2i,            1, 0),
+-    JS_FS("j2i",            js_m2i,            1, 0),
+-    JS_FS_END 
++/*
++static JSFunctionSpec js_global_functions[] = {
++    {"print",           js_print,          0, 0, 0},
++    {"addCdsObject",    js_addCdsObject,   3, 0, 0},
++    {"copyObject",      js_copyObject,     2, 0, 0},
++    {"f2i",             js_f2i,            1, 0, 0},
++    {"m2i",             js_m2i,            1, 0, 0},
++    {"p2i",             js_m2i,            1, 0, 0},
++    {"j2i",             js_m2i,            1, 0, 0},
++    {0,0,0,0,0}
+ };
++*/
+ 
+ String Script::getProperty(JSObject *obj, String name)
+ {
+     jsval val;
+     JSString *str;
+-    String ret;
+     if (!JS_GetProperty(cx, obj, name.c_str(), &val))
+         return nil;
+     if (val == JSVAL_VOID)
+         return nil;
+     str = JS_ValueToString(cx, val);
+-    if (!str)
++    if (! str)
+         return nil;
+-
+-    char *ts = JS_EncodeString(cx, str);
+-    if (!ts)
+-    {
+-        return nil;
+-    }
+-    ret = ts;
+-    JS_free(cx, ts);
+-    return ret;
++    return JS_GetStringBytes(str);
+ }
+ 
+ int Script::getBoolProperty(JSObject *obj, String name)
+@@ -164,9 +156,8 @@
+ {
+     jsval val;
+     val = OBJECT_TO_JSVAL(obj);
+-    if (!JS_SetProperty(cx, parent, name.c_str(), &val)) {
+-        log_error("Failed to set object property %s\n", name.c_str());
+-    }
++    if (!JS_SetProperty(cx, parent, name.c_str(), &val))
++        return;
+ }
+ 
+ void Script::deleteProperty(JSObject *obj, String name)
+@@ -295,7 +286,7 @@
+     JS_SetErrorReporter(cx, js_error_reporter);
+     initGlobalObject();
+ 
+-    JS_SetContextPrivate(cx, this);
++    JS_SetPrivate(cx, glob, this);
+ 
+     /* initialize contstants */
+     setIntProperty(glob, _("OBJECT_TYPE_CONTAINER"),
+@@ -406,7 +397,26 @@
+     setProperty(glob, _("UPNP_CLASS_PLAYLIST_CONTAINER"),
+             _(UPNP_DEFAULT_CLASS_PLAYLIST_CONTAINER));
+ 
+-    defineFunctions(js_global_functions);
++//    defineFunctions(js_global_functions);
++/* JS_DefineFunctions does not work with the js packge shipped by Ubuntu
++static JSFunctionSpec js_global_functions[] = {
++    {"print",           js_print,          0, 0, 0},
++    {"addCdsObject",    js_addCdsObject,   3, 0, 0},
++    {"copyObject",      js_copyObject,     2, 0, 0},
++    {"f2i",             js_f2i,            1, 0, 0},
++    {"m2i",             js_m2i,            1, 0, 0},
++    {"p2i",             js_m2i,            1, 0, 0},
++    {"j2i",             js_m2i,            1, 0, 0},
++    {0,0,0,0,0}
++};
++*/
++    defineFunction(_("print"),          js_print,           0);
++    defineFunction(_("addCdsObject"),   js_addCdsObject,    3);
++    defineFunction(_("copyObject"),     js_copyObject,      2);
++    defineFunction(_("f2i"),            js_f2i,             1);
++    defineFunction(_("m2i"),            js_m2i,             1);
++    defineFunction(_("p2i"),            js_p2i,             1);
++    defineFunction(_("j2i"),            js_j2i,             1);
+ 
+     String common_scr_path = ConfigManager::getInstance()->getOption(CFG_IMPORT_SCRIPTING_COMMON_SCRIPT);
+ 
+@@ -417,15 +427,14 @@
+         try
+         {
+             common_script = _load(common_scr_path);
+-            JS_AddNamedObjectRoot(cx, &common_script, "common-script");
++            common_root = JS_NewScriptObject(cx, common_script);
++            JS_AddNamedRoot(cx, &common_root, "common-script");
+             _execute(common_script);
+         }
+         catch (Exception e)
+         {
+-            if (common_script)
+-            {
+-                JS_RemoveObjectRoot(cx, &common_script);
+-            }
++            if (common_root)
++                JS_RemoveRoot(cx, &common_root);
+ 
+             log_js("Unable to load %s: %s\n", common_scr_path.c_str(), 
+                     e.getMessage().c_str());
+@@ -450,8 +459,8 @@
+     JS_SetContextThread(cx);
+     JS_BeginRequest(cx);
+ #endif
+-    if (common_script)
+-        JS_RemoveObjectRoot(cx, &common_script);
++    if (common_root)
++        JS_RemoveRoot(cx, &common_root);
+ 
+ /*
+  * scripts are unrooted and will be cleaned up by GC
+@@ -495,11 +504,11 @@
+     static JSClass global_class =
+     {
+         "global",                                   /* name */
+-        JSCLASS_HAS_PRIVATE | JSCLASS_GLOBAL_FLAGS, /* flags */
++        JSCLASS_HAS_PRIVATE,                        /* flags */
+         JS_PropertyStub,                            /* add property */
+         JS_PropertyStub,                            /* del property */
+         JS_PropertyStub,                            /* get property */
+-        JS_StrictPropertyStub,                      /* set property */
++        JS_PropertyStub,                            /* set property */
+         JS_EnumerateStandardClasses,                /* enumerate */
+         JS_ResolveStub,                             /* resolve */
+         JS_ConvertStub,                             /* convert */
+@@ -508,7 +517,7 @@
+     };
+ 
+     /* create the global object here */
+-    glob = JS_NewCompartmentAndGlobalObject(cx, &global_class, NULL);
++    glob = JS_NewObject(cx, &global_class, NULL, NULL);
+     if (! glob)
+         throw _Exception(_("Scripting: could not initialize glboal class"));
+ 
+@@ -530,12 +539,12 @@
+         throw _Exception(_("Scripting: JS_DefineFunctions failed"));
+ }
+ 
+-JSObject *Script::_load(zmm::String scriptPath)
++JSScript *Script::_load(zmm::String scriptPath)
+ {
+     if (glob == NULL)
+         initGlobalObject();
+ 
+-    JSObject *scr;
++    JSScript *scr;
+ 
+     String scriptText = read_text_file(scriptPath);
+ 
+@@ -562,11 +571,14 @@
+ 
+ void Script::load(zmm::String scriptPath)
+ {
++    if (script)
++        JS_DestroyScript(cx, script);
++
+     script = _load((scriptPath));
+ }
+ 
+ 
+-void Script::_execute(JSObject *scr)
++void Script::_execute(JSScript *scr)
+ {
+     jsval ret_val;
+ 
+@@ -650,7 +662,7 @@
+     JSObject *js_meta = getObjectProperty(js, _("meta"));
+     if (js_meta)
+     {
+-        JS_AddNamedObjectRoot(cx, &js_meta, "meta");
++        JS_AddNamedRoot(cx, &js_meta, "meta");
+         /// \todo: only metadata enumerated in MT_KEYS is taken
+         for (int i = 0; i < M_MAX; i++)
+         {
+@@ -675,7 +687,7 @@
+                 }
+             }
+         }
+-        JS_RemoveObjectRoot(cx, &js_meta);
++        JS_RemoveRoot(cx, &js_meta);
+     }
+     
+     // stuff that has not been exported to js
+diff -Naur mediatomb-git/src/scripting/script.h mediatomb-0.12.1/src/scripting/script.h
+--- mediatomb-git/src/scripting/script.h	2016-01-22 15:25:29.770375785 +0300
++++ mediatomb-0.12.1/src/scripting/script.h	2010-03-25 17:58:05.000000000 +0300
+@@ -24,7 +24,7 @@
+     version 2 along with MediaTomb; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+     
+-    $Id$
++    $Id: script.h 2081 2010-03-23 20:18:00Z lww $
+ */
+ 
+ /// \file script.h
+@@ -66,8 +66,8 @@
+     JSRuntime *rt;
+     JSContext *cx;
+     JSObject  *glob;
+-    JSObject *script;
+-    JSObject *common_script;
++    JSScript *script;
++    JSScript *common_script;
+     
+ public:
+     Script(zmm::Ref<Runtime> runtime);
+@@ -115,8 +115,8 @@
+     JSObject *common_root;
+ 
+     void initGlobalObject();
+-    JSObject *_load(zmm::String scriptPath);
+-    void _execute(JSObject *scr);
++    JSScript *_load(zmm::String scriptPath);
++    void _execute(JSScript *scr);
+     zmm::Ref<StringConverter> _p2i;
+     zmm::Ref<StringConverter> _j2i;
+     zmm::Ref<StringConverter> _f2i;

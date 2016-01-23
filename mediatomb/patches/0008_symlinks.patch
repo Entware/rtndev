@@ -1,0 +1,42 @@
+--- a/src/autoscan_inotify.cc
++++ b/src/autoscan_inotify.cc
+@@ -281,7 +281,7 @@
+                     }
+                 }
+                 
+-                if (adir != nil && mask & (IN_DELETE | IN_DELETE_SELF | IN_MOVE_SELF | IN_CLOSE_WRITE | IN_MOVED_FROM | IN_MOVED_TO | IN_UNMOUNT))
++                if (adir != nil && mask & (IN_DELETE | IN_DELETE_SELF | IN_MOVE_SELF | IN_CLOSE_WRITE | IN_MOVED_FROM | IN_MOVED_TO | IN_UNMOUNT | IN_CREATE))
+                 {
+                     String fullPath;
+                     if (mask & IN_ISDIR)
+@@ -312,16 +312,17 @@
+                         if (objectID != INVALID_OBJECT_ID)
+                             cm->removeObject(objectID);
+                     }
+-                    if (mask & (IN_CLOSE_WRITE | IN_MOVED_TO))
++                    if (mask & (IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE))
+                     {
+                         log_debug("adding %s\n", path.c_str());
+                         // path, recursive, async, hidden, low priority, cancellable
+                         cm->addFile(fullPath, adir->getRecursive(), true, adir->getHidden(), true, false);
+                         
+-                        if (mask & IN_ISDIR)
++                        if (mask & IN_ISDIR && !(mask & IN_CREATE))
+                             monitorUnmonitorRecursive(path, false, adir, watchAs->getNormalizedAutoscanPath(), false);
+                     }
+                 }
++
+                 if (mask & IN_IGNORED)
+                 {
+                     removeWatchMoves(wd);
+--- a/src/content_manager.cc
++++ b/src/content_manager.cc
+@@ -202,7 +202,7 @@
+ #ifdef HAVE_MAGIC
+     if (! ignore_unknown_extensions)
+     {
+-        ms = magic_open(MAGIC_MIME);
++        ms = magic_open(MAGIC_MIME|MAGIC_SYMLINK);
+         if (ms == NULL)
+         {
+             log_error("magic_open failed\n");
