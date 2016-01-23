@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -44,7 +44,6 @@ endef
 
 define Package/mediatomb/conffiles
 /opt/etc/mediatomb/config.xml
-/opt/etc/mediatomb/mediatomb.db
 endef
 
 TARGET_LDFLAGS += -lm -ldl -ljs
@@ -79,13 +78,6 @@ CONFIGURE_ARGS += \
 	--with-iconv-h=$(ICONV_PREFIX)/include \
 	--with-iconv-libs=$(ICONV_PREFIX)/lib \
 	--disable-libmp4v2
-
-#define Build/Compile
-#	$(MAKE) -C $(PKG_BUILD_DIR) \
-#		HOSTCC="$(HOSTCC)" \
-#		DESTDIR="$(PKG_INSTALL_DIR)" \
-#		all install
-#endef
 
 define Package/mediatomb/install
 	$(INSTALL_DIR) $(1)/opt/etc/mediatomb $(1)/opt/bin $(1)/opt/share $(1)/opt/var/mediatomb
