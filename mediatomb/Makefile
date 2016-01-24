@@ -78,7 +78,7 @@ CONFIGURE_ARGS += \
 	--disable-libmp4v2
 
 define Package/mediatomb/install
-	$(INSTALL_DIR) $(1)/opt/etc/mediatomb $(1)/opt/bin $(1)/opt/share $(1)/opt/var/mediatomb
+	$(INSTALL_DIR) $(1)/opt/etc/mediatomb $(1)/opt/bin $(1)/opt/share $(1)/opt/var
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mediatomb $(1)/opt/bin/
 	$(CP) $(PKG_INSTALL_DIR)/opt/share/* $(1)/opt/share/
 	$(INSTALL_DATA) ./files/config.xml $(1)/opt/etc/mediatomb/
