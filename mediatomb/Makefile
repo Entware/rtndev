@@ -8,7 +8,6 @@
 # Abandoned in 2010
 
 include $(TOPDIR)/rules.mk
-include $(INCLUDE_DIR)/nls.mk
 
 PKG_NAME:=mediatomb
 PKG_VERSION:=0.12.1-20140713
@@ -26,15 +25,16 @@ PKG_BUILD_PARALLEL:=0
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/mediatomb
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	DEPENDS:=+libexif +libsqlite3 +id3lib +file +libpthread +libjs +libexpat +libffmpeg +libstdcpp \
+	DEPENDS:=+libexif +libsqlite3 +id3lib +file +libjs +libexpat \
 		+$(ICONV_DEPENDS) +libuuid +libflac +libffmpegthumbnailer
 	TITLE:=A powerfull UPNP media server
 	URL:=http://www.mediatomb.cc
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/mediatomb/description
@@ -47,10 +47,9 @@ define Package/mediatomb/conffiles
 endef
 
 TARGET_LDFLAGS += -lm -ldl -ljs
-TARGET_CXXFLAGS += -I$(STAGING_DIR)/opt/include/js $(TARGET_CFLAGS) $(TARGET_LDFLAGS)
+TARGET_CXXFLAGS += -I$(STAGING_DIR)/opt/include/js
 
 CONFIGURE_ARGS += \
-	--prefix=/opt \
 	--enable-pthread-lib \
 	--enable-inotify \
 	--enable-db-autocreate \
@@ -59,7 +58,6 @@ CONFIGURE_ARGS += \
 	--enable-libexif \
 	--enable-libmagic \
 	--enable-protocolinfo-extension \
-	--disable-libextractor \
 	--enable-ffmpeg \
 	--enable-libjs \
 	--disable-tombdebug \
@@ -72,7 +70,7 @@ CONFIGURE_ARGS += \
 	--enable-external-transcoding \
 	--enable-ffmpegthumbnailer \
 	--disable-libmp4v2 \
-	--disable-lastfmlib \
+	--disable-lastfm \
 	--enable-libexif \
 	--enable-iconv-lib \
 	--with-iconv-h=$(ICONV_PREFIX)/include \
@@ -82,7 +80,7 @@ CONFIGURE_ARGS += \
 define Package/mediatomb/install
 	$(INSTALL_DIR) $(1)/opt/etc/mediatomb $(1)/opt/bin $(1)/opt/share $(1)/opt/var/mediatomb
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mediatomb $(1)/opt/bin/
-	$(CP)  $(PKG_INSTALL_DIR)/opt/share/* $(1)/opt/share/
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/* $(1)/opt/share/
 	$(INSTALL_DATA) ./files/config.xml $(1)/opt/etc/mediatomb/
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S90mediatomb $(1)/opt/etc/init.d
