@@ -9,14 +9,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
-PKG_VERSION:=1.0.7
-PKG_RELEASE:=4
+PKG_VERSION:=1.0.8
+PKG_RELEASE:=1
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_7
-PKG_MD5SUM:=c1a5b8aee18640cbe01826403525dd14
+PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_8
+PKG_MD5SUM:=49f2e074c87a779712e30721cbaf10db
 PKG_BUILD_DIR:=$(BUILD_DIR)/libtorrent-rasterbar-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=libtool
+PKG_FIXUP:=autoreconf
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -35,23 +36,14 @@ full featured client, although it comes with a working example client.
 endef
 
 CONFIGURE_ARGS+= \
-	--enable-shared \
 	--disable-debug \
 	--enable-python-binding \
 	--with-ssl=$(STAGING_DIR)/opt \
 	--with-boost=$(STAGING_DIR)/opt/include \
 	--with-boost-libdir=$(STAGING_DIR)/opt/lib \
-	--with-boost-python=boost_python-mt \
-	--with-zlib=detect
+	--with-boost-python=yes
 
-CONFIGURE_VARS+=CC="$(TARGET_CXX)"
-
-EXTRA_LDFLAGS+=-lz -lpthread
-
-define Build/Compile
-	$(call Build/Compile/Default)
-	$(call Build/Install/Default)
-endef
+CONFIGURE_VARS+= CC=$(TARGET_CXX)
 
 define Build/InstallDev
 	mkdir -p $(1)/opt/include
