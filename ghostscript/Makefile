@@ -47,6 +47,7 @@ HOST_CONFIGURE_ARGS += \
 	--without-libpaper \
 	--disable-gtk \
 	--without-libidn \
+	--with-libiconv=no \
 
 CONFIGURE_ARGS += \
 	--enable-little-endian \
