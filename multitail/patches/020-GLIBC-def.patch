@@ -1,0 +1,29 @@
+--- a/error.c
++++ b/error.c
+@@ -8,7 +8,7 @@
+ #include <stdlib.h>
+ #include <signal.h>
+ #include <regex.h>
+-#if defined(__GLIBC__)
++#if !defined(__UCLIBC__)
+ #include <execinfo.h>
+ #endif
+ #include <sys/socket.h>
+@@ -23,7 +23,7 @@
+ {
+ 	int e = errno;
+ 	va_list ap;
+-#if defined(__GLIBC__)
++#if !defined(__UCLIBC__)
+ 	int index;
+         void *trace[128];
+         int trace_size = backtrace(trace, 128);
+@@ -49,7 +49,7 @@
+ 
+ 	if (show_st)
+ 	{
+-#if defined(__GLIBC__)
++#if !defined(__UCLIBC__)
+ 		fprintf(stderr, "Execution path:\n");
+ 		for(index=0; index<trace_size; ++index)
+ 			fprintf(stderr, "\t%d %s\n", index, messages[index]);
