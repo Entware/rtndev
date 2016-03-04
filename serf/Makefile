@@ -50,6 +50,13 @@ SCONS_OPTIONS += \
 	APR="$(STAGING_DIR)/opt" \
 	APU="$(STAGING_DIR)/opt"
 
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	(cd $(PKG_BUILD_DIR) ; \
+		$(SED) "s!default_incdir='/usr!default_incdir='$(STAGING_DIR)/opt!g" SConstruct ;\
+	)
+endef
+
 
 define Build/Configure
 	( \
