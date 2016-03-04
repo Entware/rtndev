@@ -43,12 +43,13 @@ endef
 # Dirty trick to define PATH_MAX. It is needed by apr.h. PATH_MAX is defined in <linux/limits> and is the same for all feeds
 
 SCONS_OPTIONS += \
-	CC="$(TOOLCHAIN_DIR)/bin/$(TARGET_CC_NOCACHE)" \
+	CC="STAGING_DIR=$(STAGING_DIR) $(TOOLCHAIN_DIR)/bin/$(TARGET_CC_NOCACHE)" \
 	CPPFLAGS="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS) -DPATH_MAX=4096" \
 	LINKFLAGS="$(TARGET_LDFLAGS)" \
 	PREFIX="/opt" \
 	APR="$(STAGING_DIR)/opt" \
 	APU="$(STAGING_DIR)/opt"
+
 
 define Build/Configure
 	( \
