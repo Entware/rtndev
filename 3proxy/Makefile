@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=3proxy
-PKG_VERSION:=0.7.1.3
+PKG_VERSION:=0.8.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/z3APA3A/3proxy/archive
-PKG_MD5SUM:=4754d5cf7071db9eb8013bbd739836f8
+PKG_MD5SUM:=edadb0da813c514f8af0dfc2c7c4ae2a
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -49,11 +49,11 @@ endef
 define Package/3proxy/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) \
-		$(PKG_BUILD_DIR)/src/{3proxy,countersutil,dighosts,ftppr,mycrypt,pop3p,proxy,socks,tcppm,udppm} \
+		$(PKG_BUILD_DIR)/src/{3proxy,dighosts,ftppr,mycrypt,pop3p,proxy,socks,tcppm,udppm} \
 		$(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/lib/3proxy
 	$(INSTALL_BIN) \
-		$(PKG_BUILD_DIR)/src/{PCRE,Strings,Traffic,Transparent}Plugin.ld.so \
+		$(PKG_BUILD_DIR)/src/{PCRE,SSL,Strings,Traffic,Transparent}Plugin.ld.so \
 		$(1)/opt/lib/3proxy
 	$(INSTALL_DIR) $(1)/opt/etc/3proxy
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/scripts/3proxy.cfg $(1)/opt/etc/3proxy
