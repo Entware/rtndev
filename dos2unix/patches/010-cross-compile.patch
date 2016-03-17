@@ -8,8 +8,8 @@
 +#ENABLE_NLS	= 1
  # Large File Support (LFS)
  LFS             = 1
- DEBUG = 0
-@@ -303,7 +303,7 @@
+ # DEBUG=1 adds the -g option to CFLAGS, for adding debug symbols.
+@@ -351,7 +351,7 @@
  endif
  
  LDFLAGS_USER	=
@@ -18,7 +18,7 @@
  LIBS    = $(LIBS_EXTRA)
  
  DEFS_USER	=
-@@ -311,7 +311,7 @@
+@@ -359,7 +359,7 @@
  
  # .......................................................... targets ...
  
