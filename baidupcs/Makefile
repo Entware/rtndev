@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=baidupcs
-PKG_VERSION:=0.2.2
-PKG_REV:=e2cc31df55a7b49d15dde8b5ca257e8dbd0eddb0
+PKG_VERSION:=0.2.3
+PKG_REV:=7da59843b5bbce4989e756624ecc0f4e9339218c
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
