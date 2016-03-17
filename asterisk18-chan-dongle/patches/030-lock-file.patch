@@ -1,0 +1,11 @@
+--- a/tools/tty.c
++++ b/tools/tty.c
+@@ -44,7 +44,7 @@
+ 		basename = devname;
+ 
+ 	/* TODO: use asterisk build settings for /var/lock */
+-	return snprintf(buf, length, "/var/lock/LCK..%s", basename);
++	return snprintf(buf, length, "/opt/var/lock/LCK..%s", basename);
+ }
+ 
+ #/* return 0 on error */
