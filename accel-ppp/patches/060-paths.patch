@@ -11,7 +11,7 @@
  static in_addr_t conf_gw_ip_address = 0;
 --- a/accel-pppd/extra/pppd_compat.c
 +++ b/accel-pppd/extra/pppd_compat.c
-@@ -31,11 +31,11 @@
+@@ -32,11 +32,11 @@
  #define ENV_MEM 1024
  #define ENV_MAX 16
  

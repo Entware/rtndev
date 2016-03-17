@@ -8,15 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=accel-ppp
-PKG_VERSION:=1.9.0-20151130
+PKG_VERSION:=1.10.1
 PKG_REV:=504e7b995913956f71fe76c93e439df63701c0b3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=git://git.code.sf.net/p/$(PKG_NAME)/code
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE_URL:=@SF/$(PKG_NAME)
+PKG_MD5SUM:=68a617acb228bf8e16a91196902e4307
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -64,9 +62,9 @@ endef
 
 define Package/accel-ppp/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/accel-cmd $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/accel-cmd $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/accel-pppd $(1)/opt/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/accel-pppd $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/lib/accel-ppp
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/opt/lib/accel-ppp/lib*.so \
@@ -81,7 +79,7 @@ define Package/accel-ppp/install
 		$(1)/opt/share/accel-ppp/radius
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/accel-pppd/accel-ppp.conf $(1)/opt/etc
-	$(INSTALL_BIN) files/S60accel-ppp $(1)/opt/etc/init.d/
+	$(INSTALL_BIN) files/S60accel-ppp $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/var/log/accel-ppp
 endef
 
