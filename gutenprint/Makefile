@@ -11,12 +11,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gutenprint
-PKG_VERSION:=5.2.10
+PKG_VERSION:=5.2.11
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/gimp-print
-PKG_MD5SUM:=9ff027103bafac419c37e19da75163ae
+PKG_MD5SUM:=fa6083535b7235fe531cd57e7345a81f
 
 PKG_BUILD_DEPENDS:=gutenprint/host cups libiconv
 HOST_BUILD_DEPENDS:=libiconv/host
