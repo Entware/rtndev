@@ -8,20 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=castget
-PKG_VERSION:=1.2.1
+PKG_VERSION:=1.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://download.savannah.gnu.org/releases/castget
-PKG_MD5SUM:=227a61af947c7fb50a76c011e262d37a
+PKG_SOURCE_URL:=http://savannah.nongnu.org/download/castget
+PKG_MD5SUM:=50ab113d50fb3f22776935c67eabff37
 
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
-
-TARGET_LDFLAGS += \
-	-Wl,-rpath-link=$(STAGING_DIR)/opt/lib/libiconv-full/lib
 
 define Package/castget
 	SECTION:=net
@@ -29,7 +26,7 @@ define Package/castget
 	SUBMENU:=File Transfer
 	DEPENDS:=+libcurl +glib2 +libxml2 +id3lib $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=a command-line podcast downloader
-	URL:=http://www.nongnu.org/castget
+	URL:=http://johndal.com/castget
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
