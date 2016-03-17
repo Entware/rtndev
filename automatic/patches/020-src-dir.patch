@@ -1,6 +1,6 @@
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -10,28 +10,28 @@
+@@ -10,29 +10,29 @@
  endif
  
  automatic_SOURCES = \
@@ -16,6 +16,7 @@
 -   $(top_srcdir)/src/filters.c        \
 -   $(top_srcdir)/src/prowl.c          \
 -   $(top_srcdir)/src/pushalot.c       \
+-   $(top_srcdir)/src/pushover.c       \
 -   $(top_srcdir)/src/regex.c          \
 -   $(top_srcdir)/src/rss_feed.c       \
 -   $(top_srcdir)/src/state.c          \
@@ -38,6 +39,7 @@
 +   filters.c        \
 +   prowl.c          \
 +   pushalot.c       \
++   pushover.c       \
 +   regex.c          \
 +   rss_feed.c       \
 +   state.c          \
@@ -51,7 +53,7 @@
  
  noinst_HEADERS =    \
     $(top_srcdir)/include/automatic.h      \
-@@ -59,7 +59,7 @@
+@@ -61,7 +61,7 @@
  
  automatic_mw_SOURCES =  \
    $(automatic_SOURCES) \
@@ -62,7 +64,7 @@
    automatic_mwdir = .
 --- a/src/tests/Makefile.am
 +++ b/src/tests/Makefile.am
-@@ -5,65 +5,65 @@
+@@ -5,72 +5,72 @@
  TESTS = $(check_PROGRAMS)
  
  GLOBAL_SOURCES = \
@@ -143,6 +145,17 @@
 +   ../urlcode.c          \
 +   ../web.c              \
     toasty_test.c
+ 
+ pushover_test_SOURCES = $(GLOBAL_SOURCES) \
+-   $(top_srcdir)/src/pushover.c           \
+-   $(top_srcdir)/src/regex.c              \
+-   $(top_srcdir)/src/urlcode.c            \
+-   $(top_srcdir)/src/web.c                \
++   ../pushover.c           \
++   ../regex.c              \
++   ../urlcode.c            \
++   ../web.c                \
+    pushover_test.c
  
  parser_test_SOURCES = $(GLOBAL_SOURCES) \
 -   $(top_srcdir)/src/config_parser.c    \
