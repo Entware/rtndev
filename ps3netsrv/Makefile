@@ -33,9 +33,6 @@ define Package/ps3netsrv/description
  C++ implementation of the ps3netsrv server
 endef
 
-TARGET_CFLAGS += \
-	-D_GLIBCXX_USE_C99
-
 TARGET_LDFLAGS += \
 	-lstdc++ \
 	-lpthread

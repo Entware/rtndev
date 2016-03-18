@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=i2pd
-PKG_VERSION:=2.20
-PKG_REV:=ca315c51a0de0160db69df5bb89db8e9cb770c35
+PKG_VERSION:=2.5.1
+PKG_REV:=803f11bebb904008628fdf51d2a2a94c2850ab8e
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -32,9 +32,6 @@ endef
 define Package/i2pd/description
  i2p router for Linux written on C++.
 endef
-
-TARGET_CFLAGS += \
-	-D_GLIBCXX_USE_C99
 
 ifdef CONFIG_USE_UCLIBC
 TARGET_LDFLAGS += -latomic

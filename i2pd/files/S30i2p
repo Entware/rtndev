@@ -1,5 +1,8 @@
 #!/bin/sh
 
+HOME="/opt/var/lib"
+mkdir -p $HOME/.i2pd/addressbook/etags
+
 ENABLED=yes
 PROCS=i2pd
 ARGS="--conf=/opt/etc/i2p.conf"
