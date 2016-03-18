@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-psutil
-PKG_VERSION:=3.3.0
+PKG_VERSION:=4.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=psutil-$(PKG_VERSION).tar.gz
 PKG_BUILD_DIR:=$(BUILD_DIR)/psutil-$(PKG_VERSION)
-PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/psutil/
-PKG_MD5SUM:=0625db01ea46417308db94cc59362b65
+PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/psutil
+PKG_MD5SUM:=017e1023484ebf436d3514ebeaf2e7e9
 
 PKG_BUILD_DEPENDS:=python
 
