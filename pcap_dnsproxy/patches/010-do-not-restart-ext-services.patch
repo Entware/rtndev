@@ -1,9 +1,9 @@
 --- a/Source/Pcap_DNSProxy/Service.cpp
 +++ b/Source/Pcap_DNSProxy/Service.cpp
-@@ -382,15 +382,6 @@
- //Flush DNS cache in system.
+@@ -367,15 +367,6 @@
  #if defined(PLATFORM_WIN)
  	system("ipconfig /flushdns 2>nul"); //All Windows version
+ 	fwprintf_s(stderr, L"\n");
 -#elif defined(PLATFORM_LINUX)
 -	#if defined(PLATFORM_OPENWRT)
 -		system("/etc/init.d/dnsmasq restart 2>/dev/null"); //Dnsmasq manage DNS cache on OpenWrt

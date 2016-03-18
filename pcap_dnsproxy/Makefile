@@ -4,15 +4,15 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Partial taken from 
+# Partial taken from
 # https://github.com/wongsyrone/openwrt-Pcap_DNSProxy/blob/master/Makefile
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap_dnsproxy
-PKG_VERSION:=0.4.4.6-20151214
-PKG_REV:=7ae780921b69df446c3410ff8d28d31d6f0b6343
+PKG_VERSION:=0.4.5.4
+PKG_REV:=ef61fc645fc6e7bc2c4739617d73bae413bb5c53
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
