@@ -9,8 +9,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethogs
-PKG_VERSION:=0.8.1-20140625
-PKG_REV:=580c4120994e0e815b01a3141ed1af0bbe841357
+PKG_VERSION:=0.8.2-20160310
+PKG_REV:=918978262b2149388e132fbe9a092e9eb1bc2d19
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -45,7 +45,7 @@ MAKE_FLAGS += \
 
 define Package/nethogs/install
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/nethogs $(1)/opt/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/nethogs $(1)/opt/sbin
 endef
 
 $(eval $(call BuildPackage,nethogs))
