@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ziproxy
 PKG_VERSION:=3.3.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/ziproxy
@@ -21,7 +21,7 @@ define Package/ziproxy
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+giflib +libjpeg +libpng +zlib +libsasl2 +libpthread
+	DEPENDS:=+giflib +libjpeg +libpng +libsasl2 +libpthread
 	TITLE:=compressing HTTP proxy server
 	URL:=http://ziproxy.sourceforge.net
 	MAINTAINER:=Entware team, http://entware.net
@@ -48,8 +48,6 @@ endef
 
 CONFIGURE_ARGS += \
 	--without-jasper \
-	--exec-prefix=/opt \
-	--prefix=/opt \
 	--with-cfgfile=/opt/etc/ziproxy/ziproxy.conf
 
 define Package/ziproxy/install
@@ -57,12 +55,14 @@ define Package/ziproxy/install
 	$(INSTALL_BIN) \
 		$(PKG_BUILD_DIR)/src/ziproxy \
 		$(PKG_BUILD_DIR)/src/tools/ziproxylogtool \
-		$(PKG_BUILD_DIR)/src/tools/ziproxy_genhtml_stats.sh $(1)/opt/bin/
+		$(PKG_BUILD_DIR)/src/tools/ziproxy_genhtml_stats.sh \
+		$(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/xinetd.d
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/etc/xinetd.d/ziproxy $(1)/opt/etc/xinetd.d/ziproxy
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/etc/xinetd.d/ziproxy \
+		$(1)/opt/etc/xinetd.d/ziproxy
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S25ziproxy $(1)/opt/etc/init.d/S25ziproxy
-	$(INSTALL_DIR) $(1)/opt/etc/ziproxy
+	$(INSTALL_DIR) $(1)/opt/etc/ziproxy/sasl
 	$(INSTALL_CONF) \
 		$(PKG_BUILD_DIR)/etc/ziproxy/ziproxy.conf \
 		$(PKG_BUILD_DIR)/etc/ziproxy/http.passwd \
@@ -72,11 +72,10 @@ define Package/ziproxy/install
 		$(PKG_BUILD_DIR)/etc/ziproxy/noprocess.list \
 		$(PKG_BUILD_DIR)/etc/ziproxy/replace.list \
 		$(PKG_BUILD_DIR)/etc/ziproxy/replace_ct.list \
-			$(1)/opt/etc/ziproxy/
-	$(INSTALL_DIR) $(1)/opt/etc/ziproxy/sasl
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/etc/ziproxy/sasl/ziproxy.conf $(1)/opt/etc/ziproxy/sasl/
-	$(INSTALL_DIR) $(1)/opt/var/log/ziproxy
-	$(INSTALL_DIR) $(1)/opt/var/run
+			$(1)/opt/etc/ziproxy
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/etc/ziproxy/sasl/ziproxy.conf \
+		$(1)/opt/etc/ziproxy/sasl
+	$(INSTALL_DIR) $(1)/opt/var/log/ziproxy $(1)/opt/var/run
 endef
 
 $(eval $(call BuildPackage,ziproxy))
