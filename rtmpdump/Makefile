@@ -8,23 +8,24 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtmpdump
-PKG_VERSION:=2.4-20121209
+PKG_VERSION:=2.4-20151223
+PKG_REV:=fa8646daeb19dfd12c181f7d19de708d623704c0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-2.3.tgz
-PKG_SOURCE_URL:=http://rtmpdump.mplayerhq.hu/download
-PKG_MD5SUM:=eb961f31cd55f0acf5aad1a7b900ef59
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=git://git.ffmpeg.org/rtmpdump
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_INSTALL:=1
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-2.3
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/rtmpdump/Default
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+zlib +libopenssl +libpthread
+	DEPENDS:=+libopenssl +libpthread
 	TITLE:=rtmpdump is a toolkit for RTMP streams
 	URL:=http://rtmpdump.mplayerhq.hu/
 	MAINTAINER:=Entware team, http://entware.net
@@ -36,7 +37,7 @@ endef
 
 define Package/rtmpdump
 	$(call Package/rtmpdump/Default)
-	DEPENDS+= +librtmp
+	DEPENDS:= +librtmp
 endef
 
 define Package/librtmp/description
@@ -56,8 +57,7 @@ MAKE_FLAGS += \
 
 define Package/librtmp/install
 	$(INSTALL_DIR) $(1)/opt/lib
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/librtmp.so.0 $(1)/opt/lib
-	$(LN) librtmp.so.0 $(1)/opt/lib/librtmp.so
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/librtmp.so.1 $(1)/opt/lib
 endef
 
 define Package/rtmpdump/install
