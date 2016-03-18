@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=whois
-PKG_VERSION:=5.2.10
+PKG_VERSION:=5.2.11
 PKG_RELEASE:=1
 
-PKG_SOURCE:=whois_$(PKG_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/w/whois
-PKG_MD5SUM:=5ccd01e611621f7a395537f8b7190d0a
+PKG_MD5SUM:=df870615563b23e2270ffc4f039290a1
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/whois-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -40,7 +40,7 @@ endef
 
 define Package/whois/install
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/whois $(1)/opt/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/whois $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/etc
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/whois.conf $(1)/opt/etc/whois.conf
 endef
