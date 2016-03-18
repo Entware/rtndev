@@ -12,8 +12,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shellinabox
-PKG_VERSION:=2.19
-PKG_REV:=1a8010f2c94a62e7398c4fa130dfe9e099dc55cd
+PKG_VERSION:=2.20
+PKG_REV:=048cecd2e77d659c8fefcd2e7dc437c533abeab4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
