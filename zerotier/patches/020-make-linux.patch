@@ -13,25 +13,24 @@
 -	CXX=$(shell if [ -e /usr/bin/clang++ ]; then echo clang++; else echo g++; fi)
 -endif
 -
- UNAME_M=$(shell $(CC) -dumpmachine | cut -d '-' -f 1)
+ #UNAME_M=$(shell $(CC) -dumpmachine | cut -d '-' -f 1)
  
- INCLUDES=
-@@ -50,7 +41,7 @@
+ INCLUDES?=
+@@ -48,7 +39,7 @@
  # Build with ZT_ENABLE_NETWORK_CONTROLLER=1 to build with the Sqlite network controller
  ifeq ($(ZT_ENABLE_NETWORK_CONTROLLER),1)
-         DEFS+=-DZT_ENABLE_NETWORK_CONTROLLER 
--        LDLIBS+=-L/usr/local/lib -lsqlite3
-+        LDLIBS+=-lsqlite3
-         OBJS+=controller/SqliteNetworkController.o 
+ 	DEFS+=-DZT_ENABLE_NETWORK_CONTROLLER
+-	LDLIBS+=-L/usr/local/lib -lsqlite3
++	LDLIBS+=-lsqlite3
+ 	OBJS+=controller/SqliteNetworkController.o
  endif
  
-@@ -74,8 +65,7 @@
+@@ -72,7 +63,7 @@
  	CFLAGS+=-Wall -fPIE -fvisibility=hidden -pthread $(INCLUDES) -DNDEBUG $(DEFS)
  	CXXFLAGS?=-O3 -fstack-protector
- 	CXXFLAGS+=-Wall -fPIE -fvisibility=hidden -fno-rtti -pthread $(INCLUDES) -DNDEBUG $(DEFS)
--	LDFLAGS=-pie -Wl,-z,relro,-z,now
--	STRIP=strip --strip-all
+ 	CXXFLAGS+=-Wall -Wreorder -fPIE -fvisibility=hidden -fno-rtti -pthread $(INCLUDES) -DNDEBUG $(DEFS)
+-	LDFLAGS=-ldl -pie -Wl,-z,relro,-z,now
 +	LDFLAGS+=-pie -Wl,-z,relro,-z,now
+ 	STRIP?=strip
+ 	STRIP+=--strip-all
  endif
- ifeq ($(ZT_TRACE),1)
- 	DEFS+=-DZT_TRACE 
