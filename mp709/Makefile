@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -27,7 +27,7 @@ endef
 
 define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
-	$(INSTALL_DATA) ./src/$(PKG_NAME)m.c $(PKG_BUILD_DIR)/
+	$(INSTALL_DATA) ./src/$(PKG_NAME)m.c $(PKG_BUILD_DIR)
 endef
 
 define Build/Compile

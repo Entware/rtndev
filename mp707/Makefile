@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mp707
-PKG_VERSION:=0.1.0
-PKG_REV:=396233f9e4bb3dbb84f67f14fe32c1d9a2adf107
+PKG_VERSION:=0.1.0-20160125
+PKG_REV:=d0874e415be034637041e261cbcf2aed378bf917
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
