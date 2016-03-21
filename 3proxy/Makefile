@@ -15,6 +15,8 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/z3APA3A/3proxy/archive
 PKG_MD5SUM:=edadb0da813c514f8af0dfc2c7c4ae2a
 
+PKG_BUILD_DEPENDS:=openssl
+
 include $(INCLUDE_DIR)/package.mk
 
 PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf -
@@ -33,6 +35,7 @@ define Package/3proxy/description
  3proxy is universal proxy server. It can be used to provide internal users
  with fully controllable access to external resources or to provide external
  users with access to internal resources.
+ Note: SSL plugin requires libopenssl to be installed.
 endef
 
 define Package/3proxy/conffiles
