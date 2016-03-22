@@ -33,7 +33,7 @@ endef
 
 define Build/Compile
 	$(TARGET_CC) -O0 -c -o $(PKG_BUILD_DIR)/cpubench.o $(PKG_BUILD_DIR)/openwrt_cpu_bench_v06.c
-	$(TARGET_CC) -o $(PKG_BUILD_DIR)/cpubench $(PKG_BUILD_DIR)/cpubench.o
+	$(TARGET_CC) $(TARGET_LDFLAGS) -o $(PKG_BUILD_DIR)/cpubench $(PKG_BUILD_DIR)/cpubench.o
 endef
 
 define Package/cpubench/install
