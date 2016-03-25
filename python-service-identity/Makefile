@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=service_identity
 PKG_VERSION:=14.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/s/service_identity/
@@ -26,7 +26,7 @@ define Package/python-service-identity
   CATEGORY:=Languages
   TITLE:=python-service-identity
   URL:=https://pypi.python.org/pypi/service_identity
-  DEPENDS:=+python +pyopenssl +python-characteristic +pyasn1-modules
+  DEPENDS:=+python +python-pyopenssl +python-characteristic +pyasn1-modules
 endef
 
 define Package/python-service-identity/description
