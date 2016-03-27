@@ -18,7 +18,7 @@ define Package/mp709
 	DEPENDS:=+libusb-1.0
 	TITLE:=a tool for monipulating MP709 USB relay
 	URL:=http://wl500g.info/showthread.php?20497&p=257339#post257339
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/mp709/description
