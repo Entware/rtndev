@@ -1,0 +1,52 @@
+#!/bin/sh
+
+PATH=/opt/bin:/opt/sbin:/sbin:/bin:/usr/sbin:/usr/bin
+
+start()
+{
+    shadowvpn \
+        -c /opt/etc/shadowvpn/client.conf \
+        -s start
+}
+
+boot()
+{
+    if [ ! -c "/dev/net/tun" ]; then
+        mkdir -p /dev/net
+        mknod /dev/net/tun c 10 200
+        chmod 0666 /dev/net/tun
+    fi
+    start
+}
+
+stop()
+{
+    shadowvpn \
+        -c /opt/etc/shadowvpn/client.conf \
+        -s stop
+}
+
+restart()
+{
+    shadowvpn \
+        -c /opt/etc/shadowvpn/client.conf \
+        -s restart
+}
+
+case "$1" in
+        start)
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        restart)
+                restart
+                ;;
+        *)
+                echo "Usage: $0 (start|stop|restart|status)"
+                exit 1
+                ;;
+esac
+
+exit 0
