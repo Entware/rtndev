@@ -26,7 +26,7 @@
 +counter /opt/etc/3proxy/3proxy.3cf
  
 -users $/usr/local/etc/3proxy/passwd
-+users $/opt/etc/3proxy/passwd
++#users $/opt/etc/3proxy/passwd
  
 -include /usr/local/etc/3proxy/counters
 -include /usr/local/etc/3proxy/bandlimiters
