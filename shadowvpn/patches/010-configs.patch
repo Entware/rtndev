@@ -1,37 +1,15 @@
---- a/samples/server.conf
-+++ b/samples/server.conf
-@@ -30,15 +30,15 @@
- # the script to run after VPN is created
- # use this script to set up routes, NAT, etc
- # configuration in this file will be set as environment variables
--up=/etc/shadowvpn/server_up.sh
-+up=/opt/etc/shadowvpn/server_up.sh
- 
- # the script to run before stopping VPN
- # use this script to restore routes, NAT, etc
- # configuration in this file will be set as environment variables
--down=/etc/shadowvpn/server_down.sh
-+down=/opt/etc/shadowvpn/server_down.sh
- 
- # PID file path
--pidfile=/var/run/shadowvpn.pid
-+pidfile=/opt/var/run/shadowvpn.pid
- 
- # log file path
--logfile=/var/log/shadowvpn.log
-+logfile=/opt/var/log/shadowvpn.log
 --- a/samples/client.conf
 +++ b/samples/client.conf
-@@ -31,15 +31,15 @@
- # the script to run after VPN is created
- # use this script to set up routes, NAT, etc
- # configuration in this file will be set as environment variables
+@@ -38,15 +38,15 @@
+ # Script to run after VPN is created. All key-value pairs (except password) in
+ # this file will be passed to the script as environment variables. Use this
+ # script to set up routes, turn on NAT, etc.
 -up=/etc/shadowvpn/client_up.sh
 +up=/opt/etc/shadowvpn/client_up.sh
  
- # the script to run before stopping VPN
- # use this script to restore routes, NAT, etc
- # configuration in this file will be set as environment variables
+ # Script to run before stopping VPN. All key-value pairs (except password) in
+ # this file will be passed to the script as environment variables. Use this
+ # script to restore routes, turn off NAT, etc.
 -down=/etc/shadowvpn/client_down.sh
 +down=/opt/etc/shadowvpn/client_down.sh
  
@@ -39,6 +17,28 @@
 -pidfile=/var/run/shadowvpn.pid
 +pidfile=/opt/var/run/shadowvpn.pid
  
- # log file path
+ # Log file path
+-logfile=/var/log/shadowvpn.log
++logfile=/opt/var/log/shadowvpn.log
+--- a/samples/server.conf
++++ b/samples/server.conf
+@@ -49,15 +49,15 @@
+ # Script to run after VPN is created. All key-value pairs (except password) in
+ # this file will be passed to the script as environment variables. Use this
+ # script to set up routes, turn on NAT, etc.
+-up=/etc/shadowvpn/server_up.sh
++up=/opt/etc/shadowvpn/server_up.sh
+ 
+ # Script to run before stopping VPN. All key-value pairs (except password) in
+ # this file will be passed to the script as environment variables. Use this
+ # script to restore routes, turn off NAT, etc.
+-down=/etc/shadowvpn/server_down.sh
++down=/opt/etc/shadowvpn/server_down.sh
+ 
+ # PID file path
+-pidfile=/var/run/shadowvpn.pid
++pidfile=/opt/var/run/shadowvpn.pid
+ 
+ # Log file path
 -logfile=/var/log/shadowvpn.log
 +logfile=/opt/var/log/shadowvpn.log

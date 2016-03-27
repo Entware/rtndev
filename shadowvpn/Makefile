@@ -1,22 +1,20 @@
 #
-# Copyright (C) 2011-2015 Entware
+# Copyright (C) 2011-2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Based on https://github.com/clowwindy/ShadowVPN/blob/master/openwrt/Makefile
-# TO DO: use external libsodium after upgrading it up to 1.0.2
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shadowvpn
-PKG_VERSION:=0.1.6-20150721
-PKG_REV:=25761e971d3af1009cc29c644f0e18142045c39e
+PKG_VERSION:=0.2.0
+PKG_REV:=d96833ce07098f93065182e497b771e035d07df8
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/clowwindy/ShadowVPN
+PKG_SOURCE_URL:=https://github.com/GFW-Fucker/ShadowVPN.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
