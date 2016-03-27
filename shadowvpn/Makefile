@@ -37,11 +37,6 @@ define Package/shadowvpn/description
  ShadowVPN is a fast, safe VPN based on libsodium.
 endef
 
-CONFIGURE_ARGS += \
-	--disable-ssp \
-	--disable-asm \
-	--enable-minimal
-
 define Package/shadowvpn/conffiles
 /opt/etc/shadowvpn/server.conf
 /opt/etc/shadowvpn/server_up.sh
