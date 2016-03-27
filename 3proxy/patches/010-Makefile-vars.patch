@@ -14,7 +14,7 @@
 +LN = $(CC)
  DCFLAGS = -fpic
 -LDFLAGS = -O2 -pthread
-+LDFLAGS = -pthread
++LDFLAGS += -pthread
  DLFLAGS = -shared
  DLSUFFICS = .ld.so
  # -lpthreads may be reuqired on some platforms instead of -pthreads
