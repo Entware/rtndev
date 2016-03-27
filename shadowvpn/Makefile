@@ -27,9 +27,10 @@ define Package/shadowvpn
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=VPN
+	DEPENDS:=+libsodium
 	TITLE:=ShadowVPN
 	URL:=$(PKG_SOURCE_URL)
-	MAINTAINER:=Entware team, entware.wl500g.info
+	MAINTAINER:=Entware team, entware.net
 endef
 
 define Package/shadowvpn/description
@@ -39,6 +40,7 @@ endef
 CONFIGURE_ARGS += \
 	--disable-ssp \
 	--disable-asm \
+	--enable-minimal
 
 define Package/shadowvpn/conffiles
 /opt/etc/shadowvpn/server.conf
@@ -50,14 +52,16 @@ define Package/shadowvpn/conffiles
 endef
 
 define Package/shadowvpn/install
-	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/shadowvpn $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libshadowvpn.so* $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/etc/shadowvpn
 	$(INSTALL_CONF) \
 	    $(PKG_INSTALL_DIR)/opt/etc/shadowvpn/{server,client}{.conf,_up.sh,_down.sh} \
 	    $(1)/opt/etc/shadowvpn
+	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S20shadowvpn-client $(1)/opt/etc/init.d
-	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/shadowvpn $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,shadowvpn))

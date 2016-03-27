@@ -1,0 +1,45 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -64,11 +64,6 @@
+ 
+ AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
+ 
+-# Add a option to force static link the target.
+-AC_ARG_ENABLE([static],
+-    [  --enable-static         build with static linking],
+-    [LDFLAGS="$LDFLAGS -static"])
+-
+ AC_ARG_ENABLE([profile],
+     [  --enable-profile        build with profile],
+     [CFLAGS="$CFLAGS -pg"])
+@@ -77,8 +72,5 @@
+     [  --enable-analyze        build with analyze],
+     [CC="clang --analyze"])
+ 
+-AM_CONDITIONAL(STATIC, test x"$static" = x"true")
+-
+ AC_CONFIG_FILES([Makefile src/Makefile samples/Makefile])
+-AC_CONFIG_SUBDIRS([libsodium])
+ AC_OUTPUT
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -2,10 +2,6 @@
+ 
+ lib_LTLIBRARIES = libshadowvpn.la
+ 
+-SUBDIRS = ../libsodium
+-
+-AM_CFLAGS = -I$(srcdir)/../libsodium/src/libsodium/include
+-
+ libshadowvpn_la_SOURCES = log.c \
+ 	log.h \
+ 	crypto_secretbox_salsa208poly1305.h \
+@@ -30,7 +26,7 @@
+ libshadowvpn_la_SOURCES += win32.c win32.h
+ endif
+ 
+-libshadowvpn_la_LIBADD = ../libsodium/src/libsodium/libsodium.la
++libshadowvpn_la_LIBADD = -lsodium
+ 
+ shadowvpn_SOURCES = main.c
+ 
