@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=serf
 PKG_VERSION:=1.3.8
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://archive.apache.org/dist/serf
@@ -24,8 +24,8 @@ define Package/libserf
 	CATEGORY:=Libraries
 	TITLE:=High performance C-based HTTP client library
 	URL:=https://serf.apache.org/
-	MAINTAINER:=Entware team, entware.wl500g.info
-	DEPENDS:=+libopenssl +libapr +libaprutil +libiconv-full +libuuid +libexpat
+	MAINTAINER:=Entware team, http://entware.net
+	DEPENDS:=+libopenssl +libaprutil
 endef
 
 define Package/libserf/description
