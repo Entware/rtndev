@@ -1,0 +1,17 @@
+--- a/makefile
++++ b/makefile
+@@ -9,11 +9,11 @@
+ mandir = ${sharedir}/man
+ 
+ O=aoe.o bpf.o ${PLATFORM}.o ata.o
+-CFLAGS += -Wall -g -O2
+-CC = gcc
++CFLAGS ?= -Wall -g -O2
++CC ?= gcc
+ 
+ vblade: $O
+-	${CC} -o vblade $O
++	${CC} ${LDFLAGS} -o vblade $O
+ 
+ aoe.o : aoe.c config.h dat.h fns.h makefile
+ 	${CC} ${CFLAGS} -c $<
