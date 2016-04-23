@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=1.3.12
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.deluge-torrent.org/source
@@ -60,7 +60,7 @@ endef
 define Package/deluge/postinst
 #!/bin/sh
 if [ ! -f /opt/etc/deluge/.configured ]; then
-  /bin/echo "Setting default deluge ui to console ... "
+  echo "Setting default deluge ui to console ... "
   /opt/bin/deluge -s console
   touch /opt/etc/deluge/.configured
 fi
