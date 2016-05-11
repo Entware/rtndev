@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2016.03.02
+PKG_VERSION:=0.1.20160425
 PKG_RELEASE:=1
 
-PKG_SOURCE:=regex-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/source/r/regex
-PKG_MD5SUM:=7e6056389b39af87cf4e60d8ac88402a
+PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
+PKG_SOURCE_URL:=ftp://ftp.debian.org/debian/pool/main/p/$(PKG_NAME)
+PKG_MD5SUM:=2531484af7428826a89f9e0147ed9633
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/regex-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/regex-2016.04.25
 
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
