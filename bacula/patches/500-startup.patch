@@ -1,6 +1,6 @@
 --- a/scripts/bacula-ctl-dir.in
 +++ b/scripts/bacula-ctl-dir.in
-@@ -30,14 +30,14 @@
+@@ -29,14 +29,14 @@
  # License: BSD 2-Clause; see file LICENSE-FOSS
  #
  
@@ -17,52 +17,61 @@
  
  # All these are not *really* needed but it makes it
  #  easier to "steal" this code for the development 
-@@ -82,27 +82,27 @@
+@@ -81,31 +81,31 @@
     # Kill it.
     if [ "$pid" != "" ] ; then
        if [ "$notset" = "1" ] ; then
--         if ${PS} -p "$pid">/dev/null 2>&1; then
+-	 if ${PS} -p "$pid">/dev/null 2>&1; then
+-	     # TERM first, then KILL if not dead
+-	     kill -TERM $pid 2>/dev/null
+-	     sleep 1
+-	     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-		 sleep 1
+-		 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-		     sleep 3
+-		     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-			 kill -KILL $pid 2>/dev/null
+-		     fi
+-		 fi
+-	     fi
+-	  fi
+-	  ${PS} -p "$pid" >/dev/null 2>&1
+-	  RC=$?
+-	  [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
 +         if status $1 $2 >/dev/null 2>&1; then
-              # TERM first, then KILL if not dead
-              kill -TERM $pid 2>/dev/null
-              sleep 1
--             if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++             # TERM first, then KILL if not dead
++             kill -TERM $pid 2>/dev/null
++             sleep 1
 +             if status $1 $2 >/dev/null 2>&1; then
-                  sleep 1
--                 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                 sleep 1
 +                 if status $1 $2 >/dev/null 2>&1; then
-                      sleep 3
--                     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                     sleep 3
 +                     if status $1 $2 >/dev/null 2>&1; then
-                          kill -KILL $pid 2>/dev/null
-                      fi
-                  fi
-              fi
-           fi
--          ${PS} -p "$pid" >/dev/null 2>&1
--          RC=$?
--          [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
++                         kill -KILL $pid 2>/dev/null
++                     fi
++                 fi
++             fi
++          fi
 +#          ${PS} -p "$pid" >/dev/null 2>&1
 +          RC=`pidofproc $base $2`
 +          [ "$RC" != "" ] && failure "$base shutdown" || success "$base shutdown"
        #    RC=$((! $RC))
        # use specified level only
        else
--         if ${PS} -p "$pid" >/dev/null 2>&1; then
+-	 if ${PS} -p "$pid" >/dev/null 2>&1; then
+-	    kill $killlevel $pid 2>/dev/null
+-	    RC=$?
+-	    [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
+-	 fi
 +         if status $1 $2 >/dev/null 2>&1; then
-             kill $killlevel $pid 2>/dev/null
-             RC=$?
-             [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
-@@ -141,7 +141,7 @@
- 
-    # Next try "pidof"
-    if [ -x ${PIDOF} ] ; then
--      pid=`${PIDOF} $1`
-+      pid=`${PIDOF} $base`
-    fi
-    if [ "$pid" != "" ] ; then
-       echo $pid
-@@ -167,7 +167,7 @@
++            kill $killlevel $pid 2>/dev/null
++            RC=$?
++            [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
++         fi
+       fi
+    else
+       failure "$base shutdown"
+@@ -166,7 +166,7 @@
  
     # First try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -71,7 +80,7 @@
     fi
     if [ "$pid" != "" ] ; then
        echo "$base (pid $pid) is running..."
-@@ -255,8 +255,12 @@
+@@ -254,8 +254,12 @@
        [ -x ${BACDIRBIN}/bacula-dir ] && status ${BACDIRBIN}/bacula-dir ${DIR_PORT}
        ;;
  
@@ -87,7 +96,7 @@
  esac
 --- a/scripts/bacula-ctl-fd.in
 +++ b/scripts/bacula-ctl-fd.in
-@@ -27,14 +27,14 @@
+@@ -26,14 +26,14 @@
  # description: The Leading Open Source Backup Solution.
  #
  
@@ -104,43 +113,70 @@
  
  # All these are not *really* needed but it makes it
  #  easier to "steal" this code for the development 
-@@ -79,27 +79,27 @@
+@@ -78,31 +78,31 @@
     # Kill it.
     if [ "$pid" != "" ] ; then
        if [ "$notset" = "1" ] ; then
--         if ${PS} -p "$pid">/dev/null 2>&1; then
+-	 if ${PS} -p "$pid">/dev/null 2>&1; then
+-	     # TERM first, then KILL if not dead
+-	     kill -TERM $pid 2>/dev/null
+-	     sleep 1
+-	     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-		 sleep 1
+-		 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-		     sleep 3
+-		     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-			 kill -KILL $pid 2>/dev/null
+-		     fi
+-		 fi
+-	     fi
+-	  fi
+-	  ${PS} -p "$pid" >/dev/null 2>&1
+-	  RC=$?
+-	  [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
 +          if status $1 $2 >/dev/null 2>&1; then
-              # TERM first, then KILL if not dead
-              kill -TERM $pid 2>/dev/null
-              sleep 1
--             if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++             # TERM first, then KILL if not dead
++             kill -TERM $pid 2>/dev/null
++             sleep 1
 +             if status $1 $2 >/dev/null 2>&1 ; then
-                  sleep 1
--                 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                 sleep 1
 +                 if status $1 $2 >/dev/null 2>&1 ; then
-                      sleep 3
--                     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                     sleep 3
 +                     if status $1 $2 >/dev/null 2>&1 ; then
-                          kill -KILL $pid 2>/dev/null
-                      fi
-                  fi
-              fi
-           fi
--          ${PS} -p "$pid" >/dev/null 2>&1
--          RC=$?
--          [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
++                         kill -KILL $pid 2>/dev/null
++                     fi
++                 fi
++             fi
++          fi
 +#          ${PS} -p "$pid" >/dev/null 2>&1
 +          RC=`pidofproc $base $2`
 +          [ "$RC" != "" ] && failure "$base shutdown" || success "$base shutdown"
        #    RC=$((! $RC))
        # use specified level only
        else
--         if ${PS} -p "$pid" >/dev/null 2>&1; then
+-	 if ${PS} -p "$pid" >/dev/null 2>&1; then
+-	    kill $killlevel $pid 2>/dev/null
+-	    RC=$?
+-	    [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
+-	 fi
 +         if status $1 $2 >/dev/null 2>&1; then
-             kill $killlevel $pid 2>/dev/null
-             RC=$?
-             [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
-@@ -138,7 +138,7 @@
++            kill $killlevel $pid 2>/dev/null
++            RC=$?
++            [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
++         fi
+       fi
+    else
+       failure "$base shutdown"
+@@ -130,14 +130,14 @@
+    if [ -f ${PIDDIR}/$base.$2.pid ] ; then
+       pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
+       if [ "$pid" != "" ] ; then
+-	 echo $pid
+-	 return 0
++         echo $pid
++         return 0
+       fi
+    fi
  
     # Next try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -149,7 +185,7 @@
     fi
     if [ "$pid" != "" ] ; then
        echo $pid
-@@ -164,7 +164,7 @@
+@@ -163,19 +163,19 @@
  
     # First try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -158,7 +194,82 @@
     fi
     if [ "$pid" != "" ] ; then
        echo "$base (pid $pid) is running..."
-@@ -252,8 +252,11 @@
+       return 0
+    else
+       pid=`${PSCMD} | ${AWK} 'BEGIN { prog=ARGV[1]; ARGC=1 } 
+-	    { if ((prog == $2) || (("(" prog ")") == $2) ||
+-		 (("[" prog "]") == $2) ||
+-		 ((prog ":") == $2)) { print $1 ; exit 0 } }' $1`
++            { if ((prog == $2) || (("(" prog ")") == $2) ||
++                 (("[" prog "]") == $2) ||
++                 ((prog ":") == $2)) { print $1 ; exit 0 } }' $1`
+       if [ "$pid" != "" ] ; then
+-	 echo "$base (pid $pid) is running..."
+-	 return 0
++         echo "$base (pid $pid) is running..."
++         return 0
+       fi
+    fi
+ 
+@@ -183,8 +183,8 @@
+    if [ -f ${PIDDIR}/$base.$2.pid ] ; then
+       pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
+       if [ "$pid" != "" ] ; then
+-	 echo "$base dead but pid file exists"
+-	 return 1
++         echo "$base dead but pid file exists"
++         return 1
+       fi
+    fi
+    # See if the subsys lock exists
+@@ -215,29 +215,29 @@
+ case "$1" in
+    start)
+       [ -x ${BACFDBIN}/bacula-fd ] && {
+-	 echo "Starting the $Bacula File daemon"
+-	 OPTIONS=''
+-	 if [ "${FD_USER}" != '' ]; then
+-	    OPTIONS="${OPTIONS} -u ${FD_USER}"
+-	 fi
+-
+-	 if [ "${FD_GROUP}" != '' ]; then
+-	    OPTIONS="${OPTIONS} -g ${FD_GROUP}"
+-	 fi
+-
+-	 if [ "x${VALGRIND_FD}" = "x1" ]; then
+-	    valgrind --leak-check=full ${BACFDBIN}/bacula-fd $2 $3 ${OPTIONS} -v -c ${BACFDCFG}/bacula-fd.conf
+-	 else
+-	    ${BACFDBIN}/bacula-fd $2 $3 ${OPTIONS} -v -c ${BACFDCFG}/bacula-fd.conf
+-	 fi
++         echo "Starting the $Bacula File daemon"
++         OPTIONS=''
++         if [ "${FD_USER}" != '' ]; then
++            OPTIONS="${OPTIONS} -u ${FD_USER}"
++         fi
++
++         if [ "${FD_GROUP}" != '' ]; then
++            OPTIONS="${OPTIONS} -g ${FD_GROUP}"
++         fi
++
++         if [ "x${VALGRIND_FD}" = "x1" ]; then
++            valgrind --leak-check=full ${BACFDBIN}/bacula-fd $2 $3 ${OPTIONS} -v -c ${BACFDCFG}/bacula-fd.conf
++         else
++            ${BACFDBIN}/bacula-fd $2 $3 ${OPTIONS} -v -c ${BACFDCFG}/bacula-fd.conf
++         fi
+       }
+       ;;
+ 
+    stop)
+       # Stop the FD first so that SD will fail jobs and update catalog
+       [ -x ${BACFDBIN}/bacula-fd ] && {
+-	 echo "Stopping the $Bacula File daemon"
+-	 killproc ${BACFDBIN}/bacula-fd ${FD_PORT} $2
++         echo "Stopping the $Bacula File daemon"
++         killproc ${BACFDBIN}/bacula-fd ${FD_PORT} $2
+       }
+       ;;
+ 
+@@ -251,8 +251,11 @@
        [ -x ${BACFDBIN}/bacula-fd ] && status ${BACFDBIN}/bacula-fd  ${FD_PORT}
        ;;
  
@@ -173,7 +284,7 @@
  esac
 --- a/scripts/bacula-ctl-sd.in
 +++ b/scripts/bacula-ctl-sd.in
-@@ -27,14 +27,14 @@
+@@ -26,14 +26,14 @@
  # description: The Leading Open Source Backup Solution.
  #
  
@@ -190,43 +301,70 @@
  
  # All these are not *really* needed but it makes it
  #  easier to "steal" this code for the development 
-@@ -79,27 +79,27 @@
+@@ -78,31 +78,31 @@
     # Kill it.
     if [ "$pid" != "" ] ; then
        if [ "$notset" = "1" ] ; then
--         if ${PS} -p "$pid">/dev/null 2>&1; then
+-	 if ${PS} -p "$pid">/dev/null 2>&1; then
+-	     # TERM first, then KILL if not dead
+-	     kill -TERM $pid 2>/dev/null
+-	     sleep 1
+-	     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-		 sleep 1
+-		 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-		     sleep 3
+-		     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
+-			 kill -KILL $pid 2>/dev/null
+-		     fi
+-		 fi
+-	     fi
+-	  fi
+-	  ${PS} -p "$pid" >/dev/null 2>&1
+-	  RC=$?
+-	  [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
 +         if status $1 $2 >/dev/null 2>&1; then
-              # TERM first, then KILL if not dead
-              kill -TERM $pid 2>/dev/null
-              sleep 1
--             if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++             # TERM first, then KILL if not dead
++             kill -TERM $pid 2>/dev/null
++             sleep 1
 +             if status $1 $2 >/dev/null 2>&1; then
-                  sleep 1
--                 if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                 sleep 1
 +                 if status $1 $2 >/dev/null 2>&1; then
-                      sleep 3
--                     if ${PS} -p "$pid" >/dev/null 2>&1 ; then
++                     sleep 3
 +                     if status $1 $2 >/dev/null 2>&1; then
-                          kill -KILL $pid 2>/dev/null
-                      fi
-                  fi
-              fi
-           fi
--          ${PS} -p "$pid" >/dev/null 2>&1
--          RC=$?
--          [ $RC -eq 0 ] && failure "$base shutdown" || success "$base shutdown"
++                         kill -KILL $pid 2>/dev/null
++                     fi
++                 fi
++             fi
++          fi
 +#          ${PS} -p "$pid" >/dev/null 2>&1
 +          RC=`pidofproc $base $2`
 +          [ "$RC" != "" ] && failure "$base shutdown" || success "$base shutdown"
        #    RC=$((! $RC))
        # use specified level only
        else
--         if ${PS} -p "$pid" >/dev/null 2>&1; then
+-	 if ${PS} -p "$pid" >/dev/null 2>&1; then
+-	    kill $killlevel $pid 2>/dev/null
+-	    RC=$?
+-	    [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
+-	 fi
 +         if status $1 $2 >/dev/null 2>&1; then
-             kill $killlevel $pid 2>/dev/null
-             RC=$?
-             [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
-@@ -138,7 +138,7 @@
++            kill $killlevel $pid 2>/dev/null
++            RC=$?
++            [ $RC -eq 0 ] && success "$base $killlevel" || failure "$base $killlevel"
++         fi
+       fi
+    else
+       failure "$base shutdown"
+@@ -130,14 +130,14 @@
+    if [ -f ${PIDDIR}/$base.$2.pid ] ; then
+       pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
+       if [ "$pid" != "" ] ; then
+-	 echo $pid
+-	 return 0
++         echo $pid
++         return 0
+       fi
+    fi
  
     # Next try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -235,7 +373,7 @@
     fi
     if [ "$pid" != "" ] ; then
        echo $pid
-@@ -164,7 +164,7 @@
+@@ -163,19 +163,19 @@
  
     # First try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -244,7 +382,82 @@
     fi
     if [ "$pid" != "" ] ; then
        echo "$base (pid $pid) is running..."
-@@ -252,8 +252,11 @@
+       return 0
+    else
+       pid=`${PSCMD} | ${AWK} 'BEGIN { prog=ARGV[1]; ARGC=1 } 
+-	    { if ((prog == $2) || (("(" prog ")") == $2) ||
+-		 (("[" prog "]") == $2) ||
+-		 ((prog ":") == $2)) { print $1 ; exit 0 } }' $1`
++            { if ((prog == $2) || (("(" prog ")") == $2) ||
++                 (("[" prog "]") == $2) ||
++                 ((prog ":") == $2)) { print $1 ; exit 0 } }' $1`
+       if [ "$pid" != "" ] ; then
+-	 echo "$base (pid $pid) is running..."
+-	 return 0
++         echo "$base (pid $pid) is running..."
++         return 0
+       fi
+    fi
+ 
+@@ -183,8 +183,8 @@
+    if [ -f ${PIDDIR}/$base.$2.pid ] ; then
+       pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
+       if [ "$pid" != "" ] ; then
+-	 echo "$base dead but pid file exists"
+-	 return 1
++         echo "$base dead but pid file exists"
++         return 1
+       fi
+    fi
+    # See if the subsys lock exists
+@@ -215,29 +215,29 @@
+ case "$1" in
+    start)
+       [ -x ${BACSDBIN}/bacula-sd ] && {
+-	 echo "Starting the $Bacula Storage daemon"
+-	 OPTIONS=''
+-	 if [ "${SD_USER}" != '' ]; then
+-	    OPTIONS="${OPTIONS} -u ${SD_USER}"
+-	 fi
+-
+-	 if [ "${SD_GROUP}" != '' ]; then
+-	    OPTIONS="${OPTIONS} -g ${SD_GROUP}"
+-	 fi
+-
+-	 if [ "x${VALGRIND_SD}" = "x1" ]; then
+-	    valgrind --leak-check=full ${BACSDBIN}/bacula-sd $2 $3 ${OPTIONS} -v -c ${BACSDCFG}/bacula-sd.conf
+-	 else
+-	    ${BACSDBIN}/bacula-sd $2 $3 ${OPTIONS} -v -c ${BACSDCFG}/bacula-sd.conf
+-	 fi
++         echo "Starting the $Bacula Storage daemon"
++         OPTIONS=''
++         if [ "${SD_USER}" != '' ]; then
++            OPTIONS="${OPTIONS} -u ${SD_USER}"
++         fi
++
++         if [ "${SD_GROUP}" != '' ]; then
++            OPTIONS="${OPTIONS} -g ${SD_GROUP}"
++         fi
++
++         if [ "x${VALGRIND_SD}" = "x1" ]; then
++            valgrind --leak-check=full ${BACSDBIN}/bacula-sd $2 $3 ${OPTIONS} -v -c ${BACSDCFG}/bacula-sd.conf
++         else
++            ${BACSDBIN}/bacula-sd $2 $3 ${OPTIONS} -v -c ${BACSDCFG}/bacula-sd.conf
++         fi
+       }
+       ;;
+ 
+ 
+    stop)
+       [ -x ${BACSDBIN}/bacula-sd ] && {
+-	 echo "Stopping the $Bacula Storage daemon"
+-	 killproc ${BACSDBIN}/bacula-sd ${SD_PORT} $2
++         echo "Stopping the $Bacula Storage daemon"
++         killproc ${BACSDBIN}/bacula-sd ${SD_PORT} $2
+       }
+       ;;
+ 
+@@ -251,8 +251,11 @@
        [ -x ${BACSDBIN}/bacula-sd   ] && status ${BACSDBIN}/bacula-sd  ${SD_PORT}
        ;;
  
