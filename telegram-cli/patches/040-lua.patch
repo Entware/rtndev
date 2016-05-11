@@ -8,7 +8,7 @@
  m4_include([ax_python.m4])
  m4_include([m4_ax_check_openssl.m4])
  m4_include([m4_ax_check_zlib.m4])
-@@ -64,31 +63,15 @@
+@@ -75,31 +74,15 @@
      AC_MSG_RESULT([disabled])
    else
      AC_MSG_RESULT([enabled])

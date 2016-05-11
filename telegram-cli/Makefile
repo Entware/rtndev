@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=telegram-cli
-PKG_VERSION:=1.3.1-20151130
-PKG_REV:=0a23e238d9a7e405d44afd9d374461dfb7bf362f
+PKG_VERSION:=1.3.1-20160323
+PKG_REV:=6547c0b21b977b327b3c5e8142963f4bc246187a
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -40,6 +40,10 @@ endef
 define Package/telegram-cli/description
  Telegram messenger command-line interface
 endef
+
+HOST_CONFIGURE_ARGS += \
+	--disable-python \
+	--disable-valgrind
 
 CONFIGURE_ARGS += \
 	--disable-python \
