@@ -4,7 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# $Id: Makefile 9173 2007-10-07 03:20:26Z blogic $
+# Deluge gliches with newer version
 
 include $(TOPDIR)/rules.mk
 
