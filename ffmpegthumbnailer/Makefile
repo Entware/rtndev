@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/$(PKG_VERSION)
-#PKG_MD5SUM:=df378586475f1ff08d5845bda1c0dbb5
+PKG_MD5SUM:=753c8ba68f66ae085ef178d7c5966cae
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

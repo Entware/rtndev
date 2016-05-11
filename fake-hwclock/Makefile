@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=ftp://ftp.debian.org/debian/pool/main/f/fake-hwclock
-#PKG_MD5SUM:=e0db1ecdf1b72ac6cbd7dcbae08b7067
+PKG_MD5SUM:=e0db1ecdf1b72ac6cbd7dcbae08b7067
 
 include $(INCLUDE_DIR)/package.mk
 
