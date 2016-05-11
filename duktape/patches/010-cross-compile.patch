@@ -12,15 +12,16 @@
 -CCLIBS	= -lm
 +CCLIBS	= $(LDFLAGS) -lm
  
- # If you have readline, you may want to enable these.  On some platforms
- # -lreadline also requires -lncurses (e.g. RHEL), so it is added by default
- # (you may be able to remove it)
+ # If you want linenoise, you can enable these.  At the moment linenoise
+ # will cause some harmless compilation warnings.
 -#CCOPTS += -DDUK_CMDLINE_FANCY
--#CCLIBS += -lreadline
--#CCLIBS += -lncurses
+-#DUKTAPE_CMDLINE_SOURCES += linenoise/linenoise.c
+-#CCOPTS += -I./linenoise
+-#duk:	linenoise
 +CCOPTS += -DDUK_CMDLINE_FANCY
-+CCLIBS += -lreadline
-+CCLIBS += -lncurses
++DUKTAPE_CMDLINE_SOURCES += linenoise/linenoise.c
++CCOPTS += -I./linenoise
++duk:	linenoise
  
  # Optional feature defines, see: http://duktape.org/guide.html#compiling
  CCOPTS += -DDUK_OPT_SELF_TESTS
