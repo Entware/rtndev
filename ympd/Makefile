@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ympd
-PKG_VERSION:=1.2.3-20150920
-PKG_REV:=4295d1587446872688fe7fa307e33fbc586bc9bc
+PKG_VERSION:=1.2.3-20160214
+PKG_REV:=ec008a4995666d673bd4cb3926fae7f4b6aa3239
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -24,7 +24,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/ympd
 	SECTION:=sound
 	CATEGORY:=Sound
-	DEPENDS:=+libmpdclient +libpthread
+	DEPENDS:=+libmpdclient +libopenssl +libpthread
 	TITLE:=MPD Web GUI
 	URL:=http://www.ympd.org/
 	MAINTAINER:=Entware team, http://entware.net
