@@ -25,7 +25,7 @@ define Package/grive2
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=@USE_GLIBC +libcurl +yajl +libstdcpp +libgcrypt +libexpat +libbfd\
+	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libexpat +libbfd\
 		+boost-filesystem +boost-program_options +boost-regex +boost-test +boost-system
 	TITLE:=This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
 	URL:=https://github.com/vitalif/grive2
@@ -36,6 +36,13 @@ define Package/grive2/description
  This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
  with the support for the new Drive REST API and partial sync.
 endef
+
+ifneq ($(CONFIG_USE_UCLIBC),)
+define Build/Prepare
+	$(Build/Prepare/Default)
+	$(SED) 's,find_package(BFD),#find_package(BFD),g' $(PKG_BUILD_DIR)/libgrive/CMakeLists.txt
+endef
+endif
 
 define Package/grive2/install
 	$(INSTALL_DIR) $(1)/opt/bin
