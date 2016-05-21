@@ -1,0 +1,12 @@
+--- a/libgrive/CMakeLists.txt
++++ b/libgrive/CMakeLists.txt
+@@ -6,6 +6,9 @@
+ find_package(CURL REQUIRED)
+ find_package(EXPAT REQUIRED)
+ find_package(Boost 1.40.0 COMPONENTS program_options filesystem unit_test_framework regex system REQUIRED)
++if(Boost_FOUND)
++    include_directories(${Boost_INCLUDE_DIRS}) 
++endif()
+ find_package(BFD)
+ find_package(CppUnit)
+ find_package(Iberty)
