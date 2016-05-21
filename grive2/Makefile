@@ -37,12 +37,6 @@ define Package/grive2/description
  with the support for the new Drive REST API and partial sync.
 endef
 
-CMAKE_OPTIONS+= -DCMAKE_CXX_FLAGS="$(CXXFLAGS)"
-#        -DYAJL_INCLUDE_DIRS="$(STAGING_DIR)/opt/include/yajl"
-
-#TARGET_CFLAGS += -I$(STAGING_DIR)/opt/include/yajl -I$(STAGING_DIR)/opt/include/boost
-
-
 define Package/grive2/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/grive \
