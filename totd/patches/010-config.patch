@@ -1,0 +1,10 @@
+--- a/totd.conf.sample
++++ b/totd.conf.sample
+@@ -14,6 +14,5 @@
+ pidfile /var/run/totd5005.pid
+ ; interfaces totd listens on (UDP only for now and not on Linux)
+ ; If left out totd will only open wildcard sockets.
+-interfaces lo0 ep0 ex0 an0
++;interfaces lo0 ep0 ex0 an0
+ ; 6to4 reverse lookup
+-stf
