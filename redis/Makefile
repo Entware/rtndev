@@ -44,6 +44,11 @@ define Build/Compile
 	$(call Build/Compile/Default,-C $(PKG_BUILD_DIR)/deps hiredis linenoise lua PLAT=linux)
 	$(call Build/Compile/Default)
 endef
+
+define Package/redis/conffiles
+/opt/etc/redis.conf
+endef
+
 define Package/redis/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(CP) $(PKG_INSTALL_DIR)/opt/bin/redis* $(1)/opt/bin
