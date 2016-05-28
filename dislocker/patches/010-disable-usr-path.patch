@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -22,7 +22,7 @@
+ 
+ set (AUTHOR "Romain Coltel")
+ 
+-find_program (GIT_EXE NAMES git PATHS /usr/bin /usr/local/bin)
++#find_program (GIT_EXE NAMES git PATHS /usr/bin /usr/local/bin)
+ 
+ if(GIT_EXE)
+ 	execute_process (
