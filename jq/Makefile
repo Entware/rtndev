@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jq
 PKG_VERSION:=1.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/stedolan/jq/releases/download/jq-$(PKG_VERSION)
@@ -37,7 +37,8 @@ CONFIGURE_ARGS += \
 	--disable-docs
 
 TARGET_CFLAGS += \
-	-std=c99
+	-std=c99 \
+	-fno-ipa-sra
 
 define Package/jq/install
 	$(INSTALL_DIR) $(1)/opt/bin
