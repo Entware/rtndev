@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -172,7 +172,7 @@
+ 
+ add_executable (encfs-bin encfs/main.cpp)
+ target_link_libraries (encfs-bin encfs)
+-set_target_properties (encfs-bin PROPERTIES OUTPUT_NAME "encfs")
++set_target_properties (encfs-bin PROPERTIES OUTPUT_NAME "encfs.bin")
+ install (TARGETS encfs-bin DESTINATION bin)
+ 
+ add_executable (encfsctl encfs/encfsctl.cpp)
