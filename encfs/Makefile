@@ -22,8 +22,8 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 define Package/encfs
-	SECTION:=net
-	CATEGORY:=Network
+	SECTION:=utils
+	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
 	DEPENDS:=+libopenssl +libstdcpp +fuse-utils
 	TITLE:=encrypted filesystem in user-space
@@ -32,8 +32,9 @@ define Package/encfs
 endef
 
 define Package/encfs/description
- EncFS provides an encrypted filesystem in user-space.
- It runs without any special permissions and uses the FUSE library module to provide the filesystem interface.
+ EncFS provides an encrypted filesystem in user-space. It runs without any
+ special permissions and uses the FUSE library module to provide the filesystem
+ interface.
 endef
 
 TARGET_LDFLAGS += -lpthread
