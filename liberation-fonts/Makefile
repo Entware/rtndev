@@ -24,7 +24,7 @@ define Package/liberation-fonts
 	SUBMENU:=Printing
 	DEPENDS:=+fontconfig
 	TITLE:=ghostscript, standard fonts
-	URL:=$(PKG_SOURCE_URL)
+	URL:=https://fedorahosted.org/liberation-fonts/
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
