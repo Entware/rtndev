@@ -1,7 +1,7 @@
 --- a/FS.cpp
 +++ b/FS.cpp
-@@ -57,11 +57,11 @@
- #else /* other unix */
+@@ -65,11 +65,11 @@
+ #endif	  
      char *home = getenv("HOME");
      if (isService) {
 -      dataDir = "/var/lib/" + appName;
