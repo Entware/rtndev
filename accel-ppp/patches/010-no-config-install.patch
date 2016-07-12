@@ -1,6 +1,6 @@
 --- a/accel-pppd/CMakeLists.txt
 +++ b/accel-pppd/CMakeLists.txt
-@@ -108,11 +108,3 @@
+@@ -110,11 +110,3 @@
  )
  
  INSTALL(FILES accel-ppp.conf.5 DESTINATION share/man/man5)

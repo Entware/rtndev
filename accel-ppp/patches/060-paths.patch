@@ -16,12 +16,14 @@
  #define ENV_MAX 16
  
 -static char *conf_ip_up = "/etc/ppp/ip-up";
-+static char *conf_ip_up = "/opt/etc/ppp/ip-up";
- static char *conf_ip_pre_up;
+-static char *conf_ip_pre_up = "/etc/ppp/ip-pre-up";
 -static char *conf_ip_down = "/etc/ppp/ip-down";
-+static char *conf_ip_down = "/opt/etc/ppp/ip-down";
- static char *conf_ip_change;
+-static char *conf_ip_change = "/etc/ppp/ip-change";
 -static char *conf_radattr_prefix = "/var/run/radattr";
++static char *conf_ip_up = "/opt/etc/ppp/ip-up";
++static char *conf_ip_pre_up = "/opt/etc/ppp/ip-pre-up";
++static char *conf_ip_down = "/opt/etc/ppp/ip-down";
++static char *conf_ip_change = "/opt/etc/ppp/ip-change";
 +static char *conf_radattr_prefix = "/opt/var/run/radattr";
  static int conf_verbose = 0;
  
