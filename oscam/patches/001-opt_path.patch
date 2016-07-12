@@ -1,6 +1,5 @@
-diff -ruN oscam-keenopt.orig/globals.h oscam-keenopt/globals.h
---- oscam-keenopt.orig/globals.h	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/globals.h	2015-11-26 21:56:02.015946208 +0300
+--- a/globals.h
++++ b/globals.h
 @@ -367,10 +367,10 @@
  #   define CS_TARGET "unknown"
  #endif
@@ -14,9 +13,8 @@ diff -ruN oscam-keenopt.orig/globals.h oscam-keenopt/globals.h
  #endif
  #define CS_QLEN       128 // size of request queue
  #define CS_MAXPROV    32
-diff -ruN oscam-keenopt.orig/module-dvbapi.c oscam-keenopt/module-dvbapi.c
---- oscam-keenopt.orig/module-dvbapi.c	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/module-dvbapi.c	2015-11-26 22:00:01.499447974 +0300
+--- a/module-dvbapi.c
++++ b/module-dvbapi.c
 @@ -271,17 +271,17 @@
  
  static const struct box_devices devices[BOX_COUNT] =
@@ -43,7 +41,7 @@ diff -ruN oscam-keenopt.orig/module-dvbapi.c oscam-keenopt/module-dvbapi.c
  };
  
  static int32_t selected_box = -1;
-@@ -5039,7 +5039,7 @@
+@@ -5090,7 +5090,7 @@
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end;  // start time poll, end time poll
@@ -52,9 +50,8 @@ diff -ruN oscam-keenopt.orig/module-dvbapi.c oscam-keenopt/module-dvbapi.c
  	struct sockaddr_un saddr;
  	saddr.sun_family = AF_UNIX;
  	strncpy(saddr.sun_path, PMT_SERVER_SOCKET, 107);
-diff -ruN oscam-keenopt.orig/module-dvbapi.h oscam-keenopt/module-dvbapi.h
---- oscam-keenopt.orig/module-dvbapi.h	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/module-dvbapi.h	2015-11-26 21:58:33.058141974 +0300
+--- a/module-dvbapi.h
++++ b/module-dvbapi.h
 @@ -21,9 +21,9 @@
  #define STANDBY_FILE    "./.pauseoscam"
  #define ECMINFO_FILE    "./ecm.info"
@@ -68,9 +65,8 @@ diff -ruN oscam-keenopt.orig/module-dvbapi.h oscam-keenopt/module-dvbapi.h
  #endif
  
  #define MAX_DEMUX 16
-diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
---- oscam-keenopt.orig/oscam.c	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/oscam.c	2015-11-26 22:04:14.603062440 +0300
+--- a/oscam.c
++++ b/oscam.c
 @@ -158,7 +158,7 @@
  #if defined(__CYGWIN__)
  	printf("                         . Default: (OS-TMP)\n");
@@ -80,7 +76,7 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -624,12 +624,12 @@
+@@ -625,12 +625,12 @@
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -95,7 +91,7 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1594,15 +1594,15 @@
+@@ -1632,15 +1632,15 @@
  static void find_conf_dir(void) 
   {
  	static const char* confdirs[] = 
@@ -120,9 +116,8 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
  			NULL
  		};
   	
-diff -ruN oscam-keenopt.orig/oscam-files.c oscam-keenopt/oscam-files.c
---- oscam-keenopt.orig/oscam-files.c	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/oscam-files.c	2015-11-26 21:57:46.645445224 +0300
+--- a/oscam-files.c
++++ b/oscam-files.c
 @@ -31,7 +31,7 @@
  		{ strcat(cs_tmpdir, "/"); }
  	strcat(cs_tmpdir, "_oscam");
