@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=portspoof
-PKG_VERSION:=1.2
+PKG_VERSION:=1.3
 PKG_REV:=70b6bf2ad96b0824ae6e2c2cea4c59d2a156d2c1
 PKG_RELEASE:=1
 
