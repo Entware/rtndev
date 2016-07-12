@@ -8,15 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-greenlet
-PKG_VERSION:=0.4.9
+PKG_VERSION:=0.4.10
 PKG_RELEASE:=1
 
-PKG_SOURCE:=greenlet-$(PKG_VERSION).zip
-PKG_SOURCE_URL:=http://pypi.python.org/packages/source/g/greenlet
-PKG_MD5SUM:=c6659cdb2a5e591723e629d2eef22e82
+PKG_SOURCE:=$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/python-greenlet/greenlet/archive
+PKG_MD5SUM:=0b60b1e47e29afc743bec28b64371f4e
 
 PKG_BUILD_DEPENDS:=python
 PKG_BUILD_DIR:=$(BUILD_DIR)/greenlet-$(PKG_VERSION)
+
+PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
