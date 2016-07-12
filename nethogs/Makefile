@@ -4,48 +4,43 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# There is some syntax error in the newer versions, we should update nethogs later
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethogs
-PKG_VERSION:=0.8.2-20160310
-PKG_REV:=918978262b2149388e132fbe9a092e9eb1bc2d19
+PKG_VERSION:=0.8.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/raboof/nethogs
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/raboof/nethogs/archive
+PKG_MD5SUM:=f38db5f08c2dd2b030727ba4ecf58e06
 
 include $(INCLUDE_DIR)/package.mk
+
+PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(BUILD_DIR) $(TAR_OPTIONS)
 
 define Package/nethogs
 	SECTION:=net
 	CATEGORY:=Network
 	DEPENDS:=+libncurses +libpcap +libstdcpp
 	TITLE:=NetHogs is a small 'net top' tool
-	URL:=http://nethogs.sourceforge.net/
+	URL:=https://github.com/raboof/nethogs
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/nethogs/description
- NetHogs is a small 'net top' tool. Instead of breaking the traffic down per protocol 
- or per subnet, like most tools do, it groups bandwidth by process. NetHogs does not rely
- on a special kernel module to be loaded. If there's suddenly a lot of network traffic, 
- you can fire up NetHogs and immediately see which PID is causing this. This makes it easy 
- to indentify programs that have gone wild and are suddenly taking up your bandwidth.
+ NetHogs is a small 'net top' tool. Instead of breaking the traffic down per
+ protocol or per subnet, like most tools do, it groups bandwidth by process.
+ If there's suddenly a lot of network traffic, you can fire up NetHogs and
+ immediately see which PID is causing this. This makes it easy  to indentify
+ programs that have gone wild and are suddenly taking up your bandwidth.
 endef
 
-TARGET_CFLAGS += $(TARGET_CPPFLAGS) $(TARGET_LDFLAGS)
-MAKE_FLAGS += \
-	CFLAGS="$(TARGET_CFLAGS)" \
-	DESTDIR=/opt \
+TARGET_CFLAGS += $(TARGET_CPPFLAGS) $(TARGET_LDFLAGS) -fPIC
 
 define Package/nethogs/install
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/nethogs $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/nethogs $(1)/opt/sbin
 endef
 
 $(eval $(call BuildPackage,nethogs))

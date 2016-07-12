@@ -23,7 +23,7 @@ define Package/mlocate
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=mlocate - quickly find files on the filesystem
-	URL:=https://fedorahosted.org/releases/m/l/mlocate/
+	URL:=https://fedorahosted.org/mlocate/
 endef
 
 define Package/mlocate/description
