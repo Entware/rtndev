@@ -22,8 +22,6 @@ PKG_BUILD_DEPENDS:=openssl
 
 include $(INCLUDE_DIR)/package.mk
 
-#PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf -
-
 define Package/3proxy
 	SECTION:=net
 	CATEGORY:=Network

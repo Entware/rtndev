@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://duktape.org
-#PKG_MDSUM:=7932d6dc99b8e11ec704a1ad8a7932ff
+PKG_MDSUM:=6fa1783b2eddaab4ab815cd894624fba
 
 include $(INCLUDE_DIR)/package.mk
 
