@@ -9,11 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adsuck
 PKG_VERSION:=2.5.0
+PKG_REV:=f7822a2a3951542d130bca0bc7298ce47504dcdd
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=https://opensource.conformal.com/snapshots/adsuck/
-PKG_MD5SUM:=f8e442da00e9364002de177352a5e302
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/conformal/adsuck.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -31,19 +34,6 @@ define Package/adsuck/description
  adsuck is a small DNS server that spoofs blacklisted addresses and forwards
  all other queries. The idea is to be able to prevent connections
  to undesirable sites such as ad servers, crawlers and other nasties.
-endef
-
-define Build/Compile
-	$(TARGET_CC) $(TARGET_CFLAGS) -c -I$(STAGING_DIR)/opt/include -D_GNU_SOURCE -D_BSD_SOURCE -o $(PKG_BUILD_DIR)/adsuck.o $(PKG_BUILD_DIR)/adsuck.c
-	$(TARGET_CC) $(TARGET_CFLAGS) -c -I$(STAGING_DIR)/opt/include -D_GNU_SOURCE -D_BSD_SOURCE -o $(PKG_BUILD_DIR)/log.o $(PKG_BUILD_DIR)/log.c
-	$(TARGET_CC) $(TARGET_CFLAGS) -c -I$(STAGING_DIR)/opt/include -D_GNU_SOURCE -D_BSD_SOURCE -o $(PKG_BUILD_DIR)/linux/strlcpy.o $(PKG_BUILD_DIR)/linux/strlcpy.c
-	$(TARGET_CC) $(TARGET_CFLAGS) -c -I$(STAGING_DIR)/opt/include -D_GNU_SOURCE -D_BSD_SOURCE -o $(PKG_BUILD_DIR)/resolv.o $(PKG_BUILD_DIR)/resolv.c
-	$(TARGET_CC) $(TARGET_LDFLAGS) -L$(STAGING_DIR)/opt/lib -o $(PKG_BUILD_DIR)/adsuck \
-		$(PKG_BUILD_DIR)/adsuck.o \
-		$(PKG_BUILD_DIR)/log.o \
-		$(PKG_BUILD_DIR)/linux/strlcpy.o \
-		$(PKG_BUILD_DIR)/resolv.o \
-		-lldns -levent
 endef
 
 define Package/adsuck/install
