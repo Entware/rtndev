@@ -1,6 +1,6 @@
---- a/service/OneService.cpp
-+++ b/service/OneService.cpp
-@@ -1658,7 +1658,7 @@
+--- a/osdep/OSUtils.cpp
++++ b/osdep/OSUtils.cpp
+@@ -245,7 +245,7 @@
  	return std::string("/var/db/zerotier-one");
  #else
  	// Use /var/lib for Linux and other *nix

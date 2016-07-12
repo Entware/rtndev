@@ -24,7 +24,6 @@ define Package/vblade
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-#	DEPENDS=+libneon
 	TITLE:=AoE storage target
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, http://entware.net
