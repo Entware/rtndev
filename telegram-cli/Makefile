@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=telegram-cli
 PKG_VERSION:=1.3.1-20160323
 PKG_REV:=6547c0b21b977b327b3c5e8142963f4bc246187a
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -79,6 +79,12 @@ define Package/telegram-cli/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/telegram-cli $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/telegram-cli
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/tg-server.pub $(1)/opt/etc/telegram-cli
+endef
+
+define Package/telegram-cli/postinst
+#!/bin/sh
+
+echo 'Warning! Requires 256MB + 256MB SWAP to start, ~100MB of RAM while running.'
 endef
 
 $(eval $(call HostBuild))
