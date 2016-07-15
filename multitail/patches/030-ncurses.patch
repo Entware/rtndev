@@ -1,0 +1,13 @@
+--- a/mt.h
++++ b/mt.h
+@@ -60,8 +60,8 @@
+ #endif
+ 
+ #ifdef UTF8_SUPPORT
+-	#include <ncursesw/panel.h>
+-	#include <ncursesw/ncurses.h>
++	#include <panel.h>
++	#include <ncurses.h>
+ #else
+ 	#if defined(sun) || defined(__sun) || defined(scoos) || defined(_HPUX_SOURCE) || defined(AIX) || defined(__CYGWIN__)
+ 		#include <ncurses/panel.h>
