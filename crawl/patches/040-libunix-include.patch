@@ -4,7 +4,7 @@
  #include <locale.h>
  #include <langinfo.h>
  #include <termios.h>
-+#include "ncursesw/curses.h"
++#include "curses.h"
  
  static struct termios def_term;
  static struct termios game_term;
