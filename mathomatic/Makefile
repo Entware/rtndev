@@ -11,9 +11,11 @@ PKG_NAME:=mathomatic
 PKG_VERSION:=16.0.5
 PKG_RELEASE:=1
 
-PKG_SOURCE:=mathomatic-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://mathomatic.org
-PKG_MD5SUM:=dd04913a98a5073b56f3bc78a01820f3
+PKG_SOURCE:=mathomatic-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/mfillpot/mathomatic/archive
+PKG_MD5SUM:=ad09ed7e16b17d40b57121373f9d9381
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
