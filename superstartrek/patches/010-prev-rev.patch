@@ -1858,38 +1858,6 @@ diff -urN a/sst.c b/sst.c
  				prout("UNRECOGNIZED COMMAND. LEGAL COMMANDS ARE:");
  				listCommands(TRUE);
  			}
-@@ -230,29 +200,11 @@
- 				break;
- 			case 2:			// phasers
- 				phasers();
--                if (ididit) {
--#ifdef CLOAKING
--                    if (irhere && d.date >= ALGERON && !isviolreported && iscloaked) {
--                        prout("The Romulan ship discovers you are breaking the Treaty of Algeron!");
--                        ncviol++;
--                        isviolreported = TRUE;
--                    }
--#endif
--                    hitme = TRUE;
--                }
-+				if (ididit) hitme = TRUE;
- 				break;
- 			case 3:			// photons
- 				photon();
--                if (ididit) {
--#ifdef CLOAKING
--                    if (irhere && d.date >= ALGERON && !isviolreported && iscloaked) {
--                        prout("The Romulan ship discovers you are breaking the Treaty of Algeron!");
--                        ncviol++;
--                        isviolreported = TRUE;
--                    }
--#endif
--                    hitme = TRUE;
--                }
-+				if (ididit) hitme = TRUE;
- 				break;
- 			case 4:			// move
- 				warp(1);
 @@ -277,7 +229,7 @@
  				impuls();
  				break;

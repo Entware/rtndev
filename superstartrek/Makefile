@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=sstsrc.zip
 PKG_SOURCE_URL:=http://www.almy.us/files
-PKG_MD5SUM:=e5ce8d6bfd867afdbf6681a95ce0fd8f
+PKG_MD5SUM:=23f3ba0f3f0d4e9613893691d3040bac
 
 PKG_UNPACK:=unzip -j $(DL_DIR)/$(PKG_SOURCE) sstsrc/* -d $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
