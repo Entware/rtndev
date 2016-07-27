@@ -22,6 +22,7 @@ define Package/entware-opt
 		+findutils +terminfo +locales
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, http://entware.net
+	CONFLICTS:=opt-ndmsv2
 endef
 
 define Package/android-opt/description
