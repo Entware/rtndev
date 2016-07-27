@@ -7,6 +7,8 @@ PATH=/opt/sbin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 # stopping them in reverse numerical order
 
 #logger "Started $0${*:+ $*}."
+unset LD_LIBRARY_PATH
+unset LD_PRELOAD
 
 ACTION=$1
 CALLER=$2

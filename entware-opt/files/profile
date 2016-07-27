@@ -9,9 +9,12 @@ export TERMINFO=/opt/share/terminfo
 export TERM=xterm
 export TMP=/opt/tmp
 export TEMP=/opt/tmp
+unset LD_PRELOAD
+unset LD_LIBRARY_PATH
 alias mc="mc -c"
 
 # You may define localization
+
 #export LANG='ru_RU.UTF-8'
 #export LC_ALL='ru_RU.UTF-8'
 export LANG='en_US.UTF-8'

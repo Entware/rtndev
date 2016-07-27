@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-opt
-PKG_VERSION:=222108
-PKG_RELEASE:=2
+PKG_VERSION:=1.0
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -17,13 +17,16 @@ define Package/entware-opt
 	SECTION:=libs
 	CATEGORY:=Libraries
 	DEPENDS:=+libc +libgcc +libstdcpp +libpthread +librt \
-		+ldconfig +findutils +terminfo +USE_GLIBC:locales
+		+busybox \
+		+zoneinfo-asia +zoneinfo-europe \
+		+findutils +terminfo +locales
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
-define Package/entware-opt/description
- entware-opt is a metapackage to install Entware basic libraries and scripts.
+define Package/android-opt/description
+ android-opt is a metapackage to install Entware-3x basic libraries and scripts
+ on android devices.
 endef
 
 define Build/Prepare
@@ -41,19 +44,22 @@ define Package/entware-opt/install
 	$(INSTALL_BIN) ./files/profile $(1)/opt/etc/
 	$(INSTALL_DATA) ./files/rc.func $(1)/opt/etc/init.d/
 	touch $(1)/opt/etc/ld.so.conf
-	$(INSTALL_DIR) $(1)/opt/usr/lib
+	$(INSTALL_DATA) ./files/{shells.1,passwd.1,group.1,screenrc} $(1)/opt/etc
+	$(INSTALL_DIR) $(1)/opt/home $(1)/opt/root $(1)/opt/etc/skel
+	$(INSTALL_DATA) ./files/.profile $(1)/opt/etc/skel
+	$(INSTALL_DATA) ./files/.profile $(1)/opt/root
+	$(INSTALL_DATA) ./files/.inputrc $(1)/opt/etc/skel
+	$(INSTALL_DATA) ./files/.inputrc $(1)/opt/root
+	$(INSTALL_DIR) $(1)/opt/{bin,sbin,lib/opkg,share,tmp,usr} \
+	    $(1)/opt/var/{log,lock,run}
 endef
 
 define Package/entware-opt/conffiles
 /opt/etc/profile
+/opt/etc/passwd.1
+/opt/etc/group.1
+/opt/etc/shells.1
 endef
 
-define Package/entware-opt/postinst
-#!/bin/sh
-
-echo -n "Updating /opt/etc/ld.so.cache... "
-/opt/bin/ldconfig > /dev/null 2>&1
-echo "done."
-endef
 
 $(eval $(call BuildPackage,entware-opt))
