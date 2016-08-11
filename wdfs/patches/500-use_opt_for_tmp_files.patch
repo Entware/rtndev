@@ -1,0 +1,11 @@
+--- a/src/wdfs-main.c
++++ b/src/wdfs-main.c
+@@ -358,7 +358,7 @@
+ /* returns a filehandle for read and write on success or -1 on error */
+ static int get_filehandle()
+ {
+-	char dummyfile[] = "/tmp/wdfs-tmp-XXXXXX";
++	char dummyfile[] = "/opt/tmp/wdfs-tmp-XXXXXX";
+ 	/* mkstemp() replaces XXXXXX by unique random chars and
+ 	 * returns a filehandle for reading and writing */
+ 	int fh = mkstemp(dummyfile);
