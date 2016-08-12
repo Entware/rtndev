@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
-PKG_VERSION:=0.45.0
+PKG_VERSION:=0.46.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
-PKG_MD5SUM:=a66e8c3cf6dab91dab5ba90d362c6063
+PKG_MD5SUM:=a6513d6fe72751c58b501403c3da6ef1
 
 PKG_INSTALL:=1
 
