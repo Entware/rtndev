@@ -1,6 +1,6 @@
 --- a/src/MakeApp.mk
 +++ b/src/MakeApp.mk
-@@ -55,7 +55,7 @@
+@@ -53,7 +53,7 @@
  cui.o: cui.cpp cui.h nethogs.h
  	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c cui.cpp -DVERSION=\"$(VERSION)\" -DSUBVERSION=\"$(SUBVERSION)\" -DMINORVERSION=\"$(MINORVERSION)\"
  

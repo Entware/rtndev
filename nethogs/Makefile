@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethogs
-PKG_VERSION:=0.8.2
+PKG_VERSION:=0.8.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/raboof/nethogs/archive
-PKG_MD5SUM:=f38db5f08c2dd2b030727ba4ecf58e06
+PKG_MD5SUM:=002fd7227d8ed2a8b0fcb0a1b44731bf
 
 include $(INCLUDE_DIR)/package.mk
 
