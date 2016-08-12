@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.9.0
+PKG_VERSION:=1.10.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.openprinting.org/download/$(PKG_NAME)
-PKG_MD5SUM:=4fca64560612c336c3cc1ebfbc482a57
+PKG_MD5SUM:=2f088dd9d05bd40bf914580401b0866c
 
 PKG_INSTALL:=1
 
@@ -49,6 +49,8 @@ CONFIGURE_ARGS += \
 	--with-pdftops-path=/opt/bin/gs \
 	--with-test-font-path=/opt/share/fonts/dejavu/DejaVuSans.ttf \
 	--with-shell=/bin/sh
+
+TARGET_LDFLAGS += -liconv
 
 define Package/cups-filters/install
 	$(INSTALL_DIR) $(1)/opt/bin
