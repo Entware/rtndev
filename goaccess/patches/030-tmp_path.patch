@@ -1,0 +1,35 @@
+--- a/src/gwsocket.c
++++ b/src/gwsocket.c
+@@ -93,7 +93,7 @@
+ int
+ open_fifo (void)
+ {
+-  const char *fifo = "/tmp/wspipein.fifo";
++  const char *fifo = "/opt/tmp/wspipein.fifo";
+   int fdfifo;
+ 
+   if ((fdfifo = open (fifo, O_WRONLY | O_NONBLOCK)) == -1)
+--- a/src/tcbtdb.h
++++ b/src/tcbtdb.h
+@@ -46,7 +46,7 @@
+ #define TC_LMEMB 128
+ #define TC_NMEMB 256
+ #define TC_BNUM  32749
+-#define TC_DBPATH "/tmp/"
++#define TC_DBPATH "/opt/tmp/"
+ #define TC_ZLIB 1
+ #define TC_BZ2  2
+ 
+--- a/src/websocket.h
++++ b/src/websocket.h
+@@ -84,8 +84,8 @@
+ #define MAX(a,b) (((a)>(b))?(a):(b))
+ #include "gslist.h"
+ 
+-#define WS_PIPEIN "/tmp/wspipein.fifo"
+-#define WS_PIPEOUT "/tmp/wspipeout.fifo"
++#define WS_PIPEIN "/opt/tmp/wspipein.fifo"
++#define WS_PIPEOUT "/opt/tmp/wspipeout.fifo"
+ 
+ #define WS_BAD_REQUEST_STR "HTTP/1.1 400 Invalid Request\r\n\r\n"
+ #define WS_SWITCH_PROTO_STR "HTTP/1.1 101 Switching Protocols"

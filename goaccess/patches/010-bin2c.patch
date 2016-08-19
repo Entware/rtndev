@@ -1,0 +1,49 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -12,9 +12,6 @@
+   resources/js/d3.v3.min.js       \
+   resources/js/hogan.min.js
+ 
+-noinst_PROGRAMS = bin2c
+-bin2c_SOURCES = src/bin2c.c
+-
+ BUILT_SOURCES =   \
+   tpls.h          \
+   bootstrapcss.h  \
+@@ -36,28 +33,28 @@
+   src/appjs.h
+ 
+ # Tpls
+-tpls.h: bin2c$(EXEEXT) resources/tpls.html
++tpls.h: resources/tpls.html
+ 	./bin2c resources/tpls.html src/tpls.h tpls
+ # Bootstrap
+-bootstrapcss.h: bin2c$(EXEEXT) resources/css/bootstrap.min.css
++bootstrapcss.h: resources/css/bootstrap.min.css
+ 	./bin2c resources/css/bootstrap.min.css src/bootstrapcss.h bootstrap_css
+ # Font Awesome
+-facss.h: bin2c$(EXEEXT) resources/css/fa.min.css
++facss.h: resources/css/fa.min.css
+ 	./bin2c resources/css/fa.min.css src/facss.h fa_css
+ # App.css
+-appcss.h: bin2c$(EXEEXT) resources/css/app.css
++appcss.h: resources/css/app.css
+ 	./bin2c resources/css/app.css src/appcss.h app_css
+ # D3.js
+-d3js.h: bin2c$(EXEEXT) resources/js/d3.v3.min.js
++d3js.h: resources/js/d3.v3.min.js
+ 	./bin2c resources/js/d3.v3.min.js src/d3js.h d3_js
+ # Hogan.js
+-hoganjs.h: bin2c$(EXEEXT) resources/js/hogan.min.js
++hoganjs.h: resources/js/hogan.min.js
+ 	./bin2c resources/js/hogan.min.js src/hoganjs.h hogan_js
+ # Charts.js
+-chartsjs.h: bin2c$(EXEEXT) resources/js/charts.js
++chartsjs.h: resources/js/charts.js
+ 	./bin2c resources/js/charts.js src/chartsjs.h charts_js
+ # App.js
+-appjs.h: bin2c$(EXEEXT) resources/js/app.js
++appjs.h: resources/js/app.js
+ 	./bin2c resources/js/app.js src/appjs.h app_js
+ 
+ confdir = $(sysconfdir)

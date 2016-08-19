@@ -1,0 +1,29 @@
+--- a/src/error.c
++++ b/src/error.c
+@@ -35,7 +35,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <signal.h>
+-#if defined(__GLIBC__)
++#if !defined(__UCLIBC__)
+ #include <execinfo.h>
+ #endif
+ #include <sys/types.h>
+@@ -146,7 +146,7 @@
+   FILE *fp = stderr;
+   int pid = getpid ();
+ 
+-#if defined(__GLIBC__)
++#if !defined(__UCLIBC__)
+   char **messages;
+   size_t size, i;
+   void *trace_stack[TRACE_SIZE];
+@@ -159,7 +159,7 @@
+ 
+   dump_struct (fp);
+ 
+-#if defined(__GLIBC__)
++#if !defined(__UCLIBC__)
+   size = backtrace (trace_stack, TRACE_SIZE);
+   messages = backtrace_symbols (trace_stack, size);
+ 
