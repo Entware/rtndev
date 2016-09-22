@@ -1,0 +1,12 @@
+This patch prevents adding /usr/include search path when crosscompiling
+--- a/configure
++++ b/configure
+@@ -6492,7 +6492,7 @@
+ #
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking if zlib is wanted" >&5
+ $as_echo_n "checking if zlib is wanted... " >&6; }
+-zlib_places="/usr/local /usr /opt/local /sw"
++zlib_places="/opt/local /sw"
+ 
+ # Check whether --with-zlib was given.
+ if test "${with_zlib+set}" = set; then :
