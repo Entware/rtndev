@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=i2pd
-PKG_VERSION:=2.9.0
-PKG_REV:=deca2175446bb7bf9ac64ece39e4ed64b6b1d596
+PKG_VERSION:=2.10.0
+PKG_REV:=3643d6b5d5077f6c81120b23b8fc404264b9dbc9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/i2pd
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libopenssl +boost-filesystem +boost-regex +boost-program_options +boost-date_time +libatomic
+	DEPENDS:=+libopenssl +boost-filesystem +boost-regex +boost-program_options +boost-date_time +USE_UCLIBC:libatomic
 	TITLE:=simplified C++ implementation of I2P client
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, http://entware.net
