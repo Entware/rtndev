@@ -56,7 +56,7 @@ CONFIGURE_ARGS += \
 	--without-x \
 	--without-jbig2dec \
 	--enable-cups \
-	--with-fontpath=/opt/share/fonts/ghostscript/fonts/:/opt/share/ghostscript/9.06/Resource/Font/:/opt/share/fonts/default/ghostscript/:/opt/share/fonts/default/TrueType/:/opt/share/fonts/default/Type1:/opt/share/cups/fonts/:/opt/share/fonts/:/opt/share/fonts/ubuntu/:/opt/share/fonts/truetype/liberation/ \
+	--with-fontpath=/opt/share/fonts/ghostscript/fonts/:/opt/share/fonts/default/ghostscript/:/opt/share/fonts/default/TrueType/:/opt/share/fonts/default/Type1:/opt/share/cups/fonts/:/opt/share/fonts/:/opt/share/fonts/ubuntu/:/opt/share/fonts/truetype/liberation/ \
 	--with-system-libtiff \
 	--with-cups-serverbin=/opt/lib/cups \
 	--with-cups-serverroot=/opt/etc/cups \
