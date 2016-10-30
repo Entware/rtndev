@@ -29,7 +29,7 @@ $(eval $(call Download,uthash))
 define Package/bfgminer
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +libudev
+	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0
 	TITLE:=modular ASIC/FPGA Bitcoin miner
 	URL:=http://bfgminer.org/
 	MAINTAINER:=Entware team, http://entware.net
