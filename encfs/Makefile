@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=encfs
-PKG_VERSION:=1.9-20160630
-PKG_REV:=4d952b74d85e7edcf4138987037d8b1cdd2f0fa2
+PKG_VERSION:=1.9.1
+PKG_REV:=a13a9f6af596e0fd397051a88f4345d8b9585325
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -20,12 +20,13 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/encfs
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+libopenssl +libstdcpp +fuse-utils
+	DEPENDS:=+libopenssl +libstdcpp +fuse-utils $(INTL_DEPENDS)
 	TITLE:=encrypted filesystem in user-space
 	URL:=http://www.arg0.net/#!encfs/c1awt
 	MAINTAINER:=Entware team, http://entware.net
@@ -37,7 +38,7 @@ define Package/encfs/description
  interface.
 endef
 
-TARGET_LDFLAGS += -lpthread
+TARGET_LDFLAGS += -lpthread -lintl
 
 TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/opt/include \
