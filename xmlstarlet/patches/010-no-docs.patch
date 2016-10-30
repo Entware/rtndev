@@ -1,0 +1,26 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,6 +1,6 @@
+ EXTRA_DIST = Copyright examples solaris tests
+ WIN32_DIST = README TODO Copyright COPYING AUTHORS ChangeLog INSTALL NEWS xml.exe
+-WIN32_doc_DIST = $(generated_docs) doc/html.css
++WIN32_doc_DIST = doc/html.css
+ 
+ ACLOCAL_AMFLAGS = -I m4
+ if GCC
+@@ -72,15 +72,6 @@
+ $(generated_usage_sources) : usage2c.awk
+ 
+ 
+-# doc
+-include doc/doc.mk
+-
+-man_MANS = $(manpage)
+-dist_doc_DATA = $(userguide_gen) doc/html.css $(txtguide)
+-EXTRA_DIST += $(manpage_src) $(userguide_src) $(txtguide_src)
+-EXTRA_DIST += $(buildfiles_docs) $(manpage)
+-
+-
+ CLEANFILES = version.h $(generated_usage_sources)
+ MAINTAINERCLEANFILES = $(manpage) $(userguide_gen) $(txtguide)
+ 
