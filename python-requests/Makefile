@@ -4,17 +4,16 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# The newer version requires PySocks
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-requests
-PKG_VERSION:=2.11.0
+PKG_VERSION:=2.11.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=requests-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/8d/66/649f861f980c0a168dd4cccc4dd0ed8fa5bd6c1bed3bea9a286434632771
-PKG_MD5SUM:=147afc07d8967cf46359701551a6cb69
+PKG_SOURCE_URL:=https://pypi.python.org/packages/2e/ad/e627446492cc374c284e82381215dcd9a0a87c4f6e90e9789afefe6da0ad
+PKG_MD5SUM:=ad5f9c47b5c5dfdb28363ad7546b0763
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/requests-$(PKG_VERSION)
 
