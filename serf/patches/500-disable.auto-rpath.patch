@@ -1,6 +1,15 @@
 --- a/SConstruct
 +++ b/SConstruct
-@@ -218,9 +218,6 @@
+@@ -68,7 +68,7 @@
+   default_libdir='..'
+   default_prefix='Debug'
+ else:
+-  default_incdir='/usr'
++  default_incdir='$STAGING_DIR/opt'
+   default_libdir='$PREFIX/lib'
+   default_prefix='/usr/local'
+ 
+@@ -224,9 +224,6 @@
  else:
    LIBNAMESTATIC = 'serf-${MAJOR}'
  
@@ -9,8 +18,8 @@
 -
  if sys.platform == 'darwin':
  #  linkflags.append('-Wl,-install_name,@executable_path/%s.dylib' % (LIBNAME,))
-   env.Append(LINKFLAGS='-Wl,-install_name,%s/%s.dylib' % (thisdir, LIBNAME,))
-@@ -366,12 +363,6 @@
+   env.Append(LINKFLAGS=['-Wl,-install_name,%s/%s.dylib' % (thisdir, LIBNAME,)])
+@@ -385,12 +382,6 @@
  if sys.platform == 'win32':
    env.Append(CPPDEFINES=['SERF_HAVE_SSPI'])
  
@@ -23,8 +32,8 @@
  # Set up the construction of serf-*.pc
  pkgconfig = env.Textfile('serf-%d.pc' % (MAJOR,),
                           env.File('build/serf.pc.in'),
-@@ -439,7 +430,6 @@
-                           ENV={'PATH' : os.environ['PATH']}))
+@@ -461,7 +452,6 @@
+   TEST_EXES = [ os.path.join('test', '%s' % (prog)) for prog in TEST_PROGRAMS ]
  
  # Find the (dynamic) library in this directory
 -tenv.Replace(RPATH=thisdir)
