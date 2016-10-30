@@ -11,8 +11,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap_dnsproxy
-PKG_VERSION:=0.4.6.0
-PKG_REV:=92eadb2bce1229a9067d272dc80850a8b9b7c869
+PKG_VERSION:=0.4.7.6
+PKG_REV:=daadb659d63fab676ccace50e4b7fe0b9a504553
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -64,8 +64,7 @@ endef
 define Package/pcap_dnsproxy/install
 	$(INSTALL_DIR) $(1)/opt/sbin
 	$(INSTALL_BIN) \
-	    $(PKG_INSTALL_DIR)/opt/sbin/{KeyPairGenerator,Pcap_DNSProxy} \
-	    $(1)/opt/sbin
+	    $(PKG_INSTALL_DIR)/opt/sbin/Pcap_DNSProxy $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/etc/pcap-dnsproxy
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini \
 	    $(1)/opt/etc/pcap-dnsproxy/Config.conf
