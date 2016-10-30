@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -172,7 +172,7 @@
+@@ -200,7 +200,7 @@
  
  add_executable (encfs-bin encfs/main.cpp)
  target_link_libraries (encfs-bin encfs)
