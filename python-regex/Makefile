@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2016.07.21
+PKG_VERSION:=2016.09.22
 PKG_RELEASE:=1
 
 PKG_SOURCE:=regex-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/78/d6/b6b588052370fa02d6dc95c6e081a7566b9a5736056d8c80f2196dabdea9
-PKG_MD5SUM:=8f2b0b4097eda5d3d8831602b41016c4
+PKG_SOURCE_URL:=https://pypi.python.org/packages/90/f2/818a691820f01cb845df2680299fce2b97af2f3ff31790b3a65ccab6aaa3
+PKG_MD5SUM:=5895fc0200c73814c3fd33f0f5aa4dbd
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/regex-$(PKG_VERSION)
 
