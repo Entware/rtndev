@@ -1,11 +1,11 @@
 --- a/asciinema/config.py
 +++ b/asciinema/config.py
-@@ -9,7 +9,7 @@
- import uuid
+@@ -82,7 +82,7 @@
+     paths = []
  
+     asciinema_config_home = env.get("ASCIINEMA_CONFIG_HOME")
+-    xdg_config_home = env.get("XDG_CONFIG_HOME")
++    xdg_config_home = '/opt/etc'
+     home = env.get("HOME")
  
--DEFAULT_CONFIG_FILE_PATH = "~/.asciinema/config"
-+DEFAULT_CONFIG_FILE_PATH = "/opt/etc/asciinema/config"
- DEFAULT_API_URL = 'http://asciinema.org'
- 
- class Config:
+     if asciinema_config_home:
