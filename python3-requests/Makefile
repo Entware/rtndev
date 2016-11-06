@@ -15,6 +15,8 @@ PKG_SOURCE:=requests-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://pypi.python.org/packages/2e/ad/e627446492cc374c284e82381215dcd9a0a87c4f6e90e9789afefe6da0ad
 PKG_MD5SUM:=ad5f9c47b5c5dfdb28363ad7546b0763
 
+PKG_BUILD_DEPENDS:=python3-setuptools
+
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python3-package.mk)
 
