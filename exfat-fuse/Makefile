@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=exfat-fuse
-PKG_VERSION:=1.2.4
-PKG_REV:=82764a7a8cdfa778efbffd59fdc7a15726ff50f4
+PKG_VERSION:=1.2.5
+PKG_REV:=0a11f088786d24e067a9222148c14a477a523c5d
 PKG_RELEASE:=1
 
 PKG_FIXUP:=autoreconf
