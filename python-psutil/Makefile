@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-psutil
-PKG_VERSION:=4.3.1
+PKG_VERSION:=5.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=release-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/giampaolo/psutil/archive
-PKG_MD5SUM:=74ea960403b73a57709481ff91386bf6
+PKG_MD5SUM:=bb0a510ecf4aa85ad3c250fb3db92078
 
 PKG_BUILD_DEPENDS:=python
 
@@ -44,6 +44,8 @@ define Package/python-psutil/install
 	$(CP) \
 	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
 	    $(1)$(PYTHON_PKG_DIR)
+	# fix python exec path in scripts
+	find $(PKG_BUILD_DIR) -name *.py | xargs $(SED) 's|/usr/bin/env python|/opt/bin/python|'
 endef
 
 $(eval $(call BuildPackage,python-psutil))
