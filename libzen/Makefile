@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libzen
-PKG_VERSION:=0.4.33
+PKG_VERSION:=0.4.34
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://mediaarea.net/download/source/libzen/$(PKG_VERSION)
-PKG_MD5SUM:=cb89f58388acbe2b77d4ef69294bda67
+PKG_MD5SUM:=d554f97a5f1b54e36a8d2ff5c5361f1b
 
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
@@ -32,6 +32,12 @@ define Package/libzen/description
 endef
 
 CONFIGURE_PATH:=Project/GNU/Library
+
+TARGET_CFLAGS +=-std=c++11
+
+CONFIGURE_ARGS += \
+	--prefix=/opt \
+	--enable-static \
 
 define Build/Configure
 	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
