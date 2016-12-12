@@ -1,43 +1,54 @@
 --- a/setup.cfg
 +++ b/setup.cfg
-@@ -1,4 +1,4 @@
+@@ -1,6 +1,6 @@
  [install]
 -prefix = /usr
 -install_lib = /usr/lib/python2.7/site-packages
 +prefix = /opt
 +install_lib = /opt/lib/python2.7/site-packages
  single_version_externally_managed = yes
+ 
+ [bdist_rpm]
 --- a/scripts/lapcat
 +++ b/scripts/lapcat
-@@ -1,2 +1,2 @@
+@@ -1,4 +1,4 @@
 -#!/usr/bin/python
 +#!/opt/bin/python
  __DOC__ = """\
-@@ -62,3 +62,3 @@
+ # Copyright 2011, Bjarni R. Einarsson <http://bre.klaki.net/>
+ # License: AGPLv3
+@@ -60,7 +60,7 @@
+ TRACE = DEBUG = False
+ TRACE = False
  
 -SYS_CONF_DIR = '/etc/lapcat'
 +SYS_CONF_DIR = '/opt/etc/lapcat'
  USER_CONF_DIR = '~/.lapcat'
+ IMPORT_KEYWORD = 'import'
+ DEFAULT_RULE = 'default'
 --- a/pagekite/pk.py
 +++ b/pagekite/pk.py
-@@ -925,3 +925,4 @@
+@@ -924,7 +924,8 @@
+         self.devnull = 'nul'
+       else:
          # Everything else
 -        self.rcfile = os.path.join(os.path.expanduser('~'), '.pagekite.rc')
 +        # Optified for Entware
 +        self.rcfile = os.path.join('/opt/etc/pagekite.d/', 'pagekite.rc')
          self.devnull = '/dev/null'
-@@ -935,3 +936,3 @@
-     # we assume there might be something good in the program itself.
--    self.ca_certs_default = '/etc/ssl/certs/ca-certificates.crt'
-+    self.ca_certs_default = '/opt/etc/ssl/certs/ca-certificates.crt'
-     if not os.path.exists(self.ca_certs_default):
+ 
+     except Exception, e:
 --- a/pagekite/manual.py
 +++ b/pagekite/manual.py
-@@ -246,3 +246,3 @@
+@@ -251,7 +251,7 @@
+ """)
+ MAN_OPT_SYSTEM = ("""\
      --optfile</b>=<a>/path/to/file</a> __
 -            Read settings from file X. Default is <tt>~/.pagekite.rc</tt>.
 +            Read settings from file X. Default is <tt>/opt/etc/pagekite.d/pagekite.rc</tt>.
  
+     --optdir</b>=<a>/path/to/directory</a> __
+             Read settings from <tt>/path/to/directory/*.rc</tt>, in
 --- a/pagekite/__main__.py
 +++ b/pagekite/__main__.py
 @@ -1,4 +1,4 @@
