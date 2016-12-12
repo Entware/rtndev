@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/p7zip
 	SECTION:=utils
 	CATEGORY:=Utilities
-	SUBMENU:=compression
+	SUBMENU:=Compression
 	DEPENDS:=+libpthread +libstdcpp
 	TITLE:=Command line version of 7-zip for POSIX systems
 	URL:=http://p7zip.sourceforge.net

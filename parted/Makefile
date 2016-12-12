@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/parted
 	SECTION:=utils
 	CATEGORY:=Utilities
-	SUBMENU:=disc
+	SUBMENU:=Disc
 	DEPENDS:=+libblkid
 	TITLE:=manipulates partition tables
 	URL:=http://www.gnu.org/software/parted/

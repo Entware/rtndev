@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/sd-idle
 	SECTION:=utils
 	CATEGORY:=Utilities
-	SUBMENU:=disc
+	SUBMENU:=Disc
 	TITLE:=Disk idle spindown program
 	URL:=http://tomatousb.org/forum/t-271603/sd-idle-2-6-disk-idle-spindown-program-for-2-6
 	MAINTAINER:=Entware team, http://entware.net

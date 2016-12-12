@@ -24,7 +24,7 @@ define Package/wmr-oregon
 	CATEGORY:=Utilities
 	DEPENDS:=+libhid +libsqlite3
 	TITLE:=Oregon Scientific USB Station Logger/Reader
-	URL:=http://code.google.com/p/wmr/
+	URL:=https://code.google.com/archive/p/wmr/
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
