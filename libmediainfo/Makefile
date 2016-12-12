@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
-PKG_VERSION:=0.7.89
+PKG_VERSION:=0.7.91
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
-PKG_MD5SUM:=6b0ef80823a2e1914057ece67eab2477
+PKG_MD5SUM:=98330c32a5f874e9575759cf14d70ed0
 
 PKG_BUILD_DEPENDS:=libzen
 
@@ -34,6 +34,12 @@ define Package/libmediainfo/description
 endef
 
 CONFIGURE_PATH:=Project/GNU/Library
+
+TARGET_CFLAGS +=-std=c++11
+
+CONFIGURE_ARGS += \
+	--prefix=/opt \
+	--enable-static \
 
 define Build/Configure
 	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
