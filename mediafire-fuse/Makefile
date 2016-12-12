@@ -10,7 +10,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediafire-fuse
-PKG_VERSION:=0.6-20160112
+PKG_VERSION:=0.9-20160112
 PKG_REV:=aa75530a305c48bdea18da2dc954caeac1cd2f13
 PKG_RELEASE:=1
 
