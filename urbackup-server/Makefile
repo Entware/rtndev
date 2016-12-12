@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=urbackup-server
-PKG_VERSION:=2.0.33
+PKG_VERSION:=2.0.38
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://hndl.urbackup.org/Server/$(PKG_VERSION)
-PKG_MD5SUM:=dd48905872479b13715cbdca074ca335
+PKG_MD5SUM:=adf6c480c884eac4ff39e77e1a6cc6f7
 
 PKG_INSTALL:=1
 
@@ -22,6 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/urbackup-server
 	SECTION:=utils
 	CATEGORY:=Utilities
+	SUBMENU:=Backup
 	DEPENDS:=+libcurl +zlib +libstdcpp
 	TITLE:=UrBackup Server
 	URL:=http://www.urbackup.org/
