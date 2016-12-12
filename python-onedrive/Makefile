@@ -49,6 +49,8 @@ define Package/$(PKG_NAME)/install
 	    $(1)$(PYTHON_PKG_DIR)/
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/onedrive/cli_tool.py $(1)/opt/bin/onedrive-cli
+	# fix python exec path in scripts
+	find $(PKG_BUILD_DIR) -name *.py | xargs $(SED) 's|/usr/bin/env python2|/opt/bin/python|'
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
