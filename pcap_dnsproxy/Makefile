@@ -11,8 +11,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap_dnsproxy
-PKG_VERSION:=0.4.7.6
-PKG_REV:=daadb659d63fab676ccace50e4b7fe0b9a504553
+PKG_VERSION:=0.4.8.2-20161203
+PKG_REV:=1c40e79c85beed31473f5eff29f64db5a4deb211
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -49,8 +49,8 @@ TARGET_CFLAGS += \
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	$(SED) 's,^\xEF\xBB\xBF,,g' $(PKG_BUILD_DIR)/Source/ExampleConfig/*
-	$(SED) 's,\x0D,,g' $(PKG_BUILD_DIR)/Source/ExampleConfig/*
+	$(SED) 's,^\xEF\xBB\xBF,,g' $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/*
+	$(SED) 's,\x0D,,g' $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/*
 endef
 
 define Package/pcap_dnsproxy/conffiles
@@ -66,15 +66,15 @@ define Package/pcap_dnsproxy/install
 	$(INSTALL_BIN) \
 	    $(PKG_INSTALL_DIR)/opt/sbin/Pcap_DNSProxy $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/etc/pcap-dnsproxy
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini \
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini \
 	    $(1)/opt/etc/pcap-dnsproxy/Config.conf
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Hosts.ini \
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Hosts.ini \
 	    $(1)/opt/etc/pcap-dnsproxy/Hosts.conf
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/IPFilter.ini \
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/IPFilter.ini \
 	    $(1)/opt/etc/pcap-dnsproxy/IPFilter.conf
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Routing.txt \
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Routing.txt \
 	    $(1)/opt/etc/pcap-dnsproxy/Routing.txt
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/WhiteList.txt \
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/WhiteList.txt \
 	    $(1)/opt/etc/pcap-dnsproxy/WhiteList.txt
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S54pcap_dnsproxy $(1)/opt/etc/init.d
