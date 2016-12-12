@@ -36,7 +36,7 @@ define Package/fuse-convmvfs/description
  This is a filesystem converting file name from one character set to another. It's implemented by using FUSE.
 endef
 
-EXTRA_CFLAGS += \
+EXTRA_CXXFLAGS += \
 	-I$(ICONV_PREFIX)/include \
 	-I$(STAGING_DIR)/opt/include/fuse \
 	-DICONV_CONST=const \
