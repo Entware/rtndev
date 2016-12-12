@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-requests
-PKG_VERSION:=2.11.1
+PKG_VERSION:=2.12.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=requests-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/2e/ad/e627446492cc374c284e82381215dcd9a0a87c4f6e90e9789afefe6da0ad
-PKG_MD5SUM:=ad5f9c47b5c5dfdb28363ad7546b0763
+PKG_SOURCE_URL:=https://pypi.python.org/packages/d9/03/155b3e67fe35fe5b6f4227a8d9e96a14fda828b18199800d161bcefc1359
+PKG_MD5SUM:=0cafdecd95a46b081dd5fcfa4978db7a
 
 PKG_BUILD_DEPENDS:=python3-setuptools
 
