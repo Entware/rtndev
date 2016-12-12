@@ -8,12 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fdupes
-PKG_VERSION:=1.6.1
+PKG_VERSION:=1.6.1-20161028
+PKG_REV:=ac468d96fdede845f9c20750b1fa19944807005f
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/adrianlopezroche/fdupes/archive/v$(PKG_VERSION)
-PKG_MD5SUM:=4fc41681fb506e518a40d610fec50aea
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/adrianlopezroche/fdupes.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_INSTALL:=1
 
