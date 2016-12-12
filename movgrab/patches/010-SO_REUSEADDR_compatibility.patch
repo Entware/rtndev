@@ -1,20 +1,20 @@
---- a/libUseful-2.4/socket.c
-+++ b/libUseful-2.4/socket.c
-@@ -97,7 +97,7 @@
+--- a/libUseful-2.6/socket.c
++++ b/libUseful-2.6/socket.c
+@@ -104,7 +104,7 @@
+ #endif
  
- if (SetFlags & SOCK_DONTROUTE) result=setsockopt(sock, SOL_SOCKET, SO_DONTROUTE, &result,sizeof(int));
- 
+ #ifdef SO_REUSEPORT
 -if (SetFlags & SOCK_REUSEPORT) result=setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &result,sizeof(int));
 +if (SetFlags & SOCK_REUSEPORT) result=setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &result,sizeof(int));
+ #endif
  
  #ifdef IP_TRANSPARENT
- if (SetFlags & SOCK_TPROXY) result=setsockopt(sock, IPPROTO_IP, IP_TRANSPARENT, &result,sizeof(int));
-@@ -120,7 +120,7 @@
+@@ -132,7 +132,7 @@
+ #endif
  
- if (UnsetFlags & SOCK_DONTROUTE) result=setsockopt(sock, SOL_SOCKET, SO_DONTROUTE, &result,sizeof(int));
- 
+ #ifdef SO_REUSEPORT
 -if (UnsetFlags & SOCK_REUSEPORT) result=setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &result,sizeof(int));
 +if (UnsetFlags & SOCK_REUSEPORT) result=setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &result,sizeof(int));
+ #endif
  
  #ifdef IP_TRANSPARENT
- if (UnsetFlags & SOCK_TPROXY) result=setsockopt(sock, IPPROTO_IP, IP_TRANSPARENT, &result,sizeof(int));
