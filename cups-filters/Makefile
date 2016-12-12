@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.11.4
+PKG_VERSION:=1.12.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.openprinting.org/download/$(PKG_NAME)
-PKG_MD5SUM:=2261ef8250fb3e9870cb6c4905e73b01
+PKG_MD5SUM:=104adcf99325450bc73093cdbf40fcda
 
 PKG_INSTALL:=1
 
