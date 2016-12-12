@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=redis
-PKG_VERSION:=3.2.4
+PKG_VERSION:=3.2.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.redis.io/releases
-PKG_MD5SUM:=2f8b49e8004fbbfc807ca7f5faeabec8
+PKG_MD5SUM:=d0e81d1e19f673fd84d01784bf9fb5f0
 
 PKG_INSTALL:=1
 
@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/redis
 	SECTION:=utils
 	CATEGORY:=Utilities
-	SUBMENU:=database
+	SUBMENU:=Database
 	TITLE:=in-memory key-value cache and store
 	DEPENDS:=+libpthread
 	URL:=http://redis.io/
