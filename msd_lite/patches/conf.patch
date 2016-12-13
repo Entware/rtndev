@@ -1,0 +1,11 @@
+--- a/msd_lite.conf
++++ b/msd_lite.conf
+@@ -17,7 +17,7 @@
+ 
+ <msd>
+ 	<log>
+-		<file>/root/msd_lite/msd_lite.log</file>
++		<file>/opt/var/log/msd_lite.log</file>
+ 	</log>
+ 
+ 
