@@ -17,7 +17,7 @@ ansi_ul="\033[4m";
 start() {
     [ "$CRITICAL" != "yes" -a "$CALLER" = "cron" ] && return 7
         [ "$ENABLED" != "yes" ] && return 8
-    echo -e -n "$ansi_white Starting $DESC... "
+    echo -e -n "$ansi_white Starting $DESC... $ansi_std"
     if [ -n "`pidof $PROC`" ]; then
         echo -e "            $ansi_yellow already running. $ansi_std"
         return 0

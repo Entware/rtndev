@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/duo_unix/Default
 	DEPENDS:=+libopenssl
 	TITLE:=two-factor authentication for Unix systems
-	URL:=https://www.duosecurity.com/
+	URL:=https://github.com/duosecurity/duo_unix
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
