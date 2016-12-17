@@ -11,7 +11,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap_dnsproxy
-PKG_VERSION:=0.4.8.2-20161203
+PKG_VERSION:=0.4.8.2
 PKG_REV:=1c40e79c85beed31473f5eff29f64db5a4deb211
 PKG_RELEASE:=1
 

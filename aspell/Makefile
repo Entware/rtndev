@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aspell
-PKG_VERSION:=0.60.7~20110707
+PKG_VERSION:=0.60.6.1
 PKG_RELEASE:=1a
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
-PKG_SOURCE_URL=http://http.debian.net/debian/pool/main/a/aspell/
-PKG_MD5SUM:=9a80faddad3222b88c544e93d2ab9579
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=@GNU/$(PKG_NAME)
+PKG_MD5SUM:=e66a9c9af6a60dc46134fdacf6ce97d7
 
 PKG_INSTALL:=1
 

@@ -63,17 +63,9 @@ define Package/cups-filters/install
 	$(INSTALL_CONF) \
 	    $(PKG_INSTALL_DIR)/opt/etc/fonts/conf.d/99pdftoopvp.conf \
 	    $(1)/opt/etc/fonts/conf.d
-	$(INSTALL_DIR) $(1)/opt/lib/cups/{backend,driver,filter}
+	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib*.so* $(1)/opt/lib
-	$(CP) \
-	    $(PKG_INSTALL_DIR)/opt/lib/cups/backend/* \
-	    $(1)/opt/lib/cups/backend
-	$(CP) \
-	    $(PKG_INSTALL_DIR)/opt/lib/cups/filter/* \
-	    $(1)/opt/lib/cups/filter
-	$(CP) \
-	    $(PKG_INSTALL_DIR)/opt/lib/cups/driver/* \
-	    $(1)/opt/lib/cups/driver
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cups $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/cups-browsed $(1)/opt/sbin
 endef

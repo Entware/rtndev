@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tty-solitaire
-PKG_VERSION:=0.2.1-20151130
+PKG_VERSION:=0.2.1
 PKG_REV:=76f0154632e3a9e35e00ed4b91d225e48fcdc700
 PKG_RELEASE:=1
 

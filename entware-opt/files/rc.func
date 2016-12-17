@@ -47,7 +47,7 @@ start() {
 stop() {
     case "$ACTION" in
         stop | restart)
-            echo -e -n "$ansi_white Shutting down $PROC... "
+            echo -e -n "$ansi_white Shutting down $PROC... $ansi_std"
             killall $PROC 2>/dev/null
             COUNTER=0
             LIMIT=10
@@ -57,7 +57,7 @@ stop() {
             done
             ;;
         kill)
-            echo -e -n "$ansi_white Killing $PROC... "
+            echo -e -n "$ansi_white Killing $PROC... $ansi_std"
             killall -9 $PROC 2>/dev/null
             ;;
     esac

@@ -9,11 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=istgt
 PKG_VERSION:=20150713
-PKG_RELEASE:=1
+PKG_REV:=14b0bacacedc9ac7e96fc34cf720800047f6194a
+PKG_RELEASE:=3
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://shell.peach.ne.jp/~aoyama/wordpress/download
-PKG_MD5SUM:=da136ed0fe2d7acd01bf4fa1dbf5b330
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/elastocloud/istgt.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

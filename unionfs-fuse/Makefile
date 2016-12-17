@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=unionfs-fuse
-PKG_VERSION:=2.0-20161122
+PKG_VERSION:=2.0
 PKG_REV:=e1e9a60323deda18c1ed236a256d999b62cb0381
 PKG_RELEASE:=1
 
