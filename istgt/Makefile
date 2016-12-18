@@ -27,7 +27,7 @@ define Package/istgt
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libopenssl +libpthread
+	DEPENDS:=+libpthread +libevent2
 	TITLE:=An iSCSI target implementation
 	URL:=http://www.peach.ne.jp/archives/istgt/
 	MAINTAINER:=Entware team, http://entware.net
