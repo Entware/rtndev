@@ -10,7 +10,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
 PKG_VERSION:=1.0.9
-PKG_RELEASE:=4
+#boost was upgraded
+PKG_RELEASE:=5
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_9
