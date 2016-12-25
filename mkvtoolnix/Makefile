@@ -10,13 +10,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=4.2.0
-#boost was upgraded
-PKG_RELEASE:=5
+PKG_VERSION:=9.6.0
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_MD5SUM:=de3e99598d47d0a2226269f79faabbfd
+PKG_MD5SUM:=8ae4c5b6d35ab13e9c84096b87da366d
+
+PKG_BUILD_DEPENDS:=ruby/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -38,16 +39,23 @@ endef
 
 CONFIGURE_ARGS += \
 	--disable-gui \
-	--disable-optimization \
+	--disable-static \
 	--with-boost=$(STAGING_DIR)/opt \
+	--without-curl \
+	--without-gettext \
 
 TARGET_LDFLAGS += \
 	-lstdc++ \
 	-lintl \
 
+define Build/Compile
+	cd $(PKG_BUILD_DIR); ./drake
+endef
+
+
 define Package/mkvtoolnix/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/mkv* $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/mkv{extract,info,merge,propedit} $(1)/opt/bin/
 endef
 
 $(eval $(call BuildPackage,mkvtoolnix))
