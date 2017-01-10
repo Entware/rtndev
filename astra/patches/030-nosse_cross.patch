@@ -8,3 +8,12 @@
  
  cpucheck_c()
  {
+@@ -184,7 +184,7 @@
+             CFLAGS="$CFLAGS $CPUFLAGS"
+         fi
+     fi
+-elif [ $ISx86 -eq 0 ]; then
++elif  false ; then
+     $APP_C $CFLAGS -msse -E -x c /dev/null >/dev/null 2>&1
+     if [ $? -eq 0 ] ; then
+         CFLAGS="$CFLAGS -msse"
