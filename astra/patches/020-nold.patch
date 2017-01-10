@@ -1,0 +1,11 @@
+--- a/configure.sh
++++ b/configure.sh
+@@ -726,7 +726,7 @@
+ 
+ \$(APP): $APP_OBJS \$(CORE_OBJS) \$(MODS_OBJS)
+ 	@echo "BUILD: \$@"
+-	@\$(LD) \$^ -o \$@ \$(LDFLAGS)
++	@\$(CC) \$^ -o \$@ \$(LDFLAGS)
+ 	@\$(STRIP) \$@
+ 
+ install: \$(APP)

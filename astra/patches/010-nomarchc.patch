@@ -1,0 +1,16 @@
+--- a/configure.sh
++++ b/configure.sh
+@@ -199,12 +199,7 @@
+     fi
+ fi
+ 
+-$APP_C $CFLAGS -march=$ARG_ARCH -E -x c /dev/null >/dev/null 2>&1
+-if [ $? -eq 0 ] ; then
+-    CFLAGS="$CFLAGS -march=$ARG_ARCH"
+-else
+-    echo "Error: gcc does not support -march=$ARG_ARCH" >&2
+-fi
++$APP_C $CFLAGS -E -x c /dev/null >/dev/null 2>&1
+ 
+ case "$MACHINE" in
+ *"android"*)
