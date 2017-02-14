@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -22,7 +22,6 @@ include $(INCLUDE_DIR)/package.mk
 define Package/urbackup-server
 	SECTION:=utils
 	CATEGORY:=Utilities
-	SUBMENU:=Backup
 	DEPENDS:=+libcurl +zlib +libstdcpp
 	TITLE:=UrBackup Server
 	URL:=http://www.urbackup.org/
