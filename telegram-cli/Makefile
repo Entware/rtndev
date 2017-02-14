@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -69,7 +69,7 @@ define Host/Install
 endef
 
 define Build/Compile
-	mkdir $(PKG_BUILD_DIR)/bin
+	mkdir -p $(PKG_BUILD_DIR)/bin
 	$(CP) $(HOST_BUILD_DIR)/tgl/bin/*  $(PKG_BUILD_DIR)/bin
 	$(call Build/Compile/Default)
 endef
