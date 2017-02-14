@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -33,11 +33,9 @@ endef
 
 CONFIGURE_PATH:=Project/GNU/Library
 
-TARGET_CFLAGS +=-std=c++11
-
 CONFIGURE_ARGS += \
-	--prefix=/opt \
 	--enable-static \
+	--disable-shared
 
 define Build/Configure
 	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
