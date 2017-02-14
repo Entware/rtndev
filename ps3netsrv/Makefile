@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ps3netsrv
-PKG_VERSION:=20160416
-PKG_REV:=e54a66cbf142b86e2cffc1701984b95adb921e81
+PKG_VERSION:=20150203
+PKG_REV:=eaf2329d54e8231d4bfb1d8c8a19f7ea6848443c
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
