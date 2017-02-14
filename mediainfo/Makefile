@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=0.7.91
+PKG_VERSION:=0.7.92.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://mediaarea.net/download/source/mediainfo/$(PKG_VERSION)
-PKG_MD5SUM:=39d5019a308c48b57ff5b89e90937259
+PKG_HASH:=2c5bf013876d693948a9ce3e6e3fa94798936ddacdc1d19d15ef7c19dc51c5cf
 
 PKG_BUILD_DEPENDS:=libmediainfo
 
