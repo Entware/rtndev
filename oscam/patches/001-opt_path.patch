@@ -41,7 +41,7 @@
  };
  
  static int32_t selected_box = -1;
-@@ -5101,7 +5101,7 @@
+@@ -5125,7 +5125,7 @@
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end;  // start time poll, end time poll
@@ -76,7 +76,7 @@
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -625,12 +625,12 @@
+@@ -636,12 +636,12 @@
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -91,7 +91,7 @@
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1632,15 +1632,15 @@
+@@ -1643,15 +1643,15 @@
  static void find_conf_dir(void) 
   {
  	static const char* confdirs[] = 
