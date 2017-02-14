@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,12 +10,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=9.6.0
+PKG_VERSION:=9.8.0
 PKG_RELEASE:=1
 
+#https://mkvtoolnix.download/sources/mkvtoolnix-9.8.0.tar.xz
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_MD5SUM:=8ae4c5b6d35ab13e9c84096b87da366d
+PKG_HASH:=494b2fb9ff83a858d8849baecdd3320456717923bb7a854d31a02a49640228db
 
 PKG_BUILD_DEPENDS:=ruby/host
 
@@ -49,7 +50,7 @@ TARGET_LDFLAGS += \
 	-lintl \
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR); ./drake
+	cd $(PKG_BUILD_DIR); rake --jobs=1
 endef
 
 
