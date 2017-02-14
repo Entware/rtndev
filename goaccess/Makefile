@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goaccess
-PKG_VERSION:=1.1.1-20161206
-PKG_REV:=316c9b30d47ca5ef329c58c41dc035a722257575
+PKG_VERSION:=1.1.1
+PKG_REV:=ea292c42121d8fa61c3cd4715f5a657ddb2cb5b9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2

@@ -1,3 +1,14 @@
+--- a/src/gwsocket.c
++++ b/src/gwsocket.c
+@@ -279,7 +279,7 @@
+ int
+ open_fifoin (void)
+ {
+-  const char *fifo = "/tmp/wspipein.fifo";
++  const char *fifo = "/opt/tmp/wspipein.fifo";
+   int fdfifo;
+ 
+   if ((fdfifo = open (fifo, O_WRONLY | O_NONBLOCK)) == -1)
 --- a/src/tcbtdb.h
 +++ b/src/tcbtdb.h
 @@ -46,7 +46,7 @@
@@ -8,7 +19,7 @@
 +#define TC_DBPATH "/opt/tmp/"
  #define TC_ZLIB 1
  #define TC_BZ2  2
-
+ 
 --- a/src/websocket.h
 +++ b/src/websocket.h
 @@ -90,8 +90,8 @@
