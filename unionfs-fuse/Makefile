@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=unionfs-fuse
 PKG_VERSION:=2.0
-PKG_REV:=e1e9a60323deda18c1ed236a256d999b62cb0381
+PKG_REV:=c393877a8ebb1db9f61535043bd966faf2b87650
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
