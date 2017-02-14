@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 # Copyright (C) 2013 Francisco Borges
 #
 # This is free software, licensed under the GNU General Public License v2.
@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.13.0
+PKG_VERSION:=1.13.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.openprinting.org/download/$(PKG_NAME)
-PKG_MD5SUM:=ec95f66982beeb3876a2e6187c084597
+PKG_HASH:=7f0db9f03109e5db98a489ad921d6c2e3c2d9503169884cc43ed76bfa627a6a8
 
 PKG_INSTALL:=1
 
