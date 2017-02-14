@@ -1,6 +1,6 @@
 --- a/src/ttysolitaire.c
 +++ b/src/ttysolitaire.c
-@@ -122,14 +122,5 @@
+@@ -123,14 +123,5 @@
  }
  
  void version() {

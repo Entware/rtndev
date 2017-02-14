@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tty-solitaire
-PKG_VERSION:=0.2.1
-PKG_REV:=76f0154632e3a9e35e00ed4b91d225e48fcdc700
+PKG_VERSION:=1.0.0
+PKG_REV:=b234e7f11687eaa4bd505d0245f2add856bd7768
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
