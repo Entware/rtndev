@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-greenlet
-PKG_VERSION:=0.4.11
+PKG_VERSION:=0.4.12
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/python-greenlet/greenlet/archive
-PKG_MD5SUM:=f43b4e09825d40daf1fb2c4adbac0edf
+PKG_SOURCE:=greenlet-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://pypi.python.org/packages/be/76/82af375d98724054b7e273b5d9369346937324f9bcc20980b45b068ef0b0
+PKG_MD5SUM:=e8637647d58a26c4a1f51ca393e53c00
 
 PKG_BUILD_DEPENDS:=python
 PKG_BUILD_DIR:=$(BUILD_DIR)/greenlet-$(PKG_VERSION)
