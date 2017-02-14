@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nyancat
-PKG_VERSION:=1.5.1-20160824
-PKG_REV:=c925313a7a17cd1b2b4027bc2859e57aabdfc6aa
+PKG_VERSION:=1.5.1
+PKG_REV:=7250ec23107ebfa4b8e7d5c64ec70f3684bd1a41
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
