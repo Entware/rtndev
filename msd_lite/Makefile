@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 Entware
+# Copyright (C) 2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,6 +23,11 @@ define Package/msd_lite
 	DEPENDS:=+libpthread
 	TITLE:=Multi Stream daemon Lite
 	URL:=http://www.netlab.linkpc.net/wiki/index?id=en:software:msd:lite
+endef
+
+define Package/msd_lite/description
+ A lightweight version of Multi Stream daemon, a program for organizing
+ streaming IP TV on the network via HTTP.
 endef
 
 define Package/msd_lite/conffiles
