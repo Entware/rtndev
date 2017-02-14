@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -24,11 +24,6 @@ endef
 
 define Package/sd-idle/description
  sd-idle-2.6 is a disk idle spindown program for router firmware based on linux 2.6.
-endef
-
-define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
-	$(CP) ./src/* $(PKG_BUILD_DIR)
 endef
 
 define Package/sd-idle/install
