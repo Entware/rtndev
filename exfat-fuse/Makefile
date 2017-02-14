@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=exfat-fuse
-PKG_VERSION:=1.2.5
-PKG_REV:=0a11f088786d24e067a9222148c14a477a523c5d
+PKG_VERSION:=1.2.6
+PKG_REV:=01d117508be4baa2040242825c707db0852d7456
 PKG_RELEASE:=1
 
 PKG_FIXUP:=autoreconf
