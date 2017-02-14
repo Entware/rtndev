@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
-PKG_VERSION:=0.7.91
+PKG_VERSION:=0.7.92.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
-PKG_MD5SUM:=98330c32a5f874e9575759cf14d70ed0
+PKG_HASH:=f608ba05158822c1cf0dbe3b01d67366e4623535740b70676a90732889ee94fe
 
 PKG_BUILD_DEPENDS:=libzen
 
@@ -35,11 +35,9 @@ endef
 
 CONFIGURE_PATH:=Project/GNU/Library
 
-TARGET_CFLAGS +=-std=c++11
-
 CONFIGURE_ARGS += \
-	--prefix=/opt \
 	--enable-static \
+	--disable-shared
 
 define Build/Configure
 	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
