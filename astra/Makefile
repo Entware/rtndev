@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,11 +23,14 @@ include $(INCLUDE_DIR)/package.mk
 define Package/astra
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	TITLE:=Astra (Advanced Streamer) - software to organize Digital TV Broadcasting Service
+	TITLE:=advanced streamer
 	DEPENDS:=+libopenssl
 	URL:=https://cesbo.com/en/astra/
 endef
 
+define Package/astra/description
+ Astra is a software to organize Digital TV Broadcasting Service.
+endef
 
 define Build/Configure
 	cd $(PKG_BUILD_DIR); \
