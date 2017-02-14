@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=par2cmdline
-PKG_VERSION:=0.6.14-20161105
-PKG_REV:=4fcf03b620d8dc1a6f0ace472e4f8700bcd1ec2c
+PKG_VERSION:=0.6.14-20160630
+PKG_REV:=b0fab491b2055320ab2996a48c00f417911c79f0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
