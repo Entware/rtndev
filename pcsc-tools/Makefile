@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcsc-tools
-PKG_VERSION:=1.4.27-20161126
-PKG_REV:=33dea586fc8ab951edb78d5a3ac9a2dabf2d8baf
+PKG_VERSION:=1.4.27
+PKG_REV:=8f2a6b311ba28c12540afb24d5dfcb2e83c95091
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
