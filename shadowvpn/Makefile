@@ -1,25 +1,25 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# No longer maintained. Origin was removed according to regulations.
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shadowvpn
 PKG_VERSION:=0.2.0
-PKG_REV:=d96833ce07098f93065182e497b771e035d07df8
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/GFW-Fucker/ShadowVPN.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE:=ShadowVPN-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/aa65535/openwrt-shadowvpn/releases/download/v0.2.0
+PKG_MD5SUM:=b722b0e72608e00bca00bd4061e37209
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/ShadowVPN-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -52,9 +52,8 @@ define Package/shadowvpn/install
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libshadowvpn.so* $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/etc/shadowvpn
-	$(INSTALL_CONF) \
-	    $(PKG_INSTALL_DIR)/opt/etc/shadowvpn/{server,client}{.conf,_up.sh,_down.sh} \
-	    $(1)/opt/etc/shadowvpn
+	$(INSTALL_CONF) ./files/{server,client}.conf $(1)/opt/etc/shadowvpn
+	$(INSTALL_BIN) ./files/{server,client}{_up.sh,_down.sh} $(1)/opt/etc/shadowvpn
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S20shadowvpn-client $(1)/opt/etc/init.d
 endef

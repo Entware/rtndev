@@ -1,0 +1,17 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -3,4 +3,4 @@
+ 	README.md \
+ 	COPYING
+ 
+-SUBDIRS = src samples
++SUBDIRS = src
+--- a/configure.ac
++++ b/configure.ac
+@@ -72,5 +72,5 @@
+     [  --enable-analyze        build with analyze],
+     [CC="clang --analyze"])
+ 
+-AC_CONFIG_FILES([Makefile src/Makefile samples/Makefile])
++AC_CONFIG_FILES([Makefile src/Makefile])
+ AC_OUTPUT
