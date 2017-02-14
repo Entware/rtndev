@@ -1,9 +1,10 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# Our mirror is the only source of wmr-oregon-0.4-2013-01-23.tar.gz
 
 include $(TOPDIR)/rules.mk
 
@@ -12,7 +13,7 @@ PKG_VERSION:=0.4-2013-01-23
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://wmr.googlecode.com/files
+PKG_SOURCE_URL:=http://entware.dyndns.info/sources
 PKG_MD5SUM:=4ccc9370fa28f87dac45f470bda498d7
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-0.4
