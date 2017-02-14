@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libite
-PKG_VERSION:=1.8.2
-PKG_REV:=a4937a93e2e566ea89cd5a9450b3a585af517dbb
+PKG_VERSION:=1.8.3
+PKG_REV:=8587971fb95136cc1452adac2fbeacf246caf85d
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
