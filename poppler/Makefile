@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 # Copyright (C) 2013 Francisco Borges
 #
 # This is free software, licensed under the GNU General Public License v2.
@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
-PKG_VERSION:=0.49.0
+PKG_VERSION:=0.51.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
-PKG_MD5SUM:=9e057ed8eee1f9979fa75d8f044783b8
+PKG_HASH:=e997c9ad81a8372f2dd03a02b00692b8cc479c220340c8881edaca540f402c1f
 
 PKG_INSTALL:=1
 
