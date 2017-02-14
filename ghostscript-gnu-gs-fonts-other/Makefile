@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 # Copyright (C) 2013 Francisco Borges
 #
 # This is free software, licensed under the GNU General Public License v2.
