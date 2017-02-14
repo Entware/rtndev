@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Entware
+# Copyright (C) 2011-2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=movgrab
-PKG_VERSION:=2.1.0-20161119
-PKG_REV:=9e1ea63f232f865f909a6cfee051666418a8840b
+PKG_VERSION:=3.0.2
+PKG_REV:=e440157050a339de1effa79f474d9d3398d01d21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
