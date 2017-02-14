@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -9,8 +9,8 @@
+ 
+ include filelist.mk
+ 
+-USE_AESNI	:= yes
+-USE_AVX		:= yes
++USE_AESNI	:= no
++USE_AVX		:= no
+ USE_STATIC	:= no
+ USE_MESHNET	:= no
+ USE_UPNP	:= no
