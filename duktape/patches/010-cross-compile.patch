@@ -1,7 +1,7 @@
 --- a/Makefile.cmdline
 +++ b/Makefile.cmdline
-@@ -8,17 +8,17 @@
- DUKTAPE_CMDLINE_SOURCES = \
+@@ -8,10 +8,10 @@
+ CMDLINE_SOURCES = \
  	examples/cmdline/duk_cmdline.c
  
 -CC	= gcc
@@ -12,16 +12,18 @@
 -CCLIBS	= -lm
 +CCLIBS	= $(LDFLAGS) -lm
  
+ # Enable print() and alert() for command line using an optional extra module.
+ CCOPTS += -DDUK_CMDLINE_PRINTALERT_SUPPORT -I./extras/print-alert
+@@ -31,9 +31,9 @@
+ 
  # If you want linenoise, you can enable these.  At the moment linenoise
  # will cause some harmless compilation warnings.
--#CCOPTS += -DDUK_CMDLINE_FANCY
--#DUKTAPE_CMDLINE_SOURCES += linenoise/linenoise.c
--#CCOPTS += -I./linenoise
+-#CCOPTS += -DDUK_CMDLINE_FANCY -I./linenoise
+-#CMDLINE_SOURCES += linenoise/linenoise.c
 -#duk:	linenoise
-+CCOPTS += -DDUK_CMDLINE_FANCY
-+DUKTAPE_CMDLINE_SOURCES += linenoise/linenoise.c
-+CCOPTS += -I./linenoise
++CCOPTS += -DDUK_CMDLINE_FANCY -I./linenoise
++CMDLINE_SOURCES += linenoise/linenoise.c
 +duk:	linenoise
  
- # Optional feature defines, see: http://duktape.org/guide.html#compiling
- CCOPTS += -DDUK_OPT_SELF_TESTS
+ # Use the tools/configure.py utility to modify Duktape default configuration:
+ # http://duktape.org/guide.html#compiling
