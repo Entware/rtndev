@@ -40,7 +40,7 @@ define Package/nginx-extras/description
 endef
 
 TARGET_CFLAGS += \
-	-I$(STAGING_DIR)/opt/include/libxml2
+	-I$(STAGING_DIR)/opt/include/libxml2 -Wno-error=parentheses
 
 TARGET_LDFLAGS += \
 	-lxml2
