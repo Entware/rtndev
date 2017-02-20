@@ -1,0 +1,11 @@
+--- a/src/htsweb.c
++++ b/src/htsweb.c
+@@ -178,7 +178,7 @@
+     fprintf(stderr,
+             "usage: %s [--port <port>] [--ppid parent-pid] <path-to-html-root-dir> [key value [key value]..]\n",
+             argv[0]);
+-    fprintf(stderr, "example: %s /usr/share/httrack/\n", argv[0]);
++    fprintf(stderr, "example: %s /opt/share/httrack/\n", argv[0]);
+     return 1;
+   }
+ 
