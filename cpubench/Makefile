@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cpubench
 PKG_VERSION:=0.6
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -27,8 +27,8 @@ define Package/cpubench/description
 endef
 
 define Build/Compile
-	$(TARGET_CC) -O0 -c $(TARGET_LDFLAGS) -o $(PKG_BUILD_DIR)/cpubench \
-	    $(PKG_BUILD_DIR)/openwrt_cpu_bench_v06.c
+	$(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_CPPFLAGS) $(TARGET_LDFLAGS) -O0 -o $(PKG_BUILD_DIR)/cpubench \
+		$(PKG_BUILD_DIR)/openwrt_cpu_bench_v06.c
 endef
 
 define Package/cpubench/install
