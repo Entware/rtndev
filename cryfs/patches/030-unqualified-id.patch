@@ -1,0 +1,11 @@
+--- a/vendor/spdlog/spdlog/fmt/bundled/format.h
++++ b/vendor/spdlog/spdlog/fmt/bundled/format.h
+@@ -2233,7 +2233,7 @@
+         typedef typename BasicWriter<Char>::CharPtr CharPtr;
+         Char fill = internal::CharTraits<Char>::cast(spec_.fill());
+         CharPtr out = CharPtr();
+-        const unsigned CHAR_WIDTH = 1;
++        #define CHAR_WIDTH 1
+         if (spec_.width_ > CHAR_WIDTH)
+         {
+             out = writer_.grow_buffer(spec_.width_);
