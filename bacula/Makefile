@@ -9,13 +9,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bacula
-PKG_VERSION:=7.4.4
+PKG_VERSION:=7.4.7
 PKG_RELEASE:=1
 PKG_INSTALL:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/bacula
-PKG_MD5SUM:=aed11c1eef1198ffc76c6fca55cea3ad
+PKG_MD5SUM:=2af99b60bfad7a68af5a66e7348524ed
 
 
 include $(INCLUDE_DIR)/package.mk
