@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=cryfs
 PKG_VERSION:=0.9.7
 PKG_REV:=37603c59635f669a5c55dfd10c73bef7109fd657
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -25,7 +25,7 @@ define Package/cryfs
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+fuse-utils +libopenssl +libcryptoxx +libcurl +boost-program_options +boost-thread +boost-filesystem
+	DEPENDS:=+fuse-utils +libopenssl +libcryptoxx +libcurl +boost-program_options +boost-thread +boost-filesystem +boost-date_time
 	TITLE:=CryFS encrypts your files, so you can safely store them anywhere
 	URL:=https://www.cryfs.org
 	MAINTAINER:=Entware team, http://entware.net
