@@ -9,13 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
-PKG_VERSION:=1.0.9
-#boost was upgraded
-PKG_RELEASE:=5
+PKG_VERSION:=1.0.11
+PKG_RELEASE:=1
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_9
-PKG_MD5SUM:=361c3d91a7c7447bb271b1775553a03b
+PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_11
+PKG_HASH:=828d686770346f6da2c143c5a2844c5f5e407eb4a37982e90022763508abd62f
 PKG_BUILD_DIR:=$(BUILD_DIR)/libtorrent-rasterbar-$(PKG_VERSION)
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
