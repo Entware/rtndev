@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=limitcpu
-PKG_VERSION:=2.4
+PKG_VERSION:=2.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=cpulimit-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_MD5SUM:=2b222e01c46ba6d0b2171b8f88fb5e7a
+PKG_MD5SUM:=8c07ebf2bb543bdfd5b8e0df9dddfe1d
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/cpulimit-$(PKG_VERSION)
 
