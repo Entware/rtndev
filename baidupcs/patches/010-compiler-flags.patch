@@ -1,17 +1,29 @@
---- a/makefile
-+++ b/makefile
+--- a/Makefile
++++ b/Makefile
 @@ -26,12 +26,12 @@
  CCFLAGS:=-g -D_FILE_OFFSET_BITS=64 -DDEBUG -D_DEBUG
  endif
- 
+
 -PCS_CCFLAGS = -fPIC $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS)
 +PCS_CCFLAGS = -fPIC $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) $(CFLAGS)
- 
- all: bin/libpcs.a bin/pcs
- 
- bin/pcs : pre bin/libpcs.a $(SHELL_OBJS)
--	$(CC) -o $@ $(SHELL_OBJS) $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) -L./bin -lpcs -lm -lcurl -lssl -lcrypto -lpthread
+
+-all: bin/pcs
++all: bin/libpcs.a bin/pcs
+
+-bin/pcs : pre $(PCS_OBJS) $(SHELL_OBJS)
+-	$(CC) -o $@ $(PCS_OBJS) $(SHELL_OBJS) $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) -lm -lcurl -lssl -lcrypto -lpthread
++bin/pcs : pre bin/libpcs.a $(SHELL_OBJS)
 +	$(CC) -o $@ $(SHELL_OBJS) $(LDFLAGS) $(CCFLAGS) $(CYGWIN_CCFLAGS) $(APPLE_CCFLAGS) -L./bin -lpcs -lm -lcurl -lssl -lcrypto -lpthread
- 
+
  bin/shell_arg.o: arg.c arg.h
  	$(CC) -o $@ -c $(PCS_CCFLAGS) arg.c
+@@ -50,6 +50,9 @@
+ bin/red_black_tree.o: rb_tree/red_black_tree.c rb_tree/red_black_tree.h
+ 	$(CC) -o $@ -c $(PCS_CCFLAGS) rb_tree/red_black_tree.c
+
++bin/libpcs.a : pre $(PCS_OBJS)
++	$(AR) crv $@ $(PCS_OBJS)
++
+ bin/cJSON.o: pcs/cJSON.c pcs/cJSON.h
+ 	$(CC) -o $@ -c $(PCS_CCFLAGS) pcs/cJSON.c
+ bin/pcs.o: pcs/pcs.c pcs/pcs_defs.h pcs/pcs_mem.h pcs/pcs_utils.h pcs/pcs_slist.h pcs/pcs_http.h pcs/cJSON.h pcs/pcs.h pcs/pcs_fileinfo.h pcs/pcs_pan_api_resinfo.h
