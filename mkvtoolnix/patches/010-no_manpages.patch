@@ -1,0 +1,80 @@
+--- a/configure
++++ b/configure
+@@ -10833,14 +10833,6 @@
+     fi
+   done
+ 
+-  if test -z "$DOCBOOK_ROOT"; then
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+-$as_echo "not found" >&6; }
+-    as_fn_error $? "DocBook XSL stylesheets are required for building." "$LINENO" 5
+-  else
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $DOCBOOK_ROOT" >&5
+-$as_echo "$DOCBOOK_ROOT" >&6; }
+-  fi
+ fi
+ 
+ # It's just rude to go over the net to build
+@@ -10901,39 +10893,6 @@
+ 
+ fi
+ 
+-if test -z "$XSLTPROC" -o ! -x "$XSLTPROC"; then
+-  as_fn_error $? "xsltproc wasn't found" "$LINENO" 5
+-fi
+-
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether xsltproc works" >&5
+-$as_echo_n "checking whether xsltproc works... " >&6; }
+-if ${ac_cv_xsltproc_works+:} false; then :
+-  $as_echo_n "(cached) " >&6
+-else
+-
+-    ac_cv_xsltproc_works=no
+-    "$XSLTPROC" "$XSLTPROC_FLAGS" "$DOCBOOK_ROOT/manpages/docbook.xsl" >/dev/null 2>/dev/null << END
+-<?xml version="1.0" encoding='ISO-8859-1'?>
+-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+-<book id="test">
+-</book>
+-END
+-    if test "$?" = 0; then
+-      ac_cv_xsltproc_works=yes
+-    fi
+-
+-fi
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_xsltproc_works" >&5
+-$as_echo "$ac_cv_xsltproc_works" >&6; }
+-
+-if test x"$ac_cv_xsltproc_works" != xyes; then
+-  as_fn_error $? "xsltproc doesn't work with DocBook's $DOCBOOK_ROOT/manpages/docbook.xsl" "$LINENO" 5
+-fi
+-
+-
+-
+-
+-
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking POSIX termios" >&5
+ $as_echo_n "checking POSIX termios... " >&6; }
+ if ${ac_cv_sys_posix_termios+:} false; then :
+--- a/Rakefile
++++ b/Rakefile
+@@ -181,20 +181,6 @@
+   # Build developer documentation?
+   targets << "doc/development.html" if !c(:PANDOC).empty?
+ 
+-  # Build man pages and translations?
+-  targets << "manpages"
+-  targets << "translations:manpages" if c?(:PO4A_WORKS)
+-
+-  # Build translations for the programs
+-  targets << "translations:programs"
+-
+-  # The Qt translation files: only for Windows
+-  targets << "translations:qt" if c?(:MINGW) && !c(:LCONVERT).blank?
+-
+-  # Build ebml_validator by default when not cross-compiling as it is
+-  # needed for running the tests.
+-  targets << "apps:tools:ebml_validator" if c(:host) == c(:build)
+-
+   task :default => targets do
+     puts "Done. Enjoy :)"
+   end
