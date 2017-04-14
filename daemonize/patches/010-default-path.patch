@@ -1,0 +1,11 @@
+--- a/daemonize.c
++++ b/daemonize.c
+@@ -521,7 +521,7 @@
+         setenv("IFS"," \t\n",1);
+ 
+     if (getenv("PATH") == NULL)
+-        setenv("PATH","/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin", 1);
++        setenv("PATH","/opt/sbin:/opt/bin:/sbin:/bin:/usr/sbin:/usr/bin", 1);
+ 
+     execvp(cmd[0], cmd);
+ 
