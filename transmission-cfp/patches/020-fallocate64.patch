@@ -1,0 +1,11 @@
+--- a/libtransmission/fdlimit.c
++++ b/libtransmission/fdlimit.c
+@@ -25,7 +25,7 @@
+  #include <fcntl.h>
+ #endif
+ 
+-#ifdef HAVE_FALLOCATE64
++#if 0
+   /* FIXME can't find the right #include voodoo to pick up the declaration.. */
+   extern int fallocate64( int fd, int mode, uint64_t offset, uint64_t len );
+ #endif

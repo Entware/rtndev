@@ -1,0 +1,43 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -399,19 +399,6 @@
+ dnl it should be safe to re-edit 0.40 back down to 0.23
+ 
+ use_nls=no
+-if test "x$enable_nls" = "xyes" ; then
+-    use_nls=yes
+-    m4_ifdef([IT_PROG_INTLTOOL],
+-             [IT_PROG_INTLTOOL([0.35.0],[no-xml])],
+-             [AC_MSG_ERROR("--enable-nls requires intltool to be installed.")])
+-    AC_CHECK_HEADERS([libintl.h])
+-    GETTEXT_PACKAGE=transmission-gtk
+-    AC_SUBST(GETTEXT_PACKAGE)
+-    AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],["$GETTEXT_PACKAGE"],[Gettext package])
+-    AM_GLIB_GNU_GETTEXT
+-    transmissionlocaledir='${prefix}/${DATADIRNAME}/locale'
+-    AC_SUBST(transmissionlocaledir)
+-fi
+ AC_SUBST(INTLLIBS)
+ 
+ 
+@@ -524,8 +524,7 @@
+                  web/style/transmission/images/Makefile
+                  web/style/transmission/images/buttons/Makefile
+                  web/javascript/Makefile
+-                 web/javascript/jquery/Makefile
+-                 po/Makefile.in])
++                 web/javascript/jquery/Makefile])
+ 
+ AC_OUTPUT
+ 
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -9,7 +9,7 @@
+ endif
+ endif
+ if BUILD_GTK
+-  GTK_DIR = gtk po
++  GTK_DIR = gtk
+ endif
+ if BUILD_MAC
+   MAC_DIR = macosx
