@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
-PKG_VERSION:=1.3.13
+PKG_VERSION:=1.3.14
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.deluge-torrent.org/source
-PKG_MD5SUM:=3a3a48f1a87bbe34f7e8437e450caa0a
+PKG_MD5SUM:=d4b89ebb1fd7cddefc594eb10b9c6f97
 
 
 include $(INCLUDE_DIR)/package.mk
