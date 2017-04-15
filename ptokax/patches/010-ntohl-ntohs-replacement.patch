@@ -21,23 +21,24 @@
 +}
 +
  //---------------------------------------------------------------------------
- clsRegManager * clsRegManager::mPtr = NULL;
+ RegManager * RegManager::m_Ptr = NULL;
  //---------------------------------------------------------------------------
 @@ -583,7 +599,7 @@
      }
  
      {
--        uint32_t ui32FileVersion = ntohl(*((uint32_t *)(pxbRegs.pItemDatas[1])));
-+        uint32_t ui32FileVersion = SwapWord(*((uint32_t *)(pxbRegs.pItemDatas[1])));
+-        uint32_t ui32FileVersion = ntohl(*((uint32_t *)(pxbRegs.m_pItemDatas[1])));
++        uint32_t ui32FileVersion = SwapWord(*((uint32_t *)(pxbRegs.m_pItemDatas[1])));
  
          if(ui32FileVersion < 1) {
              return;
 @@ -605,7 +621,7 @@
  
      while(bSuccess == true) {
- 		if(pxbRegs.ui16ItemLengths[0] < 65 && pxbRegs.ui16ItemLengths[1] < 65 && pxbRegs.ui16ItemLengths[2] == 2) {
--            iProfile = (uint16_t)ntohs(*((uint16_t *)(pxbRegs.pItemDatas[2])));
-+            iProfile = (uint16_t)SwapShort(*((uint16_t *)(pxbRegs.pItemDatas[2])));
+ 		if(pxbRegs.m_ui16ItemLengths[0] < 65 && pxbRegs.m_ui16ItemLengths[1] < 65 && pxbRegs.m_ui16ItemLengths[2] == 2) {
+-            iProfile = (uint16_t)ntohs(*((uint16_t *)(pxbRegs.m_pItemDatas[2])));
++            iProfile = (uint16_t)SwapShort(*((uint16_t *)(pxbRegs.m_pItemDatas[2])));
  
              if(iProfile > iProfilesCount) {
                  iProfile = iProfilesCount;
+
