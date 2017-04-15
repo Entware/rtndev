@@ -1,19 +1,18 @@
 This patch removes adduser and chown in `make install`
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -6411,11 +6411,6 @@
+@@ -6558,10 +6558,6 @@
  
  	mkdir -p "$(DESTDIR)$(localstatedir)/urbackup"
- 
+ 	! test -e $(DESTDIR)$(sbindir)/urbackupsrv || rm $(DESTDIR)$(sbindir)/urbackupsrv
 -@FREEBSD_TRUE@@PACKAGING_FALSE@	pw groupadd urbackup -q || true
 -@FREEBSD_TRUE@@PACKAGING_FALSE@	pw useradd urbackup -q -g urbackup -d "$(DESTDIR)$(localstatedir)/urbackup" -m -s /usr/bin/false || true
 -@FREEBSD_FALSE@@PACKAGING_FALSE@	adduser urbackup --system --quiet --group --home "$(DESTDIR)$(localstatedir)/urbackup" || adduser urbackup --system --user-group --home "$(DESTDIR)$(localstatedir)/urbackup" || true
 -@PACKAGING_FALSE@	chown urbackup:urbackup "$(DESTDIR)$(localstatedir)/urbackup"
--
- install-data-local: urbackup/status.htm urbackupserver/www/js/*.js urbackupserver/www/*.htm urbackupserver/www/css/*.css urbackupserver/www/images/*.png urbackupserver/www/images/*.gif urbackupserver/www/fonts/* urbackupserver/urbackup_ecdsa409k1.pub urbackupserver/www/*.swf server-license.txt
+ 
+ install-data-local: urbackup/status.htm urbackupserver/www/js/*.js urbackupserver/www/*.htm urbackupserver/www/*.ico urbackupserver/www/css/*.css urbackupserver/www/images/*.png urbackupserver/www/images/*.gif urbackupserver/www/fonts/* urbackupserver/urbackup_ecdsa409k1.pub urbackupserver/www/swf/* server-license.txt urbackup/dataplan_db.txt
  	$(INSTALL) $(INSTALL_OPTS) -m 744 -d "$(DESTDIR)$(localstatedir)/urbackup"
- 	chmod +x "$(DESTDIR)$(localstatedir)/urbackup"
-@@ -6441,9 +6436,6 @@
+@@ -6592,9 +6588,6 @@
  	$(INSTALL_DATA) $(INSTALL_OPTS) $(srcdir)/urbackupserver/www/fonts/* "$(DESTDIR)$(datadir)/urbackup/www/fonts/"
  	$(INSTALL_DATA) $(INSTALL_OPTS) $(srcdir)/urbackupserver/urbackup_ecdsa409k1.pub "$(DESTDIR)$(datadir)/urbackup/urbackup_ecdsa409k1.pub"
  	$(INSTALL_DATA) $(INSTALL_OPTS) $(srcdir)/server-license.txt "$(DESTDIR)$(datadir)/urbackup/server-license.txt"
