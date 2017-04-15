@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-gevent
-PKG_VERSION:=1.1.2
+PKG_VERSION:=1.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=gevent-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/43/8f/cb3224a0e6ab663547f45c10d0651cfd52633fde4283bf68d627084df8cc/
-PKG_MD5SUM:=bb32a2f852a4997138014d5007215c6e
+PKG_SOURCE_URL:=https://pypi.python.org/packages/54/dd/17dc7e899ac7c1de2d19b367b29d90fdb4cfe83bda8c2581464906c9399d/
+PKG_MD5SUM:=6700a2433c8e0635425e6798760efc81
 PKG_BUILD_DEPENDS:=python
 PKG_BUILD_DIR:=$(BUILD_DIR)/gevent-$(PKG_VERSION)
 
@@ -37,8 +37,8 @@ define Package/python-gevent/description
 endef
 
 define Build/Configure
-	touch $(PKG_BUILD_DIR)/c-ares/{Makefile.in,libcares.pc.in}
-	(cd $(PKG_BUILD_DIR)/libev; \
+	touch $(PKG_BUILD_DIR)/deps/c-ares/{Makefile.in,libcares.pc.in}
+	(cd $(PKG_BUILD_DIR)/deps/libev; \
 	$(CONFIGURE_VARS) \
 	./configure \
 		--target=$(GNU_TARGET_NAME) \
@@ -46,7 +46,7 @@ define Build/Configure
 		--build=$(GNU_HOST_NAME) \
 		--prefix=/opt \
 	);
-	(cd $(PKG_BUILD_DIR)/c-ares; \
+	(cd $(PKG_BUILD_DIR)/deps/c-ares; \
 	$(CONFIGURE_VARS) \
 	./configure \
 		--target=$(GNU_TARGET_NAME) \
