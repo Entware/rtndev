@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rar2fs
-PKG_VERSION:=1.23.1
+PKG_VERSION:=1.24.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/hasse69/rar2fs/releases/download/v$(PKG_VERSION)
-PKG_MD5SUM:=a197599e428e4e6ebf1e43b4f503d790
+PKG_MD5SUM:=375415f7b507291ee187e4f23520ea4dc6b17c47
 
 PKG_INSTALL:=1
 
@@ -42,6 +42,7 @@ endef
 CONFIGURE_ARGS += \
 	--with-unrar=$(STAGING_DIR)/opt/include/unrar \
 	--with-libiconv-prefix=$(ICONV_PREFIX) \
+	--enable-static-unrar=no \
 
 define Package/rar2fs/install
 	$(INSTALL_DIR) $(1)/opt/bin
