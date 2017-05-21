@@ -1,0 +1,20 @@
+--- a/client/mysql.cc
++++ b/client/mysql.cc
+@@ -59,7 +59,7 @@
+ #include "sql_string.h"
+ 
+ extern "C" {
+-#if defined(HAVE_CURSES_H) && defined(HAVE_TERM_H)
++#if defined(HAVE_CURSES_H)
+ #include <curses.h>
+ #include <term.h>
+ #else
+@@ -83,7 +83,7 @@
+ #include <term.h>
+ #endif
+ #endif
+-#endif /* defined(HAVE_CURSES_H) && defined(HAVE_TERM_H) */
++#endif /* defined(HAVE_CURSES_H) */
+ 
+ #undef bcmp				// Fix problem with new readline
+ #if defined(__WIN__)
