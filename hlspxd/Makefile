@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,7 +23,8 @@ define Package/hlspxd
 endef
 
 define Package/hlspxd/description
- hlspxd works as a proxy with a DLNA server (xupnpd as an example) — it transforms HLS (m3u8) playlists into http streams
+ hlspxd works as a proxy with a DLNA server (xupnpd as an example) — it
+ transforms HLS (m3u8) playlists into http streams.
 endef
 
 define Build/Compile

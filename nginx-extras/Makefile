@@ -4,18 +4,20 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# Config and additional modules taken from 
+# http://ftp.debian.org/debian/pool/main/n/nginx/
 # Debian differences: threads, geoip, http_upstream_zone, stream_upstream_zone
 # http_perl modules turned off
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.11.9
+PKG_VERSION:=1.13.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=dc22b71f16b551705930544dc042f1ad1af2f9715f565187ec22c7a4b2625748
+PKG_HASH:=79f52ab6550f854e14439369808105b5780079769d7b8db3856be03c683605d7
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-$(PKG_VERSION)
 

@@ -1,6 +1,6 @@
 --- a/configure
 +++ b/configure
-@@ -10833,14 +10833,6 @@
+@@ -10943,14 +10943,6 @@
      fi
    done
  
@@ -15,7 +15,7 @@
  fi
  
  # It's just rude to go over the net to build
-@@ -10901,39 +10893,6 @@
+@@ -11011,39 +11003,6 @@
  
  fi
  
@@ -57,7 +57,7 @@
  if ${ac_cv_sys_posix_termios+:} false; then :
 --- a/Rakefile
 +++ b/Rakefile
-@@ -181,20 +181,6 @@
+@@ -187,20 +187,6 @@
    # Build developer documentation?
    targets << "doc/development.html" if !c(:PANDOC).empty?
  
@@ -69,7 +69,7 @@
 -  targets << "translations:programs"
 -
 -  # The Qt translation files: only for Windows
--  targets << "translations:qt" if c?(:MINGW) && !c(:LCONVERT).blank?
+-  targets << "translations:qt" if $building_for[:windows] && !c(:LCONVERT).blank?
 -
 -  # Build ebml_validator by default when not cross-compiling as it is
 -  # needed for running the tests.

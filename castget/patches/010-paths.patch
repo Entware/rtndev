@@ -1,6 +1,6 @@
 --- a/src/castget.c
 +++ b/src/castget.c
-@@ -156,7 +156,7 @@
+@@ -157,7 +157,7 @@
    LIBXML_TEST_VERSION;
  
    /* Build the channel directory path and ensure that it exists. */
@@ -9,7 +9,7 @@
  
    if (!g_file_test(channeldir, G_FILE_TEST_IS_DIR)) {
      if (g_mkdir(channeldir, 0755) < 0) {
-@@ -168,7 +168,7 @@
+@@ -169,7 +169,7 @@
    /* Try opening configuration file. */
    if (!rcfile)
      /* Supply default path name. */

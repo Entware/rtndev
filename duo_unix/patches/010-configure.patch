@@ -9,7 +9,7 @@
  AM_MAINTAINER_MODE
  AB_INIT
  
-@@ -86,8 +86,6 @@
+@@ -90,8 +90,6 @@
  
  # Check OpenSSL
  AX_CHECK_OPENSSL([], AC_MSG_FAILURE([OpenSSL not found]))

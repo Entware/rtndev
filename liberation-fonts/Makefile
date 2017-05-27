@@ -13,7 +13,7 @@ PKG_VERSION:=2.00.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://fedorahosted.org/releases/l/i/liberation-fonts
+PKG_SOURCE_URL:=https://releases.pagure.org/liberation-fonts
 PKG_MD5SUM:=5c781723a0d9ed6188960defba8e91cf
 
 include $(INCLUDE_DIR)/package.mk

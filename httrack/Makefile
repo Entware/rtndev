@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=httrack
-PKG_VERSION:=3.48.22
+PKG_VERSION:=3.49.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL=https://mirror.httrack.com/historical
-PKG_HASH:=b2831ad7b48e933959f83a9de8a72bcaa0f8eb87e9453ad85debd50d33a9c48f
+PKG_HASH:=3477a0e5568e241c63c9899accbfcdb6aadef2812fcce0173688567b4c7d4025
 
 PKG_INSTALL:=1
 

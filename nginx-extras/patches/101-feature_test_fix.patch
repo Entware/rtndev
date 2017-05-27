@@ -69,7 +69,7 @@
  ngx_feature_libs=
 --- a/auto/unix
 +++ b/auto/unix
-@@ -788,7 +788,7 @@ ngx_feature_test="void *p; p = memalign(
+@@ -801,7 +801,7 @@ ngx_feature_test="void *p; p = memalign(
  
  ngx_feature="mmap(MAP_ANON|MAP_SHARED)"
  ngx_feature_name="NGX_HAVE_MAP_ANON"
@@ -78,7 +78,7 @@
  ngx_feature_incs="#include <sys/mman.h>"
  ngx_feature_path=
  ngx_feature_libs=
-@@ -801,7 +801,7 @@ ngx_feature_test="void *p;
+@@ -814,7 +814,7 @@ ngx_feature_test="void *p;
  
  ngx_feature='mmap("/dev/zero", MAP_SHARED)'
  ngx_feature_name="NGX_HAVE_MAP_DEVZERO"
@@ -87,7 +87,7 @@
  ngx_feature_incs="#include <sys/mman.h>
                    #include <sys/stat.h>
                    #include <fcntl.h>"
-@@ -816,7 +816,7 @@ ngx_feature_test='void *p; int  fd;
+@@ -829,7 +829,7 @@ ngx_feature_test='void *p; int  fd;
  
  ngx_feature="System V shared memory"
  ngx_feature_name="NGX_HAVE_SYSVSHM"
@@ -96,7 +96,7 @@
  ngx_feature_incs="#include <sys/ipc.h>
                    #include <sys/shm.h>"
  ngx_feature_path=
-@@ -830,7 +830,7 @@ ngx_feature_test="int  id;
+@@ -843,7 +843,7 @@ ngx_feature_test="int  id;
  
  ngx_feature="POSIX semaphores"
  ngx_feature_name="NGX_HAVE_POSIX_SEM"

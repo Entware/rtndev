@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=duo_unix
-PKG_VERSION:=1.9.19
+PKG_VERSION:=1.9.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://dl.duosecurity.com
-PKG_MD5SUM:=2df21908cb1f8b58823291b4673289cd
+PKG_HASH:=1297ddfa62fa6f8ae9589cbe9bd0bc337d0ad6d8b2fbf2f09268a2f856bbb97f
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -27,26 +27,18 @@ define Package/duo_unix/Default
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
-define Package/libduo
-	$(call Package/duo_unix/Default)
-	TITLE+= (libpam library)
-	SECTION:=libs
-	CATEGORY:=Libraries
-endef
-
 define Package/pam_duo
 	$(call Package/duo_unix/Default)
 	TITLE+= (PAM library)
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS+= +libduo +libpam
+	DEPENDS+= +libpam
 endef
 
 define Package/duo_unix
 	$(call Package/duo_unix/Default)
 	SECTION:=admin
 	CATEGORY:=Administration
-	DEPENDS+= +libduo
 endef
 
 define Package/libduo/description
@@ -66,20 +58,6 @@ TARGET_LDFLAGS += -lssp
 CONFIGURE_ARGS += \
 	--with-pam=/opt/lib/security \
 
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/duo.h $(1)/opt/include
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libduo.{a,la,so*} $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libduo.pc $(1)/opt/lib/pkgconfig
-endef
-
-define Package/libduo/install
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libduo.so* $(1)/opt/lib
-endef
-
 define Package/pam_duo/install
 	$(INSTALL_DIR) $(1)/opt/lib/security
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/security/pam_duo.so $(1)/opt/lib/security
@@ -94,6 +72,5 @@ define Package/duo_unix/install
 	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/login_duo.conf $(1)/opt/etc
 endef
 
-$(eval $(call BuildPackage,libduo))
 $(eval $(call BuildPackage,pam_duo))
 $(eval $(call BuildPackage,duo_unix))

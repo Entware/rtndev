@@ -1,6 +1,6 @@
 --- a/castgetrc.example
 +++ b/castgetrc.example
-@@ -13,7 +13,7 @@
+@@ -11,7 +11,7 @@
  # enclosures.
  [*]
  id3contenttype=Podcast
@@ -9,7 +9,7 @@
  
  #
  # Per-channel settings.
-@@ -25,8 +25,8 @@
+@@ -23,8 +23,8 @@
  # enclosures to /home/tom/podcasts.m3u.
  [dsc]
  url=http://radio.weblogs.com/0001014/categories/dailySourceCode/rss.xml

@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=castget
-PKG_VERSION:=1.2.2
+PKG_VERSION:=1.2.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://savannah.nongnu.org/download/castget
-PKG_MD5SUM:=50ab113d50fb3f22776935c67eabff37
+PKG_HASH:=91ee310ced5386495eb56b09b3cb4b6660f9cea1a7050a94e9a30d7bc3ba692d
 
 PKG_INSTALL:=1
 

@@ -6,6 +6,7 @@
 # See /LICENSE for more information.
 #
 # Makefile taken from http://github.com/FranciscoBorges/openwrt-printing-packages
+# The newer versions requires openjpeg https://github.com/uclouvain/openjpeg
 
 include $(TOPDIR)/rules.mk
 
