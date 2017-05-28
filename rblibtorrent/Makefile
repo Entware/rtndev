@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1_3
-PKG_HASH:=828d686770346f6da2c143c5a2844c5f5e407eb4a37982e90022763508abd62f
+PKG_HASH:=44196a89932c26528f5db19289d0f0f4130730a61dccc61c9f1eac9ad3e881d8
 PKG_BUILD_DIR:=$(BUILD_DIR)/libtorrent-rasterbar-$(PKG_VERSION)
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
