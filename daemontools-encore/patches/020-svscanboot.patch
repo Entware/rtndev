@@ -1,0 +1,17 @@
+--- a/svscanboot.sh
++++ b/svscanboot.sh
+@@ -1,11 +1,11 @@
+ 
+-PATH=/command:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin
++PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ 
+ exec </dev/null
+ exec >/dev/null
+ exec 2>/dev/null
+ 
+-/command/svc -dx /service/* /service/*/log
++/opt/bin/svc -dx /opt/var/service/* /opt/var/service/*/log
+ 
+-env - PATH=$PATH svscan /service 2>&1 | \
++env - PATH=$PATH svscan /opt/var/service 2>&1 | \
+ env - PATH=$PATH readproctitle service errors: ................................................................................................................................................................................................................................................................................................................................................................................................................
