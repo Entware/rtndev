@@ -1,6 +1,6 @@
---- a/FS.cpp
-+++ b/FS.cpp
-@@ -77,11 +77,11 @@
+--- a/libi2pd/FS.cpp
++++ b/libi2pd/FS.cpp
+@@ -78,11 +78,11 @@
  #endif
      char *home = getenv("HOME");
      if (isService) {
