@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=suricata
-PKG_VERSION:=3.2.1
+PKG_VERSION:=3.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.openinfosecfoundation.org/download
-PKG_HASH:=0e0b0cf49016804bb2fb1fc4327341617e76a67902f4e03e0ef6d16c1d7d3994
+PKG_HASH:=b1d8e5e53a76fbc89712d10ca8e2208f68f6fc2def0e6ac82e9693bb586a49cb
 
 PKG_INSTALL:=1
 
@@ -49,7 +49,7 @@ endef
 
 define Package/suricata/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/suricata* $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/suricata $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libhtp*.so* $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/etc/suricata/rules
