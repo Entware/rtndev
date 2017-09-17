@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=3.7
-PKG_REV:=ac2db1536302bdc5b27aff6b15d54b0e9837fa59
-PKG_RELEASE:=2
+PKG_VERSION:=3.8
+PKG_REV:=9191af0c0910143a1a0dd4968e64f1db63a2d746
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -26,9 +26,9 @@ RUTORRENT_PLUGINS := \
 	_getdir history httprpc ipad loginmgr lookat mediainfo _noty _noty2 \
 	ratio retrackers rpc rss rssurlrewrite rutracker_check scheduler \
 	screenshots seedingtime show_peers_like_wtorrent source _task theme \
-	throttle tracklabels trafic unpack
+	throttle tracklabels trafic unpack uploadeta xmpp
 
-DEPENDS_rss = +php5-mod-json
+DEPENDS_rss = +php7-mod-json
 DEPENDS__task = +procps-ng-pgrep
 DEPENDS_screenshots = +ffmpeg
 DEPENDS_unpack = +unrar
