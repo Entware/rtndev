@@ -8,15 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=angband
-PKG_VERSION:=4.0.5
+PKG_VERSION:=4.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://rephial.org/downloads/4.0
-PKG_MD5SUM:=82d28d0e51b167fb2b66603e310d9def
+PKG_SOURCE_URL:=http://rephial.org/downloads/4.1
+PKG_HASH:=ea52266e52b66d6bf2ab3728b3bc6c7c3875130973430021e31bf56000c0df8b
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
+
+PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
 
