@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtorrent-easy-install
 PKG_VERSION:=0.2
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -17,7 +17,7 @@ define Package/rtorrent-easy-install
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	DEPENDS:=+rutorrent-plugin-rpc +screen +php5-cgi \
+	DEPENDS:=+rutorrent-plugin-rpc +screen +php7-cgi \
 	    +lighttpd-mod-fastcgi +lighttpd-mod-scgi +lighttpd-mod-auth
 	TITLE:=Easy installation script for rtorrent with web UI
 	URL:=http://github.com/abhinavseewoosungkur/scripts/blob/develop/rutorrent-entware.sh
