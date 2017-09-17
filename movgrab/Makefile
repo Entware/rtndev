@@ -4,6 +4,8 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 3.1.2 raises following error:
+# Process.c:63:14: error: conflicting types for 'program_invocation_name'
 
 include $(TOPDIR)/rules.mk
 
