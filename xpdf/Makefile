@@ -8,23 +8,24 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xpdf
-PKG_VERSION:=3.04
+PKG_VERSION:=4.00
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=ftp://ftp.foolabs.com/pub/xpdf
-PKG_MD5SUM:=3bc86c69c8ff444db52461270bef3f44
+PKG_SOURCE_URL:=http://www.xpdfreader.com/dl
+PKG_HASH:=ff3d92c42166e35b1ba6aec9b5f0adffb5fc05a3eb95dc49505b6e344e4216d6
 
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/xpdf
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libstdcpp +libpng
+	DEPENDS:=+libfreetype +libstdcpp +libpng
 	TITLE:=PDF manipulations tool
-	URL:=http://www.foolabs.com/xpdf/
+	URL:=http://www.xpdfreader.com/
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
@@ -33,36 +34,10 @@ define Package/xpdf/description
  various other utilities.
 endef
 
-CONFIGURE_ARGS += \
-	--enable-cmyk \
-	--enable-fixedpoint \
-	--enable-multithreaded \
-	--enable-exceptions \
-	--enable-fixedpoint \
-	--without-x \
-	--with-Xpm-library="no" \
-	--with-Xext-library="no" \
-	--with-Xp-library="no" \
-	--with-Xt-library="no" \
-	--with-Xm-library="no" \
-	--with-Sgm-library="no" \
-	--with-freetype2-library="no" \
-	--with-libpng-library="$(STAGING_DIR)/opt/lib" \
-	--with-libpng-includes="$(STAGING_DIR)/opt/include" \
-	--with-libpaper-library="no" \
-
-define Package/xpdf/conffiles
-/opt/etc/xpdfrc
-endef
-
 define Package/xpdf/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) \
-	    $(PKG_INSTALL_DIR)/opt/bin/pdf{detach,fonts,images,info,tops,totext} \
-	    $(PKG_BUILD_DIR)/xpdf/pdftohtml \
-	    $(1)/opt/bin/
-	$(INSTALL_DIR) $(1)/opt/etc
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/xpdfrc $(1)/opt/etc/
+	    $(PKG_INSTALL_DIR)/opt/bin/pdf* $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,xpdf))
