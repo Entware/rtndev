@@ -387,8 +387,8 @@ ngx_http_lua_ffi_sema_wait(ngx_http_request_t *r,
         return NGX_ERROR;
     }
 
-    /* we keep the order, will resume the older waited firtly
-     * in ngx_http_lua_sema_handler
+    /* we keep the order, will first resume the thread waiting for the
+     * longest time in ngx_http_lua_sema_handler
      */
 
     if (ngx_queue_empty(&sem->wait_queue) && sem->resource_count > 0) {
@@ -557,8 +557,11 @@ ngx_http_lua_ffi_sema_gc(ngx_http_lua_sema_t *sem)
         return;
     }
 
-    if (!ngx_queue_empty(&sem->wait_queue)) {
-        ngx_log_error(NGX_LOG_CRIT, ngx_cycle->log, 0,
+    if (!ngx_terminate
+        && !ngx_quit
+        && !ngx_queue_empty(&sem->wait_queue))
+    {
+        ngx_log_error(NGX_LOG_ERR, ngx_cycle->log, 0,
                       "in lua semaphore gc wait queue is"
                       " not empty while the semaphore %p is being "
                       "destroyed", sem);

@@ -12,12 +12,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.13.0
+PKG_VERSION:=1.13.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=79f52ab6550f854e14439369808105b5780079769d7b8db3856be03c683605d7
+PKG_HASH:=0e75b94429b3f745377aeba3aff97da77bf2b03fcb9ff15b3bad9b038db29f2e
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-$(PKG_VERSION)
 
@@ -102,6 +102,7 @@ define Build/Configure
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/ngx-fancyindex \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nchan \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-lua \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-rtmp \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-upload-progress \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-upstream-fair \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/ngx_http_substitutions_filter_module \
