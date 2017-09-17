@@ -1,6 +1,6 @@
 --- a/src/index.html
 +++ b/src/index.html
-@@ -49,9 +49,6 @@
+@@ -58,9 +58,6 @@
  						<!-- 切换到移动版 -->
  						<a id="toolbar_mobile" href="javascript:location.href = 'index.mobile.html';" class="easyui-linkbutton" data-options="iconCls:'icon-mobile',plain:true" system-tip-lang="toolbar.tip['ui-mobile']"><label system-lang="toolbar['ui-mobile']"></label></a>
  						<span class="button-split">|</span>
@@ -12,7 +12,7 @@
  					</div>
 --- a/src/index.mobile.html
 +++ b/src/index.mobile.html
-@@ -69,7 +69,6 @@
+@@ -71,7 +71,6 @@
  			<ul data-role="listview" data-divider-theme="a" data-theme="c" data-icon="false" style="margin-top:15px;">
  				<li data-role='list-divider'>UI</li>
  				<li><a href="#" onclick="location.href = 'index.html?devicetype=computer';"><img src="tr-web-control/style/images/computer.png" class="ui-li-icon"/><span system-lang="toolbar['ui-computer']"></span></a></li>
