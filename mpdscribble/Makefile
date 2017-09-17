@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mpdscribble
-PKG_VERSION:=0.23-20140213
-PKG_REV:=979e96a50f12506420bbc65c409d00cb709e7c9e
+PKG_VERSION:=0.23-20170525
+PKG_REV:=78fb0c84634f0a7cd39c9a9d6a3f1ab4470d7ea3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=git://git.musicpd.org/master/mpdscribble.git
+PKG_SOURCE_URL:=https://github.com/MusicPlayerDaemon/mpdscribble.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
