@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libzen
-PKG_VERSION:=0.4.35
+PKG_VERSION:=0.4.37
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://mediaarea.net/download/source/libzen/$(PKG_VERSION)
-PKG_MD5SUM:=a019bf83103f03e82f4c48fe24e513db
+PKG_HASH:=d6e9b7084bbb828536b47698e0c60e381cf0cefc4a8d712bb81dac826ccd9ac1
 
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
