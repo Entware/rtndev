@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/uclibc++.mk
 
 PKG_NAME:=mariadb
-PKG_VERSION:=5.5.56
+PKG_VERSION:=5.5.57
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -20,7 +20,7 @@ PKG_SOURCE_URL:=\
 	http://lon1.mirrors.digitalocean.com/$(PKG_NAME)/$(PKG_NAME)-$(PKG_VERSION)/source/ \
 	http://ftp.kaist.ac.kr/$(PKG_NAME)/$(PKG_NAME)-$(PKG_VERSION)/source/ \
 	http://ftp.utexas.edu/$(PKG_NAME)/$(PKG_NAME)-$(PKG_VERSION)/source/
-PKG_HASH:=950c3422cb262b16ce133caadbc342219f50f9b45dcc71b8db78fc376a971726
+PKG_HASH:=5dbde98d7e4a5a1721b6cbed7898b2549a88866247951cf586057975c6cea641
 PKG_MAINTAINER:=Lucian Cristian <lucian.cristian@gmail.com>
 PKG_LICENSE:=GPL-2.0
 PKG_BUILD_DEPENDS:=mariadb/host libncurses libreadline
