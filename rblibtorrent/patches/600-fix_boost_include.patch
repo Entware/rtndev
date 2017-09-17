@@ -1,0 +1,19 @@
+--- a/include/libtorrent/export.hpp
++++ b/include/libtorrent/export.hpp
+@@ -34,14 +34,14 @@
+ #define TORRENT_EXPORT_HPP_INCLUDED
+ 
+ #if !defined(BOOST_COMPILER_CONFIG) && !defined(BOOST_NO_COMPILER_CONFIG)
+-#  include <boost/config/select_compiler_config.hpp>
++#  include <boost/config/detail/select_compiler_config.hpp>
+ #endif
+ #ifdef BOOST_COMPILER_CONFIG
+ #  include BOOST_COMPILER_CONFIG
+ #endif
+ 
+ #if !defined(BOOST_PLATFORM_CONFIG) && !defined(BOOST_NO_PLATFORM_CONFIG)
+-#  include <boost/config/select_platform_config.hpp>
++#  include <boost/config/detail/select_platform_config.hpp>
+ #endif
+ #ifdef BOOST_PLATFORM_CONFIG
+ #  include BOOST_PLATFORM_CONFIG
