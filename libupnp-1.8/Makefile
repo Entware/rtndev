@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 # Used by gerbera package
-#
+# This is the last version with "-1.8" suffix https://github.com/mrjimenez/pupnp/commit/07f504c61bd9e4d93eb3d373ffc8527cafe0b9af
 
 include $(TOPDIR)/rules.mk
 
