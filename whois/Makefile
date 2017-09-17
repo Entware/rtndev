@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=whois
-PKG_VERSION:=5.2.15
+PKG_VERSION:=5.2.18
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/w/whois
-PKG_HASH:=7a5a6b690bfc6360d92d9328adbe5c1f096a41f0d6548ce0df4aa664dcb37188
+PKG_HASH:=c35d0d26aff37107c244a8ad54fd42e497ec0b90f76309e9beb7078b827c97d5
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
@@ -22,6 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/whois
 	SECTION:=net
 	CATEGORY:=Network
+	DEPENDS:=+libidn
 	TITLE:=intelligent WHOIS client
 	URL:=http://ftp.debian.org/debian/pool/main/w/whois
 	MAINTAINER:=Entware team, http://entware.net
