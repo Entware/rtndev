@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qpdf
-PKG_VERSION:=6.0.0
+PKG_VERSION:=7.0.b1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_MD5SUM:=e014bd3ecf1c4d1a520bbc14d84ac20e
+PKG_HASH:=823ebfefee19b8e4c131866a5e5f403422a95e8a7f75df188ee1a20584cf408e
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/qpdf
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libpcre +zlib +libstdcpp
+	DEPENDS:=+libjpeg +libpcre +zlib +libstdcpp
 	TITLE:=PDF transformations utility
 	URL:=http://qpdf.sourceforge.net/
 	MAINTAINER:=Entware team, http://entware.net
