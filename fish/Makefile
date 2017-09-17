@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fish
-PKG_VERSION:=2.5.0
+PKG_VERSION:=2.6.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://fishshell.com/files/2.5.0
-PKG_HASH:=f8c0edadca2de379ccf305aeace660a9255fa2180c72e85e97705a24c256b2a5
+PKG_SOURCE_URL:=https://fishshell.com/files/$(PKG_VERSION)
+PKG_HASH:=16f6612747f8013cd04b3639fe504d4750f363ca
 PKG_INSTALL:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
@@ -27,7 +27,6 @@ define Package/fish
 	TITLE:=A smart and user-friendly command line shell
 	DEPENDS:=+libncurses +libstdcpp +coreutils-whoami
 	URL:=https://fishshell.com
-
 endef
 
 define Package/fish/description
@@ -37,12 +36,8 @@ define Package/fish/description
 endef
 
 CONFIGURE_VARS += ac_cv_file__proc_self_stat=yes
-
-MAKE_FLAGS += EXTRA_CXXFLAGS=" -I$(STAGING_DIR)/opt/include"
-
-#define Package/fish/conffiles
-#/opt/etc/fish.conf
-#endef
+TARGET_CXXFLAGS += -std=c++0x
+MAKE_FLAGS += EXTRA_CXXFLAGS="-I$(STAGING_DIR)/opt/include"
 
 define Package/fish/install
 	$(INSTALL_DIR) $(1)/opt/bin
