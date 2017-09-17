@@ -16,7 +16,7 @@
  thread-count=4
  
  [common]
-@@ -89,7 +89,7 @@
+@@ -90,7 +90,7 @@
  
  [l2tp]
  verbose=1
@@ -25,7 +25,7 @@
  #hello-interval=60
  #timeout=60
  #rtimeout=1
-@@ -135,7 +135,7 @@
+@@ -137,7 +137,7 @@
  #attr-l4-redirect=L4-Redirect
  #attr-l4-redirect-table=4
  #attr-l4-redirect-ipset=l4-redirect
@@ -34,7 +34,7 @@
  #offer-delay=0,100:100,200:200,-1:1000
  #vlan-mon=eth0,10-200
  #vlan-timeout=60
-@@ -159,7 +159,7 @@
+@@ -161,7 +161,7 @@
  #wins2=172.16.1.1
  
  [radius]
@@ -43,7 +43,7 @@
  nas-identifier=accel-ppp
  nas-ip-address=127.0.0.1
  gw-ip-address=192.168.100.1
-@@ -188,9 +188,9 @@
+@@ -190,9 +190,9 @@
  192.168.4.0/24
  
  [log]
@@ -56,7 +56,7 @@
  #log-debug=/dev/stdout
  #syslog=accel-pppd,daemon
  #log-tcp=127.0.0.1:3000
-@@ -206,16 +206,16 @@
+@@ -208,16 +208,16 @@
  log-table=log
  
  [pppd-compat]
@@ -79,7 +79,7 @@
  #encrypted=0
  #username-hash=md5
  
-@@ -272,4 +272,4 @@
+@@ -274,4 +274,4 @@
  route-via-gw=1
  
  [accel-dp]

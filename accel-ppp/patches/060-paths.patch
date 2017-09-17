@@ -1,6 +1,6 @@
 --- a/accel-pppd/extra/chap-secrets.c
 +++ b/accel-pppd/extra/chap-secrets.c
-@@ -21,7 +21,7 @@
+@@ -20,7 +20,7 @@
  
  #include "memdebug.h"
  
