@@ -1,22 +1,20 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,8 @@
+@@ -1,8 +1,6 @@
  
  CC ?= gcc
- CFLAGS ?= -O2 -Wall -Wwrite-strings -pedantic
+ CFLAGS ?= -Os -Wall -Wwrite-strings -pedantic
 -CFLAGS += -std=gnu99 -I/usr/local/include
 -LFLAGS += -L/usr/local/lib -lc
-+#CFLAGS += -std=gnu99 -I/usr/local/include
-+#LFLAGS += -L/usr/local/lib -lc
- FEATURES ?= auth cmd lpd nss dns #natpmp upnp debug web
+ FEATURES ?= dns lpd tls bob cmd debug #nss natpmp upnp
  
- OBJS = build/main.o build/results.o build/kad.o build/log.o \
-@@ -87,7 +87,7 @@
- 	$(CC) $(CFLAGS) -fPIC -shared -Wl,-soname,libnss_kadnode.so.2 -o build/libnss_kadnode.so.2 build/ext-libnss.o
+ OBJS = build/searches.o build/kad.o build/log.o \
+@@ -84,7 +82,7 @@
+ 	$(CC) $(CFLAGS) -c -o $@ $<
  
  kadnode-ctl:
 -	$(CC) $(CFLAGS) src/kadnode-ctl.c -o build/kadnode-ctl
 +	$(CC) $(CFLAGS) src/kadnode-ctl.c -o build/kadnode-ctl $(LFLAGS)
  
- kadnode: $(OBJS) $(EXTRA)
- 	$(CC) $(OBJS) -o build/kadnode $(LFLAGS)
+ libnss-kadnode.so.2:
+ 	$(CC) $(CFLAGS) -fPIC -c -o build/ext-libnss.o src/ext-libnss.c
