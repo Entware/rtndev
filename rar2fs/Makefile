@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rar2fs
-PKG_VERSION:=1.24.1
+PKG_VERSION:=1.25.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/hasse69/rar2fs/releases/download/v$(PKG_VERSION)
-PKG_HASH:=1961417e4e3c7afb5dec48d13ddfdc89e402389396cc21d4da06745f2ea9e417
+PKG_HASH:=57bb77e3de9fb9376c6b95d139ec9b1c9e20cf7326a6d627f1480d07076e1ff4
 
 PKG_INSTALL:=1
 
