@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=redis
-PKG_VERSION:=3.2.9
+PKG_VERSION:=4.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.redis.io/releases
-PKG_HASH:=6eaacfa983b287e440d0839ead20c2231749d5d6b78bbe0e0ffa3a890c59ff26
+PKG_HASH:=2049cd6ae9167f258705081a6ef23bb80b7eff9ff3d0d7481e89510f27457591
 
 PKG_INSTALL:=1
 
@@ -25,7 +25,7 @@ define Package/redis
 	CATEGORY:=Utilities
 	SUBMENU:=database
 	TITLE:=in-memory key-value cache and store
-	DEPENDS:=+libpthread
+	DEPENDS:=+libatomic +libpthread
 	URL:=http://redis.io/
 	MAINTAINER:=Entware team, http://entware.net
 endef
@@ -39,7 +39,7 @@ MAKE_FLAGS += \
 	MALLOC="libc" \
 	PREFIX="$(PKG_INSTALL_DIR)/opt"
 
-TARGET_LDFLAGS+=-ldl
+TARGET_LDFLAGS += -ldl -latomic
 
 define Build/Compile
 	sed -e 's#^\(REAL_CFLAGS.* \)$$$$(ARCH)#\1#g' -i $(PKG_BUILD_DIR)/deps/hiredis/Makefile
