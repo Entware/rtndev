@@ -25,21 +25,18 @@ define Package/cryfs
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+fuse-utils +libopenssl +libcryptoxx +libcurl +boost-program_options +boost-thread +boost-filesystem +boost-date_time
+	DEPENDS:=+fuse-utils +libcryptoxx +libcurl +boost-program_options +boost-thread +boost-filesystem +boost-date_time
 	TITLE:=CryFS encrypts your files, so you can safely store them anywhere
 	URL:=https://www.cryfs.org
 	MAINTAINER:=Entware team, http://entware.net
 endef
 
 define Package/cryfs/description
- CryFS encrypts your files, so you can safely store them anywhere
- It works well together with cloud services like Dropbox, iCloud, OneDrive and others
+ CryFS encrypts your files, so you can safely store them anywhere. It works well
+ together with cloud services like Dropbox, iCloud, OneDrive and others.
 endef
 
-#TARGET_LDFLAGS += \
-#        -lcrypto++
-
-CMAKE_OPTIONS+= \
+CMAKE_OPTIONS += \
 	-DBoost_USE_STATIC_LIBS=off
 
 define Package/cryfs/install
