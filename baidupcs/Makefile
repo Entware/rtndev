@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=baidupcs
-PKG_VERSION:=0.2.6-20170323
-PKG_REV:=1039d286584bfec86c32359ee0d0c5aec09ae5b8
+PKG_VERSION:=0.3.1
+PKG_REV:=92c6141e4dd55b312ebda9f1849237f1963e2644
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,6 +17,8 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/GangZhuo/BaiduPCS.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+
+PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -33,9 +35,13 @@ define Package/baidupcs/description
  The terminal utility for Baidu Network Disk.
 endef
 
+CONFIGURE_ARGS += \
+	--with-openssl="$(STAGING_DIR)/opt" \
+	--with-crypto
+
 define Package/baidupcs/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/pcs $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/baidupcs $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,baidupcs))
