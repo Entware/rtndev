@@ -4,6 +4,8 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 15.0.0 raises following error:
+# mkvmerge.cpp:(.text+0x294): undefined reference to `mtx::args::parse_split_parts(std::string const&, bool)'
 
 include $(TOPDIR)/rules.mk
 
