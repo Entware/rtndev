@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=3proxy
-PKG_VERSION:=0.8.9
-PKG_REV:=d75dcf0b54a92dd4a6f7d5fe33e541e5bbcc0c64
+PKG_VERSION:=0.8.10
+PKG_REV:=c0bb608acc89ddd69fdab9dab5b733ee01f4c729
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
