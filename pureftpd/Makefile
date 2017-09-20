@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jedisct1/pure-ftpd.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_BUILD_DEPENDS:=mariadb
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
