@@ -39,7 +39,7 @@ endef
 CONFIGURE_ARGS+= \
 	--disable-debug \
 	--enable-python-binding \
-	--with-ssl=$(STAGING_DIR)/opt \
+	--with-openssl=$(STAGING_DIR)/opt \
 	--with-boost=$(STAGING_DIR)/opt/include \
 	--with-boost-libdir=$(STAGING_DIR)/opt/lib \
 	--with-boost-python=yes
