@@ -52,6 +52,7 @@ CONFIGURE_ARGS += \
 	LIBQPDF_CFLAGS=-I$(STAGING_DIR)/opt/include \
 	LIBQPDF_LIBS=-L$(STAGING_DIR)/opt/libs
 
+TARGET_CXXFLAGS += -std=c++0x
 TARGET_LDFLAGS += -liconv -lqpdf
 
 define Package/cups-filters/install
