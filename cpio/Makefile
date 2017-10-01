@@ -28,9 +28,9 @@ define Package/cpio
 endef
 
 define Package/cpio/description
- GNU cpio does a superior job of suggesting possible replacements for
- a misspelled word than just about any other spell checker out there for
- the English (and some other) language.
+ GNU cpio copies files between archives and directories.  It supports
+ the following archive formats: old binary cpio, old portable cpio, SVR4
+ cpio with and without checksum, HP cpio, and various tar formats.
 endef
 
 define Package/cpio/install
