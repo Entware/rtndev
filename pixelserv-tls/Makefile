@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pixelserv-tls
-PKG_VERSION:=V35.HZ12.Kj
-PKG_REV:=ce34f2ec37377f719a7cf80e1773b0be6421e133
+PKG_VERSION:=V35.HZ12.Kk
+PKG_REV:=444c082e16226ecb572f2bebdf88930f31c4661b
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -24,7 +24,7 @@ define Package/pixelserv-tls
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+libopenssl
+	DEPENDS:=+libopenssl +libpthread
 	TITLE:=one pixel webserver
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, http://entware.net
@@ -38,8 +38,8 @@ endef
 
 define Build/Compile
 	$(TARGET_CC) \
-		$(TARGET_CPPFLAGS) -DDROP_ROOT -DIF_MODE \
-		$(TARGET_LDFLAGS) -lssl -lcrypto \
+		$(TARGET_CPPFLAGS) -DDROP_ROOT -DIF_MODE -DUSE_PTHREAD \
+		$(TARGET_LDFLAGS) -lssl -lcrypto -lpthread \
 		$(PKG_BUILD_DIR)/util.c \
 		$(PKG_BUILD_DIR)/socket_handler.c \
 		$(PKG_BUILD_DIR)/pixelserv.c \
