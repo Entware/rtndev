@@ -1,0 +1,13 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1399,8 +1399,8 @@
+         ])
+         # readline requires termcap (or ncurses)
+         SAVE_LIBS=$LIBS
+-        LIBS="$TERMCAP_LIBS $LIBS"
+-        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++        LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+             AC_MSG_ERROR([readline library is required for the sample client.])])
+         LIBS=$SAVE_LIBS
+       ]

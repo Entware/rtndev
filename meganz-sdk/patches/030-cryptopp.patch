@@ -1,0 +1,55 @@
+--- a/include/mega/crypto/cryptopp.h
++++ b/include/mega/crypto/cryptopp.h
+@@ -23,20 +23,20 @@
+ #ifndef CRYPTOCRYPTOPP_H
+ #define CRYPTOCRYPTOPP_H 1
+ 
+-#include <cryptopp/cryptlib.h>
+-#include <cryptopp/modes.h>
+-#include <cryptopp/ccm.h>
+-#include <cryptopp/gcm.h>
+-#include <cryptopp/integer.h>
+-#include <cryptopp/aes.h>
+-#include <cryptopp/osrng.h>
+-#include <cryptopp/sha.h>
+-#include <cryptopp/rsa.h>
+-#include <cryptopp/crc.h>
+-#include <cryptopp/nbtheory.h>
+-#include <cryptopp/algparam.h>
+-#include <cryptopp/hmac.h>
+-#include <cryptopp/pwdbased.h>
++#include <crypto++/cryptlib.h>
++#include <crypto++/modes.h>
++#include <crypto++/ccm.h>
++#include <crypto++/gcm.h>
++#include <crypto++/integer.h>
++#include <crypto++/aes.h>
++#include <crypto++/osrng.h>
++#include <crypto++/sha.h>
++#include <crypto++/rsa.h>
++#include <crypto++/crc.h>
++#include <crypto++/nbtheory.h>
++#include <crypto++/algparam.h>
++#include <crypto++/hmac.h>
++#include <crypto++/pwdbased.h>
+ 
+ namespace mega {
+ using namespace std;
+--- a/configure.ac
++++ b/configure.ac
+@@ -411,11 +411,11 @@
+    esac
+   ],
+   [AC_MSG_RESULT([--with-cryptopp not specified])
+-    AC_CHECK_HEADERS([cryptopp/cryptlib.h],, [
+-        AC_MSG_ERROR([cryptopp/cryptlib.h header not found or not usable])
++    AC_CHECK_HEADERS([crypto++/cryptlib.h],, [
++        AC_MSG_ERROR([crypto++/cryptlib.h header not found or not usable])
+     ])
+-    AC_CHECK_LIB(cryptopp, [main], [CRYPTO_LIBS="-lcryptopp"],[
+-            AC_MSG_ERROR([Could not find libcryptopp])
++    AC_CHECK_LIB(crypto++, [main], [CRYPTO_LIBS="-lcrypto++"],[
++            AC_MSG_ERROR([Could not find libcrypto++])
+     ])
+   ])
+ AC_SUBST(CRYPTO_CXXFLAGS)
