@@ -1,0 +1,104 @@
+--- a/alaya.conf
++++ b/alaya.conf
+@@ -13,7 +13,7 @@
+ LookupClientName=N
+ 
+ LogVerbose
+-LogFile=/var/log/alaya.log
++LogFile=/opt/var/log/alaya.log
+ 
+ #Alaya will rotate logs when they hit this size
+ MaxLogSize=100M
+@@ -38,7 +38,7 @@
+ AuthMethods=pam-account,cookie,accesstoken,certificate,native
+ 
+ #Path to file that contains 'native' authentication details
+-AuthPath=/etc/FileServices.auth
++AuthPath=/opt/etc/alaya.auth
+ 
+ #Realm used to ask people to log on to (defaults to hostname)
+ AuthRealm=whatever
+@@ -56,8 +56,8 @@
+ SSLCiphers=DH+AESGCM:DH+AES256:DH+CAMELLIA256:ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+AES:EDH-RSA-DES-CBC3-SHA:ECDH-RSA-DES-CBC3-SHA:CAMELLIA256:CAMELLIA128:DES-CBC3-SHA:!ADH:!AECDH:!MD5
+ 
+ #Personally I normally supply these on command line
+-# SSLKey=/etc/ssl/local.key
+-# SSLCert=/etc/ssl/local.crt
++# SSLKey=/opt/etc/ssl/local.key
++# SSLCert=/opt/etc/ssl/local.crt
+ 
+ #How to treat client certificates. 'required' means one is needed to log in, but username/password or access token may also
+ #be required. 'sufficient' means a valid certificate is enough to log on. 'required+sufficient' means here must be one, and
+@@ -65,10 +65,10 @@
+ SSLClientCertificate=sufficient
+ 
+ #Path to file that contains the CA certificate used to validate client certificates
+-SSLVerifyPath=/etc/ssl/ColumsCerts.crt
++#SSLVerifyPath=/opt/etc/ssl/ColumsCerts.crt
+ 
+ #Path to file that contains Diffie-Helman parameters for perfect forward secrecy
+-SSLDHParams=/etc/ssl/dh/dh_param_1024.pem
++#SSLDHParams=/opt/etc/ssl/dh/dh_param_1024.pem
+ 
+ 
+ #######  VPaths and FileType Settings  ######
+@@ -78,11 +78,11 @@
+ FileType=*.jpg,cache=3600,compress=N
+ FileType=*.mp3,cache=3600,compress=N
+ 
+-#A cgi VPath. If a file is accessed under /cgi-bin/, then look in /usr/share/cgi for it, and treat it as a program to run
+-Path=cgi,/cgi-bin/,/usr/share/cgi,user=clamav,group=pppd
++#A cgi VPath. If a file is accessed under /cgi-bin/, then look in /opt/bin/cgi for it, and treat it as a program to run
++Path=cgi,/cgi-bin/,/opt/bin/cgi,user=clamav,group=pppd
+ 
+-#A files VPath. Documents under the URL /public/ are in /home/public, and can be accessed even if this directory is outside chroot
+-Path=files,/public/,/home/public,cache=120,uploads=Y
++#A files VPath. Documents under the URL /public/ are in /opt/home/public, and can be accessed even if this directory is outside chroot
++Path=files,/public/,/opt/home/public,cache=120,uploads=Y
+ 
+ #Proxy VPath, when someone asks for he directory /google, get it from http://www.google.com/
+ Path=proxy,/google,http://www.google.com/
+@@ -91,7 +91,7 @@
+ Path=logout,/Logout
+ 
+ #MimeIcons VPath. This is used on the 'directory listing' page to find icons to display for files
+-Path=MimeIcons,/mimeicons,/home/app-themes/icons/Free-file-icons-master/32px/$(FileExtn).png,/home/app-themes/icons/mediatype-icons/gnome-mime-$(mimeclass)-$(mimesub).png,/home/app-themes/icons/nuvola/32x32/filesystems/$(type).png,/home/app-themes/icons/FreeUserInterfaceIcons/$(type).png,/home/app-themes/icons/nuvola/32x32/mimetypes/unknown.png,cache=3600
++Path=MimeIcons,/mimeicons,/opt/home/app-themes/icons/Free-file-icons-master/32px/$(FileExtn).png,/opt/home/app-themes/icons/mediatype-icons/gnome-mime-$(mimeclass)-$(mimesub).png,/opt/home/app-themes/icons/nuvola/32x32/filesystems/$(type).png,/opt/home/app-themes/icons/FreeUserInterfaceIcons/$(type).png,/opt/home/app-themes/icons/nuvola/32x32/mimetypes/unknown.png,cache=3600
+ 
+ 
+ ##### Scripts and websockets #####
+@@ -100,14 +100,14 @@
+ # this option then you must put the correct hashes in the file for cgi scripts to work.
+ # Hashes can be generated with md5sum, shasum or sha256sum or sha512sum. They should be generated against
+ # the full path of the script files
+-ScriptHashFile=/etc/alaya-scripts.hash
++ScriptHashFile=/opt/etc/alaya-scripts.hash
+ 
+-###### For files ending in .pl use /usr/bin/perl as their interpreter, even if they lack a #! line
+-ScriptHandler:pl=/usr/bin/perl
++###### For files ending in .pl use /opt/bin/perl as their interpreter, even if they lack a #! line
++ScriptHandler:pl=/opt/bin/perl
+ 
+ ######## Websockets #########
+-# For any URL (*) and the requested protocol 'test' run /tmp/test.sh
+-WebsocketHandler:*:test=/tmp/test.sh
++# For any URL (*) and the requested protocol 'test' run /opt/tmp/test.sh
++WebsocketHandler:*:test=/opt/tmp/test.sh
+ 
+ 
+ ######  EVENTS  #######
+@@ -122,9 +122,9 @@
+ # BadURL (when the server considers a requested URL to be malformed)
+ 
+ Event=Path:/favicon.ico:ignore
+-Event=Path:*/setup.php,*/xmlrpc.php,/vtigercrm/,/cgi-bin/php*,/sql*,/manager/html,/mysql*,/HNAP1/,/tmUnblock.cgi,/hndUnblock.cgi,*() {*:/usr/local/sbin/BlockHTTPHacker.sh Exploit $(ClientIP) $(Method) $(URL)
+-Event=Header:*() {*:deny,/usr/local/sbin/malget.exe '$(Match)',logfile /var/log/shellshocks.log Client=$(ClientIP) Request=$(Method) $(URL) User=$(User) MatchStr=$(Match)
+-Event=Method:PUT:/usr/local/sbin/AlayaFilePut.sh
+-Event=BadURL::/usr/local/sbin/BlockHTTPHacker.sh BadURL $(ClientIP) $(Method) $(URL)
+-Event=ResponseCode:404:/usr/local/sbin/BlockHTTPHacker.sh InvalidPath $(ClientIP) $(Method) $(URL)
++#Event=Path:*/setup.php,*/xmlrpc.php,/vtigercrm/,/cgi-bin/php*,/sql*,/manager/html,/mysql*,/HNAP1/,/tmUnblock.cgi,/hndUnblock.cgi,*() {*:/opt/sbin/BlockHTTPHacker.sh Exploit $(ClientIP) $(Method) $(URL)
++#Event=Header:*() {*:deny,/opt/sbin/malget.exe '$(Match)',logfile /opt/var/log/shellshocks.log Client=$(ClientIP) Request=$(Method) $(URL) User=$(User) MatchStr=$(Match)
++#Event=Method:PUT:/opt/sbin/AlayaFilePut.sh
++#Event=BadURL::/opt/sbin/BlockHTTPHacker.sh BadURL $(ClientIP) $(Method) $(URL)
++#Event=ResponseCode:404:/opt/sbin/BlockHTTPHacker.sh InvalidPath $(ClientIP) $(Method) $(URL)
+ 

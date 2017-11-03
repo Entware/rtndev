@@ -1,0 +1,20 @@
+--- a/libUseful-2.3/socket.c
++++ b/libUseful-2.3/socket.c
+@@ -96,8 +96,6 @@
+ 
+ if (SetFlags & SOCK_DONTROUTE) result=setsockopt(sock, SOL_SOCKET, SO_DONTROUTE, &result,sizeof(int));
+ 
+-if (SetFlags & SOCK_REUSEPORT) result=setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &result,sizeof(int));
+-
+ if (SetFlags & SOCK_TPROXY) result=setsockopt(sock, IPPROTO_IP, IP_TRANSPARENT, &result,sizeof(int));
+ 
+ if (SetFlags & SOCK_PEERCREDS) result=setsockopt(sock, SOL_SOCKET, SO_PASSCRED, &result,sizeof(int));
+@@ -115,8 +113,6 @@
+ 
+ if (UnsetFlags & SOCK_DONTROUTE) result=setsockopt(sock, SOL_SOCKET, SO_DONTROUTE, &result,sizeof(int));
+ 
+-if (UnsetFlags & SOCK_REUSEPORT) result=setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &result,sizeof(int));
+-
+ if (UnsetFlags & SOCK_TPROXY) result=setsockopt(sock, IPPROTO_IP, IP_TRANSPARENT, &result,sizeof(int));
+ 
+ if (UnsetFlags & SOCK_PEERCREDS) result=setsockopt(sock, SOL_SOCKET, SO_PASSCRED, &result,sizeof(int));

@@ -1,0 +1,106 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1,71 +1,72 @@
+ CC = @CC@
+ CFLAGS = @CFLAGS@
+-LIBS = @LIBS@ #-lUseful-2.3
++CPPFLAGS = @CPPFLAGS@
++LIBS = @LIBS@ @LDFLAGS@ #-lUseful-2.3
+ INSTALL=@INSTALL@
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
+ bindir=@sbindir@
+ sysconfdir=@sysconfdir@
+-FLAGS=$(CFLAGS) @DEFS@ 
++FLAGS=$(CFLAGS) $(CPPFLAGS) @DEFS@ 
+ OBJ=AccessTokens.o Authenticate.o MimeType.o DavProps.o Settings.o common.o server.o FileProperties.o directory_listing.o FileDetailsPage.o VPath.o ChrootHelper.o Events.o ID3.o upload.o proxy.o websocket.o libUseful-2.3/libUseful-2.3.a 
+ EXE=alaya
+ 
+ all: $(OBJ)
+-	gcc $(FLAGS) -o $(EXE) $(OBJ) main.c $(LIBS) 
++	$(CC) $(FLAGS) -o $(EXE) $(OBJ) main.c $(LIBS) 
+ 
+ libUseful-2.3/libUseful-2.3.a: 
+ 	@cd libUseful-2.3; $(MAKE)
+ 
+ AccessTokens.o: AccessTokens.c AccessTokens.h
+-	gcc $(FLAGS) -c AccessTokens.c
++	$(CC) $(FLAGS) -c AccessTokens.c
+ 
+ Authenticate.o: Authenticate.c Authenticate.h
+-	gcc $(FLAGS) -c Authenticate.c
++	$(CC) $(FLAGS) -c Authenticate.c
+ 
+ MimeType.o: MimeType.c MimeType.h
+-	gcc $(FLAGS) -c MimeType.c 
++	$(CC) $(FLAGS) -c MimeType.c 
+ 
+ ChrootHelper.o: ChrootHelper.c ChrootHelper.h
+-	gcc $(FLAGS) -c ChrootHelper.c 
++	$(CC) $(FLAGS) -c ChrootHelper.c 
+ 
+ DavProps.o: DavProps.c DavProps.h
+-	gcc $(FLAGS) -c DavProps.c 
++	$(CC) $(FLAGS) -c DavProps.c 
+ 
+ Settings.o: Settings.c Settings.h
+-	gcc $(FLAGS) -c Settings.c 
++	$(CC) $(FLAGS) -c Settings.c 
+ 
+ common.o: common.c common.h
+-	gcc $(FLAGS) -c common.c 
++	$(CC) $(FLAGS) -c common.c 
+ 
+ server.o: server.c server.h
+-	gcc $(FLAGS) -c server.c 
++	$(CC) $(FLAGS) -c server.c 
+ 
+ Events.o: Events.c Events.h
+-	gcc $(FLAGS) -c Events.c 
++	$(CC) $(FLAGS) -c Events.c 
+ 
+ VPath.o: VPath.c VPath.h
+-	gcc $(FLAGS) -c VPath.c
++	$(CC) $(FLAGS) -c VPath.c
+ 
+ directory_listing.o: directory_listing.c directory_listing.h
+-	gcc $(FLAGS) -c directory_listing.c 
++	$(CC) $(FLAGS) -c directory_listing.c 
+ 
+ FileDetailsPage.o: FileDetailsPage.c FileDetailsPage.h
+-	gcc $(FLAGS) -c FileDetailsPage.c 
++	$(CC) $(FLAGS) -c FileDetailsPage.c 
+ 
+ FileProperties.o: FileProperties.c FileProperties.h
+-	gcc $(FLAGS) -c FileProperties.c 
++	$(CC) $(FLAGS) -c FileProperties.c 
+ 
+ ID3.o: ID3.c ID3.h
+-	gcc $(FLAGS) -c ID3.c 
++	$(CC) $(FLAGS) -c ID3.c 
+ 
+ upload.o: upload.c upload.h
+-	gcc $(FLAGS) -c upload.c
++	$(CC) $(FLAGS) -c upload.c
+ 
+ proxy.o: proxy.c proxy.h
+-	gcc $(FLAGS) -c proxy.c
++	$(CC) $(FLAGS) -c proxy.c
+ 
+ websocket.o: websocket.c websocket.h
+-	gcc $(FLAGS) -c websocket.c
++	$(CC) $(FLAGS) -c websocket.c
+ 
+ 
+ clean:
+--- a/libUseful-2.3/Makefile.in
++++ b/libUseful-2.3/Makefile.in
+@@ -1,6 +1,8 @@
+ CC = @CC@
+ VERSION = @VERSION@
+ CFLAGS = @CFLAGS@
++CPPFLAGS = @CPPFLAGS@
++LDFLAGS = @LDFLAGS@
+ LIBS = @LIBS@
+ FLAGS=$(LDFLAGS) $(CPPFLAGS) $(CFLAGS) -fPIC @DEFS@ -DHAVE_MADVISE -DHAVE_MADVISE_NOFORK -DHAVE_MADVISE_DONTDUMP -DHAVE_MLOCK
+ prefix=@prefix@
