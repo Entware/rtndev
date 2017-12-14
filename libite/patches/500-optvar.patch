@@ -1,5 +1,5 @@
---- a/pidfile.c
-+++ b/pidfile.c
+--- a/src/pidfile.c
++++ b/src/pidfile.c
 @@ -46,7 +46,7 @@
  
  static void pidfile_cleanup(void);
