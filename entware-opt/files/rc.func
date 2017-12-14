@@ -84,7 +84,7 @@ check() {
 
 reconfigure() {
     SIGNAL=SIGHUP
-    echo -e "$ansi_white Sending $SIGNAL to $PROC... "
+    echo -e "$ansi_white Sending $SIGNAL to $PROC... $ansi_std"
     killall -$SIGNAL $PROC 2>/dev/null
 }
 
