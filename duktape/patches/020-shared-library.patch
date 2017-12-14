@@ -51,7 +51,7 @@
  # Note: assumes /usr/local/include/ and /usr/local/lib/ are in include/link
 @@ -68,4 +74,4 @@
  #CCOPTS=-I/usr/local/include -L/usr/local/lib
- CCOPTS=
+ CCOPTS=-I./examples/cmdline
  duk:
 -	gcc $(CCOPTS) -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
 +	$(GCC) $(CFLAGS) -Isrc $(LDFLAGS) -L. -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
