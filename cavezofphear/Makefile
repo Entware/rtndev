@@ -13,7 +13,7 @@ PKG_VERSION:=0.5.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
-PKG_SOURCE_URL:=ftp://ftp.debian.org/debian/pool/main/c/cavezofphear
+PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/c/cavezofphear
 PKG_MD5SUM:=bf7dc47213a9f36295bc265cdab46b43
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/phear-$(PKG_VERSION)
