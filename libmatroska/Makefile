@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmatroska
-PKG_VERSION:=1.4.7
+PKG_VERSION:=1.4.8
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://dl.matroska.org/downloads/libmatroska
-PKG_MD5SUM:=45b583b5642d8e0a0c69f86dbf004eb7
+PKG_HASH:=d8c72b20d4c5bf888776884b0854f95e74139b5267494fae1f395f7212d7c992
 
 PKG_INSTALL:=1
 
