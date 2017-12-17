@@ -1,0 +1,44 @@
+--- a/manual/Makefile.in
++++ b/manual/Makefile.in
+@@ -1558,22 +1558,22 @@
+ 	$(SOELIM) -I$(srcdir) man_db.me | tbl > $@
+ 
+ .pp.dvi:
+-	$(TROFF) -me -Tdvi $< > $@
++	$(TROFF) -Tdvi $< > $@
+ 
+ .pp.ps:
+-	$(TROFF) -me -Tps $< > $@
++	$(TROFF) -Tps $< > $@
+ 
+ .pp.tdvi:
+-	$(TROFF) -me -Tdvi $< | grodvi -d > $@
++	$(TROFF) -Tdvi $< | grodvi -d > $@
+ 
+ .tdvi.tps:
+ 	dvips -f -t a4 $< > $@
+ 
+ .pp.cat:
+-	LC_ALL=C nroff -me $< > $@
++	LC_ALL=C nroff $< > $@
+ 
+ .pp.html:
+-	$(TROFF) -me -Thtml -P-I$* $< > $@
++	$(TROFF) -Thtml -P-I$* $< > $@
+ 
+ # Automake defines these targets already, so we need to use -local.
+ dvi-local: $(MANUAL).dvi
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -2210,11 +2210,6 @@
+ all-am: apropos$(EXEEXT)
+ 
+ install-exec-hook:
+-	if [ "$(man_owner)" ] && [ "$(man_mode)" = 6755 ]; then \
+-		chown $(man_owner):$(man_owner) \
+-			$(DESTDIR)$(bindir)/$(TRANS_MAN) \
+-			$(DESTDIR)$(bindir)/$(TRANS_MANDB); \
+-	fi
+ 	chmod $(man_mode) \
+ 		$(DESTDIR)$(bindir)/$(TRANS_MAN) \
+ 		$(DESTDIR)$(bindir)/$(TRANS_MANDB)
