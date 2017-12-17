@@ -1,0 +1,12 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+-CC=cc
+-CFLAGS=-O3 -Wall -Wextra
+-LDFLAGS=
++#CC=cc
++CFLAGS+=-O3 -Wall -Wextra
++#LDFLAGS=
+ LIBS=-lm -lpthread -lz
+ ZOPFLI=zopfli/src/zopfli/
+ # use gcc and gmake on Solaris
