@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ DESTDIR=
+-prefix?=/usr
++prefix?=/opt
+ MANDIR=$(prefix)/share/man
+ 
+-all: remove install
++all:
+ 
+ uninstall remove:
+ 	for i in man?/*; do \
