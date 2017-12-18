@@ -1,0 +1,56 @@
+--- a/Makefile
++++ b/Makefile
+@@ -4,22 +4,23 @@
+ #
+ DESTDIR  =
+ 
+-BINPATH  = /usr/bin
+-SBINPATH = /usr/sbin
+-SCRPATH  = /usr/share/atop
+-LOGPATH  = /var/log/atop
+-MAN1PATH = /usr/share/man/man1
+-MAN5PATH = /usr/share/man/man5
+-MAN8PATH = /usr/share/man/man8
+-INIPATH  = /etc/init.d
+-SYSDPATH = /usr/lib/systemd/system
+-CRNPATH  = /etc/cron.d
+-ROTPATH  = /etc/logrotate.d
++BINPATH  = /opt/bin
++SBINPATH = /opt/sbin
++SCRPATH  = /opt/share/atop
++LOGPATH  = /opt/var/log/atop
++MAN1PATH = /opt/share/man/man1
++MAN5PATH = /opt/share/man/man5
++MAN8PATH = /opt/share/man/man8
++INIPATH  = /opt/etc/init.d
++SYSDPATH = /opt/lib/systemd/system
++CRNPATH  = /opt/etc/cron.d
++ROTPATH  = /opt/etc/logrotate.d
+ PMPATH1  = /usr/lib/pm-utils/sleep.d
+ PMPATH2  = /usr/lib64/pm-utils/sleep.d
+ PMPATHD  = /usr/lib/systemd/system-sleep
+ 
+-CFLAGS  += -O2 -I. -Wall  	 # -DHTTPSTATS
++CFLAGS   = -O2 -I. -I$(STAGING_DIR)/opt/include -Wall  	 # -DHTTPSTATS
++LDFLAGS  = -L$(STAGING_DIR)/opt/lib -lncurses -lm -lz -lrt
+ OBJMOD0  = version.o
+ OBJMOD1  = various.o  deviate.o   procdbase.o
+ OBJMOD2  = acctproc.o photoproc.o photosyst.o  rawlog.o ifprop.o parseable.o
+@@ -32,7 +33,7 @@
+ all: 		atop atopsar atopacctd
+ 
+ atop:		atop.o    $(ALLMODS) Makefile
+-		$(CC) atop.o $(ALLMODS) -o atop -lncurses -lz -lm -lrt $(LDFLAGS)
++		$(CC) atop.o $(ALLMODS) -o atop $(LDFLAGS)
+ 
+ atopsar:	atop
+ 		ln -sf atop atopsar
+@@ -41,7 +42,7 @@
+ 		$(CC) atopacctd.o netlink.o -o atopacctd $(LDFLAGS)
+ 
+ netlink.o:	netlink.c
+-		$(CC) -I. -Wall -c netlink.c
++		$(CC) -I. $(CFLAGS) -Wall -c netlink.c
+ 
+ clean:
+ 		rm -f *.o
