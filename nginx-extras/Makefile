@@ -4,20 +4,20 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Config and additional modules taken from 
-# http://ftp.debian.org/debian/pool/main/n/nginx/
+# Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.13.6-2.debian.tar.xz
+# to src folder.
 # Debian differences: threads, geoip, http_upstream_zone, stream_upstream_zone
-# http_perl modules turned off
+# http_perl modules are turned off
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.13.5
+PKG_VERSION:=1.13.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=0e75b94429b3f745377aeba3aff97da77bf2b03fcb9ff15b3bad9b038db29f2e
+PKG_HASH:=8512fc6f986a20af293b61f33b0e72f64a72ea5b1acbcc790c4c4e2d6f63f8f8
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-$(PKG_VERSION)
 
@@ -41,6 +41,18 @@ define Package/nginx-extras/description
  plugins and patches are taken from Debian nginx-extras package.
 endef
 
+define Build/Patch
+	$(call Build/Patch/Default)
+	( cd $(PKG_BUILD_DIR); \
+	    for series_file in `find modules/patches -name series`; do \
+		mod=`echo $$$$series_file | cut -d'/' -f3`; \
+		for mod_patch in `cat $$$$series_file`; do \
+		patch -d modules/$$$$mod -p1 -i $(PKG_BUILD_DIR)/modules/patches/$$$$mod/$$$$mod_patch; \
+	    done \
+	done \
+	)
+endef
+
 TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/opt/include/libxml2 -Wno-error=parentheses
 
@@ -48,7 +60,7 @@ TARGET_LDFLAGS += \
 	-lxml2
 
 define Build/Configure
-	( cd $(PKG_BUILD_DIR) ; \
+	( cd $(PKG_BUILD_DIR); \
 		./configure \
 			--crossbuild=Linux::$(ARCH) \
 			--with-cc="$(TARGET_CC)" \
@@ -93,19 +105,19 @@ define Build/Configure
 			--with-mail_ssl_module \
 			--with-stream=dynamic \
 			--with-stream_ssl_module \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/headers-more-nginx-module \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-auth-pam \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-cache-purge \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-dav-ext-module \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-development-kit \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-echo \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/ngx-fancyindex \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-headers-more-filter \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-auth-pam \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-cache-purge \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-dav-ext \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-ndk \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-echo \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-fancyindex \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nchan \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-lua \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-rtmp \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-upload-progress \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nginx-upstream-fair \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/ngx_http_substitutions_filter_module \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-lua \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/rtmp \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-uploadprogress \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-upstream-fair \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-subs-filter \
 	)
 endef
 

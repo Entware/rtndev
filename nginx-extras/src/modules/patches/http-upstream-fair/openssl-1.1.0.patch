@@ -1,0 +1,50 @@
+From cfdf4ffa18e812cbbff3872c1026c3c072d22c09 Mon Sep 17 00:00:00 2001
+From: Kurt Roeckx <kurt@roeckx.be>
+Date: Fri, 2 Sep 2016 23:04:36 +0200
+Subject: [PATCH] Make it build using OpenSSL 1.1.0
+Origin: other, https://github.com/gnosek/nginx-upstream-fair/pull/22
+
+The reference counter is now internal in OpenSSL and not accessible any more.
+---
+ ngx_http_upstream_fair_module.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/ngx_http_upstream_fair_module.c b/ngx_http_upstream_fair_module.c
+index a4419ca..6353f1b 100644
+--- a/ngx_http_upstream_fair_module.c
++++ b/ngx_http_upstream_fair_module.c
+@@ -1174,9 +1174,8 @@ ngx_http_upstream_fair_set_session(ngx_peer_connection_t *pc, void *data)
+ 
+     rc = ngx_ssl_set_session(pc->connection, ssl_session);
+ 
+-    ngx_log_debug2(NGX_LOG_DEBUG_HTTP, pc->log, 0,
+-                   "set session: %p:%d",
+-                   ssl_session, ssl_session ? ssl_session->references : 0);
++    ngx_log_debug1(NGX_LOG_DEBUG_HTTP, pc->log, 0,
++                   "set session: %p", ssl_session);
+ 
+     /* ngx_unlock_mutex(fp->peers->mutex); */
+ 
+@@ -1200,8 +1199,8 @@ ngx_http_upstream_fair_save_session(ngx_peer_connection_t *pc, void *data)
+         return;
+     }
+ 
+-    ngx_log_debug2(NGX_LOG_DEBUG_HTTP, pc->log, 0,
+-                   "save session: %p:%d", ssl_session, ssl_session->references);
++    ngx_log_debug1(NGX_LOG_DEBUG_HTTP, pc->log, 0,
++                   "save session: %p", ssl_session);
+ 
+     peer = &fp->peers->peer[fp->current];
+ 
+@@ -1215,9 +1214,8 @@ ngx_http_upstream_fair_save_session(ngx_peer_connection_t *pc, void *data)
+ 
+     if (old_ssl_session) {
+ 
+-        ngx_log_debug2(NGX_LOG_DEBUG_HTTP, pc->log, 0,
+-                       "old session: %p:%d",
+-                       old_ssl_session, old_ssl_session->references);
++        ngx_log_debug1(NGX_LOG_DEBUG_HTTP, pc->log, 0,
++                       "old session: %p", old_ssl_session);
+ 
+         /* TODO: may block */
+ 

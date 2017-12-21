@@ -1,0 +1,47 @@
+From 0bb37a210d165870f7c4c9ad85e1751bdc1aec8f Mon Sep 17 00:00:00 2001
+From: Christos Trochalakis <yatiohi@ideopolis.gr>
+Date: Mon, 28 Aug 2017 13:48:08 +0300
+Subject: [PATCH] Inventorize LuaJIT 2.1
+
+---
+ config | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/config b/config
+index 01a6b3c3..5819c00f 100644
+--- a/config
++++ b/config
+@@ -281,6 +281,30 @@ END
+             fi
+             . auto/feature
+         fi
++
++        if [ $ngx_found = no ]; then
++            # LuaJIT-2.1, try with -ldl
++            ngx_feature="LuaJIT 2.1 library in /usr/"
++            ngx_feature_path="/usr/include/luajit-2.1"
++            if [ $NGX_RPATH = YES ]; then
++                ngx_feature_libs="-R/usr/lib -L/usr/lib -lm -lluajit-5.1 -ldl"
++            else
++                ngx_feature_libs="-L/usr/lib -lm -lluajit-5.1 -ldl"
++            fi
++            . auto/feature
++        fi
++
++        if [ $ngx_found = no ]; then
++            # Gentoo with LuaJIT 2.1
++            ngx_feature="LuaJIT library in /usr/"
++            ngx_feature_path="/usr/include/luajit-2.1"
++            if [ $NGX_RPATH = YES ]; then
++                ngx_feature_libs="-R/usr/lib -L/usr/lib -lm -lluajit-5.1"
++            else
++                ngx_feature_libs="-L/usr/lib -lm -lluajit-5.1"
++            fi
++            . auto/feature
++        fi
+     fi
+ fi
+ 
+-- 
+2.14.1
+
