@@ -1,6 +1,6 @@
 --- a/Source/Pcap_DNSProxy/Service.cpp
 +++ b/Source/Pcap_DNSProxy/Service.cpp
-@@ -744,15 +744,6 @@
+@@ -753,15 +753,6 @@
  #if defined(PLATFORM_WIN)
  	system("ipconfig /flushdns 2>nul"); //All Windows version
  	fwprintf_s(stderr, L"\n");
