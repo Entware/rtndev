@@ -1,6 +1,6 @@
 --- a/src/index.html
 +++ b/src/index.html
-@@ -58,9 +58,6 @@
+@@ -57,9 +57,6 @@
  						<!-- 切换到移动版 -->
  						<a id="toolbar_mobile" href="javascript:location.href = 'index.mobile.html';" class="easyui-linkbutton" data-options="iconCls:'icon-mobile',plain:true" system-tip-lang="toolbar.tip['ui-mobile']"><label system-lang="toolbar['ui-mobile']"></label></a>
  						<span class="button-split">|</span>
