@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1296,7 +1296,7 @@
+@@ -1295,7 +1295,7 @@
        ])
      ])
      AC_MSG_CHECKING(whether mysql clients can run)
