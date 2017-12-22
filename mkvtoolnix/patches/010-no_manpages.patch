@@ -1,6 +1,6 @@
 --- a/configure
 +++ b/configure
-@@ -10943,14 +10943,6 @@
+@@ -11260,14 +11260,6 @@
      fi
    done
  
@@ -15,10 +15,11 @@
  fi
  
  # It's just rude to go over the net to build
-@@ -11011,39 +11003,6 @@
+@@ -11327,39 +11319,6 @@
+ 
  
  fi
- 
+-
 -if test -z "$XSLTPROC" -o ! -x "$XSLTPROC"; then
 -  as_fn_error $? "xsltproc wasn't found" "$LINENO" 5
 -fi
@@ -51,16 +52,19 @@
 -
 -
 -
--
+ 
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking POSIX termios" >&5
  $as_echo_n "checking POSIX termios... " >&6; }
- if ${ac_cv_sys_posix_termios+:} false; then :
 --- a/Rakefile
 +++ b/Rakefile
-@@ -187,20 +187,6 @@
-   # Build developer documentation?
-   targets << "doc/development.html" if !c(:PANDOC).empty?
- 
+@@ -197,23 +197,6 @@
+     targets << "TAGS"   if !c(:ETAGS).empty?
+     targets << "BROWSE" if !c(:EBROWSE).empty?
+   end
+-
+-  # Build developer documentation?
+-  targets << "doc/development.html" if !c(:PANDOC).empty?
+-
 -  # Build man pages and translations?
 -  targets << "manpages"
 -  targets << "translations:manpages" if c?(:PO4A_WORKS)
@@ -74,7 +78,6 @@
 -  # Build ebml_validator by default when not cross-compiling as it is
 -  # needed for running the tests.
 -  targets << "apps:tools:ebml_validator" if c(:host) == c(:build)
--
-   task :default => targets do
-     puts "Done. Enjoy :)"
-   end
+ 
+   targets << "src/benchmark/benchmark" if c?(:GOOGLE_BENCHMARK) && !$benchmark_sources.empty?
+ 

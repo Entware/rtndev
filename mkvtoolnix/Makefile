@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=12.0.0
+PKG_VERSION:=19.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_HASH:=5c2401d1cc36d8a2d57cb791a5a22f3cda69cb0824c6cee35326b35e7f94b536
+PKG_HASH:=4b4af84cfdf3062f8ca4ab3c37854be7cd9a71bcf5c46b8ca805a101d414b6a1
 
 PKG_BUILD_DEPENDS:=ruby/host
 
