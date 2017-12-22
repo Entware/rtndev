@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-socksipychain
-PKG_VERSION:=2.0.15a
+PKG_VERSION:=2.0.15b
 PKG_RELEASE:=1
 
 PKG_SOURCE:=SocksipyChain-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pagekite.net/pk/src/$(PKG_SOURCE)
-PKG_MD5SUM:=df59afe7798195caca5df970c08c5ffe
+PKG_HASH:=a2ec72a1fbb22e1e59b74c0f3e1d436602e7ccb6553c52bb49bbc5850a4cc089
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/SocksipyChain-$(PKG_VERSION)
 
