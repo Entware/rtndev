@@ -41,7 +41,7 @@
  };
  
  static int32_t selected_box = -1;
-@@ -5127,7 +5127,7 @@
+@@ -5160,7 +5160,7 @@
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end;  // start time poll, end time poll
