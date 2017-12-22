@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=urbackup-server
-PKG_VERSION:=2.1.19
+PKG_VERSION:=2.1.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://hndl.urbackup.org/Server/$(PKG_VERSION)
-PKG_MD5SUM:=23c4413d98cfda3316f0f35c4b522bd5
+PKG_HASH:=de90c73703e168bec73e3fd167065818dbcf0f9adc5f5d5ca7ec3193557e5a1a
 
 PKG_INSTALL:=1
 

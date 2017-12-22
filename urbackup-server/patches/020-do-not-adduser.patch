@@ -4,7 +4,7 @@ This patch removes adduser and chown in `make install`
 @@ -6558,10 +6558,6 @@
  
  	mkdir -p "$(DESTDIR)$(localstatedir)/urbackup"
- 	! test -e $(DESTDIR)$(sbindir)/urbackupsrv || rm $(DESTDIR)$(sbindir)/urbackupsrv
+ 	test "x$(DESTDIR)$(sbindir)" = "x$(DESTDIR)$(bindir)" || ! test -e $(DESTDIR)$(sbindir)/urbackupsrv || rm $(DESTDIR)$(sbindir)/urbackupsrv
 -@FREEBSD_TRUE@@PACKAGING_FALSE@	pw groupadd urbackup -q || true
 -@FREEBSD_TRUE@@PACKAGING_FALSE@	pw useradd urbackup -q -g urbackup -d "$(DESTDIR)$(localstatedir)/urbackup" -m -s /usr/bin/false || true
 -@FREEBSD_FALSE@@PACKAGING_FALSE@	adduser urbackup --system --quiet --group --home "$(DESTDIR)$(localstatedir)/urbackup" || adduser urbackup --system --user-group --home "$(DESTDIR)$(localstatedir)/urbackup" || true
