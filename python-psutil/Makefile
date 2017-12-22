@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-psutil
-PKG_VERSION:=5.3.1
+PKG_VERSION:=5.4.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=psutil-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/d3/0a/74dcbb162554909b208e5dbe9f4e7278d78cc27470993e05177005e627d0
-PKG_MD5SUM:=529244aea5d32fb0c2ea46d80ce54abc
+PKG_SOURCE_URL:=https://pypi.python.org/packages/54/24/aa854703715fa161110daa001afce75d21d1840e9ab5eb28708d6a5058b0
+PKG_MD5SUM:=38aee50427a58533064491286dc2e3c5
 
 PKG_BUILD_DEPENDS:=python
 
