@@ -28,7 +28,7 @@
  DEFAULT_RULE = 'default'
 --- a/pagekite/pk.py
 +++ b/pagekite/pk.py
-@@ -924,7 +924,8 @@
+@@ -942,7 +942,8 @@
          self.devnull = 'nul'
        else:
          # Everything else
@@ -40,7 +40,7 @@
      except Exception, e:
 --- a/pagekite/manual.py
 +++ b/pagekite/manual.py
-@@ -251,7 +251,7 @@
+@@ -258,7 +258,7 @@
  """)
  MAN_OPT_SYSTEM = ("""\
      --optfile</b>=<a>/path/to/file</a> __
