@@ -50,9 +50,9 @@ endef
 
 define Host/Install
 	$(INSTALL_DIR) $(STAGING_DIR)/host/bin
-	$(CP) $(HOST_BUILD_DIR)/lib/com_err/compile_et $(STAGING_DIR)/host/bin
-	$(CP) $(HOST_BUILD_DIR)/lib/asn1/asn1_compile $(STAGING_DIR)/host/bin
-	$(CP) $(HOST_BUILD_DIR)/lib/sl/slc $(STAGING_DIR)/host/bin
+	$(CP) $(HOST_BUILD_DIR)/lib/com_err/compile_et $(STAGING_DIR_HOST)/bin
+	$(CP) $(HOST_BUILD_DIR)/lib/asn1/asn1_compile $(STAGING_DIR_HOST)/bin
+	$(CP) $(HOST_BUILD_DIR)/lib/sl/slc $(STAGING_DIR_HOST)/bin
 endef
 
 CONFIGURE_ARGS += \
