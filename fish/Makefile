@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fish
-PKG_VERSION:=2.7.0
+PKG_VERSION:=2.7.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://fishshell.com/files/$(PKG_VERSION)
-PKG_HASH:=3a76b7cae92f9f88863c35c832d2427fb66082f98e92a02203dc900b8fa87bcb
+PKG_SOURCE_URL:=https://github.com/fish-shell/fish-shell/releases/download/$(PKG_VERSION)
+PKG_HASH:=e42bb19c7586356905a58578190be792df960fa81de35effb1ca5a5a981f0c5a
 PKG_INSTALL:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
@@ -34,6 +34,9 @@ define Package/fish/description
  Fish includes features like syntax highlighting, autosuggest-as-you-type, and fancy tab completions that just work,
  with no configuration required.
 endef
+
+CONFIGURE_ARGS += \
+	--without-gettext
 
 CONFIGURE_VARS += ac_cv_file__proc_self_stat=yes
 TARGET_CXXFLAGS += -std=c++0x
