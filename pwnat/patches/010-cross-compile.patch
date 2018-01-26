@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -23,8 +23,8 @@
+ #OS=SOLARIS
+ #OS=CYGWIN
+ 
+-CC=gcc
+-CFLAGS=-Wall -Wshadow -Wpointer-arith -Wwrite-strings -D ${OS}
++CC?=gcc
++CFLAGS+=-Wall -Wshadow -Wpointer-arith -Wwrite-strings -D ${OS}
+ 
+ ifeq (${OS}, SOLARIS)
+ LDFLAGS=-lnsl -lsocket -lresolv
