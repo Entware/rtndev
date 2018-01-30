@@ -1,0 +1,17 @@
+Current glibc & uclibc-ng versions always have <sys/inotify.h> header.
+configure proccesses this incorrectly. Similar patch was proposed @SF.
+--- a/src/mt_inotify.h
++++ b/src/mt_inotify.h
+@@ -34,11 +34,7 @@
+ 
+ #include "zmmf/zmmf.h"
+ 
+-#ifdef SYS_INOTIFY_H_OK
+-    #include <sys/inotify.h>
+-#else
+-    #include "inotify-nosys.h"
+-#endif
++#include <sys/inotify.h>
+ 
+ /// \brief Inotify interface.
+ class Inotify : public zmm::Object
