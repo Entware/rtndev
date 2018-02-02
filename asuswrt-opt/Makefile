@@ -4,29 +4,32 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# This is the same package as entware-opt, it does not install busybox. It makes several symlinks instead of it!
+# /opt/... folder order in /opt/etc/profile is different, /opt folders are the last in PATH
+# This package is a replacement of entware-opt for asuswrt firmware
+
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=entware-opt
+PKG_NAME:=asuswrt-opt
 PKG_VERSION:=1.0
 PKG_RELEASE:=4
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/entware-opt
+define Package/asuswrt-opt
 	SECTION:=libs
 	CATEGORY:=Libraries
 	DEPENDS:=+libc +libgcc +libstdcpp +libpthread +librt \
-		+busybox \
 		+zoneinfo-asia +zoneinfo-europe \
 		+findutils +terminfo +locales
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, http://entware.net
-	CONFLICTS:=opt-ndmsv2 asuswrt-opt
+	CONFLICTS:=opt-ndmsv2 entware-opt
 endef
 
-define Package/entware-opt/description
- entware-opt is a metapackage to install Entware-3x basic libraries and scripts
+define Package/asuswrt-opt/description
+ asuswrt-opt is a metapackage to install Entware-3x basic libraries and scripts
 endef
 
 define Build/Prepare
@@ -38,7 +41,7 @@ endef
 define Build/Compile
 endef
 
-define Package/entware-opt/install
+define Package/asuswrt-opt/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/rc.unslung $(1)/opt/etc/init.d/
 	$(INSTALL_BIN) ./files/profile $(1)/opt/etc/
@@ -54,12 +57,21 @@ define Package/entware-opt/install
 	    $(1)/opt/var/{log,lock,run}
 endef
 
-define Package/entware-opt/conffiles
+define Package/asuswrt-opt/conffiles
 /opt/etc/profile
 /opt/etc/passwd.1
 /opt/etc/group.1
 /opt/etc/shells.1
 endef
 
+define Package/asuswrt-opt/postinst
+#!/bin/sh
+ln -s /bin/ifconfig /opt/bin/ifconfig
+ln -s /bin/route /opt/bin/route
+ln -s /bin/ip /opt/bin/ip
+ln -s /bin/netstat /opt/bin/netstat
+ln -s /bin/sh /opt/bin/sh
+ln -s /bin/ash /opt/bin/ash
+endef
 
-$(eval $(call BuildPackage,entware-opt))
+$(eval $(call BuildPackage,asuswrt-opt))
