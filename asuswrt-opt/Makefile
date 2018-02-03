@@ -66,9 +66,9 @@ endef
 
 define Package/asuswrt-opt/postinst
 #!/bin/sh
-ln -s /bin/ifconfig /opt/bin/ifconfig
-ln -s /bin/route /opt/bin/route
-ln -s /bin/ip /opt/bin/ip
+ln -s /sbin/ifconfig /opt/sbin/ifconfig
+ln -s /sbin/route /opt/sbin/route
+ln -s /sbin/ip /opt/sbin/ip
 ln -s /bin/netstat /opt/bin/netstat
 ln -s /bin/sh /opt/bin/sh
 ln -s /bin/ash /opt/bin/ash
