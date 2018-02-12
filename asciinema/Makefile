@@ -16,7 +16,7 @@ PKG_SOURCE_URL:=https://pypi.python.org/packages/21/7a/265e78c86b4b4f8c74c0d8321
 PKG_MD5SUM:=507ec769e1e9f8d5146b8c32c5ed54ac
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python3-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/asciinema
 	SECTION:=utils
