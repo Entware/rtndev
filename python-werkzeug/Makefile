@@ -19,7 +19,7 @@ PKG_MD5SUM:=abdb978e30101809a0ad255f010b1d3d
 PKG_BUILD_DIR:=$(BUILD_DIR)/Werkzeug-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-werkzeug
 	SECTION:=lang
