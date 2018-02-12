@@ -21,7 +21,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/greenlet-$(PKG_VERSION)
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-greenlet
 	SECTION:=lang
