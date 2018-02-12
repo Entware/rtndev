@@ -18,7 +18,7 @@ PKG_MD5SUM:=2c2aff2573125147a143a4e3a927c90d
 PKG_BUILD_DIR:=$(BUILD_DIR)/cloudprint-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-cloudprint
 	SECTION:=lang
