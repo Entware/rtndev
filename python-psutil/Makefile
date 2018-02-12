@@ -20,7 +20,7 @@ PKG_BUILD_DEPENDS:=python
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-psutil
   SUBMENU:=Python
