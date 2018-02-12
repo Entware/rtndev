@@ -18,7 +18,7 @@ PKG_MD5SUM:=268b22fdf4815661b634686da66661ea
 
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/deluge/Default
   SUBMENU:=BitTorrent
@@ -113,5 +113,5 @@ define Package/deluge-ui-web/install
 endef
 
 $(eval $(call BuildPackage,deluge))
-$(eval $(call BuildPackage,deluge-ui-gtk))
+#$(eval $(call BuildPackage,deluge-ui-gtk))
 $(eval $(call BuildPackage,deluge-ui-web))
