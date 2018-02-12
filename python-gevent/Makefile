@@ -18,13 +18,13 @@ PKG_BUILD_DEPENDS:=python
 PKG_BUILD_DIR:=$(BUILD_DIR)/gevent-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-gevent
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+python-greenlet
+	DEPENDS:=+python-greenlet +USE_UCLIBC:librt
 	TITLE:=Python networking library
 	URL:=http://www.gevent.org/
 	MAINTAINER:=Entware team, http://entware.net
