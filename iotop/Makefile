@@ -16,7 +16,7 @@ PKG_SOURCE_URL:=http://guichaz.free.fr/iotop/files
 PKG_MD5SUM:=5ef9456b26d7694abf3101a72e1e0d1d
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 #PKG_BUILD_DEPENDS:=python distribute/host
 
