@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtorrent-easy-install
 PKG_VERSION:=0.2
-PKG_RELEASE:=3
+PKG_RELEASE:=3a
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -18,7 +18,8 @@ define Package/rtorrent-easy-install
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
 	DEPENDS:=+rutorrent-plugin-rpc +screen +php7-cgi \
-	    +lighttpd-mod-fastcgi +lighttpd-mod-scgi +lighttpd-mod-auth
+	    +lighttpd-mod-fastcgi +lighttpd-mod-scgi +lighttpd-mod-auth \
+	    +lighttpd-mod-authn_file
 	TITLE:=Easy installation script for rtorrent with web UI
 	URL:=http://github.com/abhinavseewoosungkur/scripts/blob/develop/rutorrent-entware.sh
 	MAINTAINER:=Entware team, http://entware.net
@@ -59,7 +60,7 @@ rt_cfg=/opt/etc/rtorrent/rtorrent.conf
 #### Configuring web-server
 cat > $$www_cfg << EOF
 
-server.modules += ( "mod_scgi" )
+#server.modules += ( "mod_scgi" )
 scgi.server = (
   "/RPC2" =>
     ( "127.0.0.1" =>
@@ -70,7 +71,7 @@ scgi.server = (
     )
 )
 
-server.modules += ( "mod_fastcgi" )
+#server.modules += ( "mod_fastcgi" )
 fastcgi.server = (
   ".php" =>
     ( "localhost" =>
