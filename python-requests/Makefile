@@ -18,7 +18,7 @@ PKG_MD5SUM:=081412b2ef79bdc48229891af13f4d82
 PKG_BUILD_DIR:=$(BUILD_DIR)/requests-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/$(PKG_NAME)
 	SUBMENU:=Python
