@@ -19,7 +19,7 @@ PKG_HASH:=a2ec72a1fbb22e1e59b74c0f3e1d436602e7ccb6553c52bb49bbc5850a4cc089
 PKG_BUILD_DIR:=$(BUILD_DIR)/SocksipyChain-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/$(PKG_NAME)
 	SUBMENU:=Python
