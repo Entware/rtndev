@@ -18,7 +18,7 @@ PKG_MD5SUM:=ee0e7204d7a2ae942e2f4c4508afdbfb
 PKG_BUILD_DIR:=$(BUILD_DIR)/pycups-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-cups
 	SECTION:=lang
