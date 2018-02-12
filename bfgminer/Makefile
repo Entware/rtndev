@@ -29,7 +29,7 @@ $(eval $(call Download,uthash))
 define Package/bfgminer
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +libudev
+	DEPENDS=+jansson +libcurl +libevent2 +libncursesw +libusb-1.0 +USE_GLIBC:libudev-fbsd
 	TITLE:=modular ASIC/FPGA Bitcoin miner
 	URL:=http://bfgminer.org/
 	MAINTAINER:=Entware team, http://entware.net
@@ -54,6 +54,7 @@ CONFIGURE_ARGS += \
 	--without-libmicrohttpd \
 	--with-curses=ncurses \
 	--without-system-libbase58 \
+	--without-libudev \
 
 TARGET_CFLAGS += \
 	-std=gnu99 \
