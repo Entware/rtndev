@@ -6,7 +6,7 @@
 #
 
 include $(TOPDIR)/rules.mk
-include $(INCLUDE_DIR)/uclibc++.mk
+#include $(INCLUDE_DIR)/uclibc++.mk
 
 PKG_NAME:=mariadb
 PKG_VERSION:=5.5.58
@@ -23,7 +23,7 @@ PKG_SOURCE_URL:=\
 PKG_HASH:=26fdf8784a51e5d6f7624c0f4528433a6188065dd1bf92ef69e27db6b0a41002
 PKG_MAINTAINER:=Lucian Cristian <lucian.cristian@gmail.com>
 PKG_LICENSE:=GPL-2.0
-PKG_BUILD_DEPENDS:=mariadb/host libncurses libreadline
+PKG_BUILD_DEPENDS:=mariadb/host
 HOST_BUILD_DEPENDS += mariadb/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
@@ -37,7 +37,7 @@ include $(INCLUDE_DIR)/host-build.mk
 define Package/libmariadb
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=$(CXX_DEPENDS) +zlib +libpthread +libncurses +libreadline
+  DEPENDS:=+libstdcpp +zlib +libpthread +libncurses +libreadline
   TITLE:=MariaDB client library
   URL:=http://dev.mysql.com/
   PROVIDES:=libmysqlclient libmysqlclient-r
@@ -102,7 +102,7 @@ define Build/InstallDev
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysql_config $(1)/opt/bin/
 	ln -sf $(STAGING_DIR)/opt/bin/mysql_config $(2)/bin/
 	$(CP) $(PKG_INSTALL_DIR)/opt/include/mysql $(1)/opt/include/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib*.a $(1)/opt/lib/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib*.{a,so*} $(1)/opt/lib/
 	$(CP) $(PKG_INSTALL_DIR)/opt/share/aclocal/mysql.m4 $(1)/opt/share/aclocal/
 endef
 
