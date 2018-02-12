@@ -16,7 +16,7 @@ PKG_SOURCE_URL:=https://pypi.python.org/packages/source/w/weave-minimal
 PKG_MD5SUM:=82309b0354bebfd07f6ecb2a75bb5a97
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/weave-minimal
 	SECTION:=net
