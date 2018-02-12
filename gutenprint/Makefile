@@ -30,7 +30,7 @@ define Package/gutenprint
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libcupsimage $(ICONV_DEPENDS)
+	DEPENDS:=+cups +libcupsimage $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=Gutenprint CUPS drivers
 	URL:=http://gimp-print.sourceforge.net/
 	MAINTAINER:=Entware team, http://entware.net
