@@ -19,7 +19,7 @@ PKG_MD5SUM:=30ed3cc8c11d7841a89feab437aabf81
 PKG_BUILD_DIR:=$(BUILD_DIR)/oauth-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-oauth
 	SECTION:=lang
