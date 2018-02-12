@@ -18,7 +18,7 @@ PKG_MD5SUM:=dc75eac77421b615f412c004870ebfba
 PKG_BUILD_DIR:=$(BUILD_DIR)/regex-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-regex
 	SECTION:=lang
