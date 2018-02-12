@@ -8,14 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lynx
-PKG_VERSION:=2.8.8rel.2
+https://invisible-mirror.net/archives/lynx/tarballs/lynx2.8.9dev.16.zip
+PKG_VERSION:=2.8.9dev.16
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://invisible-mirror.net/archives/lynx/tarballs
-PKG_MD5SUM:=b231c2aa34dfe7ca25681ef4e55ee7e8
+PKG_HASH:=04318a100b052d079d0018fa371aa28cfb41ab68db3a959f3b75c2170eea1bc8
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)2-8-8
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)2.8.9dev.16
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -39,6 +40,9 @@ CONFIGURE_ARGS += \
 	--enable-widec \
 	--with-bzlib \
 	--with-zlib \
+	--with-build-cc=$(HOSTCC) \
+	--with-build-cflags= \
+	--with-build-ldflags= 
 
 define Package/lynx/conffiles
 /opt/etc/lynx.cfg
