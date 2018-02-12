@@ -13,7 +13,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_VERSION)-nix-src.tgz
 PKG_SOURCE_URL:=http://www.ptokax.org/files
-PKG_MD5SUM:=0d5ca7ae81be69eb351fadfd1a498217
+PKG_HASH:=ed65b63d085fb54df6695fb9d34eded4028059de836b71f257c6126bf0c7833b
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -24,7 +24,7 @@ define Package/ptokax
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=P2P
-	DEPENDS:=+liblua +libpthread +zlib +libstdcpp +librt $(ICONV_DEPENDS)
+	DEPENDS:=+liblua +libpthread +zlib +libstdcpp +librt $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=DC hub
 	URL:=http://www.czdc.org/PtokaX/
 	MAINTAINER:=Entware team, http://entware.net
@@ -35,7 +35,7 @@ define Package/ptokax/description
  for Neo-Modus Direct Connect Peer-To-Peer sharing network.
 endef
 
-TARGET_CFLAGS += -DTIXML_USE_STL
+TARGET_CFLAGS += -DTIXML_USE_STL -fpermissive
 TARGET_LDFLAGS += -ldl -liconv
 
 define Build/Compile
