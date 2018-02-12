@@ -25,7 +25,7 @@ define Package/djmount
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libupnp +libfuse $(ICONV_DEPENDS)
+	DEPENDS:=+libupnp +libfuse $(ICONV_DEPENDS) $(INTL_DEPENDS) #+libtalloc
 	TITLE:=mount MediaServers content as a Linux filesystem
 	URL:=http://djmount.sourceforge.net
 	MAINTAINER:=Entware team, http://entware.net
