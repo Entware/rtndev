@@ -21,7 +21,7 @@ PKG_HASH:=f5593cf85ecba73da04f8663eed6a5ce15805ed707ea71e3c9dc7cfe93c0769c
 PKG_BUILD_DEPENDS:=python
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/$(PKG_NAME)
 	SECTION:=net
