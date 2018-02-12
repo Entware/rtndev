@@ -18,7 +18,7 @@ PKG_MD5SUM:=b249368dd021fde1c06b4802867c0913
 PKG_BUILD_DEPENDS:=python
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python-package.mk)
+include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-characteristic
   SUBMENU:=Python
