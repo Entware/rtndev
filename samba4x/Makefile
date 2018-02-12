@@ -145,7 +145,7 @@ CONFIGURE_ARGS += \
 		--without-pie \
 		--without-regedit \
 		--with-syslog \
-		--bundled-libraries='com_err,!asn1_compile,!compile_et' \
+		--bundled-libraries='talloc,com_err,!asn1_compile,!compile_et' \
 		--enable-auto-reconfigure
 		
 CONFIGURE_CMD = ./buildtools/bin/waf
