@@ -20,13 +20,15 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/grive2
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
 	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libexpat +libbfd\
-		+boost-filesystem +boost-program_options +boost-regex +boost-test +boost-system
+		+boost-filesystem +boost-program_options +boost-regex +boost-test +boost-system \
+		$(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
 	URL:=https://github.com/vitalif/grive2
 	MAINTAINER:=Entware team, http://entware.net
