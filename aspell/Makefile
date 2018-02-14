@@ -51,6 +51,8 @@ CONFIGURE_ARGS += \
 	--disable-static \
 	--program-transform-name='' \
 
+TARGET_CFLAGS+=-fpermissive
+
 define Package/aspell/postinst
 #!/bin/sh
 
