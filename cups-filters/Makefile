@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.17.9
+PKG_VERSION:=1.20.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.openprinting.org/download/$(PKG_NAME)
-PKG_HASH:=91b39f5acc4f7e80999d87eab398e9410ac08f1d8524aeb6cba4c366985ead2e
+PKG_HASH:=eab06faaa9a5a7febcf70d6c33131646453d377e2c0f9bb9f080210e75f92a40
 
 PKG_INSTALL:=1
 
@@ -41,6 +41,7 @@ define Package/cups-filters/description
 endef
 
 CONFIGURE_ARGS += \
+	--enable-opvp \
 	--disable-avahi \
 	--disable-ldap \
 	--disable-braille \
