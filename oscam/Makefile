@@ -17,7 +17,6 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_SOURCE_SUBDIR:=oscam-$(PKG_VERSION)
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
-cf7cf8db08a61d81d331cc6653921e4a6395b83a7f87eb20ff409bf1fc2f6357
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
