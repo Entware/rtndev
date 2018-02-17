@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
-PKG_VERSION:=17.10
+PKG_VERSION:=17.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
-PKG_HASH:=f7212465cc01a2ec443859046aebd9baf1d30f3fee04d662e44d5e728188f46d
+PKG_HASH:=f6728556aa68bb66e89fb9b6c116f6242ce5769510d5d9664b3ad4098c07574d
 
 PKG_BUILD_DEPENDS:=libzen
 
