@@ -13,6 +13,7 @@ PKG_REV:=c393877a8ebb1db9f61535043bd966faf2b87650
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_MIRROR_HASH:=d807b8d505e7009b5a4207375b9e7f08c70d5fb52cf87f73585e247cbae624f0
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/rpodgorny/unionfs-fuse.git
 PKG_SOURCE_PROTO:=git
@@ -25,7 +26,7 @@ define Package/unionfs-fuse
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+fuse-utils
+	DEPENDS:=+fuse-utils +USE_UCLIBC:librt
 	TITLE:=unionfs filesystem
 	URL:=https://github.com/rpodgorny/unionfs-fuse.git
 	MAINTAINER:=Entware team, http://entware.net

@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.netlab.linkpc.net/download/software/msd/lite
-PKG_MD5SUM:=2d5f7ccc71eba7af191154f4f3496d33
+PKG_HASH:=3a95a60bd7771872e7f5ab41b940d00b2d57d6acbb719b37347f8ecc8e925730
 
 include $(INCLUDE_DIR)/package.mk
 

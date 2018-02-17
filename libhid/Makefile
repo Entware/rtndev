@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://sources.openelec.tv/mirror/libhid
-PKG_MD5SUM:=f2a427a6d6b98a5db8d17e2777173af7
+PKG_HASH:=f6809ab3b9c907cbb05ceba9ee6ca23a705f85fd71588518e14b3a7d9f2550e5
 
 PKG_INSTALL:=1
 

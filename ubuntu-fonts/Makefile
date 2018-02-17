@@ -16,7 +16,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
 PKG_SOURCE_URL:=http://font.ubuntu.com/download
-PKG_MD5SUM:=a24b8136b8f3bb93f166baf97d9328de
+PKG_HASH:=456d7d42797febd0d7d4cf1b782a2e03680bb4a5ee43cc9d06bda172bac05b42
 
 include $(INCLUDE_DIR)/package.mk
 

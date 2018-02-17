@@ -24,7 +24,7 @@ define Package/astra
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
 	TITLE:=advanced streamer
-	DEPENDS:=+libopenssl
+	DEPENDS:=+libopenssl +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 	URL:=https://cesbo.com/en/astra/
 endef
 

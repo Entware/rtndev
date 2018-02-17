@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.deluge-torrent.org/source
-PKG_MD5SUM:=268b22fdf4815661b634686da66661ea
+PKG_HASH:=2bd239fc7ec0427302677abb86f927299aed4f043eca5d8a1bab2986b3659666
 
 
 include $(INCLUDE_DIR)/package.mk

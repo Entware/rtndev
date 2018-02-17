@@ -14,7 +14,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=ShadowVPN-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/aa65535/openwrt-shadowvpn/releases/download/v0.2.0
-PKG_MD5SUM:=b722b0e72608e00bca00bd4061e37209
+PKG_HASH:=53b445cf47262f407bfef72d32bc6ca5d1341dcd3878ac2b4cd35ee030199dea
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf

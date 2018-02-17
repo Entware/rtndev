@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/pvpgn.berlios
-PKG_MD5SUM:=39147e67b40a770bb05a56ed677971d3
+PKG_HASH:=930da720eedd38c20c4304fe24dfbe9c375c3c760ce3cfa81d475fe29e3a704b
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

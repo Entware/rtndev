@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=atop
 PKG_VERSION:=2.3.0
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PKG_SOURCE_URL:=http://www.atoptool.nl/download
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -25,7 +25,7 @@ define Package/atop
   CATEGORY:=Utilities
   TITLE:=Atop is an ASCII full-screen performance monitor for Linux
   URL:=https://www.atoptool.nl/
-  DEPENDS:=+zlib +libncurses +librt
+  DEPENDS:=+zlib +libncurses +librt +libpthread
   MAINTAINER:=Entware team, http://entware.net
 endef
 
@@ -41,8 +41,15 @@ define Build/Compile
 endef
 
 define Package/atop/install
-	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/{bin,sbin}
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/atop $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/atopacctd $(1)/opt/sbin/
+	$(LN) ../bin/atop $(1)/opt/sbin/atopsar
+	$(INSTALL_DIR) $(1)/opt/share/atop
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/atop.daily $(1)/opt/share/atop/
+	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/atop.init $(1)/opt/etc/init.d/S99atop
+	$(INSTALL_DIR) $(1)/opt/var/lock/subsys
 endef
 
 $(eval $(call BuildPackage,atop))

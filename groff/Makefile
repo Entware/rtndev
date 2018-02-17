@@ -18,6 +18,7 @@ PKG_HASH:=3a48a9d6c97750bfbd535feeb5be0111db6406ddb7bb79fc680809cda6d828a5
 PKG_LICENSE:=GPL
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/groff
   SECTION:=utils

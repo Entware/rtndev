@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=pycups-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://cyberelk.net/tim/data/pycups
-PKG_MD5SUM:=ee0e7204d7a2ae942e2f4c4508afdbfb
+PKG_HASH:=c381be011889ca6f728598578c89c8ac9f7ab1e95b614474df9f2fa831ae5335
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/pycups-$(PKG_VERSION)
 

@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://pypi.python.org/packages/21/7a/265e78c86b4b4f8c74c0d8321f6f28faa19f80c5c9d7a834a989ed64154a
-PKG_MD5SUM:=507ec769e1e9f8d5146b8c32c5ed54ac
+PKG_HASH:=fb31457e7a4689340b872f625658dbaea33bcf6863fb5d696cf3857010432ecb
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk

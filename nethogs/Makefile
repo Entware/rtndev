@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/raboof/nethogs/archive
-PKG_MD5SUM:=002fd7227d8ed2a8b0fcb0a1b44731bf
+PKG_HASH:=6a9392726feca43228b3f0265379154946ef0544c2ca2cac59ec35a24f469dcc
 
 include $(INCLUDE_DIR)/package.mk
 

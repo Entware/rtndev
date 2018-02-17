@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=cloudprint-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/c/cloudprint
-PKG_MD5SUM:=2c2aff2573125147a143a4e3a927c90d
+PKG_HASH:=3b81246d675e0c13fffada7386e6f91e826cb374b57df662f2df72b9fedad237
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/cloudprint-$(PKG_VERSION)
 

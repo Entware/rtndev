@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=oauth-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/o/oauth
-PKG_MD5SUM:=30ed3cc8c11d7841a89feab437aabf81
+PKG_HASH:=e769819ff0b0c043d020246ce1defcaadd65b9c21d244468a45a7f06cb88af5d
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/oauth-$(PKG_VERSION)
 

@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).txz
 PKG_SOURCE_URL:=http://luke.dashjr.org/programs/bitcoin/files/$(PKG_NAME)/$(PKG_VERSION)
-PKG_MD5SUM:=756daab8d1d9da47c984ed49f9c9a8c8
+PKG_HASH:=7030632a08cfc5a3fdca485fd8d7213d8f41560134c54d356426b974d91ce01a
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -23,13 +23,14 @@ include $(INCLUDE_DIR)/package.mk
 define Download/uthash
 	FILE:=v1.9.8
 	URL:=https://codeload.github.com/troydhanson/uthash/tar.gz/
+	HASH:=d9d123ce81c5d127442876fc3b12fab3ad632bee6aca685be7d461c08e24c046
 endef
 $(eval $(call Download,uthash))
 
 define Package/bfgminer
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS=+jansson +libcurl +libevent2 +libncursesw +libusb-1.0 +USE_GLIBC:libudev-fbsd
+	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +USE_GLIBC:libudev-fbsd
 	TITLE:=modular ASIC/FPGA Bitcoin miner
 	URL:=http://bfgminer.org/
 	MAINTAINER:=Entware team, http://entware.net

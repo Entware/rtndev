@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://entware.dyndns.info/sources
-PKG_MD5SUM:=4ccc9370fa28f87dac45f470bda498d7
+PKG_HASH:=bc11d81fe0eb21dea3ed673a0f968e3b4ada30b6b8e760a4ed0fbf4856e1d442
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-0.4
 

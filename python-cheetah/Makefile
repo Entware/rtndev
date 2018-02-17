@@ -14,7 +14,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=Cheetah-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://pypi.python.org/packages/source/C/Cheetah
-PKG_MD5SUM:=53917116e731afbc8c8a43c37e6ddba
+PKG_HASH:=be308229f0c1e5e5af4f27d7ee06d90bb19e6af3059794e5fd536a6f29a9b550
 PKG_BUILD_DEPENDS:=python
 PKG_BUILD_DIR:=$(BUILD_DIR)/Cheetah-$(PKG_VERSION)
 

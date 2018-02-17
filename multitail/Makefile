@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://www.vanheusden.com/multitail
-PKG_MD5SUM:=a0959f7b2385061080712afd8ae6e33d
+PKG_HASH:=af1d5458a78ad3b747c5eeb135b19bdca281ce414cefdc6ea0cff6d913caa1fd
 
 include $(INCLUDE_DIR)/package.mk
 

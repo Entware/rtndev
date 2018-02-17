@@ -13,7 +13,7 @@ PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://pypi.python.org/packages/source/w/weave-minimal
-PKG_MD5SUM:=82309b0354bebfd07f6ecb2a75bb5a97
+PKG_HASH:=6799fe276ed8e2abdd7ea5eade9a72b13fd5e2cabe818ad530fc115852f78d22
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk

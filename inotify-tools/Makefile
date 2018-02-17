@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/downloads/rvoicilas/inotify-tools
-PKG_MD5SUM:=b43d95a0fa8c45f8bab3aec9672cf30c
+PKG_HASH:=222bcca8893d7bf8a1ce207fb39ceead5233b5015623d099392e95197676c92f
 
 PKG_INSTALL:=1
 

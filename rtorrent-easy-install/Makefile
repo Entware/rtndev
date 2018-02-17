@@ -18,8 +18,7 @@ define Package/rtorrent-easy-install
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
 	DEPENDS:=+rutorrent-plugin-rpc +screen +php7-cgi \
-	    +lighttpd-mod-fastcgi +lighttpd-mod-scgi +lighttpd-mod-auth \
-	    +lighttpd-mod-authn_file
+	    +lighttpd-mod-fastcgi +lighttpd-mod-scgi +lighttpd-mod-auth
 	TITLE:=Easy installation script for rtorrent with web UI
 	URL:=http://github.com/abhinavseewoosungkur/scripts/blob/develop/rutorrent-entware.sh
 	MAINTAINER:=Entware team, http://entware.net

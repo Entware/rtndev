@@ -13,6 +13,7 @@ PKG_REV:=3f13a00be942b42cb99b84a0375f0b3c01ce0560
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_MIRROR_HASH:=3073430485958d6c5fb01444a0057b7dfec4ea8d4cf4a3d60a61427d9e088fac
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/cfpp2p/transmission.git
 PKG_SOURCE_PROTO:=git
@@ -35,19 +36,19 @@ endef
 define Package/transmission-cfp-daemon
 $(call Package/transmission-cfp/Default)
   TITLE+= (daemon)
-  DEPENDS:=+libcurl +libevent2 +zlib
+  DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/transmission-cfp-cli
 $(call Package/transmission-cfp/Default)
   TITLE+= (cli)
-  DEPENDS:=+libcurl +libevent2 +zlib
+  DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/transmission-cfp-remote
 $(call Package/transmission-cfp/Default)
   TITLE+= (remote control utility)
-  DEPENDS:=+libcurl +libevent2 +zlib
+  DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/transmission-cfp-web
@@ -78,6 +79,7 @@ endef
 define Download/transmission-cfp-web-client
   FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
   URL:=$(PKG_SOURCE_URL)
+  MIRROR_HASH:=ebfa8daf169b418e619160a14c18e514cf099aaf9834d62ecac39b79391ce42b
   PROTO:=git
   VERSION:=2687e2447574a9c8390bbbab7ec3fc7b4ff55c1f
   SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)

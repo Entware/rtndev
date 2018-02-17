@@ -13,7 +13,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://projects.duckcorp.org/attachments/download/61
-PKG_MD5SUM:=04158ad020db221ed87cdc03660ef6c9
+PKG_HASH:=3c950f71ef91c8b686e6835f9b722aa7ccb88d3da4ec1af19617354fd3132461
 
 PKG_INSTALL:=1
 

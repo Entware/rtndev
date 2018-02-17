@@ -7,4 +7,3 @@
 +#include <stdint.h>
  
  #if BX_NETWORKING && BX_NETMOD_SLIRP
- 

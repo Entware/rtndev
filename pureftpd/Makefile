@@ -13,6 +13,7 @@ PKG_REV:=f169d2016707e7991d4c85be92afcf26d84a0135
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_MIRROR_HASH:=e068e095a3363b4e7e3cd30914de063b88a8c4f690dfae06e5ab5bf3b31c452e
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jedisct1/pure-ftpd.git
 PKG_SOURCE_PROTO:=git
@@ -28,7 +29,7 @@ define Package/pureftpd
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libsodium +libopenssl +libmariadb
+	DEPENDS:=+libsodium +libopenssl
 	TITLE:=Pure FTP server
 	URL:=http://www.pureftpd.org/
 	MAINTAINER:=Entware team, http://entware.net

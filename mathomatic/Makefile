@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=mathomatic-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/mfillpot/mathomatic/archive
-PKG_MD5SUM:=ad09ed7e16b17d40b57121373f9d9381
+PKG_HASH:=d93fe35914dbbafa0e67000480268d7ca3e4de773b70f4130a6b3f4fbb20fae2
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_NAME)-$(PKG_VERSION)
 

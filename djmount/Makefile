@@ -14,7 +14,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)/$(PKG_NAME)/$(PKG_VERSION)
-PKG_MD5SUM:=c922753e706c194bf82a8b6ca77e6a9a
+PKG_HASH:=aa5bb482af4cbd42695a7e396043d47b53d075ac2f6aa18a8f8e11383c030e4f
 
 PKG_INSTALL:=1
 
@@ -25,7 +25,7 @@ define Package/djmount
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libupnp +libfuse $(ICONV_DEPENDS) $(INTL_DEPENDS) #+libtalloc
+	DEPENDS:=+libupnp +libfuse $(ICONV_DEPENDS) $(INTL_DEPENDS) +libtalloc
 	TITLE:=mount MediaServers content as a Linux filesystem
 	URL:=http://djmount.sourceforge.net
 	MAINTAINER:=Entware team, http://entware.net

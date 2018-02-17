@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://inotify.aiken.cz/download/incron/
-PKG_MD5SUM:=67f8b671db8169edccc8ef11c7d2c8be
+PKG_HASH:=5d4abadb5f16c26e4f728a6433ad22f7655663b5812fbd4f94e852050f38e78a
 
 include $(INCLUDE_DIR)/package.mk
 

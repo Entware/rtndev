@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/adrianlopezroche/fdupes/archive/v$(PKG_VERSION)
-PKG_MD5SUM:=4fc41681fb506e518a40d610fec50aea
+PKG_HASH:=abcf2b0013f8de4cdc10e73aa3f61f6a63fa8186ef63436361b20fdc9f610a52
 
 include $(INCLUDE_DIR)/package.mk
 

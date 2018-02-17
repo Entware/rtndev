@@ -14,7 +14,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/l/loadwatch/
-PKG_MD5SUM:=43f6bb2888de5f74e29e6409d115e19a
+PKG_HASH:=2a2044346ed980b4eed971494e7a9c088e8473daf0f153db8e4469e2d9a072a9
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

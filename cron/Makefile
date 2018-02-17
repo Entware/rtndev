@@ -14,7 +14,7 @@ PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).shar
 PKG_SOURCE_URL:=ftp://ftp.isc.org/isc/cron
-PKG_MD5SUM:=5e1be9dbde66295821ac7899f2e1f561
+PKG_HASH:=c445837756fb988f2c95db8dc55d7937d14bca0cdfa292de81322ca2556ec39a
 
 include $(INCLUDE_DIR)/package.mk
 

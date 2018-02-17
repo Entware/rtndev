@@ -25,7 +25,7 @@ define Package/asuswrt-opt
 		+findutils +terminfo +locales
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, http://entware.net
-	CONFLICTS:=opt-ndmsv2 entware-opt
+	CONFLICTS:=opt-ndmsv2
 endef
 
 define Package/asuswrt-opt/description

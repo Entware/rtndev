@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=xawtv-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://linuxtv.org/downloads/xawtv
-PKG_MD5SUM:=18822bb3660540fa9ea8b643a5b30d6b
+PKG_HASH:=2cf3a91b5d59a094bd86e101684a65c0e3d09225c11a787e060fa01bfbc8dd52
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

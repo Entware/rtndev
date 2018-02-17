@@ -16,7 +16,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.ghostscript.com/public/old-gs-releases
-PKG_MD5SUM:=829319325bbdb83f5c81379a8f86f38f
+PKG_HASH:=746d77280cca8afdd3d4c2c1389e332ed9b0605bd107bcaae1d761b061d1a68d
 
 PKG_BUILD_DEPENDS:=ghostscript/host
 PKG_INSTALL:=1

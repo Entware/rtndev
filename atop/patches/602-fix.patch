@@ -1,0 +1,220 @@
+--- a/45atoppm
++++ b/45atoppm
+@@ -1,10 +1,10 @@
+ #!/bin/sh
+ 
+-. "${PM_FUNCTIONS}"
++. /opt/etc/init.d/rc.func
+ 
+-LOGPATH=/var/log/atop
+-BINPATH=/usr/bin
+-PIDFILE=/var/run/atop.pid
++LOGPATH=/opt/var/log/atop
++BINPATH=/opt/bin
++PIDFILE=/opt/var/run/atop.pid
+ INTERVAL=600		# interval 10 minutes
+ CURDAY=`date +%Y%m%d`	# current date in same format
+ 
+--- a/atop.daily
++++ b/atop.daily
+@@ -1,20 +1,20 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ CURDAY=`date +%Y%m%d`
+-LOGPATH=/var/log/atop
+-BINPATH=/usr/bin
+-PIDFILE=/var/run/atop.pid
++LOGPATH=/opt/var/log/atop
++BINPATH=/opt/bin
++PIDFILE=/opt/var/run/atop.pid
+ INTERVAL=600				# interval 10 minutes
+ 
+ # verify if atop still runs for daily logging
+ #
+-if [ -e $PIDFILE ] && ps -p `cat $PIDFILE` | grep 'atop$' > /dev/null
++if [ -e $PIDFILE ] && ps `cat $PIDFILE` | grep 'atop$' > /dev/null
+ then
+ 	kill -USR2 `cat $PIDFILE`       # final sample and terminate
+ 
+ 	CNT=0
+ 
+-	while ps -p `cat $PIDFILE` > /dev/null
++	while ps `cat $PIDFILE` > /dev/null
+ 	do
+ 		let CNT+=1
+ 
+--- a/atop.init
++++ b/atop.init
+@@ -16,9 +16,9 @@
+ ### END INIT INFO
+ 
+ # Check existance of binaries 
+-[ -f /usr/bin/atop ] || exit 0
++[ -f /opt/bin/atop ] || exit 0
+ 
+-PIDFILE=/var/run/atop.pid
++PIDFILE=/opt/var/run/atop.pid
+ RETVAL=0
+ 
+ # See how we were called.
+@@ -26,26 +26,26 @@
+   start)
+ 	# Check if atop runs already
+ 	#
+-	if [ -e $PIDFILE ] && ps -p `cat $PIDFILE` | grep 'atop$' > /dev/null
++	if [ -e $PIDFILE ] && ps `cat $PIDFILE` | grep 'atop$' > /dev/null
+ 	then
+ 		:
+ 	else
+ 		# Start atop
+-		/usr/share/atop/atop.daily&
++		/opt/share/atop/atop.daily&
+ 	fi
+-	touch /var/lock/subsys/atop
++	touch /opt/var/lock/subsys/atop
+ 	;;
+ 
+   stop)
+ 	# Check if atop runs
+ 	#
+-	if [ -e $PIDFILE ] && ps -p `cat $PIDFILE` | grep 'atop$' > /dev/null
++	if [ -e $PIDFILE ] && ps `cat $PIDFILE` | grep 'atop$' > /dev/null
+ 	then
+ 		kill -USR2 `cat $PIDFILE`	# final sample and terminate
+ 
+ 		CNT=0
+ 
+-		while ps -p `cat $PIDFILE` > /dev/null
++		while ps `cat $PIDFILE` > /dev/null
+ 		do
+ 			let CNT+=1
+ 
+@@ -59,18 +59,18 @@
+ 
+ 		rm $PIDFILE
+ 	fi
+-	rm /var/lock/subsys/atop
++	rm /opt/var/lock/subsys/atop
+ 	;;
+ 
+   status)
+ 	;;
+ 
+   reload)
+-	/usr/share/atop/atop.daily&
++	/opt/share/atop/atop.daily&
+ 	;;
+ 
+   restart)
+-	/usr/share/atop/atop.daily&
++	/opt/share/atop/atop.daily&
+ 	;;
+ 
+   *)
+--- a/atopacct.init
++++ b/atopacct.init
+@@ -18,7 +18,7 @@
+ ### END INIT INFO
+ 
+ # Check existance of binaries 
+-[ -f /usr/sbin/atopacctd ] || exit 0
++[ -f /opt/sbin/atopacctd ] || exit 0
+ 
+ RETVAL=0
+ 
+@@ -27,7 +27,7 @@
+   start)
+ 	# Check if process accounting already in use via psacct
+ 	#
+-	for PACCTFILE in /var/account/pacct /var/log/pacct
++	for PACCTFILE in /opt/var/account/pacct /opt/var/log/pacct
+ 	do
+ 		if [ -f "$PACCTFILE" ]	# file exists?
+ 		then
+@@ -52,11 +52,11 @@
+ 		:
+ 	else
+ 		# Start atopacctd
+-		rm -rf /var/run/pacct_shadow.d 2> /dev/null
+-		/usr/sbin/atopacctd
++		rm -rf /opt/var/run/pacct_shadow.d 2> /dev/null
++		/opt/sbin/atopacctd
+ 	fi
+ 
+-	touch /var/lock/subsys/atopacctd
++	touch /opt/var/lock/subsys/atopacctd
+ 	;;
+ 
+   stop)
+@@ -66,7 +66,7 @@
+ 	then
+ 		kill $(ps -e | grep atopacctd$ | sed 's/^ *//' | cut -d' ' -f1)
+ 	fi
+-	rm /var/lock/subsys/atopacctd
++	rm /opt/var/lock/subsys/atopacctd
+ 	;;
+ 
+   status)
+--- a/psaccs_atop
++++ b/psaccs_atop
+@@ -1,5 +1,5 @@
+ # Logrotate file to take action before psacct is rotated
+-/var/log/atop/dummy_before {
++/opt/var/log/atop/dummy_before {
+     missingok
+     daily
+     rotate 0
+@@ -8,11 +8,11 @@
+     postrotate
+ 	# check if process accounting is installed
+ 	#
+-	if [ -e /etc/logrotate.d/psacct ]
++	if [ -e /opt/etc/logrotate.d/psacct ]
+ 	then
+ 	    # check if process accounting is actually in use
+ 	    #
+-	    ACCTFILE=`awk '$2 == "{" {print $1}' /etc/logrotate.d/psacct`
++	    ACCTFILE=`awk '$2 == "{" {print $1}' /opt/etc/logrotate.d/psacct`
+ 
+ 	    if [ -f "$ACCTFILE" ]
+ 	    then
+@@ -24,7 +24,7 @@
+ 	            # stop atop daemon before accounting file
+ 	            # is rotated
+ 	            #
+-	            PIDFILE=/var/run/atop.pid
++	            PIDFILE=/opt/var/run/atop.pid
+ 
+ 	            if [ -e $PIDFILE ] && \
+ 	                   ps -p `cat $PIDFILE` | grep 'atop$' > /dev/null
+--- a/psaccu_atop
++++ b/psaccu_atop
+@@ -1,23 +1,23 @@
+ # Logrotate file to take action after psacct is rotated
+-/var/log/atop/dummy_after {
++/opt/var/log/atop/dummy_after {
+     missingok
+     daily
+     rotate 0
+     ifempty
+     create 0600 root root
+     postrotate
+-	if [ -e /etc/logrotate.d/psacct ]
++	if [ -e /opt/etc/logrotate.d/psacct ]
+ 	then
+ 	    # if the atop daemon does not run, restart it after
+ 	    # accounting file is rotated
+-	    PIDFILE=/var/run/atop.pid
++	    PIDFILE=/opt/var/run/atop.pid
+ 
+ 	    if [ -e $PIDFILE ] && \
+ 			ps -p `cat $PIDFILE` | grep 'atop$' > /dev/null
+ 	    then
+ 	        :
+ 	    else
+-	        /usr/share/atop/atop.daily&
++	        /opt/share/atop/atop.daily&
+ 	    fi
+ 	fi
+     endscript

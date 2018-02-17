@@ -15,7 +15,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.pagure.org/liberation-fonts
-PKG_MD5SUM:=5c781723a0d9ed6188960defba8e91cf
+PKG_HASH:=7890278a6cd17873c57d9cd785c2d230d9abdea837e96516019c5885dd271504
 
 include $(INCLUDE_DIR)/package.mk
 

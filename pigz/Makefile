@@ -22,7 +22,7 @@ define Package/pigz
   CATEGORY:=Utilities
   SUBMENU:=Compression
   TITLE:=pigz is a parallel implementation of gzip
-  DEPENDS+=zlib
+  DEPENDS+=zlib +USE_UCLIBC:librt
   URL:=http://zlib.net/pigz/
   MAINTAINER:=Entware team, http://entware.net
 endef

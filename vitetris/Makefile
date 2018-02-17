@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.victornils.net/tetris
-PKG_MD5SUM:=07d02ee03e2edd66a8741729e237f21f
+PKG_HASH:=0c9fa6c8b16e2f8968f65e16a87f1bcd39b827d510c6efb0771f0400ab91cdc2
 
 include $(INCLUDE_DIR)/package.mk
 
