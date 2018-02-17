@@ -8,13 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=inotify-tools
-PKG_VERSION:=3.14
+PKG_VERSION:=3.20.1
 PKG_RELEASE:=1
+PKG_REV:=e203934e46784bb34c213078423ba1678e0c4936
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/downloads/rvoicilas/inotify-tools
-PKG_HASH:=222bcca8893d7bf8a1ce207fb39ceead5233b5015623d099392e95197676c92f
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/rvoicilas/inotify-tools.git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
