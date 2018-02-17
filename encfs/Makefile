@@ -26,7 +26,7 @@ define Package/encfs
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+libopenssl +libstdcpp +fuse-utils  +libatomic $(INTL_DEPENDS)
+	DEPENDS:=+libopenssl +libstdcpp +fuse-utils +libatomic $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=encrypted filesystem in user-space
 	URL:=http://www.arg0.net/#!encfs/c1awt
 	MAINTAINER:=Entware team, http://entware.net
