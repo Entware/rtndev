@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017
+# Copyright (C) 2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
-PKG_VERSION:=2.7.6.1
+PKG_VERSION:=2.8.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/man-db/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_HASH:=08edbc52f24aca3eebac429b5444efd48b9b90b9b84ca0ed5507e5c13ed10f3f
+PKG_HASH:=a6aec641ca3d9942b054cc0e9c3f05cb46a3a992bc0006795755e2fed1357f3e
 
 PKG_LICENSE:=GPL, LGPL
 
