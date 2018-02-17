@@ -13,7 +13,6 @@ PKG_REV:=f4a44ca651a0b8235ce0810591319a3d115b3575
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_MIRROR_HASH:=8b77588b1045450c398775913c3e9a5205235a90d9920ba2d791c178ae277360
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/cfpp2p/transmission.git
 PKG_SOURCE_PROTO:=git
@@ -79,7 +78,6 @@ endef
 define Download/transmission-cfp-web-client
   FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
   URL:=$(PKG_SOURCE_URL)
-  MIRROR_HASH:=6a13b38a51bef0d9650b06d980f97d6017e43d440732ba4361ade65103c66ceb
   PROTO:=git
   VERSION:=2687e2447574a9c8390bbbab7ec3fc7b4ff55c1f
   SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)
