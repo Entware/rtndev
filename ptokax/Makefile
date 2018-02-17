@@ -24,7 +24,7 @@ define Package/ptokax
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=P2P
-	DEPENDS:=+liblua +libpthread +zlib +libstdcpp +librt $(ICONV_DEPENDS)
+	DEPENDS:=+liblua +libpthread +zlib +libstdcpp +librt $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=DC hub
 	URL:=http://www.czdc.org/PtokaX/
 	MAINTAINER:=Entware team, http://entware.net
