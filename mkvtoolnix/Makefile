@@ -4,18 +4,16 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 15.0.0 raises following error:
-# mkvmerge.cpp:(.text+0x294): undefined reference to `mtx::args::parse_split_parts(std::string const&, bool)'
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=19.0.0
+PKG_VERSION:=20.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_HASH:=4b4af84cfdf3062f8ca4ab3c37854be7cd9a71bcf5c46b8ca805a101d414b6a1
+PKG_HASH:=6f4b86a16af1f979ce2e83e64223b1bb8635ac8f81863d8ce46014a82c8bf500
 
 PKG_BUILD_DEPENDS:=ruby/host
 
