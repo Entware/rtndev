@@ -112,3 +112,14 @@ diff -Naur cryfs-0.9.7.orig/test/cryfs/config/CompatibilityTest.cpp cryfs-0.9.7/
  #include <cpp-utils/crypto/symmetric/ciphers.h>
  #include <cpp-utils/tempfile/TempFile.h>
  #include <cryfs/config/CryConfigFile.h>
+--- a/src/cpp-utils/crypto/cryptopp_byte.h
++++ b/src/cpp-utils/crypto/cryptopp_byte.h
+@@ -2,7 +2,7 @@
+ #ifndef _CPPUTILS_CRYPTO_CRYPTOPP_BYTE_H
+ #define _CPPUTILS_CRYPTO_CRYPTOPP_BYTE_H
+ 
+-#include <cryptopp/cryptlib.h>
++#include <crypto++/cryptlib.h>
+ 
+ // If we're running an older CryptoPP version, CryptoPP::byte isn't defined yet.
+ // Define it. Refer to "byte" type in the global namespace (placed by CryptoPP).
