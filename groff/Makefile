@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017
+# Copyright (C) 2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -25,7 +25,7 @@ define Package/groff
   CATEGORY:=Utilities
   TITLE:=GNU troff text-formatting system
   URL:=https://www.gnu.org/software/groff/
-  DEPENDS:= +libstdcpp
+  DEPENDS:= +libstdcpp $(ICONV_DEPENDS) $(INTL_DEPENDS)
   MAINTAINER:=Entware team, http://entware.net
 endef
 
@@ -45,10 +45,8 @@ endef
 
 define Package/groff/install
 	$(INSTALL_DIR) $(1)/opt/{bin,lib,share}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/groff $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/{g,n,t}roff $(1)/opt/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/grotty $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/nroff $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/troff $(1)/opt/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/tbl $(1)/opt/bin/
 	$(CP) $(PKG_INSTALL_DIR)/opt/{lib,share} $(1)/opt/
 	$(CP) $(PKG_INSTALL_DIR)/opt/{info,man} $(1)/opt/share/
