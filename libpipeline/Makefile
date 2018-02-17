@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017
+# Copyright (C) 2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libpipeline
-PKG_VERSION:=1.4.2
+PKG_VERSION:=1.5.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/libpipeline/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=fef1fc9aa40ce8796f18cd1aecd888a9484a9556c8b0f8d07c863578277679be
+PKG_HASH:=0d72e12e4f2afff67fd7b9df0a24d7ba42b5a7c9211ac5b3dcccc5cd8b286f2b
 
 PKG_LICENSE:=GPL-3.0+
 
