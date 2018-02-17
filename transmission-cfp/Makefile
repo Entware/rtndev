@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 Entware
+# Copyright (C) 2017-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=transmission-cfp
-PKG_VERSION:=2.77plus-20170802
-PKG_REV:=3f13a00be942b42cb99b84a0375f0b3c01ce0560
+PKG_VERSION:=2.77plus-20180127
+PKG_REV:=f4a44ca651a0b8235ce0810591319a3d115b3575
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_MIRROR_HASH:=3073430485958d6c5fb01444a0057b7dfec4ea8d4cf4a3d60a61427d9e088fac
+PKG_MIRROR_HASH:=8b77588b1045450c398775913c3e9a5205235a90d9920ba2d791c178ae277360
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/cfpp2p/transmission.git
 PKG_SOURCE_PROTO:=git
@@ -79,7 +79,7 @@ endef
 define Download/transmission-cfp-web-client
   FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
   URL:=$(PKG_SOURCE_URL)
-  MIRROR_HASH:=ebfa8daf169b418e619160a14c18e514cf099aaf9834d62ecac39b79391ce42b
+  MIRROR_HASH:=6a13b38a51bef0d9650b06d980f97d6017e43d440732ba4361ade65103c66ceb
   PROTO:=git
   VERSION:=2687e2447574a9c8390bbbab7ec3fc7b4ff55c1f
   SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)
