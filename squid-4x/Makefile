@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017
+# Copyright (C) 2017-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=squid-4x
-PKG_VERSION:=4.0.21
+PKG_VERSION:=4.0.23
 PKG_RELEASE:=1
 
 PKG_LICENSE:=GPL-2.0
 
 PKG_SOURCE:=squid-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://www.squid-cache.org/Versions/v4/
-PKG_HASH:=154d8ebdfdd004f113899b71325dcc401cf07ad8736701032d531c7af1908e33
+PKG_HASH:=18b71a601f60f49ca0cfc7d1d212dc935112d61008ab8a689fceab3ef4070f29
 PKG_BUILD_DIR:=$(BUILD_DIR)/squid-$(PKG_VERSION)
 
 PKG_BUILD_PARALLEL:=1
