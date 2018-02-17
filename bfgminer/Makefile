@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bfgminer
-PKG_VERSION:=5.4.2
+PKG_VERSION:=5.5.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).txz
 PKG_SOURCE_URL:=http://luke.dashjr.org/programs/bitcoin/files/$(PKG_NAME)/$(PKG_VERSION)
-PKG_HASH:=7030632a08cfc5a3fdca485fd8d7213d8f41560134c54d356426b974d91ce01a
+PKG_HASH:=ac254da9a40db375cb25cacdd2f84f95ffd7f442e31d2b9a7f357a48d32cc681
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -21,16 +21,17 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Download/uthash
-	FILE:=v1.9.8
+	FILE:=v2.0.2
 	URL:=https://codeload.github.com/troydhanson/uthash/tar.gz/
-	HASH:=d9d123ce81c5d127442876fc3b12fab3ad632bee6aca685be7d461c08e24c046
+	HASH:=34a31d51dd7a839819cecd6f46049b4ffe031d7f3147d9a042f5504fdb1348d1
 endef
 $(eval $(call Download,uthash))
 
 define Package/bfgminer
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +USE_GLIBC:libudev-fbsd
+	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +USE_GLIBC:libudev-fbsd \
+		+libevent2-pthreads
 	TITLE:=modular ASIC/FPGA Bitcoin miner
 	URL:=http://bfgminer.org/
 	MAINTAINER:=Entware team, http://entware.net
@@ -42,7 +43,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	gzip -dc $(DL_DIR)/v1.9.8 | $(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+	gzip -dc $(DL_DIR)/v2.0.2 | $(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 endef
 
 CONFIGURE_ARGS += \
@@ -59,7 +60,7 @@ CONFIGURE_ARGS += \
 
 TARGET_CFLAGS += \
 	-std=gnu99 \
-	-Iuthash-1.9.8/src
+	-Iuthash-2.0.2/src
 
 define Package/bfgminer/install
 	$(INSTALL_DIR) $(1)/opt/bin
