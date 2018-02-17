@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-20182 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -13,7 +13,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-release
 PKG_VERSION:=1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -31,16 +31,6 @@ endef
 define Build/Prepare
 endef
 
-define Build/Configure
-endef
-
-define Build/Compile
-endef
-
-define Package/entware-release/install
-	$(INSTALL_DIR) $(1)/opt/etc/
-endef
-
 CPU=$(if $(CONFIG_CPU_TYPE),$(CONFIG_CPU_TYPE),unknown)
 CPUSUBTYPE=$(if $(CONFIG_CPU_SUBTYPE),$(CONFIG_CPU_SUBTYPE),unknown)
 FLOAT=$(if $(CONFIG_SOFT_FLOAT),soft,hard)
@@ -56,19 +46,24 @@ endif
 
 LIBCTYPE=$(if $(CONFIG_LIBC_USE_GLIBC),glibc,uclibc-ng)
 
+define Build/Configure
+	echo "release=entware-3x" > $(PKG_BUILD_DIR)/entware_release
+	echo "arch=$(ARCH)" >> $(PKG_BUILD_DIR)/entware_release
+	echo "cpu=$(call qstrip,$(CPU))" >> $(PKG_BUILD_DIR)/entware_release
+	echo "cpu_subtype=$(CPUSUBTYPE)" >> $(PKG_BUILD_DIR)/entware_release
+	echo "float=$(FLOAT)" >> $(PKG_BUILD_DIR)/entware_release
+	echo "gcc=$(call qstrip,$(CONFIG_GCC_VERSION))" >> $(PKG_BUILD_DIR)/entware_release
+	echo "gcc_flags=$(ENVCFLAGS)" >> $(PKG_BUILD_DIR)/entware_release
+	echo "libc=$(LIBCTYPE)" >> $(PKG_BUILD_DIR)/entware_release
+	echo "libc_version=$(call qstrip,$(CONFIG_GLIBC_VERSION))" >> $(PKG_BUILD_DIR)/entware_release
+endef
 
+define Build/Compile
+endef
 
-define Package/entware-release/postinst
-#!/bin/sh
-echo "release=entware-3x" > /opt/etc/entware_release
-echo "arch=$(ARCH)" >> /opt/etc/entware_release
-echo "cpu=$(call qstrip,$(CPU))" >> /opt/etc/entware_release
-echo "cpu_subtype=$(CPUSUBTYPE)" >> /opt/etc/entware_release
-echo "float=$(FLOAT)" >> /opt/etc/entware_release
-echo "gcc=$(call qstrip,$(CONFIG_GCC_VERSION))" >> /opt/etc/entware_release
-echo "gcc_flags=$(ENVCFLAGS)" >> /opt/etc/entware_release
-echo "libc=$(LIBCTYPE)" >> /opt/etc/entware_release
-echo "libc_version=$(call qstrip,$(CONFIG_GLIBC_VERSION))" >> /opt/etc/entware_release
+define Package/entware-release/install
+	$(INSTALL_DIR) $(1)/opt/etc/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/entware_release $(1)/opt/etc/
 endef
 
 $(eval $(call BuildPackage,entware-release))
