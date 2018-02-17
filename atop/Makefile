@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017
+# Copyright (C) 2017 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -13,10 +13,10 @@ PKG_RELEASE:=1a
 
 PKG_SOURCE_URL:=http://www.atoptool.nl/download
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_VERSION:=$(PKG_VERSION)
 PKG_HASH:=73e4725de0bafac8c63b032e8479e2305e3962afbe977ec1abd45f9e104eb264
 
-PKG_LICENSE:=GPL
+PKG_LICENSE:=GPL-2.0+
+PKG_LICENSE_FILES:=COPYING
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -30,14 +30,17 @@ define Package/atop
 endef
 
 define Package/atop/description
- Atop is an ASCII full-screen performance monitor for Linux
-endef
-
-define Build/Compile
-	$(MAKE) TARGET=$(LINUX_TARGET) -C $(PKG_BUILD_DIR) \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		CC="$(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_LDFLAGS)" \
-		all
+  Atop is an ASCII full-screen performance monitor for Linux
+  that is capable of reporting the activity of all processes
+  (even if processes have finished during the interval),
+  daily logging of system and process activity for long-term
+  analysis, highlighting overloaded system resources by
+  using colors, etc. At regular intervals, it shows
+  system-level activity related to the CPU, memory, swap,
+  disks (including LVM) and network layers, and for every
+  process (and thread) it shows e.g. the CPU utilization,
+  memory growth, disk utilization, priority, username,
+  state, and exit code.
 endef
 
 define Package/atop/install
