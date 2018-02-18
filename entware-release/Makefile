@@ -31,7 +31,7 @@ endef
 define Build/Prepare
 endef
 
-CPU=$(if $(CONFIG_CPU_TYPE),$(CONFIG_CPU_TYPE),unknown)
+CPUTYPE=$(if $(CONFIG_CPU_TYPE),$(CONFIG_CPU_TYPE),unknown)
 CPUSUBTYPE=$(if $(CONFIG_CPU_SUBTYPE),$(CONFIG_CPU_SUBTYPE),unknown)
 FLOAT=$(if $(CONFIG_SOFT_FLOAT),soft,hard)
 
@@ -49,7 +49,7 @@ LIBCTYPE=$(if $(CONFIG_LIBC_USE_GLIBC),glibc,uclibc-ng)
 define Build/Configure
 	echo "release=entware-3x" > $(PKG_BUILD_DIR)/entware_release
 	echo "arch=$(ARCH)" >> $(PKG_BUILD_DIR)/entware_release
-	echo "cpu=$(call qstrip,$(CPU))" >> $(PKG_BUILD_DIR)/entware_release
+	echo "cpu=$(CPUTYPE)" >> $(PKG_BUILD_DIR)/entware_release
 	echo "cpu_subtype=$(CPUSUBTYPE)" >> $(PKG_BUILD_DIR)/entware_release
 	echo "float=$(FLOAT)" >> $(PKG_BUILD_DIR)/entware_release
 	echo "gcc=$(call qstrip,$(CONFIG_GCC_VERSION))" >> $(PKG_BUILD_DIR)/entware_release

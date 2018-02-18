@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=sstsrc.zip
 PKG_SOURCE_URL:=http://www.almy.us/files
-PKG_HASH:=1e0eddecbd0c47b9a3312d846fa3363a090b639f83cbfe9bd4a148685631efab
+#PKG_HASH:=1e0eddecbd0c47b9a3312d846fa3363a090b639f83cbfe9bd4a148685631efab
 
 PKG_UNPACK:=unzip -j $(DL_DIR)/$(PKG_SOURCE) sstsrc/* -d $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
