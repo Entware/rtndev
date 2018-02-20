@@ -8,8 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-opt
-PKG_VERSION:=3.0
-PKG_RELEASE:=4
+# for historical reasons the first version was 222107 - that is glibc 2.22 & uclibc-ng 1.07
+# we keep this numbering to upgrade package if needed.
+# current version is 227000 - that is glibc 2.27 (or smaller) and no uclibc-ng
+PKG_VERSION:=227000
+PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -19,7 +22,7 @@ define Package/entware-opt
 	DEPENDS:=+libc +libgcc +libstdcpp +libpthread +librt \
 		+entware-release \
 		+zoneinfo-asia +zoneinfo-europe \
-		+findutils +terminfo +locales \
+		+findutils +terminfo +locales +opkg \
 		+entware-upgrade
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, http://entware.net
