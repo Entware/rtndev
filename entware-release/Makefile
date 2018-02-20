@@ -20,8 +20,9 @@ include $(INCLUDE_DIR)/package.mk
 define Package/entware-release
 	SECTION:=base
 	CATEGORY:=Base system
-	TITLE:=Entware relese information
+	TITLE:=Entware release information
 	MAINTAINER:=Entware team, http://entware.net
+	PKGARCH:=all
 endef
 
 define Package/entware-release/description

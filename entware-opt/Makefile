@@ -8,21 +8,23 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-opt
-PKG_VERSION:=1.0
+PKG_VERSION:=3.0
 PKG_RELEASE:=4
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/entware-opt
-	SECTION:=libs
-	CATEGORY:=Libraries
+	SECTION:=base
+	CATEGORY:=Base system
 	DEPENDS:=+libc +libgcc +libstdcpp +libpthread +librt \
-		+busybox \
+		+entware-release \
 		+zoneinfo-asia +zoneinfo-europe \
-		+findutils +terminfo +locales
+		+findutils +terminfo +locales \
+		+entware-upgrade
 	TITLE:=provides basic toolchain libraries (dummy)
 	MAINTAINER:=Entware team, http://entware.net
-	CONFLICTS:=opt-ndmsv2 asuswrt-opt
+	CONFLICTS:=opt-ndmsv2
+	PKGARCH:=all
 endef
 
 define Package/entware-opt/description
