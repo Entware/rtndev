@@ -48,7 +48,7 @@ endif
 LIBCTYPE=$(if $(CONFIG_LIBC_USE_GLIBC),glibc,uclibc-ng)
 
 define Build/Configure
-	echo "release=entware-3x" > $(PKG_BUILD_DIR)/entware_release
+	echo "release=entware" > $(PKG_BUILD_DIR)/entware_release
 	echo "arch=$(ARCH)" >> $(PKG_BUILD_DIR)/entware_release
 	echo "cpu=$(CPUTYPE)" >> $(PKG_BUILD_DIR)/entware_release
 	echo "cpu_subtype=$(CPUSUBTYPE)" >> $(PKG_BUILD_DIR)/entware_release
