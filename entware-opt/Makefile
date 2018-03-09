@@ -12,7 +12,7 @@ PKG_NAME:=entware-opt
 # we keep this numbering to upgrade package if needed.
 # current version is 227000 - that is glibc 2.27 (or smaller) and no uclibc-ng
 PKG_VERSION:=227000
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -49,7 +49,7 @@ define Package/entware-opt/install
 	$(INSTALL_BIN) ./files/profile $(1)/opt/etc/
 	$(INSTALL_DATA) ./files/rc.func $(1)/opt/etc/init.d/
 	touch $(1)/opt/etc/ld.so.conf
-	$(INSTALL_DATA) ./files/{shells.1,passwd.1,group.1,screenrc} $(1)/opt/etc
+	$(INSTALL_DATA) ./files/{shells.1,passwd.1,group.1} $(1)/opt/etc
 	$(INSTALL_DIR) $(1)/opt/home $(1)/opt/root $(1)/opt/etc/skel
 	$(INSTALL_DATA) ./files/.profile $(1)/opt/etc/skel
 	$(INSTALL_DATA) ./files/.profile $(1)/opt/root
