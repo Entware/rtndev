@@ -4,7 +4,23 @@
 # terminal session. Point your f\w (if necessery) to execute /opt/etc/profile
 # at console logon.
 
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/bin:/opt/sbin
+is_substring(){
+    case "$2" in
+        *$1*) return 0;;
+        *) return 1;;
+    esac
+}
+
+# Set CHECK_OPT_PATH to 1 to check /opt/bin and /opt/sbin in PATH
+CHECK_OPT_PATH=0
+if [ $CHECK_OPT_PATH = 1 ]; then
+    is_substring "/opt/bin" $PATH
+    [ $? == 1 ] && export PATH=/opt/bin:$PATH
+    is_substring "/opt/sbin" $PATH
+    [ $? == 1 ] && export PATH=/opt/sbin:$PATH
+else
+    export PATH=/opt/bin:/opt/sbin:$PATH
+fi
 export TERMINFO=/opt/share/terminfo
 export TERM=xterm
 export TMP=/opt/tmp
