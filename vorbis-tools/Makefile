@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,11 +19,14 @@ include $(INCLUDE_DIR)/package.mk
 define Package/vorbis-tools
     SECTION:=sound
     CATEGORY:=Sound
-    TITLE:=vorbis-tools
+    TITLE:=vorbis-tools and nothing else
     URL:=http://xiph.org/vorbis/
     DEPENDS:=+libogg +libvorbis +libflac
 endef
 
+define Package/vorbis-tools/description
+ oggdec, oggenc, ogginfo, vcut, vorbiscomment command line utilities
+endef
 
 CONFIGURE_ARGS+= \
     --without-flac \
