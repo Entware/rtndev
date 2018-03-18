@@ -70,7 +70,7 @@ endef
 define Package/entware-opt/postinst
 #!/bin/sh
 
-if [ -e /opt/bin/buzybox ]; then
+if [ -e /opt/bin/busybox ]; then
     exit 0
 fi
 if [[ -f /sbin/ifconfig && ! -f /opt/sbin/ifconfig ]]; then
