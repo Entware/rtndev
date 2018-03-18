@@ -12,7 +12,7 @@ PKG_NAME:=entware-opt
 # we keep this numbering to upgrade package if needed.
 # current version is 227000 - that is glibc 2.27 (or smaller) and no uclibc-ng
 PKG_VERSION:=227000
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -65,6 +65,35 @@ define Package/entware-opt/conffiles
 /opt/etc/group.1
 /opt/etc/shells.1
 endef
+
+# make symbolic links if busybox is not installed (standard=generic install)
+define Package/entware-opt/postinst
+#!/bin/sh
+
+if [ -e /opt/bin/buzybox ]; then
+    exit 0
+fi
+if [[ -f /sbin/ifconfig && ! -f /opt/sbin/ifconfig ]]; then
+    ln -s /sbin/ifconfig /opt/sbin/ifconfig
+fi
+if [[ -f /sbin/route && ! -f /opt/sbin/route ]]; then
+    ln -s /sbin/route /opt/sbin/route
+fi
+if [[ -f /sbin/ip && ! -f /opt/sbin/ip ]]; then
+    ln -s /sbin/ip /opt/sbin/ip
+fi
+if [[ -f /bin/netstat && ! -f /opt/bin/netstat ]]; then
+    ln -s /bin/netstat /opt/bin/netstat
+fi
+if [[ ! -f /opt/bin/sh ]]; then
+    ln -s /bin/sh /opt/bin/sh
+fi
+if [[ ! -f /opt/bin/ash ]]; then
+    ln -s /bin/ash /opt/bin/ash
+fi
+endef
+
+
 
 
 $(eval $(call BuildPackage,entware-opt))
