@@ -42,7 +42,7 @@ endef
 define Build/Compile
 	( \
 		cd $(PKG_BUILD_DIR)/src; \
-		CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) $(GOARM) GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go ./make.bash --no-clean ; \
+		CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) $(GOARM) $(GOMIPS) GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go ./make.bash --no-clean ; \
 	)
 	rm $(PKG_BUILD_DIR)/bin/go
 	rm $(PKG_BUILD_DIR)/bin/gofmt
@@ -51,6 +51,7 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/pkg/bootstrap
 	rm -rf $(PKG_BUILD_DIR)/pkg/obj
 	rm -rf $(PKG_BUILD_DIR)/pkg/$(OS)_$(bintype)
+	rm -rf $(PKG_BUILD_DIR)/pkg/tool/$(OS)_$(bintype)
 endef
 
 define Package/go/postinst
