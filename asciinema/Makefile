@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asciinema
-PKG_VERSION:=2.0.0
+PKG_VERSION:=2.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/4e/86/4b469db3a04841e7f5242b2b7b6cab1623f8111169ef521cc968193280a8
-PKG_HASH:=be193e2513cd309dd8de5b92d22bd48752076fe269ee3fb56da1052e5acc3768
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/2e/02/cb4aeded6a77e1c23a316a7faeb710b3247dd7294002ccc7123f38f2ade7
+PKG_HASH:=8d48baa3a263cfb9536540ee545e5c95e43758520d68c6ebc81a092e20c2a4ea
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
