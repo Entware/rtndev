@@ -4,7 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# The newer versions causes seg.faults
+# 0.21.1 raises runtime error /opt/share/crawl/dat/des/builder/food.des:68: bad argument #3 to '?' (integer expected, got number)
 
 include $(TOPDIR)/rules.mk
 
