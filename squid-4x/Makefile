@@ -28,7 +28,7 @@ define Package/squid-4x/Default
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
   URL:=http://www.squid-cache.org/
-  MAINTAINER:=Entware team, http://entware.net
+  MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/squid-4x

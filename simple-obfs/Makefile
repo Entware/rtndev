@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -40,7 +40,7 @@ define Package/simple-obfs/Default
 	TITLE:=Simple-obfs
 	URL:=https://github.com/shadowsocks/simple-obfs
 	DEPENDS:=+libev +libpthread
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 Package/simple-obfs = $(call Package/simple-obfs/Default)

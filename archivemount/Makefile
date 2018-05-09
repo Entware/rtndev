@@ -27,7 +27,7 @@ define Package/archivemount
 	DEPENDS:=+libfuse +libarchive
 	TITLE:=FUSE file system for reading archives, supported by libarchive
 	URL:=$(PKG_SOURCE_URL)
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/archivemount/description

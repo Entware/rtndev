@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 # Copyright (C) 2013 Francisco Borges
 #
 # This is free software, licensed under the GNU General Public License v2.
@@ -31,7 +31,7 @@ define Package/ghostscript
 	DEPENDS:=+cups +libcupsimage +libfreetype +fontconfig +libtiff +libjpeg +libpng +libexpat +lcms +zlib +ghostscript-fonts-std +libdbus
 	TITLE:=ghostscript interpreter
 	URL:=http://gimp-print.sourceforge.net/
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/ghostscript/description

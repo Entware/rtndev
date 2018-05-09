@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 # Copyright (C) 2013 Francisco Borges
 #
 # This is free software, licensed under the GNU General Public License v2.
@@ -28,7 +28,7 @@ define Package/libpoppler
 	DEPENDS:=+fontconfig +lcms +libpng +libtiff +libstdcpp
 	TITLE:=Poppler PDF rendering library
 	URL:=https://poppler.freedesktop.org/
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/poppler-utils
@@ -37,7 +37,7 @@ define Package/poppler-utils
 	DEPENDS:=+libpoppler
 	TITLE:=Poppler PDF rendering utilities
 	URL:=https://poppler.freedesktop.org/
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/libpoppler/description

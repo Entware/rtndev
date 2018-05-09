@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2017 Joakim Plate <joakim.plate@gmail.com>
-# Copyright (C) 2017 Entware
+# Copyright (C) 2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -29,7 +29,7 @@ define Package/pimd
 	SUBMENU:=Routing and Redirection
 	TITLE:=multicast routing daemon (PIM-SM/SSM)
 	URL:=http://troglobit.com/pimd.html
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/pimd/description

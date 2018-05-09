@@ -22,7 +22,7 @@ define Package/rtorrent-easy-install
 	    +lighttpd-mod-authn_file
 	TITLE:=Easy installation script for rtorrent with web UI
 	URL:=http://github.com/abhinavseewoosungkur/scripts/blob/develop/rutorrent-entware.sh
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/rtorrent-easy-install/description

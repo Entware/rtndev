@@ -99,7 +99,7 @@ define Package/heimdal/Default
 	SUBMENU:=Kerberos
 	TITLE:=Heimdal Kerberos 5
 	URL:=http://www.h5l.org
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/heimdal-libs

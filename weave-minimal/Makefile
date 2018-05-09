@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -24,7 +24,7 @@ define Package/weave-minimal
 	DEPENDS:=+python-sqlite3 +python-werkzeug +dtach +python-gevent +python-openssl +python-setuptools
 	TITLE:=a Firefox Sync Server
 	URL:=https://github.com/posativ/weave-minimal
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/weave-minimal/description

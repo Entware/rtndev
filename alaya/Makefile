@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -30,7 +30,7 @@ define Package/alaya
 	TITLE:=A WEBDAV Server
 	URL:=https://sites.google.com/site/columscode/home/Alaya
 	DEPENDS:=+libopenssl +libcap +libpam
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/alaya/description

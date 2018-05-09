@@ -32,7 +32,7 @@ define Package/go
 	CATEGORY:=Languages
 	TITLE:=The Go Programming Language
 	URL:=https://golang.org/
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/go/description

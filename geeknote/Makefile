@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -27,7 +27,7 @@ define Package/geeknote
 	DEPENDS:=+python +python-sqlite3 +python-openssl
 	TITLE:=command line client for Evernote
 	URL:=http://www.geeknote.me
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/geeknote/description

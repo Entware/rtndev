@@ -29,7 +29,7 @@ define Package/transmission-cfp/Default
   CATEGORY:=Network
   TITLE:=BitTorrent client
   URL:=https://github.com/cfpp2p/transmission
-  MAINTAINER:=Entware team, http://entware.net
+  MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/transmission-cfp-daemon

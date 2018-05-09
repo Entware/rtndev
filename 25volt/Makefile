@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,7 +19,7 @@ define Package/25volt
 	DEPENDS:=+libusb-compat
 	TITLE:=25volt a tool for monitoring Powercom/APC UPSs
 	URL:=http://c61.no-ip.org/forum/viewtopic.php?f=2&t=69
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/25volt/description

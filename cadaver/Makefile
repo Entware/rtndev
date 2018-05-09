@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2012 Erinome.net
-# Copyright (C) 2013-2017 Entware
+# Copyright (C) 2013-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -29,7 +29,7 @@ define Package/cadaver
 	DEPENDS:=+libncurses +libexpat +libneon +libopenssl +libreadline
 	TITLE:=Command-line WebDAV client
 	URL:=http://www.webdav.org/cadaver/
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/cadaver/description

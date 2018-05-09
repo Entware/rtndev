@@ -25,7 +25,7 @@ define Package/axel
 	DEPENDS:=+libopenssl
 	TITLE:=axel download accelerator
 	URL:=https://github.com/axel-download-accelerator/axel
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/axel/description

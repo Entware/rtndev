@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-20182 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -21,7 +21,7 @@ define Package/entware-release
 	SECTION:=base
 	CATEGORY:=Base system
 	TITLE:=Entware release information
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 	PKGARCH:=all
 endef
 

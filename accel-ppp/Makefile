@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -28,7 +28,7 @@ define Package/accel-ppp
 	DEPENDS:=+libopenssl +libpcre +libpthread +librt
 	TITLE:=accel-ppp VPN server
 	URL:=https://accel-ppp.org/
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/accel-ppp/description

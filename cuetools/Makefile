@@ -27,7 +27,7 @@ define Package/cuetools
 	CATEGORY:=Sound
 	TITLE:=cue and toc file parsers and utilities
 	URL:=$(PKG_SOURCE_URL)
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/cuetools/description

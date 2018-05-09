@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -29,7 +29,7 @@ define Package/grive2
 		+boost-filesystem +boost-program_options +boost-regex +boost-test +boost-system
 	TITLE:=This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
 	URL:=https://github.com/vitalif/grive2
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/grive2/description

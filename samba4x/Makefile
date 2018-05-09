@@ -36,7 +36,7 @@ define Package/samba4x/Default
   CATEGORY:=Network
   TITLE:=Samba $(PKG_VERSION) SMB/CIFS
   URL:=http://www.samba.org/
-  MAINTAINER:=Entware team, http://entware.net
+  MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/samba4x-libs

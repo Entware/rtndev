@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -25,13 +25,13 @@ define Package/entware-opt
 		+findutils +terminfo +locales +opkg \
 		+entware-upgrade
 	TITLE:=provides basic toolchain libraries (dummy)
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 	CONFLICTS:=opt-ndmsv2
 	PKGARCH:=all
 endef
 
 define Package/entware-opt/description
- entware-opt is a metapackage to install Entware-3x basic libraries and scripts
+ entware-opt is a metapackage to install Entware basic libraries and scripts
 endef
 
 define Build/Prepare

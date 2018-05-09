@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2017 Entware
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -18,7 +18,7 @@ define Package/mp709
 	DEPENDS:=+libusb-1.0
 	TITLE:=a tool for monipulating MP709 USB relay
 	URL:=http://wl500g.info/showthread.php?20497&p=257339#post257339
-	MAINTAINER:=Entware team, http://entware.net
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/mp709/description
