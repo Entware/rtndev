@@ -13,7 +13,7 @@ PKG_VERSION:=1.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=oauth-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://pypi.python.org/packages/source/o/oauth
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/e2/10/d7d6ae26ef7686109a10b3e88d345c4ec6686d07850f4ef7baefb7eb61e1
 PKG_HASH:=e769819ff0b0c043d020246ce1defcaadd65b9c21d244468a45a7f06cb88af5d
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/oauth-$(PKG_VERSION)
