@@ -28,7 +28,7 @@ define Package/pureftpd
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libsodium +libopenssl +libmariadb
+	DEPENDS:=+libsodium +libopenssl +libmariadbclient
 	TITLE:=Pure FTP server
 	URL:=http://www.pureftpd.org/
 	MAINTAINER:=Entware team, https://entware.net
