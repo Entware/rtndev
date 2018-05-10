@@ -1,8 +1,8 @@
 --- a/src/base/File.h
 +++ b/src/base/File.h
-@@ -11,6 +11,10 @@
- 
- #include "sbuf/SBuf.h"
+@@ -15,6 +15,10 @@
+ #include <sys/file.h>
+ #endif
  
 +#if HAVE_SYS_FILE_H
 +#include <sys/file.h>
