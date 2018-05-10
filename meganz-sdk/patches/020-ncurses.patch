@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1399,8 +1399,8 @@
+@@ -1707,8 +1707,8 @@ if test "x$enable_examples" = "xyes" ; t
          ])
          # readline requires termcap (or ncurses)
          SAVE_LIBS=$LIBS

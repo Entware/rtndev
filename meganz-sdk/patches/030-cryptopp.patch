@@ -37,7 +37,7 @@
  using namespace std;
 --- a/configure.ac
 +++ b/configure.ac
-@@ -411,11 +411,11 @@
+@@ -411,11 +411,11 @@ AC_ARG_WITH(cryptopp,
     esac
    ],
    [AC_MSG_RESULT([--with-cryptopp not specified])

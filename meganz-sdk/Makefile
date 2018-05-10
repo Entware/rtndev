@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meganz-sdk
-PKG_VERSION:=3.3.1
-PKG_REV:=2faf8777fea43ce40ef06c23dac3f81bcd1083e2
+PKG_VERSION:=3.3.6
+PKG_REV:=37ed7982d0c68ea1ae8d2f0b20ab446484d33335
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -41,7 +41,8 @@ endef
 CONFIGURE_ARGS += \
 	--disable-doxygen-doc \
 	--without-freeimage \
-	--with-libuv=$(STAGING_DIR)/opt
+	--with-libuv=$(STAGING_DIR)/opt \
+	--with-ffmpeg=$(STAGING_DIR)/opt
 
 TARGET_LDFLAGS += \
 	-lpthread
