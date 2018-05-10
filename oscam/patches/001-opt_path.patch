@@ -1,6 +1,6 @@
 --- a/globals.h
 +++ b/globals.h
-@@ -369,10 +369,10 @@
+@@ -370,10 +370,10 @@ typedef unsigned char uchar;
  #   define CS_TARGET "unknown"
  #endif
  #ifndef CS_CONFDIR
@@ -15,7 +15,7 @@
  #define CS_MAXPROV    32
 --- a/module-dvbapi.c
 +++ b/module-dvbapi.c
-@@ -271,17 +271,17 @@
+@@ -271,17 +271,17 @@ const char *boxdesc[] = { "none", "dream
  
  static const struct box_devices devices[BOX_COUNT] =
  {
@@ -41,7 +41,7 @@
  };
  
  static int32_t selected_box = -1;
-@@ -5160,7 +5160,7 @@
+@@ -5161,7 +5161,7 @@ static void *dvbapi_main_local(void *cli
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end;  // start time poll, end time poll
@@ -67,7 +67,7 @@
  #define MAX_DEMUX 16
 --- a/oscam-files.c
 +++ b/oscam-files.c
-@@ -31,7 +31,7 @@
+@@ -31,7 +31,7 @@ char *get_tmp_dir(void)
  		{ strcat(cs_tmpdir, "/"); }
  	strcat(cs_tmpdir, "_oscam");
  #else
@@ -78,7 +78,7 @@
  	return cs_tmpdir;
 --- a/oscam.c
 +++ b/oscam.c
-@@ -160,7 +160,7 @@
+@@ -160,7 +160,7 @@ static void show_usage(void)
  #if defined(__CYGWIN__)
  	printf("                         . Default: (OS-TMP)\n");
  #else
@@ -87,7 +87,7 @@
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -638,12 +638,12 @@
+@@ -638,12 +638,12 @@ static void cs_dumpstack(int32_t sig)
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -102,7 +102,7 @@
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1645,15 +1645,14 @@
+@@ -1645,15 +1645,14 @@ const struct s_cardreader *cardreaders[]
  static void find_conf_dir(void)
   {
  	static const char* confdirs[] =
