@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-werkzeug
-PKG_VERSION:=0.13
+PKG_VERSION:=0.14.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Werkzeug-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/88/71/669c831c5611e3dbdcd46acdca42a3d29866f010c1d1ae70232b15473ba8
-PKG_HASH:=6246e5fc98a505824113fb6aca993d45ea284a2bcffdc2c65d0c538e53e4abd3
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/9f/08/a3bb1c045ec602dc680906fc0261c267bed6b3bb4609430aff92c3888ec8
+PKG_HASH:=c3fd7a7d41976d9f44db327260e263132466836cef6f91512889ed60ad26557c
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/Werkzeug-$(PKG_VERSION)
 
