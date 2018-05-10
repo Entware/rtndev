@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=archivemount
-PKG_VERSION:=0.8.10
+PKG_VERSION:=0.8.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.cybernoia.de/software/archivemount
-PKG_HASH:=55e111b4247446453bff5ea19e15e3486cf3fb0e437c7050902f5b4a5beba169
+PKG_HASH:=247e475539b84e6d2a13083fd6df149995560ff1ea92fe9fdbfc87569943cb89
 
 PKG_INSTALL:=1
 
