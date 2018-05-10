@@ -8,15 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lynx
-https://invisible-mirror.net/archives/lynx/tarballs/lynx2.8.9dev.16.zip
-PKG_VERSION:=2.8.9dev.16
+PKG_VERSION:=2.8.9dev.18
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://invisible-mirror.net/archives/lynx/tarballs
-PKG_HASH:=04318a100b052d079d0018fa371aa28cfb41ab68db3a959f3b75c2170eea1bc8
+PKG_HASH:=e57339558934381bd5d9aff8b8d4938bf11e0cd8e63cf3b76396670a51b16323
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)2.8.9dev.16
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
