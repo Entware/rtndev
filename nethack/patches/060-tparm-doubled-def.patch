@@ -1,6 +1,6 @@
 --- a/win/tty/termcap.c
 +++ b/win/tty/termcap.c
-@@ -851,10 +851,6 @@
+@@ -852,10 +852,6 @@ cl_eos() /* free after Robert Viduya */
  
  #include <curses.h>
  

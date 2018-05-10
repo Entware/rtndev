@@ -1,6 +1,6 @@
 --- a/include/config.h
 +++ b/include/config.h
-@@ -248,7 +248,7 @@
+@@ -254,7 +254,7 @@
   *
   */
  
@@ -9,7 +9,7 @@
  /* path and file name extension for compression program */
  #define COMPRESS "/usr/bin/compress" /* Lempel-Ziv compression */
  #define COMPRESS_EXTENSION ".Z"      /* compress's extension */
-@@ -317,7 +317,7 @@
+@@ -345,7 +345,7 @@
   * otherwise it will be the current directory.
   */
  #ifndef HACKDIR

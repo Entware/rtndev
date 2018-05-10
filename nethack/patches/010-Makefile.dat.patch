@@ -1,6 +1,6 @@
 --- a/sys/unix/Makefile.dat
 +++ b/sys/unix/Makefile.dat
-@@ -92,69 +92,69 @@
+@@ -101,69 +101,69 @@ GEM_RSC.RSC:
  
  
  data:	data.base ../util/makedefs
