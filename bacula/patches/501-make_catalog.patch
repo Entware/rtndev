@@ -31,12 +31,26 @@
      exec("echo .dump | sqlite3 '$wd/$args{db_name}.db' > '$wd/$args{db_name}.sql'");
      print "Error while executing sqlite dump $!\n";
      return 1;
-@@ -136,7 +136,7 @@
+@@ -138,19 +138,19 @@
  {
      my ($mode, %args) = @_;
      if ($args{db_type} eq 'SQLite3') {
--	$ENV{PATH}="@SQLITE_BINDIR@:$ENV{PATH}";
-+	$ENV{PATH}="/opt/bin:$ENV{PATH}";
- 	if ($mode eq 'dump') {
- 	    dump_sqlite3(%args);
- 	}
+-        $ENV{PATH}="@SQLITE_BINDIR@:$ENV{PATH}";
++        $ENV{PATH}="/opt/bin:$ENV{PATH}";
+         if ($mode eq 'dump') {
+             dump_sqlite3(%args);
+         }
+     } elsif ($args{db_type} eq 'PostgreSQL') {
+-        $ENV{PATH}="@POSTGRESQL_BINDIR@:$ENV{PATH}";
++        $ENV{PATH}="/opt/bin:$ENV{PATH}";
+         if ($mode eq 'dump') {
+             dump_pgsql(%args);
+         } else {
+             analyse_pgsql(%args);
+         }
+     } elsif ($args{db_type} eq 'MySQL') {
+-        $ENV{PATH}="@MYSQL_BINDIR@:$ENV{PATH}";
++        $ENV{PATH}="/opt/bin:$ENV{PATH}";
+         if ($mode eq 'dump') {
+             dump_mysql(%args);
+         } else {
