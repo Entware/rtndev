@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017
+# Copyright (C) 2017-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=samba4x
-PKG_VERSION:=4.7.3
+PKG_VERSION:=4.8.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=samba-$(PKG_VERSION).tar.gz

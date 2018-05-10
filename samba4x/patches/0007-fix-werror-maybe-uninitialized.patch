@@ -22,7 +22,7 @@
  		}
 --- a/lib/tdb/common/transaction.c
 +++ b/lib/tdb/common/transaction.c
-@@ -828,6 +828,7 @@ static int transaction_setup_recovery(st
+@@ -836,6 +836,7 @@ static int transaction_setup_recovery(st
  	uint32_t magic, tailer;
  	int i;
  
@@ -43,7 +43,7 @@
  
 --- a/source3/smbd/notifyd/notifyd.c
 +++ b/source3/smbd/notifyd/notifyd.c
-@@ -377,7 +377,7 @@ static bool notifyd_apply_rec_change(
+@@ -378,7 +378,7 @@ static bool notifyd_apply_rec_change(
  	struct notifyd_instance *instances;
  	size_t num_instances;
  	size_t i;
@@ -52,7 +52,7 @@
  	TDB_DATA value;
  	NTSTATUS status;
  	bool ok = false;
-@@ -438,7 +438,7 @@ static bool notifyd_apply_rec_change(
+@@ -439,7 +439,7 @@ static bool notifyd_apply_rec_change(
  		}
  	}
  
