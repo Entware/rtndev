@@ -25,7 +25,7 @@ define Package/grive2
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libexpat +libbfd\
+	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libexpat +libbfd \
 		+boost-filesystem +boost-program_options +boost-regex +boost-test +boost-system
 	TITLE:=This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
 	URL:=https://github.com/vitalif/grive2
