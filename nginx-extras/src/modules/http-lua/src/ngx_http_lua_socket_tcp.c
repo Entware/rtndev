@@ -474,6 +474,7 @@ ngx_http_lua_socket_tcp_connect(lua_State *L)
         switch (lua_type(L, -1)) {
         case LUA_TNUMBER:
             lua_tostring(L, -1);
+            /* FALLTHROUGH */
 
         case LUA_TSTRING:
             custom_pool = 1;
@@ -742,6 +743,9 @@ ngx_http_lua_socket_tcp_connect(lua_State *L)
                        "lua tcp socket fail to run resolver immediately");
 
         u->ft_type |= NGX_HTTP_LUA_SOCKET_FT_RESOLVER;
+
+        coctx->cleanup = NULL;
+        coctx->data = NULL;
 
         u->resolved->ctx = NULL;
         lua_pushnil(L);
@@ -2708,6 +2712,10 @@ ngx_http_lua_socket_tcp_settimeout(lua_State *L)
     }
 
     timeout = (ngx_int_t) lua_tonumber(L, 2);
+    if (timeout >> 31) {
+        return luaL_error(L, "bad timeout value");
+    }
+
     lua_pushinteger(L, timeout);
     lua_pushinteger(L, timeout);
 
@@ -2751,8 +2759,19 @@ ngx_http_lua_socket_tcp_settimeouts(lua_State *L)
     }
 
     connect_timeout = (ngx_int_t) lua_tonumber(L, 2);
+    if (connect_timeout >> 31) {
+        return luaL_error(L, "bad timeout value");
+    }
+
     send_timeout = (ngx_int_t) lua_tonumber(L, 3);
+    if (send_timeout >> 31) {
+        return luaL_error(L, "bad timeout value");
+    }
+
     read_timeout = (ngx_int_t) lua_tonumber(L, 4);
+    if (read_timeout >> 31) {
+        return luaL_error(L, "bad timeout value");
+    }
 
     lua_rawseti(L, 1, SOCKET_READ_TIMEOUT_INDEX);
     lua_rawseti(L, 1, SOCKET_SEND_TIMEOUT_INDEX);
@@ -5234,6 +5253,7 @@ ngx_http_lua_socket_tcp_resume_helper(ngx_http_request_t *r, int socket_op)
     int                          nret;
     lua_State                   *vm;
     ngx_int_t                    rc;
+    ngx_uint_t                   nreqs;
     ngx_connection_t            *c;
     ngx_http_lua_ctx_t          *ctx;
     ngx_http_lua_co_ctx_t       *coctx;
@@ -5284,6 +5304,7 @@ ngx_http_lua_socket_tcp_resume_helper(ngx_http_request_t *r, int socket_op)
 
     c = r->connection;
     vm = ngx_http_lua_get_lua_vm(r, ctx);
+    nreqs = c->requests;
 
     rc = ngx_http_lua_run_thread(vm, r, ctx, nret);
 
@@ -5291,12 +5312,12 @@ ngx_http_lua_socket_tcp_resume_helper(ngx_http_request_t *r, int socket_op)
                    "lua run thread returned %d", rc);
 
     if (rc == NGX_AGAIN) {
-        return ngx_http_lua_run_posted_threads(c, vm, r, ctx);
+        return ngx_http_lua_run_posted_threads(c, vm, r, ctx, nreqs);
     }
 
     if (rc == NGX_DONE) {
         ngx_http_lua_finalize_request(r, NGX_DONE);
-        return ngx_http_lua_run_posted_threads(c, vm, r, ctx);
+        return ngx_http_lua_run_posted_threads(c, vm, r, ctx, nreqs);
     }
 
     if (ctx->entered_content_phase) {

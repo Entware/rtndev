@@ -4,20 +4,21 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.13.6-2.debian.tar.xz
+# Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.13.12-1.debian.tar.xz
 # to src folder.
+# Manualy added hiredis/* to modules/nchan
 # Debian differences: threads, geoip, http_upstream_zone, stream_upstream_zone
 # http_perl modules are turned off
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.13.6
+PKG_VERSION:=1.14.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=8512fc6f986a20af293b61f33b0e72f64a72ea5b1acbcc790c4c4e2d6f63f8f8
+PKG_HASH:=5d15becbf69aba1fe33f8d416d97edd95ea8919ea9ac519eff9bafebb6022cb5
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-$(PKG_VERSION)
 

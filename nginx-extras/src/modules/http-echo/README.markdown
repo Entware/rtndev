@@ -68,7 +68,7 @@ This module is production ready.
 Version
 =======
 
-This document describes ngx_echo [v0.59](https://github.com/openresty/echo-nginx-module/tags) released on 15 May 2016.
+This document describes ngx_echo [v0.61](https://github.com/openresty/echo-nginx-module/tags) released on 8 August 2017.
 
 Synopsis
 ========
@@ -284,9 +284,9 @@ People will also find it useful in real-world applications that need to
 
 This is a special dual-role module that can *lazily* serve as a content handler or register itself as an output filter only upon demand. By default, this module does not do anything at all.
 
-Technially, this module has also demonstrated the following techniques that might be helpful for module writers:
+Technically, this module has also demonstrated the following techniques that might be helpful for module writers:
 
-1. Issue parallel subreqeusts directly from content handler.
+1. Issue parallel subrequests directly from content handler.
 1. Issue chained subrequests directly from content handler, by passing continuation along the subrequest chain.
 1. Issue subrequests with all HTTP 1.1 methods and even an optional faked HTTP request body.
 1. Interact with the Nginx event model directly from content handler using custom events and timers, and resume the content handler back if necessary.
@@ -395,7 +395,7 @@ The output on the client side looks like this
  world
 ```
 
-Special characters like newlines (`\n`) and tabs (`\t`) can be escaped using C-style escaping sequences. But a notable exception is the dollar sign (`$`). As of Nginx 0.8.20, there's still no clean way to esacpe this characters. (A work-around might be to use a `$echo_dollor` variable that is always evaluated to the constant `$` character. This feature will possibly be introduced in a future version of this module.)
+Special characters like newlines (`\n`) and tabs (`\t`) can be escaped using C-style escaping sequences. But a notable exception is the dollar sign (`$`). As of Nginx 0.8.20, there's still no clean way to escape this character. (A work-around might be to use a `$echo_dollor` variable that is always evaluated to the constant `$` character. This feature will possibly be introduced in a future version of this module.)
 
 As of the echo [v0.28](#v028) release, one can suppress the trailing newline character in the output by using the `-n` option, as in
 
@@ -1493,6 +1493,8 @@ Accessing `/echoback` yields
 
 Behind the scene, it recovers `r->main->header_in` (or the large header buffers, if any) on the C level and does not construct the headers itself by traversing parsed results in the request object.
 
+This varible is always evaluated to an empty value in HTTP/2 requests for now due to the current implementation.
+
 This variable was first introduced in [version 0.15](#v015).
 
 [Back to TOC](#table-of-contents)
@@ -1569,13 +1571,13 @@ You're recommended to install this module (as well as the Nginx core and many ot
 Alternatively, you can install this module manually with the Nginx source:
 
 Grab the nginx source code from [nginx.org](http://nginx.org/), for example,
-the version 1.9.15 (see [nginx compatibility](#compatibility)), and then build the source with this module:
+the version 1.11.2 (see [nginx compatibility](#compatibility)), and then build the source with this module:
 
 ```bash
 
- $ wget 'http://nginx.org/download/nginx-1.9.15.tar.gz'
- $ tar -xzvf nginx-1.9.15.tar.gz
- $ cd nginx-1.9.15/
+ $ wget 'http://nginx.org/download/nginx-1.11.2.tar.gz'
+ $ tar -xzvf nginx-1.11.2.tar.gz
+ $ cd nginx-1.11.2/
 
  # Here we assume you would install you nginx under /opt/nginx/.
  $ ./configure --prefix=/opt/nginx \
@@ -1604,6 +1606,8 @@ Compatibility
 
 The following versions of Nginx should work with this module:
 
+* **1.11.x**                      (last tested: 1.11.2)
+* **1.10.x**
 * **1.9.x**                       (last tested: 1.9.15)
 * **1.8.x**
 * **1.7.x**                       (last tested: 1.7.10)
@@ -1796,7 +1800,7 @@ You'll be very welcomed to submit patches to the [author](#author) or just ask f
 Author
 ======
 
-Yichun "agentzh" Zhang (章亦春) *&lt;agentzh@gmail.com&gt;*, CloudFlare Inc.
+Yichun "agentzh" Zhang (章亦春) *&lt;agentzh@gmail.com&gt;*, OpenResty Inc.
 
 This wiki page is also maintained by the author himself, and everybody is encouraged to improve this page as well.
 
@@ -1805,7 +1809,7 @@ This wiki page is also maintained by the author himself, and everybody is encour
 Copyright & License
 ===================
 
-Copyright (c) 2009-2016, Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, CloudFlare Inc.
+Copyright (c) 2009-2017, Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, OpenResty Inc.
 
 This module is licensed under the terms of the BSD license.
 

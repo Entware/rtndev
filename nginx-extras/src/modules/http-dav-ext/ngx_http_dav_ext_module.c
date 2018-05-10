@@ -1,5 +1,5 @@
 /******************************************************************************
-  Copyright (c) 2012, Roman Arutyunyan (arut@qip.ru)
+  Copyright (c) 2012-2017, Roman Arutyunyan (arutyunyan.roman@gmail.com)
   All rights reserved.
 
   Redistribution and use in source and binary forms, with or without modification, 
@@ -535,9 +535,12 @@ ngx_http_dav_ext_send_propfind(ngx_http_request_t *r)
 	u_char                    *p, *uc;
 
 	if (ngx_http_variable_unknown_header(&vv, &depth_name, 
-					&r->headers_in.headers.part, 0) == NGX_OK
-		&& vv.valid)
+					&r->headers_in.headers.part, 0) != NGX_OK)
 	{
+		return NGX_ERROR;
+	}
+
+	if (!vv.not_found) {
 		if (vv.len == sizeof("infinity") -1 
 			&& !ngx_strncasecmp(vv.data, (u_char*)"infinity", vv.len))
 		{

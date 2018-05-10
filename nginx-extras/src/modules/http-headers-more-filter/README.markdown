@@ -36,7 +36,7 @@ Table of Contents
 Version
 =======
 
-This document describes headers-more-nginx-module [v0.32](https://github.com/openresty/headers-more-nginx-module/tags) released on 4 November 2016.
+This document describes headers-more-nginx-module [v0.33](https://github.com/openresty/headers-more-nginx-module/tags) released on 3 November 2017.
 
 Synopsis
 ========
@@ -248,7 +248,8 @@ or
 
 See [more_set_headers](#more_set_headers) for more details.
 
-Wildcard `*` can also be used to specify a header name pattern. For example, the following directive effectively clears *any* output headers starting by "`X-Hidden-`":
+The wildcard character, `*`, can also be used at the end of the header name to specify a pattern. For example, the following directive
+effectively clears *any* output headers starting by "`X-Hidden-`":
 
 ```nginx
 
@@ -298,24 +299,39 @@ In fact,
 
 ```nginx
 
-    more_clear_input_headers -s 404 -t 'text/plain' Foo Baz;
+    more_clear_input_headers -t 'text/plain' Foo Baz;
 ```
 
 is exactly equivalent to
 
 ```nginx
 
-    more_set_input_headers -s 404 -t 'text/plain' "Foo: " "Baz: ";
+    more_set_input_headers -t 'text/plain' "Foo: " "Baz: ";
 ```
 
 or
 
 ```nginx
 
-    more_set_input_headers -s 404 -t 'text/plain' Foo Baz
+    more_set_input_headers -t 'text/plain' Foo Baz
+```
+
+To remove request headers "Foo" and "Baz" for all incoming requests regardless of the content type, we can write
+
+```nginx
+
+    more_clear_input_headers "Foo" "Baz";
 ```
 
 See [more_set_input_headers](#more_set_input_headers) for more details.
+
+The wildcard character, `*`, can also be used at the end of the header name to specify a pattern. For example, the following directive
+effectively clears *any* input headers starting by "`X-Hidden-`":
+
+```nginx
+
+     more_clear_input_headers 'X-Hidden-*';
+```
 
 [Back to TOC](#table-of-contents)
 
@@ -331,13 +347,13 @@ Installation
 ============
 
 Grab the nginx source code from [nginx.org](http://nginx.org/), for example,
-the version 1.11.2 (see [nginx compatibility](#compatibility)), and then build the source with this module:
+the version 1.13.6 (see [nginx compatibility](#compatibility)), and then build the source with this module:
 
 ```bash
 
- wget 'http://nginx.org/download/nginx-1.11.2.tar.gz'
- tar -xzvf nginx-1.11.2.tar.gz
- cd nginx-1.11.2/
+ wget 'http://nginx.org/download/nginx-1.13.6.tar.gz'
+ tar -xzvf nginx-1.13.6.tar.gz
+ cd nginx-1.13.6/
 
  # Here we assume you would install you nginx under /opt/nginx/.
  ./configure --prefix=/opt/nginx \
@@ -366,6 +382,8 @@ Compatibility
 
 The following versions of Nginx should work with this module:
 
+* **1.13.x**                      (last tested: 1.13.6)
+* **1.12.x**
 * **1.11.x**                      (last tested: 1.11.2)
 * **1.10.x**
 * **1.9.x**                       (last tested: 1.9.15)
@@ -479,7 +497,7 @@ You'll be very welcomed to submit patches to the [author](#author) or just ask f
 Authors
 =======
 
-* Yichun "agentzh" Zhang (章亦春) *&lt;agentzh@gmail.com&gt;*, CloudFlare Inc.
+* Yichun "agentzh" Zhang (章亦春) *&lt;agentzh@gmail.com&gt;*, OpenResty Inc.
 * Bernd Dorn ( <http://www.lovelysystems.com/> )
 
 This wiki page is also maintained by the author himself, and everybody is encouraged to improve this page as well.
@@ -491,7 +509,7 @@ Copyright & License
 
 The code base is borrowed directly from the standard [headers](http://nginx.org/en/docs/http/ngx_http_headers_module.html) module in Nginx 0.8.24. This part of code is copyrighted by Igor Sysoev.
 
-Copyright (c) 2009-2014, Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, CloudFlare Inc.
+Copyright (c) 2009-2017, Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, OpenResty Inc.
 
 Copyright (c) 2010-2013, Bernd Dorn.
 

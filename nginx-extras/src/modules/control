@@ -1,0 +1,70 @@
+Module: http-headers-more-filter
+Homepage: https://github.com/agentzh/headers-more-nginx-module
+Version: 0.33
+Files-Excluded: .gitignore .gitattributes .travis.yml
+
+Module: http-ndk
+Homepage: https://github.com/simpl/ngx_devel_kit/
+Version: 0.3.0
+
+Module: http-auth-pam
+Homepage: https://github.com/stogh/ngx_http_auth_pam_module
+Version: 1.5.1
+
+Module: http-echo
+Homepage: https://github.com/agentzh/echo-nginx-module
+Version: v0.61
+Files-Excluded: .gitignore .gitattributes .travis.yml
+
+Module: http-lua
+Homepage: https://github.com/openresty/lua-nginx-module
+Version: 0.10.11
+Patch:
+  openssl-1.1.0.patch
+  discover-luajit-2.1.patch
+Files-Excluded: .gitignore .gitattributes .travis.yml .github
+
+Module: http-upstream-fair
+Homepage: https://github.com/gnosek/nginx-upstream-fair
+Version: a18b409
+Patch:
+  dynamic-module.patch
+  openssl-1.1.0.patch
+  drop-default-port.patch
+
+Module: nchan
+Homepage: https://github.com/slact/nchan
+Version: 1.0.8
+Files-Excluded: dev nchan_logo.png NchanSubscriber.js src/hiredis
+
+Module: http-uploadprogress
+Homepage: https://github.com/masterzen/nginx-upload-progress-module
+Files-Excluded: test
+Version: 0.9.2
+
+Module: http-cache-purge
+Homepage: https://github.com/FRiCKLE/ngx_cache_purge/
+Version: 2.3
+Patch:
+  dynamic-module.patch
+  segfault-1.11.6.patch
+
+Module: http-dav-ext
+Homepage: https://github.com/arut/nginx-dav-ext-module
+Version: 0.1.0
+
+Module: http-fancyindex
+Homepage: https://github.com/aperezdc/ngx-fancyindex
+Version: 0.4.2
+Files-Excluded: .gitignore .travis.yml
+
+Module: http-subs-filter
+Homepage: https://github.com/yaoweibin/ngx_http_substitutions_filter_module
+Version: 0.6.4
+Patch: dynamic-module.patch
+
+Module: rtmp
+Homepage: https://github.com/arut/nginx-rtmp-module
+Files-Excluded: test
+Version: 1.2.1
+
