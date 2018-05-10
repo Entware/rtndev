@@ -12,7 +12,7 @@ PKG_VERSION:=15.10.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://pypi.python.org/packages/source/p/$(PKG_NAME)/
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/6f/2b/c419bfe0c90fbfaf3737d2c445edb02977da96a44ba038f54c137fd79d2b
 PKG_HASH:=d76f3623eb3063a9f0164f1a4e7bfa23ee4c99db812fb45661d4c4bd84bccef8
 
 include $(INCLUDE_DIR)/package.mk
