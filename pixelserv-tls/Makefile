@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pixelserv-tls
-PKG_VERSION:=2.0.1
-PKG_REV:=e788c7501b5e61fbd7ca6728d6fe673b26ed3dd8
+PKG_VERSION:=2.1.1
+PKG_REV:=ea01efa5d1bb5241afcf9f9478ebfb2e5eea91e5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
