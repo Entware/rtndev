@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/whois
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libidn
+	DEPENDS:=+libidn2
 	TITLE:=intelligent WHOIS client
 	URL:=http://ftp.debian.org/debian/pool/main/w/whois
 	MAINTAINER:=Entware team, https://entware.net
