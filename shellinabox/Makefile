@@ -6,7 +6,6 @@
 #
 # Initial port of shellinabox to OpenWrt - Jan Jaeger 25-MAR-2010
 # Makefile from OnionIoT/OpenWRT-Packages was used as a start
-#
 
 include $(TOPDIR)/rules.mk
 

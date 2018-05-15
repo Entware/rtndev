@@ -6,7 +6,7 @@
 #
 # Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.13.12-1.debian.tar.xz
 # to src folder.
-# Manualy added hiredis/* to modules/nchan
+# Manually added hiredis/* to modules/nchan
 # Debian differences: threads, geoip, http_upstream_zone, stream_upstream_zone
 # http_perl modules are turned off
 

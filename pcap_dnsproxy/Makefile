@@ -6,7 +6,6 @@
 #
 # Partial taken from
 # https://github.com/wongsyrone/openwrt-Pcap_DNSProxy/blob/master/Makefile
-#
 
 include $(TOPDIR)/rules.mk
 

@@ -1,13 +1,11 @@
 #
+# Copyright (C) 2017 Jian Chang <aa65535@live.com>
 # Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-
-# Original Makefile is here https://github.com/aa65535/openwrt-simple-obfs
-# Copyright (C) 2017 Jian Chang <aa65535@live.com>
-
+# Original Makefile taken from https://github.com/aa65535/openwrt-simple-obfs
 
 include $(TOPDIR)/rules.mk
 

@@ -1,12 +1,11 @@
 #
-# Copyright (C) 2011-2018 Entware
 # Copyright (C) 2013 Francisco Borges
+# Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 # Makefile taken from http://github.com/FranciscoBorges/openwrt-printing-packages
-#
 # Abandoned in 2006
 
 include $(TOPDIR)/rules.mk

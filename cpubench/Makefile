@@ -1,4 +1,5 @@
 #
+# Copyright (C) 2009-2014 OpenWrt
 # Copyright (C) 2011-2018 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.

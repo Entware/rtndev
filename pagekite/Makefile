@@ -6,7 +6,6 @@
 #
 # Based on Karl Palsson's makefile
 # https://github.com/remakeelectric/owrt_pub_feeds/tree/master/pagekitepy
-#
 
 include $(TOPDIR)/rules.mk
 
