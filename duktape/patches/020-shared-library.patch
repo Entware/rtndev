@@ -54,4 +54,4 @@
  CCOPTS=-I./examples/cmdline
  duk:
 -	gcc $(CCOPTS) -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
-+	$(GCC) $(CFLAGS) -Isrc $(LDFLAGS) -L. -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
++	$(GCC) $(CFLAGS) -Isrc $(LDFLAGS) -DDUK_CMDLINE_PRINTALERT_SUPPORT -I./extras/print-alert -L. -Wall -Wextra -o $@ ./examples/cmdline/duk_cmdline.c ./extras/print-alert/duk_print_alert.c -lduktape -lm
