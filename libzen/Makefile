@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/libzen/$(PKG_VERSION)
-PKG_HASH:=d6e9b7084bbb828536b47698e0c60e381cf0cefc4a8d712bb81dac826ccd9ac1
+PKG_HASH:=132cdc8b994e01de86436851d5b1c930f7a6cb683be3d94e5b46ddbfd45b78b6
 
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
