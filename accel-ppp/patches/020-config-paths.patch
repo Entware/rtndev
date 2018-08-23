@@ -7,8 +7,8 @@
  #log_syslog
  #log_tcp
  #log_pgsql
-@@ -33,7 +33,7 @@
- #net-accel-dp
+@@ -32,7 +32,7 @@
+ #ipv6pool
  
  [core]
 -log-error=/var/log/accel-ppp/core.log
@@ -16,7 +16,7 @@
  thread-count=4
  
  [common]
-@@ -90,7 +90,7 @@
+@@ -91,7 +91,7 @@
  
  [l2tp]
  verbose=1
@@ -25,7 +25,25 @@
  #hello-interval=60
  #timeout=60
  #rtimeout=1
-@@ -137,7 +137,7 @@
+@@ -112,13 +112,13 @@
+ #cert-hash-sha1=
+ #cert-hash-sha256=
+ #accept=ssl,proxy
+-#ssl-dhparam=/etc/ssl/dhparam.pem
++#ssl-dhparam=/opt/etc/ssl/dhparam.pem
+ #ssl-ecdh-curve=prime256v1
+ #ssl-ciphers=DEFAULT
+ #ssl-prefer-server-ciphers=0
+-#ssl-ca-file=/etc/ssl/sstp-ca.crt
+-#ssl-pemfile=/etc/ssl/sstp-cert.pem
+-#ssl-keyfile=/etc/ssl/sstp-key.pem
++#ssl-ca-file=/opt/etc/ssl/sstp-ca.crt
++#ssl-pemfile=/opt/etc/ssl/sstp-cert.pem
++#ssl-keyfile=/opt/etc/ssl/sstp-key.pem
+ #host-name=domain.tld
+ #http-error=allow
+ #timeout=60
+@@ -160,7 +160,7 @@
  #attr-l4-redirect=L4-Redirect
  #attr-l4-redirect-table=4
  #attr-l4-redirect-ipset=l4-redirect
@@ -34,7 +52,7 @@
  #offer-delay=0,100:100,200:200,-1:1000
  #vlan-mon=eth0,10-200
  #vlan-timeout=60
-@@ -161,7 +161,7 @@
+@@ -184,7 +184,7 @@
  #wins2=172.16.1.1
  
  [radius]
@@ -43,7 +61,7 @@
  nas-identifier=accel-ppp
  nas-ip-address=127.0.0.1
  gw-ip-address=192.168.100.1
-@@ -190,9 +190,9 @@
+@@ -214,9 +214,9 @@
  192.168.4.0/24
  
  [log]
@@ -56,21 +74,21 @@
  #log-debug=/dev/stdout
  #syslog=accel-pppd,daemon
  #log-tcp=127.0.0.1:3000
-@@ -208,16 +208,16 @@
- log-table=log
+@@ -233,16 +233,16 @@
  
  [pppd-compat]
+ verbose=1
 -#ip-pre-up=/etc/ppp/ip-pre-up
 -ip-up=/etc/ppp/ip-up
 -ip-down=/etc/ppp/ip-down
--ip-change=/etc/ppp/ip-change
+-#ip-change=/etc/ppp/ip-change
 -radattr-prefix=/var/run/radattr
 +#ip-pre-up=/opt/etc/ppp/ip-pre-up
 +ip-up=/opt/etc/ppp/ip-up
 +ip-down=/opt/etc/ppp/ip-down
-+ip-change=/opt/etc/ppp/ip-change
++#ip-change=/opt/etc/ppp/ip-change
 +radattr-prefix=/opt/var/run/radattr
- verbose=1
+ #fork-limit=16
  
  [chap-secrets]
  gw-ip-address=192.168.100.1
@@ -79,9 +97,3 @@
  #encrypted=0
  #username-hash=md5
  
-@@ -274,4 +274,4 @@
- route-via-gw=1
- 
- [accel-dp]
--socket=/var/run/accel-dp.sock
-+socket=/opt/var/run/accel-dp.sock
