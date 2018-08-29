@@ -10,8 +10,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libupnp-1.8
-PKG_VERSION:=1.8.1
-PKG_REV:=b8a81b0324a9e08add5066c5fe39ed70e6ef31a6
+PKG_VERSION:=1.8.3
+PKG_REV:=cea5496e27f5122369c897d82304ca9e8fa49ba7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -48,7 +48,7 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib{ixml,upnp}-1.8.{a,so*} $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libupnp-1.8.pc $(1)/opt/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libupnp.pc $(1)/opt/lib/pkgconfig/libupnp-1.8.pc
 endef
 
 define Package/libupnp-1.8/install
