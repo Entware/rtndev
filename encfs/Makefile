@@ -38,18 +38,15 @@ define Package/encfs/description
  interface.
 endef
 
+CMAKE_OPTIONS += \
+	-DBUILD_UNIT_TESTS=OFF
+
 TARGET_LDFLAGS += -lpthread -latomic -lintl
-
-TARGET_CXXFLAGS += -std=c++0x
-
-TARGET_CFLAGS += \
-	-I$(STAGING_DIR)/opt/include \
 
 define Package/encfs/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/encfs.bin $(1)/opt/bin/encfs
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/encfssh $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/encfsctl $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/encfs{sh,ctl} $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,encfs))
