@@ -54,22 +54,23 @@ define Build/Compile
 		all install
 endef
 
+define Package/man-db/conffiles
+/opt/etc/man_db.conf
+endef
+
 define Package/man-db/install
 	$(INSTALL_DIR) $(1)/opt/{bin,etc,lib/man-db,sbin,share,var/cache/man}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/catman $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/lexgrog $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/man $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mandb $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/manpath $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/whatis $(1)/opt/bin/
+	$(INSTALL_BIN) \
+	    $(PKG_INSTALL_DIR)/opt/bin/{catman,lexgrog,man,mandb,manpath,whatis} \
+	    $(1)/opt/bin
 	ln -sf whatis $(1)/opt/bin/apropos
-	$(INSTALL_DATA) ./files/man_db.conf $(1)/opt/etc/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/man-db/globbing $(1)/opt/lib/man-db/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/man-db/manconv $(1)/opt/lib/man-db/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/man-db/zsoelim $(1)/opt/lib/man-db/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/man-db/libman{,db}*.so $(1)/opt/lib/man-db/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/accessdb $(1)/opt/sbin/
-	$(CP) $(PKG_INSTALL_DIR)/opt/share $(1)/opt/
+	$(INSTALL_CONF) ./files/man_db.conf $(1)/opt/etc
+	$(CP) \
+	    $(PKG_INSTALL_DIR)/opt/lib/man-db/{globbing,manconv,zsoelim} \
+	    $(1)/opt/lib/man-db
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/man-db/libman{,db}*.so $(1)/opt/lib/man-db
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/accessdb $(1)/opt/sbin
+	$(CP) $(PKG_INSTALL_DIR)/opt/share $(1)/opt
 endef
 
 $(eval $(call BuildPackage,man-db))
