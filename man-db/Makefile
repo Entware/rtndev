@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
-PKG_VERSION:=2.8.3
+PKG_VERSION:=2.8.4
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/man-db/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_HASH:=5932a1ca366e1ec61a3ece1a3afa0e92f2fdc125b61d236f20cc6ff9d80cc4ac
+PKG_HASH:=103c185f9d8269b9ee3b8a4cb27912b3aa393e952731ef96fedc880723472bc3
 
 PKG_LICENSE:=GPL, LGPL
 
@@ -33,14 +33,6 @@ define Package/man-db/description
   files (manual pages).
 endef
 
-TARGET_CPPFLAGS += \
-	-I$(ICONV_PREFIX)/include \
-	-I$(INTL_PREFIX)/include \
-
-TARGET_LDFLAGS += \
-	-L$(ICONV_PREFIX)/lib \
-	-L$(INTL_PREFIX)/lib \
-
 CONFIGURE_ARGS += \
 	--prefix=/opt \
 	--mandir=/opt/share/man \
@@ -50,7 +42,7 @@ CONFIGURE_ARGS += \
 	--enable-mb-groff \
 	--disable-nls \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
-	--with-libintl-prefix="$(INTL_PREFIX)"	
+	--with-libintl-prefix="$(INTL_PREFIX)"
 
 define Build/Configure
 	$(call Build/Configure/Default)
