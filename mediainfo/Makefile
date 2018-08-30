@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=18.03.1
+PKG_VERSION:=18.05
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/mediainfo/$(PKG_VERSION)
-PKG_HASH:=c74c265461ae2072296546afa3efd1e331cfa7a5744716d700f8bde873fb712e
+PKG_HASH:=aca013dc488d35d0fa1585085ff5fcc72075bc56a967288914c4fe37e2fc224b
 
 PKG_BUILD_DEPENDS:=libmediainfo
 
