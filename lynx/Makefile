@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lynx
-PKG_VERSION:=2.8.9dev.18
+PKG_VERSION:=2.8.9dev.19
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://invisible-mirror.net/archives/lynx/tarballs
-PKG_HASH:=e57339558934381bd5d9aff8b8d4938bf11e0cd8e63cf3b76396670a51b16323
+PKG_HASH:=0223706f8310ecb738342c6bc51ebbe1879f2890a56c5e6f099e28289a8a8e9f
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)$(PKG_VERSION)
 
@@ -41,7 +41,7 @@ CONFIGURE_ARGS += \
 	--with-zlib \
 	--with-build-cc=$(HOSTCC) \
 	--with-build-cflags= \
-	--with-build-ldflags= 
+	--with-build-ldflags=
 
 define Package/lynx/conffiles
 /opt/etc/lynx.cfg
