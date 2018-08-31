@@ -18,6 +18,8 @@ PKG_HASH:=79714ba89172bca08a2443f59885daa4af0c5f8d6a49bc9e7f2a83559a286354
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
+# libidn2.so: undefined reference to `libintl_gettext'
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/whois
 	SECTION:=net
