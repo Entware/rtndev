@@ -1,5 +1,21 @@
 --- a/configure.ac
 +++ b/configure.ac
+@@ -1278,11 +1278,11 @@
+ [ if test "x$withval" != "xno" ; then
+     if test "x$withval" != "x" && test "x$withval" != "xyes" ; then
+       LD_RUN_PATH="${withval}/lib${LD_RUN_PATH:+:}${LD_RUN_PATH}"    
+-      LDFLAGS="$LDFLAGS -L${withval}/lib -L${withval}/lib/mysql -L${withval}/mysql/lib"
+-      CPPFLAGS="$CPPFLAGS -I${withval}/include -I${withval}/include/mysql -I${withval}/mysql/include"
++      LDFLAGS="$LDFLAGS -L${withval}/lib -L${withval}/lib/mysql"
++      CPPFLAGS="$CPPFLAGS -I${withval}/include -I${withval}/include/mysql"
+     else
+-      CFLAGS="$CFLAGS `mariadb_config --cflags 2> /dev/null || mysql_config --cflags`"
+-      LDFLAGS="$LDFLAGS `mariadb_config --libs 2> /dev/null || mysql_config --libs`"
++      CFLAGS="$CFLAGS `mysql_config --cflags`"
++      LDFLAGS="$LDFLAGS `mysql_config --libs`"
+     fi
+     AC_CHECK_LIB(m, floor)
+     AC_CHECK_LIB(z, gzclose)
 @@ -1295,7 +1295,7 @@
        ])
      ])

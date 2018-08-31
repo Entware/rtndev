@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=pureftpd
 PKG_VERSION:=1.0.47
 PKG_REV:=f169d2016707e7991d4c85be92afcf26d84a0135
-PKG_RELEASE:=1a
+PKG_RELEASE:=1b
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -23,12 +23,14 @@ PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+# see other packages when deps on mariadb
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/pureftpd
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libsodium +libopenssl +libmariadbclient
+	DEPENDS:=+libsodium +libopenssl +libmysqlclient
 	TITLE:=Pure FTP server
 	URL:=http://www.pureftpd.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -44,7 +46,7 @@ CONFIGURE_ARGS += \
 	--with-virtualchroot \
 	--without-capabilities \
 	--with-paranoidmsg \
-	--with-mysql \
+	--with-mysql=$(STAGING_DIR)/opt \
 	--with-tls \
 	--with-certfile=/opt/etc/ssl/private/pure-ftpd.pem
 
