@@ -11,16 +11,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
-PKG_VERSION:=0.53.0
+PKG_VERSION:=0.68.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
-PKG_HASH:=592bf72960c6b5948b67657594b05e72d9a278daf7613c9f3cdff9a5b73096a8
+PKG_HASH:=f90d04f0fb8df6923ecb0f106ae866cf9f8761bb537ddac64dfb5322763d0e58
 
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/libpoppler
 	SECTION:=libs
@@ -48,11 +49,11 @@ define Package/poppler-utils/description
  Poppler is a PDF rendering utilities based on the xpdf-3.0.
 endef
 
-CONFIGURE_ARGS += \
-	--enable-xpdf-headers \
-	--enable-gtk-doc-html \
-	--enable-cms=lcms2 \
-	--with-font-configuration=fontconfig \
+CMAKE_OPTIONS += \
+	-DENABLE_XPDF_HEADERS=ON \
+	-DENABLE_LIBOPENJPEG=unmaintained \
+	-DENABLE_QT5=OFF \
+	-DENABLE_LIBCURL=OFF
 
 define Package/libpoppler/install
 	$(INSTALL_DIR) $(1)/opt/lib
