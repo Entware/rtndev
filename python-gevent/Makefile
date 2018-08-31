@@ -4,6 +4,12 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# The newer version raises following error.
+# Used by weave-minimal only, no need to update it
+#
+#In file included from deps/libuv/src/threadpool.c:22:0:
+#deps/libuv/src/threadpool.c: In function 'uv__queue_done':
+#deps/libuv/src/uv-common.h:196:24: error: request for member 'count' in something not a structure or union
 
 include $(TOPDIR)/rules.mk
 

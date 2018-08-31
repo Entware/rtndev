@@ -4,16 +4,17 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# Used by python-gevent only, no need to update
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-greenlet
-PKG_VERSION:=0.4.13
+PKG_VERSION:=0.4.14
 PKG_RELEASE:=1
 
 PKG_SOURCE:=greenlet-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/13/de/ba92335e9e76040ca7274224942282a80d54f85e342a5e33c5277c7f87eb
-PKG_HASH:=0fef83d43bf87a5196c91e73cb9772f945a4caaff91242766c5916d1dd1381e4
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/5d/82/2e53a8def6f99db51992ca3a0a2448c3bbec1a9db3a7cbf7d5dad011e138
+PKG_HASH:=f1cc268a15ade58d9a0c04569fe6613e19b8b0345b64453064e2c3c6d79051af
 
 PKG_BUILD_DEPENDS:=python
 PKG_BUILD_DIR:=$(BUILD_DIR)/greenlet-$(PKG_VERSION)
