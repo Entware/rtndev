@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xawtv
-PKG_VERSION:=3.103
+PKG_VERSION:=3.105
 PKG_RELEASE:=1
 
 PKG_SOURCE:=xawtv-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://linuxtv.org/downloads/xawtv
-PKG_HASH:=2cf3a91b5d59a094bd86e101684a65c0e3d09225c11a787e060fa01bfbc8dd52
+PKG_HASH:=2bd899d8366cd74a59e8e1bc002a41004ab40fbba98184e40c5f42e61b98640f
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
