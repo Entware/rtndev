@@ -42,6 +42,7 @@ CONFIGURE_ARGS += \
 	--with-libs=$(STAGING_DIR)/opt \
 	--with-ssl=openssl \
 	--disable-nls \
+	--without-gssapi \
 
 TARGET_CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
 
