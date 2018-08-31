@@ -49,12 +49,16 @@ CONFIGURE_ARGS += \
 	--with-gs-path=/opt/bin/gs \
 	--with-pdftops-path=/opt/bin/gs \
 	--with-test-font-path=/opt/share/fonts/dejavu/DejaVuSans.ttf \
-	--with-shell=/bin/sh \
+	--with-shell=/bin/sh
+
+CONFIGURE_VARS += \
 	LIBQPDF_CFLAGS=-I$(STAGING_DIR)/opt/include \
-	LIBQPDF_LIBS=-L$(STAGING_DIR)/opt/libs
+	LIBQPDF_LIBS=-L$(STAGING_DIR)/opt/libs \
+	POPPLER_CFLAGS=-I$(STAGING_DIR)/opt/include/poppler \
+	POPPLER_LIBS=-L$(STAGING_DIR)/opt/libs
 
 TARGET_CXXFLAGS += -std=c++0x
-TARGET_LDFLAGS += -liconv -lqpdf
+TARGET_LDFLAGS += -liconv -lqpdf -lpoppler
 
 define Package/cups-filters/install
 	$(INSTALL_DIR) $(1)/opt/bin
