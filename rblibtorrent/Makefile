@@ -43,7 +43,7 @@ CONFIGURE_ARGS+= \
 	--disable-debug \
 	--enable-python-binding \
 	--with-openssl=$(STAGING_DIR)/opt \
-	--with-boost=$(STAGING_DIR)/opt/include \
+	--with-boost=$(STAGING_DIR)/opt \
 	--with-boost-libdir=$(STAGING_DIR)/opt/lib \
 	--with-boost-python=yes
 
