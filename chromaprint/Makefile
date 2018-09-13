@@ -40,10 +40,6 @@ endef
 CMAKE_OPTIONS += \
 	-DBUILD_TOOLS=ON
 
-#define Package/chromaprint/conffiles
-#/opt/etc/chromaprint.conf
-#endef
-
 define Build/InstallDev
 	true
 endef
