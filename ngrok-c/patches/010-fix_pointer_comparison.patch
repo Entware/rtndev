@@ -1,0 +1,11 @@
+--- a/ngrok.cpp
++++ b/ngrok.cpp
+@@ -274,7 +274,7 @@
+                 char srchost[256] = { 0 };
+                 sprintf(srchost,"%s\r\n",tunnelreq->hostheader);
+                 //查到了。。
+-                if(p!=false){
++                if(p!=NULL){
+                     //替换http请求头
+                     str_replace(p,strlen(remotehost),srchost);
+                 }
