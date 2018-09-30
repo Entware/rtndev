@@ -1,15 +1,15 @@
-Index: cgit-1.1+27/Makefile
+Index: cgit-1.2.1/Makefile
 ===================================================================
---- cgit-1.1+27.orig/Makefile
-+++ cgit-1.1+27/Makefile
-@@ -4,8 +4,8 @@ CGIT_VERSION = v1.1
+--- cgit-1.2.1.orig/Makefile
++++ cgit-1.2.1/Makefile
+@@ -4,8 +4,8 @@ CGIT_VERSION = v1.2.1
  CGIT_SCRIPT_NAME = cgit.cgi
  CGIT_SCRIPT_PATH = /var/www/htdocs/cgit
  CGIT_DATA_PATH = $(CGIT_SCRIPT_PATH)
 -CGIT_CONFIG = /etc/cgitrc
 -CACHE_ROOT = /var/cache/cgit
-+CGIT_CONFIG = /opt/etc/cgitrc
-+CACHE_ROOT = /opt/var/cache/cgit
++CGIT_CONFIG = /opt/etc/cgitrc 
++CACHE_ROOT = /opt/var/cache/cgit 
  prefix = /usr/local
  libdir = $(prefix)/lib
  filterdir = $(libdir)/cgit/filters
