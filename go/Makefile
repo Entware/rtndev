@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.11
+PKG_VERSION:=1.11.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
 PKG_BUILD_DIR:=$(BUILD_DIR)/go
-PKG_HASH:=afc1e12f5fe49a471e3aae7d906c73e9d5b1fdd36d52d72652dde8f6250152fb
+PKG_HASH:=042fba357210816160341f1002440550e952eb12678f7c9e7e9d389437942550
 
 OS=$(shell uname | tr 'A-Z' 'a-z')
 bintype:=$(shell uname -m | sed \
