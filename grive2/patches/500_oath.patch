@@ -1,0 +1,293 @@
+From 6ba490468f89847d9c2001d81d1636bb60db582e Mon Sep 17 00:00:00 2001
+From: Jan Schulz <jasc@gmx.net>
+Date: Thu, 29 Nov 2018 15:02:28 +0100
+Subject: [PATCH 1/5] Save client id and secret when using grive -a
+
+If you wanted to give a different than the default client id and
+secret, you always had to give that on the commandline. Now it's saved
+in the .give file. If given on the commandline, it's now also only
+used when 'auth/-a' is given, in normal runs it's not anymore valid (and errors out).
+---
+ grive/src/main.cc | 86 ++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 73 insertions(+), 13 deletions(-)
+
+diff --git a/grive/src/main.cc b/grive/src/main.cc
+index 7f0bd33..b83ed6d 100644
+--- a/grive/src/main.cc
++++ b/grive/src/main.cc
+@@ -111,8 +111,8 @@ int Main( int argc, char **argv )
+ 		( "help,h",		"Produce help message" )
+ 		( "version,v",	"Display Grive version" )
+ 		( "auth,a",		"Request authorization token" )
+-                ( "id,i",               po::value<std::string>(), "Authentication ID")
+-                ( "secret,e",           po::value<std::string>(), "Authentication secret")
++		( "id,i",		po::value<std::string>(), "Authentication ID (only used with 'auth')")
++		( "secret,e",	po::value<std::string>(), "Authentication secret (only used with 'auth')")
+ 		( "path,p",		po::value<std::string>(), "Path to working copy root")
+ 		( "dir,s",		po::value<std::string>(), "Single subdirectory to sync")
+ 		( "verbose,V",	"Verbose mode. Enable more messages than normal.")
+@@ -174,21 +174,47 @@ int Main( int argc, char **argv )
+ 		http->SetProgressReporter( pb.get() );
+ 	}
+ 
+-	std::string id = default_id;
+-	std::string secret = default_secret;
++	std::string id;
++	std::string secret;
+ 
+-	if( vm.count( "id" ) )
++	if ( vm.count( "auth" ) )
+ 	{
+-		id = vm["id"].as<std::string>();
+-	}
+ 
+-	if( vm.count( "secret" ) )
+-	{
+-		secret = vm["secret"].as<std::string>();
+-	}
++		// logic: commandline -> saved in .grive -> default
++		if( vm.count( "id" ) )
++		{
++			id = vm["id"].as<std::string>();
++		}
++		else
++		{
++			try
++			{
++				id = config.Get("client_id").Str() ;
++			}
++			catch ( Exception& e )
++			{
++				id = default_id;
++			}
++
++		}
++
++		if( vm.count( "secret" ) )
++		{
++			secret = vm["secret"].as<std::string>();
++		}
++		else
++		{
++			try
++			{
++				secret = config.Get("client_secret").Str() ;
++			}
++			catch ( Exception& e )
++			{
++				secret = default_secret;
++			}
++		}
++
+ 
+-	if ( vm.count( "auth" ) )
+-	{
+ 		OAuth2 token( http.get(), id, secret ) ;
+ 		
+ 		std::cout
+@@ -206,10 +232,44 @@ int Main( int argc, char **argv )
+ 		token.Auth( code ) ;
+ 		
+ 		// save to config
++		config.Set( "client_secret", Val( secret ) ) ;
++		config.Set( "client_id", Val( id ) ) ;
+ 		config.Set( "refresh_token", Val( token.RefreshToken() ) ) ;
+ 		config.Save() ;
+ 	}
++	else
++	{
++		if( vm.count( "id" ) || vm.count( "secret" ))
++		{
++			Log(
++				"'id' and 'secret' are only valid when grive is run with the \"-a\" option to (re)authenticate",
++				log::critical ) ;
+ 	
++			return -1;
++		}
++	}
++
++	// This is not included in the below 'refresh-token' try
++	// as a fallback for cases where 'grive -a' was run with an older version
++	// before we saved the id+secret
++	try
++	{
++		id = config.Get("client_id").Str() ;
++	}
++	catch ( Exception& e )
++	{
++		id = default_id;
++	}
++
++	try
++	{
++		secret = config.Get("client_secret").Str() ;
++	}
++	catch ( Exception& e )
++	{
++		secret = default_secret;
++	}
++
+ 	std::string refresh_token ;
+ 	try
+ 	{
+
+From 928138ecd29624d98af5a5c61f883131fdb17bc3 Mon Sep 17 00:00:00 2001
+From: Jan Schulz <jasc@gmx.net>
+Date: Thu, 29 Nov 2018 15:25:00 +0100
+Subject: [PATCH 2/5] Increment version for debian package and add some changes
+ there
+
+* Updated debhelper compat level to latest stable one
+---
+ debian/changelog | 4 +++-
+ debian/compat    | 2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/debian/changelog b/debian/changelog
+index db47f06..fc24d41 100644
+--- a/debian/changelog
++++ b/debian/changelog
+@@ -1,6 +1,8 @@
+-grive2 (0.5.1+git20160731) unstable; urgency=medium
++grive2 (0.5.1+git20181129) unstable; urgency=medium
+ 
+   * Newer dev version
++  * Add systemd unit files and helper script for automatic syncs
++  * Add possibility to change client id and secret and save it between runs
+ 
+  -- Vitaliy Filippov <vitalif@yourcmc.ru>  Wed, 31 Jul 2016 22:04:53 +0300
+ 
+diff --git a/debian/compat b/debian/compat
+index 7f8f011..b4de394 100644
+--- a/debian/compat
++++ b/debian/compat
+@@ -1 +1 @@
+-7
++11
+
+From 380726c2bb82c257139582a1b814c8f6bb3305dc Mon Sep 17 00:00:00 2001
+From: Jan Schulz <jasc@gmx.net>
+Date: Mon, 3 Dec 2018 17:49:00 +0100
+Subject: [PATCH 3/5] Update argument docs and error messages
+
+---
+ grive/src/main.cc | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/grive/src/main.cc b/grive/src/main.cc
+index b83ed6d..da36e3e 100644
+--- a/grive/src/main.cc
++++ b/grive/src/main.cc
+@@ -111,8 +111,8 @@ int Main( int argc, char **argv )
+ 		( "help,h",		"Produce help message" )
+ 		( "version,v",	"Display Grive version" )
+ 		( "auth,a",		"Request authorization token" )
+-		( "id,i",		po::value<std::string>(), "Authentication ID (only used with 'auth')")
+-		( "secret,e",	po::value<std::string>(), "Authentication secret (only used with 'auth')")
++		( "id,i",		po::value<std::string>(), "Authentication ID (only used with '-a')")
++		( "secret,e",	po::value<std::string>(), "Authentication secret (only used with '-a')")
+ 		( "path,p",		po::value<std::string>(), "Path to working copy root")
+ 		( "dir,s",		po::value<std::string>(), "Single subdirectory to sync")
+ 		( "verbose,V",	"Verbose mode. Enable more messages than normal.")
+@@ -242,7 +242,7 @@ int Main( int argc, char **argv )
+ 		if( vm.count( "id" ) || vm.count( "secret" ))
+ 		{
+ 			Log(
+-				"'id' and 'secret' are only valid when grive is run with the \"-a\" option to (re)authenticate",
++				"'--id' and '--secret' are only valid when grive is run with the \"-a\" option to (re)authenticate",
+ 				log::critical ) ;
+ 	
+ 			return -1;
+
+From ad3d42d19bd5c0a12800cc53fde68a6bbc8b3e1b Mon Sep 17 00:00:00 2001
+From: Jan Schulz <jasc@gmx.net>
+Date: Mon, 3 Dec 2018 17:49:39 +0100
+Subject: [PATCH 4/5] Output oauth tokens in -a --verbose mode
+
+---
+ grive/src/main.cc | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/grive/src/main.cc b/grive/src/main.cc
+index da36e3e..9877d50 100644
+--- a/grive/src/main.cc
++++ b/grive/src/main.cc
+@@ -229,13 +229,23 @@ int Main( int argc, char **argv )
+ 		std::string code ;
+ 		std::cin >> code ;
+ 		
++		Log( "Authenticating code: %1%",
++			code, log::verbose) ;
++
+ 		token.Auth( code ) ;
+ 		
++		Log( "tokens: refresh_token: %1%, token: %2%",
++			token.RefreshToken(), token.AccessToken(), log::verbose) ;
++
++
+ 		// save to config
+ 		config.Set( "client_secret", Val( secret ) ) ;
+ 		config.Set( "client_id", Val( id ) ) ;
+ 		config.Set( "refresh_token", Val( token.RefreshToken() ) ) ;
+ 		config.Save() ;
++
++		Log( "Saved data to .grive file", log::verbose) ;
++
+ 	}
+ 	else
+ 	{
+
+From 3bf6f813672311fb20b83a084b90e1ac6af477e1 Mon Sep 17 00:00:00 2001
+From: Jan Schulz <jasc@gmx.net>
+Date: Mon, 3 Dec 2018 19:40:53 +0100
+Subject: [PATCH 5/5] Add instruction for replacing the OAuth2 client
+
+---
+ README.md | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/README.md b/README.md
+index d09b292..c66fd24 100644
+--- a/README.md
++++ b/README.md
+@@ -106,6 +106,32 @@ your folder. They need to be added explicitly to your Google Drive: go to the
+ Google Drive website, right click on the file or folder and chose 'Add to My
+ Drive'.
+ 
++### Different OAuth2 client to workaround over quota issues
++
++The default OAuth2 client supplied with grive is sometimes over quota and grive 
++will then fail to sync. You can supply your own OAuth2 client credentials by 
++following these steps:
++
++1. Go to https://console.developers.google.com/apis/api/drive.googleapis.com
++2. Chose a project (you might need to create one first)
++3. Go to https://console.developers.google.com/apis/library/drive.googleapis.com and 
++   "Enable" the Google Drive APIs
++4. Create new Credentials on the folloing screen(s)
++5. In the "Find out what credentials you need" dialog, choose: 
++   - Which API are you using: "Google Drive API"
++   - Where will you be calling the API from: "Other UI (...CLI...)"
++   - What data will you be accessing: "User Data"
++6. In the next steps create a client id (name doesn't matter) and 
++   setup the consent screen (defaults are ok, no need for any URLs)
++7. The needed "Client ID" and "Client Secret" are either in the shown download 
++   or can later found by clicking on the created credential on 
++   https://console.developers.google.com/apis/credentials/  
++8. Call `grive -a --id <client_id> --secret <client_secret>` and follow the steps 
++   to authenticate the OAuth2 client to allow it to access your drive folder. 
++
++Both Client ID and Client Secret are saved in the `.grive` file and even reused on 
++the next `grive -a` (without `--id` and `--secret`) in that folder. 
++
+ ## Installation
+ 
+ For the detailed instructions, see http://yourcmc.ru/wiki/Grive2#Installation
+@@ -167,6 +193,7 @@ Grive uses cmake to build. Basic install sequence is
+ - faster upload of new and changed files. now Grive uploads files without first calculating
+   md5 checksum when file is created locally or when its size changes.
+ - added -P/--progress-bar option to print ASCII progress bar for each processed file (pull request by @svartkanin)
++- supply your own OAuth2 client to work around over quota problems with the default OAuth2 client id
+ 
+ ### Grive2 v0.5
+ 
