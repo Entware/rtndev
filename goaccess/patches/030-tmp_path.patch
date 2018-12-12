@@ -4,11 +4,11 @@
  #define TC_LMEMB 128
  #define TC_NMEMB 256
  #define TC_BNUM  32749
--#define TC_DBPATH "/tmp/"
-+#define TC_DBPATH "/opt/tmp/"
+-#define TC_DBPATH "/tmp/goaccess"
++#define TC_DBPATH "/opt/tmp/goaccess"
+ #define TC_DBPMODE 0755
  #define TC_ZLIB 1
  #define TC_BZ2  2
- 
 --- a/src/websocket.h
 +++ b/src/websocket.h
 @@ -90,8 +90,8 @@

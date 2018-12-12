@@ -8,15 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goaccess
-PKG_VERSION:=1.2
-PKG_REV:=85cdf89f8f26b584168cf3a9a9941f80d769e2ee
+PKG_VERSION:=1.3
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/allinurl/goaccess.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://tar.goaccess.io
+PKG_HASH:=8c775c5c24bf85a933fd6f1249004847342d6542aa533e4ec02aaf7be41d7b9b
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -48,12 +45,14 @@ endef
 define Package/goaccess/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/goaccess $(1)/opt/bin
-	$(INSTALL_DIR) $(1)/opt/etc
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/goaccess.conf $(1)/opt/etc
+	$(INSTALL_DIR) $(1)/opt/etc/goaccess
+	$(INSTALL_CONF) \
+	    $(PKG_INSTALL_DIR)/opt/etc/goaccess/{browsers.list,goaccess.conf} \
+	    $(1)/opt/etc/goaccess
 endef
 
 define Package/goaccess/conffiles
-/opt/etc/goaccess.conf
+/opt/etc/goaccess/goaccess.conf
 endef
 
 $(eval $(call BuildPackage,goaccess))
