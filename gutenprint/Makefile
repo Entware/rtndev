@@ -7,6 +7,7 @@
 # Compiled with the help of following sources:
 #	* http://github.com/FranciscoBorges/openwrt-printing-packages
 #	* http://code.google.com/p/pits/source/browse/trunk/ijsgutenprint/Makefile
+# 5.3.1 and newer requires check_duplicate_printers to be host-compiled
 
 include $(TOPDIR)/rules.mk
 
