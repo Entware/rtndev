@@ -1,11 +1,11 @@
 --- a/Source/Pcap_DNSProxy/Definition.h
 +++ b/Source/Pcap_DNSProxy/Definition.h
-@@ -294,7 +294,7 @@
+@@ -312,7 +312,7 @@
  	#define ERROR_LOG_FILE_NAME_MBS                       ("Error.log")
- 	#define FIFO_MESSAGE_FLUSH_DNS                        ("Flush DNS cache of Pcap_DNSProxy")         //The FIFO message to flush dns cache
- 	#define FIFO_MESSAGE_FLUSH_DNS_DOMAIN                 ("Flush DNS cache of Pcap_DNSProxy: ")       //The FIFO message to flush dns cache(Single domain)
--	#define FIFO_PATH_NAME                                ("/tmp/pcap_dnsproxy_fifo")                  //FIFO pathname
-+	#define FIFO_PATH_NAME                                ("/opt/tmp/pcap_dnsproxy_fifo")              //FIFO pathname
+ 	#define FLUSH_DOMAIN_PIPE_MESSAGE_ALL                 ("Flush Pcap_DNSProxy domain cache")         //The FIFO pipe message to flush domain cache(All)
+ 	#define FLUSH_DOMAIN_PIPE_MESSAGE_SPECIFIC            ("Flush Pcap_DNSProxy domain cache: ")       //The FIFO pipe message to flush domain cache(Specific)
+-	#define FLUSH_DOMAIN_PIPE_PATH_NAME                   ("/tmp/pcap_dnsproxy_fifo")                  //The FIFO pipe pathname to flush domain cache
++	#define FLUSH_DOMAIN_PIPE_PATH_NAME                   ("/opt/tmp/pcap_dnsproxy_fifo")                  //The FIFO pipe pathname to flush domain cache
  #endif
  #define DEFAULT_LOCAL_SERVER_NAME                     ("pcap-dnsproxy.server")                     //Default Local DNS server name
- #if defined(PLATFORM_MACOS)
+ #define DNS_PACKET_QUERY_LOCATE(Buffer, BufferSize)   (sizeof(dns_hdr) + CheckQueryNameLength(reinterpret_cast<const uint8_t *>(Buffer) + sizeof(dns_hdr), BufferSize) + NULL_TERMINATE_LENGTH)                     //Locate the beginning of DNS query.

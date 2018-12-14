@@ -10,8 +10,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap_dnsproxy
-PKG_VERSION:=0.4.9.9
-PKG_REV:=796497c4e1f017464253f29fba4abb7d40c4b7b7
+PKG_VERSION:=0.4.9.12
+PKG_REV:=cd1249b95bcde1680fa3e9ce818a26255d94e522
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -26,7 +26,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/pcap_dnsproxy
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libsodium +libpcap +libstdcpp +libevent2
+	DEPENDS:=+libsodium +libpcap +libstdcpp +libevent2 +libevent2-core
 	TITLE:=WinPcap and LibPcap based DNS server
 	URL:=$(PKG_SOURCE_URL)
 	SUBMENU:=IP Addresses and Names
