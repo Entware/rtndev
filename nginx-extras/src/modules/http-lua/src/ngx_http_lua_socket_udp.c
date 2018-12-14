@@ -221,7 +221,7 @@ ngx_http_lua_socket_udp_setpeername(lua_State *L)
     if (n == 3) {
         port = luaL_checkinteger(L, 3);
 
-        if (port < 0 || port > 65536) {
+        if (port < 0 || port > 65535) {
             lua_pushnil(L);
             lua_pushfstring(L, "bad port number: %d", port);
             return 2;
@@ -574,7 +574,7 @@ ngx_http_lua_socket_resolve_handler(ngx_resolver_ctx_t *ctx)
 #else
     /* for nginx older than 1.5.8 */
 
-    len = NGX_INET_ADDRSTRLEN + sizeof(":65536") - 1;
+    len = NGX_INET_ADDRSTRLEN + sizeof(":65535") - 1;
 
     p = ngx_pnalloc(r->pool, len + sizeof(struct sockaddr_in));
     if (p == NULL) {
@@ -845,6 +845,20 @@ ngx_http_lua_socket_udp_send(lua_State *L)
             len = ngx_http_lua_calc_strlen_in_table(L, 2, 2, 1 /* strict */);
             break;
 
+        case LUA_TNIL:
+            len = sizeof("nil") - 1;
+            break;
+
+        case LUA_TBOOLEAN:
+            if (lua_toboolean(L, 2)) {
+                len = sizeof("true") - 1;
+
+            } else {
+                len = sizeof("false") - 1;
+            }
+
+            break;
+
         default:
             msg = lua_pushfstring(L, "string, number, boolean, nil, "
                                   "or array table expected, got %s",
@@ -865,6 +879,32 @@ ngx_http_lua_socket_udp_send(lua_State *L)
 
         case LUA_TTABLE:
             (void) ngx_http_lua_copy_str_in_table(L, 2, query.data);
+            break;
+
+        case LUA_TNIL:
+            p = query.data;
+            *p++ = 'n';
+            *p++ = 'i';
+            *p++ = 'l';
+            break;
+
+        case LUA_TBOOLEAN:
+            p = query.data;
+
+            if (lua_toboolean(L, 2)) {
+                *p++ = 't';
+                *p++ = 'r';
+                *p++ = 'u';
+                *p++ = 'e';
+
+            } else {
+                *p++ = 'f';
+                *p++ = 'a';
+                *p++ = 'l';
+                *p++ = 's';
+                *p++ = 'e';
+            }
+
             break;
 
         default:

@@ -1,0 +1,4 @@
+version=4
+opts="dversionmangle=s/v//,filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%libnginx-mod-nchan-$1.tar.gz%" \
+    https://github.com/slact/nchan/tags \
+    (?:.*?/)?v?(\d[\d.]*)\.tar\.gz debian debian/ngxmod uupdate nchan

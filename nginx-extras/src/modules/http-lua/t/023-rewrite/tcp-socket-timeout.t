@@ -63,7 +63,7 @@ GET /t1
 failed to connect: timeout
 --- error_log
 lua tcp socket connect timeout: 100
-lua tcp socket connect timed out
+lua tcp socket connect timed out, when connecting to 172.105.207.225:12345
 --- timeout: 10
 
 
