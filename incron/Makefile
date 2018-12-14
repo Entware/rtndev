@@ -4,17 +4,19 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2012
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=incron
-PKG_VERSION:=0.5.10
+PKG_VERSION:=0.5.12
+PKG_REV:=02c88fb221987bb906f375b9cf31c614af76e829
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://inotify.aiken.cz/download/incron/
-PKG_HASH:=5d4abadb5f16c26e4f728a6433ad22f7655663b5812fbd4f94e852050f38e78a
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/ar-/incron.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -44,8 +46,7 @@ define Package/incron/install
 	$(INSTALL_DIR) $(1)/opt/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/incrond $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/var/spool/incron $(1)/opt/etc/incron.d
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/incron.conf.example  $(1)/opt/etc/incron.conf
-	$(INSTALL_DIR) $(1)/opt/var/run
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/incron.conf.example  $(1)/opt/etc/incron.conf
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S12incron $(1)/opt/etc/init.d
 endef
