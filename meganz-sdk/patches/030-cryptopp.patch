@@ -53,3 +53,14 @@
      ])
    ])
  AC_SUBST(CRYPTO_CXXFLAGS)
+--- a/include/mega/types.h
++++ b/include/mega/types.h
+@@ -46,7 +46,7 @@
+ #endif
+ 
+ #ifdef USE_CRYPTOPP
+-#include <cryptopp/config.h> // so we can test CRYPTO_VERSION below
++#include <crypto++/config.h> // so we can test CRYPTO_VERSION below
+ #endif
+ 
+ // signed 64-bit generic offset
