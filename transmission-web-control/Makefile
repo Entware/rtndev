@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=transmission-web-control
-PKG_VERSION:=1.6.0-alpha
-PKG_REV:=185749379b11e7eb341ccda8a679cf0c6e0f993b
+PKG_VERSION:=1.6.0-beta2
+PKG_REV:=d2e2fd185ed052d5b88eb0ec0755a46fb4910be6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
