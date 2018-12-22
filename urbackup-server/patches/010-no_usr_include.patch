@@ -1,7 +1,6 @@
-This patch prevents adding /usr/include search path when crosscompiling
 --- a/configure
 +++ b/configure
-@@ -6679,7 +6679,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+@@ -6740,7 +6740,7 @@
  #
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if zlib is wanted" >&5
  $as_echo_n "checking if zlib is wanted... " >&6; }

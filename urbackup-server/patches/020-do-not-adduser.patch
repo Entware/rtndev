@@ -1,7 +1,6 @@
-This patch removes adduser and chown in `make install`
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -6810,10 +6810,6 @@ install-exec-local: defaults_server init
+@@ -5533,10 +5533,6 @@
  
  	mkdir -p "$(DESTDIR)$(localstatedir)/urbackup"
  	test "x$(DESTDIR)$(sbindir)" = "x$(DESTDIR)$(bindir)" || ! test -e $(DESTDIR)$(sbindir)/urbackupsrv || rm $(DESTDIR)$(sbindir)/urbackupsrv
@@ -12,7 +11,7 @@ This patch removes adduser and chown in `make install`
  
  install-data-local: urbackup/status.htm urbackupserver/www/js/*.js urbackupserver/www/js/vs/*.js urbackupserver/www/js/vs/base/worker/* urbackupserver/www/js/vs/basic-languages/src/* urbackupserver/www/js/vs/editor/* urbackupserver/www/*.htm urbackupserver/www/*.ico urbackupserver/www/css/*.css urbackupserver/www/images/*.png urbackupserver/www/images/*.gif urbackupserver/www/fonts/* urbackupserver/urbackup_ecdsa409k1.pub urbackupserver/www/swf/* server-license.txt urbackup/dataplan_db.txt
  	$(INSTALL) $(INSTALL_OPTS) -m 744 -d "$(DESTDIR)$(localstatedir)/urbackup"
-@@ -6860,9 +6856,6 @@ install-data-local: urbackup/status.htm
+@@ -5583,9 +5579,6 @@
  	$(INSTALL_DATA) $(INSTALL_OPTS) $(srcdir)/urbackupserver/www/fonts/* "$(DESTDIR)$(datadir)/urbackup/www/fonts/"
  	$(INSTALL_DATA) $(INSTALL_OPTS) $(srcdir)/urbackupserver/urbackup_ecdsa409k1.pub "$(DESTDIR)$(datadir)/urbackup/urbackup_ecdsa409k1.pub"
  	$(INSTALL_DATA) $(INSTALL_OPTS) $(srcdir)/server-license.txt "$(DESTDIR)$(datadir)/urbackup/server-license.txt"
