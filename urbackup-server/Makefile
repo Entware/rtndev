@@ -36,6 +36,15 @@ CONFIGURE_ARGS += \
 	--enable-embedded-cryptopp \
 	--oldincludedir="$(STAGING_DIR)/opt/include" \
 
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+    ifeq ($(CONFIG_arm),y)
+	patch -p1 -d "$(PKG_BUILD_DIR)" < ./patches-arm/030-arm-noneon.patch
+    endif
+endef
+
+
 define Package/urbackup-server/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin/

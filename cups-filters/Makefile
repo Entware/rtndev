@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.21.5
+PKG_VERSION:=1.21.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/release-1-21-5
-PKG_HASH:=415fab016950e98a343a8045956b14a79ce09e4d904d77f0dbc298ad4b022562
+PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/release-1-21-6
+PKG_HASH:=60662c1b470f427ddaad12ddb5c8cd444332f517e31b880e47be0fdf7ba44623
 
 PKG_INSTALL:=1
 
@@ -41,7 +41,7 @@ define Package/cups-filters/description
 endef
 
 CONFIGURE_ARGS += \
-	--enable-opvp \
+	--disable-opvp \
 	--disable-avahi \
 	--disable-ldap \
 	--disable-braille \
@@ -67,10 +67,10 @@ define Package/cups-filters/install
 	$(INSTALL_CONF) \
 	    $(PKG_INSTALL_DIR)/opt/etc/cups/cups-browsed.conf \
 	    $(1)/opt/etc/cups
-	$(INSTALL_DIR) $(1)/opt/etc/fonts/conf.d
-	$(INSTALL_CONF) \
-	    $(PKG_INSTALL_DIR)/opt/etc/fonts/conf.d/99pdftoopvp.conf \
-	    $(1)/opt/etc/fonts/conf.d
+#	$(INSTALL_DIR) $(1)/opt/etc/fonts/conf.d
+#	$(INSTALL_CONF) \
+#	    $(PKG_INSTALL_DIR)/opt/etc/fonts/conf.d/99pdftoopvp.conf \
+#	    $(1)/opt/etc/fonts/conf.d
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib*.so* $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cups $(1)/opt/lib
