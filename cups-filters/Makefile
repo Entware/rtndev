@@ -53,9 +53,9 @@ CONFIGURE_ARGS += \
 
 CONFIGURE_VARS += \
 	LIBQPDF_CFLAGS=-I$(STAGING_DIR)/opt/include \
-	LIBQPDF_LIBS=-L$(STAGING_DIR)/opt/libs \
+	LIBQPDF_LIBS=-L$(STAGING_DIR)/opt/lib \
 	POPPLER_CFLAGS=-I$(STAGING_DIR)/opt/include/poppler \
-	POPPLER_LIBS=-L$(STAGING_DIR)/opt/libs
+	POPPLER_LIBS=-L$(STAGING_DIR)/opt/lib
 
 TARGET_CXXFLAGS += -std=c++0x
 TARGET_LDFLAGS += -liconv -lqpdf -lpoppler
