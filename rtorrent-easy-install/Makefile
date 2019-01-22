@@ -125,11 +125,11 @@ schedule = low_diskspace,5,60,close_low_diskspace=100M
 bind = 0.0.0.0
 port_range = 51411-51411
 check_hash = yes
-use_udp_trackers = yes
+trackers.use_udp.set = yes
 encryption = allow_incoming,enable_retry,prefer_plaintext
 dht = auto
 dht_port = 51412
-peer_exchange = yes
+protocol.pex.set = yes
 scgi_local = /opt/var/rpc.socket
 encoding_list = UTF-8
 max_uploads_global = 32
