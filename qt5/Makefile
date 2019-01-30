@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
 PKG_VERSION:=5.12.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.12/$(PKG_VERSION)/single
@@ -41,7 +41,7 @@ define Package/qt5/Default
 	SUBMENU:=Qt5
 	TITLE:=qt5
 	URL:=http://qt-project.org
-	DEPENDS:=+librt +zlib +libstdcpp +libpthread @!LINUX_2_6_36
+	DEPENDS:=+librt +libstdcpp +libpthread @!LINUX_2_6_36
 endef
 
 define Package/qt5-core
@@ -50,22 +50,10 @@ define Package/qt5-core
 	DEPENDS+=+libatomic
 endef
 
-define Package/qt5-concurrent
-	$(call Package/qt5/Default)
-	TITLE+=concurrent
-	DEPENDS+=+qt5-core
-endef
-
 define Package/qt5-network
 	$(call Package/qt5/Default)
 	TITLE+=network
 	DEPENDS+=+qt5-core
-endef
-
-define Package/qt5-widgets
-	$(call Package/qt5/Default)
-	TITLE+=widgets
-	DEPENDS+=+qt5-core +qt5-network
 endef
 
 define Package/qt5-sql
@@ -80,29 +68,10 @@ define Package/qt5-xml
 	DEPENDS+=+qt5-core
 endef
 
-define Package/qt5-test
-	$(call Package/qt5/Default)
-	TITLE+=test
-	DEPENDS+=+qt5-core
-endef
-
 define Build/Configure
 	$(SED) 's@$$$$(TARGET_CROSS)@$(TARGET_CROSS)@g' $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qmake.conf
 	$(SED) 's@$$$$(TARGET_CFLAGS)@$(TARGET_CFLAGS)@g' $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qmake.conf
 	( cd $(PKG_BUILD_DIR) ; \
-		TARGET_CC="$(TARGET_CROSS)gcc" \
-		TARGET_CXX="$(TARGET_CROSS)g++" \
-		TARGET_AR="$(TARGET_CROSS)ar cqs" \
-		TARGET_OBJCOPY="$(TARGET_CROSS)objcopy" \
-		TARGET_RANLIB="$(TARGET_CROSS)ranlib" \
-		TARGET_CFLAGS="$(TARGET_CFLAGS) $(EXTRA_CFLAGS)" \
-		TARGET_CXXFLAGS="$(TARGET_CFLAGS) $(EXTRA_CFLAGS)" \
-		TARGET_LDFLAGS="$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS) -lpthread -lrt" \
-		TARGET_INCDIRS="$(TARGET_INCDIRS)" \
-		TARGET_LIBDIRS="$(TARGET_LIBDIRS) $(STAGING_DIR)/opt/lib" \
-		CFLAGS= \
-		CXXFLAGS= \
-		LDFLAGS= \
 		./configure \
 			-prefix /opt \
 			-extprefix $(TOOLCHAIN_DIR) \
@@ -129,6 +98,7 @@ define Build/Configure
 			-make libs \
 			-nomake examples \
 			-nomake tests \
+			-nomake tools \
 			-skip qtdeclarative \
 			-skip qtmultimedia \
 			-skip activeqt \
@@ -151,24 +121,16 @@ define Build/Configure
 			-skip sensors \
 			-skip serialbus \
 			-skip purchasing \
+			-skip qtspeech \
+			-skip qtremoteobjects \
+			-skip qtnetworkauth \
+			-skip imageformats \
+			-skip svg \
 			-v \
 	)
 endef
 
 define Build/Compile
-	TARGET_CC="$(TARGET_CROSS)gcc" \
-	TARGET_CXX="$(TARGET_CROSS)g++" \
-	TARGET_AR="$(TARGET_CROSS)ar cqs" \
-	TARGET_OBJCOPY="$(TARGET_CROSS)objcopy" \
-	TARGET_RANLIB="$(TARGET_CROSS)ranlib" \
-	TARGET_CFLAGS="$(TARGET_CFLAGS) $(EXTRA_CFLAGS)" \
-	TARGET_CXXFLAGS="$(TARGET_CFLAGS) $(EXTRA_CFLAGS)" \
-	TARGET_LDFLAGS="$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS) -ldl -lpthread -lrt" \
-	TARGET_INCDIRS="$(TARGET_INCDIRS)" \
-	TARGET_LIBDIRS="$(TARGET_LIBDIRS) $(STAGING_DIR)/opt/lib" \
-	STAGING_DIR="$(STAGING_DIR)" \
-	STAGING_DIR_HOST="$(STAGING_DIR)/../host" \
-	PKG_CONFIG_SYSROOT="$(STAGING_DIR)" \
 	$(MAKE) -C $(PKG_BUILD_DIR)
 endef
 
@@ -183,28 +145,9 @@ define Package/qt5-core/install
 	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Core.so* $(1)/opt/lib
 endef
 
-define Package/qt5-concurrent/install
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Concurrent.so* $(1)/opt/lib
-endef
-
 define Package/qt5-network/install
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Network.so* $(1)/opt/lib
-endef
-
-define Package/qt5-widgets/install
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/generic
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/platforms
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/imageformats
-	$(INSTALL_DIR) $(1)/opt/lib/fonts
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Gui.so* $(1)/opt/lib
-	$(CP) $(PKG_BUILD_DIR)/qtsvg/lib/libQt5Svg.so* $(1)/opt/lib
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Widgets.so* $(1)/opt/lib
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/generic/*.so $(1)/opt/lib/Qt/plugins/generic
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/platforms/*.so $(1)/opt/lib/Qt/plugins/platforms
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/imageformats/*.so $(1)/opt/lib/Qt/plugins/imageformats
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/fonts/* $(1)/opt/lib/fonts
 endef
 
 define Package/qt5-sql/install
@@ -218,15 +161,7 @@ define Package/qt5-xml/install
 	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Xml.so* $(1)/opt/lib
 endef
 
-define Package/qt5-test/install
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Test.so* $(1)/opt/lib
-endef
-
 $(eval $(call BuildPackage,qt5-core))
-$(eval $(call BuildPackage,qt5-concurrent))
 $(eval $(call BuildPackage,qt5-network))
-$(eval $(call BuildPackage,qt5-widgets))
 $(eval $(call BuildPackage,qt5-sql))
 $(eval $(call BuildPackage,qt5-xml))
-$(eval $(call BuildPackage,qt5-test))

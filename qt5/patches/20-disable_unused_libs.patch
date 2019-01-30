@@ -1,0 +1,84 @@
+This patch disables gui, widgets and prinstsupport base lib compilation
+--- a/qtbase/src/src.pro
++++ b/qtbase/src/src.pro
+@@ -114,33 +114,19 @@
+ src_angle.subdir = $$PWD/angle
+ src_angle.target = sub-angle
+ 
+-src_gui.subdir = $$PWD/gui
+-src_gui.target = sub-gui
+-src_gui.depends = src_corelib
+-
+ src_platformheaders.subdir = $$PWD/platformheaders
+ src_platformheaders.target = sub-platformheaders
+-src_platformheaders.depends = src_corelib src_gui
++src_platformheaders.depends = src_corelib
+ 
+ src_platformsupport.subdir = $$PWD/platformsupport
+ src_platformsupport.target = sub-platformsupport
+-src_platformsupport.depends = src_corelib src_gui src_platformheaders
+-
+-src_widgets.subdir = $$PWD/widgets
+-src_widgets.target = sub-widgets
+-src_widgets.depends = src_corelib src_gui src_tools_uic src_platformheaders
++src_platformsupport.depends = src_corelib src_platformheaders
+ 
+ src_opengl.subdir = $$PWD/opengl
+ src_opengl.target = sub-opengl
+-src_opengl.depends = src_gui src_widgets
+ 
+ src_openglextensions.subdir = $$PWD/openglextensions
+ src_openglextensions.target = sub-openglextensions
+-src_openglextensions.depends = src_gui
+-
+-src_printsupport.subdir = $$PWD/printsupport
+-src_printsupport.target = sub-printsupport
+-src_printsupport.depends = src_corelib src_gui src_widgets src_tools_uic
+ 
+ src_plugins.subdir = $$PWD/plugins
+ src_plugins.target = sub-plugins
+@@ -194,44 +180,6 @@
+ }
+ 
+ qtConfig(concurrent): SUBDIRS += src_concurrent
+-qtConfig(gui) {
+-    qtConfig(harfbuzz):!qtConfig(system-harfbuzz) {
+-        SUBDIRS += src_3rdparty_harfbuzzng
+-        src_gui.depends += src_3rdparty_harfbuzzng
+-    }
+-    qtConfig(angle) {
+-        SUBDIRS += src_angle
+-        src_gui.depends += src_angle
+-    }
+-    qtConfig(png):!qtConfig(system-png) {
+-        SUBDIRS += src_3rdparty_libpng
+-        src_3rdparty_freetype.depends += src_3rdparty_libpng
+-        src_gui.depends += src_3rdparty_libpng
+-    }
+-    qtConfig(freetype):!qtConfig(system-freetype) {
+-        SUBDIRS += src_3rdparty_freetype
+-        src_platformsupport.depends += src_3rdparty_freetype
+-    }
+-    SUBDIRS += src_tools_qvkgen
+-    src_gui.depends += src_tools_qvkgen
+-    TOOLS += src_tools_qvkgen
+-    SUBDIRS += src_gui src_platformsupport src_platformheaders
+-    qtConfig(opengl): SUBDIRS += src_openglextensions
+-    src_plugins.depends += src_gui src_platformsupport src_platformheaders
+-    src_testlib.depends += src_gui      # if QtGui is enabled, QtTest requires QtGui's headers
+-    qtConfig(widgets) {
+-        SUBDIRS += src_tools_uic src_widgets
+-        !android-embedded: SUBDIRS += src_printsupport
+-        TOOLS += src_tools_uic
+-        src_plugins.depends += src_widgets
+-        !android-embedded: src_plugins.depends += src_printsupport
+-        src_testlib.depends += src_widgets        # if QtWidgets is enabled, QtTest requires QtWidgets's headers
+-        qtConfig(opengl) {
+-            SUBDIRS += src_opengl
+-            src_plugins.depends += src_opengl
+-        }
+-    }
+-}
+ SUBDIRS += src_plugins
+ 
+ nacl: SUBDIRS -= src_network src_testlib
