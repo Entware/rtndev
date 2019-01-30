@@ -11,15 +11,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.12
-PKG_RELEASE:=0
+PKG_VERSION:=5.12.0
+PKG_RELEASE:=1
 
-PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).$(PKG_RELEASE).tar.xz
-PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/$(PKG_VERSION)/$(PKG_VERSION).$(PKG_RELEASE)/single
-PKG_BUILD_DIR=$(BUILD_DIR)/qt-everywhere-src-$(PKG_VERSION).$(PKG_RELEASE)
-PKG_BUILD_PARALLEL:=1
+PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.12/$(PKG_VERSION)/single
 PKG_HASH:=356f42d9087718f22f03d13d0c2cdfb308f91dc3cf0c6318bed33f2094cd9d6c
+
+PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
+
+PKG_BUILD_DIR=$(BUILD_DIR)/qt-everywhere-src-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -85,11 +87,6 @@ define Package/qt5-test
 endef
 
 define Build/Configure
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)/qtbase/lib/fonts
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++
-	$(CP) ./files/fonts/* $(PKG_BUILD_DIR)/qtbase/lib/fonts/
-	$(CP) ./files/qplatformdefs.h $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qplatformdefs.h
-	$(CP) ./files/qmake.conf $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qmake.conf
 	$(SED) 's@$$$$(TARGET_CROSS)@$(TARGET_CROSS)@g' $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qmake.conf
 	$(SED) 's@$$$$(TARGET_CFLAGS)@$(TARGET_CFLAGS)@g' $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qmake.conf
 	( cd $(PKG_BUILD_DIR) ; \
@@ -102,7 +99,7 @@ define Build/Configure
 		TARGET_CXXFLAGS="$(TARGET_CFLAGS) $(EXTRA_CFLAGS)" \
 		TARGET_LDFLAGS="$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS) -lpthread -lrt" \
 		TARGET_INCDIRS="$(TARGET_INCDIRS)" \
-		TARGET_LIBDIRS="$(TARGET_LIBDIRS) $(STAGING_DIR)/opt/lib/" \
+		TARGET_LIBDIRS="$(TARGET_LIBDIRS) $(STAGING_DIR)/opt/lib" \
 		CFLAGS= \
 		CXXFLAGS= \
 		LDFLAGS= \
@@ -168,7 +165,7 @@ define Build/Compile
 	TARGET_CXXFLAGS="$(TARGET_CFLAGS) $(EXTRA_CFLAGS)" \
 	TARGET_LDFLAGS="$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS) -ldl -lpthread -lrt" \
 	TARGET_INCDIRS="$(TARGET_INCDIRS)" \
-	TARGET_LIBDIRS="$(TARGET_LIBDIRS) $(STAGING_DIR)/opt/lib/" \
+	TARGET_LIBDIRS="$(TARGET_LIBDIRS) $(STAGING_DIR)/opt/lib" \
 	STAGING_DIR="$(STAGING_DIR)" \
 	STAGING_DIR_HOST="$(STAGING_DIR)/../host" \
 	PKG_CONFIG_SYSROOT="$(STAGING_DIR)" \
@@ -177,54 +174,53 @@ endef
 
 define Build/InstallDev
 	$(MAKE) -C $(PKG_BUILD_DIR) install
-	$(CP) $(PKG_BUILD_DIR)/qtbase/bin/qt.conf $(TOOLCHAIN_DIR)/bin/
+	$(CP) $(PKG_BUILD_DIR)/qtbase/bin/qt.conf $(TOOLCHAIN_DIR)/bin
+	$(RM) $(TOOLCHAIN_DIR)/bin/qt{diag,paths,plugininfo}
 endef
 
 define Package/qt5-core/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Core.so* $(1)/opt/lib/
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Core.so* $(1)/opt/lib
 endef
 
 define Package/qt5-concurrent/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Concurrent.so* $(1)/opt/lib/
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Concurrent.so* $(1)/opt/lib
 endef
 
 define Package/qt5-network/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Network.so* $(1)/opt/lib/
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Network.so* $(1)/opt/lib
 endef
 
 define Package/qt5-widgets/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/generic/
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/platforms/
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/imageformats/
-	$(INSTALL_DIR) $(1)/opt/lib/fonts/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Gui.so* $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtsvg/lib/libQt5Svg.so* $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Widgets.so* $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/generic/*.so $(1)/opt/lib/Qt/plugins/generic/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/platforms/*.so $(1)/opt/lib/Qt/plugins/platforms/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/imageformats/*.so $(1)/opt/lib/Qt/plugins/imageformats/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/fonts/* $(1)/opt/lib/fonts/
+	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/generic
+	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/platforms
+	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/imageformats
+	$(INSTALL_DIR) $(1)/opt/lib/fonts
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Gui.so* $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtsvg/lib/libQt5Svg.so* $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Widgets.so* $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/generic/*.so $(1)/opt/lib/Qt/plugins/generic
+	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/platforms/*.so $(1)/opt/lib/Qt/plugins/platforms
+	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/imageformats/*.so $(1)/opt/lib/Qt/plugins/imageformats
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/fonts/* $(1)/opt/lib/fonts
 endef
 
 define Package/qt5-sql/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/sqldrivers/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Sql.so* $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/sqldrivers/*.so $(1)/opt/lib/Qt/plugins/sqldrivers/
+	$(INSTALL_DIR) $(1)/opt/lib/Qt/plugins/sqldrivers
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Sql.so* $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/plugins/sqldrivers/*.so $(1)/opt/lib/Qt/plugins/sqldrivers
 endef
 
 define Package/qt5-xml/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Xml.so* $(1)/opt/lib/
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Xml.so* $(1)/opt/lib
 endef
 
 define Package/qt5-test/install
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Test.so* $(1)/opt/lib/
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Test.so* $(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,qt5-core))
