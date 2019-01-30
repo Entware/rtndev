@@ -111,46 +111,47 @@ define Build/Configure
 			-xplatform linux-openwrt-g++ \
 			-opensource \
 			-confirm-license \
-			-no-iconv \
-			-no-pch \
 			-R /opt/lib \
-			-no-strip \
 			-no-cups \
 			-no-dbus \
-			-no-eglfs \
-			-no-kms \
-			-no-opengl \
 			-no-directfb \
-			-no-xcb \
+			-no-eglfs \
 			-no-feature-getentropy \
+			-no-iconv \
+			-no-kms \
+			-no-pch \
 			-no-sql-psql \
+			-no-strip \
+			-no-opengl \
+			-no-xcb \
 			-qt-zlib \
 			-qt-freetype \
 			-make libs \
 			-nomake examples \
 			-nomake tests \
-			-skip qtdeclarative \
-			-skip qtmultimedia \
+			-skip 3d \
 			-skip activeqt \
-			-skip qtdoc \
-			-skip qtconnectivity \
-			-skip wayland \
-			-skip qtscript \
-			-skip qtxmlpatterns \
-			-skip qtserialport \
-			-skip webengine \
-			-skip websockets \
-			-skip webchannel \
-			-skip qt3d \
 			-skip charts \
 			-skip connectivity \
 			-skip datavis3d \
+			-skip declarative \
 			-skip doc \
 			-skip gamepad \
 			-skip location \
+			-skip multimedia \
+			-skip networkauth \
+			-skip purchasing \
+			-skip remoteobjects \
+			-skip script \
 			-skip sensors \
 			-skip serialbus \
-			-skip purchasing \
+			-skip serialport \
+			-skip speech \
+			-skip xmlpatterns \
+			-skip wayland \
+			-skip webchannel \
+			-skip webengine \
+			-skip websockets \
 			-v \
 	)
 endef
@@ -224,9 +225,9 @@ define Package/qt5-test/install
 endef
 
 $(eval $(call BuildPackage,qt5-core))
-$(eval $(call BuildPackage,qt5-concurrent))
+#$(eval $(call BuildPackage,qt5-concurrent))
 $(eval $(call BuildPackage,qt5-network))
-$(eval $(call BuildPackage,qt5-widgets))
-$(eval $(call BuildPackage,qt5-sql))
+#$(eval $(call BuildPackage,qt5-widgets))
+#$(eval $(call BuildPackage,qt5-sql))
 $(eval $(call BuildPackage,qt5-xml))
-$(eval $(call BuildPackage,qt5-test))
+#$(eval $(call BuildPackage,qt5-test))
