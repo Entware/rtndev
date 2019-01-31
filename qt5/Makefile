@@ -80,52 +80,50 @@ define Build/Configure
 			-xplatform linux-openwrt-g++ \
 			-opensource \
 			-confirm-license \
-			-no-iconv \
-			-no-pch \
 			-R /opt/lib \
-			-no-strip \
+			-qt-freetype \
+			-qt-zlib \
 			-no-cups \
 			-no-dbus \
+			-no-directfb \
 			-no-eglfs \
+			-no-feature-getentropy \
+			-no-iconv \
 			-no-kms \
 			-no-opengl \
-			-no-directfb \
-			-no-xcb \
-			-no-feature-getentropy \
+			-no-pch \
 			-no-sql-psql \
-			-qt-zlib \
-			-qt-freetype \
+			-no-strip \
+			-no-xcb \
 			-make libs \
 			-nomake examples \
 			-nomake tests \
 			-nomake tools \
-			-skip qtdeclarative \
-			-skip qtmultimedia \
+			-skip 3d \
 			-skip activeqt \
-			-skip qtdoc \
-			-skip qtconnectivity \
-			-skip wayland \
-			-skip qtscript \
-			-skip qtxmlpatterns \
-			-skip qtserialport \
-			-skip webengine \
-			-skip websockets \
-			-skip webchannel \
-			-skip qt3d \
 			-skip charts \
 			-skip connectivity \
 			-skip datavis3d \
+			-skip declarative \
 			-skip doc \
 			-skip gamepad \
+			-skip imageformats \
 			-skip location \
+			-skip networkauth \
+			-skip multimedia \
+			-skip purchasing \
+			-skip remoteobjects \
+			-skip script \
 			-skip sensors \
 			-skip serialbus \
-			-skip purchasing \
-			-skip qtspeech \
-			-skip qtremoteobjects \
-			-skip qtnetworkauth \
-			-skip imageformats \
+			-skip serialport \
+			-skip speech \
 			-skip svg \
+			-skip wayland \
+			-skip webengine \
+			-skip websockets \
+			-skip webchannel \
+			-skip xmlpatterns \
 			-v \
 	)
 endef
