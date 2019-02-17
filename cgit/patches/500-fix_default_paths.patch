@@ -8,8 +8,8 @@ Index: cgit-1.2.1/Makefile
  CGIT_DATA_PATH = $(CGIT_SCRIPT_PATH)
 -CGIT_CONFIG = /etc/cgitrc
 -CACHE_ROOT = /var/cache/cgit
-+CGIT_CONFIG = /opt/etc/cgitrc 
-+CACHE_ROOT = /opt/var/cache/cgit 
++CGIT_CONFIG = /opt/etc/cgitrc
++CACHE_ROOT = /opt/var/cache/cgit
  prefix = /usr/local
  libdir = $(prefix)/lib
  filterdir = $(libdir)/cgit/filters
