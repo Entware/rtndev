@@ -1,0 +1,11 @@
+--- a/plugin_lua.cpp
++++ b/plugin_lua.cpp
+@@ -246,7 +246,7 @@
+     {
+         reglibs(st);
+ 
+-        if(!luaL_loadfile(st,"xupnpd.lua") && !lua_pcall(st,0,0,0))
++        if(!luaL_loadfile(st,"/opt/etc/xupnpd2/xupnpd.lua") && !lua_pcall(st,0,0,0))
+         {
+             lua_getglobal(st,(url_translator+"_translate_url").c_str());
+ 

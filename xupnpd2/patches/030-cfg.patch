@@ -1,0 +1,33 @@
+--- a/xupnpd.cfg
++++ b/xupnpd.cfg
+@@ -12,10 +12,10 @@
+ #log_file=udp://127.0.0.1:514/local0
+ 
+ # detach from terminal
+-daemon_mode=false
++daemon_mode=true
+ 
+ # media
+-media_root=media/
++media_root=/opt/share/xupnpd2/media/
+ 
+ # default multicast UDP/RTP interface
+ multicast_interface=eth1
+@@ -40,7 +40,7 @@
+ http_keep_alive_timeout=15
+ http_keep_alive_max=10000
+ http_max_post_size=4096
+-http_www_root=www/
++http_www_root=/opt/share/xupnpd2/www/
+ http_templates=/index.html,/dev.xml
+ 
+ # live streams settings
+@@ -65,7 +65,7 @@
+ #io_charset=windows-1251
+ 
+ # db
+-db_file=xupnpd.db
++db_file=/opt/var/xupnpd2.db
+ 
+ # reset all dlna extras to '*'
+ disable_dlna_extras=false

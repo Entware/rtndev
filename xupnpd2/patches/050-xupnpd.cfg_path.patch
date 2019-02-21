@@ -1,0 +1,11 @@
+--- a/common.cpp
++++ b/common.cpp
+@@ -810,7 +810,7 @@
+ #endif
+ 
+     // parse config
+-    if(!cfg::load(argc>1?argv[1]:"xupnpd.cfg"))
++    if(!cfg::load(argc>1?argv[1]:"/opt/etc/xupnpd2/xupnpd.cfg"))
+         return false;
+ 
+     utils::openlog();
