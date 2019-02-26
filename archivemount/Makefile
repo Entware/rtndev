@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2018 Entware
+# Copyright (C) 2011-2019 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,13 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=archivemount
-PKG_VERSION:=0.8.12
+PKG_VERSION:=0.8.12-20190108
+PKG_REV:=104a314849ff8a3793f6cd7c4c9e2940b5c0d513
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.cybernoia.de/software/archivemount
-PKG_HASH:=247e475539b84e6d2a13083fd6df149995560ff1ea92fe9fdbfc87569943cb89
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/cybernoid/archivemount.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -26,7 +30,7 @@ define Package/archivemount
 	SUBMENU:=Filesystem
 	DEPENDS:=+libfuse +libarchive
 	TITLE:=FUSE file system for reading archives, supported by libarchive
-	URL:=$(PKG_SOURCE_URL)
+	URL:=https://cybernoia.de/software/archivemount.html
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
