@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2017 Joakim Plate <joakim.plate@gmail.com>
-# Copyright (C) 2017-2018 Entware
+# Copyright (C) 2017-2019 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
