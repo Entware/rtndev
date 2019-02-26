@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2018 Entware
+# Copyright (C) 2011-2019 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asciinema
-PKG_VERSION:=2.0.1
+PKG_VERSION:=2.0.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/2e/02/cb4aeded6a77e1c23a316a7faeb710b3247dd7294002ccc7123f38f2ade7
-PKG_HASH:=8d48baa3a263cfb9536540ee545e5c95e43758520d68c6ebc81a092e20c2a4ea
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/a7/71/771c859795e02c71c187546f34f7535487b97425bc1dad1e5f6ad2651357
+PKG_HASH:=32f2c1a046564e030708e596f67e0405425d1eca9d5ec83cd917ef8da06bc423
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
