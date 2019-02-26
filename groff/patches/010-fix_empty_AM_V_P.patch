@@ -1,0 +1,11 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -12291,7 +12291,7 @@
+ font/devpdf/build_font_files: afmtodit font/devpdf/DESC \
+   $(devpdffontenc_DATA) $(devpdffontmap_DATA) $(devpdffont_DATA) \
+   font/devpdf/util/BuildFoundries
+-	@if $(AM_V_P); then \
++	@if "$(AM_V_P)"; then \
+ 	  set -x; \
+ 	else \
+ 	  echo "  GEN      $(top_builddir)/font/devpdf/download"; \
