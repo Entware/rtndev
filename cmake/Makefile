@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cmake
-PKG_VERSION:=3.12.4
+PKG_VERSION:=3.13.4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cmake.org/files/v3.12/ \
-		https://fossies.org/linux/misc/
-PKG_HASH:=5255584bfd043eb717562cff8942d472f1c0e4679c4941d84baadaa9b28e3194
+PKG_SOURCE_URL:=https://cmake.org/files/v3.13 \
+		https://fossies.org/linux/misc
+PKG_HASH:=fdd928fee35f472920071d1c7f1a6a2b72c9b25e04f7a37b409349aef3f20e9b
 
 PKG_LICENSE:=BSD-3-Clause
 
@@ -38,15 +38,16 @@ endef
 
 CMAKE_OPTIONS += \
 	-DCMAKE_USE_SYSTEM_CURL=ON \
-	-DZLIB_INCLUDE_DIR=$(STAGING_DIR)/opt/include/ \
+	-DZLIB_INCLUDE_DIR=$(STAGING_DIR)/opt/include \
 	-DZLIB_LIBRARY=$(STAGING_DIR)/opt/lib/libz.so \
-	-DCURL_INCLUDE_DIR=$(STAGING_DIR)/opt/include/ \
+	-DCURL_INCLUDE_DIR=$(STAGING_DIR)/opt/include \
 	-DCURL_LIBRARY=$(STAGING_DIR)/opt/lib/libcurl.so \
-	-DKWSYS_LFS_WORKS=1
+	-DKWSYS_LFS_WORKS=1 \
+	-DCMake_TEST_Qt5=FALSE
 
 define Package/cmake/install
 	$(INSTALL_DIR) $(1)/opt
-	$(CP) $(PKG_INSTALL_DIR)/opt/{bin,share} $(1)/opt/
+	$(CP) $(PKG_INSTALL_DIR)/opt/{bin,share} $(1)/opt
 endef
 
 $(eval $(call BuildPackage,cmake))
