@@ -4,7 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 0.21.1 raises runtime error /opt/share/crawl/dat/des/builder/food.des:68: bad argument #3 to '?' (integer expected, got number)
+# 0.23 uses host python with pyyaml dependency
 
 include $(TOPDIR)/rules.mk
 
@@ -15,6 +15,7 @@ PKG_RELEASE:=1
 PKG_SOURCE:=stone_soup-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/crawl-ref/Stone%20Soup/$(PKG_VERSION)
 PKG_HASH:=0478f20ee5f3579720ca71176e3ba37505d49793997d04043c92627c898b7d14
+
 PKG_BUILD_DIR:=$(BUILD_DIR)/stone_soup-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
