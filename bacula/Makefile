@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2006-2015 OpenWrt.org
-# Copyright (C) 2015-2018 Entware
+# Copyright (C) 2015-2019 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bacula
-PKG_VERSION:=9.2.2
+PKG_VERSION:=9.4.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/bacula
-PKG_HASH:=f02099d047d134041af48f75ad661a19975c56323f90aee76ef70afd3697222e
+PKG_HASH:=a40d04d2c48135972cecb6578405e835c4b9d798c0950017de0fad40ca94e8a0
 
 PKG_INSTALL:=1
 
