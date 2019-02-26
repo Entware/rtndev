@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=grive2
-PKG_VERSION:=0.5.1-20180819
-PKG_REV:=cf51167b55246b7f90ad4970d9686637e8bb0beb
+PKG_VERSION:=0.5.1-20190224
+PKG_REV:=f039e38c4c29ec3b8e73b4ac8f8e12bcd933154d
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -25,16 +25,16 @@ define Package/grive2
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libexpat +libbfd \
-		+boost-filesystem +boost-program_options +boost-regex +boost-test +boost-system
-	TITLE:=This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
+	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libbfd +boost-filesystem \
+		+boost-program_options +boost-regex +boost-test +boost-system
+	TITLE:=a fork of original Google Drive client
 	URL:=https://github.com/vitalif/grive2
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/grive2/description
- This is the fork of original "Grive" (https://github.com/Grive/grive) Google Drive client
- with the support for the new Drive REST API and partial sync.
+ This is the fork of original "Grive" (https://github.com/Grive/grive) Google
+ Drive client with the support for the new Drive REST API and partial sync.
 endef
 
 ifneq ($(CONFIG_USE_UCLIBC),)
