@@ -13,8 +13,11 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_BUILD_DIR:=$(BUILD_DIR)/go
 PKG_HASH:=042fba357210816160341f1002440550e952eb12678f7c9e7e9d389437942550
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
+
+PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 OS=$(shell uname | tr 'A-Z' 'a-z')
 bintype:=$(shell uname -m | sed \
@@ -27,7 +30,11 @@ RSTRIP:="/bin/true"
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/go
+ifeq ($(BUILD_VARIANT),nohf)
+GOARM=GOARM=5
+endif
+
+define Package/go/Default
 	SECTION:=lang
 	CATEGORY:=Languages
 	TITLE:=The Go Programming Language
@@ -35,9 +42,22 @@ define Package/go
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
+define Package/go
+	$(call Package/go/Default)
+	VARIANT:=hf
+endef
+
+define Package/go_nohf
+	$(call Package/go/Default)
+	VARIANT:=nohf
+	DEPENDS:=@TARGET_armv7_3_2||@TARGET_armv7_2_6
+endef
+
 define Package/go/description
  Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
 endef
+
+Package/go_nohf/description=$(Package/go/description)
 
 define Build/Compile
 	( \
@@ -62,9 +82,14 @@ echo "Please add /opt/bin/go/bin to your PATH"
 echo "Please set GOROOT=/opt/bin/go environment variable to use GO compiler"
 endef
 
+Package/go_nohf/postinst=$(Package/go/postinst)
+
 define Package/go/install
 	$(INSTALL_DIR) $(1)/opt/bin/go
 	$(CP) $(PKG_BUILD_DIR)/{api,bin,lib,misc,pkg,test,doc,src} $(1)/opt/bin/go
 endef
 
+Package/go_nohf/install=$(Package/go/install)
+
 $(eval $(call BuildPackage,go))
+$(eval $(call BuildPackage,go_nohf))
