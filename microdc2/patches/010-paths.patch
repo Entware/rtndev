@@ -1,6 +1,6 @@
 --- a/src/main.c
 +++ b/src/main.c
-@@ -148,7 +148,7 @@
+@@ -157,7 +157,7 @@
  bool
  get_package_file(const char *name, char **outname)
  {
