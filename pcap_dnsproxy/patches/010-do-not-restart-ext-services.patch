@@ -1,10 +1,10 @@
 --- a/Source/Pcap_DNSProxy/Service.cpp
 +++ b/Source/Pcap_DNSProxy/Service.cpp
-@@ -956,15 +956,6 @@
+@@ -961,15 +961,6 @@
  #if defined(PLATFORM_WIN)
  	system("ipconfig /flushdns 2>nul"); //All Windows version
  	fwprintf_s(stderr, L"\n");
--#elif defined(PLATFORM_LINUX)
+-#elif (defined(PLATFORM_FREEBSD) || defined(PLATFORM_LINUX))
 -#if defined(PLATFORM_OPENWRT)
 -	auto ResultValue = system("/etc/init.d/dnsmasq restart 2>/dev/null"); //Dnsmasq manage domain cache on OpenWrt
 -#else

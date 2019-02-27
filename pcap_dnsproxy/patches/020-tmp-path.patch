@@ -1,9 +1,9 @@
 --- a/Source/Pcap_DNSProxy/Definition.h
 +++ b/Source/Pcap_DNSProxy/Definition.h
-@@ -312,7 +312,7 @@
+@@ -313,7 +313,7 @@
  	#define ERROR_LOG_FILE_NAME_MBS                       ("Error.log")
- 	#define FLUSH_DOMAIN_PIPE_MESSAGE_ALL                 ("Flush Pcap_DNSProxy domain cache")         //The FIFO pipe message to flush domain cache(All)
- 	#define FLUSH_DOMAIN_PIPE_MESSAGE_SPECIFIC            ("Flush Pcap_DNSProxy domain cache: ")       //The FIFO pipe message to flush domain cache(Specific)
+ 	#define FLUSH_DOMAIN_PIPE_MESSAGE_ALL                 ("Flush Pcap_DNSProxy domain cache")         //The FIFO pipe message to flush all domain cache
+ 	#define FLUSH_DOMAIN_PIPE_MESSAGE_SPECIFIC            ("Flush Pcap_DNSProxy domain cache: ")       //The FIFO pipe message to flush specific domain cache
 -	#define FLUSH_DOMAIN_PIPE_PATH_NAME                   ("/tmp/pcap_dnsproxy_fifo")                  //The FIFO pipe pathname to flush domain cache
 +	#define FLUSH_DOMAIN_PIPE_PATH_NAME                   ("/opt/tmp/pcap_dnsproxy_fifo")                  //The FIFO pipe pathname to flush domain cache
  #endif
