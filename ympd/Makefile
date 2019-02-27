@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ympd
-PKG_VERSION:=1.3.0-20160214
-PKG_REV:=ec008a4995666d673bd4cb3926fae7f4b6aa3239
-PKG_RELEASE:=2
+PKG_VERSION:=1.3.0-20180329
+PKG_REV:=612f8fc0b2c47fc89d403e4a044541c6b2b238c8
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -31,7 +31,7 @@ define Package/ympd
 endef
 
 define Package/ympd/description
- Standalone MPD Web GUI written in C, utilizing Websockets and Bootstrap/JS
+ Standalone MPD Web GUI written in C, utilizing Websockets and Bootstrap/JS.
 endef
 
 define Package/ympd/install

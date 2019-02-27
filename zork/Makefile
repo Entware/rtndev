@@ -4,18 +4,17 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2014
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zork
-PKG_VERSION:=1.0-20140806
-PKG_REV:=ba0426c1e568a35d7a8d86a1160fea24e4915885
+PKG_VERSION:=1.0-20180131
+PKG_REV:=95cd009d235ea921b1c1f70e1a2f6b9e335aa37c
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/mgius/zork.git
+PKG_SOURCE_URL:=https://github.com/brhamon/zork.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 

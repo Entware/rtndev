@@ -1,12 +1,14 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,11 +1,11 @@
+@@ -1,12 +1,12 @@
  # Makefile for dungeon
  
 -CC = gcc
-+#CC = gcc
++CC ?= gcc
+ BUILD ?= release
  # Where to install the program
- BINDIR = /usr/games
+-BINDIR = /usr/games
++BINDIR = /opt
  
  # Where to install the data file
 -LIBDIR = /usr/games/lib
@@ -14,7 +16,7 @@
  
  # The dungeon program provides a ``more'' facility which tries to
  # figure out how many rows the terminal has.  Several mechanisms are
-@@ -17,8 +17,8 @@
+@@ -18,8 +18,8 @@
  # variable may need to be set to -lcurses.  On some it may need to
  # be /usr/lib/termcap.o.  These options are commented out below.
  # LIBS = -ltermcap
@@ -25,7 +27,7 @@
  # LIBS = /usr/lib/termcap.o
  
  # more option 2: use the terminfo routines.  On some systems the LIBS
-@@ -28,8 +28,8 @@
+@@ -29,8 +29,8 @@
  # TERMFLAG = -DMORE_TERMINFO
  
  # more option 3: assume all terminals have 24 rows
@@ -36,16 +38,16 @@
  
  # more option 4: don't use the more facility at all
  # LIBS =
-@@ -44,7 +44,7 @@
+@@ -43,7 +43,7 @@
+ # Although a K&R compiler is somewhat difficult to come by these days,
+ # we can make GCC enforce ANSI C, which is pretty close.
+ # If you aren't building with GCC, comment the next line out.
+-CFLAGS = -std=iso9899:1990 -pedantic
++CFLAGS ?= -std=iso9899:1990 -pedantic
  
+ CFLAGS += -Wall -Werror -Wextra
  # Compilation flags
- # CFLAGS = -g -DDEBUG
--CFLAGS = -O3
-+#CFLAGS = -O3
- # On SCO Unix Development System 3.2.2a, the const type qualifier does
- # not work correctly when using cc.  The following line will cause it
- # to not be used and should be uncommented.
-@@ -75,7 +75,7 @@
+@@ -87,7 +87,7 @@
  	rm -f $(OBJS) dungeon dtextc.dat core dsave.dat *~
  
  dtextc.dat:
