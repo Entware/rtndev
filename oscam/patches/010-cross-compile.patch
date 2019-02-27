@@ -1,23 +1,23 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -382,9 +382,9 @@ if( HAVE_LIBRT OR HAVE_LIBRT_STATIC)
-     endif (LIBUSBDIR)
+@@ -382,9 +382,9 @@
+ 	endif (LIBUSBDIR)
  endif( HAVE_LIBRT OR HAVE_LIBRT_STATIC)
  
 -check_include_file ("PCSC/wintypes.h" HAVE_PCSC)
 +check_include_file ("${OPTIONAL_INCLUDE_DIR}/PCSC/wintypes.h" HAVE_PCSC)
  if (HAVE_PCSC)
--    FIND_PATH (PCSC_PATH PCSC/wintypes.h)
-+    FIND_PATH (PCSC_PATH ${OPTIONAL_INCLUDE_DIR}/PCSC/wintypes.h)
-     if(OPTIONAL_INCLUDE_DIR AND EXISTS ${OPTIONAL_INCLUDE_DIR}/PCSC/wintypes.h)
- 	message(STATUS "  PCSC headers found (${OPTIONAL_INCLUDE_DIR}/PCSC). Adding PCSC support ")
- 	add_definitions ("-DWITH_PCSC=1")
-@@ -710,7 +710,7 @@ if (OSCamOperatingSystem MATCHES "Mac OS
-  endif (SWVER MATCHES "10.8")
+-	FIND_PATH (PCSC_PATH PCSC/wintypes.h)
++	FIND_PATH (PCSC_PATH ${OPTIONAL_INCLUDE_DIR}/PCSC/wintypes.h)
+ 	if(OPTIONAL_INCLUDE_DIR AND EXISTS ${OPTIONAL_INCLUDE_DIR}/PCSC/wintypes.h)
+ 		message(STATUS "  PCSC headers found (${OPTIONAL_INCLUDE_DIR}/PCSC). Adding PCSC support ")
+ 		add_definitions ("-DWITH_PCSC=1")
+@@ -716,7 +716,7 @@
+ 	endif (SWVER MATCHES "10.8")
  else (OSCamOperatingSystem MATCHES "Mac OS X")
-   if (NOT CMAKE_BUILD_TYPE STREQUAL Debug)
--    set (CMAKE_EXE_LINKER_FLAGS "-s")
-+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
-   else (NOT CMAKE_BUILD_TYPE STREQUAL Debug)
-     message (STATUS "  building with debug")
-     set (CMAKE_EXE_LINKER_FLAGS "-ggdb")
+ 		if (NOT CMAKE_BUILD_TYPE STREQUAL Debug)
+-				set (CMAKE_EXE_LINKER_FLAGS "-s")
++				set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
+ 		else (NOT CMAKE_BUILD_TYPE STREQUAL Debug)
+ 				message (STATUS "  building with debug")
+ 				set (CMAKE_EXE_LINKER_FLAGS "-ggdb")

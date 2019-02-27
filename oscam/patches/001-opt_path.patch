@@ -1,55 +1,3 @@
---- a/globals.h
-+++ b/globals.h
-@@ -370,10 +370,10 @@ typedef unsigned char uchar;
- #   define CS_TARGET "unknown"
- #endif
- #ifndef CS_CONFDIR
--#define CS_CONFDIR    "/usr/local/etc"
-+#define CS_CONFDIR    "/opt/etc/oscam"
- #endif
- #ifndef CS_LOGFILE
--#define CS_LOGFILE    "/var/log/oscam.log"
-+#define CS_LOGFILE    "/opt/var/log/oscam.log"
- #endif
- #define CS_QLEN       128 // size of request queue
- #define CS_MAXPROV    32
---- a/module-dvbapi.c
-+++ b/module-dvbapi.c
-@@ -271,17 +271,17 @@ const char *boxdesc[] = { "none", "dream
- 
- static const struct box_devices devices[BOX_COUNT] =
- {
--	/* QboxHD (dvb-api-3)*/     { "/tmp/virtual_adapter/",  "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_3    },
--	/* dreambox (dvb-api-3)*/   { "/dev/dvb/adapter%d/",    "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_3    },
--	/* wetek (dvb-api-3)*/      { "/dev/dvb%d.",            "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_3    },
--	/* dreambox (dvb-api-1)*/   { "/dev/dvb/card%d/",       "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_1    },
--	/* neumo (dvb-api-1)*/      { "/dev/",                  "demuxapi",     "demuxapi",     "/tmp/camd.socket", DVBAPI_1    },
-+	/* QboxHD (dvb-api-3)*/     { "/tmp/virtual_adapter/",  "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_3    },
-+	/* dreambox (dvb-api-3)*/   { "/dev/dvb/adapter%d/",    "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_3    },
-+	/* wetek (dvb-api-3)*/      { "/dev/dvb%d.",            "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_3    },
-+	/* dreambox (dvb-api-1)*/   { "/dev/dvb/card%d/",       "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_1    },
-+	/* neumo (dvb-api-1)*/      { "/dev/",                  "demuxapi",     "demuxapi",     "/opt/tmp/camd.socket", DVBAPI_1    },
- #ifdef WITH_STAPI5
--	/* sh4      (stapi5)*/      { "/dev/stapi/",            "stpti5_ioctl", "stpti5_ioctl", "/tmp/camd.socket", STAPI       },
-+	/* sh4      (stapi5)*/      { "/dev/stapi/",            "stpti5_ioctl", "stpti5_ioctl", "/opt/tmp/camd.socket", STAPI       },
- #else
--	/* sh4      (stapi)*/       { "/dev/stapi/",            "stpti4_ioctl", "stpti4_ioctl", "/tmp/camd.socket", STAPI       },
-+	/* sh4      (stapi)*/       { "/dev/stapi/",            "stpti4_ioctl", "stpti4_ioctl", "/opt/tmp/camd.socket", STAPI       },
- #endif
--	/* coolstream*/             { "/dev/cnxt/",             "null",         "null",         "/tmp/camd.socket", COOLAPI     },
-+	/* coolstream*/             { "/dev/cnxt/",             "null",         "null",         "/opt/tmp/camd.socket", COOLAPI     },
- };
- 
- static int32_t selected_box = -1;
-@@ -5161,7 +5161,7 @@ static void *dvbapi_main_local(void *cli
- 	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
- 	struct pollfd pfd2[maxpfdsize];
- 	struct timeb start, end;  // start time poll, end time poll
--#define PMT_SERVER_SOCKET "/tmp/.listen.camd.socket"
-+#define PMT_SERVER_SOCKET "/opt/tmp/.listen.camd.socket"
- 	struct sockaddr_un saddr;
- 	saddr.sun_family = AF_UNIX;
- 	strncpy(saddr.sun_path, PMT_SERVER_SOCKET, 107);
 --- a/module-dvbapi.h
 +++ b/module-dvbapi.h
 @@ -21,9 +21,9 @@
@@ -65,10 +13,62 @@
  #endif
  
  #define MAX_DEMUX 16
+--- a/globals.h
++++ b/globals.h
+@@ -368,10 +368,10 @@
+ # define CS_TARGET				"unknown"
+ #endif
+ #ifndef CS_CONFDIR
+-#define CS_CONFDIR				"/usr/local/etc"
++#define CS_CONFDIR				"/opt/etc/oscam"
+ #endif
+ #ifndef CS_LOGFILE
+-#define CS_LOGFILE				"/var/log/oscam.log"
++#define CS_LOGFILE				"/opt/var/log/oscam.log"
+ #endif
+ #define CS_QLEN					128		// size of request queue
+ #define CS_MAXPROV				32
+--- a/module-dvbapi.c
++++ b/module-dvbapi.c
+@@ -335,17 +335,17 @@
+ 
+ static const struct box_devices devices[BOX_COUNT] =
+ {
+-	/* QboxHD (dvb-api-3)*/     { "/tmp/virtual_adapter/", "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_3 },
+-	/* dreambox (dvb-api-3)*/   { "/dev/dvb/adapter%d/",   "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_3 },
+-	/* wetek (dvb-api-3)*/      { "/dev/dvb%d.",           "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_3 },
+-	/* dreambox (dvb-api-1)*/   { "/dev/dvb/card%d/",      "ca%d",         "demux%d",      "/tmp/camd.socket", DVBAPI_1 },
+-	/* neumo (dvb-api-1)*/      { "/dev/",                 "demuxapi",     "demuxapi",     "/tmp/camd.socket", DVBAPI_1 },
++	/* QboxHD (dvb-api-3)*/     { "/tmp/virtual_adapter/", "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_3 },
++	/* dreambox (dvb-api-3)*/   { "/dev/dvb/adapter%d/",   "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_3 },
++	/* wetek (dvb-api-3)*/      { "/dev/dvb%d.",           "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_3 },
++	/* dreambox (dvb-api-1)*/   { "/dev/dvb/card%d/",      "ca%d",         "demux%d",      "/opt/tmp/camd.socket", DVBAPI_1 },
++	/* neumo (dvb-api-1)*/      { "/dev/",                 "demuxapi",     "demuxapi",     "/opt/tmp/camd.socket", DVBAPI_1 },
+ #ifdef WITH_STAPI5
+-	/* sh4      (stapi5)*/      { "/dev/stapi/",           "stpti5_ioctl", "stpti5_ioctl", "/tmp/camd.socket", STAPI    },
++	/* sh4      (stapi5)*/      { "/dev/stapi/",           "stpti5_ioctl", "stpti5_ioctl", "/opt/tmp/camd.socket", STAPI    },
+ #else
+-	/* sh4      (stapi)*/       { "/dev/stapi/",           "stpti4_ioctl", "stpti4_ioctl", "/tmp/camd.socket", STAPI    },
++	/* sh4      (stapi)*/       { "/dev/stapi/",           "stpti4_ioctl", "stpti4_ioctl", "/opt/tmp/camd.socket", STAPI    },
+ #endif
+-	/* coolstream*/             { "/dev/cnxt/",            "null",         "null",         "/tmp/camd.socket", COOLAPI  },
++	/* coolstream*/             { "/dev/cnxt/",            "null",         "null",         "/opt/tmp/camd.socket", COOLAPI  },
+ };
+ 
+ static int32_t selected_box = -1;
+@@ -6051,7 +6051,7 @@
+ 	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
+ 	struct pollfd pfd2[maxpfdsize];
+ 	struct timeb start, end; // start time poll, end time poll
+-#define PMT_SERVER_SOCKET "/tmp/.listen.camd.socket"
++#define PMT_SERVER_SOCKET "/opt/tmp/.listen.camd.socket"
+ 	struct sockaddr_un saddr;
+ 	saddr.sun_family = AF_UNIX;
+ 	cs_strncpy(saddr.sun_path, PMT_SERVER_SOCKET, sizeof(saddr.sun_path));
 --- a/oscam-files.c
 +++ b/oscam-files.c
-@@ -31,7 +31,7 @@ char *get_tmp_dir(void)
- 		{ strcat(cs_tmpdir, "/"); }
+@@ -45,7 +45,7 @@
+ 	}
  	strcat(cs_tmpdir, "_oscam");
  #else
 -	cs_strncpy(cs_tmpdir, "/tmp/.oscam", sizeof(cs_tmpdir));
@@ -78,7 +78,7 @@
  	return cs_tmpdir;
 --- a/oscam.c
 +++ b/oscam.c
-@@ -160,7 +160,7 @@ static void show_usage(void)
+@@ -159,7 +159,7 @@
  #if defined(__CYGWIN__)
  	printf("                         . Default: (OS-TMP)\n");
  #else
@@ -87,7 +87,7 @@
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -638,12 +638,12 @@ static void cs_dumpstack(int32_t sig)
+@@ -640,12 +640,12 @@
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -102,11 +102,11 @@
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1645,15 +1645,14 @@ const struct s_cardreader *cardreaders[]
- static void find_conf_dir(void)
-  {
+@@ -1653,15 +1653,15 @@
+ {
  	static const char* confdirs[] =
--		{	"/etc/tuxbox/config/",
+ 		{
+-			"/etc/tuxbox/config/",
 -			"/etc/tuxbox/config/oscam/",
 -			"/var/tuxbox/config/",
 -			"/usr/keys/",
@@ -115,11 +115,12 @@
 -			"/var/etc/",
 -			"/var/oscam/",
 -			"/config/oscam/",
-+		{	"/opt/etc/tuxbox/config/",
++			"/opt/etc/tuxbox/config/",
 +			"/opt/etc/tuxbox/config/oscam/",
 +			"/opt/var/tuxbox/config/",
 +			"/opt/share/oscam/keys/",
 +			"/opt/var/keys/",
++			"/opt/var/etc/oscam/",
 +			"/opt/var/etc/",
 +			"/opt/var/oscam/",
 +			"/opt/etc/oscam/",
