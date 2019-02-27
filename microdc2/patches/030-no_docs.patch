@@ -1,0 +1,11 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -53,8 +53,3 @@
+ #  ../lib/libgnu.a
+ 
+ # $(LIBICONV) - not yet used
+-
+-man_MANS = microdc2.1
+-
+-EXTRA_DIST = \
+-  $(man_MANS)
