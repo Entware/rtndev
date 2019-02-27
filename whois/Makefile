@@ -8,17 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=whois
-PKG_VERSION:=5.4.0
+PKG_VERSION:=5.4.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/w/whois
-PKG_HASH:=3775ae0cfaa6dd8d886e5233c4826225cddcb88c99c2a08130d14e15fe58e378
+PKG_HASH:=3ee6591fb14c103791430a8e6eb3d4c38a9f52aad799ea58c94250bd6985ec50
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-# libidn2.so: undefined reference to `libintl_gettext'
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/whois
