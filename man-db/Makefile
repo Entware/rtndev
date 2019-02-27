@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
-PKG_VERSION:=2.8.4
+PKG_VERSION:=2.8.5
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/man-db/
+PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_HASH:=103c185f9d8269b9ee3b8a4cb27912b3aa393e952731ef96fedc880723472bc3
+PKG_HASH:=b64d52747534f1fe873b2876eb7f01319985309d5d7da319d2bc52ba1e73f6c1
 
 PKG_LICENSE:=GPL, LGPL
 
