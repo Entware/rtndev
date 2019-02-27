@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libpipeline
-PKG_VERSION:=1.5.0
+PKG_VERSION:=1.5.1
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/libpipeline/
+PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/libpipeline
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=0d72e12e4f2afff67fd7b9df0a24d7ba42b5a7c9211ac5b3dcccc5cd8b286f2b
+PKG_HASH:=d633706b7d845f08b42bc66ddbe845d57e726bf89298e2cee29f09577e2f902f
 
 PKG_LICENSE:=GPL-3.0+
 
