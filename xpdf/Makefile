@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xpdf
-PKG_VERSION:=4.00
+PKG_VERSION:=4.01
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.xpdfreader.com/dl
-PKG_HASH:=ff3d92c42166e35b1ba6aec9b5f0adffb5fc05a3eb95dc49505b6e344e4216d6
+PKG_SOURCE_URL:=https://xpdfreader-dl.s3.amazonaws.com
+PKG_HASH:=a4de7369029ce6d920af39fe02b777d86721464c70a2a678087fe265e5557563
 
 PKG_INSTALL:=1
 

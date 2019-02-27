@@ -1,0 +1,62 @@
+--- a/cmake-config.txt
++++ b/cmake-config.txt
+@@ -185,59 +185,6 @@
+ find_package(PNG)
+ 
+ 
+-
+-
+-#--- look for Qt
+-find_package(Qt5Widgets QUIET)
+-if (Qt5Widgets_FOUND)
+-  find_package(Qt5Network)
+-  find_package(Qt5PrintSupport)
+-else ()
+-  find_package(Qt4)
+-endif ()
+-if(Qt5Widgets_FOUND)
+-  message(STATUS "Qt5 found")
+-  if (XPDFWIDGET_PRINTING)
+-    set(QT_INCLUDES "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5PrintSupport_INCLUDE_DIRS}")
+-    set(QT_DEFINITIONS "${Qt5Widgets_DEFINITIONS} ${Qt5Network_DEFINITIONS} ${Qt5PrintSupport_DEFINITIONS}")
+-    if (APPLE)
+-      set(QT_LIBRARIES Qt5::Widgets Qt5::Network Qt5::PrintSupport "-framework ApplicationServices")
+-    elseif (UNIX)
+-      set(QT_LIBRARIES Qt5::Widgets Qt5::Network Qt5::PrintSupport cups)
+-    else ()
+-      set(QT_LIBRARIES Qt5::Widgets Qt5::Network Qt5::PrintSupport)
+-    endif ()
+-  else ()
+-    set(QT_INCLUDES "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS}")
+-    set(QT_DEFINITIONS "${Qt5Widgets_DEFINITIONS} ${Qt5Network_DEFINITIONS}")
+-    set(QT_LIBRARIES Qt5::Widgets Qt5::Network)
+-  endif ()
+-  if (XPDFWIDGET_PRINTING)
+-    if (APPLE)
+-      set(EXTRA_QT_LIBRARIES "-framework ApplicationServices")
+-    elseif (UNIX)
+-      set(EXTRA_QT_LIBRARIES cups)
+-    else ()
+-      set(EXTRA_QT_LIBRARIES "")
+-    endif ()
+-  endif ()
+-  # remove "-fPIE" here because we added "-fPIC" above
+-  string(REPLACE "-fPIE" "" QT_CFLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+-elseif(QT4_FOUND)
+-  message(STATUS "Qt4 found")
+-  if (XPDFWIDGET_PRINTING)
+-    if (APPLE)
+-      set(EXTRA_QT_LIBRARIES "-framework ApplicationServices")
+-    elseif (UNIX)
+-      set(EXTRA_QT_LIBRARIES cups)
+-    else ()
+-      set(EXTRA_QT_LIBRARIES "")
+-    endif ()
+-  endif ()
+-else()
+-  message(STATUS "No Qt library found")
+-endif()
+-
+ #--- look for libpaper
+ find_library(PAPER_LIBRARY
+              NAMES paper libpaper
