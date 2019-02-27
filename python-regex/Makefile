@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2018.11.22
+PKG_VERSION:=2019.02.21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=regex-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/16/07/ee3e02770ed456a088b90da7c9b1e9aa227e3c956d37b845cef2aab93764
-PKG_HASH:=79a6a60ed1ee3b12eb0e828c01d75e3b743af6616d69add6c2fde1d425a4ba3f
+PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/d0/b5/79b2b7d19a0e1f94f2b11e73ea9682a5bf9d78bcf25fb278955157acdf33
+PKG_HASH:=587bd4cad11c7294f89799c45778abca271d7c6668a0e85c41a6dbfa8096f9bb
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/regex-$(PKG_VERSION)
 
