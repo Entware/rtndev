@@ -18,15 +18,3 @@
  DLFLAGS = -shared
  DLSUFFICS = .ld.so
  # -lpthreads may be reuqired on some platforms instead of -pthreads
-@@ -32,9 +32,9 @@
- # PamAuth requires libpam, you may require pam-devel package to be installed
- # SSLPlugin requires  -lcrypto -lssl
- #LIBS = -lcrypto -lssl -ldl 
--LIBS = -ldl 
-+LIBS = -ldl -lpthread
- #PLUGINS = SSLPlugin StringsPlugin TrafficPlugin PCREPlugin TransparentPlugin PamAuth
--PLUGINS = StringsPlugin TrafficPlugin PCREPlugin TransparentPlugin
-+PLUGINS = SSLPlugin StringsPlugin TrafficPlugin PCREPlugin TransparentPlugin
- 
- include Makefile.inc
- 

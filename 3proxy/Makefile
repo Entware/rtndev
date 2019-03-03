@@ -10,15 +10,13 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=3proxy
 PKG_VERSION:=0.8.12
 PKG_REV:=d07500687c1a42f73ec5d96a4e1e028af985892f
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/z3APA3A/3proxy.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-
-PKG_BUILD_DEPENDS:=openssl
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -57,7 +55,7 @@ define Package/3proxy/install
 		$(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/lib/3proxy
 	$(INSTALL_BIN) \
-		$(PKG_BUILD_DIR)/src/{PCRE,SSL,Strings,Traffic,Transparent}Plugin.ld.so \
+		$(PKG_BUILD_DIR)/src/{PCRE,Strings,Traffic,Transparent}Plugin.ld.so \
 		$(1)/opt/lib/3proxy
 	$(INSTALL_DIR) $(1)/opt/etc/3proxy
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/scripts/3proxy.cfg $(1)/opt/etc/3proxy
