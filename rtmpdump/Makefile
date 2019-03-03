@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=rtmpdump
 PKG_VERSION:=2.4-20151223
 PKG_REV:=fa8646daeb19dfd12c181f7d19de708d623704c0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/rtmpdump/Default
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libopenssl +libpthread
+	DEPENDS:=+libgnutls +zlib
 	TITLE:=rtmpdump is a toolkit for RTMP streams
 	URL:=http://rtmpdump.mplayerhq.hu/
 	MAINTAINER:=Entware team, https://entware.net

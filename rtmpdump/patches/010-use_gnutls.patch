@@ -1,0 +1,27 @@
+--- a/Makefile
++++ b/Makefile
+@@ -8,9 +8,9 @@
+ SYS=posix
+ #SYS=mingw
+ 
+-CRYPTO=OPENSSL
++#CRYPTO=OPENSSL
+ #CRYPTO=POLARSSL
+-#CRYPTO=GNUTLS
++CRYPTO=GNUTLS
+ LIBZ=-lz
+ LIB_GNUTLS=-lgnutls -lhogweed -lnettle -lgmp $(LIBZ)
+ LIB_OPENSSL=-lssl -lcrypto $(LIBZ)
+--- a/librtmp/Makefile
++++ b/librtmp/Makefile
+@@ -16,8 +16,8 @@
+ AR=$(CROSS_COMPILE)ar
+ 
+ SYS=posix
+-CRYPTO=OPENSSL
+-#CRYPTO=GNUTLS
++#CRYPTO=OPENSSL
++CRYPTO=GNUTLS
+ DEF_POLARSSL=-DUSE_POLARSSL
+ DEF_OPENSSL=-DUSE_OPENSSL
+ DEF_GNUTLS=-DUSE_GNUTLS
