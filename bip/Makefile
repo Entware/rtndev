@@ -8,13 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bip
-PKG_VERSION:=0.8.9
-PKG_RELEASE:=2
+PKG_VERSION:=0.9.0-rc3-20181225
+PKG_REV:=c9cc64f2e1932339ddd08d39261331f6b6ceee71
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://projects.duckcorp.org/attachments/download/61
-PKG_HASH:=3c950f71ef91c8b686e6835f9b722aa7ccb88d3da4ec1af19617354fd3132461
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://vcs-git.duckcorp.org/projects/bip/bip.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -39,13 +43,13 @@ define Package/bip/conffiles
 /opt/etc/bip.conf
 endef
 
-TARGET_CFLAGS += -Wno-error
-
 define Package/bip/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/{bip,bipmkpw} $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/bip{,mkpw} $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/share/doc/bip/examples/bip.conf $(1)/opt/etc
+	$(INSTALL_CONF) \
+		$(PKG_INSTALL_DIR)/opt/share/doc/bip/examples/bip.conf \
+		$(1)/opt/etc
 	$(INSTALL_BIN) ./files/S99bip $(1)/opt/etc/init.d
 endef
 
