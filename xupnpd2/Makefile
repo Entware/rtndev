@@ -18,6 +18,8 @@ PKG_SOURCE_URL:=https://github.com/clark15b/xupnpd2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
+PKG_BUILD_DEPENDS:=sqlite3
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/xupnpd2
