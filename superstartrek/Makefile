@@ -4,19 +4,18 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2010
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=superstartrek
-PKG_VERSION:=0.0.21-2010
+PKG_VERSION:=0.0.21-2015
 PKG_RELEASE:=1
 
 PKG_SOURCE:=sstsrc.zip
 PKG_SOURCE_URL:=http://www.almy.us/files
-#PKG_HASH:=1e0eddecbd0c47b9a3312d846fa3363a090b639f83cbfe9bd4a148685631efab
+PKG_HASH:=2b9b7ca0ef9900caa6c0ba0a34534d5e8f6a95d7c829c8f80719fd3421a4a501
 
-PKG_UNPACK:=unzip -j $(DL_DIR)/$(PKG_SOURCE) sstsrc/* -d $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_UNPACK:=unzip -j $(DL_DIR)/$(PKG_SOURCE) -d $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -34,10 +33,6 @@ define Package/superstartrek/description
  a video display, but it still an interesting game to play, particularly for
  those of us who don't have the reflexes we used to and  prefer a more cerebral
  computer game.
-endef
-
-define Build/Configure
-	rm -fr $(BUILD_DIR)/__MACOSX
 endef
 
 define Package/superstartrek/install
