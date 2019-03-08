@@ -1,11 +1,5 @@
 --- a/makefile
 +++ b/makefile
-@@ -1,4 +1,4 @@
--CFLAGS=     -O -DSCORE -DCAPTURE -DCLOAKING -Wno-unused-result
-+CFLAGS+=     -O -DSCORE -DCAPTURE -DCLOAKING
- # CFLAGS=     -O -Wno-unused-result
- 
- .c.o:
 @@ -9,7 +9,7 @@ OFILES=     sst.o finish.o reports.o set
  HFILES=     sst.h
  
