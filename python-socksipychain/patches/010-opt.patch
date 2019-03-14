@@ -1,8 +1,0 @@
---- a/sockschain/__init__.py
-+++ b/sockschain/__init__.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/python
-+#!/opt/bin/python
- """SocksiPy - Python SOCKS module.
- Version 2.00
- 
