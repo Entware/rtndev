@@ -13,13 +13,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gutenprint
 PKG_VERSION:=5.2.14
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/gimp-print
 PKG_HASH:=45bf0766f196a764c113bfad7ab1ea748f1d5ff9ebb0d3a2206705fe52e82389
 
-PKG_BUILD_DEPENDS:=gutenprint/host cups libiconv
+PKG_BUILD_DEPENDS:=gutenprint/host libcups libiconv
 HOST_BUILD_DEPENDS:=libiconv/host
 PKG_INSTALL:=1
 
@@ -31,7 +31,7 @@ define Package/gutenprint
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libcupsimage $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+cups $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=Gutenprint CUPS drivers
 	URL:=http://gimp-print.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net

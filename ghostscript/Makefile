@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ghostscript
 PKG_VERSION:=9.16
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.ghostscript.com/public/old-gs-releases
@@ -28,7 +28,7 @@ define Package/ghostscript
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libcupsimage +libfreetype +fontconfig +libtiff +libjpeg +libpng +libexpat +lcms +zlib +ghostscript-fonts-std +libdbus
+	DEPENDS:=+libcups +fontconfig +libtiff +lcms +ghostscript-fonts-std +libdbus
 	TITLE:=ghostscript interpreter
 	URL:=http://gimp-print.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net

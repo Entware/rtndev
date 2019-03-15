@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=splix
 PKG_REV:=315
 PKG_VERSION:=2.0.0-r$(PKG_REV)
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_PROTO:=svn
@@ -26,7 +26,7 @@ define Package/splix
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libcupsimage +libjbig
+	DEPENDS:=+cups +libjbig
 	TITLE:=Samsung CUPS drivers
 	URL:=http://splix.ap2c.org/
 	MAINTAINER:=Entware team, https://entware.net
