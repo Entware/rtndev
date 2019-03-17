@@ -1,0 +1,14 @@
+--- a/src/xml/Makefile.am
++++ b/src/xml/Makefile.am
+@@ -38,11 +38,6 @@
+ 
+ ## Rules
+ 
+-noinst_PROGRAMS = extract-strings
+-
+-extract_strings_SOURCES = extract-strings.c
+-extract_strings_LDADD = $(GUTENPRINT_LIBS)
+-
+ xml-stamp: $(pkgxmldata_DATA) $(STAMPS) Makefile.am
+ 	-rm -f $@ $@.tmp
+ 	touch $@.tmp

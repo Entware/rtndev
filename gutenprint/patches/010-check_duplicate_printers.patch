@@ -1,0 +1,14 @@
+--- a/src/xml/printers/Makefile.am
++++ b/src/xml/printers/Makefile.am
+@@ -34,11 +34,6 @@
+ 	raw.xml
+ 
+ AM_TESTS_ENVIRONMENT=STP_MODULE_PATH=$(top_builddir)/src/main/.libs:$(top_builddir)/src/main STP_DATA_PATH=$(top_srcdir)/src/xml
+-TESTS = check_duplicate_printers
+-
+-noinst_PROGRAMS = check_duplicate_printers
+-check_duplicate_printers_SOURCES = check_duplicate_printers.c
+-check_duplicate_printers_LDADD = $(GUTENPRINT_LIBS)
+ 
+ xml-stamp: $(pkgxmldata_DATA) Makefile.am check_duplicate_printers
+ 	$(AM_TESTS_ENVIRONMENT) ./check_duplicate_printers

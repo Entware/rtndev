@@ -25,7 +25,6 @@ include $(INCLUDE_DIR)/package.mk
 define Package/ghostscript
 	SECTION:=utils
 	CATEGORY:=Utilities
-	SUBMENU:=Printing
 	DEPENDS:=+fontconfig +libidn +libtiff
 	TITLE:=interpreter for the PostScript language and for PDF
 	URL:=https://www.ghostscript.com/

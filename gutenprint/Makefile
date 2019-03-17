@@ -4,91 +4,85 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Compiled with the help of following sources:
-#	* http://github.com/FranciscoBorges/openwrt-printing-packages
-#	* http://code.google.com/p/pits/source/browse/trunk/ijsgutenprint/Makefile
-# 5.3.1 and newer requires check_duplicate_printers to be host-compiled
+# Based on https://github.com/FranciscoBorges/openwrt-printing-packages
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gutenprint
-PKG_VERSION:=5.2.14
-PKG_RELEASE:=2
+PKG_VERSION:=5.3.1
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/gimp-print
-PKG_HASH:=45bf0766f196a764c113bfad7ab1ea748f1d5ff9ebb0d3a2206705fe52e82389
+PKG_HASH:=d80d8f5272d15bca5710f6ef4a2bb95e76d34e1155c5bcd5e83cb9f0a111d0d4
 
-PKG_BUILD_DEPENDS:=gutenprint/host libcups libiconv
-HOST_BUILD_DEPENDS:=libiconv/host
+PKG_BUILD_DEPENDS:=gutenprint/host
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/nls.mk
 
 define Package/gutenprint
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+cups +libreadline +libncursesw
 	TITLE:=Gutenprint CUPS drivers
 	URL:=http://gimp-print.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/gutenprint/description
- Gutenprint CUPS drivers for a wide range of Canon, Epson, HP and
- compatible printers.
+ High quality drivers for Canon, Epson, Lexmark, Sony, Olympus, and PCL
+ printers for use with CUPS and GIMP.
 endef
 
-CONFIGURE_ARGS += \
+define Host/Patch
+endef
+
+HOST_CONFIGURE_ARGS += \
+	--disable-shared \
+	--disable-nls \
+	--disable-nls-macosx \
+	--disable-samples \
+	--disable-escputil \
 	--disable-test \
-	--without-doc \
+	--without-cups \
+	--without-modules \
 	--without-readline \
-	--without-foomatic \
-	--without-foomatic3 \
-	--enable-escputil=no \
-	--enable-test=no \
-	--disable-translated-cups-ppds \
-	--disable-globalized-cups-ppds \
-	--enable-simplified-cups-ppds \
-	--bindir=/opt/bin \
-	--sbindir=/opt/bin \
-	--prefix=/opt \
-	--exec-prefix=/opt
-
-define Build/Compile
-	# Replace the cross-compiled "extract-string" by a shell-script that
-	# runs the host's own compiled version (gutenprint needs to run this)
-	(cd $(PKG_BUILD_DIR) && $(MAKE) -C src/xml extract-strings && \
-	$(RM) src/xml/extract-strings && \
-	echo '#!/bin/sh' > src/xml/extract-strings && \
-	echo 'exec $(HOST_BUILD_DIR)/src/xml/extract-strings  "$$$$@" ' \
-	>> src/xml/extract-strings && chmod +x src/xml/extract-strings && cp src/xml/extract-strings /tmp/)
-	$(call Build/Compile/Default)
-endef
-
-define Package/gutenprint/install
-	$(INSTALL_DIR) $(1)/opt/sbin $(1)/opt/bin
-	# XXX Do not install cups-genppdupdate, as it requires Perl + some perl libs
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/cups-genppd.[0-9]*.[0-9]* $(1)/opt/sbin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/cups-calibrate $(1)/opt/bin/
-	$(INSTALL_DIR) $(1)/opt/lib/cups/{driver,filter}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/cups/driver/gutenprint.* $(1)/opt/lib/cups/driver
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/cups/filter/* $(1)/opt/lib/cups/filter
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libgutenprint.so* $(1)/opt/lib
-	$(INSTALL_DIR) $(1)/opt/share/cups/mime
-	$(CP) $(PKG_INSTALL_DIR)/opt/etc/cups/command.types $(1)/opt/share/cups/mime
-	$(INSTALL_DIR) $(1)/opt/share/gutenprint
-	$(CP) $(PKG_INSTALL_DIR)/opt/share/gutenprint/[0-9]*.[0-9]* $(1)/opt/share/gutenprint
-endef
+	--without-gimp2 \
+	--without-doc
 
 define Host/Compile
+	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/src/xml/printers $(HOST_MAKE_FLAGS) check_duplicate_printers
 	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/src/xml $(HOST_MAKE_FLAGS) extract-strings
 endef
 
 define Host/Install
+endef
+
+CONFIGURE_ARGS += \
+	--disable-test
+
+define Build/Configure
+	$(call Build/Configure/Default)
+	ln -s $(HOST_BUILD_DIR)/src/xml/printers/check_duplicate_printers \
+		$(PKG_BUILD_DIR)/src/xml/printers/check_duplicate_printers
+	ln -s $(HOST_BUILD_DIR)/src/xml/extract-strings \
+		$(PKG_BUILD_DIR)/src/xml/extract-strings
+endef
+
+define Package/gutenprint/install
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/bin $(1)/opt
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cups $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libgutenprint.so* $(1)/opt/lib
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/cups-genppd.5.3 $(1)/opt/sbin
+	$(INSTALL_DIR) $(1)/opt/share/gutenprint
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/cups $(1)/opt/share
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/gutenprint/5.3 $(1)/opt/share/gutenprint
 endef
 
 $(eval $(call HostBuild))
