@@ -19,8 +19,6 @@ PKG_HASH:=a51577ae95dc61a4100cdee38a2bf271bc4bfa80c7cda71bc4807f883c0b39bc
 
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=libijs
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
