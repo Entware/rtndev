@@ -21,7 +21,7 @@ define Package/cups-pdf
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Printing
-	DEPENDS:=+ghostscript
+	DEPENDS:=+ghostscript +libcups
 	TITLE:=PDF printer software
 	URL:=http://www.cups-pdf.de/
 	MAINTAINER:=Entware team, https://entware.net
