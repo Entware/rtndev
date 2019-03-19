@@ -20,3 +20,14 @@
  #  if !GNULIB_defined_wint_t
  #   if @HAVE_CRTDEFS_H@
  #    include <crtdefs.h>
+--- a/lib/stdint.in.h
++++ b/lib/stdint.in.h
+@@ -85,7 +85,7 @@
+ 
+ /* Override WINT_MIN and WINT_MAX if gnulib's <wchar.h> or <wctype.h> overrides
+    wint_t.  */
+-#if @GNULIB_OVERRIDES_WINT_T@
++#if 1
+ # undef WINT_MIN
+ # undef WINT_MAX
+ # define WINT_MIN 0x0U
