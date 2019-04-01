@@ -1,5 +1,5 @@
 ##
-# Copyright (C) 2015-2019 OpenWrt.org
+# Copyright (C) 2015 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,16 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tiv
-PKG_REV:=53dff6f5b933d0aa883868efb9e47d48c2ca6c4f
-PKG_VERSION:=1.0.0-git-$(shell echo "$(PKG_REV)" | cut -c1-7)
+PKG_SOURCE_DATE:=2019-04-01
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/stefanhaustein/TerminalImageViewer.git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_MIRROR_HASH:=bc32ada3817a6a171cc2ec446c8b9d365a195a1761870e3bd85d876ec19e79c8
+PKG_SOURCE_VERSION:=53dff6f5b933d0aa883868efb9e47d48c2ca6c4f
+PKG_MIRROR_HASH:=25c2729b8a683b1d982e5d939ca6743d448d43edbeba66f4d25ef534e9a2c907
+
 PKG_MAINTAINER:=Thomas Kupper <thomas.kupper@gmail.com>
 PKG_LICENSE:=GPLv2
 
