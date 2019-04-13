@@ -44,7 +44,7 @@ VideoViewer::VideoViewer(SOCKET ClientSocket)
 		{
 			for (size_t i = 1; i < uscvec.size(); i += 3)
 			{
-				if (!uscvec[i].matched) break;	// дальше команд нет
+				if (!uscvec[i].matched) break;	// no more commands
 				string command = uscvec[i].str();
 				if (command == "quality")
 				{
@@ -84,12 +84,12 @@ VideoViewer::~VideoViewer()
 	Stop();
 }
 
-// чтение M3U8 файла
+// read M3U8 file
 void VideoViewer::ReadM3U8()
 {
 	PlayList.clear();
-	HttpResponce contResp = M3U8Client.getResponce(VideoUri);
-	if (contResp.getStatus() != HttpResponce::HTTP_OK)
+	HttpResponse contResp = M3U8Client.getResponse(VideoUri);
+	if (contResp.getStatus() != HttpResponse::HTTP_OK)
 		throw Exception("Read playlist returned '%d'", contResp.getStatus());
 	
 	cmatch mavec;
@@ -102,16 +102,16 @@ void VideoViewer::ReadM3U8()
 	{
 		if (!regex_search(strC + pos, mavec, PlRx)) break;
 		PlayListRecord recrd;
-		recrd.Tag = mavec[1].str();			// #EXT... - таг
+		recrd.Tag = mavec[1].str();			// #EXT... - tag
 
-		// нечетные поля содержат атрибуты
+		// odd numbered fields contain attributes
 		for (size_t i = 3; i < mavec.size(); i += 2)
 		{
-			if (!mavec[i].matched) break;	// дальше атрибутов нет
+			if (!mavec[i].matched) break;	// no more attributes
 			recrd.Attributes.push_back(mavec[i].str());
 		}
 
-		if ((mavec[15].matched))		// URI в 15-й позиции
+		if ((mavec[15].matched))		// URI at position 15
 		{
 			if (mavec[17].matched)
 				recrd.TsUri = Uri(mavec[17].str(), (mavec[19].matched) ? mavec[19].str() : "", mavec[20].str());
@@ -129,20 +129,20 @@ void VideoViewer::ReadM3U8()
 
 void VideoViewer::Run()
 {	
-	ReadM3U8();		// парсим (предварительно)
-	// успешно - послать ответ телевизору
+	ReadM3U8();		// parse preliminary
+	// successful - send the response to TV
 	VideoStream << "HTTP/1.1 200 OK\nServer: hlspxd\nContent-Type: application/octet-stream\nConnection : close\n\n";
 	VideoStream.flush();
 
-	// находим переадресации на разные разрешения
-	vector<StremInf> streamVec;
+	// find redirections to different resolutions
+	vector<StreamInf> streamVec;
 
 	for (vector<PlayListRecord>::iterator it = PlayList.begin(); it < PlayList.end(); it++)
 	{
 		if (it->Tag == "#EXT-X-STREAM-INF")
 		{
 			if (it->TsUri.empty()) throw Exception("#EXT-X-STREAM-INF - empty URI");
-			StremInf stri;
+			StreamInf stri;
 			stri.TsUri = it->TsUri;
 			for (vector<string>::iterator its = it->Attributes.begin(); its != it->Attributes.end(); its++)
 			{
@@ -161,7 +161,7 @@ void VideoViewer::Run()
 	if (streamVec.size() > 0)
 	{
 		sort(streamVec.begin(), streamVec.end());
-		StremInf &selectedStream = streamVec[0];
+		StreamInf &selectedStream = streamVec[0];
 		switch (SessionQuality)
 		{
 		case Video_high:
@@ -183,25 +183,25 @@ void VideoViewer::Run()
 		ReadM3U8();
 	}
 
-	double m3uTime = -5.;			// время показа видео
-	Stopwatch curTime;				// текущее время
+	double m3uTime = -5.;			// total played duration
+	Stopwatch curTime;				// current time
 	curTime.start();
-	int prevMediaSeq = 0;			// предыдущий номер набора файлов
-	int emptCnt = 0;				// счетчик пустых наборов
-	bool endList = false;			// конец списка воспроизведения
+	int prevMediaSeq = 0;			// previous chunk sequence number
+	int emptCnt = 0;				// empty sequence count
+	bool endList = false;			// end of playlist
 
 	while (true)
 	{
-		int uniqts = 0;			// всего ТС файлов
-		int addedTs = 0;		// добавлено для обработки
-		double lps = 0.;		// насколько опережаем (sec)
+		int uniqts = 0;			// TS files count
+		int addedTs = 0;		// added for processing
+		double lps = 0.;		// cached duration (sec)
 
 		int mediaSeq = 0;
 		TsURI lastTs;
 
 		for (vector<PlayListRecord>::iterator it = PlayList.begin(); it < PlayList.end(); it++)
 		{
-			// последовательный номер куска
+			// chunk sequence number
 			if (it->Tag == "#EXT-X-MEDIA-SEQUENCE")
 			{
 				if (it->Attributes.size() == 0) throw Exception("#EXT-X-MEDIA-SEQUENCE - no attributes");
@@ -235,7 +235,7 @@ void VideoViewer::Run()
 			}
 			else if (it->Tag == "#EXT-X-ENDLIST")
 			{
-				LogWriter::WriteLog("Last media sequance");
+				LogWriter::WriteLog("Last media sequence");
 				endList = true;
 			}
 		}
@@ -251,11 +251,11 @@ void VideoViewer::Run()
 		LogWriter::WriteLog("added %d (%d) forward %0.2f mediaSeq %d", addedTs, uniqts, lps, mediaSeq);
 		prevMediaSeq = mediaSeq;
 
-		if (addedTs == 0)			// ничего нового - сюда не должны попадать НИКОГДА!
+		if (addedTs == 0)			// nothing new - should not get here
 		{
 			if (emptCnt++ > 4)
 			{
-				LogWriter::WriteLog("Empty sequances!");
+				LogWriter::WriteLog("Empty sequences!");
 				break;
 			}
 			if (lastTs.Duration == 0) throw	Exception("lastTs.Duration == 0");
@@ -269,7 +269,7 @@ void VideoViewer::Run()
 		}
 		emptCnt = 0;
 
-		// почистить историю
+		// clear history
 		if (uniqts >= MaxHistLen) MaxHistLen = uniqts * 2;
 		if ((int)TsList.size() > MaxHistLen)
 		{
@@ -280,32 +280,32 @@ void VideoViewer::Run()
 		}
 
 		list<TsURI>::iterator readPos = TsList.end();
-		for (int n = 0; n < addedTs; n++) readPos--;		// позиция на 1 непоказанный
+		for (int n = 0; n < addedTs; n++) readPos--;		// position of the first unplayed file
 
 		for (; readPos != TsList.end(); readPos++)
 		{
 			if (!VideoStream.good()) break;
 
-			HttpResponce tsResp = tsClient.getResponce(*readPos);
-			if (tsResp.getStatus() != HttpResponce::HTTP_OK)
+			HttpResponse tsResp = tsClient.getResponse(*readPos);
+			if (tsResp.getStatus() != HttpResponse::HTTP_OK)
 				throw Exception("Read TS file returned '%d'", (int)tsResp.getStatus());
 
-			size_t contLen = tsResp.getContentLength();			// длина ТС файла
+			size_t contLen = tsResp.getContentLength();			// TS file length
 			if (contLen == 0)
-				throw Exception(".ts file has no  Content Length");
+				throw Exception(".ts file has no Content Length");
 
-			double byteDelay = readPos->Duration / contLen;		// задержка на байт
-			double tsTime = m3uTime;							// время внутри .ts
+			double byteDelay = readPos->Duration / contLen;		// delay per byte
+			double tsTime = m3uTime;							// time inside .ts
 			socketstream &tsStream = tsClient.getStream();
 
 			while (tsStream.good() && VideoStream.good())
 			{
 				string sss;
-				tsStream.read(TsBuf, TS_BUF_LEN);			// считать видео
-				size_t rdbts = (size_t)tsStream.gcount();	// байт считано
+				tsStream.read(TsBuf, TS_BUF_LEN);			// read video
+				size_t rdbts = (size_t)tsStream.gcount();	// number of bytes read
 				VideoStream.write(TsBuf, rdbts);
 				tsTime += rdbts * byteDelay;
-				double curdel = tsTime - (curTime.elapsed() / 1000.);		// опережение, сек
+				double curdel = tsTime - (curTime.elapsed() / 1000.);		// cached, seconds
 				if ((curdel > 0.01) && !endList)
 				{
 					Sleep((long)(curdel * 1000));

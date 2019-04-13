@@ -16,6 +16,10 @@ void LogWriter::WriteBuf(const char *message)
 	struct tm *loctim = localtime(&ltime);
 
 	FILE *logfil = fopen(LogFileName.c_str(), "a+t");
+	if (!logfil) {
+		std::cerr << "fopen failed, filename " << LogFileName << ", errno " << errno << std::endl;
+		std::terminate();
+	}
 	fprintf(logfil, "%02d-%02d-%02dT%02d:%02d:%02d (%d) - %s\n",
 		loctim->tm_mday, loctim->tm_mon + 1, loctim->tm_year % 100,
 		loctim->tm_hour, loctim->tm_min, loctim->tm_sec,
@@ -228,11 +232,11 @@ HttpRequest::HttpRequest(istream& stream)
 	HttpMessage::init(stream);
 }
 
-//const char *HttpResponce::dayOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
-//const char *HttpResponce::MonthName[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-std::regex HttpResponce::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:]]+)[[:space:]]+(.+)");
+//const char *HttpResponse::dayOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+//const char *HttpResponse::MonthName[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+std::regex HttpResponse::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:]]+)[[:space:]]+(.+)");
 
-//HttpResponce::HttpResponce(HttpStatus status, const std::string& reason) :
+//HttpResponse::HttpResponse(HttpStatus status, const std::string& reason) :
 //_status(status),
 //_reason(reason)
 //{
@@ -250,17 +254,17 @@ std::regex HttpResponce::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:
 //	//operator[]("Connection") = "close";
 //}
 
-HttpResponce::HttpResponce(socketstream &stream)
+HttpResponse::HttpResponse(socketstream &stream)
 {
 	cmatch res;
 
 	string inStr;
 
 	getline(stream, inStr);
-	if (!stream.good()) throw Exception("HttpResponce Initial stream closed");
+	if (!stream.good()) throw Exception("HttpResponse Initial stream closed");
 	rtrim(inStr);
-	if (inStr.empty()) throw Exception("HttpResponce empty stream");
-	if (!regex_search(inStr.c_str(), res, respRx)) throw Exception("HttpResponce bad responce");
+	if (inStr.empty()) throw Exception("HttpResponse empty stream");
+	if (!regex_search(inStr.c_str(), res, respRx)) throw Exception("HttpResponse bad response");
 
 	_status = (HttpStatus)atoi(res[2].str().c_str());
 	_reason = res[3].str();
@@ -268,7 +272,7 @@ HttpResponce::HttpResponce(socketstream &stream)
 	HttpMessage::init(stream);
 }
 
-size_t HttpResponce::getContentLength()
+size_t HttpResponse::getContentLength()
 {
 	const string *contlen = getHeaderRecord("Content-Length");
 	if (contlen == NULL) return 0;
@@ -277,7 +281,7 @@ size_t HttpResponce::getContentLength()
 
 /////////////////////////////////////////////////
 #ifdef _WIN32
-DWORD WINAPI VieverFunc(void  *param)
+DWORD WINAPI ViewerFunc(void  *param)
 {
 	try
 	{
@@ -353,7 +357,7 @@ void HttpServer::Run()
 
 		ClientSocket = accept(ListenSocket, NULL, NULL);
 		if (ClientSocket == INVALID_SOCKET) {
-			if (errno == EINTR) break;						// нормальное завершение
+			if (errno == EINTR) break;						// normal shutdown
 			throw Exception("accept failed");
 		}
 
@@ -362,7 +366,7 @@ void HttpServer::Run()
 		HANDLE thrH = CreateThread(
 			NULL,                   // default security attributes
 			0,                      // use default stack size  
-			VieverFunc,       // thread function name
+			ViewerFunc,       // thread function name
 			&ClientSocket,          // argument to thread function 
 			0,                      // use default creation flags 
 			NULL);   // returns the thread identifier 
@@ -452,9 +456,9 @@ void HttpClient::connect2Host(Uri &reqUri)
 	_sockstream.open(reqUri);
 }
 
-HttpResponce HttpClient::getResponce(Uri &reqUri)
+HttpResponse HttpClient::getResponse(Uri &reqUri)
 {
-	HttpResponce contResp;
+	HttpResponse contResp;
 
 	for (int att500 = 0; att500 < 5; att500++)
 	{
@@ -464,13 +468,13 @@ HttpResponce HttpClient::getResponce(Uri &reqUri)
 			<< "\nUser-agent: hlspxd\nAccept: */*\nConnection: close\n\n";
 		_sockstream.flush();
 
-		contResp = HttpResponce(_sockstream);
+		contResp = HttpResponse(_sockstream);
 
-		HttpResponce::HttpStatus contStat = contResp.getStatus();
+		HttpResponse::HttpStatus contStat = contResp.getStatus();
 
-		if ((contStat == HttpResponce::HTTP_FOUND) ||				// redirect
-			(contStat == HttpResponce::HTTP_MOVED_PERMANENTLY) ||
-			(contStat == HttpResponce::HTTP_TEMPORARY_REDIRECT)
+		if ((contStat == HttpResponse::HTTP_FOUND) ||				// redirect
+			(contStat == HttpResponse::HTTP_MOVED_PERMANENTLY) ||
+			(contStat == HttpResponse::HTTP_TEMPORARY_REDIRECT)
 			)
 		{
 			const string *Location = contResp.getHeaderRecord("Location");

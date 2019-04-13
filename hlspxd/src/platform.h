@@ -29,7 +29,7 @@ class Exception : public std::exception
 {
 	char *_message;
 public:
-	Exception(const char * const &format, ...) throw();
+	Exception(const char * format, ...) throw();
 	virtual ~Exception() throw() { delete[] _message; }
 	virtual const char *what() const throw() { return _message; }
 };

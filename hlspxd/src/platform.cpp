@@ -34,7 +34,7 @@ int HideSignals()
 	return 0;
 }
 
-Exception::Exception(const char * const &format, ...) throw()
+Exception::Exception(const char * format, ...) throw()
 {
 	_message = NULL;
 	int size = 0;

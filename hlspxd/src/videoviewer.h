@@ -3,22 +3,22 @@
 
 #include "utils.h"
 #include <list>
-// запись в m3u8 файле
+// entry in m3u8 file
 struct PlayListRecord
 {
-	std::string Tag;					// таг - обязательно есть
-	std::vector<std::string> Attributes;	// атрибуты
-	Uri TsUri;					// URL - абсолютный или относительный
+	std::string Tag;					// tag - required field
+	std::vector<std::string> Attributes;	// attributes
+	Uri TsUri;					// URL - absolute or relative
 };
 
-// для выбора нужного разрешения показа
-struct StremInf
+// used to select the required stream resolution
+struct StreamInf
 {
-	int Bandwidth;				// разрешение
-	Uri TsUri;					// URL - абсолютный или относительный
-	StremInf() :Bandwidth(0) {}
+	int Bandwidth;				// resolution
+	Uri TsUri;					// URL - absolute or relative
+	StreamInf() :Bandwidth(0) {}
 
-	bool operator < (const StremInf &other) const
+	bool operator < (const StreamInf &other) const
 	{
 		return Bandwidth < other.Bandwidth;
 	}
@@ -27,7 +27,7 @@ struct StremInf
 class TsURI : public Uri
 {
 public:
-	double	Duration;						// время показа файла (sec)
+	double	Duration;						// total played duration (sec)
 	TsURI()
 		:Duration(0)
 	{}
@@ -74,19 +74,19 @@ struct TsPacketHdr
 
 class VideoViewer
 {
-	socketstream VideoStream;			// выходной поток
-	VideoQuality SessionQuality;		// качество показа видео
-	Uri VideoUri;						// URI который показываем
-	HttpClient M3U8Client;				// сессия сервера контента
-	char TsBuf[TS_BUF_LEN];				// выходной буфер
+	socketstream VideoStream;			// output stream
+	VideoQuality SessionQuality;		// video quality
+	Uri VideoUri;						// current URI
+	HttpClient M3U8Client;				// content server session
+	char TsBuf[TS_BUF_LEN];				// output buffer
 
-	// парсер
+	// parser
 	static std::regex PlRx;				//15 = file
-	std::vector<PlayListRecord> PlayList;	// собственно плейлист
+	std::vector<PlayListRecord> PlayList;	// playlist
 
-	int	MaxHistLen;				// длина истории
+	int	MaxHistLen;				// history length
 
-	std::list<TsURI> TsList;			// список ТС файлов
+	std::list<TsURI> TsList;			// TS file list
 
 	HttpClient tsClient;
 

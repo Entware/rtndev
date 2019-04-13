@@ -16,7 +16,7 @@ static inline void rtrim(std::string &s) {
 		std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
 }
 
-// копировать все в строку
+// copy src contents to string
 size_t copyToString(std::istream &src, std::string& str);
 
 class LogWriter
@@ -129,7 +129,7 @@ public:
 };
 
 
-// streambuf для сокета
+// socket streambuf
 class socketbuf
 	: public std::streambuf
 {
@@ -320,7 +320,7 @@ public:
 	inline std::string &getPath(){ return _path; }
 };
 
-class HttpResponce : public HttpMessage
+class HttpResponse : public HttpMessage
 {
 	//static const char *dayOfWeek[];
 	//static const char *MonthName[];
@@ -371,10 +371,10 @@ public:
 		//HTTP_VERSION_NOT_SUPPORTED = 505
 	};
 
-	HttpResponce()
+	HttpResponse()
 		:_status(HTTP_OK), _reason("OK")
 	{}
-	HttpResponce(socketstream &socstr);
+	HttpResponse(socketstream &socstr);
 
 	size_t getContentLength();
 	inline HttpStatus getStatus() const { return _status; }
@@ -400,7 +400,7 @@ class HttpClient
 public:
 	HttpClient(){}
 	~HttpClient(){ _sockstream.close(); }
-	HttpResponce getResponce(Uri &reqUri);
+	HttpResponse getResponse(Uri &reqUri);
 	socketstream &getStream(){ return _sockstream; }
 	inline bool connected(){ return _sockstream.good(); }
 	inline void abort(){ _sockstream.close(); }
