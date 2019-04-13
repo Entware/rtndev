@@ -17,7 +17,7 @@ void LogWriter::WriteBuf(const char *message)
 
 	FILE *logfil = fopen(LogFileName.c_str(), "a+t");
 	if (!logfil) {
-		std::cerr << "fopen failed, filename " << LogFileName << ", errno " << errno << std::endl;
+		std::cerr << "fopen() failed, filename " << LogFileName << ": " << strerror(errno) << std::endl;
 		std::terminate();
 	}
 	fprintf(logfil, "%02d-%02d-%02dT%02d:%02d:%02d (%d) - %s\n",
