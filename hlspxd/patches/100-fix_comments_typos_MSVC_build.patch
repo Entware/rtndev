@@ -1,0 +1,508 @@
+From 24d306c67a7d8d121d4d2e87eb54a81dc1ec37d4 Mon Sep 17 00:00:00 2001
+From: Andrei Lebedev <lebdron@gmail.com>
+Date: Sat, 13 Apr 2019 21:21:51 +0300
+Subject: [PATCH 1/2] hlspxd: fix comments, typos, MSVC build
+
+Signed-off-by: Andrei Lebedev <lebdron@gmail.com>
+---
+ hlspxd/src/platform.cpp    |  2 +-
+ hlspxd/src/platform.h      |  2 +-
+ hlspxd/src/utils.cpp       | 42 ++++++++++++----------
+ hlspxd/src/utils.h         | 12 +++----
+ hlspxd/src/videoviewer.cpp | 74 +++++++++++++++++++-------------------
+ hlspxd/src/videoviewer.h   | 40 ++++++++++-----------
+ 6 files changed, 88 insertions(+), 84 deletions(-)
+
+diff --git a/platform.cpp b/platform.cpp
+index 2a9ac4d..e4d0854 100644
+--- a/platform.cpp
++++ b/platform.cpp
+@@ -34,7 +34,7 @@ int HideSignals()
+ 	return 0;
+ }
+ 
+-Exception::Exception(const char * const &format, ...) throw()
++Exception::Exception(const char * format, ...) throw()
+ {
+ 	_message = NULL;
+ 	int size = 0;
+diff --git a/platform.h b/platform.h
+index c94303b..55f4f60 100644
+--- a/platform.h
++++ b/platform.h
+@@ -29,7 +29,7 @@ class Exception : public std::exception
+ {
+ 	char *_message;
+ public:
+-	Exception(const char * const &format, ...) throw();
++	Exception(const char * format, ...) throw();
+ 	virtual ~Exception() throw() { delete[] _message; }
+ 	virtual const char *what() const throw() { return _message; }
+ };
+diff --git a/utils.cpp b/utils.cpp
+index f4b4042..8d3b4cd 100644
+--- a/utils.cpp
++++ b/utils.cpp
+@@ -16,6 +16,10 @@ void LogWriter::WriteBuf(const char *message)
+ 	struct tm *loctim = localtime(&ltime);
+ 
+ 	FILE *logfil = fopen(LogFileName.c_str(), "a+t");
++	if (!logfil) {
++		std::cerr << "fopen failed, filename " << LogFileName << ", errno " << errno << std::endl;
++		std::terminate();
++	}
+ 	fprintf(logfil, "%02d-%02d-%02dT%02d:%02d:%02d (%d) - %s\n",
+ 		loctim->tm_mday, loctim->tm_mon + 1, loctim->tm_year % 100,
+ 		loctim->tm_hour, loctim->tm_min, loctim->tm_sec,
+@@ -228,11 +232,11 @@ HttpRequest::HttpRequest(istream& stream)
+ 	HttpMessage::init(stream);
+ }
+ 
+-//const char *HttpResponce::dayOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+-//const char *HttpResponce::MonthName[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+-std::regex HttpResponce::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:]]+)[[:space:]]+(.+)");
++//const char *HttpResponse::dayOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
++//const char *HttpResponse::MonthName[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
++std::regex HttpResponse::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:]]+)[[:space:]]+(.+)");
+ 
+-//HttpResponce::HttpResponce(HttpStatus status, const std::string& reason) :
++//HttpResponse::HttpResponse(HttpStatus status, const std::string& reason) :
+ //_status(status),
+ //_reason(reason)
+ //{
+@@ -250,17 +254,17 @@ std::regex HttpResponce::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:
+ //	//operator[]("Connection") = "close";
+ //}
+ 
+-HttpResponce::HttpResponce(socketstream &stream)
++HttpResponse::HttpResponse(socketstream &stream)
+ {
+ 	cmatch res;
+ 
+ 	string inStr;
+ 
+ 	getline(stream, inStr);
+-	if (!stream.good()) throw Exception("HttpResponce Initial stream closed");
++	if (!stream.good()) throw Exception("HttpResponse Initial stream closed");
+ 	rtrim(inStr);
+-	if (inStr.empty()) throw Exception("HttpResponce empty stream");
+-	if (!regex_search(inStr.c_str(), res, respRx)) throw Exception("HttpResponce bad responce");
++	if (inStr.empty()) throw Exception("HttpResponse empty stream");
++	if (!regex_search(inStr.c_str(), res, respRx)) throw Exception("HttpResponse bad response");
+ 
+ 	_status = (HttpStatus)atoi(res[2].str().c_str());
+ 	_reason = res[3].str();
+@@ -268,7 +272,7 @@ HttpResponce::HttpResponce(socketstream &stream)
+ 	HttpMessage::init(stream);
+ }
+ 
+-size_t HttpResponce::getContentLength()
++size_t HttpResponse::getContentLength()
+ {
+ 	const string *contlen = getHeaderRecord("Content-Length");
+ 	if (contlen == NULL) return 0;
+@@ -277,7 +281,7 @@ size_t HttpResponce::getContentLength()
+ 
+ /////////////////////////////////////////////////
+ #ifdef _WIN32
+-DWORD WINAPI VieverFunc(void  *param)
++DWORD WINAPI ViewerFunc(void  *param)
+ {
+ 	try
+ 	{
+@@ -353,7 +357,7 @@ void HttpServer::Run()
+ 
+ 		ClientSocket = accept(ListenSocket, NULL, NULL);
+ 		if (ClientSocket == INVALID_SOCKET) {
+-			if (errno == EINTR) break;						// нормальное завершение
++			if (errno == EINTR) break;						// normal shutdown
+ 			throw Exception("accept failed");
+ 		}
+ 
+@@ -362,7 +366,7 @@ void HttpServer::Run()
+ 		HANDLE thrH = CreateThread(
+ 			NULL,                   // default security attributes
+ 			0,                      // use default stack size  
+-			VieverFunc,       // thread function name
++			ViewerFunc,       // thread function name
+ 			&ClientSocket,          // argument to thread function 
+ 			0,                      // use default creation flags 
+ 			NULL);   // returns the thread identifier 
+@@ -452,9 +456,9 @@ void HttpClient::connect2Host(Uri &reqUri)
+ 	_sockstream.open(reqUri);
+ }
+ 
+-HttpResponce HttpClient::getResponce(Uri &reqUri)
++HttpResponse HttpClient::getResponse(Uri &reqUri)
+ {
+-	HttpResponce contResp;
++	HttpResponse contResp;
+ 
+ 	for (int att500 = 0; att500 < 5; att500++)
+ 	{
+@@ -464,13 +468,13 @@ HttpResponce HttpClient::getResponce(Uri &reqUri)
+ 			<< "\nUser-agent: hlspxd\nAccept: */*\nConnection: close\n\n";
+ 		_sockstream.flush();
+ 
+-		contResp = HttpResponce(_sockstream);
++		contResp = HttpResponse(_sockstream);
+ 
+-		HttpResponce::HttpStatus contStat = contResp.getStatus();
++		HttpResponse::HttpStatus contStat = contResp.getStatus();
+ 
+-		if ((contStat == HttpResponce::HTTP_FOUND) ||				// redirect
+-			(contStat == HttpResponce::HTTP_MOVED_PERMANENTLY) ||
+-			(contStat == HttpResponce::HTTP_TEMPORARY_REDIRECT)
++		if ((contStat == HttpResponse::HTTP_FOUND) ||				// redirect
++			(contStat == HttpResponse::HTTP_MOVED_PERMANENTLY) ||
++			(contStat == HttpResponse::HTTP_TEMPORARY_REDIRECT)
+ 			)
+ 		{
+ 			const string *Location = contResp.getHeaderRecord("Location");
+diff --git a/utils.h b/utils.h
+index 63db1d0..3391311 100644
+--- a/utils.h
++++ b/utils.h
+@@ -16,7 +16,7 @@ static inline void rtrim(std::string &s) {
+ 		std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+ }
+ 
+-// копировать все в строку
++// copy src contents to string
+ size_t copyToString(std::istream &src, std::string& str);
+ 
+ class LogWriter
+@@ -129,7 +129,7 @@ class Uri
+ };
+ 
+ 
+-// streambuf для сокета
++// socket streambuf
+ class socketbuf
+ 	: public std::streambuf
+ {
+@@ -320,7 +320,7 @@ class HttpRequest : public HttpMessage
+ 	inline std::string &getPath(){ return _path; }
+ };
+ 
+-class HttpResponce : public HttpMessage
++class HttpResponse : public HttpMessage
+ {
+ 	//static const char *dayOfWeek[];
+ 	//static const char *MonthName[];
+@@ -371,10 +371,10 @@ class HttpResponce : public HttpMessage
+ 		//HTTP_VERSION_NOT_SUPPORTED = 505
+ 	};
+ 
+-	HttpResponce()
++	HttpResponse()
+ 		:_status(HTTP_OK), _reason("OK")
+ 	{}
+-	HttpResponce(socketstream &socstr);
++	HttpResponse(socketstream &socstr);
+ 
+ 	size_t getContentLength();
+ 	inline HttpStatus getStatus() const { return _status; }
+@@ -400,7 +400,7 @@ class HttpClient
+ public:
+ 	HttpClient(){}
+ 	~HttpClient(){ _sockstream.close(); }
+-	HttpResponce getResponce(Uri &reqUri);
++	HttpResponse getResponse(Uri &reqUri);
+ 	socketstream &getStream(){ return _sockstream; }
+ 	inline bool connected(){ return _sockstream.good(); }
+ 	inline void abort(){ _sockstream.close(); }
+diff --git a/videoviewer.cpp b/videoviewer.cpp
+index 06473a2..4aeac2c 100644
+--- a/videoviewer.cpp
++++ b/videoviewer.cpp
+@@ -44,7 +44,7 @@ VideoViewer::VideoViewer(SOCKET ClientSocket)
+ 		{
+ 			for (size_t i = 1; i < uscvec.size(); i += 3)
+ 			{
+-				if (!uscvec[i].matched) break;	// дальше команд нет
++				if (!uscvec[i].matched) break;	// no more commands
+ 				string command = uscvec[i].str();
+ 				if (command == "quality")
+ 				{
+@@ -84,12 +84,12 @@ VideoViewer::~VideoViewer()
+ 	Stop();
+ }
+ 
+-// чтение M3U8 файла
++// read M3U8 file
+ void VideoViewer::ReadM3U8()
+ {
+ 	PlayList.clear();
+-	HttpResponce contResp = M3U8Client.getResponce(VideoUri);
+-	if (contResp.getStatus() != HttpResponce::HTTP_OK)
++	HttpResponse contResp = M3U8Client.getResponse(VideoUri);
++	if (contResp.getStatus() != HttpResponse::HTTP_OK)
+ 		throw Exception("Read playlist returned '%d'", contResp.getStatus());
+ 	
+ 	cmatch mavec;
+@@ -102,16 +102,16 @@ void VideoViewer::ReadM3U8()
+ 	{
+ 		if (!regex_search(strC + pos, mavec, PlRx)) break;
+ 		PlayListRecord recrd;
+-		recrd.Tag = mavec[1].str();			// #EXT... - таг
++		recrd.Tag = mavec[1].str();			// #EXT... - tag
+ 
+-		// нечетные поля содержат атрибуты
++		// odd numbered fields contain attributes
+ 		for (size_t i = 3; i < mavec.size(); i += 2)
+ 		{
+-			if (!mavec[i].matched) break;	// дальше атрибутов нет
++			if (!mavec[i].matched) break;	// no more attributes
+ 			recrd.Attributes.push_back(mavec[i].str());
+ 		}
+ 
+-		if ((mavec[15].matched))		// URI в 15-й позиции
++		if ((mavec[15].matched))		// URI at position 15
+ 		{
+ 			if (mavec[17].matched)
+ 				recrd.TsUri = Uri(mavec[17].str(), (mavec[19].matched) ? mavec[19].str() : "", mavec[20].str());
+@@ -129,20 +129,20 @@ void VideoViewer::ReadM3U8()
+ 
+ void VideoViewer::Run()
+ {	
+-	ReadM3U8();		// парсим (предварительно)
+-	// успешно - послать ответ телевизору
++	ReadM3U8();		// parse preliminary
++	// successful - send the response to TV
+ 	VideoStream << "HTTP/1.1 200 OK\nServer: hlspxd\nContent-Type: application/octet-stream\nConnection : close\n\n";
+ 	VideoStream.flush();
+ 
+-	// находим переадресации на разные разрешения
+-	vector<StremInf> streamVec;
++	// find redirections to different resolutions
++	vector<StreamInf> streamVec;
+ 
+ 	for (vector<PlayListRecord>::iterator it = PlayList.begin(); it < PlayList.end(); it++)
+ 	{
+ 		if (it->Tag == "#EXT-X-STREAM-INF")
+ 		{
+ 			if (it->TsUri.empty()) throw Exception("#EXT-X-STREAM-INF - empty URI");
+-			StremInf stri;
++			StreamInf stri;
+ 			stri.TsUri = it->TsUri;
+ 			for (vector<string>::iterator its = it->Attributes.begin(); its != it->Attributes.end(); its++)
+ 			{
+@@ -161,7 +161,7 @@ void VideoViewer::Run()
+ 	if (streamVec.size() > 0)
+ 	{
+ 		sort(streamVec.begin(), streamVec.end());
+-		StremInf &selectedStream = streamVec[0];
++		StreamInf &selectedStream = streamVec[0];
+ 		switch (SessionQuality)
+ 		{
+ 		case Video_high:
+@@ -183,25 +183,25 @@ void VideoViewer::Run()
+ 		ReadM3U8();
+ 	}
+ 
+-	double m3uTime = -5.;			// время показа видео
+-	Stopwatch curTime;				// текущее время
++	double m3uTime = -5.;			// total played duration
++	Stopwatch curTime;				// current time
+ 	curTime.start();
+-	int prevMediaSeq = 0;			// предыдущий номер набора файлов
+-	int emptCnt = 0;				// счетчик пустых наборов
+-	bool endList = false;			// конец списка воспроизведения
++	int prevMediaSeq = 0;			// previous chunk sequence number
++	int emptCnt = 0;				// empty sequence count
++	bool endList = false;			// end of playlist
+ 
+ 	while (true)
+ 	{
+-		int uniqts = 0;			// всего ТС файлов
+-		int addedTs = 0;		// добавлено для обработки
+-		double lps = 0.;		// насколько опережаем (sec)
++		int uniqts = 0;			// TS files count
++		int addedTs = 0;		// added for processing
++		double lps = 0.;		// cached duration (sec)
+ 
+ 		int mediaSeq = 0;
+ 		TsURI lastTs;
+ 
+ 		for (vector<PlayListRecord>::iterator it = PlayList.begin(); it < PlayList.end(); it++)
+ 		{
+-			// последовательный номер куска
++			// chunk sequence number
+ 			if (it->Tag == "#EXT-X-MEDIA-SEQUENCE")
+ 			{
+ 				if (it->Attributes.size() == 0) throw Exception("#EXT-X-MEDIA-SEQUENCE - no attributes");
+@@ -235,7 +235,7 @@ void VideoViewer::Run()
+ 			}
+ 			else if (it->Tag == "#EXT-X-ENDLIST")
+ 			{
+-				LogWriter::WriteLog("Last media sequance");
++				LogWriter::WriteLog("Last media sequence");
+ 				endList = true;
+ 			}
+ 		}
+@@ -251,11 +251,11 @@ void VideoViewer::Run()
+ 		LogWriter::WriteLog("added %d (%d) forward %0.2f mediaSeq %d", addedTs, uniqts, lps, mediaSeq);
+ 		prevMediaSeq = mediaSeq;
+ 
+-		if (addedTs == 0)			// ничего нового - сюда не должны попадать НИКОГДА!
++		if (addedTs == 0)			// nothing new - should not get here
+ 		{
+ 			if (emptCnt++ > 4)
+ 			{
+-				LogWriter::WriteLog("Empty sequances!");
++				LogWriter::WriteLog("Empty sequences!");
+ 				break;
+ 			}
+ 			if (lastTs.Duration == 0) throw	Exception("lastTs.Duration == 0");
+@@ -269,7 +269,7 @@ void VideoViewer::Run()
+ 		}
+ 		emptCnt = 0;
+ 
+-		// почистить историю
++		// clear history
+ 		if (uniqts >= MaxHistLen) MaxHistLen = uniqts * 2;
+ 		if ((int)TsList.size() > MaxHistLen)
+ 		{
+@@ -280,32 +280,32 @@ void VideoViewer::Run()
+ 		}
+ 
+ 		list<TsURI>::iterator readPos = TsList.end();
+-		for (int n = 0; n < addedTs; n++) readPos--;		// позиция на 1 непоказанный
++		for (int n = 0; n < addedTs; n++) readPos--;		// position of the first unplayed file
+ 
+ 		for (; readPos != TsList.end(); readPos++)
+ 		{
+ 			if (!VideoStream.good()) break;
+ 
+-			HttpResponce tsResp = tsClient.getResponce(*readPos);
+-			if (tsResp.getStatus() != HttpResponce::HTTP_OK)
++			HttpResponse tsResp = tsClient.getResponse(*readPos);
++			if (tsResp.getStatus() != HttpResponse::HTTP_OK)
+ 				throw Exception("Read TS file returned '%d'", (int)tsResp.getStatus());
+ 
+-			size_t contLen = tsResp.getContentLength();			// длина ТС файла
++			size_t contLen = tsResp.getContentLength();			// TS file length
+ 			if (contLen == 0)
+-				throw Exception(".ts file has no  Content Length");
++				throw Exception(".ts file has no Content Length");
+ 
+-			double byteDelay = readPos->Duration / contLen;		// задержка на байт
+-			double tsTime = m3uTime;							// время внутри .ts
++			double byteDelay = readPos->Duration / contLen;		// delay per byte
++			double tsTime = m3uTime;							// time inside .ts
+ 			socketstream &tsStream = tsClient.getStream();
+ 
+ 			while (tsStream.good() && VideoStream.good())
+ 			{
+ 				string sss;
+-				tsStream.read(TsBuf, TS_BUF_LEN);			// считать видео
+-				size_t rdbts = (size_t)tsStream.gcount();	// байт считано
++				tsStream.read(TsBuf, TS_BUF_LEN);			// read video
++				size_t rdbts = (size_t)tsStream.gcount();	// number of bytes read
+ 				VideoStream.write(TsBuf, rdbts);
+ 				tsTime += rdbts * byteDelay;
+-				double curdel = tsTime - (curTime.elapsed() / 1000.);		// опережение, сек
++				double curdel = tsTime - (curTime.elapsed() / 1000.);		// cached, seconds
+ 				if ((curdel > 0.01) && !endList)
+ 				{
+ 					Sleep((long)(curdel * 1000));
+diff --git a/videoviewer.h b/videoviewer.h
+index f351ae8..d8775c5 100644
+--- a/videoviewer.h
++++ b/videoviewer.h
+@@ -3,22 +3,22 @@
+ 
+ #include "utils.h"
+ #include <list>
+-// запись в m3u8 файле
++// entry in m3u8 file
+ struct PlayListRecord
+ {
+-	std::string Tag;					// таг - обязательно есть
+-	std::vector<std::string> Attributes;	// атрибуты
+-	Uri TsUri;					// URL - абсолютный или относительный
++	std::string Tag;					// tag - required field
++	std::vector<std::string> Attributes;	// attributes
++	Uri TsUri;					// URL - absolute or relative
+ };
+ 
+-// для выбора нужного разрешения показа
+-struct StremInf
++// used to select the required stream resolution
++struct StreamInf
+ {
+-	int Bandwidth;				// разрешение
+-	Uri TsUri;					// URL - абсолютный или относительный
+-	StremInf() :Bandwidth(0) {}
++	int Bandwidth;				// resolution
++	Uri TsUri;					// URL - absolute or relative
++	StreamInf() :Bandwidth(0) {}
+ 
+-	bool operator < (const StremInf &other) const
++	bool operator < (const StreamInf &other) const
+ 	{
+ 		return Bandwidth < other.Bandwidth;
+ 	}
+@@ -27,7 +27,7 @@ struct StremInf
+ class TsURI : public Uri
+ {
+ public:
+-	double	Duration;						// время показа файла (sec)
++	double	Duration;						// total played duration (sec)
+ 	TsURI()
+ 		:Duration(0)
+ 	{}
+@@ -74,19 +74,19 @@ struct TsPacketHdr
+ 
+ class VideoViewer
+ {
+-	socketstream VideoStream;			// выходной поток
+-	VideoQuality SessionQuality;		// качество показа видео
+-	Uri VideoUri;						// URI который показываем
+-	HttpClient M3U8Client;				// сессия сервера контента
+-	char TsBuf[TS_BUF_LEN];				// выходной буфер
++	socketstream VideoStream;			// output stream
++	VideoQuality SessionQuality;		// video quality
++	Uri VideoUri;						// current URI
++	HttpClient M3U8Client;				// content server session
++	char TsBuf[TS_BUF_LEN];				// output buffer
+ 
+-	// парсер
++	// parser
+ 	static std::regex PlRx;				//15 = file
+-	std::vector<PlayListRecord> PlayList;	// собственно плейлист
++	std::vector<PlayListRecord> PlayList;	// playlist
+ 
+-	int	MaxHistLen;				// длина истории
++	int	MaxHistLen;				// history length
+ 
+-	std::list<TsURI> TsList;			// список ТС файлов
++	std::list<TsURI> TsList;			// TS file list
+ 
+ 	HttpClient tsClient;
+ 
+
+From 6eb07060b93f1e62c3377642274f7a4cc5595960 Mon Sep 17 00:00:00 2001
+From: Andrei Lebedev <lebdron@gmail.com>
+Date: Sun, 14 Apr 2019 00:39:56 +0300
+Subject: [PATCH 2/2] Prettify cerr output
+
+Signed-off-by: Andrei Lebedev <lebdron@gmail.com>
+---
+ hlspxd/src/utils.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/utils.cpp b/utils.cpp
+index 8d3b4cd..df022c8 100644
+--- a/utils.cpp
++++ b/utils.cpp
+@@ -17,7 +17,7 @@ void LogWriter::WriteBuf(const char *message)
+ 
+ 	FILE *logfil = fopen(LogFileName.c_str(), "a+t");
+ 	if (!logfil) {
+-		std::cerr << "fopen failed, filename " << LogFileName << ", errno " << errno << std::endl;
++		std::cerr << "fopen() failed, filename " << LogFileName << ": " << strerror(errno) << std::endl;
+ 		std::terminate();
+ 	}
+ 	fprintf(logfil, "%02d-%02d-%02dT%02d:%02d:%02d (%d) - %s\n",
