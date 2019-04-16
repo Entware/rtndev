@@ -10,13 +10,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ghostscript
 PKG_VERSION:=9.26
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs926
 PKG_HASH:=831fc019bd477f7cc2d481dc5395ebfa4a593a95eb2fe1eb231a97e450d7540d
 
-PKG_BUILD_DEPENDS:=ghostscript/host libcups
+PKG_BUILD_DEPENDS:=ghostscript/host
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/host-build.mk
@@ -25,7 +26,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/ghostscript
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+fontconfig +libidn +libtiff
+	DEPENDS:=+fontconfig +libidn +libtiff +libcups
 	TITLE:=interpreter for the PostScript language and for PDF
 	URL:=https://www.ghostscript.com/
 	MAINTAINER:=Entware team, https://entware.net

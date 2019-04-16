@@ -1,0 +1,15 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1432,12 +1432,6 @@
+         if test x$with_local_cups != xyes; then
+             if test x"$CUPSCONFIG" = x""; then
+               AC_PATH_TOOL(CUPSCONFIG,cups-config)
+-              if test x"$cross_compiling" = x"yes"; then
+-                AC_PATH_PROG(BUILD_CUPSCONFIG, cups-config)
+-                if test x"$BUILD_CUPSCONFIG" = x"$CUPSCONFIG" ; then
+-                  CUPSCONFIG=
+-                fi
+-              fi
+             fi
+             # check for a libcups header
+             AC_CHECK_HEADER([cups/cups.h],[],[CUPSCONFIG=""])
