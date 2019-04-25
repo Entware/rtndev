@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
 PKG_VERSION:=1.22.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/release-1-22-1
@@ -26,7 +26,7 @@ define Package/cups-filters
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libpoppler +qpdf +glib2 +libdbus
+	DEPENDS:=+cups +libpoppler +qpdf +glib2 +libdbus +dejavu-fonts-ttf-DejaVuSans
 	TITLE:=OpenPrinting CUPS filters
 	URL:=http://www.openprinting.org
 	MAINTAINER:=Entware team, https://entware.net
@@ -46,7 +46,7 @@ CONFIGURE_ARGS += \
 	--with-pdftops=gs \
 	--with-gs-path=/opt/bin/gs \
 	--with-pdftops-path=/opt/bin/gs \
-	--with-test-font-path=/opt/share/fonts/dejavu/DejaVuSans.ttf \
+	--with-test-font-path=/opt/share/fonts/ttf-dejavu/DejaVuSans.ttf \
 	--with-shell=/bin/sh
 
 CONFIGURE_VARS += \
@@ -60,7 +60,6 @@ TARGET_LDFLAGS += -liconv -lqpdf -lpoppler
 
 define Package/cups-filters/conffiles
 /opt/etc/cups/cups-browsed.conf
-/opt/etc/fonts/conf.d/99pdftoopvp.conf
 endef
 
 define Package/cups-filters/install
