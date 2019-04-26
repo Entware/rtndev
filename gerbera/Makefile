@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=gerbera
 PKG_VERSION:=1.3
 PKG_REV:=c7a81fb41e446ee67b3eac90e2caecd6de651a16
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -50,6 +50,16 @@ define Package/gerbera/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) files/S90$(PKG_NAME) $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/etc/$(PKG_NAME)
+endef
+
+define Package/gerbera/postinst
+#!/bin/sh
+
+GERBERA_CFG=/opt/etc/gerbera/config.xml
+if [ ! -f $$GERBERA_CFG ]; then
+    gerbera --create-config > $$GERBERA_CFG
+    echo "Please, edit $$GERBERA_CFG first."
+fi
 endef
 
 $(eval $(call BuildPackage,gerbera))
