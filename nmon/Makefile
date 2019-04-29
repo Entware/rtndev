@@ -1,5 +1,5 @@
-
-# Copyright (C) 2006-2019 OpenWrt.org
+#
+# Copyright (C) 2019 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,25 +19,20 @@ PKG_MAINTAINER:=Thomas Kupper <thomas.kupper@gmail.com>
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=LICENSE-GPL2
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+UNPACK_CMD=$(CP) $(DL_DIR)/$(PKG_SOURCE) $(1)
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/nmon
-  SECTION:=nmon
-  CATEGORY:=Administration
-  URL:=http://nmon.sourceforge.net/pmwiki.php
-  TITLE:=Nigel's performance Monitor for Linux
-  DEPENDS:=+libncurses
+	SECTION:=nmon
+	CATEGORY:=Administration
+	URL:=http://nmon.sourceforge.net/pmwiki.php
+	TITLE:=Nigel's performance Monitor for Linux
+	DEPENDS:=+libncurses
 endef
 
 define Package/nmon/description
-  Linux performance monitoring on-screen or to CSV file
-endef
-
-define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
-	$(CP) $(DL_DIR)/$(PKG_SOURCE) $(PKG_BUILD_DIR)
+ Linux performance monitoring on-screen or to CSV file.
 endef
 
 TARGET_LDFLAGS += -lncurses -lm -g
@@ -45,7 +40,7 @@ TARGET_CPPFLAGS += -g -O3 -Wall -D JFS -D GETUSER -D LARGEMEM
 
 define Build/Compile
 	$(TARGET_CC) $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) -o $(PKG_BUILD_DIR)/$(PKG_NAME) \
-	$(PKG_BUILD_DIR)/$(MAKE_PATH)/$(PKG_SOURCE) $(TARGET_LDFLAGS)
+		$(PKG_BUILD_DIR)/$(MAKE_PATH)/$(PKG_SOURCE) $(TARGET_LDFLAGS)
 endef
 
 define Package/nmon/install
