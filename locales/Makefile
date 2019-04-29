@@ -54,7 +54,7 @@ then
 fi
 if [ -f '/opt/usr/lib/locale/locale-archive' ]
 then
-	echo "You can download locale sources from http://pkg.entware.net/sources/i18n_glib$(LVERSION2).tar.gz"
+	echo "You can download locale sources from http://bin.entware.net/other/i18n_glib$(LVERSION2).tar.gz"
 	echo "You can add new locales to Entware using /opt/bin/localedef.new"
 fi
 if ! [ -f '/opt/usr/lib/locale/locale-archive' ]
@@ -66,8 +66,8 @@ then
 		echo "BE detected"
 		be='.be'
 	fi
-	wget http://pkg.entware.net/binaries/other/locale-archive.$(LVERSION1)$$be -O /opt/usr/lib/locale/locale-archive
-	echo "You can download locale sources from http://pkg.entware.net/sources/i18n_glib$(LVERSION2).tar.gz"
+	wget http://bin.entware.net/other/locale-archive.$(LVERSION1)$$be -O /opt/usr/lib/locale/locale-archive
+	echo "You can download locale sources from http://bin.entware.net/other/i18n_glib$(LVERSION2).tar.gz"
 	echo "You can add new locales to Entware using /opt/bin/localedef.new"
 fi
 
