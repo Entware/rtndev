@@ -1,0 +1,11 @@
+--- a/nfusr.cpp
++++ b/nfusr.cpp
+@@ -379,7 +379,7 @@
+ 
+   // Non-root user can only set allow_others if /etc/fuse.conf
+   // contains user_allow_other.
+-  std::ifstream fuse_conf("/etc/fuse.conf");
++  std::ifstream fuse_conf("/opt/etc/fuse.conf");
+   if (fuse_conf) {
+     std::string line;
+ 
