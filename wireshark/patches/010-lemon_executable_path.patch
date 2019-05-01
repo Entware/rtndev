@@ -1,0 +1,11 @@
+--- a/cmake/modules/UseLemon.cmake
++++ b/cmake/modules/UseLemon.cmake
+@@ -13,7 +13,7 @@
+           # These files are generated as side-effect
+           ${_out}.h
+           ${_out}.out
+-         COMMAND lemon
++         COMMAND ${CMAKE_SOURCE_DIR}/run/lemon
+            -T${_lemonpardir}/lempar.c
+            -d.
+            ${_in}
