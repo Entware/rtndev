@@ -33,12 +33,12 @@ define Package/libnfs/Default
 endef
 
 define Package/libnfs
-	$(call Package/libnfs-utils/Default)
+	$(call Package/libnfs/Default)
 	TITLE:=client library for accessing NFS shares over a network
 endef
 
 define Package/libnfs-utils
-	$(call Package/libnfs-utils/Default)
+	$(call Package/libnfs/Default)
 	DEPENDS:=+libnfs
 	TITLE:=libnfs utilities
 endef
