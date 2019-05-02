@@ -1,0 +1,19 @@
+--- a/NfsClient.cpp
++++ b/NfsClient.cpp
+@@ -16,6 +16,7 @@
+ #include <cassert>
+ #include <chrono>
+ #include <cstring>
++#include <sys/sysmacros.h>
+ 
+ double NfsClient::attrTimeout_ = 0.0;
+ 
+@@ -546,7 +547,7 @@
+   auto buff = (FuseDirBuffer*)(uintptr_t)file->fh;
+ 
+   if ((size_t)off < buff->getSize()) {
+-    const size_t toSend = std::min(buff->getSize() - off, size);
++    const size_t toSend = std::min(static_cast<unsigned long>(buff->getSize() - off), static_cast<unsigned long>(size));
+     logger_->LOG_MSG(LOG_DEBUG, "%s(%lu)\n", __func__, fuse_get_unique(req));
+     fuse_reply_buf(req, buff->getBuffer() + off, toSend);
+   } else {
