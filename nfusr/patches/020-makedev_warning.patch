@@ -13,7 +13,7 @@
  
    if ((size_t)off < buff->getSize()) {
 -    const size_t toSend = std::min(buff->getSize() - off, size);
-+    const size_t toSend = std::min(static_cast<unsigned long>(buff->getSize() - off), static_cast<unsigned long>(size));
++    const size_t toSend = std::min(static_cast<size_t>(buff->getSize() - off), static_cast<size_t>(size));
      logger_->LOG_MSG(LOG_DEBUG, "%s(%lu)\n", __func__, fuse_get_unique(req));
      fuse_reply_buf(req, buff->getBuffer() + off, toSend);
    } else {

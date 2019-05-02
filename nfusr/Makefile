@@ -38,9 +38,13 @@ define Package/nfusr/description
  nfusr is a userspace FUSE client for accessing NFSv3 servers based on libnfs.
 endef
 
+TARGET_CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+
 define Package/nfusr/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/$(PKG_NAME) $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/sbin/mount.$(PKG_NAME) $(1)/opt/sbin
 endef
 
 $(eval $(call BuildPackage,nfusr))
