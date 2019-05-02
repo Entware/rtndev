@@ -6,12 +6,23 @@
  
  NFUSR="@bindir@/nfusr"
  
-@@ -12,7 +12,7 @@
+@@ -12,13 +12,16 @@
  # Parse the 'host' command line argument, return a set of NFS hosts in $HOSTS global.
  function get_hosts () {
      local HOST=$1
 -    if [[ "$HOST" =~ ^nfs://.* ]]; then
-+    if [[ ! -z "$(echo $HOST | grep '^nfs://.*')" ]]; then
++    case "$HOST" in
++    nfs://*)
        HOSTS=$(echo "$HOST" | sed 's/,/ /g')
-     else
+-    else
++      ;;
++    *)
        echo "Invalid host specifier: $HOST."
+       usage
+       return 1
+-    fi
++      ;;
++    esac
+ 
+     return 0
+ }
