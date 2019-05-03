@@ -25,8 +25,6 @@ include $(INCLUDE_DIR)/package.mk
 
 
 define Package/libnfs/Default
-	SECTION:=utils
-	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
@@ -34,23 +32,27 @@ endef
 
 define Package/libnfs
 	$(call Package/libnfs/Default)
+	SECTION:=libs
+	CATEGORY:=Libraries
 	TITLE:=client library for accessing NFS shares over a network
 endef
 
 define Package/libnfs-utils
 	$(call Package/libnfs/Default)
+	SECTION:=utils
+	CATEGORY:=Utilities
 	DEPENDS:=+libnfs
 	TITLE:=libnfs utilities
 endef
 
 define Package/libnfs/description
- LIBNFS is a client library for accessing NFS shares over a network
+ LIBNFS is a client library for accessing NFS shares over a network.
 endef
 
 define Package/libnfs-utils/description
- nfs-ls, nfs-cat, nfs-cp console usersapce utilities for accessing NFS shares over a network
+ nfs-ls, nfs-cat, nfs-cp console usersapce utilities for accessing NFS shares
+ over a network.
 endef
-
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
@@ -67,7 +69,7 @@ endef
 
 define Package/libnfs-utils/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(CP) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin	
+	$(CP) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,libnfs))
