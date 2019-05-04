@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/miredo
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=@IPV6 +libcap +ip
+	DEPENDS:=@IPV6 +libcap +ip-full
 	TITLE:=Teredo IPv6 tunneling software
 	URL:=https://www.remlab.net/miredo/
 	MAINTAINER:=Entware team, https://entware.net
