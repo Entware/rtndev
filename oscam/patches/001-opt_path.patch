@@ -4,15 +4,15 @@
  #define STANDBY_FILE    "./.pauseoscam"
  #define ECMINFO_FILE    "./ecm.info"
  #else
--#define TMPDIR  "/tmp/"
+-#define TMPDIR          "/tmp/"
 -#define STANDBY_FILE    "/tmp/.pauseoscam"
 -#define ECMINFO_FILE    "/tmp/ecm.info"
-+#define TMPDIR  "/opt/tmp/"
++#define TMPDIR          "/opt/tmp/"
 +#define STANDBY_FILE    "/opt/tmp/.pauseoscam"
 +#define ECMINFO_FILE    "/opt/tmp/ecm.info"
  #endif
  
- #define MAX_DEMUX 16
+ #define BOX_COUNT 7
 --- a/globals.h
 +++ b/globals.h
 @@ -368,10 +368,10 @@
@@ -30,7 +30,7 @@
  #define CS_MAXPROV				32
 --- a/module-dvbapi.c
 +++ b/module-dvbapi.c
-@@ -335,17 +335,17 @@
+@@ -363,17 +363,17 @@
  
  static const struct box_devices devices[BOX_COUNT] =
  {
@@ -56,7 +56,7 @@
  };
  
  static int32_t selected_box = -1;
-@@ -6051,7 +6051,7 @@
+@@ -6269,7 +6269,7 @@
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end; // start time poll, end time poll

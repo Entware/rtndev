@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=11505
+PKG_REV:=11518
 PKG_VERSION:=1.20-r$(PKG_REV)
 PKG_RELEASE:=1
 
@@ -31,7 +31,8 @@ define Package/oscam
 endef
 
 define Package/oscam/description
- OSCam is an Open Source Conditional Access Module software, based on the very good MpCS version 0.9d
+ OSCam is an Open Source Conditional Access Module software, based on the very
+ good MpCS version 0.9d
 endef
 
 define Package/oscam/conffiles
