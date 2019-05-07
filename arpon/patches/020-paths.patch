@@ -1,0 +1,13 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -40,8 +40,8 @@
+     set(ARPON_SBIN ${CMAKE_INSTALL_PREFIX}/sbin/arpon)
+     set(ARPON_DOC ${CMAKE_INSTALL_PREFIX}/share/doc/arpon/index.html)
+     set(ARPON_ETC ${CMAKE_INSTALL_PREFIX}/etc/arpon.conf)
+-    set(ARPON_LOG ${CMAKE_INSTALL_PREFIX}/log/arpon.log)
+-    set(ARPON_PID ${CMAKE_INSTALL_PREFIX}/run/arpon.pid)
++    set(ARPON_LOG ${CMAKE_INSTALL_PREFIX}/var/log/arpon.log)
++    set(ARPON_PID ${CMAKE_INSTALL_PREFIX}/var/run/arpon.pid)
+     set(install_prefix ${CMAKE_INSTALL_PREFIX}/sbin)
+ endif(${CMAKE_INSTALL_PREFIX} STREQUAL "/")
+ 

@@ -1,0 +1,37 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -46,25 +46,6 @@
+ set(AUTHOR "Andrea Di Pasquale <spikey.it@gmail.com>" INTERNAL "Author")
+ set(VERSION "3.0-ng")
+ 
+-set(CMAKE_INCLUDE_PATH
+-    /usr/include;
+-    /usr/local/include;
+-    /usr/local/include/libnet11;
+-    /usr/local/include/libnet-1.1;
+-    ${CMAKE_INCLUDE_PATH})
+-
+-set(CMAKE_LIBRARY_PATH
+-    /lib;
+-    /usr/lib;
+-    /usr/lib32;
+-    /usr/lib64;
+-    /usr/local/lib;
+-    /usr/local/lib32;
+-    /usr/local/lib64;
+-    /usr/local/lib/libnet11;
+-    /usr/local/lib/libnet-1.1;
+-    ${CMAKE_LIBRARY_PATH})
+-
+ include_directories(
+     ${PROJECT_BINARY_DIR}
+     ${PROJECT_SOURCE_DIR}/src
+@@ -93,7 +74,7 @@
+     message(STATUS "Build type: Release")
+ 
+     set(CMAKE_BUILD_TYPE "Release")
+-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -Wextra -O3 -DNDEBUG")
++    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -DNDEBUG")
+ endif(cmake_build_type_tolower STREQUAL "debug")
+ 
+ find_package(Headers)
