@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=pureftpd
 PKG_VERSION:=1.0.47
 PKG_REV:=f169d2016707e7991d4c85be92afcf26d84a0135
-PKG_RELEASE:=1b
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -48,7 +48,8 @@ CONFIGURE_ARGS += \
 	--with-paranoidmsg \
 	--with-mysql=$(STAGING_DIR)/opt \
 	--with-tls \
-	--with-certfile=/opt/etc/ssl/private/pure-ftpd.pem
+	--with-certfile=/opt/etc/ssl/private/pure-ftpd.pem \
+	--with-rfc2640
 
 define Package/pureftpd/conffiles
 /opt/etc/pure-ftpd.conf
