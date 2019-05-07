@@ -1,0 +1,20 @@
+--- a/Makefile
++++ b/Makefile
+@@ -97,7 +97,7 @@
+ 	@echo "make INTERNAL_FUSE=0  - to build program with external (system) libfuse rather than the bundled one ('-o threads=' option will be unavailable)"
+ 
+ $(TARGET): version obj/obj-stamp $(FUSE_TARGET) $(OBJ)
+-	$(CXX) $(CFLAGS) $(LDFLAGS) $(OBJ) -o $@ $(FUSE_LIBS) -ldl -pthread -lrt
++	$(CXX) $(CFLAGS) $(CXXFLAGS) $(LDFLAGS) $(OBJ) -o $@ $(FUSE_LIBS) -ldl -pthread -lrt
+ 
+ mount.mergerfs: $(TARGET)
+ 	$(LN) -fs "$<" "$@"
+@@ -120,7 +120,7 @@
+ 	$(TOUCH) $@
+ 
+ obj/%.o: src/%.cpp
+-	$(CXX) $(CFLAGS) -c $< -o $@
++	$(CXX) $(CFLAGS) $(CXXFLAGS) -c $< -o $@
+ 
+ clean: rpm-clean libfuse_Makefile
+ 	$(RM) -f src/version.hpp
