@@ -1,0 +1,24 @@
+From: Debian Security Tools <team+pkg-security@tracker.debian.org>
+Date: Tue, 4 Sep 2018 11:50:03 +0200
+Subject: fixes segmentation fault when trying to restore files
+
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=670815
+Origin: Debian bug #670815
+Tested-By: Antonio Terceiro <terceiro@debian.org>
+Last-Update: 2012-12-13
+---
+ src/block.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/block.c b/src/block.c
+index db1d16b..1500503 100644
+--- a/src/block.c
++++ b/src/block.c
+@@ -77,6 +77,7 @@ struct ext2_extent_handle {
+ 	ext2_filsys		fs;
+ 	ext2_ino_t 		ino;
+ 	struct ext2_inode	*inode;
++    struct ext2_inode   inodebuf;
+ 	int			type;
+ 	int			level;
+ 	int			max_depth;

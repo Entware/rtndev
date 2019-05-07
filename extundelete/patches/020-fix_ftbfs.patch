@@ -1,0 +1,21 @@
+From: Hilko Bengen <bengen@debian.org>
+Date: Tue, 4 Sep 2018 11:50:03 +0200
+Subject: Fix FTBFS with current e2fsprogs
+
+---
+ src/insertionops.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/insertionops.cc b/src/insertionops.cc
+index 38a1301..0758d75 100644
+--- a/src/insertionops.cc
++++ b/src/insertionops.cc
+@@ -33,7 +33,7 @@ std::ostream& operator<<(std::ostream& os, const ext2_inode& inode)
+   os << "File flags: " << inode.i_flags << std::endl;
+   os << "File version (for NFS): " << inode.i_generation << std::endl;
+   os << "File ACL: " << inode.i_file_acl << std::endl;
+-  os << "Directory ACL: " << inode.i_dir_acl << std::endl;
++  os << "High 32 bits of Size: " << inode.i_size_high << std::endl;
+   os << "Fragment address: " << inode.i_faddr << std::endl;
+   os << "Direct blocks: ";
+   for (int n = 0; n < EXT2_NDIR_BLOCKS; n++)

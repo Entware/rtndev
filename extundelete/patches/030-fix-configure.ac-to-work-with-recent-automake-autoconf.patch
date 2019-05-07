@@ -1,0 +1,22 @@
+From: =?utf-8?q?Rapha=C3=ABl_Hertzog?= <hertzog@debian.org>
+Date: Tue, 4 Sep 2018 11:52:41 +0200
+Subject: Fix configure.ac to work with recent automake/autoconf
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 3546068..ea10989 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -6,8 +6,8 @@ m4_ifval(m4_esyscmd([printf %s $EU_VER]),
+ [m4_define(EU_VERSION, m4_esyscmd([printf $EU_VER])) ],
+ [m4_define(EU_VERSION, m4_esyscmd([git describe --tags| tr -d '\010-\012'])) ])
+ AC_INIT(extundelete, EU_VERSION, extundelete.sourceforge.net)
++AM_INIT_AUTOMAKE
+ echo "Configuring ${PACKAGE_STRING}"
+-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+ AC_CONFIG_SRCDIR([src/extundelete.cc])
+ AC_CONFIG_HEADERS([config.h])
+ 
