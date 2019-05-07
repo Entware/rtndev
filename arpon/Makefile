@@ -36,7 +36,7 @@ define Package/arpon/description
  attack.
 endef
 
-define Package/accel-ppp/conffiles
+define Package/arpon/conffiles
 /opt/etc/arpon.conf
 endef
 
