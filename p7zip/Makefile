@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=p7zip
 PKG_VERSION:=16.02
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_src_all.tar.bz2
 PKG_SOURCE_URL:=@SF/p7zip/p7zip/$(PKG_VERSION)
