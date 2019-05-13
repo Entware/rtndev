@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vitetris
-PKG_VERSION:=0.57.2
-PKG_REV:=7ecb8efdc9ad9c2b65764512b4775ce9e19274c9
+PKG_VERSION:=0.58.0
+PKG_REV:=d725f51fc626b386feb17da623241bf662f72b41
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -52,7 +52,6 @@ endef
 define Package/vitetris/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tetris $(1)/opt/bin/vitetris
-	$(INSTALL_DIR) $(1)/opt/var
 endef
 
 $(eval $(call BuildPackage,vitetris))
