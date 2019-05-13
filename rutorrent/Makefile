@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=3.8
-PKG_REV:=9191af0c0910143a1a0dd4968e64f1db63a2d746
+PKG_VERSION:=3.9
+PKG_REV:=702afd38d5cb6990fd595026afcd8f845aae42e0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -21,11 +21,11 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 include $(INCLUDE_DIR)/package.mk
 
 RUTORRENT_PLUGINS := \
-	autotools check_port chunks cookies cpuload create data datadir \
+	autotools check_port chunks _cloudflare cookies cpuload create data datadir \
 	diskspace edit erasedata extratio extsearch feeds filedrop geoip \
 	_getdir history httprpc ipad loginmgr lookat mediainfo _noty _noty2 \
 	ratio retrackers rpc rss rssurlrewrite rutracker_check scheduler \
-	screenshots seedingtime show_peers_like_wtorrent source _task theme \
+	screenshots seedingtime show_peers_like_wtorrent source spectrogram _task theme \
 	throttle tracklabels trafic unpack uploadeta xmpp
 
 DEPENDS_rss = +php7-mod-json
@@ -75,13 +75,14 @@ endef
 
 define Package/rutorrent/install
 	$(INSTALL_DIR) $(1)/opt/share/www/rutorrent/plugins
-	$(CP) $(PKG_BUILD_DIR)/{conf,css,images,js,lang,php,share,.htaccess,index.html} $(1)/opt/share/www/rutorrent/
+	$(CP) $(PKG_BUILD_DIR)/{conf,css,images,js,lang,php,share,htaccess-example,index.html} \
+		$(1)/opt/share/www/rutorrent
 endef
 
 define BuildPlugin
   define Package/$(1)/install
 	$(INSTALL_DIR) $$(1)/opt/share/www/rutorrent/plugins/$(2)
-	$(CP) $(PKG_BUILD_DIR)/plugins/$(2)/* $$(1)/opt/share/www/rutorrent/plugins/$(2)/
+	$(CP) $(PKG_BUILD_DIR)/plugins/$(2)/* $$(1)/opt/share/www/rutorrent/plugins/$(2)
   endef
 
   $$(eval $$(call BuildPackage,$(1)))
