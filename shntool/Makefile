@@ -10,10 +10,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shntool
 PKG_VERSION:=3.0.10
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.etree.org/shnutils/shntool/dist/src
+PKG_SOURCE_URL:=http://shnutils.freeshell.org/shntool/dist/src
+PKG_HASH:=74302eac477ca08fb2b42b9f154cc870593aec8beab308676e4373a5e4ca2102
+
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -22,7 +24,7 @@ define Package/shntool
 	SECTION:=sound
 	CATEGORY:=Sound
 	TITLE:=A multi-purpose wav data processing utility
-	URL:=http://www.etree.org/shnutils/shntool/
+	URL:=http://shnutils.freeshell.org/shntool/
 	DEPENDS:=+libogg +libvorbis +libflac
 endef
 
@@ -31,9 +33,8 @@ define Package/shntool/description
  you must have the appropriate helper program installed.
 endef
 
-CONFIGURE_ARGS+= \
-	--disable-nls \
-	--disable-static
+CONFIGURE_VARS += \
+	ac_cv_prog_FLAC="yes"
 
 define Package/shntool/install
 	$(INSTALL_DIR) $(1)/opt/bin
