@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ncdc
-PKG_VERSION:=1.20
+PKG_VERSION:=1.22
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.yorhel.nl/download
-PKG_HASH:=8a998857df6289b6bd44287fc06f705b662098189f2a8fe95b1a5fbc703b9631
+PKG_HASH:=fd41ef85cec3eca0107d83583ad25faa8804dd22d76f6da7fc157e0233b13a59
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -43,7 +43,7 @@ endef
 
 define Package/ncdc/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ncdc $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ncdc $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,ncdc))
