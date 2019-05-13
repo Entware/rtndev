@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=usbrelay
-PKG_VERSION:=20180322
-PKG_REV:=75954bf68cda9195e7d7116af194acb56d60f365
+PKG_VERSION:=20190511
+PKG_REV:=01cb0500958e078697652e043ea9621388b88246
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -37,7 +37,8 @@ endef
 define Build/Compile
 	$(TARGET_CC) $(TARGET_CFLAGS) -I$(STAGING_DIR)/opt/include \
 		-o $(PKG_BUILD_DIR)/$(PKG_NAME) \
-		$(PKG_BUILD_DIR)/usbrelay.c $(TARGET_LDFLAGS) -lhidapi-libusb
+		$(PKG_BUILD_DIR)/usbrelay.c $(PKG_BUILD_DIR)/libusbrelay.c \
+		$(TARGET_LDFLAGS) -lhidapi-libusb
 endef
 
 define Package/usbrelay/install
