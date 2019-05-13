@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1278,11 +1278,11 @@
+@@ -1287,11 +1287,11 @@
  [ if test "x$withval" != "xno" ; then
      if test "x$withval" != "x" && test "x$withval" != "xyes" ; then
        LD_RUN_PATH="${withval}/lib${LD_RUN_PATH:+:}${LD_RUN_PATH}"    
@@ -16,12 +16,3 @@
      fi
      AC_CHECK_LIB(m, floor)
      AC_CHECK_LIB(z, gzclose)
-@@ -1295,7 +1295,7 @@
-       ])
-     ])
-     AC_MSG_CHECKING(whether mysql clients can run)
--    AC_RUN_IFELSE([AC_LANG_SOURCE([[
-+    AC_LINK_IFELSE([AC_LANG_SOURCE([[
-       #include <stdio.h>
-       #include <mysql.h>    
-       int main(void)
