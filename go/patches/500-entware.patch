@@ -23,7 +23,7 @@ diff -Naur go.org/src/crypto/x509/root_unix.go go/src/crypto/x509/root_unix.go
 diff -Naur go.org/src/net/conf.go go/src/net/conf.go
 --- go.org/src/net/conf.go	2018-02-16 20:12:19.000000000 +0300
 +++ go/src/net/conf.go	2018-03-22 12:08:12.373796091 +0300
-@@ -93,7 +93,7 @@
+@@ -94,7 +94,7 @@
  	}
  
  	if runtime.GOOS != "openbsd" {
