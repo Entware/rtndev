@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=transmission-cfp
-PKG_VERSION:=2.77plus-20181219
-PKG_REV:=aaadaf0561b741d0c394e158fbac5271ab27447f
+PKG_VERSION:=2.77plus-20190205
+PKG_REV:=c9896d1384e9b6cfdcee28871fc77c62cbe4c3fa
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -79,7 +79,7 @@ define Download/transmission-cfp-web-client
   FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
   URL:=$(PKG_SOURCE_URL)
   PROTO:=git
-  VERSION:=51eec2ce8f53d624626c0a6c6ba1618d13924d75
+  VERSION:=f104a68aa2a5b76914cdebaf7ded7ba09defd23b
   SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)
 endef
 $(eval $(call Download,transmission-cfp-web-client))
