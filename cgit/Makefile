@@ -37,10 +37,9 @@ define Package/cgit
 endef
 
 define Package/cgit/description
-Cgit is a web interface (cgi) for Git repositories, written in C
- 
-This is an attempt to create a fast web interface for the Git
-SCM, using a built-in cache to decrease server I/O pressure.
+ Cgit is a web interface (cgi) for Git repositories, written in C
+ This is an attempt to create a fast web interface for the Git
+ SCM, using a built-in cache to decrease server I/O pressure.
 endef
 
 MAKE_FLAGS := \
@@ -65,9 +64,9 @@ CONFIGURE_ARGS += \
 
 define Package/cgit/install
 	$(INSTALL_DIR) $(1)/opt/var/www/htdocs/cgit
-	$(CP) $(PKG_INSTALL_DIR)/var/www/htdocs/cgit/* $(1)/opt/var/www/htdocs/cgit/
+	$(CP) $(PKG_INSTALL_DIR)/var/www/htdocs/cgit/* $(1)/opt/var/www/htdocs/cgit
 	$(INSTALL_DIR) $(1)/opt/usr/local/lib/cgit/filters
-	$(CP) $(PKG_INSTALL_DIR)/usr/local/lib/cgit/filters/* $(1)/opt/usr/local/lib/cgit/filters/
+	$(CP) $(PKG_INSTALL_DIR)/usr/local/lib/cgit/filters/* $(1)/opt/usr/local/lib/cgit/filters
 endef
 
 $(eval $(call BuildPackage,cgit))

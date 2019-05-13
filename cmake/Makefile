@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cmake
-PKG_VERSION:=3.13.4
+PKG_VERSION:=3.14.3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cmake.org/files/v3.13 \
+PKG_SOURCE_URL:=https://cmake.org/files/v3.14 \
 		https://fossies.org/linux/misc
-PKG_HASH:=fdd928fee35f472920071d1c7f1a6a2b72c9b25e04f7a37b409349aef3f20e9b
+PKG_HASH:=215d0b64e81307182b29b63e562edf30b3875b834efdad09b3fcb5a7d2f4b632
 
 PKG_LICENSE:=BSD-3-Clause
 
@@ -32,8 +32,8 @@ define Package/cmake
 endef
 
 define Package/cmake/description
- CMake is an open-source, cross-platform family of tools designed to build, \
-test and package software
+ CMake is an open-source, cross-platform family of tools designed to build,
+ test and package software
 endef
 
 CMAKE_OPTIONS += \
