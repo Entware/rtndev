@@ -4,11 +4,13 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# This is the last version which can be compiled against shared libfuse.
+# Provided libfuse should be reworked for cross-compilation
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mergerfs
-PKG_VERSION:=2.26.0
+PKG_VERSION:=2.25.1
 PKG_REV:=3c1f19e85aa9085eeeb852251b021049c83f4856
 PKG_RELEASE:=1
 
