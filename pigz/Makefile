@@ -18,13 +18,13 @@ PKG_HASH:=a4f816222a7b4269bd232680590b579ccc72591f1bb5adafcd7208ca77e14f73
 include $(INCLUDE_DIR)/package.mk
 
 define Package/pigz
-  SECTION:=utils
-  CATEGORY:=Utilities
-  SUBMENU:=Compression
-  TITLE:=pigz is a parallel implementation of gzip
-  DEPENDS+=zlib +USE_UCLIBC:librt
-  URL:=http://zlib.net/pigz/
-  MAINTAINER:=Entware team, https://entware.net
+	SECTION:=utils
+	CATEGORY:=Utilities
+	SUBMENU:=Compression
+	TITLE:=pigz is a parallel implementation of gzip
+	DEPENDS:=+zlib +USE_UCLIBC:librt
+	URL:=http://zlib.net/pigz/
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/pigz/description
@@ -34,8 +34,7 @@ endef
 
 define Package/pigz/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/{pigz,unpigz} $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/{pigz,unpigz} $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,pigz))
-
