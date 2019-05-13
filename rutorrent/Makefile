@@ -28,10 +28,12 @@ RUTORRENT_PLUGINS := \
 	screenshots seedingtime show_peers_like_wtorrent source spectrogram _task theme \
 	throttle tracklabels trafic unpack uploadeta xmpp
 
-DEPENDS_rss = +php7-mod-json
 DEPENDS__task = +procps-ng-pgrep
+DEPENDS_mediainfo = +mediainfo
+DEPENDS_rss = +php7-mod-json
 DEPENDS_screenshots = +ffmpeg
-DEPENDS_unpack = +unrar
+#DEPENDS_spectrogram = +sox
+DEPENDS_unpack = +unrar +unzip
 
 define Package/rutorrent/Default
 	SECTION:=net
