@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bacula
-PKG_VERSION:=9.4.2
+PKG_VERSION:=9.4.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/bacula
-PKG_HASH:=a40d04d2c48135972cecb6578405e835c4b9d798c0950017de0fad40ca94e8a0
+PKG_HASH:=4fb41cc460dcaa3674d2ceba2ef0de0fbd8bb56e413857a1c9fe60c2dca54b1d
 
 PKG_INSTALL:=1
 
@@ -24,7 +24,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/bacula
   SECTION:=utils
   CATEGORY:=Utilities
-  DEPENDS:=+libopenssl +libreadline +libncurses +libpthread +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk
+  DEPENDS:=+libopenssl +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk
   TITLE:=Open Source Network Backup Solution
   URL:=http://www.bacula.org/
 endef
@@ -73,19 +73,19 @@ endef
 
 
 define Package/bacula/install
-	$(INSTALL_DIR) $(1)/opt/sbin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/* $(1)/opt/sbin/
-	$(INSTALL_DIR) $(1)/opt/lib/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/etc/bacula/scripts/
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/* $(1)/opt/sbin
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib
+	$(INSTALL_DIR) $(1)/opt/etc/bacula/scripts
 	$(INSTALL_DIR) $(1)/opt/bacula/tmp
 	$(INSTALL_DIR) $(1)/opt/bacula/working
 	$(INSTALL_DIR) $(1)/opt/bacula/log
 	$(INSTALL_DIR) $(1)/opt/var/run/subsys/
-	$(CP) $(PKG_INSTALL_DIR)/opt/etc/bacula/*.conf $(1)/opt/etc/bacula/
+	$(CP) $(PKG_INSTALL_DIR)/opt/etc/bacula/*.conf $(1)/opt/etc/bacula
 	$(CP) $(PKG_INSTALL_DIR)/opt/etc/bacula/scripts/* $(1)/opt/etc/bacula/scripts
-	$(INSTALL_DIR) $(1)/opt/etc/init.d/
-	$(INSTALL_BIN) ./files/S* $(1)/opt/etc/init.d/
+	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_BIN) ./files/S* $(1)/opt/etc/init.d
 endef
 
 $(eval $(call BuildPackage,bacula))
