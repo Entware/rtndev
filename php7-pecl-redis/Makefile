@@ -10,9 +10,9 @@ include $(TOPDIR)/rules.mk
 PECL_NAME:=redis
 PECL_LONGNAME:=PHP extension for interfacing with Redis
 
-PKG_VERSION:=4.2.0
+PKG_VERSION:=4.3.0
 PKG_RELEASE:=1
-PKG_HASH:=7655d88addda89814ad2131e093662e1d88a8c010a34d83ece5b9ff45d16b380
+PKG_HASH:=c0f04cec349960a842b60920fb8a433656e2e494eaed6e663397d67102a51ba2
 
 PKG_NAME:=php7-pecl-$(PECL_NAME)
 PKG_SOURCE:=$(PECL_NAME)-$(PKG_VERSION).tgz
@@ -31,7 +31,6 @@ PKG_FIXUP:=autoreconf
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 include $(TOPDIR)/feeds/packages/lang/php7/pecl.mk
-
 
 CONFIGURE_ARGS+= \
 	--enable-redis-lzf
