@@ -1,0 +1,237 @@
+--- a/include/libtorrent/proxy_base.hpp
++++ b/include/libtorrent/proxy_base.hpp
+@@ -45,6 +45,12 @@ POSSIBILITY OF SUCH DAMAGE.
+ #include <boost/noncopyable.hpp>
+ #include "libtorrent/aux_/disable_warnings_pop.hpp"
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ namespace libtorrent {
+ 
+ class proxy_base : boost::noncopyable
+@@ -250,7 +256,7 @@ public:
+ 
+ 	io_service& get_io_service()
+ 	{
+-		return m_sock.get_io_service();
++		return GET_IO_SERVICE(m_sock);
+ 	}
+ 
+ 	lowest_layer_type& lowest_layer()
+--- a/include/libtorrent/tracker_manager.hpp
++++ b/include/libtorrent/tracker_manager.hpp
+@@ -74,6 +74,12 @@ namespace ssl {
+ #include "libtorrent/udp_socket.hpp" // for udp_socket_observer
+ #include "libtorrent/io_service.hpp"
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ namespace libtorrent
+ {
+ 	struct request_callback;
+@@ -286,7 +292,7 @@ namespace libtorrent
+ 		virtual void on_timeout(error_code const& ec) = 0;
+ 		virtual ~timeout_handler() {}
+ 
+-		io_service& get_io_service() { return m_timeout.get_io_service(); }
++		io_service& get_io_service() { return GET_IO_SERVICE(m_timeout); }
+ 
+ 	private:
+ 
+--- a/include/libtorrent/udp_socket.hpp
++++ b/include/libtorrent/udp_socket.hpp
+@@ -45,6 +45,12 @@ POSSIBILITY OF SUCH DAMAGE.
+ 
+ #include <deque>
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ namespace libtorrent
+ {
+ 	struct TORRENT_EXTRA_EXPORT udp_socket_observer
+@@ -80,7 +86,7 @@ namespace libtorrent
+ 		};
+ 
+ 		bool is_open() const { return m_abort == false; }
+-		io_service& get_io_service() { return m_ipv4_sock.get_io_service(); }
++		io_service& get_io_service() { return GET_IO_SERVICE(m_ipv4_sock); }
+ 
+ 		void subscribe(udp_socket_observer* o);
+ 		void unsubscribe(udp_socket_observer* o);
+--- a/src/http_connection.cpp
++++ b/src/http_connection.cpp
+@@ -59,6 +59,12 @@ POSSIBILITY OF SUCH DAMAGE.
+ 
+ #include "libtorrent/aux_/disable_warnings_pop.hpp"
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ namespace libtorrent {
+ 
+ http_connection::http_connection(io_service& ios
+@@ -150,7 +156,7 @@ void http_connection::get(std::string co
+ 
+ 	if (ec)
+ 	{
+-		m_timer.get_io_service().post(boost::bind(&http_connection::callback
++		GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 			, me, ec, static_cast<char*>(NULL), 0));
+ 		return;
+ 	}
+@@ -162,7 +168,7 @@ void http_connection::get(std::string co
+ 		)
+ 	{
+ 		error_code err(errors::unsupported_url_protocol);
+-		m_timer.get_io_service().post(boost::bind(&http_connection::callback
++		GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 			, me, err, static_cast<char*>(NULL), 0));
+ 		return;
+ 	}
+@@ -263,7 +269,7 @@ void http_connection::start(std::string
+ 
+ 	if (ec)
+ 	{
+-		m_timer.get_io_service().post(boost::bind(&http_connection::callback
++		GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 			, me, ec, static_cast<char*>(NULL), 0));
+ 		return;
+ 	}
+@@ -303,7 +309,7 @@ void http_connection::start(std::string
+ 
+ 			if (i2p_conn->proxy().type != settings_pack::i2p_proxy)
+ 			{
+-				m_timer.get_io_service().post(boost::bind(&http_connection::callback
++				GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 					, me, error_code(errors::no_i2p_router), static_cast<char*>(NULL), 0));
+ 				return;
+ 			}
+@@ -337,7 +343,7 @@ void http_connection::start(std::string
+ 					m_ssl_ctx->set_verify_mode(ssl::context::verify_none, ec);
+ 					if (ec)
+ 					{
+-						m_timer.get_io_service().post(boost::bind(&http_connection::callback
++						GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 								, me, ec, static_cast<char*>(NULL), 0));
+ 						return;
+ 					}
+@@ -349,7 +355,7 @@ void http_connection::start(std::string
+ 		// assume this is not a tracker connection. Tracker connections that
+ 		// shouldn't be subject to the proxy should pass in NULL as the proxy
+ 		// pointer.
+-		instantiate_connection(m_timer.get_io_service()
++		instantiate_connection(GET_IO_SERVICE(m_timer)
+ 			, proxy ? *proxy : null_proxy, m_sock, userdata, NULL, false, false);
+ 
+ 		if (m_bind_addr)
+@@ -358,7 +364,7 @@ void http_connection::start(std::string
+ 			m_sock.bind(tcp::endpoint(*m_bind_addr, 0), ec);
+ 			if (ec)
+ 			{
+-				m_timer.get_io_service().post(boost::bind(&http_connection::callback
++				GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 					, me, ec, static_cast<char*>(NULL), 0));
+ 				return;
+ 			}
+@@ -367,7 +373,7 @@ void http_connection::start(std::string
+ 		setup_ssl_hostname(m_sock, hostname, ec);
+ 		if (ec)
+ 		{
+-			m_timer.get_io_service().post(boost::bind(&http_connection::callback
++			GET_IO_SERVICE(m_timer).post(boost::bind(&http_connection::callback
+ 				, me, ec, static_cast<char*>(NULL), 0));
+ 			return;
+ 		}
+--- a/src/lsd.cpp
++++ b/src/lsd.cpp
+@@ -53,6 +53,12 @@ POSSIBILITY OF SUCH DAMAGE.
+ 
+ #include "libtorrent/aux_/disable_warnings_pop.hpp"
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ namespace libtorrent
+ {
+ namespace {
+@@ -112,12 +118,12 @@ void lsd::debug_log(char const* fmt, ...
+ void lsd::start(error_code& ec)
+ {
+ 	m_socket.open(boost::bind(&lsd::on_announce, self(), _1, _2, _3)
+-		, m_broadcast_timer.get_io_service(), ec);
++		, GET_IO_SERVICE(m_broadcast_timer), ec);
+ 	if (ec) return;
+ 
+ #if TORRENT_USE_IPV6
+ 	m_socket6.open(boost::bind(&lsd::on_announce, self(), _1, _2, _3)
+-		, m_broadcast_timer.get_io_service(), ec);
++		, GET_IO_SERVICE(m_broadcast_timer), ec);
+ #endif
+ }
+ 
+--- a/src/natpmp.cpp
++++ b/src/natpmp.cpp
+@@ -63,6 +63,12 @@ POSSIBILITY OF SUCH DAMAGE.
+ #include "libtorrent/debug.hpp"
+ #endif
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ using namespace libtorrent;
+ 
+ natpmp::natpmp(io_service& ios
+@@ -89,7 +95,7 @@ void natpmp::start()
+ 	mutex::scoped_lock l(m_mutex);
+ 
+ 	error_code ec;
+-	address gateway = get_default_gateway(m_socket.get_io_service(), ec);
++	address gateway = get_default_gateway(GET_IO_SERVICE(m_socket), ec);
+ 	if (ec)
+ 	{
+ 		char msg[200];
+--- a/src/upnp.cpp
++++ b/src/upnp.cpp
+@@ -57,6 +57,12 @@ POSSIBILITY OF SUCH DAMAGE.
+ 
+ #include <cstdlib>
+ 
++#if BOOST_VERSION >= 107000
++#define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
++#else
++#define GET_IO_SERVICE(s) ((s).get_io_service())
++#endif
++
+ namespace libtorrent {
+ 
+ namespace upnp_errors
+@@ -135,7 +141,7 @@ void upnp::start()
+ {
+ 	error_code ec;
+ 	m_socket.open(boost::bind(&upnp::on_reply, self(), _1, _2, _3)
+-		, m_refresh_timer.get_io_service(), ec);
++		, GET_IO_SERVICE(m_refresh_timer), ec);
+ 
+ 	m_mappings.reserve(10);
+ }
