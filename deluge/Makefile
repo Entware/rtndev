@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=1.3.15
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.deluge-torrent.org/source
@@ -31,7 +31,7 @@ endef
 define Package/deluge
 $(call Package/deluge/Default)
   TITLE+= (console UI & daemon)
-  DEPENDS+=+python +rblibtorrent +chardet +pyxdg +python-twisted +python-pyopenssl +python-setuptools +python-service-identity
+  DEPENDS+=+python +rblibtorrent +python-chardet +pyxdg +python-twisted +python-pyopenssl +python-setuptools +python-service-identity
 endef
 
 define Package/deluge-ui-gtk
