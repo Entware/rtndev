@@ -5,16 +5,16 @@ Subject: [PATCH 1/2] HTTP HEAD method support
 
 Samsung Orsay TVs (from 2014) require this, tested on H5570.
 ---
- hlspxd/src/utils.cpp       | 3 ++-
- hlspxd/src/utils.h         | 2 ++
- hlspxd/src/videoviewer.cpp | 6 ++++++
- hlspxd/src/videoviewer.h   | 1 +
+ hlspxd/utils.cpp       | 3 ++-
+ hlspxd/utils.h         | 2 ++
+ hlspxd/videoviewer.cpp | 6 ++++++
+ hlspxd/videoviewer.h   | 1 +
  4 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/hlspxd/src/utils.cpp b/hlspxd/src/utils.cpp
+diff --git a/utils.cpp b/utils.cpp
 index df022c8..858b21d 100644
---- a/hlspxd/src/utils.cpp
-+++ b/hlspxd/src/utils.cpp
+--- a/utils.cpp
++++ b/utils.cpp
 @@ -212,7 +212,7 @@ const std::string *HttpMessage::getHeaderRecord(std::string key)
  	return &(it->second);
  }
@@ -32,10 +32,10 @@ index df022c8..858b21d 100644
  	_path = res[2].str();
  
  	HttpMessage::init(stream);
-diff --git a/hlspxd/src/utils.h b/hlspxd/src/utils.h
+diff --git a/utils.h b/utils.h
 index 3391311..780e46c 100644
---- a/hlspxd/src/utils.h
-+++ b/hlspxd/src/utils.h
+--- a/utils.h
++++ b/utils.h
 @@ -314,9 +314,11 @@ public:
  class HttpRequest : public HttpMessage
  {
@@ -48,10 +48,10 @@ index 3391311..780e46c 100644
  	inline std::string &getPath(){ return _path; }
  };
  
-diff --git a/hlspxd/src/videoviewer.cpp b/hlspxd/src/videoviewer.cpp
+diff --git a/videoviewer.cpp b/videoviewer.cpp
 index 4aeac2c..cfc9161 100644
---- a/hlspxd/src/videoviewer.cpp
-+++ b/hlspxd/src/videoviewer.cpp
+--- a/videoviewer.cpp
++++ b/videoviewer.cpp
 @@ -25,6 +25,7 @@ VideoViewer::VideoViewer(SOCKET ClientSocket)
  	HttpRequest req(VideoStream);
  
@@ -72,10 +72,10 @@ index 4aeac2c..cfc9161 100644
  	// find redirections to different resolutions
  	vector<StreamInf> streamVec;
  
-diff --git a/hlspxd/src/videoviewer.h b/hlspxd/src/videoviewer.h
+diff --git a/videoviewer.h b/videoviewer.h
 index d8775c5..5309a1c 100644
---- a/hlspxd/src/videoviewer.h
-+++ b/hlspxd/src/videoviewer.h
+--- a/videoviewer.h
++++ b/videoviewer.h
 @@ -76,6 +76,7 @@ class VideoViewer
  {
  	socketstream VideoStream;			// output stream
@@ -95,13 +95,13 @@ Subject: [PATCH 2/2] Change HTTP response header to double byte \r\n newline
 
 Samsung Orsay TVs (from 2014) require this, tested on H5570.
 ---
- hlspxd/src/videoviewer.cpp | 2 +-
+ hlspxd/videoviewer.cpp | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/hlspxd/src/videoviewer.cpp b/hlspxd/src/videoviewer.cpp
+diff --git a/videoviewer.cpp b/videoviewer.cpp
 index cfc9161..5b7e7f2 100644
---- a/hlspxd/src/videoviewer.cpp
-+++ b/hlspxd/src/videoviewer.cpp
+--- a/videoviewer.cpp
++++ b/videoviewer.cpp
 @@ -132,7 +132,7 @@ void VideoViewer::Run()
  {	
  	ReadM3U8();		// parse preliminary
