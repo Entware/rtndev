@@ -1,0 +1,29 @@
+From cb3c943de9e01baa0da1b06dc88f798e90876ffa Mon Sep 17 00:00:00 2001
+From: Julius Schwartzenberg <julius.schwartzenberg@gmail.com>
+Date: Thu, 30 May 2019 19:42:23 +0200
+Subject: [PATCH] Use double byte \r\n newline in request to increase
+ compatibility.
+
+Notably Apache HTTP 2.4 requires this.
+---
+ hlspxd/src/utils.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/hlspxd/src/utils.cpp b/hlspxd/src/utils.cpp
+index 858b21d..b5fee01 100644
+--- a/utils.cpp
++++ b/utils.cpp
+@@ -465,8 +465,8 @@ HttpResponse HttpClient::getResponse(Uri &reqUri)
+ 	{
+ 		connect2Host(reqUri);
+ 
+-		_sockstream << "GET /" << reqUri.getPath() << " HTTP/1.1\nHost: " << reqUri.getHost()
+-			<< "\nUser-agent: hlspxd\nAccept: */*\nConnection: close\n\n";
++		_sockstream << "GET /" << reqUri.getPath() << " HTTP/1.1\r\nHost: " << reqUri.getHost()
++			<< "\r\nUser-agent: hlspxd\r\nAccept: */*\r\nConnection: close\r\n\r\n";
+ 		_sockstream.flush();
+ 
+ 		contResp = HttpResponse(_sockstream);
+-- 
+2.17.1
+
