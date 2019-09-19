@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=axel
-PKG_VERSION:=2.17.1
+PKG_VERSION:=2.17.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/axel-download-accelerator/axel/releases/download/v$(PKG_VERSION)
-PKG_HASH:=f86cbc43b5bd6e6ee543566b232f651d2e15a7caf822d7708e9869dc1f5840b4
+PKG_HASH:=82f7fbdd8ac12797b41256ec226b9ef503e6b601
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -41,7 +41,7 @@ endef
 
 define Package/axel/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/axel $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/axel $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,axel))
