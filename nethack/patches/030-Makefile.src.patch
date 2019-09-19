@@ -1,17 +1,17 @@
 --- a/sys/unix/Makefile.src
 +++ b/sys/unix/Makefile.src
-@@ -245,8 +245,8 @@ WINBEOBJ =
- 
+@@ -267,8 +267,8 @@
+ #WINBEOBJ = winbe.o NHWindow.o NHMenuWindow.o NHMapWindow.o tile.o
  #
  #
 -#WINSRC = $(WINTTYSRC)
 -#WINOBJ = $(WINTTYOBJ)
 +WINSRC = $(WINTTYSRC)
 +WINOBJ = $(WINTTYOBJ)
- 
- # on some systems the termcap library is in -ltermcap or -lcurses
- # on 386 Xenix, the -ltermlib tputs() seems not to work; use -lcurses instead
-@@ -622,8 +622,7 @@ tile.c: ../win/share/tilemap.c $(HACK_H)
+ #
+ # Curses - Karl Garrison, Tangles
+ #WINSRC = $(WINCURSESSRC)
+@@ -669,8 +669,7 @@
  #	hack.h depends on makedefs' output, so we know makedefs will be
  #	up to date before being executed
  ../include/date.h:	$(VERSOURCES) $(HACK_H)
