@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=accel-ppp
-PKG_VERSION:=1.11.2-20190212
-PKG_REV:=389a77c295562ce6c349a8977c0658064ef4f9e5
+PKG_VERSION:=1.12.0
+PKG_REV:=6ce96d9d6eb3fa036d73aaf535784caddc7f3552
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://git.code.sf.net/p/accel-ppp/code
+PKG_SOURCE_URL:=https://github.com/xebd/accel-ppp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
