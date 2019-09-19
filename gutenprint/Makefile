@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gutenprint
-PKG_VERSION:=5.3.1
+PKG_VERSION:=5.3.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/gimp-print
-PKG_HASH:=d80d8f5272d15bca5710f6ef4a2bb95e76d34e1155c5bcd5e83cb9f0a111d0d4
+PKG_HASH:=7279ecbc8e67d1858c53cb24e423ea1be98e214872006b79e6e03650dd54a072
 
 PKG_BUILD_DEPENDS:=gutenprint/host
 PKG_FIXUP:=autoreconf
@@ -55,7 +55,7 @@ HOST_CONFIGURE_ARGS += \
 	--without-doc
 
 define Host/Compile
-	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/src/xml/printers $(HOST_MAKE_FLAGS) check_duplicate_printers
+	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/src/xml/printers $(HOST_MAKE_FLAGS) check_duplicate_printers.test
 	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/src/xml $(HOST_MAKE_FLAGS) extract-strings
 endef
 
@@ -67,8 +67,8 @@ CONFIGURE_ARGS += \
 
 define Build/Configure
 	$(call Build/Configure/Default)
-	ln -s $(HOST_BUILD_DIR)/src/xml/printers/check_duplicate_printers \
-		$(PKG_BUILD_DIR)/src/xml/printers/check_duplicate_printers
+	ln -s $(HOST_BUILD_DIR)/src/xml/printers/check_duplicate_printers.test \
+		$(PKG_BUILD_DIR)/src/xml/printers/check_duplicate_printers.test
 	ln -s $(HOST_BUILD_DIR)/src/xml/extract-strings \
 		$(PKG_BUILD_DIR)/src/xml/extract-strings
 endef
