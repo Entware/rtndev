@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bindfs
-PKG_VERSION:=1.14.0
+PKG_VERSION:=1.14.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://bindfs.org/downloads
-PKG_HASH:=bf696c2843bf6fb96674fe889478bbe74fbb20bd79662353b69c7cd57ab43fb8
+PKG_HASH:=b47fcd70fc63b6c72dd4a27ba173d0ca199102c00fe292736d71f44bd4223184
 
 PKG_INSTALL:=1
 
@@ -33,7 +33,7 @@ define Package/bindfs/description
  bindfs - mount a directory to another location and alter permission bits.
 endef
 
-TARGET_CFLAGS += -I$(STAGING_DIR)/opt/include/fuse \
+TARGET_CFLAGS += -I$(STAGING_DIR)/opt/include/fuse
 
 define Package/bindfs/install
 	$(INSTALL_DIR) $(1)/opt/bin
