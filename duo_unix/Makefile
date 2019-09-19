@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=duo_unix
-PKG_VERSION:=1.11.1
+PKG_VERSION:=1.11.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://dl.duosecurity.com
-PKG_HASH:=d1249501a1780c663c4e07e8be0a6e6fcf26198ea22b8cbada7527faac9937cf
+PKG_HASH:=de58fb7c82eb69d1a13f1a7f50ee20b53834cd7f1a02adf739e7d185e63c8684
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
