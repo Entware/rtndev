@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.22.5
+PKG_VERSION:=1.25.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/release-1-22-5
-PKG_HASH:=eb37ce1d64352564216580e8bb1b23b3005563cdd8d207141ae1049afaefb4eb
+PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/release-1-25-5
+PKG_HASH:=d0ab38c5af3f679767df88a2f3172a9c05df93337da6644b275deecb3477d4e8
 
 PKG_INSTALL:=1
 
@@ -56,7 +56,7 @@ CONFIGURE_VARS += \
 	POPPLER_LIBS=-L$(STAGING_DIR)/opt/lib
 
 TARGET_CXXFLAGS += -std=c++0x
-TARGET_LDFLAGS += -liconv -lqpdf -lpoppler
+TARGET_LDFLAGS += -liconv -lqpdf -lpoppler-cpp
 
 define Package/cups-filters/conffiles
 /opt/etc/cups/cups-browsed.conf
