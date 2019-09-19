@@ -1,0 +1,11 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -31,7 +31,7 @@
+ 	$(RC) $< -O coff -o $@
+ 
+ $(PROGNAME).o: $(OBJECTS)
+-	$(LD) $(LDFLAGS) -nostdlib -r -o $@ $(OBJECTS)
++	$(LD) -nostdlib -r -o $@ $(OBJECTS)
+ 	@printf "%10s %-20s\n" LINK $@
+ 
+ tests: $(PROGNAME).o

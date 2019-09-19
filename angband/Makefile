@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=angband
-PKG_VERSION:=4.1.3
+PKG_VERSION:=4.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://rephial.org/downloads/4.1
-PKG_HASH:=9402c4f8da691edbd4567a948c5663e1066bee3fcb4a62fbcf86b5454918406f
+PKG_SOURCE_URL:=http://rephial.org/downloads/4.2
+PKG_HASH:=d3e1495c7cc2a4ee66de7b4e612d3b133048072e37504bd2e58a2351ab0fb56d
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -49,7 +49,7 @@ define Package/angband/install
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/etc/angband/customize/*.prf $(1)/opt/etc/angband/customize
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/etc/angband/gamedata/*.txt $(1)/opt/etc/angband/gamedata
 	$(INSTALL_DIR) $(1)/opt/share/angband/{help,screens,user/info}
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/share/angband/help/*.{txt,hlp} $(1)/opt/share/angband/help
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/share/angband/help/*.txt $(1)/opt/share/angband/help
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/share/angband/screens/*.txt $(1)/opt/share/angband/screens
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/share/angband/user/info/*.{txt,hlp} $(1)/opt/share/angband/user/info
 endef
