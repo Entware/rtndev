@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
-PKG_VERSION:=0.76.1
+PKG_VERSION:=0.80.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
-PKG_HASH:=e62cd4053f851eecc4a6aa2b81d739fbab1d67b3c60b31ebac7049483cc617b1
+PKG_HASH:=4d3ca6b79bc13b8e24092e34f83ef5f387f3bb0bbd7359a6c078e09c696d104f
 
 PKG_INSTALL:=1
 
@@ -57,14 +57,14 @@ CMAKE_OPTIONS += \
 
 define Package/libpoppler/install
 	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libpoppler.so* $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libpoppler*.so* $(1)/opt/lib
 endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
 	$(CP) $(PKG_INSTALL_DIR)/opt/include/poppler $(1)/opt/include
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libpoppler.so* $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libpoppler*.so* $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/poppler*.pc $(1)/opt/lib/pkgconfig
 endef
 
