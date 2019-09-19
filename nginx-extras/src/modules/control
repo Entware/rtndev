@@ -5,7 +5,7 @@ Files-Excluded: .gitignore .gitattributes .travis.yml
 
 Module: http-ndk
 Homepage: https://github.com/simpl/ngx_devel_kit/
-Version: 0.3.0
+Version: 0.3.1
 
 Module: http-auth-pam
 Homepage: https://github.com/stogh/ngx_http_auth_pam_module
@@ -18,7 +18,7 @@ Files-Excluded: .gitignore .gitattributes .travis.yml
 
 Module: http-lua
 Homepage: https://github.com/openresty/lua-nginx-module
-Version: 0.10.13
+Version: 0.10.15
 Patch:
   openssl-1.1.0.patch
   discover-luajit-2.1.patch
@@ -51,7 +51,7 @@ Patch:
 
 Module: http-dav-ext
 Homepage: https://github.com/arut/nginx-dav-ext-module
-Version: 0.1.0
+Version: 3.0.0
 
 Module: http-fancyindex
 Homepage: https://github.com/aperezdc/ngx-fancyindex

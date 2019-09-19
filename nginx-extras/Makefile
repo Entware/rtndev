@@ -7,18 +7,19 @@
 # Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.13.12-1.debian.tar.xz
 # to src folder.
 # Manually added hiredis/* to modules/nchan
+# http-lua 0.10.13 version frozen, the newer versions requires LuaJIT support
 # Debian differences: threads, geoip, http_upstream_zone, stream_upstream_zone
 # http_perl modules are turned off
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.15.8
+PKG_VERSION:=1.16.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=a8bdafbca87eb99813ae4fcac1ad0875bf725ce19eb265d28268c309b2b40787
+PKG_HASH:=f11c2a6dd1d3515736f0324857957db2de98be862461b5a542a3ac6188dbe32b
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-$(PKG_VERSION)
 

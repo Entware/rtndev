@@ -1,7 +1,7 @@
 Name
 ====
 
-NDK - Nginx Development Kit
+Nginx Development Kit (NDK)
 
 Table of Contents
 =================
@@ -21,7 +21,8 @@ Table of Contents
 * [TODO](#todo)
 * [License](#license)
 * [Contributing / Feedback](#contributing--feedback)
-* [Author](#author)
+* [Authors](#authors)
+* [Special Thanks](#special-thanks)
 
 Synopsis
 ========
@@ -42,11 +43,15 @@ their own modules which features of the NDK they wish to use (explained below).
 If you are not an Nginx module developer, then the only useful part of this project
 will be the 'usage for users' section below.
 
+[Back to TOC](#table-of-contents)
+
 Status
 ======
 
 The NDK is now considered to be stable. It is already being used in quite a few third
-party modules.
+party modules (see list below).
+
+[Back to TOC](#table-of-contents)
 
 Features
 ========
@@ -151,7 +156,7 @@ displayed when compiling Nginx.
 
 [Back to TOC](#table-of-contents)
 
-Warning: using NDK_ALL
+Warning: Using NDK_ALL
 ----------------------
 
 You can also set `NDK_ALL` to include all the NDK modules.  This is primarily as
@@ -177,6 +182,8 @@ The following 3rd-party modules make use of NDK.
 * [ngx_http_iconv_module](https://github.com/calio/iconv-nginx-module#readme)
 * [ngx_http_array_var_module](https://github.com/openresty/array-var-nginx-module#readme)
 
+If you would like to add your module to this list, please let us know.
+
 [Back to TOC](#table-of-contents)
 
 TODO
@@ -186,13 +193,14 @@ TODO
 * additional phase-handler functions
 * generically testing for needing to add a handler
 * remove dependency of set_var on OpenSSL being compiled in
+* for backward compatability, add the ndk_macros
 
 [Back to TOC](#table-of-contents)
 
 License
 =======
 
-Copyright (c) 2010-2016, Marcus Clyne
+Copyright (c) 2010-2018, Marcus Clyne
 
 All rights reserved.
 
@@ -225,14 +233,22 @@ Contributing / Feedback
 
 If you are an Nginx module developer, and have developed some functions that are
 generic in nature (or would be easily adapted to be so), then please send them to
-me at the address below, and I'll add them to the kit.
+me at the address below, and I'll addmclyne to the kit.
 
 [Back to TOC](#table-of-contents)
 
 Author
 ======
 
-Marcus Clyne (contact at simpl dot it)
+[Marcus Clyne](https://github.com/mclyne)
 
 [Back to TOC](#table-of-contents)
 
+
+Special Thanks
+==============
+
+A special thanks goes to [Yichun Zhang](https://github.com/agentzh) for helping to maintain
+this module.
+
+[Back to TOC](#table-of-contents)
