@@ -1,36 +1,36 @@
 --- a/manual/Makefile.in
 +++ b/manual/Makefile.in
-@@ -1558,22 +1558,22 @@
- 	$(SOELIM) -I$(srcdir) man_db.me | tbl > $@
+@@ -1611,22 +1611,22 @@
+ @BUILD_MANUAL_TRUE@	$(SOELIM) -I$(srcdir) man_db.me | tbl > $@.new && mv -f $@.new $@
  
- .pp.dvi:
--	$(TROFF) -me -Tdvi $< > $@
-+	$(TROFF) -Tdvi $< > $@
+ @BUILD_MANUAL_TRUE@.pp.dvi:
+-@BUILD_MANUAL_TRUE@	$(TROFF) -me -Tdvi $< > $@.new && mv -f $@.new $@
++@BUILD_MANUAL_TRUE@	$(TROFF) -Tdvi $< > $@.new && mv -f $@.new $@
  
- .pp.ps:
--	$(TROFF) -me -Tps $< > $@
-+	$(TROFF) -Tps $< > $@
+ @BUILD_MANUAL_TRUE@.pp.ps:
+-@BUILD_MANUAL_TRUE@	$(TROFF) -me -Tps $< > $@.new && mv -f $@.new $@
++@BUILD_MANUAL_TRUE@	$(TROFF) -Tps $< > $@.new && mv -f $@.new $@
  
- .pp.tdvi:
--	$(TROFF) -me -Tdvi $< | grodvi -d > $@
-+	$(TROFF) -Tdvi $< | grodvi -d > $@
+ @BUILD_MANUAL_TRUE@.pp.tdvi:
+-@BUILD_MANUAL_TRUE@	$(TROFF) -me -Tdvi $< | grodvi -d > $@.new && mv -f $@.new $@
++@BUILD_MANUAL_TRUE@	$(TROFF) -Tdvi $< | grodvi -d > $@.new && mv -f $@.new $@
  
- .tdvi.tps:
- 	dvips -f -t a4 $< > $@
+ @BUILD_MANUAL_TRUE@.tdvi.tps:
+ @BUILD_MANUAL_TRUE@	dvips -f -t a4 $< > $@.new && mv -f $@.new $@
  
- .pp.cat:
--	LC_ALL=C nroff -me $< > $@
-+	LC_ALL=C nroff $< > $@
+ @BUILD_MANUAL_TRUE@.pp.cat:
+-@BUILD_MANUAL_TRUE@	LC_ALL=C nroff -me $< > $@.new && mv -f $@.new $@
++@BUILD_MANUAL_TRUE@	LC_ALL=C nroff $< > $@.new && mv -f $@.new $@
  
- .pp.html:
--	$(TROFF) -me -Thtml -P-I$* $< > $@
-+	$(TROFF) -Thtml -P-I$* $< > $@
+ @BUILD_MANUAL_TRUE@.pp.html:
+-@BUILD_MANUAL_TRUE@	$(TROFF) -me -Thtml -P-I$* $< > $@.new && mv -f $@.new $@
++@BUILD_MANUAL_TRUE@	$(TROFF) -Thtml -P-I$* $< > $@.new && mv -f $@.new $@
  
  # Automake defines these targets already, so we need to use -local.
- dvi-local: $(MANUAL).dvi
+ @BUILD_MANUAL_TRUE@dvi-local: $(MANUAL).dvi
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -2210,11 +2210,6 @@
+@@ -2332,11 +2332,6 @@
  all-am: apropos$(EXEEXT)
  
  install-exec-hook:
