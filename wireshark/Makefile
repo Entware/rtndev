@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=3.0.1
+PKG_VERSION:=3.0.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://wireshark.org/download/src
-PKG_HASH:=86864c3d0f6c2311992a98d8ea7dfd429097fe62dae2e5516e1a2f6bef2ac08c
+PKG_HASH:=773bd57df2aeae1694a0b7fbfb34283ba24799cfd6299eed696630fc9ebeecbf
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
