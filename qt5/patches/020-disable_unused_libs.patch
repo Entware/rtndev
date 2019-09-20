@@ -1,7 +1,7 @@
 This patch disables prinstsupport, sql, concurrent, testlib  base libs compilation
 --- a/qtbase/src/src.pro
 +++ b/qtbase/src/src.pro
-@@ -79,22 +79,10 @@
+@@ -81,22 +81,10 @@
  src_dbus.depends = src_corelib
  force_dbus_bootstrap: src_dbus.depends += src_tools_bootstrap_dbus  # avoid syncqt race
  
@@ -24,7 +24,7 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  src_3rdparty_pcre2.subdir = $$PWD/3rdparty/pcre2
  src_3rdparty_pcre2.target = sub-3rdparty-pcre2
  
-@@ -138,10 +126,6 @@
+@@ -140,10 +128,6 @@
  src_openglextensions.target = sub-openglextensions
  src_openglextensions.depends = src_gui
  
@@ -35,7 +35,7 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  src_plugins.subdir = $$PWD/plugins
  src_plugins.target = sub-plugins
  
-@@ -172,12 +156,7 @@
+@@ -174,12 +158,7 @@
      SUBDIRS += src_network
      src_plugins.depends += src_network
  }
@@ -48,7 +48,7 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  qtConfig(dbus) {
      force_dbus_bootstrap|qtConfig(private_tests): \
          SUBDIRS += src_tools_bootstrap_dbus
-@@ -193,7 +172,6 @@
+@@ -195,7 +174,6 @@
      TOOLS += src_tools_androiddeployqt
  }
  
@@ -56,22 +56,20 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  qtConfig(gui) {
      qtConfig(harfbuzz):!qtConfig(system-harfbuzz) {
          SUBDIRS += src_3rdparty_harfbuzzng
-@@ -218,14 +196,10 @@
+@@ -220,12 +198,10 @@
      SUBDIRS += src_gui src_platformsupport src_platformheaders
      qtConfig(opengl): SUBDIRS += src_openglextensions
      src_plugins.depends += src_gui src_platformsupport src_platformheaders
 -    src_testlib.depends += src_gui      # if QtGui is enabled, QtTest requires QtGui's headers
      qtConfig(widgets) {
          SUBDIRS += src_tools_uic src_widgets
--        !android-embedded: SUBDIRS += src_printsupport
          TOOLS += src_tools_uic
          src_plugins.depends += src_widgets
--        !android-embedded: src_plugins.depends += src_printsupport
 -        src_testlib.depends += src_widgets        # if QtWidgets is enabled, QtTest requires QtWidgets's headers
-         qtConfig(opengl) {
-             SUBDIRS += src_opengl
-             src_plugins.depends += src_opengl
-@@ -234,7 +208,7 @@
+         qtConfig(printer) {
+             SUBDIRS += src_printsupport
+             src_plugins.depends += src_printsupport
+@@ -238,7 +214,7 @@
  }
  SUBDIRS += src_plugins
  
