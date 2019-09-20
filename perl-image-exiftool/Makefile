@@ -28,7 +28,7 @@ define Package/perl-image-exiftool
 	CATEGORY:=Languages
 	TITLE:=Perl library and command-line application for reading, writing and editing meta information
 	URL:=https://www.sno.phy.queensu.ca/~phil/exiftool/
-	DEPENDS:=+perl +perlbase-base +perlbase-encode +perlbase-essential +perlbase-file
+	DEPENDS:=+perl +perlbase-base +perlbase-encode +perlbase-essential +perlbase-file +perlbase-time
 endef
 
 define Build/Configure
