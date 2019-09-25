@@ -12,7 +12,7 @@ PKG_VERSION:=3.0.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://wireshark.org/download/src
+PKG_SOURCE_URL:=https://wireshark.org/download/src/all-versions
 PKG_HASH:=773bd57df2aeae1694a0b7fbfb34283ba24799cfd6299eed696630fc9ebeecbf
 
 include $(INCLUDE_DIR)/package.mk
