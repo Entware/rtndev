@@ -9,6 +9,24 @@
    default_libdir='$PREFIX/lib'
    default_prefix='/usr/local'
  
+@@ -166,7 +166,7 @@
+ match = re.search('SERF_MAJOR_VERSION ([0-9]+).*'
+                   'SERF_MINOR_VERSION ([0-9]+).*'
+                   'SERF_PATCH_VERSION ([0-9]+)',
+-                  env.File('serf.h').get_contents(),
++                  env.File('serf.h').get_contents().decode('utf-8'),
+                   re.DOTALL)
+ MAJOR, MINOR, PATCH = [int(x) for x in match.groups()]
+ env.Append(MAJOR=str(MAJOR))
+@@ -183,7 +183,7 @@
+ 
+ unknown = opts.UnknownVariables()
+ if unknown:
+-  print 'Warning: Used unknown variables:', ', '.join(unknown.keys())
++  print('Warning: Used unknown variables:', ', '.join(unknown.keys()))
+ 
+ apr = str(env['APR'])
+ apu = str(env['APU'])
 @@ -224,9 +224,6 @@
  else:
    LIBNAMESTATIC = 'serf-${MAJOR}'
