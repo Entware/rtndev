@@ -40,6 +40,7 @@ MAKE_FLAGS += \
 	ENABLE_NLS= \
 	DOTWCD=1 \
 	UNINORM=1 \
+	INCPREFIX="$(STAGING_DIR)/opt" \
 	prefix=/opt
 
 define Package/wcd/install

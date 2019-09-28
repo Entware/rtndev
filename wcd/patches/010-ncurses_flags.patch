@@ -1,0 +1,11 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -367,7 +367,7 @@
+ endif
+ 
+ 
+-INCPREFIX=/usr
++INCPREFIX?=/usr
+ ifeq ($(findstring MINGW,$(wcd_os)),MINGW)
+ ifeq ($(shell gcc -dumpmachine),i686-w64-mingw32)
+ INCPREFIX=/mingw32
