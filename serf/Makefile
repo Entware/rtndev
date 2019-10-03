@@ -17,7 +17,7 @@ PKG_HASH:=549c2d21c577a8a9c0450facb5cca809f26591f048e466552240947bdf7a87cc
 
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/scons.mk
+include $(TOPDIR)/feeds/packages/devel/scons/scons.mk
 
 define Package/libserf
 	SECTION:=libs
@@ -53,7 +53,7 @@ SCONS_OPTIONS += \
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	(cd $(PKG_BUILD_DIR) ; \
-		$(SED) "s!default_incdir='/usr!default_incdir='$(STAGING_DIR)/opt!g" SConstruct ;\
+		$(SED) "s!default_incdir='$$$$STAGING_DIR!default_incdir='$(STAGING_DIR)!g" SConstruct ;\
 	)
 endef
 
