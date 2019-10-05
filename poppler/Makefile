@@ -20,12 +20,13 @@ PKG_HASH:=4d3ca6b79bc13b8e24092e34f83ef5f387f3bb0bbd7359a6c078e09c696d104f
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 define Package/libpoppler
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS:=+fontconfig +lcms +libpng +libtiff +libstdcpp
+	DEPENDS:=+fontconfig +lcms +libpng +libtiff +libstdcpp $(ICONV_DEPENDS)
 	TITLE:=Poppler PDF rendering library
 	URL:=https://poppler.freedesktop.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -47,6 +48,8 @@ endef
 define Package/poppler-utils/description
  Poppler is a PDF rendering utilities based on the xpdf-3.0.
 endef
+
+TARGET_LDFLAGS += $(if $(ICONV_FULL),-liconv)
 
 CMAKE_OPTIONS += \
 	-DENABLE_XPDF_HEADERS=ON \
