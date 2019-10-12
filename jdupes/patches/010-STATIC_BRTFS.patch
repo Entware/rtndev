@@ -1,0 +1,180 @@
+From 78a9b4a32db123768e56a97dff7203c0df19b3f2 Mon Sep 17 00:00:00 2001
+From: Jody Bruchon <jody@jodybruchon.com>
+Date: Wed, 21 Aug 2019 08:20:21 -0400
+Subject: [PATCH] Add STATIC_BTRFS_H make option and static BTRFS header file
+
+A static BTRFS header ripped from a recent 4.x kernel is now
+included in the jdupes code and can be selected instead of using
+the system header. This allows compilation with BTRFS support even
+on Linux systems that are missing the required BTRFS header. You
+can use the new feature by defining STATIC_BTRFS_H or adding the
+equivalent make command option (ENABLE_BTRFS is still required):
+
+make ENABLE_BTRFS=1 STATIC_BTRFS_H=1
+---
+ INSTALL             |  1 +
+ Makefile            |  3 +++
+ act_dedupefiles.c   |  6 +++++
+ btrfs-static.h      | 56 +++++++++++++++++++++++++++++++++++++++++++++
+ jdupes-standalone.c | 21 +++++++++++++++--
+ jdupes.h            |  6 -----
+ 6 files changed, 85 insertions(+), 8 deletions(-)
+ create mode 100644 btrfs-static.h
+
+diff --git a/INSTALL b/INSTALL
+index 833736f..6c2fd86 100644
+--- a/INSTALL
++++ b/INSTALL
+@@ -29,6 +29,7 @@ instead of using CFLAGS_EXTRA, i.e. 'make DEBUG=1':
+ DEBUG                  Turn on algorithm statistic reporting with '-D'
+ LOUD                   '-@' for low-level debugging; enables DEBUG
+ ENABLE_BTRFS           Enable '-B/--dedupe' for btrfs deduplication
++STATIC_BTRFS_H         Build BTRFS support with included minimal header file
+ LOW_MEMORY             Build for lower memory usage instead of speed
+ NO_PERMS               Disable permission options and code
+ NO_HARDLINKS           Disable hard linking options and code
+diff --git a/Makefile b/Makefile
+index d3cc5e8..6ad2912 100644
+--- a/Makefile
++++ b/Makefile
+@@ -107,6 +107,9 @@ OBJS += act_dedupefiles.o
+ else
+ OBJS_CLEAN += act_dedupefiles.o
+ endif
++ifdef STATIC_BTRFS_H
++COMPILER_OPTIONS += -DSTATIC_BTRFS_H
++endif
+ # Low memory mode
+ ifdef LOW_MEMORY
+ COMPILER_OPTIONS += -DLOW_MEMORY -DSMA_PAGE_SIZE=32768 -DCHUNK_SIZE=16384 -DNO_HARDLINKS -DNO_USER_ORDER
+diff --git a/act_dedupefiles.c b/act_dedupefiles.c
+index dd45b50..5dd7dc5 100644
+--- a/act_dedupefiles.c
++++ b/act_dedupefiles.c
+@@ -12,7 +12,13 @@
+ #include <errno.h>
+ #include <fcntl.h>
+ 
++/* Use built-in static BTRFS header if requested */
++#ifdef STATIC_BTRFS_H
++#include "btrfs-static.h"
++#else
+ #include <linux/btrfs.h>
++#endif
++
+ #include <sys/ioctl.h>
+ #include <sys/utsname.h>
+ #include "act_dedupefiles.h"
+diff --git a/btrfs-static.h b/btrfs-static.h
+new file mode 100644
+index 0000000..400e00e
+--- /dev/null
++++ b/btrfs-static.h
+@@ -0,0 +1,56 @@
++/*
++ * Copyright (C) 2007 Oracle.  All rights reserved.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public
++ * License v2 as published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 021110-1307, USA.
++ */
++
++#ifndef JDUPES_BTRFS_H
++#define JDUPES_BTRFS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++
++#define BTRFS_IOCTL_MAGIC 0x94
++
++#define BTRFS_DEVICE_PATH_NAME_MAX 1024
++
++#define BTRFS_SAME_DATA_DIFFERS	1
++/* For extent-same ioctl */
++struct btrfs_ioctl_same_extent_info {
++	__s64 fd;		/* in - destination file */
++	__u64 logical_offset;	/* in - start of extent in destination */
++	__u64 bytes_deduped;	/* out - total # of bytes we were able
++				 * to dedupe from this file */
++	/* status of this dedupe operation:
++	 * 0 if dedup succeeds
++	 * < 0 for error
++	 * == BTRFS_SAME_DATA_DIFFERS if data differs
++	 */
++	__s32 status;		/* out - see above description */
++	__u32 reserved;
++};
++
++struct btrfs_ioctl_same_args {
++	__u64 logical_offset;	/* in - start of extent in source */
++	__u64 length;		/* in - length of extent */
++	__u16 dest_count;	/* in - total elements in info array */
++	__u16 reserved1;
++	__u32 reserved2;
++	struct btrfs_ioctl_same_extent_info info[0];
++};
++
++#define BTRFS_IOC_FILE_EXTENT_SAME _IOWR(BTRFS_IOCTL_MAGIC, 54, \
++					 struct btrfs_ioctl_same_args)
++
++#endif /* JDUPES_BTRFS_H */
+diff --git a/jdupes-standalone.c b/jdupes-standalone.c
+index 1d229ac..bb55796 100644
+--- a/jdupes-standalone.c
++++ b/jdupes-standalone.c
+@@ -42,10 +42,27 @@
+ #include <unistd.h>
+ /* Optional btrfs support */
+ #ifdef ENABLE_BTRFS
+- #include <linux/btrfs.h>
+  #include <sys/ioctl.h>
+  #include <sys/utsname.h>
+-#endif
++ #ifdef STATIC_BTRFS_H
++  /* Static BTRFS header */
++  #include <linux/types.h>
++  #define BTRFS_IOCTL_MAGIC 0x94
++  #define BTRFS_DEVICE_PATH_NAME_MAX 1024
++  #define BTRFS_SAME_DATA_DIFFERS	1
++  struct btrfs_ioctl_same_extent_info {
++   __s64 fd; __u64 logical_offset; __u64 bytes_deduped; __s32 status; __u32 reserved;
++  };
++  struct btrfs_ioctl_same_args {
++   __u64 logical_offset; __u64 length; __u16 dest_count; __u16 reserved1;
++   __u32 reserved2; struct btrfs_ioctl_same_extent_info info[0];
++  };
++  #define BTRFS_IOC_FILE_EXTENT_SAME _IOWR(BTRFS_IOCTL_MAGIC, 54, struct btrfs_ioctl_same_args)
++  /* Static BTRFS header */
++ #else
++  #include <linux/btrfs.h>
++ #endif /* STATIC_BTRFS_H */
++#endif /* ENABLE_BTRFS */
+ 
+ #define JODY_HASH_WIDTH 32
+ typedef uint32_t jodyhash_t;
+diff --git a/jdupes.h b/jdupes.h
+index 8a8ad9b..14faa06 100644
+--- a/jdupes.h
++++ b/jdupes.h
+@@ -36,12 +36,6 @@ extern "C" {
+ 
+ #include "xxhash.h"
+ 
+-/* Optional btrfs support */
+-#ifdef ENABLE_BTRFS
+-#include <sys/ioctl.h>
+-#include <linux/btrfs.h>
+-#endif
+-
+ /* Set hash type (change this if swapping in a different hash function) */
+  typedef XXH64_hash_t jdupes_hash_t;
+ 
