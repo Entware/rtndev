@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=rutorrent
 PKG_VERSION:=3.10-beta
 PKG_REV:=ec8d8f1887af57793a671258072b59193a5d8d6c
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -28,12 +28,16 @@ RUTORRENT_PLUGINS := \
 	screenshots seedingtime show_peers_like_wtorrent source spectrogram _task theme \
 	throttle tracklabels trafic unpack uploadeta xmpp
 
-DEPENDS__task = +procps-ng-pgrep
-DEPENDS_mediainfo = +mediainfo
-DEPENDS_rss = +php7-mod-json
-DEPENDS_screenshots = +ffmpeg
-#DEPENDS_spectrogram = +sox
-DEPENDS_unpack = +unrar +unzip
+RUTORRENT_PLUGIN_DEPENDS_datadir = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS__getdir = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS_edit = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS_extratio = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS_mediainfo = +mediainfo
+RUTORRENT_PLUGIN_DEPENDS_rss = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS_screenshots = +ffmpeg
+#RUTORRENT_PLUGIN_DEPENDS_spectrogram = +sox
+RUTORRENT_PLUGIN_DEPENDS__task = +procps-ng-pgrep
+RUTORRENT_PLUGIN_DEPENDS_unpack = +unrar +unzip
 
 define Package/rutorrent/Default
 	SECTION:=net
@@ -58,7 +62,7 @@ endef
 define GenPlugin
  define Package/$(1)
 	$(call Package/rutorrent/Default)
-	DEPENDS:=rutorrent $(DEPENDS_$(2))
+	DEPENDS:=rutorrent $(RUTORRENT_PLUGIN_DEPENDS_$(2))
 	TITLE:=ruTorrent $(2) plugin
  endef
 
