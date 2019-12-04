@@ -1,9 +1,0 @@
---- a/iodev/network/slirp/cksum.cc
-+++ b/iodev/network/slirp/cksum.cc
-@@ -34,6 +34,7 @@
-  */
- 
- #include "slirp.h"
-+#include <stdint.h>
- 
- #if BX_NETWORKING && BX_NETMOD_SLIRP
