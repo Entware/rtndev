@@ -8,18 +8,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethack
-PKG_VERSION:=3.6.2
+PKG_VERSION:=3.6.3
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-362-src.tgz
-PKG_SOURCE_URL:=@SF/project/nethack/nethack/$(PKG_VERSION)
-PKG_HASH:=fbd00ada6a4ee347ecd4a350a5b2995b4b4ab5dcc63881b3bc4485b0479ddb1d
+PKG_SOURCE:=$(PKG_NAME)-363-src.tgz
+PKG_SOURCE_URL:=https://nethack.org/download/$(PKG_VERSION)
+PKG_HASH:=1437b650d9a170fc7d53b47fe2f043a7687c74a02aa89916043039b501620b09
 
 PKG_INSTALL:=1
 PKG_BUILD_DEPENDS:=nethack/host
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
+
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
+HOST_UNPACK:=$(HOST_TAR) -C $(HOST_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/nethack
 	SECTION:=games
