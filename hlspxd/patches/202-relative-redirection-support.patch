@@ -1,0 +1,46 @@
+From 789fa45e79dbf0bc9a646d35eaa2f3de80e95acf Mon Sep 17 00:00:00 2001
+From: Julius Schwartzenberg <julius.schwartzenberg@gmail.com>
+Date: Sat, 7 Dec 2019 20:25:10 +0100
+Subject: [PATCH] Relative redirection support
+
+---
+ hlspxd/src/utils.cpp       | 3 ++-
+ hlspxd/src/videoviewer.cpp | 8 ++++++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/hlspxd/src/utils.cpp b/hlspxd/src/utils.cpp
+index b5fee01..31e3443 100644
+--- a/utils.cpp
++++ b/utils.cpp
+@@ -481,7 +481,8 @@ HttpResponse HttpClient::getResponse(Uri &reqUri)
+ 			const string *Location = contResp.getHeaderRecord("Location");
+ 			if (Location == NULL) throw Exception("Redirect - no location");
+ 			clientUri = Uri(*Location);
+-			if (clientUri.isRelative()) throw Exception("Relative redirection not implemented 1");
++			if (clientUri.isRelative())
++				clientUri = Uri(reqUri.getHost(), clientUri.getPort(), Location->c_str());
+ 			LogWriter::WriteLog("Redirect ->'%s'", Location->c_str());
+ 			reqUri = clientUri;
+ 		}
+diff --git a/hlspxd/src/videoviewer.cpp b/hlspxd/src/videoviewer.cpp
+index 5b7e7f2..f79e84c 100644
+--- a/videoviewer.cpp
++++ b/videoviewer.cpp
+@@ -116,8 +116,12 @@ void VideoViewer::ReadM3U8()
+ 		{
+ 			if (mavec[17].matched)
+ 				recrd.TsUri = Uri(mavec[17].str(), (mavec[19].matched) ? mavec[19].str() : "", mavec[20].str());
+-			else
+-				recrd.TsUri = Uri(VideoUri, mavec[20].str());
++			else {
++				if (mavec[15].str().at(0) == '/')
++					recrd.TsUri = Uri(VideoUri.getHost(), VideoUri.getPort(), mavec[15].str());
++				else
++					recrd.TsUri = Uri(VideoUri, mavec[20].str());
++			}
+ 		}
+ 
+ 		PlayList.push_back(recrd);
+-- 
+2.17.1
+
