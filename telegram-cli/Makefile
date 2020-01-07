@@ -50,6 +50,11 @@ CONFIGURE_ARGS += \
 	--disable-valgrind \
 	--with-zlib=$(STAGING_DIR)/opt
 
+ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
+TARGET_CFLAGS += -Wno-error=cast-function-type
+endif
+
+
 CONFIGURE_VARS += \
 	LIBS=-lncursesw \
 	LUA_INCLUDE="-I$(STAGING_DIR)/opt/include" \
