@@ -52,6 +52,11 @@ Package/simple-obfs-server/description = $(Package/simple-obfs/description)
 
 CONFIGURE_ARGS += --disable-ssp --disable-documentation --disable-assert
 
+ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
+TARGET_CFLAGS += -Wno-error=stringop-truncation
+endif
+
+
 define Package/simple-obfs/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/obfs-local $(1)/opt/bin
