@@ -58,10 +58,13 @@ endef
 TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/opt/include/libxml2 -Wno-error=parentheses
 
-ifeq ($(CONFIG_GCC_USE_VERSION_7_4_0),y)
+ifeq ($(CONFIG_GCC_USE_VERSION_7)$(CONFIG_GCC_USE_VERSION_8),y)
 TARGET_CFLAGS += -Wno-error=implicit-fallthrough
 endif
 
+ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
+TARGET_CFLAGS += -Wno-error=cast-function-type
+endif
 TARGET_LDFLAGS += \
 	-lxml2
 
