@@ -42,6 +42,11 @@ CONFIGURE_ARGS += \
 	--disable-ssp \
 	--disable-assert
 
+ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
+TARGET_CFLAGS += -Wno-error=format-overflow -Wno-stringop-truncation -Wno-error=sizeof-pointer-memaccess
+endif
+
+
 define Package/shadowsocksr-libev/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ss-local $(1)/opt/bin/ssr-local
