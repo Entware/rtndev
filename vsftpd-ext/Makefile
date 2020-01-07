@@ -37,7 +37,7 @@ define Package/vsftpd-ext/conffiles
 /opt/etc/vsftpd/vsftpd.conf
 endef
 
-TARGET_CFLAGS += -Wno-error
+TARGET_CFLAGS += -Wno-error -Wno-stringop-truncation
 
 define Package/vsftpd-ext/install
 	$(INSTALL_DIR) $(1)/opt/sbin
