@@ -18,8 +18,6 @@ PKG_HASH:=3063df79fe198fb9618e180c54baf3105b33d88fe602ff2d8570aaf944f1263e
 
 PKG_INSTALL:=1
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/mlocate
