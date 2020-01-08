@@ -50,15 +50,14 @@ CONFIGURE_ARGS += \
 	--disable-valgrind \
 	--with-zlib=$(STAGING_DIR)/opt
 
-ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
-TARGET_CFLAGS += -Wno-error=cast-function-type
-endif
-
-
 CONFIGURE_VARS += \
 	LIBS=-lncursesw \
 	LUA_INCLUDE="-I$(STAGING_DIR)/opt/include" \
 	LUA_LIB="-L$(STAGING_DIR)/opt/lib -llua"
+
+ifeq ($(or $(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
+TARGET_CFLAGS += -Wno-error=cast-function-type
+endif
 
 define Host/Configure
 	(cd $(HOST_BUILD_DIR)/tgl; \
