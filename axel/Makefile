@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/axel-download-accelerator/axel/releases/download/v$(PKG_VERSION)
-PKG_HASH:=82f7fbdd8ac12797b41256ec226b9ef503e6b601
+PKG_HASH:=4aceb94372dd56108f1bf1b4252e3fe8c9e99d3e8541d531919cb7993bad5a7f
 
 include $(INCLUDE_DIR)/package.mk
 
