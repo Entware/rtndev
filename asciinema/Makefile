@@ -50,8 +50,7 @@ define Package/asciinema/install
 	    $(1)$(PYTHON3_PKG_DIR)
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(CP) $(PKG_INSTALL_DIR)/opt/bin/$(PKG_NAME) $(1)/opt/bin
-	$(SED) $(SED) 's,^#!.*python,#!/opt/bin/python,' \
-		$(1)/opt/bin/$(PKG_NAME)
+	$(SED) 's,^#!.*python,#!/opt/bin/python,' $(1)/opt/bin/$(PKG_NAME)
 endef
 
 $(eval $(call BuildPackage,asciinema))
