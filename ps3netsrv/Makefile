@@ -8,41 +8,64 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ps3netsrv
-PKG_VERSION:=20150203
-PKG_REV:=eaf2329d54e8231d4bfb1d8c8a19f7ea6848443c
+PKG_VERSION:=20190924
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/dirkvdb/ps3netsrv--.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).zip
+PKG_SOURCE_URL:=https://github.com/aldostools/webMAN-MOD/releases/download/1.47.25
+PKG_HASH:=d4f661a105ee7375271a2d33b9adb11dd51fa0ad1b239925ebaa58f5c107ffa7
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-$(BUILD_VARIANT)
+PKG_UNPACK:=unzip $(DL_DIR)/$(PKG_SOURCE) -d $(PKG_BUILD_DIR)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/ps3netsrv
+MAKE_PATH:=$(PKG_NAME)
+MAKE_FLAGS+=-f Makefile.linux
+
+define Package/ps3netsrv/Default
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libstdcpp +libpthread
 	TITLE:=C++ implementation of the ps3netsrv server
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
+	DEPENDS:=+libstdcpp
 endef
 
-define Package/ps3netsrv/description
+define Package/ps3netsrv
+$(call Package/ps3netsrv/Default)
+	VARIANT:=nossl
+	TITLE+= (no SSL)
+endef
+
+define Package/ps3netsrv-mbedtls
+$(call Package/ps3netsrv/Default)
+	VARIANT:=mbedtls
+	TITLE+= (Mbed TLS)
+	DEPENDS+=+libmbedtls
+endef
+
+define Package/ps3netsrv/description/Default
  C++ implementation of the ps3netsrv server
 endef
 
-TARGET_LDFLAGS += \
-	-lstdc++ \
-	-lpthread
+ifeq ($(BUILD_VARIANT),nossl)
+	TARGET_CFLAGS += -DNOSSL
+endif
+
+ifeq ($(BUILD_VARIANT),mbedtls)
+	TARGET_LDFLAGS += -lmbedtls -lmbedcrypto
+endif
 
 define Package/ps3netsrv/install
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ps3netsrv\+\+ $(1)/opt/sbin/ps3netsrv
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(MAKE_PATH)/ps3netsrv $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S76ps3netsrv $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/share/ps3netsrv/{GAMES,PS3ISO}
 endef
 
+Package/ps3netsrv-mbedtls/install=$(Package/ps3netsrv/install)
+
 $(eval $(call BuildPackage,ps3netsrv))
+$(eval $(call BuildPackage,ps3netsrv-mbedtls))

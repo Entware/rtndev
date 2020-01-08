@@ -1,21 +1,26 @@
---- a/Makefile
-+++ b/Makefile
-@@ -1,16 +1,9 @@
--CXXFLAGS = -O3 -I./utils/inc -D_FILE_OFFSET_BITS=64 -DCONSOLE_SUPPORTS_COLOR -Wall -std=c++11 -Wfatal-errors
--CXX = clang++
--LD = $(CXX)
--LIBS=-lpthread
--
--ifeq ($(CXX),clang++)
--	CXXFLAGS := $(CXXFLAGS) -stdlib=libc++
--endif
-+CXXFLAGS += -I./utils/inc -D_FILE_OFFSET_BITS=64 -DCONSOLE_SUPPORTS_COLOR -Wall -std=c++11 -Wfatal-errors
+--- a/ps3netsrv/Makefile.linux
++++ b/ps3netsrv/Makefile.linux
+@@ -1,17 +1,17 @@
+-OS =  linux
+-BUILD_TYPE = release_static
++OS = linux
++BUILD_TYPE = release
  
- all: ps3netsrv++
+ OUTPUT := ps3netsrv
+ OBJS = src/main.o src/compat.o src/File.o src/VIsoFile.o
  
- ps3netsrv++: ps3netsrv.o fileoperations.o log.o
--	$(LD) $(CXXFLAGS) $^ $(LIBS) -o $@
-+	$(CC) $(CXXFLAGS) $^ $(LIBS) $(LDFLAGS) -o $@
+-CFLAGS = -Wall -I./include -I./polarssl-1.3.2/include -std=gnu99 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPOLARSSL
+-CPPFLAGS += -Wall -I./include -I./polarssl-1.3.2/include -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPOLARSSL
++CFLAGS += -Wall -I./include -std=gnu99 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
++CPPFLAGS += -Wall -I./include -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
  
- ps3netsrv.o: ps3netsrv.cpp
- 	$(CXX) -c $(CXXFLAGS) $^ -o $@
+ #CFLAGS += -DNOSSL
+ #CPPFLAGS +=-DNOSSL
+ 
+-LDFLAGS = -L. -L./polarssl-1.3.2/library
+-LIBS = -lstdc++ -lpolarssl
++LDFLAGS += -L. 
++LIBS = -lstdc++
+ 
+ 
+ ifeq ($(OS), linux)
