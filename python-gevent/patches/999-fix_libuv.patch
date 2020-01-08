@@ -1,0 +1,67 @@
+--- a/deps/libuv/src/unix/fs.c
++++ b/deps/libuv/src/unix/fs.c
+@@ -1141,7 +1141,6 @@ static void uv__fs_work(struct uv__work*
+     X(COPYFILE, uv__fs_copyfile(req));
+     X(FCHMOD, fchmod(req->file, req->mode));
+     X(FCHOWN, fchown(req->file, req->uid, req->gid));
+-    X(LCHOWN, lchown(req->path, req->uid, req->gid));
+     X(FDATASYNC, uv__fs_fdatasync(req));
+     X(FSTAT, uv__fs_fstat(req->file, &req->statbuf));
+     X(FSYNC, uv__fs_fsync(req));
+@@ -1265,20 +1264,6 @@ int uv_fs_fchown(uv_loop_t* loop,
+   req->uid = uid;
+   req->gid = gid;
+   POST;
+-}
+-
+-
+-int uv_fs_lchown(uv_loop_t* loop,
+-                 uv_fs_t* req,
+-                 const char* path,
+-                 uv_uid_t uid,
+-                 uv_gid_t gid,
+-                 uv_fs_cb cb) {
+-  INIT(LCHOWN);
+-  PATH;
+-  req->uid = uid;
+-  req->gid = gid;
+-  POST;
+ }
+ 
+ 
+--- a/deps/libuv/src/unix/thread.c
++++ b/deps/libuv/src/unix/thread.c
+@@ -37,10 +37,14 @@
+ #include <sys/sem.h>
+ #endif
+ 
+-#ifdef __GLIBC__
++#if defined(__GLIBC__) && !defined(__UCLIBC__)
+ #include <gnu/libc-version.h>  /* gnu_get_libc_version() */
+ #endif
+ 
++#if defined(__UCLIBC__)
++#include <gnu-versions.h>
++#endif
++
+ #undef NANOSEC
+ #define NANOSEC ((uint64_t) 1e9)
+ 
+@@ -436,7 +440,7 @@ int uv_sem_trywait(uv_sem_t* sem) {
+ 
+ #else /* !(defined(__APPLE__) && defined(__MACH__)) */
+ 
+-#ifdef __GLIBC__
++#if defined(__GLIBC__) || defined(__UCLIBC__)
+ 
+ /* Hack around https://sourceware.org/bugzilla/show_bug.cgi?id=12674
+  * by providing a custom implementation for glibc < 2.21 in terms of other
+@@ -601,7 +605,7 @@ static int uv__sem_trywait(uv_sem_t* sem
+ }
+ 
+ int uv_sem_init(uv_sem_t* sem, unsigned int value) {
+-#ifdef __GLIBC__
++#if defined(__GLIBC__) || defined(__UCLIBC__)
+   uv_once(&glibc_version_check_once, glibc_version_check);
+ #endif
+ 

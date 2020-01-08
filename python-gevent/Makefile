@@ -4,41 +4,53 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# The newer version raises following error.
 # Used by weave-minimal only, no need to update it
 #
-#In file included from deps/libuv/src/threadpool.c:22:0:
-#deps/libuv/src/threadpool.c: In function 'uv__queue_done':
-#deps/libuv/src/uv-common.h:196:24: error: request for member 'count' in something not a structure or union
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-gevent
-PKG_VERSION:=1.2.2
+PKG_VERSION:=1.4.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=gevent-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/1b/92/b111f76e54d2be11375b47b213b56687214f258fd9dae703546d30b837be
-PKG_HASH:=4791c8ae9c57d6f153354736e1ccab1e2baf6c8d9ae5a77a9ac90f41e2966b2d
-PKG_BUILD_DEPENDS:=python
-PKG_BUILD_DIR:=$(BUILD_DIR)/gevent-$(PKG_VERSION)
+PYPI_NAME:=gevent
+PKG_HASH:=1eb7fa3b9bd9174dfe9c3b59b7a09b768ecd496debfc4976a9530a3e15c990d1
 
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
-define Package/python-gevent
+define Package/python-gevent/Default
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+python-greenlet +USE_UCLIBC:librt
 	TITLE:=Python networking library
 	URL:=http://www.gevent.org/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
+define Package/python-gevent
+$(call Package/python-gevent/Default)
+  DEPENDS:=+PACKAGE_python-gevent:python-greenlet
+  VARIANT:=python
+endef
+
+define Package/python3-gevent
+$(call Package/python-gevent/Default)
+  DEPENDS:=+PACKAGE_python3-gevent:python3-greenlet
+  VARIANT:=python3
+endef
+
 define Package/python-gevent/description
  Gevent is a coroutine-based Python networking library that uses greenlet
  to provide a high-level synchronous API on top of the libevent event loop.
+endef
+
+define Package/python3-gevent/description
+$(call Package/python-gevent/description)
+.
+(Variant for Python3).
 endef
 
 define Build/Configure
@@ -62,8 +74,12 @@ define Build/Configure
 	$(call Build/Configure/Default)
 endef
 
-define Build/Compile
+define PyBuild/Compile
 	$(call Build/Compile/PyMod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
+endef
+
+define Py3Build/Compile
+	$(call Build/Compile/Py3Mod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
 endef
 
 define Package/python-gevent/install
@@ -73,4 +89,15 @@ define Package/python-gevent/install
 		$(1)$(PYTHON_PKG_DIR)
 endef
 
+define Package/python3-gevent/install
+	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
+	$(CP) \
+		$(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* \
+		$(1)$(PYTHON3_PKG_DIR)
+endef
+
+$(eval $(call PyPackage,python-gevent))
 $(eval $(call BuildPackage,python-gevent))
+
+$(eval $(call Py3Package,python3-gevent))
+$(eval $(call BuildPackage,python3-gevent))
