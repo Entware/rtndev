@@ -1,6 +1,6 @@
 --- a/Makefile.sharedlibrary
 +++ b/Makefile.sharedlibrary
-@@ -45,29 +45,33 @@
+@@ -45,29 +45,33 @@ else
  endif
  
  # Change to actual path for actual distribution packaging.
@@ -39,7 +39,7 @@
  
  # Symlinks depend on platform conventions.
  .PHONY: install
-@@ -85,4 +89,4 @@
+@@ -85,4 +89,4 @@ install: libduktape.$(SO_REALNAME_SUFFIX
  
  CCOPTS = -I./examples/cmdline
  duk:
