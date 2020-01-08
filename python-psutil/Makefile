@@ -9,44 +9,66 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-psutil
-PKG_VERSION:=5.6.3
+PKG_VERSION:=5.6.7
 PKG_RELEASE:=1
 
-PKG_SOURCE:=psutil-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/1c/ca/5b8c1fe032a458c2c4bcbe509d1401dca9dda35c7fc46b36bb81c2834740
-PKG_HASH:=863a85c1c0a5103a12c05a35e59d336e1d665747e531256e061213e2e90f63f3
+PYPI_NAME:=psutil
+PKG_HASH:=ffad8eb2ac614518bbe3c0b8eb9dffdb3a8d2e3a7d5da51c5b974fb723a5c5aa
 
-PKG_BUILD_DEPENDS:=python
-
-PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
-define Package/python-psutil
-  SUBMENU:=Python
+define Package/python-psutil/Default
   SECTION:=lang
   CATEGORY:=Languages
+  SUBMENU:=Python
   TITLE:=python-psutil
   URL:=https://github.com/giampaolo/psutil
-  DEPENDS:=+python
+  MAINTAINER:=Entware team, https://entware.net
+endef
+
+define Package/python-psutil
+$(call Package/python-psutil/Default)
+  DEPENDS:=+PACKAGE_python-psutil:python
+  VARIANT:=python
+endef
+
+define Package/python3-psutil
+$(call Package/python-psutil/Default)
+  DEPENDS:=+PACKAGE_python3-psutil:python3
+  VARIANT:=python3
 endef
 
 define Package/python-psutil/description
   psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network) in Python
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
+define Package/python3-psutil/description
+$(call Package/python-psutil/description)
+.
+(Variant for Python3).
 endef
 
 define Package/python-psutil/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
 	$(CP) \
-	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-	    $(1)$(PYTHON_PKG_DIR)
-	# fix python exec path in scripts
-	find $(PKG_BUILD_DIR) -name *.py | xargs $(SED) 's|/usr/bin/env python|/opt/bin/python|'
+		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* $(1)$(PYTHON_PKG_DIR)
+	# Entware specific: fix exec path in scripts
+	$(FIND) $(1)/opt -name '*.py' | $(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
 endef
 
+define Package/python3-psutil/install
+	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
+	$(CP) \
+		$(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* $(1)$(PYTHON3_PKG_DIR)
+	# Entware specific: fix exec path in scripts
+	$(FIND) $(1)/opt -name '*.py' | $(XARGS) $(SED) 's,^#!.*,#!/opt/bin/python3,'
+endef
+
+$(eval $(call PyPackage,python-psutil))
 $(eval $(call BuildPackage,python-psutil))
+
+$(eval $(call Py3Package,python3-psutil))
+$(eval $(call BuildPackage,python3-psutil))
