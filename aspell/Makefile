@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aspell
-PKG_VERSION:=0.60.6.1
-PKG_RELEASE:=1a
+PKG_VERSION:=0.60.8
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@GNU/$(PKG_NAME)
-PKG_HASH:=f52583a83a63633701c5f71db3dc40aab87b7f76b29723aeb27941eff42df6e1
+PKG_HASH:=f9b77e515334a751b2e60daab5db23499e26c9209f5e7b7443b05235ad0226f2
 
 PKG_INSTALL:=1
 
@@ -60,9 +60,9 @@ echo -e "\n#####Available dictionaries at ftp://ftp.gnu.org/gnu/aspell/dict/0ind
 Sample English dictionary install for aspell: \n\
      cd /opt/tmp \n\
      opkg install make \n\
-     wget ftp://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-7.1-0.tar.bz2 \n\
-     tar xvjf aspell6-en-7.1-0.tar.bz2 \n\
-     cd aspell6-en-7.1-0 \n\
+     wget https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2019.10.06-0.tar.bz2 \n\
+     tar xvjf aspell6-en-2019.10.06-0.tar.bz2 \n\
+     cd aspell6-en-2019.10.06-0 \n\
      ./configure \n\
      make \n\
      make install \n\
