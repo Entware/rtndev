@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=groff
 PKG_VERSION:=1.22.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=http://ftp.gnu.org/gnu/groff
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -17,7 +17,7 @@ PKG_HASH:=e78e7b4cb7dec310849004fa88847c44701e8d133b5d4c13057d876c1bad0293
 
 PKG_LICENSE:=GPL
 
-PKG_FIXUP:=autoreconf
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -39,20 +39,21 @@ endef
 CONFIGURE_ARGS += \
 	--with-doc=no
 
-define Build/Compile
-	+$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR) \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		all install
-endef
-
 define Package/groff/install
 	$(INSTALL_DIR) $(1)/opt/{bin,lib,share}
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/{g,n,t}roff $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/grotty $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/tbl $(1)/opt/bin
 	$(CP) $(PKG_INSTALL_DIR)/opt/{lib,share} $(1)/opt
-	# fix perl exec path in scripts
-	find $(PKG_BUILD_DIR) -name *.pl | xargs $(SED) 's|/usr/bin/env perl|/opt/bin/perl|'
+	# Entware specific: fix exec path in scripts
+	$(FIND) $(1)/opt -name '*.pl' | $(XARGS) $(SED) 's,^#!.*perl,#!/opt/bin/perl,'
+	$(SED) 's,^#!.*awk,#!/opt/bin/awk,' \
+		$(1)/opt/share/groff/$(PKG_VERSION)/font/devlj4/generate/special.awk
+#	$(SED) 's,^#!.*perl,#!/opt/bin/perl,' \
+#		$(1)/opt/share/groff/$(PKG_VERSION)/font/devpdf/util/BuildFoundries
+	$(SED) 's,^#!.*sed,#!/opt/bin/sed,' \
+		$(1)/opt/share/groff/$(PKG_VERSION)/font/devps/generate/symbol.sed
+	$(FIND) $(1)/opt/share -type f | $(XARGS) $(SED) 's,/usr/share,/opt/share,g'
 endef
 
 $(eval $(call BuildPackage,groff))
