@@ -25,7 +25,7 @@
  
 --- a/lib/lprsetup.sh
 +++ b/lib/lprsetup.sh
-@@ -14,7 +14,7 @@
+@@ -14,7 +14,7 @@ do
              "usage: $0 [-p <gs install prefix>]\n"\
              "Where <gs install prefix> is the ""prefix""\n"\
              "for the Ghostscript install - the default is\n"\
@@ -34,7 +34,7 @@
              exit 1;;
  	-*) echo >&2 \
  	    "usage: $0 [-p <gs install prefix>]"
-@@ -33,14 +33,10 @@
+@@ -33,14 +33,10 @@ PRINTERDEV=/dev/lp1
  # The kind of printer (accepted values: 'parallel' and 'serial')
  PRINTERTYPE=parallel
  
@@ -51,7 +51,7 @@
  GSIF=unix-lpr.sh
  PCAP=printcap.insert
  
-@@ -55,9 +51,6 @@
+@@ -55,9 +51,6 @@ if [ "x$GSPATH"="x" ] ; then
    echo
  fi
  

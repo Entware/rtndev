@@ -1,6 +1,6 @@
 --- a/base/unix-aux.mak
 +++ b/base/unix-aux.mak
-@@ -76,6 +76,7 @@
+@@ -76,6 +76,7 @@ $(GENDEV_XE): $(GLSRC)gendev.c $(AK) $(G
  $(GENHT_XE): $(GLSRC)genht.c $(AK) $(GENHT_DEPS) $(UNIX_AUX_MAK) $(MAKEDIRS)
  	$(CCAUX_) $(GENHT_CFLAGS) $(O_)$(GENHT_XE) $(GLSRC)genht.c $(AUXEXTRALIBS)
  
@@ -8,7 +8,7 @@
  # To get GS to use the system zlib, you remove/hide the gs/zlib directory
  # which means that the mkromfs build can't find the zlib source it needs.
  # So it's split into two targets, one using the zlib source directly.....
-@@ -97,7 +98,10 @@
+@@ -97,7 +98,10 @@ $(MKROMFS_XE)_1: $(GLSRC)mkromfs.c $(MKR
  
  $(MKROMFS_XE): $(MKROMFS_XE)_$(SHARE_ZLIB) $(UNIX_AUX_MAK) $(MAKEDIRS)
  	$(CP_) $(MKROMFS_XE)_$(SHARE_ZLIB) $(MKROMFS_XE)
