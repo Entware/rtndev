@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=1.3.15
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.deluge-torrent.org/source
@@ -81,6 +81,9 @@ define Package/deluge/install
 	$(INSTALL_BIN) ./files/S80deluged $(1)/opt/etc/init.d
 	rm -rf $(1)/opt/bin/deluge-gtk
 	rm -rf $(1)/opt/bin/deluge-web
+	# Entware specific: fix exec path in scripts
+	$(SED) 's,^#!.*python,#!/opt/bin/python,' \
+		$(1)$(PYTHON_PKG_DIR)/deluge/ui/Win32IconImagePlugin.py
 endef
 
 define Package/deluge-ui-gtk/install

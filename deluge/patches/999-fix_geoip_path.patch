@@ -1,0 +1,11 @@
+--- a/deluge/core/preferencesmanager.py	2017-05-12 15:57:19.000000000 +0300
++++ b/deluge/core/preferencesmanager.py	2019-08-25 20:02:54.047322250 +0300
+@@ -145,7 +145,7 @@
+     "random_outgoing_ports": True,
+     "peer_tos": "0x00",
+     "rate_limit_ip_overhead": True,
+-    "geoip_db_location": "/usr/share/GeoIP/GeoIP.dat",
++    "geoip_db_location": "/opt/share/GeoIP/GeoIP.dat",
+     "cache_size": 512,
+     "cache_expiry": 60
+ }
