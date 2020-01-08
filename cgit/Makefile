@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cgit
 PKG_VERSION:=1.2.1
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://git.zx2c4.com/cgit
@@ -60,13 +60,20 @@ MAKE_FLAGS := \
 	LUA_PKGCONFIG="lua"
 
 CONFIGURE_ARGS += \
-	--without-iconv \
+	--without-iconv
 
 define Package/cgit/install
 	$(INSTALL_DIR) $(1)/opt/var/www/htdocs/cgit
 	$(CP) $(PKG_INSTALL_DIR)/var/www/htdocs/cgit/* $(1)/opt/var/www/htdocs/cgit
 	$(INSTALL_DIR) $(1)/opt/usr/local/lib/cgit/filters
 	$(CP) $(PKG_INSTALL_DIR)/usr/local/lib/cgit/filters/* $(1)/opt/usr/local/lib/cgit/filters
+	# Entware specific: fix exec path in scripts
+	$(SED) 's,^#!.*bash,#!/opt/bin/bash,' \
+		$(1)/opt/usr/local/lib/cgit/filters/html-converters/rst2html
+	$(SED) 's,^#!.*python,#!/opt/bin/python,' \
+		$(1)/opt/usr/local/lib/cgit/filters/email-gravatar.py \
+		$(1)/opt/usr/local/lib/cgit/filters/html-converters/md2html \
+		$(1)/opt/usr/local/lib/cgit/filters/syntax-highlighting.py
 endef
 
 $(eval $(call BuildPackage,cgit))
