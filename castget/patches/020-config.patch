@@ -9,7 +9,7 @@
  
  #
  # Per-channel settings.
-@@ -23,8 +23,8 @@
+@@ -23,8 +23,8 @@ spool=/home/tom/podcasts
  # enclosures to /home/tom/podcasts.m3u.
  [dsc]
  url=http://radio.weblogs.com/0001014/categories/dailySourceCode/rss.xml
