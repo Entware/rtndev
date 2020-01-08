@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -15,7 +15,7 @@
+@@ -15,7 +15,7 @@ AC_CONFIG_AUX_DIR([autotools])
  AC_CONFIG_MACRO_DIR([autotools])
  
  # Init automake
@@ -9,7 +9,7 @@
  AM_MAINTAINER_MODE
  AB_INIT
  
-@@ -90,8 +90,6 @@
+@@ -95,8 +95,6 @@ AC_CHECK_HEADERS([inttypes.h limits.h me
  
  # Check OpenSSL
  AX_CHECK_OPENSSL([], AC_MSG_FAILURE([OpenSSL not found]))
