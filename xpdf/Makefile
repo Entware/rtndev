@@ -8,14 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xpdf
-PKG_VERSION:=4.01.01
+PKG_VERSION:=4.02
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://xpdfreader-dl.s3.amazonaws.com
-PKG_HASH:=ba550c7d3e4f73b1833cfcdcd9dbe39849dd0cd459b6774c4ecdfeca993204a4
+PKG_HASH:=52d51dc943b9614b8da66e8662b3031a3c82dc25bfc792eac6b438aa36d549a4
 
-PKG_INSTALL:=1
+CMAKE_INSTALL:=1
+
+PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
