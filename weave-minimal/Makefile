@@ -10,12 +10,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=weave-minimal
 PKG_VERSION:=1.5.1
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/9d/1f/d9d4ebcf0c376e61b2fb3ea597259c0329c0c268294fae871fa6b7f5db04
+PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=6799fe276ed8e2abdd7ea5eade9a72b13fd5e2cabe818ad530fc115852f78d22
 
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
@@ -53,6 +53,9 @@ define Package/weave-minimal/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S92weave-minimal $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/var/weave
+	# Entware specific: fix exec path in scripts
+	$(FIND) $(1)$(PYTHON_PKG_DIR) -name '*.py' | \
+		$(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
 endef
 
 define Package/weave-minimal/postinst
