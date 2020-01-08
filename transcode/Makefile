@@ -17,7 +17,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/tcforge.berlios
 PKG_HASH:=7e01665079eef81625c4761cc5c08a3b53b97de90fb0728d64f5a86a3bc59009
 
-PKG_INSTALL:=1
+PKG_INSTALL:=2
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -59,6 +59,8 @@ define Package/transcode/install
 	$(INSTALL_DIR) $(1)/opt/lib/transcode
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/transcode/{*.so,xvid4.cfg,filter_list.awk,parse_csv.awk} \
 			$(1)/opt/lib/transcode
+	# Entware specific: fix exec path in scripts
+	$(SED) 's,^#!.*gawk,#!/opt/bin/gawk,' $(1)/opt/lib/transcode/{filter_list,parse_csv}.awk
 endef
 
 $(eval $(call BuildPackage,transcode))
