@@ -11,10 +11,10 @@ PKG_NAME:=asciinema
 PKG_VERSION:=2.0.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/a7/71/771c859795e02c71c187546f34f7535487b97425bc1dad1e5f6ad2651357
+PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=32f2c1a046564e030708e596f67e0405425d1eca9d5ec83cd917ef8da06bc423
 
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
@@ -48,10 +48,10 @@ define Package/asciinema/install
 	$(CP) \
 	    $(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* \
 	    $(1)$(PYTHON3_PKG_DIR)
-	 $(SED) 's,$(HOST_PYTHON3_BIN),/opt/bin/python3,g' \
-	    $(PKG_INSTALL_DIR)/opt/bin/$(PKG_NAME)
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(CP) $(PKG_INSTALL_DIR)/opt/bin/$(PKG_NAME) $(1)/opt/bin
+	$(SED) $(SED) 's,^#!.*python,#!/opt/bin/python,' \
+		$(1)/opt/bin/$(PKG_NAME)
 endef
 
 $(eval $(call BuildPackage,asciinema))
