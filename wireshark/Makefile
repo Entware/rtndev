@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=3.0.4
+PKG_VERSION:=3.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://wireshark.org/download/src/all-versions
-PKG_HASH:=773bd57df2aeae1694a0b7fbfb34283ba24799cfd6299eed696630fc9ebeecbf
+PKG_HASH:=4cfd33a19a454ff4002243e9d04d6afd64280a109a21ae652a192f2be2b1b66c
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/wireshark
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libcares +bcg729 +libcap +libgcrypt +glib2 +libgnutls +krb5-libs +libnghttp2 +libpcap +sbc +libspandsp +libxml2
+	DEPENDS:=+libcares +bcg729 +libcap +libgcrypt +glib2 +libgnutls +krb5-libs +libnghttp2 +libpcap +sbc +libspandsp +libxml2 +liblz4 +zstd
 	TITLE:=network protocol analyzer
 	URL:=https://www.wireshark.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -36,6 +36,7 @@ TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/opt/include/krb
 
 CMAKE_OPTIONS += \
+	-DBUILD_mmdbresolve=OFF \
 	-DBUILD_wireshark=OFF \
 	-DENABLE_LUA=OFF
 
