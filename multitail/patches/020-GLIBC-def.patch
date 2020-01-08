@@ -9,7 +9,7 @@
  #include <execinfo.h>
  #endif
  #include <sys/socket.h>
-@@ -23,7 +23,7 @@
+@@ -23,7 +23,7 @@ void error_exit_(BOOL show_errno, BOOL s
  {
  	int e = errno;
  	va_list ap;
@@ -18,7 +18,7 @@
  	int index;
          void *trace[128];
          int trace_size = backtrace(trace, 128);
-@@ -49,7 +49,7 @@
+@@ -49,7 +49,7 @@ void error_exit_(BOOL show_errno, BOOL s
  
  	if (show_st)
  	{
