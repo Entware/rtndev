@@ -12,12 +12,10 @@ PKG_NAME:=python-cheetah
 PKG_VERSION:=2.4.4
 PKG_RELEASE:=2
 
-PKG_SOURCE:=Cheetah-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/cd/b0/c2d700252fc251e91c08639ff41a8a5203b627f4e0a2ae18a6b662ab32ea
+PYPI_NAME:=Cheetah
 PKG_HASH:=be308229f0c1e5e5af4f27d7ee06d90bb19e6af3059794e5fd536a6f29a9b550
-PKG_BUILD_DEPENDS:=python
-PKG_BUILD_DIR:=$(BUILD_DIR)/Cheetah-$(PKG_VERSION)
 
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
@@ -55,8 +53,11 @@ define Package/python-cheetah/install
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/opt/bin/cheetah{,-analyze,-compile} \
 		$(1)/opt/bin
-	 $(SED) 's,/usr/bin/env python,/opt/bin/python,g' \
+	# Entware specific: fix exec path in scripts
+	$(SED) 's,^#!.*python,#!/opt/bin/python,' \
 		$(1)/opt/bin/cheetah{,-analyze,-compile}
+	$(FIND) $(1)$(PYTHON_PKG_DIR) -type f -name '*.py' | \
+		$(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
 endef
 
 $(eval $(call BuildPackage,python-cheetah))
