@@ -11,13 +11,13 @@ PKG_NAME:=loggedfs
 PKG_VERSION:=0.9
 PKG_RELEASE:=1
 
-
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/rflament/loggedfs/archive
-PKG_HASH:=49b19ebed4dc4283737f602121ee79505b57b7577445e2c2f6121a7b4a1897d5
+PKG_HASH:=10cd007782c6b91a154758dabac0c3b41e580ca0f9496cab411054219ef52b22
 
 include $(INCLUDE_DIR)/package.mk
+
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/loggedfs
 	SECTION:=utils
