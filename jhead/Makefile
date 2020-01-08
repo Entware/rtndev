@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jhead
-PKG_VERSION:=3.03
+PKG_VERSION:=3.04
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.sentex.net/%7Emwandel/jhead
-PKG_HASH:=82194e0128d9141038f82fadcb5845391ca3021d61bc00815078601619f6c0c2
+PKG_HASH:=ef89bbcf4f6c25ed88088cf242a47a6aedfff4f08cc7dc205bf3e2c0f10a03c9
 
 include $(INCLUDE_DIR)/package.mk
 
