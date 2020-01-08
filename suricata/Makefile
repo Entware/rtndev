@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=suricata
 PKG_VERSION:=4.1.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.openinfosecfoundation.org/download
@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/suricata
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libyaml +jansson +libpcap +libpcre +file +liblzma +USE_UCLIBC:librt
+	DEPENDS:=+libyaml +jansson +libpcap +libpcre +file +liblzma +liblz4
 	TITLE:=IDS, IPS, NSM engine
 	URL:=https://suricata-ids.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -64,7 +64,7 @@ define Package/suricata/postinst
 #!/bin/sh
 
 echo 'Current Suricata ruleset can be found at'
-echo 'https://rules.emergingthreats.net/open/suricata-3.0/emerging.rules.tar.gz'
+echo 'https://rules.emergingthreats.net/open/suricata-4.0/emerging.rules.tar.gz'
 endef
 
 $(eval $(call BuildPackage,suricata))
