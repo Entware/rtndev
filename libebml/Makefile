@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libebml
-PKG_VERSION:=1.3.6
+PKG_VERSION:=1.3.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://dl.matroska.org/downloads/libebml
-PKG_HASH:=1e5a7a7820c493aa62b0f35e15b4233c792cc03458c55ebdfa7a6521e4b43e9e
+PKG_HASH:=c6b6c6cd8b20a46203cb5dce636883aef68beb2846f1e4103b660a7da2c9c548
 
-PKG_INSTALL:=1
+CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -34,16 +34,6 @@ define Package/libebml/description
 endef
 
 CMAKE_OPTIONS += -DBUILD_SHARED_LIBS=YES
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/ebml $(1)/opt/include
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libebml.so* $(1)/opt/lib/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cmake $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libebml.pc $(1)/opt/lib/pkgconfig/
-endef
 
 define Package/libebml/install
 	$(INSTALL_DIR) $(1)/opt/lib
