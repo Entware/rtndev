@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=urbackup-server
-PKG_VERSION:=2.3.8
+PKG_VERSION:=2.4.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://hndl.urbackup.org/Server/$(PKG_VERSION)
-PKG_HASH:=398159a5dff2c355a7c7b58a2af6a8076c5212841ac52a60abc879b9e6b67d9a
+PKG_HASH:=ed6aea5dd89b7b5b367d2d4ce5ad5f5c56883f71e69b54b8f3d1e880bfd2b4f0
 
 PKG_INSTALL:=1
 
@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/urbackup-server
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libcurl +zlib +libstdcpp
+	DEPENDS:=+libcurl +zlib +libstdcpp +zstd
 	TITLE:=UrBackup Server
 	URL:=http://www.urbackup.org/
 	MAINTAINER:=Entware team, https://entware.net
