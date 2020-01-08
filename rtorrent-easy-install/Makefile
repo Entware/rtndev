@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtorrent-easy-install
 PKG_VERSION:=0.2
-PKG_RELEASE:=3a
+PKG_RELEASE:=4
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -117,40 +117,40 @@ echo "server.port = $$web_port" >> $$www_cfg
 
 #### Configuring torrent client
 cat > $$rt_cfg << EOF
-max_uploads = 8
-session = /opt/etc/rtorrent/session
+session.path.set = /opt/etc/rtorrent/session
 schedule = watch_directory,5,5,load_start=/opt/etc/rtorrent/watchdir/*.torrent
 schedule = untied_directory,5,5,stop_untied=
 schedule = low_diskspace,5,60,close_low_diskspace=100M
-bind = 0.0.0.0
-port_range = 51411-51411
-check_hash = yes
+network.bind_address.set = 0.0.0.0
+network.port_range.set = 51411-51411
+pieces.hash.on_completion.set = yes
 trackers.use_udp.set = yes
-encryption = allow_incoming,enable_retry,prefer_plaintext
-dht = auto
-dht_port = 51412
+protocol.encryption.set = allow_incoming,enable_retry,prefer_plaintext
+dht.mode.set = auto
+dht.port.set = 51412
 protocol.pex.set = yes
-scgi_local = /opt/var/rpc.socket
-encoding_list = UTF-8
-max_uploads_global = 32
-max_downloads_global = 64
+network.scgi.open_local = /opt/var/rpc.socket
+encoding.add = utf8
+throttle.max_uploads.set = 8
+throttle.max_uploads.global.set = 32
+throttle.max_downloads.global.set = 64
 EOF
 echo -n "Enter (maximal) download speed in KB/s [2048]: "
 read download_speed
 [ -z "$$download_speed" ] && download_speed=2048
-echo "download_rate = $$download_speed" >> $$rt_cfg
+echo "throttle.global_down.max_rate.set_kb = $$download_speed" >> $$rt_cfg
 
 echo -n "Enter (maximal) upload speed in KB/s [$$download_speed]: "
 read upload_speed
 [ -z "$$upload_speed" ] && upload_speed=$$download_speed
-echo "upload_rate = $$upload_speed" >> $$rt_cfg
+echo "throttle.global_up.max_rate.set_kb = $$upload_speed" >> $$rt_cfg
 
 echo -n "Enter folder name on USB drive where torrent content should be \
     stored [/opt/torrents]: "
 read -r storage_folder
 [ -z "$$storage_folder" ] && storage_folder=/opt/torrents
 [ -d "$$storage_folder" ] || mkdir -p $$storage_folder
-echo "directory = $$storage_folder" >> $$rt_cfg
+echo "directory.default.set = $$storage_folder" >> $$rt_cfg
 
 echo -n -e "\n Done! You may open 51411-51412 TCP/UDP ports on your router to\n\
     facilitate uploading/donwloading. It's not necessary but recommended.\n\
