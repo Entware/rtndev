@@ -1,24 +1,24 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -50,7 +50,7 @@
+@@ -50,7 +50,7 @@ MAC2UNIX        = mac2unix
  UNIX2MAC        = unix2mac
  
  # Native Language Support (NLS)
 -ENABLE_NLS      = 1
-+#ENABLE_NLS      = 1
++ENABLE_NLS      = 0
  # Large File Support (LFS)
  LFS             = 1
  # DEBUG=1 adds the -g option to CFLAGS, for adding debug symbols.
-@@ -358,7 +358,7 @@
+@@ -358,7 +358,7 @@ ifdef LFS
  endif
  
  LDFLAGS_USER    =
--LDFLAGS = $(RPM_OPT_FLAGS) $(LDFLAGS_EXTRA) $(LDFLAGS_USER)
-+LDFLAGS += $(RPM_OPT_FLAGS) $(LDFLAGS_EXTRA) $(LDFLAGS_USER)
+-LDFLAGS = $(RPM_LD_FLAGS) $(LDFLAGS_EXTRA) $(LDFLAGS_USER)
++LDFLAGS += $(RPM_LD_FLAGS) $(LDFLAGS_EXTRA) $(LDFLAGS_USER)
  LIBS    = $(LIBS_EXTRA)
  
  DEFS_USER       =
-@@ -366,8 +366,7 @@
+@@ -366,8 +366,7 @@ DEFS            = $(EXTRA_DEFS) $(DEFS_U
  
  # .......................................................... targets ...
  
