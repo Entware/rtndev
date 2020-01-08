@@ -8,14 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
-PKG_VERSION:=2.8.7
+PKG_VERSION:=2.9.0
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=http://ftp.gnome.org/mirror/gnu.org/savannah/man-db
+PKG_SOURCE_URL:=@SAVANNAH/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_HASH:=b9cd5bb996305d08bfe9e1114edc30b4c97be807093b88af8033ed1cf9beb326
+PKG_HASH:=5d4aacd9e8876d6a3203a889860c3524c293c38f04111a3350deab8a6cd3e261
 
-PKG_LICENSE:=GPL, LGPL
+PKG_LICENSE:=GPL-2.0-or-later
+
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -43,16 +45,6 @@ CONFIGURE_ARGS += \
 	--disable-nls \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
 	--with-libintl-prefix="$(INTL_PREFIX)"
-
-define Build/Configure
-	$(call Build/Configure/Default)
-endef
-
-define Build/Compile
-	+$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR) \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		all install
-endef
 
 define Package/man-db/conffiles
 /opt/etc/man_db.conf
