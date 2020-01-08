@@ -36,6 +36,9 @@ define Package/xpdf/description
  various other utilities.
 endef
 
+CMAKE_OPTIONS += \
+	-DNO_FONTCONFIG=ON
+
 define Package/xpdf/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) \
