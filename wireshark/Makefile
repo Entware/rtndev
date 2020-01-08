@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/wireshark
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libcares +bcg729 +libcap +libgcrypt +glib2 +libgnutls +krb5-libs +libnghttp2 +libpcap +sbc +libspandsp +libxml2 +liblz4 +zstd
+	DEPENDS:=+libcares +bcg729 +libcap +libgcrypt +glib2 +libgnutls +krb5-libs +libnghttp2 +libpcap +sbc +libspandsp +libspeexdsp +libxml2 +liblz4 +zstd
 	TITLE:=network protocol analyzer
 	URL:=https://www.wireshark.org/
 	MAINTAINER:=Entware team, https://entware.net
