@@ -12,13 +12,12 @@ PKG_VERSION:=3.0.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=vsftpd-$(PKG_VERSION).tar.gz
-PKG_HASH:=9d4d2bf6e6e2884852ba4e69e157a2cecd68c5a7635d66a3a8cf8d898c955ef7
 PKG_SOURCE_URL:=http://vsftpd.devnet.ru/files/$(PKG_VERSION)
-PKG_MDSUM:=da119d084bd3f98664636ea05b5bb398
-
-PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
+PKG_HASH:=9d4d2bf6e6e2884852ba4e69e157a2cecd68c5a7635d66a3a8cf8d898c955ef7
 
 include $(INCLUDE_DIR)/package.mk
+
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/vsftpd-ext
 	SECTION:=net
@@ -37,7 +36,11 @@ define Package/vsftpd-ext/conffiles
 /opt/etc/vsftpd/vsftpd.conf
 endef
 
-TARGET_CFLAGS += -Wno-error -Wno-stringop-truncation
+TARGET_CFLAGS += -Wno-error
+
+ifeq ($(or $(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
+TARGET_CFLAGS += -Wno-error=stringop-truncation
+endif
 
 define Package/vsftpd-ext/install
 	$(INSTALL_DIR) $(1)/opt/sbin
