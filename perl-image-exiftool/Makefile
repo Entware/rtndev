@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-image-exiftool
-PKG_VERSION:=11.65
+PKG_VERSION:=11.81
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://www.sno.phy.queensu.ca/~phil/exiftool
 PKG_SOURCE:=Image-ExifTool-$(PKG_VERSION).tar.gz
-PKG_HASH:=8c0ec0740dc886c15a01fd05c42d8681338359f74a364055498c4fd260464b84
+PKG_HASH:=6784b85230b430ef357f80f729db858f9edd7664253210944d426b84515e03c0
 
-PKG_LICENSE:=GPL-1.0+ Artistic-1.0-Perl
+PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Image-ExifTool-$(PKG_VERSION)
 
@@ -43,7 +43,7 @@ define Package/perl-image-exiftool/install
 	$(call perlmod/Install,$(1),File Image Image/ExifTool auto/Image/ExifTool)
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/exiftool $(1)/opt/bin
-	$(SED) 's,#!.*,#!/opt/bin/perl -w,' $(1)/opt/bin/exiftool
+	$(SED) 's,#!.*perl,#!/opt/bin/perl,' $(1)/opt/bin/exiftool
 
 endef
 
