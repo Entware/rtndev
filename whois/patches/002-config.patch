@@ -12,7 +12,9 @@
 +\.spb\.ru$ whois.nic.ru
 --- a/config.h
 +++ b/config.h
-@@ -9,5 +9,5 @@
+@@ -7,9 +7,9 @@
+ #define DEFAULTSERVER   "whois.arin.net"
+ 
  /* Configuration file */
 -/*
 -#define CONFIG_FILE "/etc/whois.conf"
@@ -21,3 +23,5 @@
 +#define CONFIG_FILE "/opt/etc/whois.conf"
 +
  
+ 
+ /* autoconf in cpp macros */
