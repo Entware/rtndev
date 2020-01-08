@@ -1,6 +1,6 @@
 --- a/sys/unix/Makefile.utl
 +++ b/sys/unix/Makefile.utl
-@@ -239,11 +239,11 @@
+@@ -239,11 +239,11 @@ mdgreph: mdgrep.pl
  	perl mdgrep.pl
  
  ../include/onames.h: makedefs

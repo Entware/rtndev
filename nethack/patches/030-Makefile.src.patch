@@ -1,6 +1,6 @@
 --- a/sys/unix/Makefile.src
 +++ b/sys/unix/Makefile.src
-@@ -267,8 +267,8 @@
+@@ -267,8 +267,8 @@ WINBEOBJ =
  #WINBEOBJ = winbe.o NHWindow.o NHMenuWindow.o NHMapWindow.o tile.o
  #
  #
@@ -11,7 +11,7 @@
  #
  # Curses - Karl Garrison, Tangles
  #WINSRC = $(WINCURSESSRC)
-@@ -669,8 +669,7 @@
+@@ -669,8 +669,7 @@ tile.c: ../win/share/tilemap.c $(HACK_H)
  #	hack.h depends on makedefs' output, so we know makedefs will be
  #	up to date before being executed
  ../include/date.h:	$(VERSOURCES) $(HACK_H)

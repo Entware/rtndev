@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethack
-PKG_VERSION:=3.6.3
+PKG_VERSION:=3.6.4
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-363-src.tgz
+PKG_SOURCE:=$(PKG_NAME)-364-src.tgz
 PKG_SOURCE_URL:=https://nethack.org/download/$(PKG_VERSION)
-PKG_HASH:=1437b650d9a170fc7d53b47fe2f043a7687c74a02aa89916043039b501620b09
+PKG_HASH:=0531ab8466032611d61f702cb71fb3ceca78a7a4918885c1b4f2f17cb57dbd59
 
 PKG_INSTALL:=1
 PKG_BUILD_DEPENDS:=nethack/host
@@ -42,7 +42,7 @@ endef
 
 TARGET_CFLAGS += \
 	$(TARGET_CPPFLAGS) \
-	-I../include \
+	-I../include
 
 MAKE_VARS += \
 	LFLAGS="$(TARGET_LDFLAGS) -lncurses" \
@@ -53,7 +53,7 @@ MAKE_VARS += \
 	INSTDIR="$(PKG_INSTALL_DIR)/opt/share/nethackdir" \
 	VARDIR="$(PKG_INSTALL_DIR)/opt/share/nethackdir" \
 	CHOWN=true \
-	CHGRP=true \
+	CHGRP=true
 
 define Host/Patch
 endef
