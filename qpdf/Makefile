@@ -36,6 +36,7 @@ define Package/qpdf/description
 endef
 
 CONFIGURE_ARGS += \
+	--disable-crypto-gnutls \
 	--with-random=/dev/urandom
 
 define Package/qpdf/install

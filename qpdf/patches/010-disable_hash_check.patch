@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -21,18 +21,6 @@
+@@ -21,18 +21,6 @@ AC_ARG_ENABLE(check-autofiles,
      fi],
     [CHECK_AUTOFILES=1])
  
@@ -12,7 +12,7 @@
 -AC_CHECK_PROG(SHA256SUM,sha256sum,1,0)
 -if test "$CHECK_AUTOFILES$AUTOCONF$AUTOHEADER$ACLOCAL$SHA256SUM" = "11111"; then
 -   if ! sha256sum -c autofiles.sums; then
--       AC_MSG_ERROR(autofiles are autodated; rerun autogen.sh)
+-       AC_MSG_ERROR(autofiles are outdated; rerun autogen.sh)
 -   fi
 -fi
 -
