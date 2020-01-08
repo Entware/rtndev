@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bochs
-PKG_VERSION:=2.6.10
+PKG_VERSION:=2.6.11
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)/$(PKG_VERSION)
-PKG_HASH:=723f808b2c2ac6f886d90c4eb2000b8d075992661e6e47c8474e668e16e175b0
+PKG_HASH:=63897b41fbbbdfb1c492d3c4dee1edb4224282a07bbdf442a4a68c19bcc18862
 
 PKG_INSTALL:=1
 
@@ -41,6 +41,7 @@ CONFIGURE_ARGS += \
 	--with-rfb \
 	--with-term \
 	--disable-disasm \
+	--disable-docbook \
 	--enable-ne2000 \
 	--enable-pnic \
 	--enable-e1000
