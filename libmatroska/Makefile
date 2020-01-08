@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmatroska
-PKG_VERSION:=1.4.9
+PKG_VERSION:=1.5.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://dl.matroska.org/downloads/libmatroska
-PKG_HASH:=38a61dd5d87c070928b5deb3922b63b2b83c09e2e4a10f9393eecb6afa9795c8
+PKG_HASH:=0ac6debfbf781d47f001b830aaf9be9dfbcefd13bcfb80ca5efc1c04b4a3c962
 
-PKG_INSTALL:=1
+CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -34,16 +34,6 @@ define Package/libmatroska/description
 endef
 
 CMAKE_OPTIONS += -DBUILD_SHARED_LIBS=YES
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/matroska $(1)/opt/include
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libmatroska.so* $(1)/opt/lib/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cmake $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libmatroska.pc $(1)/opt/lib/pkgconfig/
-endef
 
 define Package/libmatroska/install
 	$(INSTALL_DIR) $(1)/opt/lib
