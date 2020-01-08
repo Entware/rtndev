@@ -1,6 +1,6 @@
 --- a/alaya.conf
 +++ b/alaya.conf
-@@ -13,7 +13,7 @@
+@@ -13,7 +13,7 @@ Port=80
  LookupClientName=N
  
  LogVerbose
@@ -9,7 +9,7 @@
  
  #Alaya will rotate logs when they hit this size
  MaxLogSize=100M
-@@ -38,7 +38,7 @@
+@@ -38,7 +38,7 @@ PackFormats=tar:internal,zip:zip -,tbz:t
  AuthMethods=pam-account,cookie,accesstoken,certificate,native
  
  #Path to file that contains 'native' authentication details
@@ -18,7 +18,7 @@
  
  #Realm used to ask people to log on to (defaults to hostname)
  AuthRealm=whatever
-@@ -56,8 +56,8 @@
+@@ -56,8 +56,8 @@ SSLVersion=tls1.2
  SSLCiphers=DH+AESGCM:DH+AES256:DH+CAMELLIA256:ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+AES:EDH-RSA-DES-CBC3-SHA:ECDH-RSA-DES-CBC3-SHA:CAMELLIA256:CAMELLIA128:DES-CBC3-SHA:!ADH:!AECDH:!MD5
  
  #Personally I normally supply these on command line
@@ -29,7 +29,7 @@
  
  #How to treat client certificates. 'required' means one is needed to log in, but username/password or access token may also
  #be required. 'sufficient' means a valid certificate is enough to log on. 'required+sufficient' means here must be one, and
-@@ -65,10 +65,10 @@
+@@ -65,10 +65,10 @@ SSLCiphers=DH+AESGCM:DH+AES256:DH+CAMELL
  SSLClientCertificate=sufficient
  
  #Path to file that contains the CA certificate used to validate client certificates
@@ -42,7 +42,7 @@
  
  
  #######  VPaths and FileType Settings  ######
-@@ -78,11 +78,11 @@
+@@ -78,11 +78,11 @@ SSLDHParams=/etc/ssl/dh/dh_param_1024.pe
  FileType=*.jpg,cache=3600,compress=N
  FileType=*.mp3,cache=3600,compress=N
  
@@ -58,7 +58,7 @@
  
  #Proxy VPath, when someone asks for he directory /google, get it from http://www.google.com/
  Path=proxy,/google,http://www.google.com/
-@@ -91,7 +91,7 @@
+@@ -91,7 +91,7 @@ Path=proxy,/google,http://www.google.com
  Path=logout,/Logout
  
  #MimeIcons VPath. This is used on the 'directory listing' page to find icons to display for files
@@ -67,7 +67,7 @@
  
  
  ##### Scripts and websockets #####
-@@ -100,14 +100,14 @@
+@@ -100,14 +100,14 @@ Path=MimeIcons,/mimeicons,/home/app-them
  # this option then you must put the correct hashes in the file for cgi scripts to work.
  # Hashes can be generated with md5sum, shasum or sha256sum or sha512sum. They should be generated against
  # the full path of the script files
@@ -87,7 +87,7 @@
  
  
  ######  EVENTS  #######
-@@ -122,9 +122,9 @@
+@@ -122,9 +122,9 @@ WebsocketHandler:*:test=/tmp/test.sh
  # BadURL (when the server considers a requested URL to be malformed)
  
  Event=Path:/favicon.ico:ignore

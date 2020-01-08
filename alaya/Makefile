@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=alaya
-PKG_VERSION:=2.1-2017.11.03
-PKG_REV:=e8817fc59c57253a78a62391986ca408b19cbc39
+PKG_VERSION:=2.3-2019.10.29
+PKG_REV:=f9f83c87556f2941d8577b920faf3725b9c570df
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -39,7 +39,7 @@ endef
 
 CONFIGURE_ARGS += \
 	--enable-xattr \
-	--enable-capabilities \
+	--enable-capabilities=no \
 	--enable-ssl \
 	--enable-ip6 \
 	--enable-pam
