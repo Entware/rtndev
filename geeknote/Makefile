@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=geeknote
 PKG_VERSION:=20140327
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_REV:=c8a74e486ed9f906227f99bf532ba0688c25d0fe
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -24,7 +24,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/geeknote
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+python +python-sqlite3 +python-openssl
+	DEPENDS:=+python-openssl +python-sqlite3
 	TITLE:=command line client for Evernote
 	URL:=http://www.geeknote.me
 	MAINTAINER:=Entware team, https://entware.net
@@ -45,12 +45,16 @@ define Package/geeknote/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/deb/geeknote.py $(1)/opt/bin/geeknote
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/deb/gnsync.py $(1)/opt/bin/gnsync
-	$(SED) 's,^#!/usr/bin/env python,#!/opt/bin/python,g' \
-	    $(1)/opt/bin/{geeknote,gnsync}
 	$(INSTALL_DIR) $(1)/opt/usr/lib/geeknone/lib
 	$(CP) $(PKG_BUILD_DIR)/lib/* $(1)/opt/usr/lib/geeknone/lib
 	$(CP) ./files/httplib_TLSv1.py $(1)/opt/usr/lib/geeknone
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/{argparser,config,editor,geeknote,gnsync,log,oauth,out,storage,tools}.py $(1)/opt/usr/lib/geeknone
+	# Entware specific: fix exec path in scripts
+	$(SED) 's,^#!.*python,#!/opt/bin/python,' $(1)/opt/bin/{geeknote,gnsync} \
+		$(1)/opt/usr/lib/geeknone/lib/evernote/edam/notestore/NoteStore-remote \
+		$(1)/opt/usr/lib/geeknone/lib/evernote/edam/userstore/UserStore-remote
+	$(FIND) $(1)/opt/usr/lib/geeknone -name '*.py' | \
+		$(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
 endef
 
 $(eval $(call BuildPackage,geeknote))
