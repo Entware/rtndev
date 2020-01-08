@@ -42,8 +42,16 @@ CONFIGURE_ARGS += \
 	--disable-ssp \
 	--disable-assert
 
-ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
-TARGET_CFLAGS += -Wno-error=format-overflow -Wno-stringop-truncation -Wno-error=sizeof-pointer-memaccess
+ifeq ($(or $(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
+TARGET_CFLAGS += \
+	-Werror=format-overflow=0 \
+	-Wno-error=stringop-truncation \
+	-Wno-error=sizeof-pointer-memaccess
+endif
+
+ifeq ($(CONFIG_GCC_USE_VERSION_9),y)
+TARGET_CFLAGS += \
+	-Werror=format-truncation=0
 endif
 
 
