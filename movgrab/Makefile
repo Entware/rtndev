@@ -4,14 +4,12 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 3.1.2 raises following error:
-# Process.c:63:14: error: conflicting types for 'program_invocation_name'
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=movgrab
-PKG_VERSION:=3.0.3
-PKG_REV:=c3483712163806199005e40c0e372ae29487b021
+PKG_VERSION:=3.1.2
+PKG_REV:=353e9770d64082b18a15bce683b627ace2bfd81b
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -41,7 +39,7 @@ TARGET_CFLAGS += $(TARGET_CPPFLAGS) $(TARGET_LDFLAGS)
 CONFIGURE_ARGS += \
 	--prefix=/opt \
 	--enable-ssl \
-	--enable-largefiles \
+	--enable-largefiles
 
 define Build/Configure
 	rm -f $(PKG_BUILD_DIR)/libUseful-2.0/*.{o,a,so}

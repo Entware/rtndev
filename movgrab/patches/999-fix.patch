@@ -1,0 +1,21 @@
+--- a/libUseful-2.8/Process.c
++++ b/libUseful-2.8/Process.c
+@@ -1,6 +1,6 @@
+ #include "Process.h"
+ #define _GNU_SOURCE
+-#include "errno.h"
++#include <errno.h>
+ #include "includes.h"
+ #include "Time.h"
+ #include <pwd.h>
+@@ -60,8 +60,8 @@ for (i=0; environ[i] != NULL; i++) envir
+ 
+ //These might point to argv[0], so make copies of these too
+ #ifdef __GNU_LIBRARY__
+-extern char *program_invocation_name;
+-extern char *program_invocation_short_name;
++/* extern char *program_invocation_name;
++extern char *program_invocation_short_name; */
+ 
+ program_invocation_name=strdup(program_invocation_name);
+ program_invocation_short_name=strdup(program_invocation_short_name);
