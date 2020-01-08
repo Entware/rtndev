@@ -52,8 +52,11 @@ Package/simple-obfs-server/description = $(Package/simple-obfs/description)
 
 CONFIGURE_ARGS += --disable-ssp --disable-documentation --disable-assert
 
-ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
+ifeq ($(or $(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
 TARGET_CFLAGS += -Wno-error=stringop-truncation
+endif
+ifeq ($(CONFIG_GCC_USE_VERSION_9),y)
+TARGET_CFLAGS += -Werror=stringop-overflow=0
 endif
 
 
