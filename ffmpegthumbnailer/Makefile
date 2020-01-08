@@ -5,17 +5,18 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-#
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ffmpegthumbnailer
-PKG_VERSION:=2.2.0
+PKG_VERSION:=2.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/$(PKG_VERSION)
-PKG_HASH:=e5c31299d064968198cd378f7488e52cd5e738fac998eea780bc77d7f32238c2
+PKG_HASH:=1cb24059c38223f657b300c84dd80491b7040d4b69471c4fea69be862bc99b5b
+
+CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -35,15 +36,6 @@ endef
 
 CMAKE_OPTIONS = -DCMAKE_BUILD_TYPE=Release
 # -DENABLE_STATIC=On
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/libffmpegthumbnailer $(1)/opt/include/
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libffmpegthumbnailer*.so* $(1)/opt/lib/
-	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libffmpegthumbnailer.pc $(1)/opt/lib/pkgconfig/
-endef
 
 define Package/libffmpegthumbnailer/install
 	$(INSTALL_DIR) $(1)/opt/lib
