@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=rutorrent
 PKG_VERSION:=3.10-beta
 PKG_REV:=ec8d8f1887af57793a671258072b59193a5d8d6c
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -83,6 +83,9 @@ define Package/rutorrent/install
 	$(INSTALL_DIR) $(1)/opt/share/www/rutorrent/plugins
 	$(CP) $(PKG_BUILD_DIR)/{conf,css,images,js,lang,php,share,htaccess-example,index.html} \
 		$(1)/opt/share/www/rutorrent
+	# Entware specific: fix exec path in scripts
+	### ! for plugin
+	$(SED) 's,^#!.*bash,#!/opt/bin/bash,' $(PKG_BUILD_DIR)/plugins/geoip/make_css.sh
 endef
 
 define BuildPlugin

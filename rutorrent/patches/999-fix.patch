@@ -1,0 +1,22 @@
+--- a/conf/access-swap.sh	2020-01-07 19:09:49.372347089 +0300
++++ b/conf/access-swap.sh	2020-01-07 19:09:34.152617427 +0300
+@@ -1,15 +1,15 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ # This script will quickly and easily swap between two different configurations so that access to configuration
+ # options can be easily turned on or off, this can help to protect against unauthorised setting changes.
+ 
+-STR=$(cat access.ini | head -n1| cut -c4)
++STR=$(cat < access.ini | head -n1 | cut -c4)
+ GOOD=$(cat access_yes)
+ BAD=$(cat access_no)
+ 
+-echo $STR
++echo "$STR"
+ 
+-if [ $STR = 0 ]
++if [ "$STR" = 0 ]
+ then
+         echo -e "\x1B[31m Access Opened \x1B[0m"
+         echo "$GOOD" > access.ini
