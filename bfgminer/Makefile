@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bfgminer
 PKG_VERSION:=5.5.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).txz
 PKG_SOURCE_URL:=http://luke.dashjr.org/programs/bitcoin/files/$(PKG_NAME)/$(PKG_VERSION)
@@ -21,9 +21,9 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Download/uthash
-	FILE:=v2.0.2
+	FILE:=v2.1.0
 	URL:=https://codeload.github.com/troydhanson/uthash/tar.gz/
-	HASH:=34a31d51dd7a839819cecd6f46049b4ffe031d7f3147d9a042f5504fdb1348d1
+	HASH:=152ccd8e64d0f495377232e3964d06c7ec8bb8c3fbd3217f8a5702614f9a669e
 endef
 $(eval $(call Download,uthash))
 
@@ -43,7 +43,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	gzip -dc $(DL_DIR)/v2.0.2 | $(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+	gzip -dc $(DL_DIR)/v2.1.0 | $(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 endef
 
 CONFIGURE_ARGS += \
@@ -56,11 +56,11 @@ CONFIGURE_ARGS += \
 	--without-libmicrohttpd \
 	--with-curses=ncurses \
 	--without-system-libbase58 \
-	--without-libudev \
+	--without-libudev
 
 TARGET_CFLAGS += \
 	-std=gnu99 \
-	-Iuthash-2.0.2/src
+	-Iuthash-2.1.0/src
 
 define Package/bfgminer/install
 	$(INSTALL_DIR) $(1)/opt/bin
