@@ -1,6 +1,6 @@
 --- a/configure
 +++ b/configure
-@@ -11260,14 +11260,6 @@
+@@ -11709,14 +11709,6 @@ $as_echo_n "checking for DocBook XSL roo
      fi
    done
  
@@ -15,11 +15,10 @@
  fi
  
  # It's just rude to go over the net to build
-@@ -11327,39 +11319,6 @@
- 
+@@ -11777,39 +11769,6 @@ fi
  
  fi
--
+ 
 -if test -z "$XSLTPROC" -o ! -x "$XSLTPROC"; then
 -  as_fn_error $? "xsltproc wasn't found" "$LINENO" 5
 -fi
@@ -52,16 +51,16 @@
 -
 -
 -
- 
+-
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking POSIX termios" >&5
  $as_echo_n "checking POSIX termios... " >&6; }
+ if ${ac_cv_sys_posix_termios+:} false; then :
 --- a/Rakefile
 +++ b/Rakefile
-@@ -197,23 +197,6 @@
-     targets << "TAGS"   if !c(:ETAGS).empty?
+@@ -262,23 +262,6 @@ def define_default_task
      targets << "BROWSE" if !c(:EBROWSE).empty?
    end
--
+ 
 -  # Build developer documentation?
 -  targets << "doc/development.html" if !c(:PANDOC).empty?
 -
@@ -78,6 +77,7 @@
 -  # Build ebml_validator by default when not cross-compiling as it is
 -  # needed for running the tests.
 -  targets << "apps:tools:ebml_validator" if c(:host) == c(:build)
- 
+-
    targets << "src/benchmark/benchmark" if c?(:GOOGLE_BENCHMARK) && !$benchmark_sources.empty?
  
+   task :default => targets do

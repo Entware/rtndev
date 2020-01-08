@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=37.0.0
+PKG_VERSION:=42.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_HASH:=3d421af5307243591b726427a2c1a9c3cb496e8a5003362b5069558fc2488d64
+PKG_HASH:=2c8215c22a3a75925c0f1568235fbe2e34172021e43fb45081400b7c6b610033
 
 PKG_BUILD_DEPENDS:=ruby/host
 
@@ -36,15 +36,21 @@ define Package/mkvtoolnix/description
 endef
 
 CONFIGURE_ARGS += \
-	--disable-gui \
 	--disable-static \
+	--disable-qt \
 	--with-boost=$(STAGING_DIR)/opt \
-	--without-curl \
 	--without-gettext \
+	--without-qt-pkg-config \
+	--without-moc \
+	--without-uic \
+	--without-rcc \
+	--without-qmake
+
+TARGET_CFLAGS += -Wno-logical-op
 
 TARGET_LDFLAGS += \
 	-lstdc++ \
-	-lintl \
+	-lintl
 
 define Build/Compile
 	cd $(PKG_BUILD_DIR); rake --jobs=1
