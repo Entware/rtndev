@@ -11,12 +11,10 @@ PKG_NAME:=python-cloudprint
 PKG_VERSION:=0.14
 PKG_RELEASE:=1
 
-PKG_SOURCE:=cloudprint-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/1f/ae/eb06181cf118da2a2286e4d288e1e4575e9265b9b5ce514da1b2f5815c18
+PYPI_NAME:=cloudprint
 PKG_HASH:=3b81246d675e0c13fffada7386e6f91e826cb374b57df662f2df72b9fedad237
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/cloudprint-$(PKG_VERSION)
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
