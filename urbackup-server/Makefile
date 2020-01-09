@@ -36,6 +36,8 @@ CONFIGURE_ARGS += \
 	--enable-embedded-cryptopp \
 	--oldincludedir="$(STAGING_DIR)/opt/include"
 
+TARGET_LDFLAGS += -lssp
+
 define Build/Prepare
 	$(call Build/Prepare/Default)
     ifeq ($(CONFIG_arm),y)
