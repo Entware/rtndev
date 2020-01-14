@@ -20,6 +20,10 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
+# XXX error: option --single-version-externally-managed not recognized
+PYTHON_PKG_SETUP_ARGS:=
+PYTHON3_PKG_SETUP_ARGS:=
+
 define Package/python-greenlet/Default
 	SECTION:=lang
 	CATEGORY:=Languages
@@ -48,15 +52,7 @@ endef
 define Package/python3-greenlet/description
 $(call Package/python-greenlet/description)
 .
-(Variant for Python3).
-endef
-
-define PyBuild/Compile
-	$(call Build/Compile/PyMod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
-endef
-
-define Py3Build/Compile
-	$(call Build/Compile/Py3Mod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
+(Variant for Python3)
 endef
 
 $(eval $(call PyPackage,python-greenlet))
