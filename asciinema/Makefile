@@ -26,6 +26,7 @@ define Package/asciinema
 	TITLE:=A terminal sessions recorder
 	URL:=http://asciinema.org/
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python3
 endef
 
 define Package/asciinema/description
@@ -36,21 +37,5 @@ define Package/asciinema/conffiles
 /opt/etc/asciinema/config
 endef
 
-define Build/Compile
-	$(call Build/Compile/Py3Mod,,install \
-	    --prefix=/opt \
-	    --root="$(PKG_INSTALL_DIR)" \
-	)
-endef
-
-define Package/asciinema/install
-	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
-	$(CP) \
-	    $(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* \
-	    $(1)$(PYTHON3_PKG_DIR)
-	$(INSTALL_DIR) $(1)/opt/bin
-	$(CP) $(PKG_INSTALL_DIR)/opt/bin/$(PKG_NAME) $(1)/opt/bin
-	$(SED) 's,^#!.*python,#!/opt/bin/python,' $(1)/opt/bin/$(PKG_NAME)
-endef
-
+$(eval $(call Py3Package,asciinema))
 $(eval $(call BuildPackage,asciinema))
