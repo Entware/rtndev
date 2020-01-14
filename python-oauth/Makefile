@@ -27,24 +27,12 @@ define Package/python-oauth
 	TITLE:=Library for OAuth 1.0a
 	URL:=http://code.google.com/p/oauth
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/python-oauth/description
  Library for OAuth version 1.0a.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install \
-		--prefix=/opt \
-		--root="$(PKG_INSTALL_DIR)" \
-	)
-endef
-
-define Package/python-oauth/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-		$(1)$(PYTHON_PKG_DIR)
-endef
-
+$(eval $(call PyPackage,python-oauth))
 $(eval $(call BuildPackage,python-oauth))
