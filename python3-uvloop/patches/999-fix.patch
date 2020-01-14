@@ -1,0 +1,54 @@
+--- a/setup.py
++++ b/setup.py
+@@ -165,18 +165,6 @@ class uvloop_build_ext(build_ext):
+ 
+         # Sometimes pip fails to preserve the timestamps correctly,
+         # in which case, make will try to run autotools again.
+-        subprocess.run(
+-            ['touch', 'configure.ac', 'aclocal.m4', 'configure',
+-             'Makefile.am', 'Makefile.in'],
+-            cwd=LIBUV_BUILD_DIR, env=env, check=True)
+-
+-        if 'LIBUV_CONFIGURE_HOST' in env:
+-            cmd = ['./configure', '--host=' + env['LIBUV_CONFIGURE_HOST']]
+-        else:
+-            cmd = ['./configure']
+-        subprocess.run(
+-            cmd,
+-            cwd=LIBUV_BUILD_DIR, env=env, check=True)
+ 
+         j_flag = '-j{}'.format(os.cpu_count() or 1)
+         c_flag = "CFLAGS={}".format(env['CFLAGS'])
+--- a/vendor/libuv/src/unix/thread.c
++++ b/vendor/libuv/src/unix/thread.c
+@@ -41,6 +41,10 @@
+ #include <gnu/libc-version.h>  /* gnu_get_libc_version() */
+ #endif
+ 
++#ifdef __UCLIBC__
++#include <gnu-versions.h>
++#endif
++
+ #undef NANOSEC
+ #define NANOSEC ((uint64_t) 1e9)
+ 
+--- a/uvloop/loop.c
++++ b/uvloop/loop.c
+@@ -628,6 +628,17 @@ static CYTHON_INLINE float __PYX_NAN() {
+ #include <omp.h>
+ #endif /* _OPENMP */
+ 
++#ifndef LINUX_VERSION_CODE
++#include <linux/version.h>
++#endif
++
++/* SO_REUSEPORT since Linux 3.9 */
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,9,0)
++#define SO_REUSEPORT SO_REUSEADDR
++/* or #define SO_REUSEPORT 0x0200 */
++/* Allow local address and port reuse. */
++#endif
++
+ #if defined(PYREX_WITHOUT_ASSERTIONS) && !defined(CYTHON_WITHOUT_ASSERTIONS)
+ #define CYTHON_WITHOUT_ASSERTIONS
+ #endif
