@@ -48,23 +48,7 @@ endef
 define Package/python3-psutil/description
 $(call Package/python-psutil/description)
 .
-(Variant for Python3).
-endef
-
-define Package/python-psutil/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* $(1)$(PYTHON_PKG_DIR)
-	# Entware specific: fix exec path in scripts
-	$(FIND) $(1)/opt -name '*.py' | $(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
-endef
-
-define Package/python3-psutil/install
-	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* $(1)$(PYTHON3_PKG_DIR)
-	# Entware specific: fix exec path in scripts
-	$(FIND) $(1)/opt -name '*.py' | $(XARGS) $(SED) 's,^#!.*,#!/opt/bin/python3,'
+(Variant for Python3)
 endef
 
 $(eval $(call PyPackage,python-psutil))
