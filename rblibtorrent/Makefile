@@ -22,13 +22,14 @@ PKG_FIXUP:=autoreconf libtool
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/rblibtorrent
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Rasterbar BitTorrent library
   URL:=http://www.rasterbar.com/products/libtorrent/
-  DEPENDS:=+boost-chrono +boost-python +boost-random +boost-system +libopenssl
+  DEPENDS:=+boost-chrono +boost-python3 +boost-random +boost-system +libopenssl
 endef
 
 define Package/rblibtorrent/description
@@ -44,13 +45,13 @@ CONFIGURE_ARGS += \
 	--with-boost=$(STAGING_DIR)/opt \
 	--with-boost-libdir=$(STAGING_DIR)/opt/lib \
 	CC=$(TARGET_CXX) \
-	CPPFLAGS="$(TARGET_CPPFLAGS) $(shell $(STAGING_DIR)/host/bin/python2.7-config --includes)" \
+	CPPFLAGS="$(TARGET_CPPFLAGS) $(shell $(STAGING_DIR)/host/bin/python$(PYTHON3_VERSION)-config --includes)" \
 	LDFLAGS="$(TARGET_LDFLAGS)" \
-	PYTHON=$(STAGING_DIR_HOSTPKG)/bin/python \
-	PYTHON_CPPFLAGS="-I$(STAGING_DIR)/opt/include/python2.7" \
-	PYTHON_LDFLAGS="$(shell $(STAGING_DIR)/host/bin/python2.7-config --libs)" \
-	PYTHON_LIBS="-L$(STAGING_DIR)/opt/lib -lpython2.7" \
-	PYTHON_SITE_PKG="$(STAGING_DIR)/opt/lib/python2.7/site-packages"
+	PYTHON=$(STAGING_DIR_HOSTPKG)/bin/python$(PYTHON3_VERSION) \
+	PYTHON_CPPFLAGS="-I$(STAGING_DIR)/opt/include/python$(PYTHON3_VERSION)" \
+	PYTHON_LDFLAGS="$(shell $(STAGING_DIR)/host/bin/python$(PYTHON3_VERSION)-config --libs)" \
+	PYTHON_LIBS="-L$(STAGING_DIR)/opt/lib -lpython$(PYTHON3_VERSION)" \
+	PYTHON_SITE_PKG="$(STAGING_DIR)/opt/lib/python$(PYTHON3_VERSION)/site-packages"
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
@@ -62,9 +63,9 @@ define Build/InstallDev
 endef
 
 define Package/rblibtorrent/install
-	$(INSTALL_DIR) $(1)/opt/lib $(1)/opt/lib/python2.7/site-packages/
+	$(INSTALL_DIR) $(1)/opt/lib/python$(PYTHON3_VERSION)/site-packages
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/python2.7/site-packages/*.so* $(1)/opt/lib/python2.7/site-packages/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/python$(PYTHON3_VERSION)/site-packages/*.so* $(1)/opt/lib/python$(PYTHON3_VERSION)/site-packages/
 endef
 
 $(eval $(call BuildPackage,rblibtorrent))
