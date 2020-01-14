@@ -27,6 +27,7 @@ define Package/python-werkzeug
 	TITLE:=python utilities for WSGI applications
 	URL:=https://palletsprojects.com/p/werkzeug
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/python-werkzeug/description
@@ -34,15 +35,5 @@ define Package/python-werkzeug/description
  applications and has become one of the most advanced WSGI utility modules.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
-endef
-
-define Package/python-werkzeug/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-		$(1)$(PYTHON_PKG_DIR)
-endef
-
+$(eval $(call PyPackage,python-werkzeug))
 $(eval $(call BuildPackage,python-werkzeug))
