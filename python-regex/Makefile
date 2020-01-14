@@ -47,7 +47,7 @@ endef
 define Package/python3-regex/description
 $(call Package/python-regex/description)
 .
-(Variant for Python3).
+(Variant for Python3)
 endef
 
 $(eval $(call PyPackage,python-regex))
