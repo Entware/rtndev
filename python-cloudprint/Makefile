@@ -26,6 +26,7 @@ define Package/python-cloudprint
 	TITLE:=Python bindings for the cloudprint API
 	URL:=http://cyberelk.net/tim/software/pycloudprint/
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/python-cloudprint/description
@@ -33,22 +34,5 @@ define Package/python-cloudprint/description
  for use with system-config-printer, but can be put to other uses as well.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install \
-		--prefix=/opt \
-		--root=$(PKG_INSTALL_DIR) \
-	)
-endef
-
-define Package/python-cloudprint/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-		$(1)$(PYTHON_PKG_DIR)
-	chmod +x $(1)$(PYTHON_PKG_DIR)/cloudprint/cloudprint.py
-	$(INSTALL_DIR) $(1)/opt/{bin,var}
-	ln -s $(PYTHON_PKG_DIR)/cloudprint/cloudprint.py \
-		$(1)/opt/bin/cloudprint
-endef
-
+$(eval $(call PyPackage,python-cloudprint))
 $(eval $(call BuildPackage,python-cloudprint))

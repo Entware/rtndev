@@ -5,7 +5,7 @@
          metavar='account_file',
          dest='authfile',
 -        default=os.path.expanduser('~/.cloudprintauth.json'),
-+        default='/opt/var/.cloudprintauth.json'
++        default='/opt/var/.cloudprintauth.json',
          help='path to google account ident data (default %(default)s)',
      )
      parser.add_argument(
