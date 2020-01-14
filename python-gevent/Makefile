@@ -50,7 +50,17 @@ endef
 define Package/python3-gevent/description
 $(call Package/python-gevent/description)
 .
-(Variant for Python3).
+(Variant for Python3)
+endef
+
+define PyPackage/python-gevent/filespec
++|$(PYTHON_PKG_DIR)
+-|$(PYTHON_PKG_DIR)/gevent/_*3.py
+endef
+
+define Py3Package/python3-gevent/filespec
++|$(PYTHON3_PKG_DIR)
+-|$(PYTHON3_PKG_DIR)/gevent/_*2.py
 endef
 
 define Build/Configure
@@ -72,28 +82,6 @@ define Build/Configure
 		--prefix=/opt \
 	);
 	$(call Build/Configure/Default)
-endef
-
-define PyBuild/Compile
-	$(call Build/Compile/PyMod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
-endef
-
-define Py3Build/Compile
-	$(call Build/Compile/Py3Mod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
-endef
-
-define Package/python-gevent/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-		$(1)$(PYTHON_PKG_DIR)
-endef
-
-define Package/python3-gevent/install
-	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* \
-		$(1)$(PYTHON3_PKG_DIR)
 endef
 
 $(eval $(call PyPackage,python-gevent))
