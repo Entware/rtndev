@@ -26,6 +26,7 @@ define Package/$(PKG_NAME)
 	URL:=https://github.com/mk-fg/python-onedrive
 	DEPENDS:=+python-requests +python-yaml
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/$(PKG_NAME)/description
@@ -33,25 +34,5 @@ define Package/$(PKG_NAME)/description
  REST API v5.0.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install \
-	    --prefix=/opt \
-	    --root="$(PKG_INSTALL_DIR)" \
-	)
-endef
-
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-	    $(1)$(PYTHON_PKG_DIR)/
-	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/onedrive/cli_tool.py $(1)/opt/bin/onedrive-cli
-	# Entware specific: fix exec path in scripts
-	$(SED) 's,^#!.*python,#!/opt/bin/python,' \
-		$(1)/opt/bin/onedrive-cli
-	$(FIND) $(1)$(PYTHON_PKG_DIR) -type f -name '*.py' | \
-		$(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
-endef
-
+$(eval $(call PyPackage,$(PKG_NAME)))
 $(eval $(call BuildPackage,$(PKG_NAME)))
