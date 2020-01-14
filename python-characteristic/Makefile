@@ -27,7 +27,7 @@ define Package/python-characteristic
   SUBMENU:=Python
   TITLE:=python-characteristic
   URL:=https://characteristic.readthedocs.org/
-  DEPENDS:=+python
+  VARIANT:=python
 endef
 
 define Package/python-characteristic/description
@@ -35,15 +35,5 @@ define Package/python-characteristic/description
   the most common attribute-related object protocols.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install --prefix=/opt --root=$(PKG_INSTALL_DIR))
-endef
-
-define Package/python-characteristic/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-	    $(1)$(PYTHON_PKG_DIR)
-endef
-
+$(eval $(call PyPackage,python-characteristic))
 $(eval $(call BuildPackage,python-characteristic))
