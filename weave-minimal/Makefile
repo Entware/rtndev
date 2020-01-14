@@ -26,6 +26,7 @@ define Package/weave-minimal
 	TITLE:=a Firefox Sync Server
 	URL:=https://github.com/posativ/weave-minimal
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/weave-minimal/description
@@ -34,25 +35,17 @@ define Package/weave-minimal/description
  DOES NOT WORK WITH FIREFOX 29 OR LATER.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install \
-	    --prefix=/opt \
-	    --root="$(PKG_INSTALL_DIR)" \
-	)
-endef
-
 define Package/weave-minimal/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
 	$(CP) \
 		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
 		$(1)$(PYTHON_PKG_DIR)
-	$(SED) 's,$(HOST_PYTHON_BIN),/opt/bin/python,g' \
-	    $(PKG_INSTALL_DIR)/opt/bin/weave-minimal
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/weave-minimal $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S92weave-minimal $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/var/weave
+	$(call PyShebang,$(1)/opt/bin/*)
 	# Entware specific: fix exec path in scripts
 	$(FIND) $(1)$(PYTHON_PKG_DIR) -name '*.py' | \
 		$(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
@@ -66,4 +59,5 @@ echo \'weave-minimal --data-dir=/opt/var/weave --register user:password\'
 echo and edit host\\port at \'/opt/etc/init.d/S92weave-minimal\'
 endef
 
+$(eval $(call PyPackage,weave-minimal))
 $(eval $(call BuildPackage,weave-minimal))
