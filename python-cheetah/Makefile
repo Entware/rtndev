@@ -27,6 +27,7 @@ define Package/python-cheetah
 	TITLE:=Python-powered template engine
 	URL:=http://www.cheetahtemplate.org/
 	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/python-cheetah/description
@@ -37,27 +38,5 @@ define Package/python-cheetah/description
  code.
 endef
 
-define Build/Compile
-	$(call Build/Compile/PyMod,,install \
-	    --prefix=/opt \
-	    --root=$(PKG_INSTALL_DIR) \
-	)
-endef
-
-define Package/python-cheetah/install
-	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) \
-		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
-		$(1)$(PYTHON_PKG_DIR)
-	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) \
-		$(PKG_INSTALL_DIR)/opt/bin/cheetah{,-analyze,-compile} \
-		$(1)/opt/bin
-	# Entware specific: fix exec path in scripts
-	$(SED) 's,^#!.*python,#!/opt/bin/python,' \
-		$(1)/opt/bin/cheetah{,-analyze,-compile}
-	$(FIND) $(1)$(PYTHON_PKG_DIR) -type f -name '*.py' | \
-		$(XARGS) $(SED) 's,^#!.*python,#!/opt/bin/python,'
-endef
-
+$(eval $(call PyPackage,python-cheetah))
 $(eval $(call BuildPackage,python-cheetah))
