@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=2.0.3
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PYPI_NAME:=deluge
 PKG_HASH:=bd26950f417de2a5b26827d989935a30e770f880c22cb59ca69f781cdc9a14c9
@@ -64,7 +64,8 @@ define Package/deluge/install
 	    $(1)$(PYTHON3_PKG_DIR)/
 	rm -rf $(1)$(PYTHON3_PKG_DIR)/deluge/ui/gtk3
 	rm -rf $(1)$(PYTHON3_PKG_DIR)/deluge/ui/web
-	$(SED) "s,save_config_path('deluge'),'/opt/etc/deluge'," $(1)$(PYTHON3_PKG_DIR)/deluge/common.py
+	$(SED) "s,save_config_path('deluge'),'/opt/etc/deluge'," \
+		$(1)$(PYTHON3_PKG_DIR)/deluge/common.py
 
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(CP) \
@@ -74,7 +75,8 @@ define Package/deluge/install
 	$(INSTALL_BIN) ./files/S80deluged $(1)/opt/etc/init.d
 	rm -rf $(1)/opt/bin/deluge-gtk
 	rm -rf $(1)/opt/bin/deluge-web
-	$(call Py3Shebang,$(1)/opt/bin/*)
+	$(call Py3Shebang,$(1)/opt/bin/* \
+	$(1)$(PYTHON3_PKG_DIR)/deluge/path_*.py)
 endef
 
 define Package/deluge-ui-web/install

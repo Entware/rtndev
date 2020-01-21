@@ -1,6 +1,6 @@
 --- a/deluge/core/preferencesmanager.py
 +++ b/deluge/core/preferencesmanager.py
-@@ -121,7 +121,7 @@
+@@ -121,7 +121,7 @@ DEFAULT_PREFS = {
      },
      'peer_tos': '0x00',
      'rate_limit_ip_overhead': True,
