@@ -28,7 +28,7 @@ define Package/ctags
   CATEGORY:=Utilities
   TITLE:=Universal Ctags
   URL:=https://ctags.io
-  DEPENDS:=+jansson +libyaml +libxml2
+  DEPENDS:=$(ICONV_DEPENDS) +jansson +libyaml +libxml2
 endef
 
 define Package/ctags/description
