@@ -25,7 +25,7 @@ define Package/python3-borgbackup
   SUBMENU:=Python
   TITLE:=a deduplicating backup program
   URL:=https://borgbackup.readthedocs.io
-  DEPENDS:=+python3-light +libacl +libopenssl +libstdcpp
+  DEPENDS:=+python3-light +libacl +libopenssl +libstdcpp +zstd
   VARIANT:=python3
 endef
 
@@ -40,10 +40,8 @@ define Package/python3-borgbackup/description
 endef
 
 PYTHON3_PKG_SETUP_VARS+= \
-	BORG_OPENSSL_PREFIX='$(STAGING_DIR)/opt'
-#	BORG_LIBLZ4_PREFIX='$(STAGING_DIR)/opt' \
-#	BORG_LIBB2_PREFIX= \
-#	BORG_LIBZSTD_PREFIX='$(STAGING_DIR)/opt'
+	BORG_OPENSSL_PREFIX='$(STAGING_DIR)/opt' \
+	BORG_LIBZSTD_PREFIX='$(STAGING_DIR)/opt'
 
 $(eval $(call Py3Package,python3-borgbackup))
 $(eval $(call BuildPackage,python3-borgbackup))
