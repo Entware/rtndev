@@ -37,17 +37,19 @@ endef
 
 CONFIGURE_ARGS += \
 	--disable-doc \
+	--disable-video \
 	--with-graphicsmagick \
 	--without-gtk \
 	--without-imagemagick \
 	--without-java \
 	--without-python \
 	--without-qt \
-	--without-qt5
+	--without-qt5 \
+	--without-dbus	
 
 define Package/zbar/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/zbar{cam,img} $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/zbarimg $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libzbar.so.* $(1)/opt/lib
 endef
