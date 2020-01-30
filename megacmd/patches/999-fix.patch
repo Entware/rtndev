@@ -1,0 +1,279 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -366,8 +366,8 @@ AC_ARG_WITH(readline,
+     ])
+     # readline requires termcap (or ncurses)
+     SAVE_LIBS=$LIBS
+-    LIBS="$TERMCAP_LIBS $LIBS"
+-    AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++    LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++    AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+         AC_MSG_ERROR([readline library is required for the sample client.])])
+     LIBS=$SAVE_LIBS
+      ;;
+@@ -396,8 +396,8 @@ AC_ARG_WITH(readline,
+ 
+     # readline requires termcap (or ncurses)
+     SAVE_LIBS=$LIBS
+-    LIBS="$TERMCAP_LIBS $LIBS"
+-    AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++    LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++    AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+         AC_MSG_ERROR([readline library is required for the sample client.])])
+     LIBS=$SAVE_LIBS
+ 
+@@ -414,8 +414,8 @@ AC_ARG_WITH(readline,
+     ])
+     # readline requires termcap (or ncurses)
+     SAVE_LIBS=$LIBS
+-    LIBS="$TERMCAP_LIBS $LIBS"
+-    AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++    LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++    AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+         AC_MSG_ERROR([readline library is required for the sample client.])])
+     LIBS=$SAVE_LIBS
+   ]
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -31,9 +31,9 @@ else
+ AM_CPPFLAGS+=-I$(top_srcdir)/sdk/include/mega/posix
+ endif
+ 
+-if ANDROID
++#if ANDROID
+ AM_LIBTOOLFLAGS="--tag=CXX"
+-endif
++#endif
+ 
+ if LINUX
+ AM_LIBTOOLFLAGS="--tag=CXX"
+--- a/src/updater/UpdateTask.h
++++ b/src/updater/UpdateTask.h
+@@ -1,20 +1,20 @@
+ #ifndef UPDATETASK_H
+ #define UPDATETASK_H
+ 
+-#include <cryptopp/cryptlib.h>
+-#include <cryptopp/modes.h>
+-#include <cryptopp/ccm.h>
+-#include <cryptopp/gcm.h>
+-#include <cryptopp/integer.h>
+-#include <cryptopp/aes.h>
+-#include <cryptopp/osrng.h>
+-#include <cryptopp/sha.h>
+-#include <cryptopp/rsa.h>
+-#include <cryptopp/crc.h>
+-#include <cryptopp/nbtheory.h>
+-#include <cryptopp/algparam.h>
+-#include <cryptopp/hmac.h>
+-#include <cryptopp/pwdbased.h>
++#include <crypto++/cryptlib.h>
++#include <crypto++/modes.h>
++#include <crypto++/ccm.h>
++#include <crypto++/gcm.h>
++#include <crypto++/integer.h>
++#include <crypto++/aes.h>
++#include <crypto++/osrng.h>
++#include <crypto++/sha.h>
++#include <crypto++/rsa.h>
++#include <crypto++/crc.h>
++#include <crypto++/nbtheory.h>
++#include <crypto++/algparam.h>
++#include <crypto++/hmac.h>
++#include <crypto++/pwdbased.h>
+ 
+ #if CRYPTOPP_VERSION >= 600 && ((__cplusplus >= 201103L) || (__RPCNDR_H_VERSION__ == 500))
+ using byte = CryptoPP::byte;
+--- a/sdk/configure.ac
++++ b/sdk/configure.ac
+@@ -47,7 +47,7 @@ m4_define([mega_lt_age], [0])
+ AC_INIT([libmega], m4_esyscmd([ grep define < include/mega/version.h | awk '{print $3}' | awk 'BEGIN { RS = "" ; FS = "\n" } {printf $1"."$2"."$3}']), [https://github.com/meganz/sdk])
+ 
+ #override default /usr/local prefix
+-AC_PREFIX_DEFAULT([/])
++AC_PREFIX_DEFAULT([/opt])
+ 
+ # Define _GNU_SOURCE
+ # AC_GNU_SOURCE
+@@ -367,8 +367,8 @@ SAVE_CXXFLAGS=$CXXFLAGS
+ SAVE_CPPFLAGS=$CPPFLAGS
+ 
+ #libcryptopp
+-CRYPTO_LIBS="-lcryptopp"
+-AC_MSG_CHECKING(for libcryptopp)
++CRYPTO_LIBS="-lcrypto++"
++AC_MSG_CHECKING(for libcrypto++)
+ cryptopp=false
+ AC_ARG_WITH(cryptopp,
+   AS_HELP_STRING(--with-cryptopp=PATH, base of libcrypto installation),
+@@ -378,11 +378,11 @@ AC_ARG_WITH(cryptopp,
+     cryptopp=false
+      ;;
+    yes)
+-    AC_CHECK_HEADERS([cryptopp/cryptlib.h],, [
+-        AC_MSG_ERROR([cryptopp/cryptlib.h header not found or not usable])
++    AC_CHECK_HEADERS([crypto++/cryptlib.h],, [
++        AC_MSG_ERROR([crypto++/cryptlib.h header not found or not usable])
+     ])
+-    AC_CHECK_LIB(cryptopp, [main], [CRYPTO_LIBS="-lcryptopp"],[
+-            AC_MSG_ERROR([Could not find libcryptopp])
++    AC_CHECK_LIB(crypto++, [main], [CRYPTO_LIBS="-lcrypto++"],[
++            AC_MSG_ERROR([Could not find libcrypto++])
+     ])
+     cryptopp=true
+      ;;
+@@ -394,11 +394,11 @@ AC_ARG_WITH(cryptopp,
+         CXXFLAGS="-I$with_cryptopp/include $CXXFLAGS"
+         CPPFLAGS="-I$with_cryptopp/include $CPPFLAGS"
+ 
+-        AC_CHECK_HEADERS(cryptopp/cryptlib.h,
++        AC_CHECK_HEADERS(crypto++/cryptlib.h,
+          CRYPTO_CXXFLAGS="-I$with_cryptopp/include"
+          CRYPTO_CPPFLAGS="-I$with_cryptopp/include"
+          CRYPTO_LDFLAGS="-L$with_cryptopp/lib",
+-         AC_MSG_ERROR([cryptopp/cryptlib.h header not found or not usable])
++         AC_MSG_ERROR([crypto++/cryptlib.h header not found or not usable])
+          )
+     # assume we are using crypto source directory
+     else
+@@ -406,16 +406,16 @@ AC_ARG_WITH(cryptopp,
+         CXXFLAGS="-I$with_cryptopp $CXXFLAGS"
+         CPPFLAGS="-I$with_cryptopp $CPPFLAGS"
+ 
+-        AC_CHECK_HEADERS(cryptopp/cryptlib.h,
++        AC_CHECK_HEADERS(crypto++/cryptlib.h,
+          CRYPTO_CXXFLAGS="-I$with_cryptopp"
+          CRYPTO_CPPFLAGS="-I$with_cryptopp"
+-         CRYPTO_LDFLAGS="-L$with_cryptopp/cryptopp",
+-         AC_MSG_ERROR([cryptopp/cryptlib.h header not found or not usable])
++         CRYPTO_LDFLAGS="-L$with_cryptopp/crypto++",
++         AC_MSG_ERROR([crypto++/cryptlib.h header not found or not usable])
+          )
+     fi
+ 
+-    AC_CHECK_LIB(cryptopp, [main], [CRYPTO_LIBS="-lcryptopp"],[
+-            AC_MSG_ERROR([Could not find libcryptopp])
++    AC_CHECK_LIB(crypto++, [main], [CRYPTO_LIBS="-lcrypto++"],[
++            AC_MSG_ERROR([Could not find libcrypto++])
+     ])
+ 
+     cryptopp=true
+@@ -428,18 +428,18 @@ AC_ARG_WITH(cryptopp,
+    esac
+   ],
+   [AC_MSG_RESULT([--with-cryptopp not specified])
+-    AC_CHECK_HEADERS([cryptopp/cryptlib.h],, [
+-        AC_MSG_ERROR([cryptopp/cryptlib.h header not found or not usable])
++    AC_CHECK_HEADERS([crypto++/cryptlib.h],, [
++        AC_MSG_ERROR([crypto++/cryptlib.h header not found or not usable])
+     ])
+-    AC_CHECK_LIB(cryptopp, [main], [CRYPTO_LIBS="-lcryptopp"],[
+-            AC_MSG_ERROR([Could not find libcryptopp])
++    AC_CHECK_LIB(crypto++, [main], [CRYPTO_LIBS="-lcrypto++"],[
++            AC_MSG_ERROR([Could not find libcrypto++])
+     ])
+   ])
+ AC_SUBST(CRYPTO_CXXFLAGS)
+ AC_SUBST(CRYPTO_CPPFLAGS)
+ AC_SUBST(CRYPTO_LDFLAGS)
+ AC_SUBST(CRYPTO_LIBS)
+-AC_DEFINE(USE_CRYPTOPP, [1], [Define to use libcryptopp])
++AC_DEFINE(USE_CRYPTOPP, [1], [Define to use libcrypto++])
+ 
+ #libsodium
+ AC_MSG_CHECKING(for libsodium)
+@@ -1792,8 +1792,8 @@ if test "x$enable_examples" = "xyes" ; t
+         ])
+         # readline requires termcap (or ncurses)
+         SAVE_LIBS=$LIBS
+-        LIBS="$TERMCAP_LIBS $LIBS"
+-        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++        LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+             AC_MSG_ERROR([readline library is required for the sample client.])])
+         LIBS=$SAVE_LIBS
+          ;;
+@@ -1822,8 +1822,8 @@ if test "x$enable_examples" = "xyes" ; t
+ 
+         # readline requires termcap (or ncurses)
+         SAVE_LIBS=$LIBS
+-        LIBS="$TERMCAP_LIBS $LIBS"
+-        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++        LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+             AC_MSG_ERROR([readline library is required for the sample client.])])
+         LIBS=$SAVE_LIBS
+ 
+@@ -1840,8 +1840,8 @@ if test "x$enable_examples" = "xyes" ; t
+         ])
+         # readline requires termcap (or ncurses)
+         SAVE_LIBS=$LIBS
+-        LIBS="$TERMCAP_LIBS $LIBS"
+-        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline"], [
++        LIBS="-lncursesw $TERMCAP_LIBS $LIBS"
++        AC_CHECK_LIB([readline], [rl_save_prompt], [RL_LIBS="-lreadline -lncursesw"], [
+             AC_MSG_ERROR([readline library is required for the sample client.])])
+         LIBS=$SAVE_LIBS
+       ]
+--- a/sdk/Makefile.am
++++ b/sdk/Makefile.am
+@@ -38,9 +38,9 @@ AM_CPPFLAGS+=-I$(top_srcdir)/include/meg
+ AM_LIBTOOLFLAGS="--tag=CXX"
+ endif
+ 
+-if ANDROID
++#if ANDROID
+ AM_LIBTOOLFLAGS="--tag=CXX"
+-endif
++#endif
+ 
+ if LINUX
+ AM_LIBTOOLFLAGS="--tag=CXX"
+--- a/sdk/include/mega/types.h
++++ b/sdk/include/mega/types.h
+@@ -46,7 +46,7 @@ typedef char __static_check_01__[sizeof(
+ #endif
+ 
+ #ifdef USE_CRYPTOPP
+-#include <cryptopp/config.h> // so we can test CRYPTO_VERSION below
++#include <crypto++/config.h> // so we can test CRYPTO_VERSION below
+ #endif
+ 
+ // signed 64-bit generic offset
+--- a/sdk/include/mega/crypto/cryptopp.h
++++ b/sdk/include/mega/crypto/cryptopp.h
+@@ -23,20 +23,20 @@
+ #ifndef CRYPTOCRYPTOPP_H
+ #define CRYPTOCRYPTOPP_H 1
+ 
+-#include <cryptopp/cryptlib.h>
+-#include <cryptopp/modes.h>
+-#include <cryptopp/ccm.h>
+-#include <cryptopp/gcm.h>
+-#include <cryptopp/integer.h>
+-#include <cryptopp/aes.h>
+-#include <cryptopp/osrng.h>
+-#include <cryptopp/sha.h>
+-#include <cryptopp/rsa.h>
+-#include <cryptopp/crc.h>
+-#include <cryptopp/nbtheory.h>
+-#include <cryptopp/algparam.h>
+-#include <cryptopp/hmac.h>
+-#include <cryptopp/pwdbased.h>
++#include <crypto++/cryptlib.h>
++#include <crypto++/modes.h>
++#include <crypto++/ccm.h>
++#include <crypto++/gcm.h>
++#include <crypto++/integer.h>
++#include <crypto++/aes.h>
++#include <crypto++/osrng.h>
++#include <crypto++/sha.h>
++#include <crypto++/rsa.h>
++#include <crypto++/crc.h>
++#include <crypto++/nbtheory.h>
++#include <crypto++/algparam.h>
++#include <crypto++/hmac.h>
++#include <crypto++/pwdbased.h>
+ 
+ namespace mega {
+ 
