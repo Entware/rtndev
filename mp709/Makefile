@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mp709
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -23,12 +23,6 @@ endef
 
 define Package/mp709/description
  mp709 - a lightweight tool for monipulating MP709 USB relay from masterkit.ru
-endef
-
-define Build/Compile
-	$(TARGET_CC) $(TARGET_CFLAGS) -I$(STAGING_DIR)/opt/include -c \
-	$(TARGET_LDFLAGS) -L$(STAGING_DIR)/opt/lib -lusb-1.0 \
-	-o $(PKG_BUILD_DIR)/mp709 $(PKG_BUILD_DIR)/mp709m.c
 endef
 
 define Package/mp709/install
