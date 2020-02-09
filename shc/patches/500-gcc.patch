@@ -1,0 +1,29 @@
+--- a/src/shc.c
++++ b/scr/shc.c
+@@ -93,7 +93,7 @@
+ "",
+ "    Environment variables used:",
+ "    Name    Default  Usage",
+-"    CC      cc       C compiler command",
++"    CC      gcc      C compiler command",
+ "    CFLAGS  <none>   C compiler flags",
+ "    LDFLAGS <none>   Linker flags",
+ "",
+@@ -375,7 +375,7 @@
+ "    char cmd[4096];",
+ "",
+ "	cc = getenv(\"CC\");",
+-"	if (!cc) cc = \"cc\";",
++"	if (!cc) cc = \"gcc\";",
+ "",
+ "	sprintf(cmd, \"%s %s -o %s %s\", cc, \"-Wall -fpic -shared\", \"/tmp/shc_x.so\", \"/tmp/shc_x.c -ldl\");",
+ "	if (system(cmd)) {remove(\"/tmp/shc_x.c\"); return -1;}",
+@@ -1291,7 +1291,7 @@
+ 
+ 	cc = getenv("CC");
+ 	if (!cc)
+-		cc = "cc";
++		cc = "gcc";
+ 	cflags = getenv("CFLAGS");
+ 	if (!cflags)
+ 		cflags = "";
