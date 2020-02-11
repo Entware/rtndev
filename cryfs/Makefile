@@ -18,6 +18,11 @@ PKG_SOURCE_URL:=https://github.com/cryfs/cryfs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
+ifeq ($(CONFIG_TARGET_armv5_3_2),y)
+PATCH_DIR:=./patches-arm5
+endif
+
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
