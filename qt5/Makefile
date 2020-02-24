@@ -68,6 +68,7 @@ define Build/Configure
 	( cd $(PKG_BUILD_DIR) ; \
 		./configure \
 			-prefix /opt \
+			-I $(STAGING_DIR)/opt/include \
 			-extprefix $(TOOLCHAIN_DIR) \
 			-sysroot $(TOOLCHAIN_DIR) \
 			-plugindir /opt/lib/Qt/plugins \
