@@ -53,7 +53,7 @@ endef
 define Package/qt5-network
 	$(call Package/qt5/Default)
 	TITLE+=network
-	DEPENDS+=+qt5-core
+	DEPENDS+=+qt5-core +libopenssl
 endef
 
 define Package/qt5-xml
