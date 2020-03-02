@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -30,8 +30,9 @@ define Package/mathomatic
 endef
 
 define Package/mathomatic/description
- Mathomatic can symbolically solve, simplify, combine, and compare algebraic equations,
- simultaneously performing generalized standard, complex number, modular, and polynomial arithmetic, as needed.
+ Mathomatic can symbolically solve, simplify, combine, and compare algebraic
+ equations, simultaneously performing generalized standard, complex number,
+ modular, and polynomial arithmetic, as needed.
 endef
 
 MAKE_VARS += \
@@ -43,8 +44,8 @@ TARGET_LDFLAGS += \
 	-lncurses
 
 define Package/mathomatic/install
-	$(INSTALL_DIR) $(1)/opt/bin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mathomatic $(1)/opt/bin/
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mathomatic $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,mathomatic))

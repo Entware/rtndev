@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -37,11 +37,11 @@ endef
 
 define Package/rtmpdump
 	$(call Package/rtmpdump/Default)
-	DEPENDS:= +librtmp
+	DEPENDS:=+librtmp
 endef
 
 define Package/librtmp/description
- librtmp is a RTMPDump Real-Time Messaging Protocol API
+ librtmp is a RTMPDump Real-Time Messaging Protocol API.
 endef
 
 define Package/rtmpdump/description

@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2006-2015 OpenWrt.org
-# Copyright (C) 2015-2019 Entware
+# Copyright (C) 2015-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -22,17 +22,19 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/bacula
-  SECTION:=utils
-  CATEGORY:=Utilities
-  DEPENDS:=+libopenssl +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk
-  TITLE:=Open Source Network Backup Solution
-  URL:=http://www.bacula.org/
+	SECTION:=utils
+	CATEGORY:=Utilities
+	DEPENDS:=+libopenssl +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk
+	TITLE:=Open Source Network Backup Solution
+	URL:=http://www.bacula.org/
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/bacula/description
-  Bacula is a set of computer programs that permits the system administrator to manage backup,
-  recovery, and verification of computer data across a network of computers of different kinds.
-  Bacula can also run entirely upon a single computer and can backup to various types of media, including tape and disk.
+ Bacula is a set of computer programs that permits the system administrator to
+ manage backup, recovery, and verification of computer data across a network of
+ computers of different kinds. Bacula can also run entirely upon a single
+ computer and can backup to various types of media, including tape and disk.
 endef
 
 CONFIGURE_VARS += \

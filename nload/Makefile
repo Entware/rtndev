@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -28,12 +28,12 @@ define Package/nload
 endef
 
 define Package/nload/description
- nload is a real time monitor for network traffic
+ nload is a real time monitor for network traffic.
 endef
 
 define Package/nload/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/$(PKG_NAME) $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/$(PKG_NAME) $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,nload))

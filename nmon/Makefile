@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019 Entware
+# Copyright (C) 2019-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -45,7 +45,7 @@ endef
 
 define Package/nmon/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(CP) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/opt/bin/
+	$(CP) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,nmon))

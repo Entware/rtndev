@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2008-2015 OpenWrt
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -21,28 +21,29 @@ include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/python-psutil/Default
-  SECTION:=lang
-  CATEGORY:=Languages
-  SUBMENU:=Python
-  TITLE:=python-psutil
-  URL:=https://github.com/giampaolo/psutil
-  MAINTAINER:=Entware team, https://entware.net
+	SECTION:=lang
+	CATEGORY:=Languages
+	SUBMENU:=Python
+	TITLE:=python-psutil
+	URL:=https://github.com/giampaolo/psutil
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/python-psutil
-$(call Package/python-psutil/Default)
-  DEPENDS:=+PACKAGE_python-psutil:python
-  VARIANT:=python
+	$(call Package/python-psutil/Default)
+	DEPENDS:=+PACKAGE_python-psutil:python
+	VARIANT:=python
 endef
 
 define Package/python3-psutil
-$(call Package/python-psutil/Default)
-  DEPENDS:=+PACKAGE_python3-psutil:python3
-  VARIANT:=python3
+	$(call Package/python-psutil/Default)
+	DEPENDS:=+PACKAGE_python3-psutil:python3
+	VARIANT:=python3
 endef
 
 define Package/python-psutil/description
-  psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network) in Python
+ psutil is a cross-platform library for retrieving information onrunning
+ processes and system utilization (CPU, memory, disks, network) in Python.
 endef
 
 define Package/python3-psutil/description

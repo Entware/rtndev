@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -40,7 +40,7 @@ define Package/istgt/description
 endef
 
 CONFIGURE_ARGS += \
-	--with-mediadir=/opt/var \
+	--with-mediadir=/opt/var
 
 define Package/istgt/conffiles
 /opt/etc/istgt/auth.conf
@@ -53,7 +53,8 @@ define Package/istgt/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/istgt $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/istgtcontrol $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/istgt
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/istgt/{auth,istgt,istgt.large,istgtcontrol}.conf.sample $(1)/opt/etc/istgt
+	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/istgt/{auth,istgt,istgt.large,istgtcontrol}.conf.sample \
+		$(1)/opt/etc/istgt
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S13istgt $(1)/opt/etc/init.d
 endef

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -20,28 +20,29 @@ include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/python-regex/Default
-  SECTION:=lang
-  CATEGORY:=Languages
-  SUBMENU:=Python
-  TITLE:=python-regexp
-  URL:=https://bitbucket.org/mrabarnett/mrab-regex
-  MAINTAINER:=Entware team, https://entware.net
+	SECTION:=lang
+	CATEGORY:=Languages
+	SUBMENU:=Python
+	TITLE:=python-regexp
+	URL:=https://bitbucket.org/mrabarnett/mrab-regex
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/python-regex
-$(call Package/python-regex/Default)
-  DEPENDS:=+PACKAGE_python-regex:python-light
-  VARIANT:=python
+	$(call Package/python-regex/Default)
+	DEPENDS:=+PACKAGE_python-regex:python-light
+	VARIANT:=python
 endef
 
 define Package/python3-regex
-$(call Package/python-regex/Default)
-  DEPENDS:=+PACKAGE_python3-regex:python3-light
-  VARIANT:=python3
+	$(call Package/python-regex/Default)
+	DEPENDS:=+PACKAGE_python3-regex:python3-light
+	VARIANT:=python3
 endef
 
 define Package/python-regex/description
- This new regex implementation is intended eventually to replace Python’s current re module implementation. 
+ This new regex implementation is intended eventually to replace Python’s
+ current re module implementation.
 endef
 
 define Package/python3-regex/description

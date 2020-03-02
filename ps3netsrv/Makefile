@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,10 +26,10 @@ MAKE_FLAGS+=-f Makefile.linux
 define Package/ps3netsrv/Default
 	SECTION:=net
 	CATEGORY:=Network
+	DEPENDS:=+libstdcpp
 	TITLE:=C++ implementation of the ps3netsrv server
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
-	DEPENDS:=+libstdcpp
 endef
 
 define Package/ps3netsrv
@@ -46,7 +46,7 @@ $(call Package/ps3netsrv/Default)
 endef
 
 define Package/ps3netsrv/description/Default
- C++ implementation of the ps3netsrv server
+ C++ implementation of the ps3netsrv server.
 endef
 
 ifeq ($(BUILD_VARIANT),nossl)

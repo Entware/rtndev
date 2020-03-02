@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -16,10 +16,11 @@ include $(INCLUDE_DIR)/package.mk
 define Package/locales
 	SECTION:=libs
 	CATEGORY:=Base system
-	URL:=http://gcc.gnu.org/
-	TITLE:=Locales support (independent of system lib)
-	VERSION:=$(LIBC_VERSION)-$(PKG_RELEASE)
 	DEPENDS:=+grep @USE_GLIBC
+	TITLE:=locales support (independent of system lib)
+	URL:=http://gcc.gnu.org/
+	MAINTAINER:=Entware team, https://entware.net
+	VERSION:=$(LIBC_VERSION)-$(PKG_RELEASE)
 endef
 
 LVERSION1:=$(call qstrip,$(CONFIG_GLIBC_VERSION))

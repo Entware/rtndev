@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2009 Brice DUBOST
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -59,7 +59,6 @@ define Package/transcode/install
 	$(INSTALL_DIR) $(1)/opt/lib/transcode
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/transcode/{*.so,xvid4.cfg,filter_list.awk,parse_csv.awk} \
 			$(1)/opt/lib/transcode
-	# Entware specific: fix exec path in scripts
 	$(SED) 's,^#!.*gawk,#!/opt/bin/gawk,' $(1)/opt/lib/transcode/{filter_list,parse_csv}.awk
 endef
 

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -31,9 +31,9 @@ define Package/md5deep
 endef
 
 define Package/md5deep/description
- md5deep is a set of programs to compute MD5, SHA-1, SHA-256, Tiger, or Whirlpool message digests
- on an arbitrary number of files. md5deep is similar to the md5sum program found in the GNU Coreutils package,
- but has additional features.
+ md5deep is a set of programs to compute MD5, SHA-1, SHA-256, Tiger, Whirlpool
+ message digests on an arbitrary number of files. md5deep is similar to the
+ md5sum program found in the GNU Coreutils package, but has additional features.
 endef
 
 define Package/md5deep/install

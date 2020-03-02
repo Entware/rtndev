@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -44,11 +44,11 @@ endif
 
 define Package/vsftpd-ext/install
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/vsftpd $(1)/opt/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/vsftpd $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/etc/vsftpd
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/vsftpd.conf $(1)/opt/etc/vsftpd/
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/vsftpd.conf $(1)/opt/etc/vsftpd
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_BIN) ./files/S49vsftpd $(1)/opt/etc/init.d/
+	$(INSTALL_BIN) ./files/S49vsftpd $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/share/empty
 endef
 

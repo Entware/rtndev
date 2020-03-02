@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,14 +23,15 @@ include $(INCLUDE_DIR)/package.mk
 define Package/shntool
 	SECTION:=sound
 	CATEGORY:=Sound
+	DEPENDS:=+libogg +libvorbis +libflac
 	TITLE:=A multi-purpose wav data processing utility
 	URL:=http://shnutils.freeshell.org/shntool/
-	DEPENDS:=+libogg +libvorbis +libflac
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/shntool/description
- shntool has native support for .wav files. If you want it to work with other lossless audio formats,
- you must have the appropriate helper program installed.
+ shntool has native support for .wav files. If you want it to work with other
+ lossless audio formats, you must have the appropriate helper program installed.
 endef
 
 CONFIGURE_VARS += \

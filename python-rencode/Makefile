@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -22,15 +22,15 @@ define Package/python3-rencode
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
+	DEPENDS:=+PACKAGE_python3-rencode:python3
 	TITLE:=Web safe object pickling/unpickling
 	URL:=https://github.com/aresch/rencode
 	MAINTAINER:=Entware team, https://entware.net
-	DEPENDS:=+PACKAGE_python3-rencode:python3
 	VARIANT:=python3
 endef
 
 define Package/python3-rencode/description
-  The rencode module is similar to bencode from the BitTorrent project.
+ The rencode module is similar to bencode from the BitTorrent project.
 endef
 
 $(eval $(call Py3Package,python3-rencode))

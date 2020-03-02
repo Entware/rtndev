@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -22,15 +22,15 @@ define Package/python3-setproctitle
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
+	DEPENDS:=+PACKAGE_python3-setproctitle:python3
 	TITLE:=A Python module to customize the process title
 	URL:=https://github.com/dvarrazzo/py-setproctitle
 	MAINTAINER:=Entware team, https://entware.net
-	DEPENDS:=+PACKAGE_python3-setproctitle:python3
 	VARIANT:=python3
 endef
 
 define Package/python3-setproctitle/description
-  A Python module to customize the process title.
+ A Python module to customize the process title.
 endef
 
 $(eval $(call Py3Package,python3-setproctitle))

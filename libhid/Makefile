@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -43,11 +43,11 @@ CONFIGURE_ARGS += \
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/*.h $(1)/opt/include/
+	$(CP) $(PKG_INSTALL_DIR)/opt/include/*.h $(1)/opt/include
 	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libhid.{a,la,so*} $(1)/opt/lib/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libhid.{a,la,so*} $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libhid.pc $(1)/opt/lib/pkgconfig/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libhid.pc $(1)/opt/lib/pkgconfig
 endef
 
 define Package/libhid/install

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -79,9 +79,9 @@ CONFIGURE_ARGS += \
 
 define Package/mediatomb/install
 	$(INSTALL_DIR) $(1)/opt/etc/mediatomb $(1)/opt/bin $(1)/opt/share $(1)/opt/var
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mediatomb $(1)/opt/bin/
-	$(CP) $(PKG_INSTALL_DIR)/opt/share/* $(1)/opt/share/
-	$(INSTALL_DATA) ./files/config.xml $(1)/opt/etc/mediatomb/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mediatomb $(1)/opt/bin
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/* $(1)/opt/share
+	$(INSTALL_DATA) ./files/config.xml $(1)/opt/etc/mediatomb
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S90mediatomb $(1)/opt/etc/init.d
 endef

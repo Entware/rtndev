@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -28,8 +28,8 @@ define Package/cups-pdf
 endef
 
 define Package/cups-pdf/description
- This software is designed to produce PDF files in a heterogeneous network by providing a PDF printer
- on the central fileserver.
+ This software is designed to produce PDF files in a heterogeneous network by
+ providing a PDF printer on the central fileserver.
 endef
 
 define Build/Compile

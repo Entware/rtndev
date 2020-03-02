@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -31,7 +31,7 @@ define Package/entware-opt
 endef
 
 define Package/entware-opt/description
- entware-opt is a metapackage to install Entware basic libraries and scripts
+ entware-opt is a metapackage to install Entware basic libraries and scripts.
 endef
 
 define Build/Prepare
@@ -45,9 +45,9 @@ endef
 
 define Package/entware-opt/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_BIN) ./files/rc.unslung $(1)/opt/etc/init.d/
-	$(INSTALL_BIN) ./files/profile $(1)/opt/etc/
-	$(INSTALL_DATA) ./files/rc.func $(1)/opt/etc/init.d/
+	$(INSTALL_BIN) ./files/rc.unslung $(1)/opt/etc/init.d
+	$(INSTALL_BIN) ./files/profile $(1)/opt/etc
+	$(INSTALL_DATA) ./files/rc.func $(1)/opt/etc/init.d
 	touch $(1)/opt/etc/ld.so.conf
 	$(INSTALL_DATA) ./files/{shells.1,passwd.1,group.1} $(1)/opt/etc
 	$(INSTALL_DIR) $(1)/opt/home $(1)/opt/root $(1)/opt/etc/skel
@@ -92,8 +92,5 @@ if [[ ! -f /opt/bin/ash ]]; then
     ln -s /bin/ash /opt/bin/ash
 fi
 endef
-
-
-
 
 $(eval $(call BuildPackage,entware-opt))

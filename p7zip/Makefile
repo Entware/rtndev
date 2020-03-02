@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -48,7 +48,6 @@ define Package/p7zip/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/7z{,a,r} $(1)/opt/bin
 	###
 	$(SED) 's,$(PKG_INSTALL_DIR),,' $(1)/opt/bin/*
-
 	$(INSTALL_DIR) $(1)/opt/lib/p7zip/Codecs
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/p7zip/7z{,a,Con*,r} $(1)/opt/lib/p7zip
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/{Client7z,LzmaCon} $(1)/opt/lib/p7zip

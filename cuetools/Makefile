@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -32,7 +32,8 @@ define Package/cuetools
 endef
 
 define Package/cuetools/description
- cuetools is a set of utilities for working with Cue Sheet (cue) and Table of Contents (toc) files.
+ cuetools is a set of utilities for working with Cue Sheet (cue) and
+ Table of Contents (toc) files.
 endef
 
 define Package/cuetools/install

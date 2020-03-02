@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 Entware
+# Copyright (C) 2017-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -34,7 +34,7 @@ define Package/shellinabox
 endef
 
 define Package/shellinabox/description
- Web based AJAX terminal emulator
+ Web based AJAX terminal emulator.
 endef
 
 CONFIGURE_ARGS += \

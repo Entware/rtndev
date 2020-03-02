@@ -1,4 +1,6 @@
 #
+# Copyright (C) 2011-2020 Entware
+#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -24,20 +26,21 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/ctags
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Universal Ctags
-  URL:=https://ctags.io
-  DEPENDS:=$(ICONV_DEPENDS) +jansson +libyaml +libxml2
+	SECTION:=utils
+	CATEGORY:=Utilities
+	DEPENDS:=$(ICONV_DEPENDS) +jansson +libyaml +libxml2
+	TITLE:=Universal Ctags
+	URL:=https://ctags.io
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/ctags/description
-  Universal Ctags generates an index (or tag) file of language objects found in
-  source files for many popular programming languages. This index makes it easy
-  for text editors and other tools to locate the indexed items. Universal Ctags
-  improves on traditional ctags because of its multilanguage support, its ability
-  for the user to define new languages searched by regular expressions, and its
-  ability to generate emacs-style TAGS files.
+ Universal Ctags generates an index (or tag) file of language objects found in
+ source files for many popular programming languages. This index makes it easy
+ for text editors and other tools to locate the indexed items. Universal Ctags
+ improves on traditional ctags because of its multilanguage support, its ability
+ for the user to define new languages searched by regular expressions, and its
+ ability to generate emacs-style TAGS files.
 endef
 
 CONFIGURE_ARGS += \

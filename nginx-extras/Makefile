@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -31,9 +31,9 @@ define Package/nginx-extras
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
+	DEPENDS:=+libpam +libexpat +libopenssl +libexslt +libgd +liblua +libpcre
 	TITLE:=Nginx web server
 	URL:=http://nginx.org/
-	DEPENDS:=+libpam +libexpat +libopenssl +libexslt +libgd +liblua +libpcre
 	CONFLICTS:=nginx
 endef
 

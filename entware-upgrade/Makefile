@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 Entware
+# Copyright (C) 2017-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,7 +26,8 @@ define Package/entware-upgrade
 endef
 
 define Package/entware-upgrade/description
- Helper package to upgrade Entware for future usage. Currently used to upgrade armv7soft (2.3.36) to the new codebase.
+ Helper package to upgrade Entware for future usage. Currently used to upgrade
+ armv7soft (2.3.36) to the new codebase.
 endef
 
 define Build/Prepare

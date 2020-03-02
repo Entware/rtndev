@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 Entware
+# Copyright (C) 2017-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,7 +7,6 @@
 # This is the same package as entware-opt, it does not install busybox. It makes several symlinks instead of it!
 # /opt/... folder order in /opt/etc/profile is different, /opt folders are the last in PATH
 # This package is a replacement of entware-opt for asuswrt firmware
-
 
 include $(TOPDIR)/rules.mk
 
@@ -26,7 +25,7 @@ define Package/entware-release
 endef
 
 define Package/entware-release/description
- entware_release is a file in /opt/etc with entware info
+ entware_release is a file in /opt/etc with entware info.
 endef
 
 define Build/Prepare
@@ -63,8 +62,8 @@ define Build/Compile
 endef
 
 define Package/entware-release/install
-	$(INSTALL_DIR) $(1)/opt/etc/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/entware_release $(1)/opt/etc/
+	$(INSTALL_DIR) $(1)/opt/etc
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/entware_release $(1)/opt/etc
 endef
 
 $(eval $(call BuildPackage,entware-release))

@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2008-2015 OpenWrt
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -22,17 +22,19 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-characteristic
-  SECTION:=lang
-  CATEGORY:=Languages
-  SUBMENU:=Python
-  TITLE:=python-characteristic
-  URL:=https://characteristic.readthedocs.org/
-  VARIANT:=python
+	SECTION:=lang
+	CATEGORY:=Languages
+	SUBMENU:=Python
+	TITLE:=python-characteristic
+	URL:=https://characteristic.readthedocs.org/
+	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python
 endef
 
 define Package/python-characteristic/description
-  characteristic is an MIT-licensed Python package with class decorators that ease the chores of implementing
-  the most common attribute-related object protocols.
+ characteristic is an MIT-licensed Python package with class decorators that
+ ease the chores of implementing the most common attribute-related object
+ protocols.
 endef
 
 $(eval $(call PyPackage,python-characteristic))

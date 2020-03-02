@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2017 Joakim Plate <joakim.plate@gmail.com>
-# Copyright (C) 2017-2019 Entware
+# Copyright (C) 2017-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -27,15 +27,16 @@ define Package/shc
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Shells
+	DEPENDS:=+gcc
 	TITLE:=A generic shell script compiler
-	DEPENDS:=+gcc	
 	URL:=https://neurobin.org/projects/softwares/unix/shc/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/shc/description
- Shc takes a script, which is specified on the command line and produces C source code.
- The generated source code is then compiled and linked to produce a stripped binary executable.
+ Shc takes a script, which is specified on the command line and produces C
+ source code. The generated source code is then compiled and linked to produce
+ a stripped binary executable.
 endef
 
 define Package/shc/install

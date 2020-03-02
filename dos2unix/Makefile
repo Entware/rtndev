@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,7 +26,7 @@ define Package/dos2unix
 endef
 
 define Package/dos2unix/description
- DOS/Mac to Unix and vice versa text file format converter
+ DOS/Mac to Unix and vice versa text file format converter.
 endef
 
 define Package/dos2unix/install

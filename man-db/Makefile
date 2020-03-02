@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 Entware
+# Copyright (C) 2017-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,16 +23,16 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/man-db
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=unix manual page reader
-  DEPENDS:= +libgdbm +libpipeline +zlib +groff +less $(ICONV_DEPENDS) $(INTL_DEPENDS)
-  MAINTAINER:=Entware team, https://entware.net
+	SECTION:=utils
+	CATEGORY:=Utilities
+	TITLE:=unix manual page reader
+	DEPENDS:=+libgdbm +libpipeline +zlib +groff +less $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/man-db/description
-  This package provides the man command, the primary way of examining the help \
-  files (manual pages).
+ This package provides the man command, the primary way of examining the help
+ files (manual pages).
 endef
 
 CONFIGURE_ARGS += \

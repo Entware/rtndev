@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -32,7 +32,7 @@ define Package/pam_duo
 	TITLE+= (PAM library)
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS+= +libpam
+	DEPENDS+=+libpam
 endef
 
 define Package/duo_unix
@@ -42,15 +42,15 @@ define Package/duo_unix
 endef
 
 define Package/libduo/description
- A library for two-factor authentication as a Duo:Security service
+ A library for two-factor authentication as a Duo:Security service.
 endef
 
 define Package/pam_duo/description
- A library for PAM authentication as a Duo:Security service
+ A library for PAM authentication as a Duo:Security service.
 endef
 
 define Package/duo_unix/description
- Provides simple two-factor authentication as a Duo:Security service
+ Provides simple two-factor authentication as a Duo:Security service.
 endef
 
 TARGET_LDFLAGS += -lssp

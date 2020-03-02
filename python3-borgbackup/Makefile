@@ -1,4 +1,6 @@
 #
+# Copyright (C) 2020 Entware
+#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -20,23 +22,23 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/python3-borgbackup
-  SECTION:=lang
-  CATEGORY:=Languages
-  SUBMENU:=Python
-  TITLE:=a deduplicating backup program
-  URL:=https://borgbackup.readthedocs.io
-  DEPENDS:=+python3-light +python3-pkg-resources +libacl +libopenssl +libstdcpp +zstd
-  VARIANT:=python3
+	SECTION:=utils
+	CATEGORY:=Utilities
+	SUBMENU:=Backup
+	DEPENDS:=+python3-light +python3-pkg-resources +libacl +libopenssl +libstdcpp +zstd
+	TITLE:=a deduplicating backup program
+	URL:=https://borgbackup.readthedocs.io
+	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python3
 endef
 
 define Package/python3-borgbackup/description
-  BorgBackup (short: Borg) is a deduplicating backup program. Optionally, it
-  supports compression and authenticated encryption.
-
+ BorgBackup (short: Borg) is a deduplicating backup program. Optionally, it
+ supports compression and authenticated encryption.
   The main goal of Borg is to provide an efficient and secure way to backup
-  data. The data deduplication technique used makes Borg suitable for daily
-  backups since only changes are stored. The authenticated encryption technique
-  makes it suitable for backups to not fully trusted targets.
+ data. The data deduplication technique used makes Borg suitable for daily
+ backups since only changes are stored. The authenticated encryption technique
+ makes it suitable for backups to not fully trusted targets.
 endef
 
 PYTHON3_PKG_SETUP_VARS+= \

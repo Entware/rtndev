@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -21,7 +21,6 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 ifeq ($(CONFIG_TARGET_armv5_3_2),y)
 PATCH_DIR:=./patches-arm5
 endif
-
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

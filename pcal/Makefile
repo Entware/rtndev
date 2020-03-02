@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -27,12 +27,12 @@ define Package/pcal
 endef
 
 define Package/pcal/description
- PCAL is a calendar-generation program which produce nice-looking PostScript output
+ PCAL is a calendar-generation program which produce nice-looking PostScript output.
 endef
 
 define Package/pcal/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/exec/$(PKG_NAME) $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/exec/$(PKG_NAME) $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,pcal))

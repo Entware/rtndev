@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,17 +26,16 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/pcap_dnsproxy
 	SECTION:=net
 	CATEGORY:=Network
+	SUBMENU:=IP Addresses and Names
 	DEPENDS:=+libsodium +libpcap +libstdcpp +libevent2 +libevent2-core
 	TITLE:=WinPcap and LibPcap based DNS server
 	URL:=$(PKG_SOURCE_URL)
-	SUBMENU:=IP Addresses and Names
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/pcap_dnsproxy/description
- Pcap_DNSProxy is a local DNS server based on WinPcap and LibPcap
+ Pcap_DNSProxy is a local DNS server based on WinPcap and LibPcap.
 endef
-
 
 CMAKE_OPTIONS += \
 	-DPLATFORM_OPENWRT=ON \

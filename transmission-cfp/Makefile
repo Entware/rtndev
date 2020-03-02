@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 Entware
+# Copyright (C) 2017-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -24,36 +24,36 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/transmission-cfp/Default
-  SUBMENU:=BitTorrent
-  SECTION:=net
-  CATEGORY:=Network
-  TITLE:=BitTorrent client
-  URL:=https://github.com/cfpp2p/transmission
-  MAINTAINER:=Entware team, https://entware.net
+	SUBMENU:=BitTorrent
+	SECTION:=net
+	CATEGORY:=Network
+	TITLE:=BitTorrent client
+	URL:=https://github.com/cfpp2p/transmission
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/transmission-cfp-daemon
-$(call Package/transmission-cfp/Default)
-  TITLE+= (daemon)
-  DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
+	$(call Package/transmission-cfp/Default)
+	TITLE+= (daemon)
+	DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/transmission-cfp-cli
-$(call Package/transmission-cfp/Default)
-  TITLE+= (cli)
-  DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
+	$(call Package/transmission-cfp/Default)
+	TITLE+= (cli)
+	DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/transmission-cfp-remote
-$(call Package/transmission-cfp/Default)
-  TITLE+= (remote control utility)
-  DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
+	$(call Package/transmission-cfp/Default)
+	TITLE+= (remote control utility)
+	DEPENDS:=+libcurl +libevent2 +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/transmission-cfp-web
-$(call Package/transmission-cfp/Default)
-  TITLE+= (webinterface)
-  DEPENDS:=+transmission-cfp-daemon
+	$(call Package/transmission-cfp/Default)
+	TITLE+= (webinterface)
+	DEPENDS:=+transmission-cfp-daemon
 endef
 
 define Package/transmission-cfp-daemon/description
@@ -76,11 +76,11 @@ define Package/transmission-cfp-web/description
 endef
 
 define Download/transmission-cfp-web-client
-  FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
-  URL:=$(PKG_SOURCE_URL)
-  PROTO:=git
-  VERSION:=f104a68aa2a5b76914cdebaf7ded7ba09defd23b
-  SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)
+	FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
+	URL:=$(PKG_SOURCE_URL)
+	PROTO:=git
+	VERSION:=f104a68aa2a5b76914cdebaf7ded7ba09defd23b
+	SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)
 endef
 $(eval $(call Download,transmission-cfp-web-client))
 

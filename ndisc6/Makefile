@@ -1,4 +1,6 @@
 #
+# Copyright (C) 2020 Entware
+#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -20,39 +22,40 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/ndisc6/Default
-  SECTION:=net
-  CATEGORY:=Network
-  TITLE:=IPv6 diagnostic tools
-  URL:=https://www.remlab.net/ndisc6
+	SECTION:=net
+	CATEGORY:=Network
+	TITLE:=IPv6 diagnostic tools
+	URL:=https://www.remlab.net/ndisc6
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/ndisc6
-$(call Package/ndisc6/Default)
-  TITLE:=ICMPv6 Neighbor Discovery tool
+	$(call Package/ndisc6/Default)
+	TITLE:=ICMPv6 Neighbor Discovery tool
 endef
 
 define Package/rdisc6
-$(call Package/ndisc6/Default)
-  TITLE:=ICMPv6 Router Discovery tool
+	$(call Package/ndisc6/Default)
+	TITLE:=ICMPv6 Router Discovery tool
 endef
 
 define Package/tcptraceroute6
-$(call Package/ndisc6/Default)
-  TITLE:=lightweight IPv6 tcptraceroute
+	$(call Package/ndisc6/Default)
+	TITLE:=lightweight IPv6 tcptraceroute
 endef
 
 define Package/tcpspray6
-$(call Package/ndisc6/Default)
-  TITLE:=Discard and Echo client
+	$(call Package/ndisc6/Default)
+	TITLE:=Discard and Echo client
 endef
 
 define Package/rdnssd
-$(call Package/ndisc6/Default)
-  TITLE:=Recursive DNS Servers discovery Daemon
+	$(call Package/ndisc6/Default)
+	TITLE:=Recursive DNS Servers discovery Daemon
 endef
 
 define Package/ndisc6/Default/description
-  NDisc6 is a small collection of useful tools for IPv6 networking.
+ NDisc6 is a small collection of useful tools for IPv6 networking.
 endef
 
 define Package/ndisc6/description

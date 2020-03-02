@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -18,20 +18,21 @@ PKG_SOURCE_URL:=http://downloads.xiph.org/releases/vorbis
 include $(INCLUDE_DIR)/package.mk
 
 define Package/vorbis-tools
-    SECTION:=sound
-    CATEGORY:=Sound
-    TITLE:=vorbis-tools and nothing else
-    URL:=http://xiph.org/vorbis/
-    DEPENDS:=+libogg +libvorbis +libflac
+	SECTION:=sound
+	CATEGORY:=Sound
+	DEPENDS:=+libogg +libvorbis +libflac
+	TITLE:=vorbis-tools and nothing else
+	URL:=http://xiph.org/vorbis/
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/vorbis-tools/description
- oggdec, oggenc, ogginfo, vcut, vorbiscomment command line utilities
+ oggdec, oggenc, ogginfo, vcut, vorbiscomment command line utilities.
 endef
 
 CONFIGURE_ARGS+= \
-    --without-flac \
-    --disable-nls \
+	--without-flac \
+	--disable-nls \
 
 TARGET_LDFLAGS += -lm
 

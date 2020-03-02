@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -33,7 +33,8 @@ define Package/fuse-convmvfs
 endef
 
 define Package/fuse-convmvfs/description
- This is a filesystem converting file name from one character set to another. It's implemented by using FUSE.
+ This is a filesystem converting file name from one character set to another.
+ It's implemented by using FUSE.
 endef
 
 EXTRA_CXXFLAGS += \
@@ -49,7 +50,7 @@ EXTRA_LDFLAGS += \
 
 define Package/fuse-convmvfs/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/convmvfs $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/convmvfs $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,fuse-convmvfs))

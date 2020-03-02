@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2007 OpenWrt
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -55,17 +55,17 @@ CONFIGURE_ARGS += \
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/libtorrent $(1)/opt/include/
+	$(CP) $(PKG_INSTALL_DIR)/opt/include/libtorrent $(1)/opt/include
 	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libtorrent-rasterbar.pc $(1)/opt/lib/pkgconfig/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libtorrent-rasterbar.pc $(1)/opt/lib/pkgconfig
 endef
 
 define Package/rblibtorrent/install
 	$(INSTALL_DIR) $(1)/opt/lib/python$(PYTHON3_VERSION)/site-packages
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib/
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/python$(PYTHON3_VERSION)/site-packages/*.so* $(1)/opt/lib/python$(PYTHON3_VERSION)/site-packages/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/*.so* $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/python$(PYTHON3_VERSION)/site-packages/*.so* $(1)/opt/lib/python$(PYTHON3_VERSION)/site-packages
 endef
 
 $(eval $(call BuildPackage,rblibtorrent))

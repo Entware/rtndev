@@ -1,4 +1,6 @@
 #
+# Copyright (C) 2011-2020 Entware
+#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -21,20 +23,19 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/megacmd
-  SECTION:=net
-  CATEGORY:=Network
-  SUBMENU:=File Transfer
-  TITLE:=Command Line Interactive and Scriptable Application
-  URL:=https://github.com/meganz/megacmd
-  DEPENDS:=+libcares +libcryptoxx +libcurl +libfuse +libreadline \
-	   +libncursesw +libsodium +libsqlite3 +libuv +libatomic \
-	   +libpcre
-#  PROVIDES:=meganz-sdk
+	SECTION:=net
+	CATEGORY:=Network
+	SUBMENU:=File Transfer
+	DEPENDS:=+libcares +libcryptoxx +libcurl +libfuse +libreadline \
+	   +libncursesw +libsodium +libsqlite3 +libuv +libatomic +libpcre
+	TITLE:=Command Line Interactive and Scriptable Application
+	URL:=https://github.com/meganz/megacmd
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/megacmd/description
-  MEGAcmd provides non UI access to MEGA services. It intends to offer all the
-  functionality with your MEGA account via commands.
+ MEGAcmd provides non UI access to MEGA services. It intends to offer all the
+ functionality with your MEGA account via commands.
 endef
 
 MSDK=meganz-sdk-3.6.6.tar.bz2

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -46,7 +46,7 @@ endef
 
 define Package/ptokax/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/PtokaX $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/PtokaX $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S95ptokax $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/share/ptokax/cfg

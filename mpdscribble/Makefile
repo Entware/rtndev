@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -43,9 +43,9 @@ TARGET_CFLAGS += \
 
 define Package/mpdscribble/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mpdscribble $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mpdscribble $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/etc/mpdscribble.conf $(1)/opt/etc/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/etc/mpdscribble.conf $(1)/opt/etc
 endef
 
 define Package/mpdscribble/conffiles

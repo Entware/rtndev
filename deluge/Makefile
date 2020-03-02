@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,42 +19,42 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/deluge/Default
-  SUBMENU:=BitTorrent
-  SECTION:=net
-  CATEGORY:=Network
-  TITLE:=A lightweight BitTorrent client
-  URL:=https://deluge-torrent.org
-  MAINTAINER:=Entware team, https://entware.net
-  VARIANT:=python3
+	SUBMENU:=BitTorrent
+	SECTION:=net
+	CATEGORY:=Network
+	TITLE:=a lightweight BitTorrent client
+	URL:=https://deluge-torrent.org
+	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python3
 endef
 
 define Package/deluge
-$(call Package/deluge/Default)
-  TITLE+= (console UI & daemon)
-  DEPENDS:= \
-	+rblibtorrent \
-	+python3 \
-	+python3-chardet \
-	+python3-mako \
-	+python3-markupsafe \
-	+python3-pillow \
-	+python3-pyopenssl \
-	+python3-pyxdg \
-	+python3-rencode \
-	+python3-service-identity \
-	+python3-setproctitle \
-	+python3-setuptools \
-	+python3-twisted
+	$(call Package/deluge/Default)
+	TITLE+= (console UI & daemon)
+	DEPENDS:= \
+	    +rblibtorrent \
+	    +python3 \
+	    +python3-chardet \
+	    +python3-mako \
+	    +python3-markupsafe \
+	    +python3-pillow \
+	    +python3-pyopenssl \
+	    +python3-pyxdg \
+	    +python3-rencode \
+	    +python3-service-identity \
+	    +python3-setproctitle \
+	    +python3-setuptools \
+	    +python3-twisted
 endef
 
 define Package/deluge-ui-web
-$(call Package/deluge/Default)
-  TITLE+= (Web UI)
-  DEPENDS:=deluge
+	$(call Package/deluge/Default)
+	TITLE+= (Web UI)
+	DEPENDS:=+deluge
 endef
 
 define Package/deluge/description
-  BitTorrent client with a client/server model.
+ BitTorrent client with a client/server model.
 endef
 
 define Package/deluge/install

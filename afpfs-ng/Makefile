@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -41,10 +41,10 @@ define Package/afpfs-ng/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/afp{cmd,fs,fsd,getstatus} \
 	    $(PKG_INSTALL_DIR)/opt/bin/mount_afp \
-	    $(1)/opt/bin/
+	    $(1)/opt/bin
 	$(LN) -s /opt/bin/mount_afp $(1)/opt/bin/afp_client
 	$(INSTALL_DIR) $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libafpclient.so* $(1)/opt/lib/
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libafpclient.so* $(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,afpfs-ng))

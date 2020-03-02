@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -34,8 +34,9 @@ define Package/exfat-fuse
 endef
 
 define Package/exfat-fuse/description
- This project aims to provide a full-featured exFAT file system implementation for Unix-like systems.
- It consists of a FUSE module (fuse-exfat) and a set of utilities (exfat-utils).
+ This project aims to provide a full-featured exFAT file system implementation
+ for Unix-like systems. It consists of a FUSE module (fuse-exfat) and a set of
+ utilities (exfat-utils).
 endef
 
 

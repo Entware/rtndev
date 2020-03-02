@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -38,7 +38,7 @@ define Package/telegram-cli
 endef
 
 define Package/telegram-cli/description
- Telegram messenger command-line interface
+ Telegram messenger command-line interface.
 endef
 
 HOST_CONFIGURE_ARGS += \

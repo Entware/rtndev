@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2019 Entware
+# Copyright (C) 2015-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,9 +26,10 @@ define Package/perl-image-exiftool
 	SUBMENU:=Perl
 	SECTION:=lang
 	CATEGORY:=Languages
+	DEPENDS:=+perl +perlbase-base +perlbase-encode +perlbase-essential +perlbase-file +perlbase-time
 	TITLE:=Perl library and command-line application for reading, writing and editing meta information
 	URL:=https://www.sno.phy.queensu.ca/~phil/exiftool/
-	DEPENDS:=+perl +perlbase-base +perlbase-encode +perlbase-essential +perlbase-file +perlbase-time
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Build/Configure
@@ -46,6 +47,5 @@ define Package/perl-image-exiftool/install
 	$(SED) 's,#!.*perl,#!/opt/bin/perl,' $(1)/opt/bin/exiftool
 
 endef
-
 
 $(eval $(call BuildPackage,perl-image-exiftool))

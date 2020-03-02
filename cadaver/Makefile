@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2012 Erinome.net
-# Copyright (C) 2013-2019 Entware
+# Copyright (C) 2013-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -33,8 +33,9 @@ define Package/cadaver
 endef
 
 define Package/cadaver/description
- cadaver is a command-line WebDAV client for Unix. It supports file upload, download, 
- on-screen display, namespace operations (move/copy), collection creation and deletion, and locking operations.
+ cadaver is a command-line WebDAV client for Unix. It supports file upload,
+ download, on-screen display, namespace operations (move/copy), collection
+ creation and deletion, and locking operations.
 endef
 
 CONFIGURE_ARGS += \

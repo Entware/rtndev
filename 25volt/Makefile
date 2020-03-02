@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2019 Entware
+# Copyright (C) 2011-2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,7 +23,7 @@ define Package/25volt
 endef
 
 define Package/25volt/description
- 25volt - A lightweight tool for monitoring APC Smart-UPS and Powercom WOW UPSs
+ 25volt - A lightweight tool for monitoring APC Smart-UPS and Powercom WOW UPSs.
 endef
 
 BINARIES:= \

@@ -1,4 +1,6 @@
 #
+# Copyright (C) 2020 Entware
+#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -19,18 +21,19 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/python3-uvloop
-  SECTION:=lang
-  CATEGORY:=Languages
-  SUBMENU:=Python
-  TITLE:=drop-in replacement of the built-in asyncio event loop
-  URL:=http://github.com/MagicStack/uvloop
-  DEPENDS:=+python3
-  VARIANT:=python3
+	SECTION:=lang
+	CATEGORY:=Languages
+	SUBMENU:=Python
+	DEPENDS:=+python3
+	TITLE:=drop-in replacement of the built-in asyncio event loop
+	URL:=http://github.com/MagicStack/uvloop
+	MAINTAINER:=Entware team, https://entware.net
+	VARIANT:=python3
 endef
 
 define Package/python3-uvloop/description
-  uvloop is a fast, drop-in replacement of the built-in asyncio event loop.
-  uvloop is implemented in Cython and uses libuv under the hood.
+ uvloop is a fast, drop-in replacement of the built-in asyncio event loop.
+ uvloop is implemented in Cython and uses libuv under the hood.
 endef
 
 define Build/Configure
