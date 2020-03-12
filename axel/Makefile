@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=axel
-PKG_VERSION:=2.17.6
+PKG_VERSION:=2.17.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/axel-download-accelerator/axel/releases/download/v$(PKG_VERSION)
-PKG_HASH:=4aceb94372dd56108f1bf1b4252e3fe8c9e99d3e8541d531919cb7993bad5a7f
+PKG_HASH:=ce7bc2204834e408af43a54bc505b8e51fcdf8e8ccb9a9bf6eb81624de8c1495
 
 include $(INCLUDE_DIR)/package.mk
 
