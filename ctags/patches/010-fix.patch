@@ -1,5 +1,5 @@
---- a/configure.ac	2020-01-27 11:16:07.000000000 +0300
-+++ b/configure.ac	2020-01-28 12:36:01.778862979 +0300
+--- a/configure.ac
++++ b/configure.ac
 @@ -314,23 +314,23 @@
  AC_MSG_CHECKING(directory to use for temporary files)
  if test -n "$enable_tmpdir"; then
@@ -74,12 +74,12 @@
 -	fi
 -fi
 -
- AM_CONDITIONAL([USE_NO_FORMATTER_FOR_SIZE_T], [test "x${use_no_formatter_for_size_t}" = "xyes"])
- AM_CONDITIONAL([USE_ULONG_FORMATTER_FOR_SIZE_T], [test "x${use_ulong_formatter_for_size_t}" = "xyes"])
- AM_CONDITIONAL([USE_ULONGLONG_FORMATTER_FOR_SIZE_T], [test "x${use_ulonglong_formatter_for_size_t}" = "xyes"])
---- a/source.mak	2020-01-27 11:16:07.000000000 +0300
-+++ b/source.mak	2020-01-28 13:22:47.819055651 +0300
-@@ -360,11 +360,4 @@
+ # Checks for compiler characteristics
+ # -----------------------------------
+ 
+--- a/source.mak
++++ b/source.mak
+@@ -364,11 +364,4 @@
  	$(NULL)
  READTAGS_HEADS = read/readtags.h
  READTAGS_OBJS  = $(READTAGS_SRCS:.c=.$(OBJEXT))
