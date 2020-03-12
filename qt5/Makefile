@@ -53,7 +53,7 @@ endef
 define Package/qt5-network
 	$(call Package/qt5/Default)
 	TITLE+=network
-	DEPENDS+=+qt5-core
+	DEPENDS+=+qt5-core +libopenssl
 endef
 
 define Package/qt5-xml
@@ -68,6 +68,7 @@ define Build/Configure
 	( cd $(PKG_BUILD_DIR) ; \
 		./configure \
 			-prefix /opt \
+			-I $(STAGING_DIR)/opt/include \
 			-extprefix $(TOOLCHAIN_DIR) \
 			-sysroot $(TOOLCHAIN_DIR) \
 			-plugindir /opt/lib/Qt/plugins \
