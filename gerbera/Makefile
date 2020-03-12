@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gerbera
-PKG_VERSION:=1.3.2
-PKG_REV:=42b035ea9098c02af503d6391a0ed56d973aaf23
+PKG_VERSION:=1.4.0
+PKG_REV:=8e24679ea84af066112e9c8bf478a29eef5d5a3f
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/v00d00/gerbera.git
+PKG_SOURCE_URL:=https://github.com/gerbera/gerbera.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
@@ -25,7 +25,8 @@ define Package/gerbera
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
 	DEPENDS:=+libffmpeg-full +duktape +libupnp +libsqlite3 +libcurl \
-	    +libtheora +file +libexif +libexpat +libvorbis +libuuid +libstdcpp
+	    +libtheora +file +libexif +libexpat +libmatroska +libvorbis \
+	    +libuuid +libstdcpp
 	TITLE:=a free media server
 	URL:=https://gerbera.io
 	MAINTAINER:=Entware team, https://entware.net
