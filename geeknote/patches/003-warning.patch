@@ -1,5 +1,0 @@
---- a/lib/markdown/__init__.py
-+++ b/lib/markdown/__init__.py
-@@ -288 +288 @@
--            if newRoot:
-+            if newRoot is not None:
