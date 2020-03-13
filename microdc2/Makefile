@@ -15,7 +15,7 @@ PKG_REV:=9343cf76972f4f16ac1782788933589e72be63b7
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/KenanSulayman/microdc2.git
+PKG_SOURCE_URL:=https://github.com/19h/microdc2.git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_FIXUP:=autoreconf
