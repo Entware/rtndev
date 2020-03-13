@@ -6,17 +6,18 @@
 #
 # Partial taken from
 # https://github.com/wongsyrone/openwrt-Pcap_DNSProxy/blob/master/Makefile
+# Original repo removed according to regulation https://github.com/chengr28/Pcap_DNSProxy.git
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap_dnsproxy
 PKG_VERSION:=0.4.9.13
-PKG_REV:=70a40bb3fc7399cc31344c29b993e7e02da4503b
+PKG_REV:=1a04e646a6c1544bb6f7d0a6f4780925a7e9f6e7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
+PKG_SOURCE_URL:=https://github.com/shuangzhijinghua/Pcap_DNSProxy.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
