@@ -50,7 +50,7 @@ endef
 define Package/deluge-ui-web
 	$(call Package/deluge/Default)
 	TITLE+= (Web UI)
-	DEPENDS:=+deluge
+	DEPENDS:=deluge
 endef
 
 define Package/deluge/description
