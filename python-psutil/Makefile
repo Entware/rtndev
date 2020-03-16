@@ -52,8 +52,57 @@ $(call Package/python-psutil/description)
 (Variant for Python3)
 endef
 
+define Package/psutil/Default
+	SECTION:=lang
+	CATEGORY:=Languages
+	SUBMENU:=Python
+	TITLE:=psutil scripts
+	URL:=https://github.com/giampaolo/psutil
+	MAINTAINER:=Entware team, https://entware.net
+endef
+
+define Package/psutil
+	$(call Package/psutil/Default)
+	DEPENDS:=+python-psutil
+endef
+
+define Package/psutil/description
+ psutil scripts.
+endef
+
+define Package/psutil3
+	$(call Package/psutil/Default)
+	DEPENDS:=+python3-psutil
+endef
+
+define Package/psutil3/description
+$(call Package/psutil/description)
+.
+(Variant for Python3)
+endef
+
+define Package/psutil/install
+	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
+	$(CP) \
+	    $(PKG_BUILD_DIR)/scripts \
+	    $(1)$(PYTHON_PKG_DIR)/
+	$(call PyShebang,$(1)$(PYTHON_PKG_DIR)/scripts/*.py \
+		$(1)$(PYTHON_PKG_DIR)/scripts/internal/*.py)
+endef
+
+define Package/psutil3/install
+	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
+	$(CP) \
+	    $(PKG_BUILD_DIR)/scripts \
+	    $(1)$(PYTHON3_PKG_DIR)/
+	$(call Py3Shebang,$(1)$(PYTHON3_PKG_DIR)/scripts/*.py \
+		$(1)$(PYTHON3_PKG_DIR)/scripts/internal/*.py)
+endef
+
 $(eval $(call PyPackage,python-psutil))
 $(eval $(call BuildPackage,python-psutil))
+$(eval $(call BuildPackage,psutil))
 
 $(eval $(call Py3Package,python3-psutil))
 $(eval $(call BuildPackage,python3-psutil))
+$(eval $(call BuildPackage,psutil3))
