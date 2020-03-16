@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2020.1.7
+PKG_VERSION:=2020.2.20
 PKG_RELEASE:=1
 
 PYPI_NAME:=regex
-PKG_HASH:=7391eeee49bb3ce895ca43479eaca810f0c2608556711fa02a82075768f81a37
+PKG_HASH:=9e9624440d754733eddbcd4614378c18713d2d9d0dc647cf9c72f64e39671be5
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
