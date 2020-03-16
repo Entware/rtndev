@@ -18,13 +18,12 @@ PKG_SOURCE_URL:=https://github.com/MusicPlayerDaemon/mpdscribble.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
-PKG_FIXUP:=autoreconf
-PKG_BUILD_DEPENDS:=meson/host
 PKG_INSTALL:=1
 
+PKG_BUILD_DEPENDS:=meson/host boost
+
 include $(INCLUDE_DIR)/package.mk
-include ../../packages/devel/meson/meson.mk
-include $(INCLUDE_DIR)/nls.mk
+include $(TOPDIR)/feeds/packages/devel/meson/meson.mk
 
 define Package/mpdscribble
 	SECTION:=sound
@@ -39,6 +38,9 @@ define Package/mpdscribble/description
  MPD scribble is a music player daemon client which submits information about
  tracks being played to Last.fm.
 endef
+
+MESON_ARGS += \
+	-Dsystemd=disabled
 
 define Package/mpdscribble/install
 	$(INSTALL_DIR) $(1)/opt/bin
