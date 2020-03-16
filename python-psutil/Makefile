@@ -9,11 +9,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-psutil
-PKG_VERSION:=5.6.7
+PKG_VERSION:=5.7.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=psutil
-PKG_HASH:=ffad8eb2ac614518bbe3c0b8eb9dffdb3a8d2e3a7d5da51c5b974fb723a5c5aa
+PKG_HASH:=685ec16ca14d079455892f25bd124df26ff9137664af445563c1bd36629b5e0e
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
