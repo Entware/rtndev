@@ -5,6 +5,7 @@
 # See /LICENSE for more information.
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
+# This is the last release which can use libtorrent 1.1.x
 
 include $(TOPDIR)/rules.mk
 
