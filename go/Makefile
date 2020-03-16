@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
 PKG_VERSION:=1.14
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
@@ -86,6 +86,9 @@ Package/go_nohf/postinst=$(Package/go/postinst)
 define Package/go/install
 	$(INSTALL_DIR) $(1)/opt/bin/go
 	$(CP) $(PKG_BUILD_DIR)/{api,bin,lib,misc,pkg,test,doc,src} $(1)/opt/bin/go
+	# Entware specific: fix exec path in scripts
+	$(FIND) $(1)/opt/bin/go -type f | $(XARGS) $(SED) \
+		's,^#!.*bash,#!/opt/bin/bash,;s,^#!.*perl,#!/opt/bin/perl,'
 endef
 
 Package/go_nohf/install=$(Package/go/install)
