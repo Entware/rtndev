@@ -6,6 +6,7 @@
 # See /LICENSE for more information.
 #
 # Original Makefile taken from https://github.com/aa65535/openwrt-simple-obfs
+# Deprecated. Followed by v2ray-plugin.
 
 include $(TOPDIR)/rules.mk
 
@@ -45,7 +46,8 @@ Package/simple-obfs = $(call Package/simple-obfs/Default)
 Package/simple-obfs-server = $(call Package/simple-obfs/Default)
 
 define Package/simple-obfs/description
-Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
+ Simple-obfs is a simple obfusacting tool, designed as plugin server of
+ shadowsocks.
 endef
 
 Package/simple-obfs-server/description = $(Package/simple-obfs/description)
