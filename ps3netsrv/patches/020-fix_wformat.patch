@@ -1,6 +1,6 @@
 # warning: 'I' flag used with '%x' gnu_printf format [-Wformat=]
---- a/ps3netsrv/src/File.cpp
-+++ b/ps3netsrv/src/File.cpp
+--- a/_Projects_/ps3netsrv/src/File.cpp
++++ b/_Projects_/ps3netsrv/src/File.cpp
 @@ -328,14 +328,14 @@ ssize_t File::read(void *buf, size_t nby
  				//				  Note: Both are easy fixes, but, code can be more simple + efficient if these two conditions are true (which they look to be from initial testing).
  				if (nbyte % kSectorSize != 0 || ret % kSectorSize != 0 || read_position % kSectorSize != 0)

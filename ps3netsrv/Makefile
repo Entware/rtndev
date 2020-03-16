@@ -8,19 +8,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ps3netsrv
-PKG_VERSION:=20190924
+PKG_VERSION:=1.47.26
+PKG_REV:=5b0f8e73d4327c9c5c996cf9030eff399949c6dd
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).zip
-PKG_SOURCE_URL:=https://github.com/aldostools/webMAN-MOD/releases/download/1.47.25
-PKG_HASH:=d4f661a105ee7375271a2d33b9adb11dd51fa0ad1b239925ebaa58f5c107ffa7
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-$(BUILD_VARIANT)
-PKG_UNPACK:=unzip $(DL_DIR)/$(PKG_SOURCE) -d $(PKG_BUILD_DIR)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/aldostools/webMAN-MOD.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 
-MAKE_PATH:=$(PKG_NAME)
+MAKE_PATH:=_Projects_/$(PKG_NAME)
 MAKE_FLAGS+=-f Makefile.linux
 
 define Package/ps3netsrv/Default

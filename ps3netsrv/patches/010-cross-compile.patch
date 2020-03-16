@@ -1,5 +1,5 @@
---- a/ps3netsrv/Makefile.linux
-+++ b/ps3netsrv/Makefile.linux
+--- a/_Projects_/ps3netsrv/Makefile.linux
++++ b/_Projects_/ps3netsrv/Makefile.linux
 @@ -1,17 +1,17 @@
 -OS =  linux
 -BUILD_TYPE = release_static
