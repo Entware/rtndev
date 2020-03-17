@@ -1,0 +1,13 @@
+diff --git a/tunsafe_bsd.cpp b/tunsafe_bsd.cpp
+index 17f855c..04ee3a3 100644
+--- a/tunsafe_bsd.cpp
++++ b/tunsafe_bsd.cpp
+@@ -837,7 +837,7 @@ int main(int argc, char **argv) {
+   InitOsxGetMilliseconds();
+ #endif
+ 
+-  SetThreadName("tunsafe-m");
++  // SetThreadName("tunsafe-m");
+ 
+   TunsafeBackendBsdImpl backend;
+   if (cmd.interface_name)

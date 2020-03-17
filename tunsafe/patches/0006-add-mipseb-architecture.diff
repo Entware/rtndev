@@ -1,0 +1,45 @@
+diff --git a/build_config.h b/build_config.h
+index 81634a5..846ec5c 100644
+--- a/build_config.h
++++ b/build_config.h
+@@ -103,6 +103,11 @@
+ #define ARCH_CPU_MIPSEL 1
+ #define ARCH_CPU_32_BITS 1
+ #define ARCH_CPU_LITTLE_ENDIAN 1
++#elif defined(__MIPSEB__)
++#define ARCH_CPU_MIPS_FAMILY 1
++#define ARCH_CPU_MIPSEB 1
++#define ARCH_CPU_32_BITS 1
++#define ARCH_CPU_LITTLE_ENDIAN 0
+ #elif defined(EMSCRIPTEN)
+ #define ARCH_CPU_JS 1
+ #define ARCH_CPU_32_BITS 1
+diff --git a/tunsafe_cpu.cpp b/tunsafe_cpu.cpp
+index ec14aac..7d4b6fc 100644
+--- a/tunsafe_cpu.cpp
++++ b/tunsafe_cpu.cpp
+@@ -71,9 +71,7 @@ void PrintCpuFeatures() {
+   RINFO("Using:%s", capbuf);
+ }
+ 
+-#endif  // defined(ARCH_CPU_X86_FAMILY)
+-
+-#if defined(ARCH_CPU_ARM_FAMILY)
++#elif defined(ARCH_CPU_ARM_FAMILY)  // defined(ARCH_CPU_X86_FAMILY)
+ 
+ uint32 arm_pcap[1];
+ 
+@@ -88,4 +86,12 @@ void PrintCpuFeatures() {
+ 
+   RINFO("Using:%s", capbuf);
+ }
+-#endif  // defined(ARCH_CPU_ARM_FAMILY)
++#else  // defined(ARCH_CPU_ARM_FAMILY)
++
++void InitCpuFeatures() { }
++
++void PrintCpuFeatures() {
++  RINFO("Using: generic");
++}
++
++#endif  // else
