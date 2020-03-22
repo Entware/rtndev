@@ -24,7 +24,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/gerbera
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	DEPENDS:=+libffmpeg-full +duktape +libupnp +libsqlite3 +libcurl \
+	DEPENDS:=+libffmpegthumbnailer +duktape +libupnp +libsqlite3 +libcurl \
 	    +libtheora +file +libexif +libexpat +libmatroska +libvorbis \
 	    +libuuid +libstdcpp
 	TITLE:=a free media server
@@ -40,8 +40,9 @@ CMAKE_OPTIONS += \
 	-DWITH_MYSQL=0 \
 	-DWITH_TAGLIB=0 \
 	-DWITH_AVCODEC=1 \
-	-DWITH_DEBUG_LOGGING=0 \
-	-DWITH_SYSTEMD=0
+	-DWITH_FFMPEGTHUMBNAILER=1 \
+	-DWITH_SYSTEMD=0 \
+	-DWITH_DEBUG=0
 
 define Package/gerbera/install
 	$(INSTALL_DIR) $(1)/opt/bin
