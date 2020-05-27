@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-borgbackup
 PKG_VERSION:=1.1.11
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=borgbackup
 PKG_HASH:=36090992ba795a5a5091fcd407b67be9bf26d0e88020892d31d7ac81fa970fa4
@@ -29,7 +29,6 @@ define Package/python3-borgbackup
 	TITLE:=a deduplicating backup program
 	URL:=https://borgbackup.readthedocs.io
 	MAINTAINER:=Entware team, https://entware.net
-	VARIANT:=python3
 endef
 
 define Package/python3-borgbackup/description
