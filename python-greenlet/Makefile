@@ -10,53 +10,35 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-greenlet
 PKG_VERSION:=0.4.15
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=greenlet
 PKG_HASH:=9416443e219356e3c31f1f918a91badf2e37acf297e2fa13d24d1cc2380f8fbc
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 # XXX error: option --single-version-externally-managed not recognized
-PYTHON_PKG_SETUP_ARGS:=
 PYTHON3_PKG_SETUP_ARGS:=
 
-define Package/python-greenlet/Default
+ifdef CONFIG_USE_MIPS16
+  TARGET_CFLAGS += -mno-mips16 -mno-interlink-mips16
+endif
+
+define Package/python3-greenlet
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
 	TITLE:=lightweight in-process concurrent programming
 	URL:=https://pypi.python.org/pypi/greenlet
 	MAINTAINER:=Entware team, https://entware.net
-endef
-
-define Package/python-greenlet
-	$(call Package/python-greenlet/Default)
-	DEPENDS:=+PACKAGE_python-greenlet:python-light
-	VARIANT:=python
-endef
-
-define Package/python3-greenlet
-	$(call Package/python-greenlet/Default)
-	DEPENDS:=+PACKAGE_python3-greenlet:python3-light
-	VARIANT:=python3
-endef
-
-define Package/python-greenlet/description
- Lightweight in-process concurrent programming.
+	DEPENDS:=+python3-light
 endef
 
 define Package/python3-greenlet/description
-$(call Package/python-greenlet/description)
-.
-(Variant for Python3)
+ Lightweight in-process concurrent programming.
 endef
-
-$(eval $(call PyPackage,python-greenlet))
-$(eval $(call BuildPackage,python-greenlet))
 
 $(eval $(call Py3Package,python3-greenlet))
 $(eval $(call BuildPackage,python3-greenlet))
