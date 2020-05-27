@@ -16,7 +16,7 @@ PKG_SOURCE_URL:=http://guichaz.free.fr/iotop/files
 PKG_HASH:=3adea2a24eda49bbbaeb4e6ed2042355b441dbd7161e883067a02bfc8dcef75b
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 #PKG_BUILD_DEPENDS:=python distribute/host
 
@@ -24,7 +24,7 @@ define Package/$(PKG_NAME)
 	SUBMENU:=Python
 	SECTION:=lang
 	CATEGORY:=Languages
-	DEPENDS:=+python +python-ncurses
+#	DEPENDS:=+python +python-ncurses
 	TITLE:=iotop watches I/O usage information output by the Linux kernel
 	URL:=http://guichaz.free.fr/iotop/
 	MAINTAINER:=Entware team, https://entware.net
@@ -49,4 +49,4 @@ define Package/$(PKG_NAME)/install
 	$(SED) 's!/usr/bin/python!/opt/bin/python!' $(1)/opt/sbin/iotop
 endef
 
-$(eval $(call BuildPackage,$(PKG_NAME)))
+#$(eval $(call BuildPackage,$(PKG_NAME)))
