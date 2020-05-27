@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rencode
 PKG_VERSION:=1.0.6
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=rencode
 PKG_HASH:=2586435c4ea7d45f74e26765ad33d75309de7cf47c4d762e8efabd39905c0718
@@ -22,11 +22,10 @@ define Package/python3-rencode
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+PACKAGE_python3-rencode:python3
+	DEPENDS:=+python3
 	TITLE:=Web safe object pickling/unpickling
 	URL:=https://github.com/aresch/rencode
 	MAINTAINER:=Entware team, https://entware.net
-	VARIANT:=python3
 endef
 
 define Package/python3-rencode/description
