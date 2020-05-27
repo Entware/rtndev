@@ -15,15 +15,15 @@ PKG_RELEASE:=2
 PYPI_NAME:=Cheetah
 PKG_HASH:=be308229f0c1e5e5af4f27d7ee06d90bb19e6af3059794e5fd536a6f29a9b550
 
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+#include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-cheetah
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+python-setuptools
+#	DEPENDS:=+python-setuptools
 	TITLE:=Python-powered template engine
 	URL:=http://www.cheetahtemplate.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -38,5 +38,5 @@ define Package/python-cheetah/description
  code.
 endef
 
-$(eval $(call PyPackage,python-cheetah))
-$(eval $(call BuildPackage,python-cheetah))
+#$(eval $(call PyPackage,python-cheetah))
+#$(eval $(call BuildPackage,python-cheetah))
