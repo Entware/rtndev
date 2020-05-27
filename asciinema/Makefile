@@ -26,7 +26,6 @@ define Package/asciinema
 	TITLE:=A terminal sessions recorder
 	URL:=http://asciinema.org/
 	MAINTAINER:=Entware team, https://entware.net
-	VARIANT:=python3
 endef
 
 define Package/asciinema/description
