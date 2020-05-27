@@ -15,14 +15,14 @@ PKG_RELEASE:=5
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=6799fe276ed8e2abdd7ea5eade9a72b13fd5e2cabe818ad530fc115852f78d22
 
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+#include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/weave-minimal
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+python-sqlite3 +python-werkzeug +dtach +python-gevent +python-openssl +python-setuptools
+#	DEPENDS:=+python-sqlite3 +python-werkzeug +dtach +python-gevent +python-openssl +python-setuptools
 	TITLE:=a Firefox Sync Server
 	URL:=https://github.com/posativ/weave-minimal
 	MAINTAINER:=Entware team, https://entware.net
@@ -59,5 +59,5 @@ echo \'weave-minimal --data-dir=/opt/var/weave --register user:password\'
 echo and edit host\\port at \'/opt/etc/init.d/S92weave-minimal\'
 endef
 
-$(eval $(call PyPackage,weave-minimal))
-$(eval $(call BuildPackage,weave-minimal))
+#$(eval $(call PyPackage,weave-minimal))
+#$(eval $(call BuildPackage,weave-minimal))
