@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=2.0.3
-PKG_RELEASE:=1a
+PKG_RELEASE:=2
 
 PYPI_NAME:=deluge
 PKG_HASH:=bd26950f417de2a5b26827d989935a30e770f880c22cb59ca69f781cdc9a14c9
@@ -25,7 +25,6 @@ define Package/deluge/Default
 	TITLE:=a lightweight BitTorrent client
 	URL:=https://deluge-torrent.org
 	MAINTAINER:=Entware team, https://entware.net
-	VARIANT:=python3
 endef
 
 define Package/deluge
@@ -75,7 +74,7 @@ define Package/deluge/install
 	$(INSTALL_BIN) ./files/S80deluged $(1)/opt/etc/init.d
 	rm -rf $(1)/opt/bin/deluge-gtk
 	rm -rf $(1)/opt/bin/deluge-web
-	$(call Py3Shebang,$(1)/opt/bin/* \
+	$(call Python3/FixShebang,$(1)/opt/bin/* \
 	$(1)$(PYTHON3_PKG_DIR)/deluge/path_*.py)
 endef
 
@@ -93,7 +92,7 @@ define Package/deluge-ui-web/install
 	$(INSTALL_BIN) ./files/S81deluge-web $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/deluge-web-reset_password $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/deluge/state
-	$(call Py3Shebang,$(1)/opt/bin/*)
+	$(call Python3/FixShebang,$(1)/opt/bin/*)
 endef
 
 define Package/deluge/postinst
