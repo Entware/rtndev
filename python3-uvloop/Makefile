@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-uvloop
 PKG_VERSION:=0.14.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=uvloop
 PKG_HASH:=123ac9c0c7dd71464f58f1b4ee0bbd81285d96cdda8bc3519281b8973e3a461e
@@ -28,7 +28,6 @@ define Package/python3-uvloop
 	TITLE:=drop-in replacement of the built-in asyncio event loop
 	URL:=http://github.com/MagicStack/uvloop
 	MAINTAINER:=Entware team, https://entware.net
-	VARIANT:=python3
 endef
 
 define Package/python3-uvloop/description
