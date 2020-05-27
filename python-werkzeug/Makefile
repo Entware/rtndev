@@ -17,13 +17,13 @@ PKG_HASH:=7280924747b5733b246fe23972186c6b348f9ae29724135a6dfc1e53cea433e7
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-werkzeug
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+python
+#	DEPENDS:=+python
 	TITLE:=python utilities for WSGI applications
 	URL:=https://palletsprojects.com/p/werkzeug
 	MAINTAINER:=Entware team, https://entware.net
@@ -35,5 +35,5 @@ define Package/python-werkzeug/description
  applications and has become one of the most advanced WSGI utility modules.
 endef
 
-$(eval $(call PyPackage,python-werkzeug))
-$(eval $(call BuildPackage,python-werkzeug))
+#$(eval $(call PyPackage,python-werkzeug))
+#$(eval $(call BuildPackage,python-werkzeug))
