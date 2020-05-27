@@ -14,9 +14,9 @@ PKG_RELEASE:=1
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=d76f3623eb3063a9f0164f1a4e7bfa23ee4c99db812fb45661d4c4bd84bccef8
 
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+#include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/$(PKG_NAME)
 	SUBMENU:=Python
@@ -24,7 +24,7 @@ define Package/$(PKG_NAME)
 	CATEGORY:=Languages
 	TITLE:=Python and CLI interface to MS OneDrive REST API v5.0
 	URL:=https://github.com/mk-fg/python-onedrive
-	DEPENDS:=+python-requests +python-yaml
+#	DEPENDS:=+python-requests +python-yaml
 	MAINTAINER:=Entware team, https://entware.net
 	VARIANT:=python
 endef
@@ -34,5 +34,5 @@ define Package/$(PKG_NAME)/description
  REST API v5.0.
 endef
 
-$(eval $(call PyPackage,$(PKG_NAME)))
-$(eval $(call BuildPackage,$(PKG_NAME)))
+#$(eval $(call PyPackage,$(PKG_NAME)))
+#$(eval $(call BuildPackage,$(PKG_NAME)))
