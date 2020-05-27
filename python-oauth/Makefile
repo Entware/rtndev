@@ -15,15 +15,15 @@ PKG_RELEASE:=1
 PYPI_NAME:=oauth
 PKG_HASH:=e769819ff0b0c043d020246ce1defcaadd65b9c21d244468a45a7f06cb88af5d
 
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+#include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
 
 define Package/python-oauth
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+python
+#	DEPENDS:=+python
 	TITLE:=Library for OAuth 1.0a
 	URL:=http://code.google.com/p/oauth
 	MAINTAINER:=Entware team, https://entware.net
@@ -34,5 +34,5 @@ define Package/python-oauth/description
  Library for OAuth version 1.0a.
 endef
 
-$(eval $(call PyPackage,python-oauth))
-$(eval $(call BuildPackage,python-oauth))
+#$(eval $(call PyPackage,python-oauth))
+#$(eval $(call BuildPackage,python-oauth))
