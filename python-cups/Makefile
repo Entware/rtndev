@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-cups
 PKG_VERSION:=1.9.74
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_SOURCE_EXT:=tar.bz2
 
@@ -18,26 +18,25 @@ PKG_HASH:=86090f259a7c5d0d5caa3407a0e57c9e134027620cbc8f90bf4e37c8b53ed7b9
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 # XXX error: option --single-version-externally-managed not recognized
-PYTHON_PKG_SETUP_ARGS:=
+PYTHON3_PKG_SETUP_ARGS:=
 
-define Package/python-cups
+define Package/python3-cups
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+python +cups
 	TITLE:=Python bindings for the CUPS API
 	URL:=http://cyberelk.net/tim/software/pycups/
 	MAINTAINER:=Entware team, https://entware.net
-	VARIANT:=python
+	DEPENDS:=+python3 +cups
 endef
 
-define Package/python-cups/description
+define Package/python3-cups/description
  This is a Python bindings for the CUPS API, known as pycups. It was written
  for use with system-config-printer, but can be put to other uses as well.
 endef
 
-$(eval $(call PyPackage,python-cups))
-$(eval $(call BuildPackage,python-cups))
+$(eval $(call Py3Package,python3-cups))
+$(eval $(call BuildPackage,python3-cups))
