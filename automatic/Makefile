@@ -4,13 +4,12 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2016
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=automatic
-PKG_VERSION:=0.8.3-20160310
-PKG_REV:=0b8355fe33d37c883f547fa821bfa11c9e334a95
+PKG_VERSION:=0.8.3-20200405
+PKG_REV:=cc988b8459c38c939c5d85868a92cd808c815bb4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -53,7 +52,7 @@ define Package/automatic/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/automatic $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/automatic.conf-sample $(1)/opt/etc
+	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/automatic.conf-sample $(1)/opt/etc/automatic.conf
 	$(INSTALL_BIN) ./files/S91automatic $(1)/opt/etc/init.d
 endef
 
