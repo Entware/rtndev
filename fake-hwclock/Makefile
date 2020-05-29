@@ -8,16 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fake-hwclock
-PKG_VERSION:=0.11
+PKG_VERSION:=0.12
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/f/fake-hwclock
-PKG_HASH:=58e29ff272a8e8b40ab972c49f82fd8fb6ef69a7fdde5f84292f800b53ea29ce
+PKG_HASH:=02a825f7460ab06b370c203250606c67b0effffa1645a4a4f7ff3928eec4957e
 
 include $(INCLUDE_DIR)/package.mk
 
-PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/fake-hwclock
 	SECTION:=utils

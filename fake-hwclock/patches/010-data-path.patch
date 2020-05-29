@@ -1,5 +1,5 @@
---- a/git/fake-hwclock
-+++ b/git/fake-hwclock
+--- a/fake-hwclock
++++ b/fake-hwclock
 @@ -11,7 +11,7 @@
  # License: GPLv2, see COPYING
  
