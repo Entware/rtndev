@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cmake
-PKG_VERSION:=3.16.5
+PKG_VERSION:=3.17.3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cmake.org/files/v3.16 \
+PKG_SOURCE_URL:=https://cmake.org/files/v3.17 \
 		https://fossies.org/linux/misc
-PKG_HASH:=5f760b50b8ecc9c0c37135fae5fbf00a2fef617059aa9d61c1bb91653e5a8bfc
+PKG_HASH:=0bd60d512275dc9f6ef2a2865426a184642ceb3761794e6b65bff233b91d8c40
 
 PKG_LICENSE:=BSD-3-Clause
 
