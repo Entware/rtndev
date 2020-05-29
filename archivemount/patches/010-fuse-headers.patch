@@ -1,6 +1,6 @@
 --- a/archivemount.c
 +++ b/archivemount.c
-@@ -28,7 +28,7 @@
+@@ -30,7 +30,7 @@
  
  #include <fuse.h>
  #include <fuse/fuse_lowlevel.h>
