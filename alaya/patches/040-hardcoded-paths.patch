@@ -11,7 +11,7 @@
  	ListAddItem(Streams, Client);
 --- a/Settings.c
 +++ b/Settings.c
-@@ -507,7 +507,7 @@ fprintf(stdout,"	-v -v:		Even more verbo
+@@ -537,7 +537,7 @@ fprintf(stdout,"	-v -v:		Even more verbo
  fprintf(stdout,"	-a:		Specify the authentication file for 'built in' authentication.\n");
  fprintf(stdout,"	-A:		Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken. For 'Alaya native only' just use 'native' on its own\n");
  fprintf(stdout,"	-d:		No daemon, don't background process.\n");
@@ -20,7 +20,7 @@
  fprintf(stdout,"	-O:		Open, don't require authentication.\n");
  fprintf(stdout,"	-h:		'ChHome mode', switch to users home dir and chroot.\n");
  fprintf(stdout,"	-i:		Set interface listen on, allows running separate servers on the same port on different interfaces/network cards.\n");
-@@ -745,13 +745,13 @@ memset(&Settings,0,sizeof(TSettings));
+@@ -777,13 +777,13 @@ memset(&Settings,0,sizeof(TSettings));
  Settings.MaxLogSize=999999;
  Settings.MaxLogRotate=5;
  Settings.LogPath=CopyStr(Settings.LogPath,"SYSLOG");
