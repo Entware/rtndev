@@ -45,7 +45,7 @@ define Package/fake-hwclock/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S01fake-hwclock $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/git/fake-hwclock $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/fake-hwclock $(1)/opt/bin
 endef
 
 define Package/fake-hwclock/postinst
