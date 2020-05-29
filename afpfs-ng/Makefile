@@ -4,17 +4,20 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2008
+# Abandoned in 2015, archieved
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=afpfs-ng
-PKG_VERSION:=0.8.1
+PKG_VERSION:=0.8.2
+PKG_REV:=f6e24eb73c9283732c3b5d9cb101a1e2e4fade3e
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=@SF/$(PKG_NAME)/$(PKG_NAME)/$(PKG_VERSION)
-PKG_HASH:=688560de1cde57ab8d9e0ef7dc6436dbf0267fe8884f9014e50ff92b297b01a8
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/simonvetter/afpfs-ng.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -25,9 +28,9 @@ define Package/afpfs-ng
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libfuse +libgcrypt +libgmp +libncurses +libreadline
+	DEPENDS:=+libfuse +libgcrypt +libgmp +libreadline
 	TITLE:=a client for Apple Filing Protocol
-	URL:=https://sites.google.com/site/alexthepuffin/home
+	URL:=https://github.com/simonvetter/afpfs-ng
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
@@ -37,12 +40,15 @@ define Package/afpfs-ng/description
  AFP over TCP.
 endef
 
+define Build/Configure
+	touch $(PKG_BUILD_DIR)/README
+	touch $(PKG_BUILD_DIR)/lib/identify.c
+	$(call Build/Configure/Default)
+endef
+
 define Package/afpfs-ng/install
-	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/afp{cmd,fs,fsd,getstatus} \
-	    $(PKG_INSTALL_DIR)/opt/bin/mount_afp \
-	    $(1)/opt/bin
-	$(LN) -s /opt/bin/mount_afp $(1)/opt/bin/afp_client
+	$(INSTALL_DIR) $(1)/opt
+	$(CP) $(PKG_INSTALL_DIR)/opt/bin $(1)/opt
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libafpclient.so* $(1)/opt/lib
 endef
