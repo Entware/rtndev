@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=axel
-PKG_VERSION:=2.17.7
+PKG_VERSION:=2.17.8
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/axel-download-accelerator/axel/releases/download/v$(PKG_VERSION)
-PKG_HASH:=ce7bc2204834e408af43a54bc505b8e51fcdf8e8ccb9a9bf6eb81624de8c1495
+PKG_HASH:=36897b97c44f050ab92d36ba56f2f0e4c456d28b4453aadce5814252681fe078
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -36,7 +36,7 @@ define Package/axel/description
  speed up a download up to 60% (approximately, according to some tests).
  Axel supports HTTP, HTTPS, FTP and FTPS protocols.
  Axel tries to be as light as possible, so it might be useful as a
- wget clone (and other console based programs) on byte-critical systems. 
+ wget clone (and other console based programs) on byte-critical systems.
 endef
 
 define Package/axel/install
