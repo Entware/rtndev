@@ -17,7 +17,6 @@ PKG_SOURCE_URL:=@SF/extundelete/$(PKG_VERSION)
 PKG_HASH:=a1f9dd61247056d36401ce5d6785e74d08a184340eebd3865c345ddaa93f19f4
 
 PKG_FIXUP:=autoreconf
-PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -40,7 +39,7 @@ TARGET_LDFLAGS += \
 
 define Package/extundelete/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/extundelete $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/extundelete $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,extundelete))
