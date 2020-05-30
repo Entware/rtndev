@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goaccess
-PKG_VERSION:=1.3
+PKG_VERSION:=1.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://tar.goaccess.io
-PKG_HASH:=8c775c5c24bf85a933fd6f1249004847342d6542aa533e4ec02aaf7be41d7b9b
+PKG_HASH:=e8fbb9ff852556d72dfd9f1d0134ba075ce5b4c41289902a6f4e0d97c69377be
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -47,7 +47,7 @@ define Package/goaccess/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/goaccess $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/etc/goaccess
 	$(INSTALL_CONF) \
-	    $(PKG_INSTALL_DIR)/opt/etc/goaccess/{browsers.list,goaccess.conf} \
+	    $(PKG_INSTALL_DIR)/opt/etc/goaccess/{browsers.list,goaccess.conf,podcast.list} \
 	    $(1)/opt/etc/goaccess
 endef
 

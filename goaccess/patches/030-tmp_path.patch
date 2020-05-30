@@ -1,14 +1,3 @@
---- a/src/tcbtdb.h
-+++ b/src/tcbtdb.h
-@@ -46,7 +46,7 @@
- #define TC_LMEMB 128
- #define TC_NMEMB 256
- #define TC_BNUM  32749
--#define TC_DBPATH "/tmp/goaccess"
-+#define TC_DBPATH "/opt/tmp/goaccess"
- #define TC_DBPMODE 0755
- #define TC_ZLIB 1
- #define TC_BZ2  2
 --- a/src/websocket.h
 +++ b/src/websocket.h
 @@ -90,8 +90,8 @@
@@ -22,3 +11,29 @@
  
  #define WS_BAD_REQUEST_STR "HTTP/1.1 400 Invalid Request\r\n\r\n"
  #define WS_SWITCH_PROTO_STR "HTTP/1.1 101 Switching Protocols"
+--- a/src/options.c
++++ b/src/options.c
+@@ -247,10 +247,10 @@
+   "  --ignore-status=<CODE>          - Ignore parsing the given status code.\n"
+   "  --keep-last=<NDAYS>             - Keep the last NDAYS in storage.\n"
+   "  --num-tests=<number>            - Number of lines to test. >= 0 (10 default)\n"
+-  "  --persist                       - Persist data to disk on exit to the given --db-path or to /tmp.\n"
++  "  --persist                       - Persist data to disk on exit to the given --db-path or to /opt/tmp.\n"
+   "  --process-and-exit              - Parse log and exit without outputting data.\n"
+   "  --real-os                       - Display real OS names. e.g, Windows XP, Snow Leopard.\n"
+-  "  --restore                       - Restore data from disk from the given --db-path or from /tmp.\n"
++  "  --restore                       - Restore data from disk from the given --db-path or from /opt/tmp.\n"
+   "  --sort-panel=PANEL,METRIC,ORDER - Sort panel on initial load. e.g., --sort-panel=VISITORS,BY_HITS,ASC.\n"
+   "                                    See manpage for a list of panels/fields.\n"
+   "  --static-file=<extension>       - Add static file extension. e.g.: .mp3. Extensions are case sensitive.\n"
+--- a/src/gstorage.h
++++ b/src/gstorage.h
+@@ -35,7 +35,7 @@
+ 
+ /* Total number of storage metrics (GSMetric) */
+ #define GSMTRC_TOTAL 19
+-#define DB_PATH "/tmp"
++#define DB_PATH "/opt/tmp"
+ 
+ /* Enumerated Storage Metrics */
+ typedef enum GSMetric_ {
