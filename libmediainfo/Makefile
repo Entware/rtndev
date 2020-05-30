@@ -8,12 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
-PKG_VERSION:=19.09
+PKG_VERSION:=20.03
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
-PKG_HASH:=08e449e2766fc066ebd7e90d1903738e1ef54dfb0318c77adf4ca8abe4191ecf
+PKG_HASH:=bacb0cd84c74d631c05fc9ce817fd7ccefae9cb8a9a9a979dec51240ca164d2e
+
+PKG_INSTALL:=1
+PKG_FIXUP:=autoreconf
 
 PKG_BUILD_DEPENDS:=libzen
 
@@ -39,21 +42,7 @@ CONFIGURE_ARGS += \
 	--enable-static \
 	--disable-shared
 
-define Build/Configure
-	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
-		./autogen.sh; \
-	)
-	$(call Build/Configure/Default)
-endef
-
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)/$(CONFIGURE_PATH) \
-		LDFLAGS="$(TARGET_CFLAGS) $(TARGET_LDFLAGS)" \
-		CC="$(TARGET_CC)"
-	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
-		DESTDIR="$(PKG_INSTALL_DIR)" make install \
-	)
-endef
+MAKE_PATH:=$(CONFIGURE_PATH)
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include $(1)/opt/lib
