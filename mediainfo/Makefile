@@ -8,12 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=19.09
+PKG_VERSION:=20.03
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/mediainfo/$(PKG_VERSION)
-PKG_HASH:=fd27280430829a27bb3a6628d181e03e5f8f13cb127509fedf1f62d18c77124d
+PKG_HASH:=d895f3b0f3ee75692a7c7c2aac4093ec3cd1b47e075d072c255896193b972005
+
+PKG_FIXUP:=autoreconf
 
 PKG_BUILD_DEPENDS:=libmediainfo
 
@@ -36,19 +38,7 @@ define Package/mediainfo/description
 endef
 
 CONFIGURE_PATH:=Project/GNU/CLI
-
-define Build/Configure
-	(cd $(PKG_BUILD_DIR)/$(CONFIGURE_PATH); \
-		./autogen.sh; \
-	)
-	$(call Build/Configure/Default)
-endef
-
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)/$(CONFIGURE_PATH) \
-		LDFLAGS="$(TARGET_CFLAGS) $(TARGET_LDFLAGS)" \
-		CC="$(TARGET_CC)"
-endef
+MAKE_PATH:=$(CONFIGURE_PATH)
 
 define Package/mediainfo/install
 	$(INSTALL_DIR) $(1)/opt/bin
