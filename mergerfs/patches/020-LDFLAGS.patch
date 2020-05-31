@@ -1,11 +1,22 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -108,7 +108,7 @@
- 	$(MAKE) $(OBJS)
+@@ -76,7 +75,7 @@
+ MFS_FLAGS  = \
+ 	      -DUSE_XATTR=$(USE_XATTR) \
+ 	      -DUGID_USE_RWLOCK=$(UGID_USE_RWLOCK)
+-LDFLAGS    = \
++LDFLAGS    += \
+ 	      -pthread \
+               -lrt
  
- build/mergerfs: libfuse objects
--	$(CXX) $(CXXFLAGS) $(FUSE_FLAGS) $(MFS_FLAGS) $(CPPFLAGS) $(OBJS) -o $@ libfuse/build/libfuse.a $(LDFLAGS)
-+	$(CXX) $(CXXFLAGS) $(FUSE_FLAGS) $(MFS_FLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -o $@ libfuse/build/libfuse.a $(LDFLAGS)
- 
- mergerfs: build/mergerfs
+--- a/libfuse/Makefile
++++ b/libfuse/Makefile
+@@ -52,7 +52,7 @@
+ 	-DFUSE_USE_VERSION=29 \
+ 	-DPACKAGE_VERSION=\"$(VERSION)\" \
+ 	-DFUSERMOUNT_DIR=\"$(FUSERMOUNT_DIR)\"
+-LDFLAGS = \
++LDFLAGS += \
+ 	-lrt \
+ 	-pthread
  
