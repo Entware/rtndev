@@ -8,16 +8,18 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethogs
-PKG_VERSION:=0.8.5
+PKG_VERSION:=0.8.6
+PKG_RELEASE:=1
+PKG_REV:=3889d20018b9d9a27c86efb4c8a06c2106aaf2c2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=v$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/raboof/nethogs/archive
-PKG_HASH:=6a9392726feca43228b3f0265379154946ef0544c2ca2cac59ec35a24f469dcc
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/raboof/nethogs.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
-
-PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(BUILD_DIR) $(TAR_OPTIONS)
 
 define Package/nethogs
 	SECTION:=net
