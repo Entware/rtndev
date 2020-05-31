@@ -11,12 +11,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.14.1
+PKG_VERSION:=5.14.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.14/$(PKG_VERSION)/single
-PKG_HASH:=6f17f488f512b39c2feb57d83a5e0a13dcef32999bea2e2a8f832f54a29badb8
+PKG_HASH:=c6fcd53c744df89e7d3223c02838a33309bd1c291fcb6f9341505fe99f7f19fa
 
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
@@ -26,7 +26,7 @@ PKG_BUILD_DIR=$(BUILD_DIR)/qt-everywhere-src-$(PKG_VERSION)
 include $(INCLUDE_DIR)/package.mk
 
 ifndef CONFIG_USE_GLIBC
-# not using sstrip here as this fucks up the .so's somehow
+# not using sstrip here as this screw up the .so's somehow
 STRIP:=/bin/true
 RSTRIP:= \
 	NM="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)nm" \
