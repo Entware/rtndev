@@ -4,16 +4,17 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# The newer versions (5.0+)  requires Rust
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=suricata
-PKG_VERSION:=4.1.7
+PKG_VERSION:=4.1.8
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.openinfosecfoundation.org/download
-PKG_HASH:=a1f55ce9a1c4f3aa0cc206f6707ab126c95c0205c871039dc8bb0e8c3586178c
+PKG_HASH:=c8a83a05f57cedc0ef81d833ddcfdbbfdcdb6f459a91b1b15dc2d5671f1aecbb
 
 PKG_INSTALL:=1
 
@@ -22,7 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/suricata
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libyaml +jansson +libpcap +libpcre +file +liblzma +liblz4
+	DEPENDS:=+libyaml +jansson +libpcap +libpcre +file +liblz4
 	TITLE:=IDS, IPS, NSM engine
 	URL:=https://suricata-ids.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -38,7 +39,7 @@ endef
 
 CONFIGURE_ARGS += \
 	--disable-static \
-	--enable-afl \
+	--disable-afl \
 	--disable-suricata-update
 
 define Package/suricata/conffiles
