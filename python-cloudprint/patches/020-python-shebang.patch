@@ -1,8 +1,0 @@
---- a/cloudprint/cloudprint.py
-+++ b/cloudprint/cloudprint.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/opt/bin/python
- # Copyright 2014 Jason Michalski <armooo@armooo.net>
- #
- # This file is part of cloudprint.
