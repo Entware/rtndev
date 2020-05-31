@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -108,7 +108,7 @@
+ 	$(MAKE) $(OBJS)
+ 
+ build/mergerfs: libfuse objects
+-	$(CXX) $(CXXFLAGS) $(FUSE_FLAGS) $(MFS_FLAGS) $(CPPFLAGS) $(OBJS) -o $@ libfuse/build/libfuse.a $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) $(FUSE_FLAGS) $(MFS_FLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -o $@ libfuse/build/libfuse.a $(LDFLAGS)
+ 
+ mergerfs: build/mergerfs
+ 

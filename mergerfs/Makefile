@@ -10,8 +10,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mergerfs
-PKG_VERSION:=2.25.1
-PKG_REV:=3c1f19e85aa9085eeeb852251b021049c83f4856
+PKG_VERSION:=2.29.0
+PKG_REV:=10e8bd9fa307bef741182d33f9df004400a82d21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -26,7 +26,7 @@ define Package/mergerfs
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+libfuse +libstdcpp
+	DEPENDS:=+libstdcpp
 	TITLE:=a featureful union filesystem
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
@@ -38,13 +38,14 @@ define Package/mergerfs/description
  to mhddfs, unionfs, and aufs.
 endef
 
-MAKE_FLAGS += \
-	INTERNAL_FUSE=0
-
 define Package/mergerfs/install
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) \
+		$(PKG_BUILD_DIR)/build/mergerfs \
+		$(PKG_BUILD_DIR)/libfuse/build/mergerfs-fusermount \
+		$(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/opt/sbin
-	$(LN) /opt/sbin/mergerfs $(1)/opt/sbin/mount.mergefs
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/libfuse/build/mount.mergerfs $(1)/opt/sbin
 endef
 
 $(eval $(call BuildPackage,mergerfs))

@@ -1,0 +1,38 @@
+--- a/libfuse/Makefile
++++ b/libfuse/Makefile
+@@ -69,20 +69,20 @@
+ 	$(MAKE) $(OBJS)
+ 
+ build/libfuse.a: objects
+-	ar rcs build/libfuse.a $(OBJS)
++	$(AR) rcs build/libfuse.a $(OBJS)
+ 
+ build/mergerfs-fusermount: build/config.h util/fusermount.c lib/mount_util.c
+-	$(CC) $(CFLAGS) $(FUSE_FLAGS) -Ilib -o build/mergerfs-fusermount util/fusermount.c lib/mount_util.c
++	$(CC) $(CFLAGS) $(CXXFLAGS) $(FUSE_FLAGS) $(LDFLAGS) -Ilib -o build/mergerfs-fusermount util/fusermount.c lib/mount_util.c
+ 
+ mergerfs-fusermount: build/mergerfs-fusermount
+ 
+ build/mount.mergerfs: build/libfuse.a util/mount.mergerfs.c
+-	$(CC) $(CFLAGS) $(FUSE_FLAGS) -o build/mount.mergerfs util/mount.mergerfs.c build/libfuse.a $(LDFLAGS)
++	$(CC) $(CFLAGS) $(CXXFLAGS) $(FUSE_FLAGS) $(LDFLAGS) -o build/mount.mergerfs util/mount.mergerfs.c build/libfuse.a $(LDFLAGS)
+ 
+ mount.mergerfs: build/mount.mergerfs
+ 
+ build/%.o: lib/%.c
+-	$(CC) $(CFLAGS) $(FUSE_FLAGS) -c $< -o $@
++	$(CC) $(CFLAGS) $(CXXFLAGS) $(FUSE_FLAGS) -c $< -o $@
+ 
+ clean:
+ 	rm -rf build
+@@ -90,8 +90,8 @@
+ distclean: clean
+ 
+ strip:
+-	strip --strip-all build/mount.mergerfs
+-	strip --strip-all build/mergerfs-fusermount
++	$(STRIP) --strip-all build/mount.mergerfs
++	$(STRIP) --strip-all build/mergerfs-fusermount
+ 
+ install: mergerfs-fusermount mount.mergerfs strip
+ 	install -D build/mergerfs-fusermount "$(INSTALLBINDIR)/mergerfs-fusermount"
