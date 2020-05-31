@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qpdf
-PKG_VERSION:=9.1.1
+PKG_VERSION:=10.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_HASH:=a2c6fc410ec45df0ca0996b039e00bb6f39cfc76d42d784b7ad7bc9e163f4236
+PKG_HASH:=5d2277c738188b7f4e3f01a6db7f2937ed6df54671f1fba834cd3d7ff865827b
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/qpdf
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libjpeg +libpcre +zlib +libstdcpp
+	DEPENDS:=+libjpeg +libatomic +zlib +libstdcpp
 	TITLE:=PDF transformations utility
 	URL:=http://qpdf.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net
@@ -36,12 +36,16 @@ define Package/qpdf/description
 endef
 
 CONFIGURE_ARGS += \
-	--disable-crypto-gnutls \
+	--disable-implicit-crypto \
+	--enable-crypto-native \
 	--with-random=/dev/urandom
 
+CONFIGURE_VARS += \
+	LIBS=-latomic
+
 define Package/qpdf/install
-	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/{qpdf,zlib-flate} $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt
+	$(CP) $(PKG_INSTALL_DIR)/opt/bin $(1)/opt
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libqpdf.so* $(1)/opt/lib
 endef
