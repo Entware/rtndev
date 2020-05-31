@@ -49,7 +49,10 @@ static void es_ensure_headers_sent(full_subscriber_t *fsub) {
     
     bc->buf.last_buf = 0;
     bc->buf.flush = 1;
-
+    
+    r->chunked = 0;
+    r->header_only = 0;
+    
     nchan_output_filter(fsub->sub.request, &bc->chain);
     
     fsub->data.shook_hands = 1; 
@@ -103,7 +106,7 @@ static ngx_int_t es_respond_message(subscriber_t *sub,  nchan_msg_t *msg) {
   static ngx_str_t        terminal_newlines=ngx_string("\n\n");
   full_subscriber_t      *fsub = (full_subscriber_t  *)sub;
   u_char                 *cur = NULL, *last = NULL;
-  ngx_buf_t              *msg_buf = msg->buf;
+  ngx_buf_t              *msg_buf = &msg->buf;
   ngx_buf_t               databuf;
   nchan_buf_and_chain_t  *bc;
   ngx_chain_t            *first_link = NULL, *last_link = NULL;
@@ -233,8 +236,8 @@ static ngx_int_t es_respond_message(subscriber_t *sub,  nchan_msg_t *msg) {
   if(sub->cf->eventsource_event.len > 0) {
     prepend_es_response_line(fsub, &event_line, &first_link, &sub->cf->eventsource_event);
   }
-  else if(msg->eventsource_event.len > 0) {
-    prepend_es_response_line(fsub, &event_line, &first_link, &msg->eventsource_event);
+  else if(msg->eventsource_event) {
+    prepend_es_response_line(fsub, &event_line, &first_link, msg->eventsource_event);
   }
   
   return nchan_output_msg_filter(fsub->sub.request, msg, first_link);
@@ -242,7 +245,7 @@ static ngx_int_t es_respond_message(subscriber_t *sub,  nchan_msg_t *msg) {
 
 static void empty_handler(void) {}
 
-static ngx_int_t es_respond_status(subscriber_t *sub, ngx_int_t status_code, const ngx_str_t *status_line){
+static ngx_int_t es_respond_status(subscriber_t *sub, ngx_int_t status_code, const ngx_str_t *status_line,  ngx_chain_t *status_body){
   
   static ngx_str_t          empty_line = ngx_string("");
   full_subscriber_t        *fsub = (full_subscriber_t  *)sub;
@@ -255,7 +258,7 @@ static ngx_int_t es_respond_status(subscriber_t *sub, ngx_int_t status_code, con
   }
   
   if(fsub->data.shook_hands == 0 && status_code >= 400 && status_code <600) {
-    return subscriber_respond_unqueued_status(fsub, status_code, status_line);
+    return subscriber_respond_unqueued_status(fsub, status_code, status_line, status_body);
   }
   
   es_ensure_headers_sent(fsub);
@@ -273,6 +276,7 @@ static ngx_int_t es_respond_status(subscriber_t *sub, ngx_int_t status_code, con
   if((status_code >=400 && status_code <599) || status_code == NGX_HTTP_NOT_MODIFIED) {
     fsub->data.cln->handler = (ngx_http_cleanup_pt )empty_handler;
     fsub->sub.request->keepalive=0;
+    sub->request->headers_out.status = status_code;
     fsub->data.finalize_request=1;
     sub->fn->dequeue(sub);
   }
@@ -280,15 +284,88 @@ static ngx_int_t es_respond_status(subscriber_t *sub, ngx_int_t status_code, con
   return NGX_OK;
 }
 
+static void ping_ev_handler(ngx_event_t *ev) {
+  full_subscriber_t    *fsub = (full_subscriber_t *)ev->data;
+  nchan_loc_conf_t     *cf = fsub->sub.cf;
+  
+  if(!ev->timedout) {
+    return;
+  }
+
+  struct {
+    ngx_str_t   prefix;
+    ngx_str_t  *value;
+  } line[3] = {
+    {ngx_string(":"),         &cf->eventsource_ping.comment},
+    {ngx_string("event: "),   &cf->eventsource_ping.event},
+    {ngx_string("data: "),    &cf->eventsource_ping.data}
+  };
+  
+  int chaincount = 1;
+  int i;
+  for(i=0; i<3; i++) {
+    chaincount += line[i].value->len > 0 ? 3 : 0;
+  }
+
+  nchan_buf_and_chain_t  *bc = nchan_bufchain_pool_reserve(fsub_bcp(fsub), chaincount);
+  ngx_chain_t            *chain = NULL;
+    
+  for(i=0; i<3; i++) {
+    if(line[i].value->len > 0) {
+      chain = chain ? chain->next : &bc->chain;
+      ngx_init_set_membuf_str(chain->buf, &line[i].prefix);
+      
+      chain = chain->next;
+      ngx_init_set_membuf_str(chain->buf, line[i].value);
+      
+      chain = chain->next;
+      ngx_init_set_membuf_char(chain->buf, "\n");
+    }
+  }
+  chain = chain ? chain->next : &bc->chain;
+  if(chaincount > 1) {
+    ngx_init_set_membuf_char(chain->buf, "\n");
+  }
+  else {
+    //everything's empty.
+    //rather than sending a single newline (which is probably a valid event-stream protocol token)
+    //send an empty comment (definitely valid)
+    ngx_init_set_membuf_char(chain->buf, ":\n\n");
+  }
+  chain->buf->last_in_chain = 1;
+  chain->buf->flush = 1;
+  chain->next = NULL;
+  
+  nchan_output_filter(fsub->sub.request, &bc->chain);
+  
+  ev->timedout=0;
+  ngx_add_timer(&fsub->data.ping_ev, fsub->sub.cf->eventsource_ping.interval * 1000);
+}
+
 static ngx_int_t es_enqueue(subscriber_t *sub) {
   ngx_int_t           rc;
   full_subscriber_t  *fsub = (full_subscriber_t *)sub;
   DBG("%p output status to subscriber", sub);
   rc = longpoll_enqueue(sub);
+  if(rc == NGX_OK) {
+    if(sub->cf->eventsource_ping.interval > 0) {
+      nchan_init_timer(&fsub->data.ping_ev, ping_ev_handler, fsub);
+      ngx_add_timer(&fsub->data.ping_ev, sub->cf->eventsource_ping.interval * 1000);
+    }
+  }
+  
   fsub->data.finalize_request = 0;
   es_ensure_headers_sent(fsub);
   sub->enqueued = 1;
   return rc;
+}
+
+static ngx_int_t es_dequeue(subscriber_t *sub) {
+  full_subscriber_t  *fsub = (full_subscriber_t *)sub;
+  if(fsub->data.ping_ev.timer_set) {
+    ngx_del_timer(&fsub->data.ping_ev);
+  }
+  return longpoll_dequeue(sub);
 }
 
 static       subscriber_fn_t  eventsource_fn_data;
@@ -306,9 +383,12 @@ subscriber_t *eventsource_subscriber_create(ngx_http_request_t *r, nchan_msg_id_
     eventsource_fn = &eventsource_fn_data;
     *eventsource_fn = *sub->fn;
     eventsource_fn->enqueue = es_enqueue;
+    eventsource_fn->dequeue = es_dequeue;
     eventsource_fn->respond_message= es_respond_message;
     eventsource_fn->respond_status = es_respond_status;
   }
+  
+  ngx_memzero(&fsub->data.ping_ev, sizeof(fsub->data.ping_ev));
   
   fsub->data.shook_hands = 0;
   
@@ -318,7 +398,7 @@ subscriber_t *eventsource_subscriber_create(ngx_http_request_t *r, nchan_msg_id_
   //msgid bufs -- unique per response
   nchan_subscriber_init_msgid_reusepool(ctx, r->pool);
   
-  nchan_subscriber_common_setup(sub, EVENTSOURCE, &sub_name, eventsource_fn, 0);
+  nchan_subscriber_common_setup(sub, EVENTSOURCE, &sub_name, eventsource_fn, 1, 0);
   return sub;
 }
 

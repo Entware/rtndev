@@ -1,3 +1,208 @@
+1.2.7 (Mar. 17 2020)
+ fix: unidirectional subscribers have their connection terminated if they send any data to the server
+      after the initial request handshake. This applies to all subscribers except Websocket
+ feature: periodic pings for EventSource subscribers
+ fix: Redis pending commands count may be incorrect in nchan's stub status page
+ fix: channel deletion fails to propagate to Redis slaves
+ fix: possible stack overflow when using websocket subscribers
+1.2.6 (Jun. 18 2019)
+ fix: when using Redis, a channel can stop receiving new messages if 
+      they are published faster than they can be sent to subscribers and the 
+      message buffer is sufficiently small
+ fix: websocket PONG response did not contain PING frame data
+ fix: multiplexed channels may stop receiving messages
+ fix (security): specially crafted websocket publisher requests when using Redis
+      may result in use-after-free memory access
+ fix: Nginx config reload may result in crash when using Redis cluster
+1.2.5 (Mar. 20 2019)
+ fix: using multiplexed channels with Redis in backup mode may result in worker crash
+ fix: nchan_publisher_channel_id could not be set exclusively in a publisher location
+ fix: Google pagespeed module compatibility
+ fix: nchan prevents nginx from starting if no http {} block is configured
+1.2.4 (Feb. 25 2019)
+ fix: Redis cluster info with zero-length hostname may result in worker crash
+ fix: build problems with included hiredis lib in FreeBSD
+ feature: nchan_redis_namespace and nchan_redis_ping_interval now work in upstream blocks
+ fix: websocket publisher did not publishing channel events
+ fix: Redis namespace was limited to 8 bytes
+1.2.3 (Oct. 15 2018)
+ fix: possible invalid memory access when the initial connection to a Redis cluster node times out
+1.2.2 (Oct. 9 2018)
+ fix (security): using an unresponsive, overloaded Redis server may result in invalid memory access
+ fix: incorrect logging of discovered Redis cluster nodes
+ fix: better handling of connection loss when Redis server is unresponsive
+ fix: presence of Redis cluster nodes with no known address ("noaddr") nodes could result in worker crash
+ fix (security): subscriber may erroneously receive a 400 Bad Request or crash a worker 
+      based on data from a previous subscriber
+ feature: built-in backend benchmark
+ feature: add optimized fastpublish option to Redis nostore mode for maximum
+      message publishing thoroughput via Redis
+ feature: add no-store Redis mode that uses Redis for broadcasting messages, not storage
+ fix: connecting to load-balancing Redis proxy resulted in crash
+ fix: using longpoll-multipart in "raw" mode cound result in worker crash
+ fix: channel events used with Redis resulted in segfault
+1.2.1 (Aug. 2 2018)
+ fix: channel last_requested was set to 0 instead of -1 on channel creation
+ fix: authentication failure body not forwarded for Nginx > 1.13.10
+ fix: possible invalid memory access for websocket unsubscribe requests
+ fix: building Nchan could interfere with building other modules
+1.2.0 (Jul. 23 2018)
+ feature: configurable support for CORS Access-Control-Allow-Credentials header
+ fix: better compliance with RFC7692  Websocket permessage-deflate parameter negotiation
+ fix (security): possible busy-loop denial-of-service for specially crafted 
+      handshakes from Websocket subscribers using permessage-deflate
+      (Thanks, Benjamin Michéle)
+ fix: nchan_permessage_deflate_compression_memlevel was not applied when set
+ refactor: all publisher and subscriber upstream requests are now more memory-efficient
+ fix: Using websocket publisher upstream requests may result in invalid memory access
+ fix: publishing Redis-backed messages with 1-second expiration may fail after
+      cluster restart
+ change: nchan_redis_wait_after_connecting directive is now obsolete, and is ignored
+ feature: nchan_redis_optimize_target for "cpu" or "bandwidth". Trades off CPU
+      load on Redis slaves for syncronization bandwidth.
+ feature: configurable Redis master/slave channel subscribe weights with
+      nchan_redis_subscribe_weights
+ fix: Compilation issues on OS X and systems lacking non-POSIX memrchr()
+ fix: nchan_pubsub CORS Allowed headers did not include headers used by subscribers
+ fix: Redis-backed channel buffer length could exceed nchan_message_buffer_length
+ fix: Publisher upstream compatibility for Nginx > 1.13.10
+ feature: nchan_redis_connect_timeout to configure maximum connection time 
+      to Redis servers
+ feature: Offload Redis SUBSCRIBE traffic to slaves 
+      (one SUBSCRIBE per channel per worker)
+ fix: Redis cluster and master/slave failover and reconnection issues
+ refactor: Redis connection handling rewritten from scratch
+ fix: subscribers may not receive new messages after reconnecting to Redis
+ fix: publishing to an unavailable Redis-backed channel may result in a 
+      following 400 Bad Request
+ change: Old Redis-backed channel messages are now delivered after the message
+      buffer is fully loaded into memory. Previously they were delivered
+      incrementally while the buffer loaded.
+ fix: multiplexed Redis-backed channels may not deliver messages if one or
+      more channels' messages all expire
+ fix: possible crash when catching up to reconnected Redis channel with
+      subscribers waiting for consecutive messages
+ fix: possible crash from rapidly creating and deleting channels
+1.1.15 (Apr. 27 2018)
+ fix: A disconnect from a Redis cluster node can result in a segfault
+ fix: Using Redis-backed multiplexed channels can result in a segfault
+1.1.14 (Jan. 10 2018)
+ feature: added nchan_redis_wait_after_connecting setting
+ fix: compatibility with Redis >= 4.0 cluster
+1.1.13 (Dec. 4 2017)
+ fix: added Redis backwards compatibility with Nchan 1.1.7 and below
+      for online upgrades with mixed-version Nchan cluster
+1.1.12 (Dec. 1 2017)
+ fix: possible "Unexpected spool == nuspool" worker crash
+ fix: subscriber messages delivered during active nchan_subscribe subrequest
+      may be garbled
+1.1.11 (Nov. 29 2017)
+ fix: Redis backup-mode not working (since 1.1.9)
+ fix: incorrect handling of Redis permessage-deflated messages results in
+      missing first char of eventsource event type
+ fix: worker crash when unable to create temp file for large websocket
+      permessage-deflate message
+ fix: CPU-bound overloaded Nginx may result in worker crashes
+      (may occur with large Openresty Lua load)
+ change: default nchan_shared_memory_size is now 128M
+ fix: some channel info from publisher GET requests may be incorrect with Redis
+ fix: file descriptor leak when reconnecting to Redis
+1.1.10 (Nov. 13 2017)
+ feature: nchan_authorize_request failure response forwarded back to subscriber
+      Sponsored by Symless (https://symless.com/)
+ fix: allow nchan_access_control_allow_origin in if blocks
+ fix: longpoll-multipart may read uninitialized memory when receiving 
+      zero-length message
+ fix (security): invalid memory access for aborted websocket subscriber 
+      after channel existence check via Redis
+ fix: websocket handhshake failure handled incorrectly when messages 
+      are available
+ fix (security): websocket subscriber disconnecting before handshake may
+      result in invalid memory access
+ fix (security): possible invalid memory access for disappearing longpoll sub
+ feature: add "shared memory limit" to nchan_stub_status output
+1.1.9 (Oct. 30 2017)
+ fix: more proper websocket extension negotiation with more 
+      informative failure messages
+ fix: websocket handshake failure response included superfluous CLOSE frame
+ feature: websocket deflate-frame and x-webkit-deflate-frame support
+1.1.8 (Oct. 26 2017)
+ feature: websocket permessage-deflate support
+      Sponsored by HYFN (https://hyfn.com/)
+ fix (security): websocket publisher may crash worker when publishing with
+      channel group accounting on to a new group
+ fix: messages published to Nchan via websocket binary frames 
+      should have content-type set to "application/octet-stream"
+ fix: accept websocket publisher binary frames (thanks @rponczkowski)
+ fix: multiplexing over exactly 255 channels results in worker crash
+ fix (security): Specially crafted invalid subscriber msgid may crash worker
+ fix: nchan_subscriber_first_message <= 0 (newest) with existing Redis data
+      incorrectly treated as "oldest" for initial subscribers
+ fix: 0-length channel name may crash worker
+ fix: subscribe/unsubscribe callback requests do not work when used with
+      authorization callback request
+ fix (security): Messages published with Redis through websocket publisher 
+      may result in worker crash (bug introduced in 1.1.5)
+ fix: nchan_pubsub setting may not be parsed correctly
+1.1.7 (Jul. 3 2017)
+ fix: possible read-after-free after redis disconnect
+ fix: publishing to redis cluster before it is connected results in worker crash
+ fix: possible use-after-free for suddenly disconnected longpoll-multipart subscriber
+ fix: possible use-after-free when using nchan_authorize_request for slow subscribers and slow upstream
+ fix: nchan_stub_status "stored messages" value could be incorrect when using Redis
+1.1.6 (May 9 2017)
+ fix: messages published through Redis may crash worker (introduced in 1.1.5)
+ fix (security): urlencoded message id in url parsed incorrectly can result in worker crash
+1.1.5 (May 3 2017)
+ feature: get current Nchan version through $nchan_version variable 
+      and nchan_stub_status
+ fix (security): invalid memory access for multiplexed channel subscribers 
+      with buffered output (Thanks Casey Forbes (@caseyf) for debugging.)
+ fix: "redis pending commands" nchan_stub_status stat could be wrong after 
+      deleting channels
+ fix: invalid memory access when using Redis under high load
+ fix: possible "message from the past" errors under high publishing load
+ fix: graceful publisher/subscriber notifications when out of shared memory
+      (via HTTP 507 Insufficient Storage status code)
+ fix: compatibility with limit_except directive
+1.1.4 (Apr. 25 2017)
+ fix (security): possible memory corruption using multiplexed channels 
+      at high load (Thanks Giovanni Caporaletti (@TrustNoOne) for debugging.)
+ fix: possible crash when reconnecting to Redis cluster (introduced in 1.1.3)
+1.1.3 (Mar. 25 2017)
+ fix (security): incorrect handling of WS optimization could trigger SIGABRT
+ fix: Redis cluster reconnect readiness verification
+1.1.2 (Mar. 1 2017)
+ change: "interprocess alert X delayed by Y sec" log messages downgraded 
+      from ERROR to NOTICE
+ fix: "group info string too short" error
+ fix: Incorrect handling of connections to Redis cluster nodes with round-robin
+      DNS hostnames (Thanks to ring.com for sponsoring this fix!)
+1.1.1 (Feb. 8 2017)
+ fix: incorrect stats for nchan_stub_status after reload.
+      (Stats are no longer reset after reload)
+ fix: websocket subscriber may receive two CLOSE frames
+ fix: websocket with ws+meta.nchan subprotocol did not receive empty messages
+ feature: websocket client heartbeats with nchan_websocket_client_heartbeat
+ fix: websocket now echoes code and reason when connection close initiated from client
+1.1.0 (Jan. 4 2017)
+ feature: websocket subscribers now receive "application/octet-stream" messages
+      in binary frame rather than text
+ fix: publisher request variables not always passed to nchan_publisher_upstream_request
+ feature: Redis storage 'backup' mode strictly for data persistence
+ fix: possible lingering subscriber if connection is closed just before subscribing
+ fix: possible memory leak when using multiplexed channels
+ security fix: subscribing with If-Modified-Since and without If-None-Match headers
+      crashed the Nginx worker (thanks @supertong)
+ security fix: sending an empty message to multipart/mixed subscriber crashed Nginx worker
+ fix: publisher & subscriber response codes were logged incorrectly
+ fix: websocket subscriber memory leak on upstream authentication failure
+ fix: possible crash after reloading when using several instances of Nchan with Redis
+ feature: nchan_access_control_allow_origin can accept nginx variables
+ feature: Redis key namespaces
+ feature: all size configurations can now parse decimal values
+ fix: off-by-one subscriber count when using multiplexed channels
+ feature: accounting and dynamic limits for channel groups
 1.0.8 (Nov. 28 2016)
  fix: possible crash under severely heavy load, introduced in 1.0.7 with stack-overflow fix
 1.0.7 (Nov. 27 2016)

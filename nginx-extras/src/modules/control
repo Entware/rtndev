@@ -34,8 +34,8 @@ Patch:
 
 Module: nchan
 Homepage: https://github.com/slact/nchan
-Version: 1.0.8
-Files-Excluded: dev nchan_logo.png NchanSubscriber.js src/hiredis
+Version: 1.2.7
+Files-Excluded: dev nchan_logo.png NchanSubscriber.js src/hiredis nchan
 
 Module: http-uploadprogress
 Homepage: https://github.com/masterzen/nginx-upload-progress-module
@@ -55,7 +55,7 @@ Version: 3.0.0
 
 Module: http-fancyindex
 Homepage: https://github.com/aperezdc/ngx-fancyindex
-Version: 0.4.3
+Version: 0.4.4
 Files-Excluded: .gitignore .travis.yml
 
 Module: http-subs-filter

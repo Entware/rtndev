@@ -154,6 +154,7 @@ typedef struct {
     ngx_uint_t name_length;  /**< Maximum length of file names in bytes. */
     ngx_flag_t hide_symlinks;/**< Hide symbolic links in listings. */
     ngx_flag_t show_path;    /**< Whether to display or not the path + '</h1>' after the header */
+    ngx_flag_t hide_parent;  /**< Hide parent directory. */
 
     ngx_str_t  header;       /**< File name for header, or empty if none. */
     ngx_str_t  footer;       /**< File name for footer, or empty if none. */
@@ -258,7 +259,7 @@ static char *ngx_http_fancyindex_ignore(ngx_conf_t    *cf,
                                         void          *conf);
 
 static uintptr_t
-    ngx_fancyindex_escape_uri(u_char *dst, u_char*src, size_t size);
+    ngx_fancyindex_escape_filename(u_char *dst, u_char*src, size_t size);
 
 /*
  * These are used only once per handler invocation. We can tell GCC to
@@ -361,6 +362,13 @@ static ngx_command_t  ngx_http_fancyindex_commands[] = {
       offsetof(ngx_http_fancyindex_loc_conf_t, show_path),
       NULL },
 
+    { ngx_string("fancyindex_hide_parent_dir"),
+      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
+      ngx_conf_set_flag_slot,
+      NGX_HTTP_LOC_CONF_OFFSET,
+      offsetof(ngx_http_fancyindex_loc_conf_t, hide_parent),
+      NULL },
+
     { ngx_string("fancyindex_time_format"),
       NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
       ngx_conf_set_str_slot,
@@ -410,8 +418,15 @@ static const ngx_str_t css_href_post =
     ngx_string("\" type=\"text/css\"/>\n");
 
 
+#ifdef NGX_ESCAPE_URI_COMPONENT
+static inline uintptr_t
+ngx_fancyindex_escape_filename(u_char *dst, u_char *src, size_t size)
+{
+    return ngx_escape_uri(dst, src, size, NGX_ESCAPE_URI_COMPONENT);
+}
+#else /* !NGX_ESCAPE_URI_COMPONENT */
 static uintptr_t
-ngx_fancyindex_escape_uri(u_char *dst, u_char *src, size_t size)
+ngx_fancyindex_escape_filename(u_char *dst, u_char *src, size_t size)
 {
     /*
      * The ngx_escape_uri() function will not escape colons or the
@@ -483,6 +498,7 @@ ngx_fancyindex_escape_uri(u_char *dst, u_char *src, size_t size)
         return escapes + uescapes;
     }
 }
+#endif /* NGX_ESCAPE_URI_COMPONENT */
 
 
 static ngx_inline ngx_buf_t*
@@ -716,9 +732,9 @@ make_content_buf(
             return ngx_http_fancyindex_error(r, &dir, &path);
 
         ngx_cpystrn(entry->name.data, ngx_de_name(&dir), len + 1);
-        entry->escape = 2 * ngx_fancyindex_escape_uri(NULL,
-                                                      ngx_de_name(&dir),
-                                                      len);
+        entry->escape = 2 * ngx_fancyindex_escape_filename(NULL,
+                                                           ngx_de_name(&dir),
+                                                           len);
 
         entry->dir     = ngx_de_is_dir(&dir);
         entry->mtime   = ngx_de_mtime(&dir);
@@ -901,7 +917,7 @@ make_content_buf(
     tp = ngx_timeofday();
 
     /* "Parent dir" entry, always first if displayed */
-    if (r->uri.len > 1) {
+    if (r->uri.len > 1 && alcf->hide_parent == 0) {
         b->last = ngx_cpymem_ssz(b->last,
                                  "<tr>"
                                  "<td class=\"link\"><a href=\"../");
@@ -914,7 +930,8 @@ make_content_buf(
                                  "\">Parent directory/</a></td>"
                                  "<td class=\"size\">-</td>"
                                  "<td class=\"date\">-</td>"
-                                 "</tr>");
+                                 "</tr>"
+                                 CRLF);
     }
 
     /* Entries for directories and files */
@@ -922,9 +939,9 @@ make_content_buf(
         b->last = ngx_cpymem_ssz(b->last, "<tr><td class=\"link\"><a href=\"");
 
         if (entry[i].escape) {
-            ngx_fancyindex_escape_uri(b->last,
-                                      entry[i].name.data,
-                                      entry[i].name.len);
+            ngx_fancyindex_escape_filename(b->last,
+                                           entry[i].name.data,
+                                           entry[i].name.len);
 
             b->last += entry[i].name.len + entry[i].escape;
 
@@ -1315,6 +1332,7 @@ ngx_http_fancyindex_create_loc_conf(ngx_conf_t *cf)
     conf->ignore        = NGX_CONF_UNSET_PTR;
     conf->hide_symlinks = NGX_CONF_UNSET;
     conf->show_path     = NGX_CONF_UNSET;
+    conf->hide_parent   = NGX_CONF_UNSET;
 
     return conf;
 }
@@ -1343,6 +1361,7 @@ ngx_http_fancyindex_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
 
     ngx_conf_merge_ptr_value(conf->ignore, prev->ignore, NULL);
     ngx_conf_merge_value(conf->hide_symlinks, prev->hide_symlinks, 0);
+    ngx_conf_merge_value(conf->hide_parent, prev->hide_parent, 0);
 
     /* Just make sure we haven't disabled the show_path directive without providing a custom header */
     if (conf->show_path == 0 && conf->header.len == 0)

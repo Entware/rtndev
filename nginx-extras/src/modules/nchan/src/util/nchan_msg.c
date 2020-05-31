@@ -1,7 +1,175 @@
 #include <nchan_module.h>
 #include <assert.h>
+#include <store/memory/store.h>
+#include <util/shmem.h>
 
-#define ERR(fmt, args...) ngx_log_error(NGX_LOG_ERR, ngx_cycle->log, 0, "NCHAN MSG_ID:" fmt, ##args)
+#define ERR(fmt, args...) ngx_log_error(NGX_LOG_ERR, ngx_cycle->log, 0, "NCHAN MSG:" fmt, ##args)
+
+#define MSG_REFCOUNT_INVALID -9000
+
+#if NCHAN_MSG_RESERVE_DEBUG  
+static void nchan_msg_reserve_debug(nchan_msg_t *msg, char *lbl) {
+  msg_rsv_dbg_t     *rsv;
+  int shared = msg->storage == NCHAN_MSG_SHARED;
+  
+  if(shared) 
+    shmtx_lock(nchan_store_memory_shmem);  
+  
+  if(shared) 
+    rsv=shm_locked_calloc(nchan_store_memory_shmem, sizeof(*rsv) + ngx_strlen(lbl) + 1, "msgdebug");
+  else
+    rsv=ngx_calloc(sizeof(*rsv) + ngx_strlen(lbl) + 1, ngx_cycle->log);
+    
+  rsv->lbl = (char *)(&rsv[1]);
+  ngx_memcpy(rsv->lbl, lbl, ngx_strlen(lbl));
+  if(msg->rsv == NULL) {
+    msg->rsv = rsv;
+    rsv->prev = NULL;
+    rsv->next = NULL;
+  }
+  else {
+    msg->rsv->prev = rsv;
+    rsv->next = msg->rsv;
+    rsv->prev = NULL;
+    msg->rsv = rsv;
+  }
+  
+  if(shared)
+    shmtx_unlock(nchan_store_memory_shmem);
+}
+
+static void nchan_msg_release_debug(nchan_msg_t *msg, char *lbl) {
+  msg_rsv_dbg_t     *cur, *prev, *next;
+  size_t             sz = ngx_strlen(lbl);
+  ngx_int_t          rsv_found=0;
+  int shared = msg->storage == NCHAN_MSG_SHARED;
+  
+  if(shared)
+    shmtx_lock(nchan_store_memory_shmem);
+  
+  assert(msg->refcount > 0);
+  for(cur = msg->rsv; cur != NULL; cur = cur->next) {
+    if(ngx_memcmp(lbl, cur->lbl, sz) == 0) {
+      prev = cur->prev;
+      next = cur->next;
+      if(prev) {
+        prev->next = next;
+      }
+      if(next) {
+        next->prev = prev;
+      }
+      if(cur == msg->rsv) {
+        msg->rsv = next;
+      }
+      
+      if(shared)
+        shm_locked_free(nchan_store_memory_shmem, cur);
+      else
+        ngx_free(cur);
+      
+      rsv_found = 1;
+      break;
+    }
+  }
+  assert(rsv_found);
+  if(shared)
+    shmtx_unlock(nchan_store_memory_shmem);
+}
+#endif
+
+int msg_refcount_valid(nchan_msg_t *msg) {
+  return msg->refcount >= 0;
+}
+
+int msg_refcount_invalidate_if_zero(nchan_msg_t *msg) {
+  return ngx_atomic_cmp_set((ngx_atomic_uint_t *)&msg->refcount, 0, MSG_REFCOUNT_INVALID);
+}
+void msg_refcount_invalidate(nchan_msg_t *msg) {
+  msg->refcount = MSG_REFCOUNT_INVALID;
+}
+
+
+ngx_int_t msg_reserve(nchan_msg_t *msg, char *lbl) {
+  if(msg->parent) {
+    assert(msg->storage != NCHAN_MSG_SHARED);
+    msg->refcount++;
+#if NCHAN_MSG_RESERVE_DEBUG
+    nchan_msg_reserve_debug(msg, lbl);
+#endif
+    return msg_reserve(msg->parent, lbl);
+  }
+  assert(!msg->parent);
+  
+  ngx_atomic_fetch_add((ngx_atomic_uint_t *)&msg->refcount, 1);
+  assert(msg->refcount >= 0);
+  if(msg->refcount < 0) {
+    msg->refcount = MSG_REFCOUNT_INVALID;
+    return NGX_ERROR;
+  }
+#if NCHAN_MSG_RESERVE_DEBUG  
+  nchan_msg_reserve_debug(msg, lbl);
+#endif
+
+  //DBG("msg %p reserved (%i) %s", msg, msg->refcount, lbl);
+  return NGX_OK;
+}
+
+ngx_int_t msg_release(nchan_msg_t *msg, char *lbl) {
+  nchan_msg_t    *parent = msg->parent;
+  if(parent) {
+    assert(msg->storage != NCHAN_MSG_SHARED);
+#if NCHAN_MSG_RESERVE_DEBUG
+    nchan_msg_release_debug(msg, lbl);
+#endif
+    msg->refcount--;
+    assert(msg->refcount >= 0);
+    
+    if(msg->refcount == 0) {
+      switch(msg->storage) {
+        case NCHAN_MSG_POOL:
+          //free the id, the rest of the msg will be cleaned with the pool
+          nchan_free_msg_id(&msg->id);
+          break;
+          
+        case NCHAN_MSG_HEAP:
+          nchan_free_msg_id(&msg->id);
+          ngx_free(msg);
+          break;
+          
+        default:
+          break;
+          //do nothing for NCHAN_MSG_STACK. NCHAN_MSG_SHARED should never be seen here.
+      }
+    }
+    return msg_release(parent, lbl);
+  }
+  assert(!parent);
+  
+#if NCHAN_MSG_RESERVE_DEBUG
+  nchan_msg_release_debug(msg, lbl);
+#endif
+  assert(msg->refcount > 0);
+  ngx_atomic_fetch_add((ngx_atomic_uint_t *)&msg->refcount, -1);
+  //DBG("msg %p released (%i) %s", msg, msg->refcount, lbl);
+  return NGX_OK;
+}
+
+
+int nchan_msgid_tagcount_match(nchan_msg_id_t *id, int count) {
+  switch(id->time) {
+    case NCHAN_OLDEST_MSGID_TIME:
+    case NCHAN_NEWEST_MSGID_TIME:
+    case NCHAN_NTH_MSGID_TIME:
+      if(id->tagcount == 1 && id->tagactive == 0)
+        return 1;
+      break;
+    default:
+      if(id->tagcount == count && id->tagactive >= 0 && id->tagactive < count)
+        return 1;
+      break;
+  }
+  return 0;
+}
 
 void nchan_expand_msg_id_multi_tag(nchan_msg_id_t *id, uint8_t in_n, uint8_t out_n, int16_t fill) {
   int16_t v, n = id->tagcount;
@@ -237,8 +405,11 @@ static ngx_int_t nchan_parse_msg_tag(u_char *first, u_char *last, nchan_msg_id_t
   int8_t            sign = 1;
   int16_t           val = 0;
   static int16_t    tags[NCHAN_MULTITAG_MAX];
+  int brace_open_total = 0;
+  int brace_close_total = 0;
+  int tagactive = NGX_ERROR;
   
-  while(cur <= last && i < NCHAN_MULTITAG_MAX) {
+  while(first != NULL && last != NULL && cur <= last && i < NCHAN_MULTITAG_MAX) {
     if(cur == last) {
       tags[i]=(val == 0 && sign == -1) ? -1 : val * sign; //shorthand "-" for "-1";
       i++;
@@ -253,7 +424,15 @@ static ngx_int_t nchan_parse_msg_tag(u_char *first, u_char *last, nchan_msg_id_t
       val = 10 * val + (c - '0');
     }
     else if (c == '[') {
-      mid->tagactive = i;
+      if(++brace_open_total > 1) {
+        return NGX_ERROR;
+      }
+      tagactive = i;
+    }
+    else if (c == ']') {
+      if(++brace_close_total > 1 || brace_open_total - brace_close_total != 0) {
+        return NGX_ERROR;
+      }
     }
     else if (c == ',') {
       tags[i]=(val == 0 && sign == -1) ? -1 : val * sign; //shorthand "-" for "-1"
@@ -263,9 +442,30 @@ static ngx_int_t nchan_parse_msg_tag(u_char *first, u_char *last, nchan_msg_id_t
     }
     cur++;
   }
-  if(expected_tag_count > i) {
-    return NGX_ERROR;
+  
+  if (i == 0) {
+    mid->tagactive = -1; // No tags, so no active tag
   }
+  if(tagactive == NGX_ERROR) {
+    if(i==1) {
+      //single message tag, so it's active by defaiult
+      mid->tagactive = 0;
+    }
+    else {
+      //got a multitag with no tag braced as [active]. That's invalid.
+      return NGX_ERROR;
+    }
+  }
+  else {
+    mid->tagactive = tagactive;
+  }
+  
+  // We fill the rest of the tag needed with value '-1'
+  while (i < expected_tag_count) {
+    tags[i] = -1;
+    i++;
+  }
+  
   mid->tagcount = i;
   
   if(i <= NCHAN_FIXED_MULTITAG_MAX) {
@@ -296,7 +496,7 @@ ngx_int_t nchan_extract_from_multi_msgid(nchan_msg_id_t *src, uint16_t n, nchan_
     return NGX_OK; 
   }
   
-  if(n > count) {
+  if(n >= count) {
     ERR("can't extract msgid %i from multi-msg of count %i", n, count);
     return NGX_ERROR;
   }
@@ -342,6 +542,7 @@ static ngx_str_t *nchan_subscriber_get_etag(ngx_http_request_t * r) {
 }
 
 ngx_int_t nchan_parse_compound_msgid(nchan_msg_id_t *id, ngx_str_t *str, ngx_int_t expected_tag_count) {
+  //parse url-unescaped compound msgid
   u_char       *split, *last;
   ngx_int_t     time;
   uint8_t       len;
@@ -349,10 +550,6 @@ ngx_int_t nchan_parse_compound_msgid(nchan_msg_id_t *id, ngx_str_t *str, ngx_int
   last = str->data + str->len;
   if((split = ngx_strlchr(str->data, last, ':')) != NULL) {
     len = 1;
-  }
-  else if( (str->len > 3 && (split = ngx_strnstr(str->data, "%3A", str->len)) != NULL)
-        || (str->len > 3 && (split = ngx_strnstr(str->data, "%3a", str->len)) != NULL)) {
-    len = 3;
   }
   else {
     len = 0; //placate dumb GCC warning
@@ -373,11 +570,27 @@ ngx_int_t nchan_parse_compound_msgid(nchan_msg_id_t *id, ngx_str_t *str, ngx_int
 
 
 
-nchan_msg_id_t *nchan_subscriber_get_msg_id(ngx_http_request_t *r) {
-  static nchan_msg_id_t           id = NCHAN_ZERO_MSGID;
+static ngx_int_t set_default_id(nchan_loc_conf_t *cf, nchan_msg_id_t *id) {
   static nchan_msg_id_t           nth_msg_id = NCHAN_NTH_MSGID;
   static nchan_msg_id_t           oldest_msg_id = NCHAN_OLDEST_MSGID;
   static nchan_msg_id_t           newest_msg_id = NCHAN_NEWEST_MSGID;
+  switch(cf->subscriber_first_message) {
+    case 1:
+      *id = oldest_msg_id;
+      break;
+    case 0: 
+      *id = newest_msg_id;
+      break;
+    default:
+      *id = nth_msg_id;
+      id->tag.fixed[0] = cf->subscriber_first_message;
+      break;
+  }
+  return NGX_OK;
+}
+
+nchan_msg_id_t *nchan_subscriber_get_msg_id(ngx_http_request_t *r) {
+  static nchan_msg_id_t           id = NCHAN_ZERO_MSGID;
   
   ngx_str_t                      *if_none_match;
   nchan_loc_conf_t               *cf = ngx_http_get_module_loc_conf(r, ngx_nchan_module);
@@ -390,15 +603,21 @@ nchan_msg_id_t *nchan_subscriber_get_msg_id(ngx_http_request_t *r) {
   if(!cf->msg_in_etag_only && r->headers_in.if_modified_since != NULL) {
     id.time=ngx_http_parse_time(r->headers_in.if_modified_since->value.data, r->headers_in.if_modified_since->value.len);
     
-    if(if_none_match==NULL) {
-      id.tagcount=1;
-      id.tagactive=0;
+    if(id.time <= 0) { //anything before 1-1-1970 is reserved and treated as no msgid provided
+      set_default_id(cf, &id);
+      return &id;
     }
-    else {
-      if(nchan_parse_msg_tag(if_none_match->data, if_none_match->data + if_none_match->len, &id, ctx->channel_id_count) == NGX_ERROR) {
-        return NULL;
-      }
+
+    u_char *first = NULL, *last = NULL;
+    if(if_none_match != NULL) {
+      first = if_none_match->data;
+      last = if_none_match->data + if_none_match->len;
     }
+
+    if(nchan_parse_msg_tag(first, last, &id, ctx->channel_id_count) == NGX_ERROR) {
+      return NULL;
+    }
+
     return &id;
   }
   else if((cf->msg_in_etag_only || r->headers_in.if_modified_since == NULL) && if_none_match) {
@@ -423,7 +642,7 @@ nchan_msg_id_t *nchan_subscriber_get_msg_id(ngx_http_request_t *r) {
     for(i=0; i < n; i++) {
       rc = ngx_http_complex_value_noalloc(r, alt_msgid_cv_arr->cv[i], &str, 128);
       if(str.len > 0 && rc == NGX_OK) {
-        rc2 = nchan_parse_compound_msgid(&id, &str, ctx->channel_id_count);
+        rc2 = nchan_parse_compound_msgid(&id, nchan_urldecode_str(r, &str), ctx->channel_id_count);
         if(rc2 == NGX_OK) {
           return &id;
         }
@@ -434,19 +653,7 @@ nchan_msg_id_t *nchan_subscriber_get_msg_id(ngx_http_request_t *r) {
     }
   }
   
-  //eh, we didn't find a valid alt_msgid value from variables. use the defaults
-  switch(cf->subscriber_first_message) {
-    case 1:
-      id = oldest_msg_id;
-      break;
-    case 0: 
-      id = newest_msg_id;
-      break;
-    default:
-      id = nth_msg_id;
-      id.tag.fixed[0] = cf->subscriber_first_message;
-      break;
-  }
+  set_default_id(cf, &id);
   return &id;
 }
 
@@ -513,3 +720,54 @@ int8_t nchan_compare_msgids(nchan_msg_id_t *id1, nchan_msg_id_t *id2) {
     }
   }
 }
+
+
+static nchan_msg_t *get_shared_msg(nchan_msg_t *msg) {
+  if(msg->storage == NCHAN_MSG_SHARED) {
+    assert(msg->parent == NULL);
+    return msg;
+  }
+  else {
+    assert(msg->parent);
+    assert(msg->parent->storage == NCHAN_MSG_SHARED);
+    return msg->parent;
+  }
+}
+
+static ngx_inline nchan_msg_t *msg_derive_init(nchan_msg_t *parent, nchan_msg_t *msg, nchan_msg_storage_t storage_type) {
+  nchan_msg_t    *shared = get_shared_msg(parent);
+  if(!msg) { return NULL; }
+  *msg = *shared;
+  msg->id.tagcount=1;
+  msg->parent = shared;
+  msg->storage = storage_type;
+#if NCHAN_MSG_RESERVE_DEBUG
+  msg->rsv = NULL;
+#endif
+  msg->refcount = 0;
+  return msg;
+}
+
+nchan_msg_t *nchan_msg_derive_alloc(nchan_msg_t *parent) {
+  nchan_msg_t *msg = msg_derive_init(parent, ngx_alloc(sizeof(nchan_msg_t), ngx_cycle->log), NCHAN_MSG_HEAP);
+  if(!msg || nchan_copy_new_msg_id(&msg->id, &parent->id) != NGX_OK) {
+    ngx_free(msg);
+    return NULL;
+  }
+  return msg;
+}
+nchan_msg_t *nchan_msg_derive_palloc(nchan_msg_t *parent, ngx_pool_t *pool) {
+  nchan_msg_t *msg = msg_derive_init(parent, ngx_palloc(pool, sizeof(nchan_msg_t)), NCHAN_MSG_POOL);
+  if(!msg || nchan_copy_new_msg_id(&msg->id, &parent->id) != NGX_OK) {
+    return NULL;
+  }
+  return msg;
+}
+nchan_msg_t *nchan_msg_derive_stack(nchan_msg_t *parent, nchan_msg_t *child, int16_t *largetags) {
+  nchan_msg_t *msg = msg_derive_init(parent, child, NCHAN_MSG_STACK);
+  if(!msg || nchan_copy_msg_id(&msg->id, &parent->id, largetags) != NGX_OK) {
+    return NULL;
+  }
+  return msg;
+}
+

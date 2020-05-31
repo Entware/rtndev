@@ -18,13 +18,15 @@ static void rawstream_ensure_headers_sent(full_subscriber_t *fsub) {
   if(!fsub->data.shook_hands) {
     nchan_cleverly_output_headers_only_for_later_response(r);
     fsub->data.shook_hands = 1; 
+    r->header_only = 0;
+    r->chunked = 0;
   }
 }
 
 static ngx_int_t rawstream_respond_message(subscriber_t *sub,  nchan_msg_t *msg) {
   
   full_subscriber_t      *fsub = (full_subscriber_t  *)sub;
-  ngx_buf_t              *buf, *msg_buf = msg->buf;
+  ngx_buf_t              *buf, *msg_buf = &msg->buf;
   ngx_int_t               rc;
   nchan_loc_conf_t       *cf = ngx_http_get_module_loc_conf(fsub->sub.request, ngx_nchan_module);
   nchan_request_ctx_t    *ctx = ngx_http_get_module_ctx(fsub->sub.request, ngx_nchan_module);
@@ -33,7 +35,7 @@ static ngx_int_t rawstream_respond_message(subscriber_t *sub,  nchan_msg_t *msg)
   ngx_file_t             *file_copy;
   
   size_t                  separator_len = cf->subscriber_http_raw_stream_separator.len;
-  size_t                  msg_len = ngx_buf_size((msg->buf));
+  size_t                  msg_len = ngx_buf_size(msg_buf);
   
   
   if(fsub->data.timeout_ev.timer_set) {
@@ -47,7 +49,7 @@ static ngx_int_t rawstream_respond_message(subscriber_t *sub,  nchan_msg_t *msg)
   }
   
   if((bc = nchan_bufchain_pool_reserve(ctx->bcp, (1 + (msg_len > 0 ? 1: 0)))) == NULL) {
-    ERR("cant allocate buf-and-chains for http-raw-stream client output");
+    ERR("can't allocate buf-and-chains for http-raw-stream client output");
     return NGX_ERROR;
   }
   
@@ -90,7 +92,7 @@ static ngx_int_t rawstream_respond_message(subscriber_t *sub,  nchan_msg_t *msg)
   return rc;
 }
 
-static ngx_int_t rawstream_respond_status(subscriber_t *sub, ngx_int_t status_code, const ngx_str_t *status_line){
+static ngx_int_t rawstream_respond_status(subscriber_t *sub, ngx_int_t status_code, const ngx_str_t *status_line, ngx_chain_t *status_body){
   full_subscriber_t        *fsub = (full_subscriber_t  *)sub;
   //nchan_request_ctx_t      *ctx = ngx_http_get_module_ctx(fsub->sub.request, ngx_nchan_module);
   
@@ -99,8 +101,8 @@ static ngx_int_t rawstream_respond_status(subscriber_t *sub, ngx_int_t status_co
     return NGX_OK;
   }
   
-  if(fsub->data.shook_hands == 0 && status_code >= 400 && status_code <600) {
-    return subscriber_respond_unqueued_status(fsub, status_code, status_line);
+  if(fsub->data.shook_hands == 0 && status_code >= 400 && status_code < 600) {
+    return subscriber_respond_unqueued_status(fsub, status_code, status_line, status_body);
   }
   
   subscriber_maybe_dequeue_after_status_response(fsub, status_code);
@@ -144,7 +146,7 @@ subscriber_t *http_raw_stream_subscriber_create(ngx_http_request_t *r, nchan_msg
   ctx->bcp = ngx_palloc(r->pool, sizeof(nchan_bufchain_pool_t));
   nchan_bufchain_pool_init(ctx->bcp, r->pool);
   
-  nchan_subscriber_common_setup(sub, HTTP_RAW_STREAM, &sub_name, rawstream_fn, 0);
+  nchan_subscriber_common_setup(sub, HTTP_RAW_STREAM, &sub_name, rawstream_fn, 1, 0);
   return sub;
 }
 

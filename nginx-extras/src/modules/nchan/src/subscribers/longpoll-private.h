@@ -9,6 +9,7 @@ typedef struct {
   subscriber_callback_pt  dequeue_handler;
   void                   *dequeue_handler_data;
   ngx_event_t             timeout_ev;
+  ngx_event_t             ping_ev;
   
   nchan_longpoll_multimsg_t *multimsg_first;
   nchan_longpoll_multimsg_t *multimsg_last;
@@ -28,7 +29,8 @@ typedef struct {
 } full_subscriber_t;
 
 ngx_int_t longpoll_enqueue(subscriber_t *self);
+ngx_int_t longpoll_dequeue(subscriber_t *self);
 
 void subscriber_maybe_dequeue_after_status_response(full_subscriber_t *fsub, ngx_int_t status_code);
 
-ngx_int_t subscriber_respond_unqueued_status(full_subscriber_t *fsub, ngx_int_t status_code, const ngx_str_t *status_line);
+ngx_int_t subscriber_respond_unqueued_status(full_subscriber_t *fsub, ngx_int_t status_code, const ngx_str_t *status_line, ngx_chain_t  *status_body);

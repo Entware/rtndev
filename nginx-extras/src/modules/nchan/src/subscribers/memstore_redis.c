@@ -8,8 +8,9 @@
 
 #include <store/redis/store.h>
 #include <store/redis/store-private.h>
+#include <store/redis/redis_nodeset.h>
 
-#include <util/nchan_msgid.h>
+#include <util/nchan_msg.h>
 #include "internal.h"
 #include "memstore_redis.h"
 #include <assert.h>
@@ -21,12 +22,6 @@
 #define ERR(fmt, arg...) ngx_log_error(NGX_LOG_ERR, ngx_cycle->log, 0, "SUB:MEM-REDIS:" fmt, ##arg)
 
 
-typedef struct msgexpected_callback_llist_s msgexpected_callback_llist_t;
-struct msgexpected_callback_llist_s {
-  void                         (*cb)(nchan_msg_status_t, void *);
-  msgexpected_callback_llist_t  *next;
-};
-
 typedef struct sub_data_s sub_data_t;
 
 struct sub_data_s {
@@ -35,7 +30,6 @@ struct sub_data_s {
   ngx_str_t                    *chid;
   ngx_event_t                   timeout_ev;
   nchan_msg_status_t            last_msg_status;
-  msgexpected_callback_llist_t *waiting_for_msg_expected;
   sub_data_t                  **onconnect_callback_pd;
 }; //sub_data_t
 
@@ -45,41 +39,39 @@ static ngx_int_t empty_callback(){
 }
 */
 
-static void respond_msgexpected_callbacks(sub_data_t *d, nchan_msg_status_t status) {
-  msgexpected_callback_llist_t    *cur, *next;
-  cur = d->waiting_for_msg_expected;
-  d->waiting_for_msg_expected = NULL;
-  for(; cur != NULL; cur = next) {
-    next = cur->next;
-    cur->cb(status, &cur[1]);
-    ngx_free(cur);
-  }
-}
-
 static ngx_int_t sub_enqueue(ngx_int_t status, void *ptr, sub_data_t *d) {
   DBG("%p memstore-redis subsriber enqueued ok", d->sub);
-  
-  d->chanhead->status = READY;
-  d->chanhead->spooler.fn->handle_channel_status_change(&d->chanhead->spooler);
+  if(d->chanhead) {
+    d->chanhead->status = READY;
+    d->chanhead->spooler.fn->handle_channel_status_change(&d->chanhead->spooler);
+  }
   
   return NGX_OK;
 }
 
 ngx_int_t memstore_redis_subscriber_destroy(subscriber_t *sub) {
   DBG("%p destroy", sub);
+  sub_data_t  *d = internal_subscriber_get_privdata(sub);
+  d->chanhead = NULL; //memstore chanhead should be presumed missing
   return internal_subscriber_destroy(sub);
 }
 
 static ngx_int_t sub_dequeue(ngx_int_t status, void *ptr, sub_data_t* d) {
   DBG("%p dequeue", d->sub);
-  respond_msgexpected_callbacks(d, MSG_NORESPONSE);
   return NGX_OK;
 }
 
 static ngx_int_t sub_respond_message(ngx_int_t status, void *ptr, sub_data_t* d) {
   nchan_msg_t       *msg = (nchan_msg_t *) ptr;
   nchan_loc_conf_t   cf;
-  nchan_msg_id_t    *lastid;    
+  nchan_msg_id_t    *lastid;
+  ngx_pool_t        *deflate_pool = NULL;
+  int                nostore_mode;
+  if(!d->chanhead) {
+    DBG("memstore chanhead gone");
+    return NGX_DECLINED;
+  }
+  nostore_mode = d->chanhead->cf->redis.storage_mode == REDIS_MODE_DISTRIBUTED_NOSTORE;
   DBG("%p memstore-redis subscriber respond with message", d->sub);
 
   cf.max_messages = d->chanhead->max_messages;
@@ -87,21 +79,39 @@ static ngx_int_t sub_respond_message(ngx_int_t status, void *ptr, sub_data_t* d)
   cf.message_timeout = msg->expires - ngx_time();
   cf.complex_max_messages = NULL;
   cf.complex_message_timeout = NULL;
+  cf.message_compression = msg->compressed ? msg->compressed->compression : NCHAN_MSG_NO_COMPRESSION;
+  
+  if(cf.message_compression != NCHAN_MSG_NO_COMPRESSION) {
+    deflate_pool = ngx_create_pool(NGX_DEFAULT_POOL_SIZE / 2, ngx_cycle->log);
+    if(!deflate_pool) {
+      ERR("unable to create deflatepool");
+      return NGX_ERROR;
+    }
+    nchan_deflate_message_if_needed(msg, &cf, NULL, deflate_pool);
+  }
+  else {
+    msg->compressed = NULL;
+  }
   
   lastid = &d->chanhead->latest_msgid;
   
-  respond_msgexpected_callbacks(d, MSG_NORESPONSE);
-  
   assert(lastid->tagcount == 1 && msg->id.tagcount == 1);
-  if(lastid->time < msg->id.time || 
+  if(nostore_mode || lastid->time < msg->id.time || 
     (lastid->time == msg->id.time && lastid->tag.fixed[0] < msg->id.tag.fixed[0])) {
+    if(nostore_mode) {
+      //out of order messages are ok, we don't care. publish them like they just got here. we can't lose messages due to network lag
+      msg->expires = 0;
+      msg->id.time = 0;
+    }
     memstore_ensure_chanhead_is_ready(d->chanhead, 1);
     nchan_store_chanhead_publish_message_generic(d->chanhead, msg, 0, &cf, NULL, NULL);
   }
   else {
     //meh, this message has already been delivered probably hopefully
   }
-  
+  if(deflate_pool) {
+    ngx_destroy_pool(deflate_pool);
+  }
   return NGX_OK;
 }
 
@@ -112,8 +122,11 @@ static ngx_int_t sub_destroy_handler(ngx_int_t status, void *d, sub_data_t *pd) 
   return NGX_OK;
 }
 
-static ngx_int_t reconnect_callback(ngx_int_t status, void *d, void *pd) {
+static ngx_int_t reconnect_callback(redis_nodeset_t *ns, void *pd) {
   sub_data_t *sd = *((sub_data_t **) pd);
+  if(!sd->chanhead || !nodeset_ready(ns)) {
+    return NGX_ERROR;
+  }
   if(sd) {
     DBG("%reconnect callback");
     assert(sd->chanhead->redis_sub == sd->sub);
@@ -125,18 +138,22 @@ static ngx_int_t reconnect_callback(ngx_int_t status, void *d, void *pd) {
     ngx_free(pd);
   }
   else {
-    DBG("%reconnect callback skipped");
+    DBG("%reconnect callback skipped"); //probably because the channel was deleted while we were waiting
   }
   return NGX_OK;
 }
 
 static ngx_int_t sub_respond_status(ngx_int_t status, void *ptr, sub_data_t *d) {
   nchan_loc_conf_t  fake_cf;
+  redis_nodeset_t   *nodeset;
+  if(!d->chanhead) {
+    return NGX_DECLINED;
+  }
+  
   DBG("%p memstore-redis subscriber respond with status %i", d->sub, status);
   switch(status) {
     case NGX_HTTP_GONE: //delete
     case NGX_HTTP_CLOSE: //delete
-      respond_msgexpected_callbacks(d, MSG_NORESPONSE);
       fake_cf = *d->sub->cf;
       fake_cf.redis.enabled = 0;
       d->sub->destroy_after_dequeue = 1;
@@ -144,17 +161,23 @@ static ngx_int_t sub_respond_status(ngx_int_t status, void *ptr, sub_data_t *d) 
       //now the chanhead will be in the garbage collector
       d->chanhead->redis_sub = NULL;
       
-      if(redis_connection_status(d->sub->cf) != CONNECTED && d->onconnect_callback_pd == NULL) {
+      nodeset = nodeset_find(&d->sub->cf->redis);
+      if(!nodeset_ready(nodeset) && d->onconnect_callback_pd == NULL) {
         sub_data_t **dd = ngx_alloc(sizeof(*d), ngx_cycle->log);
         *dd = d;
         d->onconnect_callback_pd = dd;
-        redis_store_callback_on_connected(d->sub->cf, reconnect_callback, dd);
+        nodeset_callback_on_ready(nodeset, 0, reconnect_callback, dd);
       }
       break;
       
     case NGX_HTTP_NO_CONTENT:
+      if(d->last_msg_status != MSG_EXPECTED) {
+        //the message buffer has just been walked start to finish
+        nchan_memstore_publish_notice(d->chanhead, NCHAN_NOTICE_BUFFER_LOADED, NULL);
+      }
       d->last_msg_status = MSG_EXPECTED;
-      respond_msgexpected_callbacks(d, MSG_EXPECTED);
+      //TODO: stuff about REDIS_MODE_BACKUP
+      
       break;
       
     default:
@@ -166,38 +189,20 @@ static ngx_int_t sub_respond_status(ngx_int_t status, void *ptr, sub_data_t *d) 
 }
 
 static ngx_int_t sub_notify_handler(ngx_int_t code, void *data, sub_data_t *d) {
-  if(code == NCHAN_NOTICE_REDIS_CHANNEL_MESSAGE_BUFFER_SIZE_CHANGE) {
-    intptr_t   max_messages = (intptr_t )data;
-    d->chanhead->max_messages = max_messages;
-    memstore_chanhead_messages_gc(d->chanhead);
+  intptr_t  max_messages;
+  if(!d->chanhead) {
+    return NGX_DECLINED;
+  }
+  switch(code) {
+    case NCHAN_NOTICE_REDIS_CHANNEL_MESSAGE_BUFFER_SIZE_CHANGE:
+      max_messages = (intptr_t )data;
+      d->chanhead->max_messages = max_messages;
+      memstore_chanhead_messages_gc(d->chanhead);
+      break;
   }
   return NGX_OK;
 }
 
-ngx_int_t nchan_memstore_redis_subscriber_notify_on_MSG_EXPECTED(subscriber_t *sub, nchan_msg_id_t *id, void (*cb)(nchan_msg_status_t, void*), size_t pd_sz, void *pd) {
-  sub_data_t      *d = internal_subscriber_get_privdata(sub);
-  int8_t           cmpval = nchan_compare_msgids(id, &sub->last_msgid);
-  if(cmpval < 0) {
-    cb(MSG_NORESPONSE, pd);
-  }
-  else if(d->last_msg_status == MSG_EXPECTED) {
-    cb(MSG_EXPECTED, pd);
-  }
-  else {
-    msgexpected_callback_llist_t *cbl;
-    void  *pd_copy;
-    if((cbl = ngx_alloc(sizeof(*cbl) + pd_sz, ngx_cycle->log)) == NULL) {
-      ERR("Unable to allocate memory for notify_on_MSG_EXPECTED callback llist");
-      return NGX_ERROR;
-    }
-    pd_copy = &cbl[1];
-    ngx_memcpy(pd_copy, pd, pd_sz);
-    cbl->cb = cb;
-    cbl->next = d->waiting_for_msg_expected;
-    d->waiting_for_msg_expected = cbl;
-  }
-  return NGX_OK;
-}
 /*
 static void reset_timer(sub_data_t *data) {
   if(data->timeout_ev.timer_set) {
@@ -239,7 +244,6 @@ subscriber_t *memstore_redis_subscriber_create(memstore_channel_head_t *chanhead
   d->chanhead = chanhead;
   d->chid = &chanhead->id;
   d->last_msg_status = MSG_PENDING;
-  d->waiting_for_msg_expected = NULL;
   d->onconnect_callback_pd = NULL;
 
   

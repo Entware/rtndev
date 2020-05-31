@@ -1,11 +1,11 @@
---input:  keys: [], values: [channel_id, msg_time, msg_tag, no_msgid_order, create_channel_ttl]
---output: result_code, msg_ttl, msg_time, msg_tag, prev_msg_time, prev_msg_tag, message, content_type, eventsource_event, channel_subscriber_count
+--input:  keys: [], values: [namespace, channel_id, msg_time, msg_tag, no_msgid_order, create_channel_ttl]
+--output: result_code, msg_ttl, msg_time, msg_tag, prev_msg_time, prev_msg_tag, message, content_type, eventsource_event, compression_type, channel_subscriber_count
 -- no_msgid_order: 'FILO' for oldest message, 'FIFO' for most recent
 -- create_channel_ttl - make new channel if it's absent, with ttl set to this. 0 to disable.
 -- result_code can be: 200 - ok, 404 - not found, 410 - gone, 418 - not yet available
-local id, time, tag, subscribe_if_current = ARGV[1], tonumber(ARGV[2]), tonumber(ARGV[3])
-local no_msgid_order=ARGV[4]
-local create_channel_ttl=tonumber(ARGV[5]) or 0
+local ns, id, time, tag, subscribe_if_current = ARGV[1], ARGV[2], tonumber(ARGV[3]), tonumber(ARGV[4])
+local no_msgid_order=ARGV[5]
+local create_channel_ttl=tonumber(ARGV[6]) or 0
 local msg_id
 if time and time ~= 0 and tag then
   msg_id=("%s:%s"):format(time, tag)
@@ -20,7 +20,7 @@ end
 -- redis doesn't do includes. It could be generated pre-insertion into redis, 
 -- but then error messages become less useful, complicating debugging. If you 
 -- have a solution to this, please help.
-local ch=('{channel:%s}'):format(id)
+local ch=('%s{channel:%s}'):format(ns, id)
 local msgkey_fmt=ch..':msg:%s'
 local key={
   next_message= msgkey_fmt, --hash
@@ -91,8 +91,8 @@ end
 
 local subs_count = tonumber(channel.subscribers)
 
-local found_msg_id
 if msg_id==nil then
+  local found_msg_key
   if new_channel then
     --dbg("new channel")
     return {418, "", "", "", "", subs_count}
@@ -101,24 +101,23 @@ if msg_id==nil then
     
     if no_msgid_order == 'FIFO' then --most recent message
       --dbg("get most recent")
-      found_msg_id=channel.current_message
+      found_msg_key=channel.current_message
     elseif no_msgid_order == 'FILO' then --oldest message
       --dbg("get oldest")
-      
-      found_msg_id=oldestmsg(key.messages, msgkey_fmt)
+      found_msg_key=oldestmsg(key.messages, msgkey_fmt)
     end
-    if found_msg_id == nil then
+    
+    if found_msg_key == nil then
       --we await a message
       return {418, "", "", "", "", subs_count}
     else
-      msg_id = found_msg_id
-      local msg=tohash(redis.call('HGETALL', msg_id))
+      local msg=tohash(redis.call('HGETALL', found_msg_key))
       if not next(msg) then --empty
         return {404, "", "", "", "", subs_count}
       else
         --dbg(("found msg %s:%s  after %s:%s"):format(tostring(msg.time), tostring(msg.tag), tostring(time), tostring(tag)))
-        local ttl = redis.call('TTL', msg_id)
-        return {200, ttl, tonumber(msg.time) or "", tonumber(msg.tag) or "", tonumber(msg.prev_time) or "", tonumber(msg.prev_tag) or "", msg.data or "", msg.content_type or "", msg.eventsource_event or "", subs_count}
+        local ttl = redis.call('TTL', found_msg_key)
+        return {200, ttl, tonumber(msg.time) or "", tonumber(msg.tag) or "", tonumber(msg.prev_time) or "", tonumber(msg.prev_tag) or "", msg.data or "", msg.content_type or "", msg.eventsource_event or "", tonumber(msg.compression or 0), subs_count}
       end
     end
   end
@@ -144,10 +143,10 @@ else
     --dbg("NEXT MESSAGE KEY PRESENT: " .. msg.next)
     key.next_message=key.next_message:format(msg.next)
     if redis.call('EXISTS', key.next_message)~=0 then
-      local ntime, ntag, prev_time, prev_tag, ndata, ncontenttype, neventsource_event=unpack(redis.call('HMGET', key.next_message, 'time', 'tag', 'prev_time', 'prev_tag', 'data', 'content_type', 'eventsource_event'))
+      local ntime, ntag, prev_time, prev_tag, ndata, ncontenttype, neventsource_event, ncompression=unpack(redis.call('HMGET', key.next_message, 'time', 'tag', 'prev_time', 'prev_tag', 'data', 'content_type', 'eventsource_event', 'compression'))
       local ttl = redis.call('TTL', key.next_message)
       --dbg(("found msg2 %i:%i  after %i:%i"):format(ntime, ntag, time, tag))
-      return {200, ttl, tonumber(ntime) or "", tonumber(ntag) or "", tonumber(prev_time) or "", tonumber(prev_tag) or "", ndata or "", ncontenttype or "", neventsource_event or "", subs_count}
+      return {200, ttl, tonumber(ntime) or "", tonumber(ntag) or "", tonumber(prev_time) or "", tonumber(prev_tag) or "", ndata or "", ncontenttype or "", neventsource_event or "", ncompression or 0, subs_count}
     else
       --dbg("NEXT MESSAGE NOT FOUND")
       return {404, nil}

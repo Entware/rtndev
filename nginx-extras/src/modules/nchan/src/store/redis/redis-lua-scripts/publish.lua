@@ -1,9 +1,24 @@
---input:  keys: [], values: [channel_id, time, message, content_type, eventsource_event, msg_ttl, max_msg_buf_size, pubsub_msgpacked_size_cutoff]
---output: message_tag, channel_hash {ttl, time_last_seen, subscribers, messages}
+--input:  keys: [], values: [namespace, channel_id, time, message, content_type, eventsource_event, compression_setting, msg_ttl, max_msg_buf_size, pubsub_msgpacked_size_cutoff, optimize_target]
+--output: channel_hash {ttl, time_last_subscriber_seen, subscribers, last_message_id, messages}, channel_created_just_now?
 
-local id=ARGV[1]
+local ns, id=ARGV[1], ARGV[2]
+
+local msg = {}
+
+local store_at_most_n_messages = tonumber(ARGV[9])
+if store_at_most_n_messages == nil or store_at_most_n_messages == "" then
+  return {err="Argument 9, max_msg_buf_size, can't be empty"}
+end
+if store_at_most_n_messages == 0 then
+  msg.unbuffered = 1
+end
+
+local msgpacked_pubsub_cutoff = tonumber(ARGV[10])
+
+local optimize_target = tonumber(ARGV[11]) == 2 and "bandwidth" or "cpu"
+
 local time
-if redis.replicate_commands then
+if optimize_target == "cpu" and redis.replicate_commands then
   -- we're on redis >= 3.2. We can use We can use 'script effects replication' to allow
   -- writing nondeterministic command values like TIME.
   -- That's exactly what we want to do, use Redis' TIME rather than the given time from Nginx
@@ -12,39 +27,30 @@ if redis.replicate_commands then
   time = tonumber(redis.call('TIME')[1])
 else
   --fallback to the provided time
-  time = tonumber(ARGV[2])
+  time = tonumber(ARGV[3])
 end
 
-local msg={
-  id=nil,
-  data= ARGV[3],
-  content_type=ARGV[4],
-  eventsource_event=ARGV[5],
-  ttl= tonumber(ARGV[6]),
-  time= time,
-  tag= 0
-}
+msg.id=nil
+msg.data= ARGV[4]
+msg.content_type=ARGV[5]
+msg.eventsource_event=ARGV[6]
+msg.compression=tonumber(ARGV[7])
+msg.ttl= tonumber(ARGV[8])
+msg.time= time
+msg.tag= 0
+
 if msg.ttl == 0 then
   msg.ttl = 126144000 --4 years
 end
-local store_at_most_n_messages = tonumber(ARGV[7])
-if store_at_most_n_messages == nil or store_at_most_n_messages == "" then
-  return {err="Argument 7, max_msg_buf_size, can't be empty"}
-end
-if store_at_most_n_messages == 0 then
-  msg.unbuffered = 1
-end
-
-local msgpacked_pubsub_cutoff = tonumber(ARGV[8])
 
 --[[local dbg = function(...)
   local arg = {...}
   for i = 1, #arg do
     arg[i]=tostring(arg[i])
   end
-  redis.call('echo', table.concat(arg))
-end
-]]
+  redis.call('echo', table.concat(arg, ", "))
+end]]
+
 if type(msg.content_type)=='string' and msg.content_type:find(':') then
   return {err='Message content-type cannot contain ":" character.'}
 end
@@ -62,16 +68,6 @@ local hmset = function (key, dict)
   return redis.call('HMSET', key, unpack(bulk))
 end
 
---[[
-local hash_tostr=function(h)
-  local tt = {}
-  for k, v in pairs(h) do
-    table.insert(tt, ("%s: %s"):format(k, v))
-  end
-  return "{" .. table.concat(tt,", ") .. "}"
-end
-]]
-
 local tohash=function(arr)
   if type(arr)~="table" then
     return nil
@@ -88,7 +84,7 @@ local tohash=function(arr)
   return h
 end
 
-local ch = ('{channel:%s}'):format(id)
+local ch = ('%s{channel:%s}'):format(ns, id)
 local msg_fmt = ch..':msg:%s'
 local key={
   last_message= msg_fmt, --not finished yet
@@ -130,7 +126,7 @@ if key.last_message then
   lasttime, lasttag = tonumber(lastmsg[1]), tonumber(lastmsg[2])
   --dbg("New message id: last_time ", lasttime, " last_tag ", lasttag, " msg_time ", msg.time)
   if lasttime and tonumber(lasttime) > tonumber(msg.time) then
-    redis.log(redis.LOG_WARNING, "Nchan: message for " .. id .. " arrived a little late and may be delivered out of order. Redis must be very busy.")
+    redis.log(redis.LOG_WARNING, "Nchan: message for " .. id .. " arrived a little late and may be delivered out of order. Redis must be very busy, or the Nginx servers do not have their times synchronized.")
     msg.time = lasttime
     time = lasttime
   end
@@ -147,11 +143,16 @@ msg.id=('%i:%i'):format(msg.time, msg.tag)
 
 key.message=key.message:format(msg.id)
 if redis.call('EXISTS', key.message) ~= 0 then
-  local errmsg = "Message %s for channel %s id %s already exists. time: %s lasttime: %s lasttag: %s"
-  errmsg = errmsg:format(key.message, id, msg.id, time, lasttime, lasttag)
-  --redis.log(redis.LOG_WARNING, errmsg)
-  --redis.log(redis.LOG_WARNING, "channel: " .. key.channel .. hash_tostr(channel))
-  --redis.log(redis.LOG_WARNING, ("messages: %s {%s}"):format(key.messages, table.concat(redis.call('LRANGE', key.messages, 0, -1), ", ")))
+  local hash_tostr=function(h)
+    local tt = {}
+    for k, v in pairs(h) do
+      table.insert(tt, ("%s: %s"):format(k, v))
+    end
+    return "{" .. table.concat(tt,", ") .. "}"
+  end
+  local existing_msg = tohash(redis.call('HGETALL', key.message))
+  local errmsg = "Message %s for channel %s id %s already exists. time: %s lasttime: %s lasttag: %s. dbg: channel: %s, messages_key: %s, msglist: %s, msg: %s, msg_expire: %s."
+  errmsg = errmsg:format(key.message, id, msg.id or "-", time or "-", lasttime or "-", lasttag or "-", hash_tostr(channel), key.messages, "["..table.concat(redis.call('LRANGE', key.messages, 0, -1), ", ").."]", hash_tostr(existing_msg), redis.call('TTL', key.message))
   return {err=errmsg}
 end
 
@@ -226,10 +227,10 @@ end
 --set expiration times for all the things
 local channel_ttl = tonumber(redis.call('TTL',  key.channel))
 redis.call('EXPIRE', key.message, msg.ttl)
-if msg.ttl > channel_ttl then
-  redis.call('EXPIRE', key.channel, msg.ttl)
-  redis.call('EXPIRE', key.messages, msg.ttl)
-  redis.call('EXPIRE', key.subscribers, msg.ttl)
+if msg.ttl + 1 > channel_ttl then -- a little extra time for failover weirdness for 1-second TTL messages
+  redis.call('EXPIRE', key.channel, msg.ttl + 1)
+  redis.call('EXPIRE', key.messages, msg.ttl + 1)
+  redis.call('EXPIRE', key.subscribers, msg.ttl + 1)
 end
 
 --publish message
@@ -245,7 +246,8 @@ if msg.unbuffered or #msg.data < msgpacked_pubsub_cutoff then
     (msg.unbuffered and 0 or msg.prev_tag) or 0,
     msg.data or "",
     msg.content_type or "",
-    msg.eventsource_event or ""
+    msg.eventsource_event or "",
+    msg.compression or 0
   }
 else
   unpacked= {
@@ -265,14 +267,21 @@ local msgpacked
 
 --dbg(("Stored message with id %i:%i => %s"):format(msg.time, msg.tag, msg.data))
 
---now publish to the efficient channel
-local numsub = redis.call('PUBSUB','NUMSUB', channel_pubsub)[2]
-if tonumber(numsub) > 0 then
-  msgpacked = cmsgpack.pack(unpacked)
-  redis.call('PUBLISH', channel_pubsub, msgpacked)
-end
+--we used to publish conditionally on subscribers on the Redis pubsub channel
+--but now that we're subscribing to slaves this is not possible
+--so just PUBLISH always.
+msgpacked = cmsgpack.pack(unpacked)
+redis.call('PUBLISH', channel_pubsub, msgpacked)
 
 local num_messages = redis.call('llen', key.messages)
 
 --dbg("channel ", id, " ttl: ",channel.ttl, ", subscribers: ", channel.subscribers, "(fake: ", channel.fake_subscribers or "nil", "), messages: ", num_messages)
-return { msg.tag, {tonumber(channel.ttl or msg.ttl), tonumber(channel.time or msg.time), tonumber(channel.fake_subscribers or channel.subscribers or 0), tonumber(num_messages)}, new_channel}
+local ch = {
+  tonumber(channel.ttl or msg.ttl),
+  tonumber(channel.last_seen_fake_subscriber) or 0,
+  tonumber(channel.fake_subscribers or channel.subscribers) or 0,
+  msg.time and msg.time and ("%i:%i"):format(msg.time, msg.tag) or "",
+  tonumber(num_messages)
+}
+
+return {ch, new_channel}

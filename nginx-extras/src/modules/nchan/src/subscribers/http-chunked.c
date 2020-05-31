@@ -37,6 +37,8 @@ static void chunked_ensure_headers_sent(full_subscriber_t *fsub) {
     nchan_cleverly_output_headers_only_for_later_response(r);
     
     fsub->data.shook_hands = 1; 
+    r->chunked = 0;
+    r->header_only = 0;
   }
 }
 
@@ -49,7 +51,7 @@ static ngx_int_t chunked_respond_message(subscriber_t *sub,  nchan_msg_t *msg) {
   ngx_file_t             *file_copy;
   nchan_buf_and_chain_t  *bc = nchan_bufchain_pool_reserve(ctx->bcp, 3);
   ngx_chain_t            *chain;
-  ngx_buf_t              *buf, *msg_buf = msg->buf;
+  ngx_buf_t              *buf, *msg_buf = &msg->buf;
   ngx_int_t               rc;
   
   if(fsub->data.timeout_ev.timer_set) {
@@ -110,7 +112,7 @@ static ngx_int_t chunked_respond_message(subscriber_t *sub,  nchan_msg_t *msg) {
   return rc;
 }
 
-static ngx_int_t chunked_respond_status(subscriber_t *sub, ngx_int_t status_code, const ngx_str_t *status_line){
+static ngx_int_t chunked_respond_status(subscriber_t *sub, ngx_int_t status_code, const ngx_str_t *status_line,  ngx_chain_t *status_body){
   nchan_buf_and_chain_t     bc;
   ngx_chain_t              *chain = NULL;
   full_subscriber_t        *fsub = (full_subscriber_t  *)sub;
@@ -137,7 +139,7 @@ static ngx_int_t chunked_respond_status(subscriber_t *sub, ngx_int_t status_code
   }
   
   if(fsub->data.shook_hands == 0 && status_code >= 400 && status_code < 600) {
-    return subscriber_respond_unqueued_status(fsub, status_code, status_line);
+    return subscriber_respond_unqueued_status(fsub, status_code, status_line, status_body);
   }
   
   chunked_ensure_headers_sent(fsub);
@@ -189,7 +191,7 @@ subscriber_t *http_chunked_subscriber_create(ngx_http_request_t *r, nchan_msg_id
   ctx->bcp = ngx_palloc(r->pool, sizeof(nchan_bufchain_pool_t));
   nchan_bufchain_pool_init(ctx->bcp, r->pool);
   
-  nchan_subscriber_common_setup(sub, HTTP_CHUNKED, &sub_name, chunked_fn, 0);
+  nchan_subscriber_common_setup(sub, HTTP_CHUNKED, &sub_name, chunked_fn, 1, 0);
   return sub;
 }
 

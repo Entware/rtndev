@@ -31,11 +31,11 @@ struct subscriber_pool_s {
   ngx_int_t                   fetchmsg_current_count;
   ngx_event_t                 fetchmsg_ev;
   
-  ngx_pool_t                 *pool;
   ngx_uint_t                  sub_count;
   ngx_uint_t                  non_internal_sub_count;
-  ngx_uint_t                  generation;
-  ngx_uint_t                  responded_count;
+  //ngx_uint_t                  generation;
+  //ngx_uint_t                  responded_count;
+  uint8_t                     reserved;
   struct channel_spooler_s   *spooler;
 }; // subscriber_pool_t
 
@@ -52,7 +52,7 @@ typedef struct {
   ngx_int_t            (*prepare_to_stop)(channel_spooler_t *self);
 } channel_spooler_fn_t;
 
-typedef enum {FETCH, FETCH_IGNORE_MSG_NOTFOUND, NO_FETCH} spooler_fetching_strategy_t;
+typedef enum {NCHAN_SPOOL_FETCH, NCHAN_SPOOL_FETCH_IGNORE_MSG_NOTFOUND, NCHAN_SPOOL_PASSTHROUGH} spooler_fetching_strategy_t;
 
 
 typedef struct fetchmsg_data_s fetchmsg_data_t;
@@ -80,6 +80,7 @@ struct channel_spooler_s {
   ngx_uint_t                  responded_count;
   ngx_str_t                  *chid;
   chanhead_pubsub_status_t   *channel_status;
+  uint8_t                    *channel_buffer_complete;
   nchan_store_t              *store;
   nchan_loc_conf_t           *cf;
   channel_spooler_fn_t       *fn;
@@ -87,9 +88,6 @@ struct channel_spooler_s {
   void                       *handlers_privdata;
   fetchmsg_data_t            *fetchmsg_cb_data_list;
   spooler_event_ll_t         *spooler_dependent_events;
-#if NCHAN_BENCHMARK
-  ngx_int_t                   last_responded_subscriber_count;
-#endif  
   spooler_fetching_strategy_t fetching_strategy;
   unsigned                    publish_events:1;
   unsigned                    running:1;
@@ -106,7 +104,7 @@ struct channel_spooler_handlers_s {
   void                        (*get_message_finish)(channel_spooler_t *, void *);
 };
 
-channel_spooler_t *start_spooler(channel_spooler_t *spl, ngx_str_t *chid, chanhead_pubsub_status_t *channel_status, nchan_store_t *store, nchan_loc_conf_t *cf, spooler_fetching_strategy_t fetching_strategy, channel_spooler_handlers_t *handlers, void *handlers_privdata);
+channel_spooler_t *start_spooler(channel_spooler_t *spl, ngx_str_t *chid, chanhead_pubsub_status_t *channel_status, uint8_t *channel_buffer_complete, nchan_store_t *store, nchan_loc_conf_t *cf, spooler_fetching_strategy_t fetching_strategy, channel_spooler_handlers_t *handlers, void *handlers_privdata);
 ngx_int_t stop_spooler(channel_spooler_t *spl, uint8_t dequeue_subscribers);
 
 ngx_int_t spooler_catch_up(channel_spooler_t *spl);

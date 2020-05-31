@@ -9,17 +9,26 @@ static ngx_int_t validate_id(ngx_http_request_t *r, ngx_str_t *id, nchan_loc_con
   return NGX_OK;
 }
 
+ngx_int_t nchan_channel_id_is_multi(ngx_str_t *id) {
+  u_char         *cur = id->data;
+  return (id->len >= 3 && cur[0] == 'm' && cur[1] == '/' && cur[2] == NCHAN_MULTI_SEP_CHR);
+}
+
+
+
 static ngx_int_t nchan_process_multi_channel_id(ngx_http_request_t *r, nchan_complex_value_arr_t *idcf, nchan_loc_conf_t *cf, ngx_str_t **ret_id) {
   ngx_int_t                   i, n = idcf->n, n_out = 0;
   ngx_str_t                   id[NCHAN_MULTITAG_MAX];
   ngx_str_t                  *id_out;
-  ngx_str_t                  *group = &cf->channel_group;
+  nchan_request_ctx_t        *ctx = ngx_http_get_module_ctx(r, ngx_nchan_module);
+  ngx_str_t                  *group = nchan_get_group_name(r, cf, ctx);
+  if(group == NULL) {
+    return NGX_ERROR;
+  }
   size_t                      sz = 0, grouplen = group->len;
   u_char                     *cur;
   
   //static ngx_str_t            empty_string = ngx_string("");
-  
-  nchan_request_ctx_t        *ctx = ngx_http_get_module_ctx(r, ngx_nchan_module);
   
   for(i=0; i < n && n_out < NCHAN_MULTITAG_MAX; i++) {
     ngx_http_complex_value(r, idcf->cv[i], &id[n_out]);
@@ -101,12 +110,13 @@ static ngx_int_t nchan_process_legacy_channel_id(ngx_http_request_t *r, nchan_lo
   static ngx_str_t            channel_id_var_name = ngx_string("push_channel_id");
   ngx_uint_t                  key = ngx_hash_key(channel_id_var_name.data, channel_id_var_name.len);
   ngx_http_variable_value_t  *vv = NULL;
-  ngx_str_t                  *group = &cf->channel_group;
+  nchan_request_ctx_t        *ctx = ngx_http_get_module_ctx(r, ngx_nchan_module);
+  ngx_str_t                  *group = nchan_get_group_name(r, cf, ctx);
   ngx_str_t                   tmpid;
   ngx_str_t                  *id;
   size_t                      sz;
   u_char                     *cur;
-  nchan_request_ctx_t        *ctx = ngx_http_get_module_ctx(r, ngx_nchan_module);
+  
   
   ctx->channel_id_count = 0;
   
@@ -148,12 +158,68 @@ static ngx_int_t nchan_process_legacy_channel_id(ngx_http_request_t *r, nchan_lo
   return NGX_OK;
 }
 
+ngx_str_t nchan_get_group_from_channel_id(ngx_str_t *id) {
+  ngx_str_t group;
+  u_char *cur, *end;
+  size_t  len;
+  if(nchan_channel_id_is_multi(id)) {
+    cur = &id->data[3];
+    len = id->len - 3;
+  }
+  else {
+    cur = id->data;
+    len = id->len;
+  }
+  end = memchr(cur, '/', len);
+  
+  assert(end); //if slash wasn't found, we have a malformed id string. 
+  //this is crashworthy to investigate how it happened.
+  
+  group.data = cur;
+  group.len = (end - cur);
+  
+  return group;
+}
+
+ngx_str_t *nchan_get_group_name(ngx_http_request_t *r, nchan_loc_conf_t *cf, nchan_request_ctx_t *ctx) {
+  if(!ctx->channel_group_name) {
+    if((ctx->channel_group_name = ngx_palloc(r->pool, sizeof(*ctx->channel_group_name))) == NULL) {
+      nchan_log_request_error(r, "couldn't allocate a tiny little channel group string.");
+      return NULL;
+    }
+    
+    if(cf->channel_group == NULL) {
+      ctx->channel_group_name->len = 0;
+      ctx->channel_group_name->data = NULL;
+    }
+    else {
+      ngx_http_complex_value(r, cf->channel_group, ctx->channel_group_name);
+    }
+  }
+  
+  return ctx->channel_group_name;
+}
+
 ngx_str_t *nchan_get_channel_id(ngx_http_request_t *r, pub_or_sub_t what, ngx_int_t fail_hard) {
   static const ngx_str_t          NO_CHANNEL_ID_MESSAGE = ngx_string("No channel id provided.");
   nchan_loc_conf_t               *cf = ngx_http_get_module_loc_conf(r, ngx_nchan_module);
   ngx_int_t                       rc;
   ngx_str_t                      *id = NULL;
-  nchan_complex_value_arr_t          *chid_conf;
+  nchan_complex_value_arr_t      *chid_conf;
+  nchan_request_ctx_t            *ctx = ngx_http_get_module_ctx(r, ngx_nchan_module);
+  ngx_str_t                      *group = nchan_get_group_name(r, cf, ctx);
+  
+  //validate group
+  if(group->len == 1 && group->data[0]=='m') {
+    nchan_log_request_warning(r, "channel group \"m\" is reserved and cannot be used in a request.");
+    rc = NGX_DECLINED;
+    goto done;
+  }
+  else if(memchr(group->data, '/', group->len)) {
+    nchan_log_request_warning(r, "character \"/\" not allowed in channel group.");
+    rc = NGX_DECLINED;
+    goto done;
+  }
   
   chid_conf = what == PUB ? &cf->pub_chid : &cf->sub_chid;
   if(chid_conf->n == 0) {
@@ -193,11 +259,11 @@ done:
     assert(rc != NGX_OK);
     switch(rc) {
       case NGX_ERROR:
-        nchan_respond_status(r, NGX_HTTP_INTERNAL_SERVER_ERROR, NULL, 0);
+        nchan_respond_status(r, NGX_HTTP_INTERNAL_SERVER_ERROR, NULL, NULL, 0);
         break;
       
       case NGX_DECLINED:
-        nchan_respond_status(r, NGX_HTTP_FORBIDDEN, NULL, 0);
+        nchan_respond_status(r, NGX_HTTP_FORBIDDEN, NULL, NULL, 0);
         break;
       
       case NGX_ABORT:

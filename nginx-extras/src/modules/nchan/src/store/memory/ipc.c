@@ -3,6 +3,7 @@
 #include <ngx_channel.h>
 #include <assert.h>
 #include "ipc.h"
+#include "groups.h"
 
 #include "store-private.h"
 
@@ -18,7 +19,6 @@ static ngx_event_t  receive_alert_delay_log_timer;
 static ngx_event_t  send_alert_delay_log_timer;
 static void receive_alert_delay_log_timer_handler(ngx_event_t *ev);
 static void send_alert_delay_log_timer_handler(ngx_event_t *ev);
-
 
 static void ipc_read_handler(ngx_event_t *ev);
 
@@ -42,7 +42,9 @@ ngx_int_t ipc_init(ipc_t *ipc) {
     proc->wbuf.overflow_first = NULL;
     proc->wbuf.overflow_last = NULL;
     proc->wbuf.overflow_n = 0;
+    ipc->worker_slots[i]=NGX_ERROR;
   }
+  ipc->workers = NGX_ERROR;
   return NGX_OK;
 }
 
@@ -86,6 +88,8 @@ ngx_int_t ipc_open(ipc_t *ipc, ngx_cycle_t *cycle, ngx_int_t workers, void (*slo
       slot_callback(s, i);
     }
     
+    ipc->worker_slots[i] = s;
+    
     proc = &ipc->process[s];
 
     socks = proc->pipe;
@@ -120,6 +124,7 @@ ngx_int_t ipc_open(ipc_t *ipc, ngx_cycle_t *cycle, ngx_int_t workers, void (*slo
     
     s++; //NEXT!!
   }
+  ipc->workers = workers;
   
   //ERR("ipc_alert_t size %i bytes", sizeof(ipc_alert_t));
   
@@ -132,6 +137,8 @@ ngx_int_t ipc_close(ipc_t *ipc, ngx_cycle_t *cycle) {
   int i;
   ipc_process_t            *proc;
   ipc_writebuf_overflow_t  *of, *of_next;
+  
+  DBG("start closing");
   
   for (i=0; i<NGX_MAX_PROCESSES; i++) {
     proc = &ipc->process[i];
@@ -151,6 +158,7 @@ ngx_int_t ipc_close(ipc_t *ipc, ngx_cycle_t *cycle) {
     ipc_try_close_fd(&proc->pipe[1]);
     ipc->process[i].active = 0;
   }
+  DBG("done closing");
   return NGX_OK;
 }
 
@@ -158,7 +166,7 @@ static ngx_uint_t delayed_sent_alerts_count;
 static ngx_uint_t delayed_sent_alerts_delay;
 
 static void send_alert_delay_log_timer_handler(ngx_event_t *ev) {
-  nchan_log_error("Sending %ui interprocess alert%s delayed by %ui sec.", delayed_sent_alerts_count, delayed_sent_alerts_count == 1 ? "" : "s", (ngx_uint_t)(delayed_sent_alerts_count > 0 ? delayed_sent_alerts_delay / delayed_sent_alerts_count : 0));
+  nchan_log_notice("Sending %ui interprocess alert%s delayed by %ui sec.", delayed_sent_alerts_count, delayed_sent_alerts_count == 1 ? "" : "s", (ngx_uint_t)(delayed_sent_alerts_count > 0 ? delayed_sent_alerts_delay / delayed_sent_alerts_count : 0));
   
   delayed_sent_alerts_count = 0;
   delayed_sent_alerts_delay = 0;
@@ -367,7 +375,7 @@ static ngx_uint_t delayed_received_alerts_count;
 static ngx_uint_t delayed_received_alerts_delay;
 
 static void receive_alert_delay_log_timer_handler(ngx_event_t *ev) {
-  nchan_log_error("Received %ui interprocess alert%s delayed by %ui sec.", delayed_received_alerts_count, delayed_received_alerts_count == 1 ? "" : "s", (ngx_uint_t)(delayed_received_alerts_count > 0 ? delayed_received_alerts_delay / delayed_received_alerts_count : 0));
+  nchan_log_notice("Received %ui interprocess alert%s delayed by %ui sec.", delayed_received_alerts_count, delayed_received_alerts_count == 1 ? "" : "s", (ngx_uint_t)(delayed_received_alerts_count > 0 ? delayed_received_alerts_delay / delayed_received_alerts_count : 0));
   
   delayed_received_alerts_count = 0;
   delayed_received_alerts_delay = 0;
@@ -452,6 +460,22 @@ static void ipc_read_handler(ngx_event_t *ev) {
   }
 }
 
+
+ngx_int_t ipc_broadcast_alert(ipc_t *ipc, ngx_uint_t code, void *data, size_t data_size) {
+  ngx_int_t   i, slot, rc, ret = NGX_OK;
+  ngx_int_t   my_slot = memstore_slot();
+  DBG("broadcast alert");
+  for(i=0; i < ipc->workers; i++) {
+    slot = ipc->worker_slots[i];
+    if(my_slot != slot) {
+      if((rc = ipc_alert(ipc, slot, code, data, data_size)) != NGX_OK)  {
+        ERR("Error sending alert to slot %i", slot);
+        ret = NGX_ERROR;
+      }
+    }
+  }
+  return ret;
+}
 
 ngx_int_t ipc_alert(ipc_t *ipc, ngx_int_t slot, ngx_uint_t code, void *data, size_t data_size) {
   DBG("IPC send alert code %i to slot %i", code, slot);
