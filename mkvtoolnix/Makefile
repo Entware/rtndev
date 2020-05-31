@@ -8,13 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=44.0.0
+PKG_VERSION:=47.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_HASH:=d93843ed669d837c67c2c929f4ac2bd1e848ea5db7586681226fa371e88c92cb
+PKG_HASH:=8b7744203758025585b28200906c4b85716a6b1b95fed77cc520f9ae59c2ae44
 
+PKG_FIXUP:=autoreconf
 PKG_BUILD_DEPENDS:=ruby/host
 
 include $(INCLUDE_DIR)/package.mk
@@ -39,7 +40,6 @@ CONFIGURE_ARGS += \
 	--disable-static \
 	--disable-qt \
 	--with-boost=$(STAGING_DIR)/opt \
-	--without-gettext \
 	--without-qt-pkg-config \
 	--without-moc \
 	--without-uic \

@@ -1,63 +1,6 @@
---- a/configure
-+++ b/configure
-@@ -11709,14 +11709,6 @@ $as_echo_n "checking for DocBook XSL roo
-     fi
-   done
- 
--  if test -z "$DOCBOOK_ROOT"; then
--    { $as_echo "$as_me:${as_lineno-$LINENO}: result: not found" >&5
--$as_echo "not found" >&6; }
--    as_fn_error $? "DocBook XSL stylesheets are required for building." "$LINENO" 5
--  else
--    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $DOCBOOK_ROOT" >&5
--$as_echo "$DOCBOOK_ROOT" >&6; }
--  fi
- fi
- 
- # It's just rude to go over the net to build
-@@ -11777,39 +11769,6 @@ fi
- 
- fi
- 
--if test -z "$XSLTPROC" -o ! -x "$XSLTPROC"; then
--  as_fn_error $? "xsltproc wasn't found" "$LINENO" 5
--fi
--
--{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether xsltproc works" >&5
--$as_echo_n "checking whether xsltproc works... " >&6; }
--if ${ac_cv_xsltproc_works+:} false; then :
--  $as_echo_n "(cached) " >&6
--else
--
--    ac_cv_xsltproc_works=no
--    "$XSLTPROC" "$XSLTPROC_FLAGS" "$DOCBOOK_ROOT/manpages/docbook.xsl" >/dev/null 2>/dev/null << END
--<?xml version="1.0" encoding='ISO-8859-1'?>
--<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
--<book id="test">
--</book>
--END
--    if test "$?" = 0; then
--      ac_cv_xsltproc_works=yes
--    fi
--
--fi
--{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_xsltproc_works" >&5
--$as_echo "$ac_cv_xsltproc_works" >&6; }
--
--if test x"$ac_cv_xsltproc_works" != xyes; then
--  as_fn_error $? "xsltproc doesn't work with DocBook's $DOCBOOK_ROOT/manpages/docbook.xsl" "$LINENO" 5
--fi
--
--
--
--
--
- { $as_echo "$as_me:${as_lineno-$LINENO}: checking POSIX termios" >&5
- $as_echo_n "checking POSIX termios... " >&6; }
- if ${ac_cv_sys_posix_termios+:} false; then :
 --- a/Rakefile
 +++ b/Rakefile
-@@ -262,23 +262,6 @@ def define_default_task
+@@ -263,23 +263,6 @@ def define_default_task
      targets << "BROWSE" if !c(:EBROWSE).empty?
    end
  
@@ -81,3 +24,13 @@
    targets << "src/benchmark/benchmark" if c?(:GOOGLE_BENCHMARK) && !$benchmark_sources.empty?
  
    task :default => targets do
+--- a/configure.ac
++++ b/configure.ac
+@@ -46,7 +46,6 @@
+ m4_include(ac/gtest.m4)
+ m4_include(ac/benchmark.m4)
+ m4_include(ac/pandoc.m4)
+-m4_include(ac/ax_docbook.m4)
+ m4_include(ac/tiocgwinsz.m4)
+ m4_include(ac/dvdread.m4)
+ m4_include(ac/po4a.m4)
