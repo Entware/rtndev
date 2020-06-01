@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=usbrelay
-PKG_VERSION:=0.6
-PKG_REV:=f504ba5b7b8ee0ea7b9f8e7f6e466f5d3d9d7a0c
+PKG_VERSION:=0.7
+PKG_REV:=e12d79f794ab91002583fd4e547deae4f8be28d9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
