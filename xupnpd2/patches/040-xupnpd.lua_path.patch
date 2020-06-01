@@ -1,6 +1,6 @@
 --- a/plugin_lua.cpp
 +++ b/plugin_lua.cpp
-@@ -246,7 +246,7 @@
+@@ -248,7 +248,7 @@
      {
          reglibs(st);
  

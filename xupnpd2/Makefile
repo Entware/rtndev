@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xupnpd2
-PKG_VERSION:=2.0-20181224
-PKG_REV:=c3c454188bad7ec17ff81c032e9c9064c4f92f50
+PKG_VERSION:=2.0-20200127
+PKG_REV:=0da5ca9c4a796b9ac9da4a706569a3665f75e35e
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
@@ -18,14 +18,12 @@ PKG_SOURCE_URL:=https://github.com/clark15b/xupnpd2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
-PKG_BUILD_DEPENDS:=sqlite3
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/xupnpd2
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	DEPENDS:=+libuuid +libstdcpp
+	DEPENDS:=+libsqlite3 +liblua5.3 +libuuid +libstdcpp
 	TITLE:=eXtensible UPnP agent
 	URL:=https://github.com/clark15b/xupnpd2
 	MAINTAINER:=Entware team, https://entware.net
@@ -50,7 +48,10 @@ define Build/Configure
 	echo 'include build/rules.mk' > $(PKG_BUILD_DIR)/Makefile
 endef
 
-MAKE_FLAGS += "LIBS=-ldl -luuid"
+TARGET_CFLAGS += -I$(STAGING_DIR)/opt/include/lua5.3
+
+TARGET_LDFLAGS += -ldl -luuid -lsqlite3 -llua5.3
+
 
 define Package/xupnpd2/install
 	$(INSTALL_DIR) $(1)/opt/sbin
