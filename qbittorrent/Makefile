@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
 PKG_VERSION:=4.1.9.1
-PKG_RELEASE=1
+PKG_RELEASE=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
@@ -27,12 +27,13 @@ PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/qbittorrent
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	DEPENDS:=+qt5-network +qt5-xml +rblibtorrent
+	DEPENDS:=+qt5-network +qt5-xml +rblibtorrent $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=bittorrent client programmed in C++ / Qt
 	URL:=https://www.qbittorrent.org/
 	PROVIDES:=qBittorrent
@@ -45,6 +46,8 @@ define Package/qbittorrent/description
  there. qBittorrent is fast, stable and provides unicode support as
  well as many features.
 endef
+
+TARGET_LDFLAGS += $(if $(INTL_FULL),-liconv) $(if $(INTL_FULL),-lintl)
 
 CONFIGURE_VARS += \
 	QT_QMAKE="$(TOOLCHAIN_DIR)/bin" \
