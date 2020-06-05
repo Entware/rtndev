@@ -32,9 +32,6 @@ define Package/wireshark/description
  Wireshark is the world’s foremost and widely-used network protocol analyzer.
 endef
 
-TARGET_CFLAGS += \
-	-I$(STAGING_DIR)/opt/include/krb
-
 CMAKE_OPTIONS += \
 	-DBUILD_mmdbresolve=OFF \
 	-DBUILD_wireshark=OFF \
