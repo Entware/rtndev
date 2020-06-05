@@ -4,15 +4,16 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# XXX https://github.com/cryfs/cryfs/commit/ef4bc7aba2eeed728176b4ff5737d959cfcdc4d7
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cryfs
 PKG_VERSION:=0.10.2
-PKG_REV:=cf3023406969b14610df03a043fca8a078c9c195
-PKG_RELEASE:=2
+PKG_REV:=ef4bc7aba2eeed728176b4ff5737d959cfcdc4d7
+PKG_RELEASE:=3
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/cryfs/cryfs.git
 PKG_SOURCE_PROTO:=git
