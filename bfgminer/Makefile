@@ -60,7 +60,8 @@ CONFIGURE_ARGS += \
 
 TARGET_CFLAGS += \
 	-std=gnu99 \
-	-Iuthash-2.1.0/src
+	-Iuthash-2.1.0/src \
+	-DJSON_INTEGER_IS_LONG_LONG
 
 define Package/bfgminer/install
 	$(INSTALL_DIR) $(1)/opt/bin
