@@ -26,7 +26,7 @@ define Package/mkvtoolnix
 	CATEGORY:=Multimedia
 	DEPENDS:=+boost-filesystem +boost-regex +libbz2 +libexpat +libflac \
 		+liblzo +libmagic +libmatroska +libvorbis \
-		$(ICONV_DEPENDS) $(INTL_DEPENDS)
+		$(ICONV_DEPENDS) $(INTL_DEPENDS) +libfmt +pugixml
 	TITLE:=tools for Matroska files
 	URL:=http://matroska.org/
 	MAINTAINER:=Entware team, https://entware.net
