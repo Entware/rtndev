@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=mpdscribble
 PKG_VERSION:=0.23-20191206
 PKG_REV:=048bc62e43a6000f99291522b725f1ddd48864c1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -41,6 +41,8 @@ endef
 
 MESON_ARGS += \
 	-Dsystemd=disabled
+
+MESON_VARS+=BOOST_ROOT=$(STAGING_DIR)/opt
 
 define Package/mpdscribble/install
 	$(INSTALL_DIR) $(1)/opt/bin
