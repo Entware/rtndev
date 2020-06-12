@@ -65,7 +65,7 @@ define Build/Compile
 endef
 
 ilocales=de_DE en_US en_GB fr_FR it_IT ru_RU i18n \
-	$(if $(CONFIG_GLIBC_USE_VERSION_2_31),i18n_ctype,) \
+	$(if $(CONFIG_GLIBC_USE_VERSION_2_31)$(CONFIG_GLIBC_USE_VERSION_2_27),i18n_ctype,) \
 	iso14651_t1 iso14651_t1_common \
 	translit_circle translit_combining translit_font translit_narrow translit_small \
 	translit_cjk_compat translit_compat translit_fraction translit_neutral translit_wide
