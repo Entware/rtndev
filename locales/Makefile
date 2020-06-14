@@ -29,12 +29,9 @@ LVERSION2:=$(subst .,,$(LVERSION1))
 define Package/locales/preinst
 #!/bin/sh
 
-if [[ -x '/opt/bin/locale.new' ]]; then
-	/opt/bin/locale.new -V | grep $(LVERSION1) > /dev/null
-	if [ $$? -ne 0 ] ; then
-		echo 'Deleting locale-archive. It needs upgrade.'
-		rm -f /opt/usr/lib/locale/locale-archive
-	fi
+if [ -x '/opt/bin/locale.new' ] && [ -z "$$(/opt/bin/locale.new -V | grep $(LVERSION1))" ]; then
+	echo 'locale-archive needs upgrade, deleting old one.'
+	rm -f /opt/usr/lib/locale/locale-archive
 fi
 endef
 
