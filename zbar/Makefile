@@ -4,18 +4,17 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 0.23.1 unconditionally uses NLS and translations. Sure it will be fixed in the next version
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zbar
-PKG_VERSION:=0.23
+PKG_VERSION:=0.23.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_REV:=1d51925e6cc9151f4a73781989f21fcd7b57ef32
+PKG_REV:=6092b033b35fdcc7ee95fc366ed303f475739bfc
 PKG_SOURCE_URL:=https://github.com/mchehab/zbar
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_FIXUP:=autoreconf
