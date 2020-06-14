@@ -11,7 +11,7 @@ PKG_NAME:=entware-opt
 # for historical reasons the first version was 222107 - that is glibc 2.22 & uclibc-ng 1.07
 # we keep this numbering to upgrade package if needed.
 # current version is 227000 - that is glibc 2.27 (or smaller) and no uclibc-ng
-PKG_VERSION:=227000
+PKG_VERSION:=$(filter-out .,$(call qstrip,$(CONFIG_GLIBC_VERSION))000)
 PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
@@ -70,27 +70,13 @@ endef
 define Package/entware-opt/postinst
 #!/bin/sh
 
-if [ -e /opt/bin/busybox ]; then
-    exit 0
-fi
-if [[ -f /sbin/ifconfig && ! -f /opt/sbin/ifconfig ]]; then
-    ln -s /sbin/ifconfig /opt/sbin/ifconfig
-fi
-if [[ -f /sbin/route && ! -f /opt/sbin/route ]]; then
-    ln -s /sbin/route /opt/sbin/route
-fi
-if [[ -f /sbin/ip && ! -f /opt/sbin/ip ]]; then
-    ln -s /sbin/ip /opt/sbin/ip
-fi
-if [[ -f /bin/netstat && ! -f /opt/bin/netstat ]]; then
-    ln -s /bin/netstat /opt/bin/netstat
-fi
-if [[ ! -f /opt/bin/sh ]]; then
-    ln -s /bin/sh /opt/bin/sh
-fi
-if [[ ! -f /opt/bin/ash ]]; then
-    ln -s /bin/ash /opt/bin/ash
-fi
+[ -e /opt/bin/busybox ] && exit 0
+
+for fw_cmd in sbin/ifconfig sbin/route sbin/ip bin/netstat bin/sh bin/ash; do
+    if [ -f /$$fw_cmd ] && [ ! -f /opt/$$fw_cmd ]; then
+	ln -s /$$fw_cmd /opt/$$fw_cmd
+    fi
+done
 endef
 
 $(eval $(call BuildPackage,entware-opt))
