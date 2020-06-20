@@ -16,7 +16,7 @@ PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
 PKG_HASH:=8b7744203758025585b28200906c4b85716a6b1b95fed77cc520f9ae59c2ae44
 
 PKG_FIXUP:=autoreconf
-PKG_BUILD_DEPENDS:=ruby/host libfmt pugixml libmatroska 
+PKG_BUILD_DEPENDS:=ruby/host pugixml libmatroska 
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -25,7 +25,7 @@ define Package/mkvtoolnix
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
 	DEPENDS:=+boost-filesystem +boost-regex +libbz2 +libexpat +libflac \
-		+liblzo +libmagic +libvorbis \
+		+liblzo +libmagic +libvorbis +libfmt \
 		$(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=tools for Matroska files
 	URL:=http://matroska.org/
@@ -53,7 +53,7 @@ TARGET_LDFLAGS += \
 	-lintl
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR); rake --jobs=1
+	cd $(PKG_BUILD_DIR); rake
 endef
 
 define Package/mkvtoolnix/install
