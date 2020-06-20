@@ -9,14 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
 PKG_VERSION:=47.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
 PKG_HASH:=8b7744203758025585b28200906c4b85716a6b1b95fed77cc520f9ae59c2ae44
 
 PKG_FIXUP:=autoreconf
-PKG_BUILD_DEPENDS:=ruby/host
+PKG_BUILD_DEPENDS:=ruby/host libfmt pugixml
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -26,7 +26,7 @@ define Package/mkvtoolnix
 	CATEGORY:=Multimedia
 	DEPENDS:=+boost-filesystem +boost-regex +libbz2 +libexpat +libflac \
 		+liblzo +libmagic +libmatroska +libvorbis \
-		$(ICONV_DEPENDS) $(INTL_DEPENDS) +libfmt +pugixml
+		$(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=tools for Matroska files
 	URL:=http://matroska.org/
 	MAINTAINER:=Entware team, https://entware.net
