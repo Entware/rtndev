@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@
+ ${objs}: ${h_files}
+ 
+ sexpect: ${objs}
+-	$(CC) -o $@ ${objs} -lrt
++	$(CC) $(CPPFLAGS) -o $@ ${objs} $(LDFLAGS) -lrt
+ 
+ clean:
+ 	rm -f ${objs} sexpect
