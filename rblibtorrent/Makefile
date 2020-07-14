@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
 PKG_VERSION:=1.1.14
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=libtorrent-rasterbar-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent/releases/download/libtorrent-$(subst .,_,$(PKG_VERSION))
@@ -31,7 +31,8 @@ define Package/rblibtorrent
   CATEGORY:=Libraries
   TITLE:=Rasterbar BitTorrent library
   URL:=http://www.rasterbar.com/products/libtorrent/
-  DEPENDS:=+boost-chrono +boost-python3 +boost-random +boost-system +libopenssl +python3-light
+  DEPENDS:=+boost-chrono +boost-python3 +boost-random +boost-system +libopenssl \
+	+python3-light $(ICONV_DEPENDS) $(INTL_DEPENDS)
 endef
 
 define Package/rblibtorrent/description
@@ -41,6 +42,8 @@ full featured client, although it comes with a working example client.
 endef
 
 TARGET_CXXFLAGS += -DBOOST_BIND_GLOBAL_PLACEHOLDERS
+
+TARGET_LDFLAGS += $(if $(INTL_FULL),-liconv) $(if $(INTL_FULL),-lintl)
 
 CMAKE_OPTIONS += \
 	-Dpython-bindings:BOOL=ON \
