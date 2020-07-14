@@ -1,0 +1,1364 @@
+--- a/deluge/argparserbase.py
++++ b/deluge/argparserbase.py
+@@ -122,7 +122,7 @@ class DelugeTextHelpFormatter(argparse.R
+ 
+         """
+         if not action.option_strings:
+-            metavar, = self._metavar_formatter(action, action.dest)(1)
++            (metavar,) = self._metavar_formatter(action, action.dest)(1)
+             return metavar
+         else:
+             parts = []
+@@ -325,22 +325,22 @@ class ArgParserBase(argparse.ArgumentPar
+ 
+             # Write pid file before chuid
+             if options.pidfile:
+-                with open(options.pidfile, 'wb') as _file:
++                with open(options.pidfile, 'w') as _file:
+                     _file.write('%d\n' % os.getpid())
+ 
+             if not common.windows_check():
++                if options.group:
++                    if not options.group.isdigit():
++                        import grp
++
++                        options.group = grp.getgrnam(options.group)[2]
++                    os.setgid(options.group)
+                 if options.user:
+                     if not options.user.isdigit():
+                         import pwd
+ 
+                         options.user = pwd.getpwnam(options.user)[2]
+                     os.setuid(options.user)
+-                if options.group:
+-                    if not options.group.isdigit():
+-                        import grp
+-
+-                        options.group = grp.getgrnam(options.group)[2]
+-                    os.setuid(options.group)
+ 
+         return options
+ 
+--- a/deluge/common.py
++++ b/deluge/common.py
+@@ -81,6 +81,9 @@ TORRENT_STATE = [
+ # The output formatting for json.dump
+ JSON_FORMAT = {'indent': 4, 'sort_keys': True, 'ensure_ascii': False}
+ 
++DBUS_FM_ID = 'org.freedesktop.FileManager1'
++DBUS_FM_PATH = '/org/freedesktop/FileManager1'
++
+ PY2 = sys.version_info.major == 2
+ 
+ 
+@@ -355,27 +358,30 @@ def show_file(path, timestamp=None):
+             timestamp,
+             timestamp,
+         )
++
+         if dbus:
+             bus = dbus.SessionBus()
+-            filemanager1 = bus.get_object(
+-                'org.freedesktop.FileManager1', '/org/freedesktop/FileManager1'
+-            )
+-            paths = [urljoin('file:', pathname2url(path))]
+-            filemanager1.ShowItems(
+-                paths, startup_id, dbus_interface='org.freedesktop.FileManager1'
+-            )
+-        else:
+-            env = os.environ.copy()
+-            env['DESKTOP_STARTUP_ID'] = startup_id.replace('dbus', 'xdg-open')
+-            # No option in xdg to highlight a file so just open parent folder.
+-            subprocess.Popen(['xdg-open', os.path.dirname(path.rstrip('/'))], env=env)
++            try:
++                filemanager1 = bus.get_object(DBUS_FM_ID, DBUS_FM_PATH)
++            except dbus.exceptions.DBusException as ex:
++                log.debug('Unable to get dbus file manager: %s', ex)
++                # Fallback to xdg-open
++            else:
++                paths = [urljoin('file:', pathname2url(path))]
++                filemanager1.ShowItems(paths, startup_id, dbus_interface=DBUS_FM_ID)
++                return
++
++        env = os.environ.copy()
++        env['DESKTOP_STARTUP_ID'] = startup_id.replace('dbus', 'xdg-open')
++        # No option in xdg to highlight a file so just open parent folder.
++        subprocess.Popen(['xdg-open', os.path.dirname(path.rstrip('/'))], env=env)
+ 
+ 
+ def open_url_in_browser(url):
+     """
+-    Opens a url in the desktop's default browser
++    Opens a URL in the desktop's default browser
+ 
+-    :param url: the url to open
++    :param url: the URL to open
+     :type url: string
+ 
+     """
+@@ -695,7 +701,7 @@ def is_url(url):
+     """
+     A simple test to check if the URL is valid
+ 
+-    :param url: the url to test
++    :param url: the URL to test
+     :type url: string
+     :returns: True or False
+     :rtype: bool
+@@ -731,9 +737,9 @@ TR_PARAM = 'tr='
+ 
+ def is_magnet(uri):
+     """
+-    A check to determine if a uri is a valid bittorrent magnet uri
++    A check to determine if a URI is a valid bittorrent magnet URI
+ 
+-    :param uri: the uri to check
++    :param uri: the URI to check
+     :type uri: string
+     :returns: True or False
+     :rtype: bool
+@@ -819,7 +825,7 @@ def get_magnet_info(uri):
+ 
+ 
+ def create_magnet_uri(infohash, name=None, trackers=None):
+-    """Creates a magnet uri
++    """Creates a magnet URI
+ 
+     Args:
+         infohash (str): The info-hash of the torrent.
+@@ -827,7 +833,7 @@ def create_magnet_uri(infohash, name=Non
+         trackers (list or dict, optional): A list of trackers or dict or {tracker: tier} pairs.
+ 
+     Returns:
+-        str: A magnet uri string.
++        str: A magnet URI string.
+ 
+     """
+     try:
+@@ -1175,7 +1181,7 @@ def create_localclient_account(append=Fa
+ 
+ 
+ def get_localhost_auth():
+-    """Grabs the localclient auth line from the 'auth' file and creates a localhost uri.
++    """Grabs the localclient auth line from the 'auth' file and creates a localhost URI.
+ 
+     Returns:
+         tuple: With the username and password to login as.
+--- a/deluge/component.py
++++ b/deluge/component.py
+@@ -448,7 +448,7 @@ class ComponentRegistry(object):
+ 
+         def on_stopped(result):
+             return DeferredList(
+-                [comp._component_shutdown() for comp in self.components.values()]
++                [comp._component_shutdown() for comp in list(self.components.values())]
+             )
+ 
+         return self.stop(list(self.components)).addCallback(on_stopped)
+--- a/deluge/config.py
++++ b/deluge/config.py
+@@ -74,38 +74,33 @@ def prop(func):
+     return property(doc=func.__doc__, **func())
+ 
+ 
+-def find_json_objects(s):
+-    """Find json objects in a string.
++def find_json_objects(text, decoder=json.JSONDecoder()):
++    """Find json objects in text.
+ 
+     Args:
+-        s (str): the string to find json objects in
++        text (str): The text to find json objects within.
+ 
+     Returns:
+         list: A list of tuples containing start and end locations of json
+-            objects in string `s`. e.g. [(start, end), ...]
++            objects in the text. e.g. [(start, end), ...]
++
+ 
+     """
+     objects = []
+-    opens = 0
+-    start = s.find('{')
+-    offset = start
+-
+-    if start < 0:
+-        return []
+-
+-    quoted = False
+-    for index, c in enumerate(s[offset:]):
+-        if c == '"':
+-            quoted = not quoted
+-        elif quoted:
+-            continue
+-        elif c == '{':
+-            opens += 1
+-        elif c == '}':
+-            opens -= 1
+-            if opens == 0:
+-                objects.append((start, index + offset + 1))
+-                start = index + offset + 1
++    offset = 0
++    while True:
++        try:
++            start = text.index('{', offset)
++        except ValueError:
++            break
++
++        try:
++            __, index = decoder.raw_decode(text[start:])
++        except json.decoder.JSONDecodeError:
++            offset = start + 1
++        else:
++            offset = start + index
++            objects.append((start, offset))
+ 
+     return objects
+ 
+--- a/deluge/core/core.py
++++ b/deluge/core/core.py
+@@ -405,7 +405,7 @@ class Core(component.Component):
+     # Exported Methods
+     @export
+     def add_torrent_file_async(self, filename, filedump, options, save_state=True):
+-        """Adds a torrent file to the session asynchonously.
++        """Adds a torrent file to the session asynchronously.
+ 
+         Args:
+             filename (str): The filename of the torrent.
+@@ -442,8 +442,8 @@ class Core(component.Component):
+         Used by UIs to get magnet files for selection before adding to session.
+ 
+         Args:
+-            magnet (str): The magnet uri.
+-            timeout (int): Number of seconds to wait before cancelling request.
++            magnet (str): The magnet URI.
++            timeout (int): Number of seconds to wait before canceling request.
+ 
+         Returns:
+             Deferred: A tuple of (torrent_id (str), metadata (dict)) for the magnet.
+@@ -488,10 +488,11 @@ class Core(component.Component):
+ 
+     @export
+     def add_torrent_files(self, torrent_files):
+-        """Adds multiple torrent files to the session asynchonously.
++        """Adds multiple torrent files to the session asynchronously.
+ 
+         Args:
+-            torrent_files (list of tuples): Torrent files as tuple of (filename, filedump, options).
++            torrent_files (list of tuples): Torrent files as tuple of
++            ``(filename, filedump, options)``.
+ 
+         Returns:
+             Deferred
+@@ -517,10 +518,10 @@ class Core(component.Component):
+     @export
+     def add_torrent_url(self, url, options, headers=None):
+         """
+-        Adds a torrent from a url. Deluge will attempt to fetch the torrent
+-        from url prior to adding it to the session.
++        Adds a torrent from a URL. Deluge will attempt to fetch the torrent
++        from the URL prior to adding it to the session.
+ 
+-        :param url: the url pointing to the torrent file
++        :param url: the URL pointing to the torrent file
+         :type url: string
+         :param options: the options to apply to the torrent on add
+         :type options: dict
+@@ -529,7 +530,7 @@ class Core(component.Component):
+ 
+         :returns: a Deferred which returns the torrent_id as a str or None
+         """
+-        log.info('Attempting to add url %s', url)
++        log.info('Attempting to add URL %s', url)
+ 
+         def on_download_success(filename):
+             # We got the file, so add it to the session
+@@ -543,7 +544,7 @@ class Core(component.Component):
+ 
+         def on_download_fail(failure):
+             # Log the error and pass the failure onto the client
+-            log.error('Failed to add torrent from url %s', url)
++            log.error('Failed to add torrent from URL %s', url)
+             return failure
+ 
+         tmp_fd, tmp_file = tempfile.mkstemp(prefix='deluge_url.', suffix='.torrent')
+@@ -566,7 +567,7 @@ class Core(component.Component):
+         :rtype: string
+ 
+         """
+-        log.debug('Attempting to add by magnet uri: %s', uri)
++        log.debug('Attempting to add by magnet URI: %s', uri)
+ 
+         return self.torrentmanager.add(magnet=uri, options=options)
+ 
+@@ -894,7 +895,8 @@ class Core(component.Component):
+ 
+         Args:
+             torrent_ids (list): A list of torrent_ids to set the options for.
+-            options (dict): A dict of torrent options to set. See torrent.TorrentOptions class for valid keys.
++            options (dict): A dict of torrent options to set. See
++                ``torrent.TorrentOptions`` class for valid keys.
+         """
+         if 'owner' in options and not self.authmanager.has_account(options['owner']):
+             raise DelugeError('Username "%s" is not known.' % options['owner'])
+@@ -907,7 +909,7 @@ class Core(component.Component):
+ 
+     @export
+     def set_torrent_trackers(self, torrent_id, trackers):
+-        """Sets a torrents tracker list.  trackers will be [{"url", "tier"}]"""
++        """Sets a torrents tracker list. trackers will be ``[{"url", "tier"}]``"""
+         return self.torrentmanager[torrent_id].set_trackers(trackers)
+ 
+     @deprecated
+@@ -985,7 +987,7 @@ class Core(component.Component):
+     @export
+     def get_path_size(self, path):
+         """Returns the size of the file or folder 'path' and -1 if the path is
+-        unaccessible (non-existent or insufficient privs)"""
++        inaccessible (non-existent or insufficient privileges)"""
+         return deluge.common.get_path_size(path)
+ 
+     @export
+@@ -1058,8 +1060,8 @@ class Core(component.Component):
+     def upload_plugin(self, filename, filedump):
+         """This method is used to upload new plugins to the daemon.  It is used
+         when connecting to the daemon remotely and installing a new plugin on
+-        the client side. 'plugin_data' is a xmlrpc.Binary object of the file data,
+-        ie, plugin_file.read()"""
++        the client side. ``plugin_data`` is a ``xmlrpc.Binary`` object of the file data,
++        i.e. ``plugin_file.read()``"""
+ 
+         try:
+             filedump = b64decode(filedump)
+@@ -1075,14 +1077,14 @@ class Core(component.Component):
+     @export
+     def rescan_plugins(self):
+         """
+-        Rescans the plugin folders for new plugins
++        Re-scans the plugin folders for new plugins
+         """
+         component.get('CorePluginManager').scan_for_plugins()
+ 
+     @export
+     def rename_files(self, torrent_id, filenames):
+         """
+-        Rename files in torrent_id.  Since this is an asynchronous operation by
++        Rename files in ``torrent_id``.  Since this is an asynchronous operation by
+         libtorrent, watch for the TorrentFileRenamedEvent to know when the
+         files have been renamed.
+ 
+@@ -1258,7 +1260,7 @@ class Core(component.Component):
+     @export
+     def get_external_ip(self):
+         """
+-        Returns the external ip address recieved from libtorrent.
++        Returns the external IP address received from libtorrent.
+         """
+         return self.external_ip
+ 
+--- a/deluge/core/torrentmanager.py
++++ b/deluge/core/torrentmanager.py
+@@ -25,7 +25,7 @@ from twisted.internet.task import Loopin
+ 
+ import deluge.component as component
+ from deluge._libtorrent import lt
+-from deluge.common import archive_files, decode_bytes, get_magnet_info, is_magnet
++from deluge.common import PY2, archive_files, decode_bytes, get_magnet_info, is_magnet
+ from deluge.configmanager import ConfigManager, get_config_dir
+ from deluge.core.authmanager import AUTH_LEVEL_ADMIN
+ from deluge.core.torrent import Torrent, TorrentOptions, sanitize_filepath
+@@ -340,11 +340,11 @@ class TorrentManager(component.Component
+             return torrent_info
+ 
+     def prefetch_metadata(self, magnet, timeout):
+-        """Download the metadata for a magnet uri.
++        """Download the metadata for a magnet URI.
+ 
+         Args:
+-            magnet (str): A magnet uri to download the metadata for.
+-            timeout (int): Number of seconds to wait before cancelling.
++            magnet (str): A magnet URI to download the metadata for.
++            timeout (int): Number of seconds to wait before canceling.
+ 
+         Returns:
+             Deferred: A tuple of (torrent_id (str), metadata (dict))
+@@ -509,7 +509,7 @@ class TorrentManager(component.Component
+             save_state (bool, optional): If True save the session state after adding torrent, defaults to True.
+             filedump (str, optional): bencoded filedump of a torrent file.
+             filename (str, optional): The filename of the torrent file.
+-            magnet (str, optional): The magnet uri.
++            magnet (str, optional): The magnet URI.
+             resume_data (lt.entry, optional): libtorrent fast resume data.
+ 
+         Returns:
+@@ -574,7 +574,7 @@ class TorrentManager(component.Component
+             save_state (bool, optional): If True save the session state after adding torrent, defaults to True.
+             filedump (str, optional): bencoded filedump of a torrent file.
+             filename (str, optional): The filename of the torrent file.
+-            magnet (str, optional): The magnet uri.
++            magnet (str, optional): The magnet URI.
+             resume_data (lt.entry, optional): libtorrent fast resume data.
+ 
+         Returns:
+@@ -809,7 +809,10 @@ class TorrentManager(component.Component
+ 
+             try:
+                 with open(filepath, 'rb') as _file:
+-                    state = pickle.load(_file)
++                    if PY2:
++                        state = pickle.load(_file)
++                    else:
++                        state = pickle.load(_file, encoding='utf8')
+             except (IOError, EOFError, pickle.UnpicklingError) as ex:
+                 message = 'Unable to load {}: {}'.format(filepath, ex)
+                 log.error(message)
+--- a/deluge/core/torrent.py
++++ b/deluge/core/torrent.py
+@@ -206,12 +206,12 @@ class Torrent(object):
+         options (dict): The torrent options.
+         state (TorrentState): The torrent state.
+         filename (str): The filename of the torrent file.
+-        magnet (str): The magnet uri.
++        magnet (str): The magnet URI.
+ 
+     Attributes:
+         torrent_id (str): The torrent_id for this torrent
+         handle: Holds the libtorrent torrent handle
+-        magnet (str): The magnet uri used to add this torrent (if available).
++        magnet (str): The magnet URI used to add this torrent (if available).
+         status: Holds status info so that we don"t need to keep getting it from libtorrent.
+         torrent_info: store the torrent info.
+         has_metadata (bool): True if the metadata for the torrent is available, False otherwise.
+@@ -810,7 +810,11 @@ class Torrent(object):
+             if peer.flags & peer.connecting or peer.flags & peer.handshake:
+                 continue
+ 
+-            client = decode_bytes(peer.client)
++            try:
++                client = decode_bytes(peer.client)
++            except UnicodeDecodeError:
++                # libtorrent on Py3 can raise UnicodeDecodeError for peer_info.client
++                client = 'unknown'
+ 
+             try:
+                 country = component.get('Core').geoip_instance.country_code_by_addr(
+@@ -913,7 +917,7 @@ class Torrent(object):
+         return ''
+ 
+     def get_magnet_uri(self):
+-        """Returns a magnet uri for this torrent"""
++        """Returns a magnet URI for this torrent"""
+         return lt.make_magnet_uri(self.handle)
+ 
+     def get_name(self):
+@@ -1208,8 +1212,8 @@ class Torrent(object):
+             bool: True is successful, otherwise False
+         """
+         try:
+-            self.handle.connect_peer((peer_ip, peer_port), 0)
+-        except RuntimeError as ex:
++            self.handle.connect_peer((peer_ip, int(peer_port)), 0)
++        except (RuntimeError, ValueError) as ex:
+             log.debug('Unable to connect to peer: %s', ex)
+             return False
+         return True
+--- a/deluge/error.py
++++ b/deluge/error.py
+@@ -94,3 +94,7 @@ class AuthenticationRequired(_UsernameBa
+ 
+ class AuthManagerError(_UsernameBasedPasstroughError):
+     pass
++
++
++class LibtorrentImportError(ImportError):
++    pass
+--- a/deluge/i18n/util.py
++++ b/deluge/i18n/util.py
+@@ -114,7 +114,7 @@ def setup_translation():
+         # Workaround for Python 2 unicode gettext (keyword removed in Py3).
+         kwargs = {} if not deluge.common.PY2 else {'unicode': True}
+ 
+-        gettext.install(I18N_DOMAIN, translations_path, names='ngettext', **kwargs)
++        gettext.install(I18N_DOMAIN, translations_path, names=['ngettext'], **kwargs)
+         builtins.__dict__['_n'] = builtins.__dict__['ngettext']
+ 
+         libintl = None
+--- a/deluge/_libtorrent.py
++++ b/deluge/_libtorrent.py
+@@ -18,16 +18,21 @@ Example:
+ from __future__ import unicode_literals
+ 
+ from deluge.common import VersionSplit, get_version
++from deluge.error import LibtorrentImportError
+ 
+ try:
+     import deluge.libtorrent as lt
+ except ImportError:
+-    import libtorrent as lt
++    try:
++        import libtorrent as lt
++    except ImportError as ex:
++        raise LibtorrentImportError('No libtorrent library found: %s' % (ex))
++
+ 
+ REQUIRED_VERSION = '1.1.2.0'
+ LT_VERSION = lt.__version__
+ 
+ if VersionSplit(LT_VERSION) < VersionSplit(REQUIRED_VERSION):
+-    raise ImportError(
++    raise LibtorrentImportError(
+         'Deluge %s requires libtorrent >= %s' % (get_version(), REQUIRED_VERSION)
+     )
+--- a/deluge/log.py
++++ b/deluge/log.py
+@@ -86,9 +86,9 @@ class Logging(LoggingLoggerClass):
+     def exception(self, msg, *args, **kwargs):
+         yield LoggingLoggerClass.exception(self, msg, *args, **kwargs)
+ 
+-    def findCaller(self, stack_info=False):  # NOQA: N802
++    def findCaller(self, *args, **kwargs):  # NOQA: N802
+         f = logging.currentframe().f_back
+-        rv = '(unknown file)', 0, '(unknown function)'
++        rv = ('(unknown file)', 0, '(unknown function)', None)
+         while hasattr(f, 'f_code'):
+             co = f.f_code
+             filename = os.path.normcase(co.co_filename)
+@@ -98,12 +98,12 @@ class Logging(LoggingLoggerClass):
+             ):
+                 f = f.f_back
+                 continue
+-            if common.PY2:
+-                rv = (filename, f.f_lineno, co.co_name)
+-            else:
+-                rv = (filename, f.f_lineno, co.co_name, None)
++            rv = (co.co_filename, f.f_lineno, co.co_name, None)
+             break
+-        return rv
++        if common.PY2:
++            return rv[:-1]
++        else:
++            return rv
+ 
+ 
+ levels = {
+--- a/deluge/plugins/Label/deluge_label/data/label.js
++++ b/deluge/plugins/Label/deluge_label/data/label.js
+@@ -54,6 +54,7 @@ Deluge.ux.AddLabelWindow = Ext.extend(Ex
+     title: _('Add Label'),
+     width: 300,
+     height: 100,
++    closeAction: 'hide',
+ 
+     initComponent: function() {
+         Deluge.ux.AddLabelWindow.superclass.initComponent.call(this);
+@@ -124,6 +125,7 @@ Deluge.ux.LabelOptionsWindow = Ext.exten
+     title: _('Label Options'),
+     width: 325,
+     height: 240,
++    closeAction: 'hide',
+ 
+     initComponent: function() {
+         Deluge.ux.LabelOptionsWindow.superclass.initComponent.call(this);
+--- a/deluge/plugins/Notifications/deluge_notifications/gtkui.py
++++ b/deluge/plugins/Notifications/deluge_notifications/gtkui.py
+@@ -42,7 +42,7 @@ except ImportError:
+ 
+ try:
+     require_version('Notify', '0.7')
+-    from gi.repository import Notify
++    from gi.repository import Notify, GLib
+ except (ValueError, ImportError):
+     POPUP_AVAILABLE = False
+ else:
+@@ -174,15 +174,17 @@ class GtkUiNotifications(CustomNotificat
+         if not self.config['popup_enabled']:
+             return defer.succeed(_('Popup notification is not enabled.'))
+         if not POPUP_AVAILABLE:
+-            return defer.fail(_('libnotify is not installed'))
++            err_msg = _('libnotify is not installed')
++            log.warning(err_msg)
++            return defer.fail(ImportError(err_msg))
+ 
+         if Notify.init('Deluge'):
+             self.note = Notify.Notification.new(title, message, 'deluge-panel')
+-            self.note.set_hint('desktop-entry', 'deluge')
++            self.note.set_hint('desktop-entry', GLib.Variant.new_string('deluge'))
+             if not self.note.show():
+                 err_msg = _('Failed to popup notification')
+                 log.warning(err_msg)
+-                return defer.fail(err_msg)
++                return defer.fail(Exception(err_msg))
+         return defer.succeed(_('Notification popup shown'))
+ 
+     def __play_sound(self, sound_path=''):
+@@ -191,7 +193,7 @@ class GtkUiNotifications(CustomNotificat
+         if not SOUND_AVAILABLE:
+             err_msg = _('pygame is not installed')
+             log.warning(err_msg)
+-            return defer.fail(err_msg)
++            return defer.fail(ImportError(err_msg))
+ 
+         pygame.init()
+         try:
+@@ -203,7 +205,7 @@ class GtkUiNotifications(CustomNotificat
+         except pygame.error as ex:
+             err_msg = _('Sound notification failed %s') % ex
+             log.warning(err_msg)
+-            return defer.fail(err_msg)
++            return defer.fail(ex)
+         else:
+             msg = _('Sound notification Success')
+             log.info(msg)
+--- a/deluge/tests/common.py
++++ b/deluge/tests/common.py
+@@ -268,8 +268,8 @@ except Exception:
+     default_core_cb['triggers'] = [
+         {'expr': 'Finished loading ', 'value': lambda reader, data, data_all: reader},
+         {
+-            'expr': 'Could not listen on localhost:%d' % (listen_port),
+-            'type': 'errback',  # Error from libtorrent
++            'expr': 'Cannot start deluged, listen port in use.',
++            'type': 'errback',
+             'value': lambda reader, data, data_all: CannotListenError(
+                 'localhost',
+                 listen_port,
+--- a/deluge/tests/daemon_base.py
++++ b/deluge/tests/daemon_base.py
+@@ -19,11 +19,17 @@ from deluge.common import windows_check
+ from . import common
+ 
+ 
++@pytest.mark.usefixtures('get_pytest_basetemp')
+ class DaemonBase(object):
++    basetemp = None
+ 
+     if windows_check():
+         skip = 'windows cant start_core not enough arguments for format string'
+ 
++    @pytest.fixture
++    def get_pytest_basetemp(self, request):
++        self.basetemp = request.config.option.basetemp
++
+     def common_set_up(self):
+         common.set_tmp_config_dir()
+         self.listen_port = 58900
+@@ -56,12 +62,10 @@ class DaemonBase(object):
+ 
+         # We are running py.test
+         if hasattr(pytest, 'config'):
+-            # Put log file in the py.test --basetemp argument
+-            basetemp = pytest.config.option.basetemp
+-            if basetemp:
+-                if not os.path.exists(basetemp):
+-                    os.makedirs(basetemp)
+-                logfile = os.path.join(basetemp, logfile)
++            if self.basetemp:
++                if not os.path.exists(self.basetemp):
++                    os.makedirs(self.basetemp)
++                logfile = os.path.join(self.basetemp, logfile)
+ 
+         for dummy in range(port_range):
+             try:
+--- a/deluge/tests/test_config.py
++++ b/deluge/tests/test_config.py
+@@ -25,6 +25,7 @@ DEFAULTS = {
+     'float': 0.435,
+     'bool': True,
+     'unicode': 'foobar',
++    'password': 'abc123*\\[!]?/<>#{@}=|"+$%(^)~',
+ }
+ 
+ 
+@@ -95,6 +96,7 @@ class ConfigTestCase(unittest.TestCase):
+ 
+             self.assertEqual(config['string'], 'foobar')
+             self.assertEqual(config['float'], 0.435)
++            self.assertEqual(config['password'], 'abc123*\\[!]?/<>#{@}=|"+$%(^)~')
+ 
+         # Test opening a previous 1.2 config file of just a json object
+         import json
+@@ -107,8 +109,8 @@ class ConfigTestCase(unittest.TestCase):
+         # Test opening a previous 1.2 config file of having the format versions
+         # as ints
+         with open(os.path.join(self.config_dir, 'test.conf'), 'wb') as _file:
+-            _file.write(bytes(1) + b'\n')
+-            _file.write(bytes(1) + b'\n')
++            _file.write(b'1\n')
++            _file.write(b'1\n')
+             json.dump(DEFAULTS, getwriter('utf8')(_file), **JSON_FORMAT)
+ 
+         check_config()
+@@ -184,9 +186,27 @@ class ConfigTestCase(unittest.TestCase):
+ }{
+   "ssl": true,
+   "enabled": false,
+-  "port": 8115
++  "port": 8115,
+   "password": "abc{def"
+-}\n"""
++}"""
++
++        from deluge.config import find_json_objects
++
++        objects = find_json_objects(s)
++        self.assertEqual(len(objects), 2)
++
++    def test_find_json_objects_double_quote(self):
++        """Test with string containing double quote"""
++        s = r"""{
++  "file": 1,
++  "format": 1
++}{
++  "ssl": true,
++  "enabled": false,
++  "port": 8115,
++  "password": "abc\"def"
++}
++"""
+ 
+         from deluge.config import find_json_objects
+ 
+--- a/deluge/tests/test_files_tab.py
++++ b/deluge/tests/test_files_tab.py
+@@ -24,7 +24,8 @@ try:
+     from deluge.ui.gtk3.files_tab import FilesTab
+     from deluge.ui.gtk3.gtkui import DEFAULT_PREFS
+     from deluge.ui.gtk3.mainwindow import MainWindow
+-except ImportError:
++except (ImportError, ValueError):
++    # gi.require_version gives ValueError if library not available
+     libs_available = False
+ 
+ setup_translation()
+--- a/deluge/tests/test_security.py
++++ b/deluge/tests/test_security.py
+@@ -28,11 +28,11 @@ SECURITY_TESTS = bool(os.getenv('SECURIT
+ 
+ class SecurityBaseTestCase(object):
+     if windows_check():
+-        skip = 'windows can`t run .sh files'
++        skip = 'windows cannot run .sh files'
+     elif not SECURITY_TESTS:
+         skip = 'Skipping security tests'
+ 
+-    http_err = 'can\'t run http tests on daemon'
++    http_err = 'cannot run http tests on daemon'
+ 
+     def __init__(self):
+         self.home_dir = os.path.expanduser('~')
+@@ -132,7 +132,7 @@ class SecurityBaseTestCase(object):
+ class DaemonSecurityTestCase(BaseTestCase, DaemonBase, SecurityBaseTestCase):
+ 
+     if windows_check():
+-        skip = 'windows can\'t start_core not enough arguments for format string'
++        skip = 'windows cannot start_core not enough arguments for format string'
+ 
+     def __init__(self, testname):
+         super(DaemonSecurityTestCase, self).__init__(testname)
+--- a/deluge/tests/test_torrentmanager.py
++++ b/deluge/tests/test_torrentmanager.py
+@@ -7,6 +7,8 @@
+ 
+ from __future__ import unicode_literals
+ 
++import os
++import shutil
+ import warnings
+ from base64 import b64encode
+ 
+@@ -28,7 +30,7 @@ warnings.resetwarnings()
+ 
+ class TorrentmanagerTestCase(BaseTestCase):
+     def set_up(self):
+-        common.set_tmp_config_dir()
++        self.config_dir = common.set_tmp_config_dir()
+         self.rpcserver = RPCServer(listen=False)
+         self.core = Core()
+         self.core.config.config['lsd'] = False
+@@ -80,7 +82,7 @@ class TorrentmanagerTestCase(BaseTestCas
+                 b'name': b'azcvsupdater_2.6.2.jar',
+                 b'private': 0,
+                 b'pieces': (
+-                    b'\xdb\x04B\x05\xc3\'\xdab\xb8su97\xa9u'
++                    b"\xdb\x04B\x05\xc3'\xdab\xb8su97\xa9u"
+                     b'\xca<w\\\x1ef\xd4\x9b\x16\xa9}\xc0\x9f:\xfd'
+                     b'\x97qv\x83\xa2"\xef\x9d7\x0by!\rl\xe5v\xb7'
+                     b'\x18{\xf7/"P\xe9\x8d\x01D\x9e8\xbd\x16\xe3'
+@@ -118,3 +120,12 @@ class TorrentmanagerTestCase(BaseTestCas
+         self.assertRaises(
+             InvalidTorrentError, self.tm.remove, 'torrentidthatdoesntexist'
+         )
++
++    def test_open_state_from_python2(self):
++        """Open a Python2 state with a UTF-8 encoded torrent filename."""
++        shutil.copy(
++            common.get_test_data_file('utf8_filename_torrents.state'),
++            os.path.join(self.config_dir, 'state', 'torrents.state'),
++        )
++        state = self.tm.open_state()
++        self.assertEqual(len(state.torrents), 1)
+--- a/deluge/tests/test_torrent.py
++++ b/deluge/tests/test_torrent.py
+@@ -345,3 +345,11 @@ class TorrentTestCase(BaseTestCase):
+ 
+         result = self.torrent.rename_files([[0, 'new_рбачёв']])
+         self.assertIsNone(result)
++
++    def test_connect_peer_port(self):
++        """Test to ensure port is int for libtorrent"""
++        atp = self.get_torrent_atp('test_torrent.file.torrent')
++        handle = self.session.add_torrent(atp)
++        self.torrent = Torrent(handle, {})
++        self.assertFalse(self.torrent.connect_peer('127.0.0.1', 'text'))
++        self.assertTrue(self.torrent.connect_peer('127.0.0.1', '1234'))
+--- a/deluge/tests/test_ui_console.py
++++ b/deluge/tests/test_ui_console.py
+@@ -11,6 +11,7 @@ import argparse
+ 
+ from deluge.common import windows_check
+ from deluge.ui.console.cmdline.commands.add import Command
++from deluge.ui.console.cmdline.commands.config import json_eval
+ from deluge.ui.console.widgets.fields import TextInput
+ 
+ from .basetest import BaseTestCase
+@@ -65,3 +66,28 @@ class UIConsoleCommandsTestCase(BaseTest
+         self.assertEqual(args.move_completed_path, completed_path)
+         args = parser.parse_args(['torrent', '--move-path', completed_path])
+         self.assertEqual(args.move_completed_path, completed_path)
++
++    def test_config_json_eval(self):
++        self.assertEqual(json_eval('/downloads'), '/downloads')
++        self.assertEqual(json_eval('/dir/with space'), '/dir/with space')
++        self.assertEqual(json_eval('c:\\\\downloads'), 'c:\\\\downloads')
++        self.assertEqual(json_eval('c:/downloads'), 'c:/downloads')
++        # Ensure newlines are split and only first setting is used.
++        self.assertEqual(json_eval('setting\nwithneline'), 'setting')
++        # Allow both parentheses and square brackets.
++        self.assertEqual(json_eval('(8000, 8001)'), [8000, 8001])
++        self.assertEqual(json_eval('[8000, 8001]'), [8000, 8001])
++        self.assertEqual(json_eval('["abc", "def"]'), ['abc', 'def'])
++        self.assertEqual(json_eval('{"foo": "bar"}'), {'foo': 'bar'})
++        self.assertEqual(json_eval('{"number": 1234}'), {'number': 1234})
++        # Hex string for peer_tos.
++        self.assertEqual(json_eval('0x00'), '0x00')
++        self.assertEqual(json_eval('1000'), 1000)
++        self.assertEqual(json_eval('-6'), -6)
++        self.assertEqual(json_eval('10.5'), 10.5)
++        self.assertEqual(json_eval('True'), True)
++        self.assertEqual(json_eval('false'), False)
++        self.assertEqual(json_eval('none'), None)
++        # Empty values to clear config key.
++        self.assertEqual(json_eval('[]'), [])
++        self.assertEqual(json_eval(''), '')
+--- a/deluge/tests/test_ui_entry.py
++++ b/deluge/tests/test_ui_entry.py
+@@ -446,6 +446,23 @@ class ConsoleUIWithDaemonBaseTestCase(UI
+             and std_output.endswith(' Moving: 0\n')
+         )
+ 
++    @defer.inlineCallbacks
++    def test_console_command_config_set_download_location(self):
++        fd = StringFileDescriptor(sys.stdout)
++        self.patch_arg_command(['config --set download_location /downloads'])
++        self.patch(sys, 'stdout', fd)
++
++        yield self.exec_command()
++        std_output = fd.out.getvalue()
++        self.assertTrue(
++            std_output.startswith(
++                'Setting "download_location" to: {}\'/downloads\''.format(
++                    'u' if PY2 else ''
++                )
++            )
++            and std_output.endswith('Configuration value successfully updated.\n')
++        )
++
+ 
+ class ConsoleScriptEntryWithDaemonTestCase(
+     BaseTestCase, ConsoleUIWithDaemonBaseTestCase
+--- a/deluge/ui/console/cmdline/commands/add.py
++++ b/deluge/ui/console/cmdline/commands/add.py
+@@ -81,7 +81,7 @@ class Command(BaseCommand):
+                 continue
+             if deluge.common.is_url(torrent):
+                 self.console.write(
+-                    '{!info!}Attempting to add torrent from url: %s' % torrent
++                    '{!info!}Attempting to add torrent from URL: %s' % torrent
+                 )
+                 deferreds.append(
+                     client.core.add_torrent_url(torrent, t_options)
+@@ -90,7 +90,7 @@ class Command(BaseCommand):
+                 )
+             elif deluge.common.is_magnet(torrent):
+                 self.console.write(
+-                    '{!info!}Attempting to add torrent from magnet uri: %s' % torrent
++                    '{!info!}Attempting to add torrent from magnet URI: %s' % torrent
+                 )
+                 deferreds.append(
+                     client.core.add_torrent_magnet(torrent, t_options)
+--- a/deluge/ui/console/cmdline/commands/config.py
++++ b/deluge/ui/console/cmdline/commands/config.py
+@@ -10,9 +10,9 @@
+ 
+ from __future__ import unicode_literals
+ 
++import json
+ import logging
+-import tokenize
+-from io import StringIO
++import re
+ 
+ import deluge.component as component
+ import deluge.ui.console.utils.colors as colors
+@@ -23,54 +23,25 @@ from . import BaseCommand
+ log = logging.getLogger(__name__)
+ 
+ 
+-def atom(src, token):
+-    """taken with slight modifications from http://effbot.org/zone/simple-iterator-parser.htm"""
+-    if token[1] == '(':
+-        out = []
+-        token = next(src)
+-        while token[1] != ')':
+-            out.append(atom(src, token))
+-            token = next(src)
+-            if token[1] == ',':
+-                token = next(src)
+-        return tuple(out)
+-    elif token[0] is tokenize.NUMBER or token[1] == '-':
+-        try:
+-            if token[1] == '-':
+-                return int(token[-1], 0)
+-            else:
+-                if token[1].startswith('0x'):
+-                    # Hex number so return unconverted as string.
+-                    return token[1].decode('string-escape')
+-                else:
+-                    return int(token[1], 0)
+-        except ValueError:
+-            try:
+-                return float(token[-1])
+-            except ValueError:
+-                return str(token[-1])
+-    elif token[1].lower() == 'true':
+-        return True
+-    elif token[1].lower() == 'false':
+-        return False
+-    elif token[0] is tokenize.STRING or token[1] == '/':
+-        return token[-1].decode('string-escape')
+-    elif token[1].isalpha():
+-        # Parse Windows paths e.g. 'C:\\xyz' or 'C:/xyz'.
+-        if next()[1] == ':' and next()[1] in '\\/':
+-            return token[-1].decode('string-escape')
+-
+-    raise SyntaxError('malformed expression (%s)' % token[1])
+-
+-
+-def simple_eval(source):
+-    """ evaluates the 'source' string into a combination of primitive python objects
+-    taken from http://effbot.org/zone/simple-iterator-parser.htm"""
+-    src = StringIO(source).readline
+-    src = tokenize.generate_tokens(src)
+-    src = (token for token in src if token[0] is not tokenize.NL)
+-    res = atom(src, next(src))
+-    return res
++def json_eval(source):
++    """Evaluates string as json data and returns Python objects."""
++    if source == '':
++        return source
++
++    src = source.splitlines()[0]
++
++    # Substitutions to enable usage of pythonic syntax.
++    if src.startswith('(') and src.endswith(')'):
++        src = re.sub(r'^\((.*)\)$', r'[\1]', src)
++    elif src.lower() in ('true', 'false'):
++        src = src.lower()
++    elif src.lower() == 'none':
++        src = 'null'
++
++    try:
++        return json.loads(src)
++    except ValueError:
++        return src
+ 
+ 
+ class Command(BaseCommand):
+@@ -140,8 +111,8 @@ class Command(BaseCommand):
+         val = ' '.join(options.values)
+ 
+         try:
+-            val = simple_eval(val)
+-        except SyntaxError as ex:
++            val = json_eval(val)
++        except Exception as ex:
+             self.console.write('{!error!}%s' % ex)
+             return
+ 
+@@ -161,7 +132,7 @@ class Command(BaseCommand):
+         def on_set_config(result):
+             self.console.write('{!success!}Configuration value successfully updated.')
+ 
+-        self.console.write('Setting "%s" to: %s' % (key, val))
++        self.console.write('Setting "%s" to: %r' % (key, val))
+         return client.core.set_config({key: val}).addCallback(on_set_config)
+ 
+     def complete(self, text):
+--- a/deluge/ui/console/modes/add_util.py
++++ b/deluge/ui/console/modes/add_util.py
+@@ -16,7 +16,7 @@ import logging
+ import os
+ from base64 import b64encode
+ 
+-from six import unichr as chr
++from six import unichr as chr  # noqa: A001 shadowing
+ 
+ import deluge.common
+ from deluge.ui.client import client
+--- a/deluge/ui/console/modes/connectionmanager.py
++++ b/deluge/ui/console/modes/connectionmanager.py
+@@ -32,9 +32,8 @@ class ConnectionManager(BaseMode, Popups
+         self.statuses = {}
+         self.all_torrents = None
+         self.hostlist = HostList()
+-        self.update_hosts_status()
+         BaseMode.__init__(self, stdscr, encoding=encoding)
+-        self.update_select_host_popup()
++        self.update_hosts_status()
+ 
+     def update_select_host_popup(self):
+         selected_index = self.popup.current_selection() if self.popup else None
+@@ -71,12 +70,11 @@ class ConnectionManager(BaseMode, Popups
+         self.refresh()
+ 
+     def update_hosts_status(self):
+-        for host_entry in self.hostlist.get_hosts_info():
+-
+-            def on_host_status(status_info):
+-                self.statuses[status_info[0]] = status_info
+-                self.update_select_host_popup()
++        def on_host_status(status_info):
++            self.statuses[status_info[0]] = status_info
++            self.update_select_host_popup()
+ 
++        for host_entry in self.hostlist.get_hosts_info():
+             self.hostlist.get_host_status(host_entry[0]).addCallback(on_host_status)
+ 
+     def _on_connected(self, result):
+--- a/deluge/ui/countries.py
++++ b/deluge/ui/countries.py
+@@ -60,7 +60,7 @@ COUNTRIES = {
+     'CD': _('Congo, The Democratic Republic of the'),
+     'CK': _('Cook Islands'),
+     'CR': _('Costa Rica'),
+-    'CI': _('Cote d\'Ivoire'),
++    'CI': _("Cote d'Ivoire"),
+     'HR': _('Croatia'),
+     'CU': _('Cuba'),
+     'CY': _('Cyprus'),
+@@ -122,11 +122,11 @@ COUNTRIES = {
+     'KZ': _('Kazakhstan'),
+     'KE': _('Kenya'),
+     'KI': _('Kiribati'),
+-    'KP': _('Korea, Democratic People\'s Republic of'),
++    'KP': _("Korea, Democratic People's Republic of"),
+     'KR': _('Korea, Republic of'),
+     'KW': _('Kuwait'),
+     'KG': _('Kyrgyzstan'),
+-    'LA': _('Lao People\'s Democratic Republic'),
++    'LA': _("Lao People's Democratic Republic"),
+     'LV': _('Latvia'),
+     'LB': _('Lebanon'),
+     'LS': _('Lesotho'),
+--- a/deluge/ui/hostlist.py
++++ b/deluge/ui/hostlist.py
+@@ -207,13 +207,13 @@ class HostList(object):
+             host_id, host, port, user = self.get_host_info(host_id)
+         except ValueError:
+             log.warning('Problem getting host_id info from hostlist')
+-            return status_offline
++            return defer.succeed(status_offline)
+ 
+         try:
+             ip = gethostbyname(host)
+         except gaierror as ex:
+             log.error('Error resolving host %s to ip: %s', host, ex.args[1])
+-            return status_offline
++            return defer.succeed(status_offline)
+ 
+         host_conn_info = (
+             ip,
+--- a/deluge/ui/web/js/deluge-all/add/AddWindow.js
++++ b/deluge/ui/web/js/deluge-all/add/AddWindow.js
+@@ -235,6 +235,7 @@ Deluge.add.AddWindow = Ext.extend(Deluge
+             this.url = new Deluge.add.UrlWindow();
+             this.url.on('beforeadd', this.onTorrentBeforeAdd, this);
+             this.url.on('add', this.onTorrentAdd, this);
++            this.url.on('addfailed', this.onTorrentAddFailed, this);
+         }
+ 
+         this.optionsPanel.form.getDefaults();
+@@ -258,6 +259,7 @@ Deluge.add.AddWindow = Ext.extend(Deluge
+                 url: deluge.config.base + 'upload',
+                 waitMsg: _('Uploading your torrent...'),
+                 success: this.onUploadSuccess,
++                failure: this.onUploadFailure,
+                 scope: this,
+                 torrentIds: torrentIds,
+             });
+@@ -283,6 +285,19 @@ Deluge.add.AddWindow = Ext.extend(Deluge
+         this.fileUploadForm.reset();
+     },
+ 
++    onUploadFailure: function(form, action) {
++        this.hide();
++        Ext.MessageBox.show({
++            title: _('Error'),
++            msg: _('Failed to upload torrent'),
++            buttons: Ext.MessageBox.OK,
++            modal: false,
++            icon: Ext.MessageBox.ERROR,
++            iconCls: 'x-deluge-icon-error',
++        });
++        this.fireEvent('addfailed', this.torrentId);
++    },
++
+     onGotInfo: function(info, obj, response, request) {
+         info.filename = request.options.filename;
+         torrentId = request.options.torrentId;
+@@ -315,6 +330,14 @@ Deluge.add.AddWindow = Ext.extend(Deluge
+         }
+     },
+ 
++    onTorrentAddFailed: function(torrentId) {
++        var store = this.list.getStore();
++        var torrentRecord = store.getById(torrentId);
++        if (torrentRecord) {
++            store.remove(torrentRecord);
++        }
++    },
++
+     onUrl: function(button, event) {
+         this.url.show();
+     },
+--- a/deluge/ui/web/js/deluge-all/add/UrlWindow.js
++++ b/deluge/ui/web/js/deluge-all/add/UrlWindow.js
+@@ -72,6 +72,7 @@ Deluge.add.UrlWindow = Ext.extend(Deluge
+         } else {
+             deluge.client.web.download_torrent_from_url(url, cookies, {
+                 success: this.onDownload,
++                failure: this.onDownloadFailed,
+                 scope: this,
+                 torrentId: torrentId,
+             });
+@@ -85,12 +86,25 @@ Deluge.add.UrlWindow = Ext.extend(Deluge
+     onDownload: function(filename, obj, resp, req) {
+         deluge.client.web.get_torrent_info(filename, {
+             success: this.onGotInfo,
++            failure: this.onDownloadFailed,
+             scope: this,
+             filename: filename,
+             torrentId: req.options.torrentId,
+         });
+     },
+ 
++    onDownloadFailed: function(obj, resp, req) {
++        Ext.MessageBox.show({
++            title: _('Error'),
++            msg: _('Failed to download torrent'),
++            buttons: Ext.MessageBox.OK,
++            modal: false,
++            icon: Ext.MessageBox.ERROR,
++            iconCls: 'x-deluge-icon-error',
++        });
++        this.fireEvent('addfailed', req.options.torrentId);
++    },
++
+     onGotInfo: function(info, obj, response, request) {
+         info['filename'] = request.options.filename;
+         this.fireEvent('add', request.options.torrentId, info);
+--- a/deluge/ui/web/js/deluge-all/add/Window.js
++++ b/deluge/ui/web/js/deluge-all/add/Window.js
+@@ -17,7 +17,7 @@ Ext.ns('Deluge.add');
+ Deluge.add.Window = Ext.extend(Ext.Window, {
+     initComponent: function() {
+         Deluge.add.Window.superclass.initComponent.call(this);
+-        this.addEvents('beforeadd', 'add');
++        this.addEvents('beforeadd', 'add', 'addfailed');
+     },
+ 
+     /**
+--- a/deluge/ui/web/js/deluge-all/EditTrackersWindow.js
++++ b/deluge/ui/web/js/deluge-all/EditTrackersWindow.js
+@@ -10,7 +10,7 @@
+ Ext.ns('Deluge');
+ 
+ /**
+- * @class Deluge.EditTrackerWindow
++ * @class Deluge.EditTrackersWindow
+  * @extends Ext.Window
+  */
+ Deluge.EditTrackersWindow = Ext.extend(Ext.Window, {
+--- a/deluge/ui/web/json_api.py
++++ b/deluge/ui/web/json_api.py
+@@ -472,7 +472,7 @@ class WebApi(JSONComponent):
+         The current connection state.
+ 
+         :returns: True if the client is connected
+-        :rtype: booleon
++        :rtype: boolean
+         """
+         return client.connected()
+ 
+@@ -498,7 +498,7 @@ class WebApi(JSONComponent):
+         :type keys: list
+         :param filter_dict: the filters to apply when selecting torrents.
+         :type filter_dict: dictionary
+-        :returns: The torrent and ui information.
++        :returns: The torrent and UI information.
+         :rtype: dictionary
+         """
+         d = Deferred()
+@@ -659,9 +659,9 @@ class WebApi(JSONComponent):
+     @export
+     def download_torrent_from_url(self, url, cookie=None):
+         """
+-        Download a torrent file from a url to a temporary directory.
++        Download a torrent file from a URL to a temporary directory.
+ 
+-        :param url: the url of the torrent
++        :param url: the URL of the torrent
+         :type url: string
+         :returns: the temporary file name of the torrent file
+         :rtype: string
+@@ -829,7 +829,7 @@ class WebApi(JSONComponent):
+             password (str): The password to login to the daemon with.
+ 
+         Returns:
+-            bool: True if succesful, False otherwise.
++            bool: True if successful, False otherwise.
+ 
+         """
+         return self.hostlist.update_host(host_id, host, port, username, password)
+@@ -842,7 +842,7 @@ class WebApi(JSONComponent):
+             host_id (str): The host identifying hash.
+ 
+         Returns:
+-            bool: True if succesful, False otherwise.
++            bool: True if successful, False otherwise.
+ 
+         """
+         return self.hostlist.remove_host(host_id)
+@@ -1002,7 +1002,7 @@ class WebApi(JSONComponent):
+ 
+ class WebUtils(JSONComponent):
+     """
+-    Utility functions for the webui that do not fit in the WebApi.
++    Utility functions for the Web UI that do not fit in the WebApi.
+     """
+ 
+     def __init__(self):
+@@ -1014,6 +1014,6 @@ class WebUtils(JSONComponent):
+         Get the available translated languages
+ 
+         Returns:
+-             list: of tuples [(lang-id, language-name), ...]
++             list: of tuples ``[(lang-id, language-name), ...]``
+         """
+         return get_languages()
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -1,5 +1,5 @@
+ [sdist]
+-formats = gztar, xztar
++formats=gztar, xztar
+ 
+ [build_docs]
+ source-dir = docs/source
+@@ -7,46 +7,53 @@ build-dir = docs/build
+ all_files = true
+ fresh-env = true
+ 
++[spellcheck_docs]
++source-dir = docs/source
++build-dir = docs/build
++builder = spelling
++
+ [py2app]
+ app = ['deluge/ui/ui_entry.py']
+ arch = x86_64
++# arch = i386
+ iconfile = packaging/osx/deluge.icns
+ site-packages = false
+ includes = glib, gio, cairo, pango, pangocairo, atk, gobject, gtk.keysyms,
+-	twisted.internet, twisted.internet.utils, twisted.protocols,
+-	zope.interface, mako.cache, email.mime, libtorrent, gtkosx_application,
+-	HTMLParser
++           twisted.internet, twisted.internet.utils, twisted.protocols,
++           zope.interface, mako.cache, email.mime, libtorrent, gtkosx_application,
++           HTMLParser
+ frameworks = CoreFoundation, Foundation, AppKit
+ 
+ [isort]
+ known_standard_library = future_builtins
+-known_third_party = 
+-	cairo, gi,
+-	twisted, OpenSSL, pytest, recommonmark, chardet, pkg_resources, zope, mock,
+-	sphinx, rencode, six, mako
++known_third_party =
++# Ignore gtk modules, primarily for tox testing.
++    cairo, gi,
++# Ignore other module dependencies for pre-commit isort.
++    twisted, OpenSSL, pytest, recommonmark, chardet, pkg_resources, zope, mock,
++    sphinx, rencode, six, mako
+ known_first_party = msgfmt, deluge
+ order_by_type = true
+ not_skip = __init__.py
+-multi_line_output = 3
+-include_trailing_comma = True
+-force_grid_wrap = 0
+-line_length = 88
+-use_parentheses = True
++# Black compatible settings
++multi_line_output=3
++include_trailing_comma=True
++force_grid_wrap=0
++line_length=88
++use_parentheses=True
+ 
+ [flake8]
+ max-line-length = 120
+ builtins = _,_n,__request__
+ exclude = .git,.tox,.eggs,dist,build
+-ignore = 
+-	A003,
+-	C813,C815,C816,
+-	W503,
+-	E203
++ignore =
++# A003 Class attribute is a python builtin.
++    A003,
++# C813, C815, C816: PY3 missing trailing commas.
++    C813,C815,C816,
++# W503 line break before binary operator.
++    W503,
++    E203
+ 
+ [pycodestyle]
+ max-line-length = 88
+-
+-[egg_info]
+-tag_build = 
+-tag_date = 0
+-
+--- a/setup.py
++++ b/setup.py
+@@ -443,6 +443,7 @@ cmdclass = {
+     'build_trans': BuildTranslations,
+     'build_plugins': BuildPlugins,
+     'build_docs': BuildDoc,
++    'spellcheck_docs': BuildDoc,
+     'install_data': InstallData,
+     'clean_plugins': CleanPlugins,
+     'clean_trans': CleanTranslations,

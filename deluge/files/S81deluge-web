@@ -11,7 +11,7 @@ daemon_status ()
 
 start() {
 	echo "starting deluge-web"
-	deluge-web -f -p 888
+	deluge-web -l /opt/etc/deluge/deluge-web.log -L error -p 888
 	}
 
 stop() {
