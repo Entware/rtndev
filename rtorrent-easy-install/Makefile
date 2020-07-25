@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtorrent-easy-install
 PKG_VERSION:=0.2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -118,9 +118,9 @@ echo "server.port = $$web_port" >> $$www_cfg
 #### Configuring torrent client
 cat > $$rt_cfg << EOF
 session.path.set = /opt/etc/rtorrent/session
-schedule = watch_directory,5,5,load_start=/opt/etc/rtorrent/watchdir/*.torrent
-schedule = untied_directory,5,5,stop_untied=
-schedule = low_diskspace,5,60,close_low_diskspace=100M
+schedule2 = watch_directory,5,5,load_start=/opt/etc/rtorrent/watchdir/*.torrent
+schedule2 = untied_directory,5,5,stop_untied=
+schedule2 = low_diskspace,5,60,close_low_diskspace=100M
 network.bind_address.set = 0.0.0.0
 network.port_range.set = 51411-51411
 pieces.hash.on_completion.set = yes
