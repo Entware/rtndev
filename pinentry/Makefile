@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2006-2015 OpenWrt.org
+# Copyright (C) 2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -23,14 +24,13 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/pinentry
-  SECTION:=utils
-  CATEGORY:=Utilities
-  SUBMENU:=Encryption
-  DEPENDS:=+libncurses +libassuan +libgpg-error
-  TITLE:=GNU pinentry
-  URL:=http://www.gnupg.org/
+	SECTION:=utils
+	CATEGORY:=Utilities
+	SUBMENU:=Encryption
+	DEPENDS:=+libassuan +libncursesw +libcap
+	TITLE:=GNU pinentry
+	URL:=http://www.gnupg.org/
 endef
-
 
 define Package/pinentry/description
  pinentry is a small collection of dialog programs
@@ -42,13 +42,12 @@ endef
 
 CONFIGURE_ARGS += \
 	--enable-pinentry-curses \
-	--disable-pinentry-gtk2 \
-	--disable-pinentry-gnome \
-	--disable-pinentry-qt
+	--disable-pinentry-qt5
 
 define Package/pinentry/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/pinentry $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/pinentry-curses \
+		$(1)/opt/bin/pinentry
 endef
 
 $(eval $(call BuildPackage,pinentry))
