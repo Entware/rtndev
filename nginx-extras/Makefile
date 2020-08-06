@@ -14,7 +14,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
 PKG_VERSION:=1.18.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
@@ -138,7 +138,7 @@ define Package/nginx-extras/install
 	$(INSTALL_DIR) $(1)/opt/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/lib/nginx
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/nginx/ngx_*.so $(1)/opt/lib/nginx
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/nginx/*.so $(1)/opt/lib/nginx
 	$(INSTALL_DIR) $(1)/opt/html
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/*.html $(1)/opt/html
 	$(INSTALL_DIR) $(1)/opt/etc/nginx/{sites-available,sites-enabled,snippets}
