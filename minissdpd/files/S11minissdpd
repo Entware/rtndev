@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. /opt/etc/config/minissdpd.conf
+
+ENABLED=yes
+PROCS=minissdpd
+ARGS="-i $INTERFACE"
+PREARGS=""
+DESC=$PROCS
+PATH=/opt/sbin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func
