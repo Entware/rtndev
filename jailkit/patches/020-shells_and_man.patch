@@ -1,0 +1,46 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -40,20 +40,17 @@
+ all:
+ 	@cd src/ && $(MAKE) all
+ 	@cd py/ && $(MAKE) all
+-	@cd man/ && $(MAKE) all
+ 
+ clean:
+ 	rm -f core *~ ini/*~
+ 	@cd src/ && $(MAKE) clean
+ 	@cd py/ && $(MAKE) clean
+-	@cd man/ && $(MAKE) clean
+ 
+ distclean: clean
+ 	rm -rf autom4te.cache/
+ 	rm -f Makefile config.log config.status config.cache
+ 	@cd src/ && $(MAKE) distclean
+ 	@cd py/ && $(MAKE) distclean
+-	@cd man/ && $(MAKE) distclean
+ 
+ install:
+ 	${INSTALL} -d -m 755 ${DESTDIR}${iniprefix}
+@@ -66,22 +63,13 @@
+ 	done
+ 	@cd src/ && $(MAKE) install
+ 	@cd py/ && $(MAKE) install
+-	@cd man/ && $(MAKE) install
+ 	# test if the jk_chrootsh is already in /etc/shells
+ 	# this previously had @echo but that fails on FreeBSD
+-	if test -w /etc/shells; then \
+-		if ! grep ${prefix}/sbin/jk_chrootsh /etc/shells ; then \
+-			echo "appending ${prefix}/sbin/jk_chroots to /etc/shells";\
+-			echo ${prefix}/sbin/jk_chrootsh >> /etc/shells ;\
+-		fi \
+-	fi
+ 
+ 
+ uninstall:
+ 	rm -f ${iniprefix}/*.ini
+ 	@cd py/ && $(MAKE) uninstall
+-	@cd man/ && $(MAKE) uninstall
+ 	@cd src/ && $(MAKE) uninstall
+ 	-rmdir --ignore-fail-on-non-empty ${DESTDIR}${iniprefix}
+-	@echo "You must manually remove jk_chrootsh from /etc/shells"
+ # remove jk_chrootsh from /etc/shells

@@ -1,0 +1,41 @@
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -67,22 +67,22 @@
+ all: ${BINARIES}
+ 
+ jk_chrootlaunch: jk_chrootlaunch.o jk_lib.o utils.o
+-	$(CC) $(DEFS) -o $@ jk_chrootlaunch.o jk_lib.o utils.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o $@ jk_chrootlaunch.o jk_lib.o utils.o $(LDFLAGS) $(LIBS)
+ 
+ jk_socketd: jk_socketd.o jk_lib.o utils.o iniparser.o
+-	$(CC) $(DEFS) -o $@ jk_socketd.o jk_lib.o utils.o iniparser.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o $@ jk_socketd.o jk_lib.o utils.o iniparser.o $(LDFLAGS) $(LIBS)
+ 
+ jk_lsh: jk_lsh.o iniparser.o jk_lib.o utils.o wordexp.o
+-	$(CC) $(DEFS) -o $@ jk_lsh.o iniparser.o jk_lib.o utils.o wordexp.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o $@ jk_lsh.o iniparser.o jk_lib.o utils.o wordexp.o $(LDFLAGS) $(LIBS)
+ 
+ jk_chrootsh: jk_chrootsh.o iniparser.o jk_lib.o utils.o passwdparser.o
+-	$(CC) $(DEFS) -o $@ jk_chrootsh.o iniparser.o jk_lib.o utils.o passwdparser.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o $@ jk_chrootsh.o iniparser.o jk_lib.o utils.o passwdparser.o $(LDFLAGS) $(LIBS)
+ 
+ jk_uchroot: jk_uchroot.o iniparser.o jk_lib.o utils.o
+-	$(CC) $(DEFS) -o $@ jk_uchroot.o iniparser.o jk_lib.o utils.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o $@ jk_uchroot.o iniparser.o jk_lib.o utils.o $(LDFLAGS) $(LIBS)
+ 
+ jk_procmailwrapper: jk_procmailwrapper.o jk_lib.o utils.o
+-	$(CC) $(DEFS) -o $@ jk_procmailwrapper.o jk_lib.o utils.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o $@ jk_procmailwrapper.o jk_lib.o utils.o $(LDFLAGS) $(LIBS)
+ 
+ clean:
+ 	rm -f ${BINARIES}
+@@ -114,7 +114,7 @@
+ 	rm -f  ${prefix}/sbin/jk_procmailwrapper
+ 
+ iniparsertester: iniparser.o iniparsertester.o jk_lib.o
+-	$(CC) $(DEFS) -o iniparsertester iniparsertester.o iniparser.o jk_lib.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o iniparsertester iniparsertester.o iniparser.o jk_lib.o $(LDFLAGS) $(LIBS)
+ 
+ passwdparsertester: passwdparser.o passwdparsertester.o
+-	$(CC) $(DEFS) -o passwdparsertester passwdparsertester.o passwdparser.o $(LDFLAGS) $(LIBS)
++	$(CC) $(CFLAGS) $(DEFS) -o passwdparsertester passwdparsertester.o passwdparser.o $(LDFLAGS) $(LIBS)
