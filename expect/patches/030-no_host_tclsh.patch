@@ -1,0 +1,11 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -380,7 +380,7 @@
+ 	cp $(DIST_ROOT)/$(PKG_DIR).tar.gz $(top_builddir)
+ 
+ $(SCRIPTS):
+-	$(TCLSH) $(srcdir)/fixline1 $(SHORT_BINDIR) < $(srcdir)/example/$@ > $@
++	cp $(srcdir)/example/$@ $(DESTDIR)$(bindir)/expect_$@
+ 
+ ## We cannot use TCL_LIBS below (after TCL_LIB_SPEC) because its
+ ## expansion references the contents of LIBS, which contains linker
