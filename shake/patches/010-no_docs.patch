@@ -1,0 +1,41 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -38,20 +38,9 @@
+ 
+ set (VERSION "${CPACK_VERSION_MAJOR}.${CPACK_VERSION_MINOR}")
+ 
+-#### System checks ####
+-find_program (HELP2MAN_LOCATION help2man)
+-IF (NOT HELP2MAN_LOCATION)
+-  message (SEND_ERROR "Cannot find help2man. Please install it.")
+-ENDIF ()
+-
+ #### Targets ####
+ add_executable (shake executive.c judge.c linux.c main.c msg.c signals.c)
+ add_executable (unattr executive.c linux.c signals.c unattr.c)
+-add_help2man_manpage (shake.8 shake)
+-add_help2man_manpage (unattr.8 unattr)
+-add_custom_target (doc ALL
+-  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/shake.8
+-          ${CMAKE_CURRENT_BINARY_DIR}/unattr.8)
+ 
+ #### Platform Specific ####
+ 
+@@ -68,7 +57,7 @@
+ 
+ ## GCC  ##
+ IF (CMAKE_COMPILER_IS_GNUCC)
+-  set (CMAKE_C_FLAGS "$ENV{CFLAGS} -std=gnu99 -O2 -Wall -Wextra -Wcast-align -Wpointer-arith -Wbad-function-cast -Wno-sign-compare")
++  set (CMAKE_C_FLAGS "$ENV{CFLAGS} -std=gnu99 -Wall -Wextra -Wcast-align -Wpointer-arith -Wbad-function-cast -Wno-sign-compare")
+   set (CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -O0 -ggdb3 -pedantic -Wconversion -Werror -DDEBUG=1")
+ ENDIF ()
+ 
+@@ -90,8 +79,6 @@
+ #### Installation ####
+ install (TARGETS shake unattr
+   DESTINATION bin)
+-install (FILES ${CMAKE_CURRENT_BINARY_DIR}/shake.8 ${CMAKE_CURRENT_BINARY_DIR}/unattr.8
+-  DESTINATION share/man/man8)
+ ## Packages ##
+ set (CPACK_PACKAGE_VERSION_MAJOR ${CPACK_VERSION_MAJOR})
+ set (CPACK_PACKAGE_VERSION_MINOR ${CPACK_VERSION_MINOR})
