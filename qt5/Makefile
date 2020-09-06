@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
 PKG_VERSION:=5.14.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.14/$(PKG_VERSION)/single
@@ -61,6 +61,8 @@ define Package/qt5-xml
 	TITLE+=xml
 	DEPENDS+=+qt5-core
 endef
+
+EXTRA_LDFLAGS += -latomic
 
 define Build/Configure
 	$(SED) 's@$$$$(TARGET_CROSS)@$(TARGET_CROSS)@g' $(PKG_BUILD_DIR)/qtbase/mkspecs/linux-openwrt-g++/qmake.conf

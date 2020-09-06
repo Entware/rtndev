@@ -7,8 +7,8 @@
 -
  #include "socketcanbackend.h"
  
- #include <QtCore/qdatastream.h>
-@@ -51,29 +50,7 @@
+ #include "libsocketcan.h"
+@@ -56,29 +55,7 @@
  #include <sys/ioctl.h>
  #include <sys/time.h>
  
@@ -40,9 +40,9 @@
  #   define CANFD_BRS 0x01 /* bit rate switch (second bitrate for payload data) */
 --- a/qtserialbus/src/plugins/canbus/socketcan/socketcanbackend.h
 +++ b/qtserialbus/src/plugins/canbus/socketcan/socketcanbackend.h
-@@ -52,6 +52,31 @@
- #include <linux/can.h>
- #include <sys/time.h>
+@@ -54,6 +54,31 @@
+ 
+ #include <memory>
  
 +#ifndef CANFD_MTU
 +// CAN FD support was added by Linux kernel 3.6
@@ -71,4 +71,4 @@
 +
  QT_BEGIN_NAMESPACE
  
- class SocketCanBackend : public QCanBusDevice
+ class LibSocketCan;
