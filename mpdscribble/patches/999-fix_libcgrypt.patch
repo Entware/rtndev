@@ -1,0 +1,19 @@
+# fuck-hack
+--- a/meson.build
++++ b/meson.build
+@@ -25,7 +25,6 @@ endif
+ thread_dep = dependency('threads')
+ boost_dep = dependency('boost', version: '>= 1.62')
+ libmpdclient_dep = dependency('libmpdclient', version: '>= 2.5')
+-libgcrypt_dep = dependency('libgcrypt')
+ libcurl_dep = dependency('libcurl', version: '>= 7.18')
+ 
+ if host_machine.system() == 'linux'
+@@ -122,7 +121,6 @@ executable(
+     thread_dep,
+     boost_dep,
+     libmpdclient_dep,
+-    libgcrypt_dep,
+     libcurl_dep,
+     libsystemd_dep,
+   ],

@@ -44,6 +44,9 @@ MESON_ARGS += \
 
 MESON_VARS+=BOOST_ROOT=$(STAGING_DIR)/opt
 
+TARGET_CFLAGS += $(shell $(STAGING_DIR)/opt/bin/libgcrypt-config --cflags)
+TARGET_LDFLAGS += $(shell $(STAGING_DIR)/opt/bin/libgcrypt-config --libs)
+
 define Package/mpdscribble/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mpdscribble $(1)/opt/bin
