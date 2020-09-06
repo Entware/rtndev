@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mp3gain
 PKG_VERSION:=1.6.2
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PKG_SOURCE:=$(PKG_NAME)-1_6_2-src.zip
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)/$(PKG_VERSION)
