@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=grive2
 PKG_VERSION:=0.5.1-20191113
 PKG_REV:=548ea362f319cd1f7fcbad0344fde8449fa14255
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -20,6 +20,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/grive2
 	SECTION:=net
@@ -36,6 +37,9 @@ define Package/grive2/description
  This is the fork of original "Grive" (https://github.com/Grive/grive) Google
  Drive client with the support for the new Drive REST API and partial sync.
 endef
+
+TARGET_CXXFLAGS += -fpermissive
+TARGET_LDFLAGS += $(if $(INTL_FULL),-lintl)
 
 ifneq ($(CONFIG_USE_UCLIBC),)
 define Build/Prepare
