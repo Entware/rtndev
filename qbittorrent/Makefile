@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
 PKG_VERSION:=4.1.9.1
-PKG_RELEASE=2
+PKG_RELEASE=2a
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
