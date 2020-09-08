@@ -9,7 +9,7 @@
  
  # Define _GNU_SOURCE
  # AC_GNU_SOURCE
-@@ -447,8 +445,6 @@
+@@ -446,8 +444,6 @@
  
  #This will simulate compilation of sdk and extract the includes defined for it. Thus we can
  # take care of the configuration done for the subproject withtout having to recheck here
