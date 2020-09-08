@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.27.4
+PKG_VERSION:=1.28.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/release-$(subst .,-,$(PKG_VERSION))
-PKG_HASH:=6223dbc8c41dff38dfaab84dfd827968f67191373f4554997c1826275fd0172e
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/$(PKG_VERSION)
+PKG_HASH:=6357ab2e6ead8598b1923f6ee53a9fc227043b3701e3151abe6f83bbfa9f1ea8
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
