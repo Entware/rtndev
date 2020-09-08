@@ -8,19 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ctags
-PKG_VERSION:=0.0.0-20200526
+PKG_VERSION:=0.0.0-20200906
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_REV:=0c78c0c4a68030df0d025c90bad291108b5e7107
+PKG_REV:=717028d4c78333fcadf11cb3437e01fa1b4900e2
 PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
-
-#PKG_BUILD_DEPENDS:=jansson yaml libxml2
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
