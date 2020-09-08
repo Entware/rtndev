@@ -1,6 +1,6 @@
 --- a/conf/config.php
 +++ b/conf/config.php
-@@ -19,7 +19,7 @@
+@@ -26,7 +26,7 @@
  	$schedule_rand = 10;			// rand for schedulers start, +0..X seconds
  
  	$do_diagnostic = true;
@@ -9,7 +9,7 @@
  
  	$saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
  	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
-@@ -27,24 +27,24 @@
+@@ -34,24 +34,24 @@
  	$topDirectory = '/';			// Upper available directory. Absolute path with trail slash.
  	$forbidUserSettings = false;
  

@@ -1,5 +1,5 @@
---- a/conf/access-swap.sh	2020-01-07 19:09:49.372347089 +0300
-+++ b/conf/access-swap.sh	2020-01-07 19:09:34.152617427 +0300
+--- a/conf/access-swap.sh
++++ b/conf/access-swap.sh
 @@ -1,15 +1,15 @@
 -#!/bin/bash
 +#!/bin/sh
