@@ -4,12 +4,13 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# megacmd must be linked against proper version
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meganz-sdk
-PKG_VERSION:=3.7.0
-PKG_REV:=cd8dae2cf7ce86f1f6079e36eb1ccdf36c58e8e0
+PKG_VERSION:=3.7.0a
+PKG_REV:=e16d87ac6a33a8f271f12f98b9781bb53cee6f32
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
