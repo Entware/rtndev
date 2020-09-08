@@ -8,13 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-cups
-PKG_VERSION:=1.9.74
-PKG_RELEASE:=2
-
-PYPI_SOURCE_EXT:=tar.bz2
+PKG_VERSION:=2.0.1
+PKG_RELEASE:=1
 
 PYPI_NAME:=pycups
-PKG_HASH:=86090f259a7c5d0d5caa3407a0e57c9e134027620cbc8f90bf4e37c8b53ed7b9
+PKG_HASH:=57434ce5f62548eb12949ca8217f066f4eeb21a5d6ab8b13471dce350e380c90
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
