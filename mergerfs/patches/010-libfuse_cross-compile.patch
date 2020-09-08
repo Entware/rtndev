@@ -1,11 +1,13 @@
 --- a/libfuse/Makefile
 +++ b/libfuse/Makefile
-@@ -69,20 +69,20 @@
+@@ -78,22 +78,22 @@
  	$(MAKE) $(OBJS)
  
  build/libfuse.a: objects
 -	ar rcs build/libfuse.a $(OBJS)
 +	$(AR) rcs build/libfuse.a $(OBJS)
+ 
+ utils: mergerfs-fusermount mount.mergerfs
  
  build/mergerfs-fusermount: build/config.h util/fusermount.c lib/mount_util.c
 -	$(CC) $(CFLAGS) $(FUSE_FLAGS) -Ilib -o build/mergerfs-fusermount util/fusermount.c lib/mount_util.c
@@ -25,7 +27,7 @@
  
  clean:
  	rm -rf build
-@@ -90,8 +90,8 @@
+@@ -101,8 +101,8 @@
  distclean: clean
  
  strip:
@@ -34,5 +36,5 @@
 +	$(STRIP) --strip-all build/mount.mergerfs
 +	$(STRIP) --strip-all build/mergerfs-fusermount
  
- install: mergerfs-fusermount mount.mergerfs strip
+ install-utils: mergerfs-fusermount mount.mergerfs strip
  	install -D build/mergerfs-fusermount "$(INSTALLBINDIR)/mergerfs-fusermount"
