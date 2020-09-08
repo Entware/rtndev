@@ -52,7 +52,7 @@ define Package/minissdpd/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) files/S11minissdpd $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/etc/config
-	$(INSTALL_BIN) files/minissdpd.conf $(1)/opt/etc/config
+	$(INSTALL_CONF) files/minissdpd.conf $(1)/opt/etc/config
 endef
 
 $(eval $(call BuildPackage,minissdpd))
