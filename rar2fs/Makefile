@@ -8,13 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rar2fs
-PKG_VERSION:=1.29.0
+PKG_VERSION:=1.29.1
+PKG_REV:=505cb5395246e376806a558d0adfee3fd2c3c07e
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/hasse69/rar2fs/releases/download/v$(PKG_VERSION)
-PKG_HASH:=1bc42aa0516b276d24bdd8b69c53973fddd58bbd4e2c0d293c84912d14fdc6c7
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/hasse69/rar2fs.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -36,6 +40,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
+	mkdir $(PKG_BUILD_DIR)/config
 	$(LN) $(PKG_BUILD_DIR)/config.rpath $(PKG_BUILD_DIR)/config/config.rpath
 endef
 
