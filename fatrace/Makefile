@@ -8,12 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fatrace
-PKG_VERSION:=0.15
+PKG_VERSION:=0.16
+PKG_REV:=9711c50d850c749292912a1c4100b57aaf323fef
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://launchpad.net/fatrace/trunk/0.15/+download
-PKG_HASH:=f9447115428c0b88abf05438559c1c4b1a3aec6d69fc09dc469c295249b419ad
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=git://git.launchpad.net/fatrace
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 include $(INCLUDE_DIR)/package.mk
 

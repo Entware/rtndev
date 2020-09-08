@@ -16,7 +16,6 @@ PKG_SOURCE_URL:=@SF/expect
 PKG_HASH:=49a7da83b0bdd9f46d04a04deec19c7767bb9a323e40c4781f89caf760b92c34
 
 PKG_FIXUP:=autoreconf
-#PKG_REMOVE_FILES:=testsuite/aclocal.m4 testsuite/configure.in
 PKG_REMOVE_FILES:=testsuite/configure.in
 PKG_INSTALL:=1
 
