@@ -8,13 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
-PKG_VERSION:=20.03
+PKG_VERSION:=20.08
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
-PKG_HASH:=bacb0cd84c74d631c05fc9ce817fd7ccefae9cb8a9a9a979dec51240ca164d2e
+PKG_HASH:=218cde86f9ecd7c058d8a580743c23e93baf172ffce114cbd83aada84f2871de
 
+PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
 
