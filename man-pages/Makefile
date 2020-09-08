@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-pages
-PKG_VERSION:=5.06
+PKG_VERSION:=5.08
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/docs/man-pages
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=da4e939c624bec4bab8ca1702e5f54bbc70505090d90967fd5e12bc1453f19b0
+PKG_HASH:=6e0b8ae23ee9467cee701f23dea908257a93e5fffa9e261b19a23efbd27e84a2
 
 include $(INCLUDE_DIR)/package.mk
 
