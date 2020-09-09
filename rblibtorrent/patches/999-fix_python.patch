@@ -1,5 +1,5 @@
---- a/bindings/python/CMakeLists.txt	2020-05-19 13:35:30.061144135 +0300
-+++ b/bindings/python/CMakeLists.txt	2020-05-19 13:35:15.781342119 +0300
+--- a/bindings/python/CMakeLists.txt
++++ b/bindings/python/CMakeLists.txt
 @@ -115,17 +115,17 @@
  ])))"
  	OUTPUT_VARIABLE _python_sysconfig_vars OUTPUT_STRIP_TRAILING_WHITESPACE)
