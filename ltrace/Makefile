@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ltrace
 PKG_VERSION:=0.7.9
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_REV:=82c66409c7a93ca6ad2e4563ef030dfb7e6df4d4
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -39,6 +39,10 @@ endef
 
 CONFIGURE_VARS += \
 	ac_cv_lib_selinux_security_get_boolean_active=no
+
+define Package/ltrace/conffiles
+/opt/share/ltrace
+endef
 
 define Package/ltrace/install
 	$(INSTALL_DIR) $(1)/opt/bin
