@@ -37,12 +37,15 @@ by an executed process and the signals received by that process. It
 can also intercept and print the system calls executed by the program.
 endef
 
+CONFIGURE_VARS += \
+	ac_cv_lib_selinux_security_get_boolean_active=no
+
 define Package/ltrace/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ltrace $(1)/opt/bin
 
 	$(INSTALL_DIR) $(1)/opt/share/ltrace
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/share/ltrace/*.conf $(1)/opt/share/ltrace/
+	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/share/ltrace/*.conf $(1)/opt/share/ltrace
 endef
 
 $(eval $(call BuildPackage,ltrace))
