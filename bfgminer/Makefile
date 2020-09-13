@@ -11,9 +11,9 @@ PKG_NAME:=bfgminer
 PKG_VERSION:=5.5.0
 PKG_RELEASE:=2
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).txz
-PKG_SOURCE_URL:=http://luke.dashjr.org/programs/bitcoin/files/$(PKG_NAME)/$(PKG_VERSION)
-PKG_HASH:=ac254da9a40db375cb25cacdd2f84f95ffd7f442e31d2b9a7f357a48d32cc681
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
+PKG_SOURCE_URL:=http://bfgminer.org/files/$(PKG_VERSION)
+PKG_HASH:=67e716b04e0bebb311d6e805e1e1fbabca2187a7d9fb05e38e1f8447d6cb72ac
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -62,6 +62,12 @@ TARGET_CFLAGS += \
 	-std=gnu99 \
 	-Iuthash-2.1.0/src \
 	-DJSON_INTEGER_IS_LONG_LONG
+
+define Build/Configure
+	chmod +x $(PKG_BUILD_DIR)/configure
+	chmod +x $(PKG_BUILD_DIR)/gen-version.sh
+	$(call Build/Configure/Default)
+endef
 
 define Package/bfgminer/install
 	$(INSTALL_DIR) $(1)/opt/bin
