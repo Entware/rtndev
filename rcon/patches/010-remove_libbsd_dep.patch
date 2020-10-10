@@ -1,0 +1,61 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,7 +32,8 @@
+ 
+ CHECK_FUNCTION_EXISTS(open_memstream HAVE_OPEN_MEMSTREAM)
+ CHECK_FUNCTION_EXISTS(fmemopen HAVE_FMEMOPEN)
+-CHECK_FUNCTION_EXISTS(arc4random_uniform HAVE_ARC4RANDOM_UNIFORM)
++SET(HAVE_ARC4RANDOM_UNIFORM 1)
++
+ CHECK_FUNCTION_EXISTS(pledge HAVE_PLEDGE)
+ CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/sysconfig.h.in
+   ${CMAKE_CURRENT_BINARY_DIR}/sysconfig.h)
+@@ -74,5 +74,3 @@
+     RENAME "rcon")
+ ENDIF()
+ 
+-ENABLE_TESTING()
+-ADD_SUBDIRECTORY(tests)
+--- a/srcrcon.c
++++ b/srcrcon.c
+@@ -13,6 +13,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stddef.h>
++#include <time.h>
+ 
+ struct _src_rcon
+ {
+@@ -93,6 +93,32 @@
+     m->size += sizeof(m->null);
+ }
+ 
++uint32_t
++arc4random_uniform(uint32_t upper_bound)
++{
++    uint32_t r, min;
++
++    if (upper_bound < 2)
++        return 0;
++
++    /* 2**32 % x == (2**32 - x) % x */
++    min = -upper_bound % upper_bound;
++
++    /*
++     * This could theoretically loop forever but each retry has
++     * p > 0.5 (worst case, usually far better) of selecting a
++     * number inside the range we need, so it should rarely need
++     * to re-roll.
++     */
++    srandom(time(NULL));
++    for (;;) {
++        r = (uint32_t) random();
++        if (r >= min)
++            break;
++    }
++    return r % upper_bound;
++}
++
+ static void src_rcon_message_random_id(src_rcon_message_t *m)
+ {
+     m->id = (int32_t)arc4random_uniform(INT32_MAX-1);
