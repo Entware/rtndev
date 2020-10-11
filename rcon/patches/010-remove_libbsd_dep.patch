@@ -27,3 +27,13 @@
  }
  
  static rcon_error_t
+--- a/main.c
++++ b/main.c
+@@ -460,6 +460,7 @@
+     }
+ #endif
+ 
++    srandom(time(NULL));
+     response = g_byte_array_new();
+     r = src_rcon_new();
+ 
