@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2020 Entware
+# Copyright (C) 2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -25,13 +25,13 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/gnupg2
-  SECTION:=utils
-  CATEGORY:=Utilities
-  SUBMENU:=Encryption
-  DEPENDS:=+zlib +libbz2 +libncurses +libreadline +libpcsclite +libgnutls +libcurl +libassuan +libgcrypt +libgpg-error +libksba +npth +ccid +libsqlite3
-  TITLE:=GNU privacy guard - a free PGP replacement (V2)
-  URL:=http://www.gnupg.org/
-  CONFLICTS:=gnupg
+	SECTION:=utils
+	CATEGORY:=Utilities
+	SUBMENU:=Encryption
+	DEPENDS:=+libbz2 +libreadline +libgnutls +libcurl +libassuan +libgcrypt +libksba +npth +ccid +libsqlite3
+	TITLE:=GNU privacy guard - a free PGP replacement (V2)
+	URL:=http://www.gnupg.org/
+	CONFLICTS:=gnupg
 endef
 
 

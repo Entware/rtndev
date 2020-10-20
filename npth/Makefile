@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2020 Entware
+# Copyright (C) 2020 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -24,18 +24,20 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/npth
-  SECTION:=libs
-  CATEGORY:=Libraries
-  DEPENDS:=+libgpg-error
-  TITLE:=npth The New GNU Portable Threads Library.
-  URL:=http://www.gnupg.org/
+	SECTION:=libs
+	CATEGORY:=Libraries
+	DEPENDS:=+libgpg-error
+	TITLE:=The New GNU Portable Threads Library
+	URL:=http://www.gnupg.org/
 endef
 
 
 define Package/npth/description
- nPth is a library to provide the GNU Pth API and thus a non-preemptive threads implementation.
-
- In contrast to GNU Pth is is based on the system's standard threads implementation. This allows the use of libraries which are not compatible to GNU Pth. Experience with a Windows Pth emulation showed that this is a solid way to provide a co-routine based framework.
+ nPth is a library to provide the GNU Pth API and thus a non-preemptive threads
+ implementation. In contrast to GNU Pth is is based on the system's standard
+ threads implementation. This allows the use of libraries which are not
+ compatible to GNU Pth. Experience with a Windows Pth emulation showed that
+ this is a solid way to provide a co-routine based framework.
 endef
 
 TARGET_CFLAGS += $(FPIC)
