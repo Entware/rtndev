@@ -24,7 +24,7 @@ define Package/sitecopy
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libexpat +libneon
+	DEPENDS:=+libexpat +libneon +libxml2
 	TITLE:=WebDAV sync utility
 	URL:=http://www.manyfish.co.uk/sitecopy/
 	MAINTAINER:=Entware team, https://entware.net
