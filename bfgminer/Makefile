@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bfgminer
 PKG_VERSION:=5.5.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
 PKG_SOURCE_URL:=http://bfgminer.org/files/$(PKG_VERSION)
@@ -30,7 +30,7 @@ $(eval $(call Download,uthash))
 define Package/bfgminer
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +USE_GLIBC:libudev-fbsd \
+	DEPENDS=+jansson +libcurl +libevent2 +libncurses +libusb-1.0 +USE_GLIBC:libudev \
 		+libevent2-pthreads
 	TITLE:=modular ASIC/FPGA Bitcoin miner
 	URL:=http://bfgminer.org/
