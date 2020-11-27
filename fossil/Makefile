@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fossil
-PKG_VERSION:=2.12.1
+PKG_VERSION:=2.13
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-src-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.fossil-scm.org/fossil/uv
-PKG_HASH:=822326ffcfed3748edaf4cfd5ab45b23225dea840304f765d1d55d2e6c7d6603
+PKG_HASH:=d933d3e0710eed3de5ee23bf8d2677419c4d4a8cd30b61f7161d9071d63a73f5
 
 include $(INCLUDE_DIR)/package.mk
 
