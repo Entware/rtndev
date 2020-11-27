@@ -1,35 +1,25 @@
---- a/scripts/3proxy.cfg
-+++ b/scripts/3proxy.cfg
-@@ -1,23 +1,22 @@
--#!/usr/local/etc/3proxy/bin/3proxy
- daemon
--pidfile /usr/local/etc/3proxy/3proxy.pid
-+pidfile /opt/var/run/3proxy.pid
- nscache 65536
- nserver 127.0.0.1
+--- ./scripts/3proxy.cfg.orig	2020-11-27 16:25:26.206817106 +0300
++++ ./scripts/3proxy.cfg	2020-11-27 16:30:32.391530675 +0300
+@@ -2,17 +2,17 @@
+ nserver 8.8.8.8
+ nserver 8.8.4.4
  
--config /usr/local/etc/3proxy/3proxy.cfg
--monitor /usr/local/etc/3proxy/3proxy.cfg
--monitor /usr/local/etc/3proxy/counters
--monitor /usr/local/etc/3proxy/passwd
--monitor /usr/local/etc/3proxy/bandlimiters
+-config /conf/3proxy.cfg
+-monitor /conf/3proxy.cfg
 +config /opt/etc/3proxy/3proxy.cfg
 +monitor /opt/etc/3proxy/3proxy.cfg
-+monitor /opt/etc/3proxy/counters
-+monitor /opt/etc/3proxy/passwd
-+monitor /opt/etc/3proxy/bandlimiters
  
--log /var/log/3proxy/log D
-+log /opt/var/log/3proxy.log D
+-log /logs/3proxy-%y%m%d.log D
++log /opt/var/log/3proxy-%y%m%d.log D
  rotate 60
--counter /usr/local/etc/3proxy/3proxy.3cf
-+counter /opt/etc/3proxy/3proxy.3cf
+-counter /count/3proxy.3cf
++counter /opt/var/3proxy.3cf
  
--users $/usr/local/etc/3proxy/passwd
-+#users $/opt/etc/3proxy/passwd
+-users $/conf/passwd
++users $/opt/etc/3proxy/passwd
  
--include /usr/local/etc/3proxy/counters
--include /usr/local/etc/3proxy/bandlimiters
+-include /conf/counters
+-include /conf/bandlimiters
 +include /opt/etc/3proxy/counters
 +include /opt/etc/3proxy/bandlimiters
  

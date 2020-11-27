@@ -1,23 +1,18 @@
---- a/scripts/add3proxyuser.sh
-+++ b/scripts/add3proxyuser.sh
-@@ -1,10 +1,10 @@
--#!/bin/sh
--if [ $4 ]; then  
--	echo $1:`/usr/local/etc/3proxy/bin/mycrypt $$ $2` >> /usr/local/etc/3proxy/passwd
--	echo countin \"`wc -l /usr/local/etc/3proxy/counters|awk '{print $1}'`/$1\" D $3 $1 >> /usr/local/etc/3proxy/counters
--	echo bandlimin $4 $1 >> /usr/local/etc/3proxy/bandlimiters
--else
--	echo usage: $0 username password day_limit bandwidth
--	echo "	"day_limit - traffic limit in MB per day
--	echo "	"bandwidth - bandwith in bits per second 1048576 = 1Mbps
--fi
-+#!/bin/sh
-+if [ $4 ]; then
-+	echo $1:`/opt/bin/mycrypt $$ $2` >> /opt/etc/3proxy/passwd
-+	echo countin \"`wc -l /opt/etc/3proxy/counters|awk '{print $1}'`/$1\" D $3 $1 >> /opt/etc/3proxy/counters
+--- ./scripts/add3proxyuser.sh.orig	2020-11-27 16:31:11.962147949 +0300
++++ ./scripts/add3proxyuser.sh	2020-11-27 16:34:04.480266308 +0300
+@@ -1,12 +1,12 @@
+ #!/bin/sh
+ if [ $4 ]; then  
+-	echo bandlimin $4 $1 >> /etc/3proxy/conf/bandlimiters
 +	echo bandlimin $4 $1 >> /opt/etc/3proxy/bandlimiters
-+else
-+	echo usage: $0 username password day_limit bandwidth
-+	echo "	"day_limit - traffic limit in MB per day
-+	echo "	"bandwidth - bandwith in bits per second 1048576 = 1Mbps
-+fi
+ fi
+ if [ $3 ]; then  
+-	echo countin \"`wc -l /etc/3proxy/conf/counters|awk '{print $1}'`/$1\" D $3 $1 >> /etc/3proxy/conf/counters
++	echo countin \"`wc -l /opt/etc/3proxy/counters|awk '{print $1}'`/$1\" D $3 $1 >> /opt/etc/3proxy/counters
+ fi
+ if [ $2 ]; then  
+-	echo $1:`/bin/mycrypt $$ $2` >> /etc/3proxy/conf/passwd
++	echo $1:`/opt/bin/mycrypt $$ $2` >> /opt/etc/3proxy/passwd
+ else
+ 	echo usage: $0 username password [day_limit] [bandwidth]
+ 	echo "	"day_limit - traffic limit in MB per day

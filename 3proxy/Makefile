@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=3proxy
-PKG_VERSION:=0.8.13
-PKG_REV:=e85b064b52296502a1dab648988a56e510088b76
+PKG_VERSION:=0.9.2
+PKG_REV:=b1cc2c7c706e2aff03921dc67f13722a680f3983
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
@@ -51,11 +51,11 @@ endef
 define Package/3proxy/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) \
-		$(PKG_BUILD_DIR)/src/{3proxy,dighosts,ftppr,mycrypt,pop3p,proxy,socks,tcppm,udppm} \
+		$(PKG_BUILD_DIR)/bin/{3proxy,ftppr,mycrypt,pop3p,proxy,smtpp,socks,tcppm,udppm} \
 		$(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/lib/3proxy
 	$(INSTALL_BIN) \
-		$(PKG_BUILD_DIR)/src/{PCRE,Strings,Traffic,Transparent}Plugin.ld.so \
+		$(PKG_BUILD_DIR)/bin/{PCRE,Strings,Traffic,Transparent}Plugin.ld.so \
 		$(1)/opt/lib/3proxy
 	$(INSTALL_DIR) $(1)/opt/etc/3proxy
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/scripts/3proxy.cfg $(1)/opt/etc/3proxy
