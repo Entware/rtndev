@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freediameter
-PKG_VERSION:=1.4.0
-PKG_REV:=1a9c73262a88
+PKG_VERSION:=1.5.0
+PKG_REV:=932fca1cbbe4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
