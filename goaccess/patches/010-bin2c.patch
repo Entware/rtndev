@@ -1,13 +1,13 @@
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -12,9 +12,6 @@
-   resources/js/d3.v3.min.js       \
+   resources/js/d3.v3.min.js        \
    resources/js/hogan.min.js
  
 -noinst_PROGRAMS = bin2c
 -bin2c_SOURCES = src/bin2c.c
 -
- BUILT_SOURCES =   \
+ BUILT_SOURCES =       \
    src/tpls.h          \
    src/bootstrapcss.h  \
 @@ -43,6 +40,9 @@
