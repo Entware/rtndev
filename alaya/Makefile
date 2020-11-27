@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=alaya
-PKG_VERSION:=3.2
-PKG_REV:=0ab1cf33937a56d3a378ddb14c5b309f1b8b2936
-PKG_RELEASE:=1a
+PKG_VERSION:=4.2
+PKG_REV:=90ffc3452be9a81af94d44118e3e538dd2a0d96d
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -43,6 +43,12 @@ CONFIGURE_ARGS += \
 	--enable-ssl \
 	--enable-ip6 \
 	--enable-pam
+
+TARGET_CFLAGS += \
+	-I$(STAGING_DIR)/opt/include
+
+TARGET_LDFLAGS += \
+	-lssl -lcrypto
 
 define Package/alaya/install
 	$(INSTALL_DIR) $(1)/opt/sbin

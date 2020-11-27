@@ -11,7 +11,7 @@
  	ListAddItem(Streams, Client);
 --- a/Settings.c
 +++ b/Settings.c
-@@ -537,7 +537,7 @@ fprintf(stdout,"	-v -v:		Even more verbo
+@@ -558,7 +558,7 @@
  fprintf(stdout,"	-a:		Specify the authentication file for 'built in' authentication.\n");
  fprintf(stdout,"	-A:		Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken. For 'Alaya native only' just use 'native' on its own\n");
  fprintf(stdout,"	-d:		No daemon, don't background process.\n");
@@ -20,7 +20,7 @@
  fprintf(stdout,"	-O:		Open, don't require authentication.\n");
  fprintf(stdout,"	-h:		'ChHome mode', switch to users home dir and chroot.\n");
  fprintf(stdout,"	-i:		Set interface listen on, allows running separate servers on the same port on different interfaces/network cards.\n");
-@@ -777,13 +777,13 @@ memset(&Settings,0,sizeof(TSettings));
+@@ -799,13 +799,13 @@
  Settings.MaxLogSize=999999;
  Settings.MaxLogRotate=5;
  Settings.LogPath=CopyStr(Settings.LogPath,"SYSLOG");
@@ -28,7 +28,7 @@
 +Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/opt/etc/alaya.conf");
  Settings.DefaultDir=CopyStr(Settings.DefaultDir,"./");
  Settings.BindAddress=CopyStr(Settings.BindAddress,"");
- Settings.Flags |= FLAG_KEEPALIVES;
+ Settings.Flags |= FLAG_KEEPALIVES | FLAG_USE_REUSEPORT | FLAG_USE_UNSHARE | FLAG_USE_HTTPS_FASTOPEN;
  Settings.DirListFlags=DIR_SHOWFILES | DIR_FANCY;
  Settings.AuthFlags=FLAG_AUTH_REQUIRED | FLAG_AUTH_COOKIE;
 -Settings.AuthPath=CopyStr(Settings.AuthPath,"/etc/alaya.auth:~/.alaya/alaya.auth");
