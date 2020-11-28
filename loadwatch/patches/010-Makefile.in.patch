@@ -1,6 +1,6 @@
---- a/Makefile.in
-+++ b/Makefile.in
-@@ -6,23 +6,25 @@
+--- loadwatch-1.0+1.1alpha1.orig/Makefile.in
++++ loadwatch-1.0+1.1alpha1/Makefile.in
+@@ -6,23 +6,26 @@
  INSTALL = @INSTALL@
  INSTALL_PROGRAM = @INSTALL_PROGRAM@
  MKINSTALLDIRS= @srcdir@/mkinstalldirs
@@ -8,6 +8,7 @@
  
  CC=@CC@
  LIBS=@LIBS@
++CPPFLAGS=@CPPFLAGS@
  CFLAGS=@CFLAGS@
 +LDFLAGS=@LDFLAGS@
  

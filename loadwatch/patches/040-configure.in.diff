@@ -1,0 +1,11 @@
+--- loadwatch-1.0+1.1alpha1.orig/configure.in
++++ loadwatch-1.0+1.1alpha1/configure.in
+@@ -8,7 +8,7 @@
+ 
+ dnl Checks for libraries.
+ AC_CHECK_LIB(elf, elf_begin, [LIBS="$LIBS -lelf"])
+-AC_CHECK_LIB(kstat, kstat_open, [AC_DEFINE(HAVE_KSTAT) LIBS="$LIBS -lkstat"])
++AC_CHECK_LIB(kstat, kstat_open, [AC_DEFINE([HAVE_KSTAT], [], [Define if kstat library exists.]) LIBS="$LIBS -lkstat"])
+ 
+ dnl Checks for header files.
+ AC_HEADER_STDC

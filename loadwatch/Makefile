@@ -10,10 +10,10 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=loadwatch
 PKG_VERSION:=1.0+1.1alpha1
-PKG_RELEASE:=2
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
-PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/l/loadwatch/
+PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/l/loadwatch
 PKG_HASH:=2a2044346ed980b4eed971494e7a9c088e8473daf0f153db8e4469e2d9a072a9
 
 PKG_FIXUP:=autoreconf
