@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=setproctitle
-PKG_VERSION:=1.1.10
-PKG_RELEASE:=2
+PKG_VERSION:=1.2
+PKG_RELEASE:=1
 
 PYPI_NAME:=setproctitle
-PKG_HASH:=6283b7a58477dd8478fbb9e76defb37968ee4ba47b05ec1c053cb39638bd7398
+PKG_HASH:=9b4e48722dd96cbd66d5bf2eab930fff8546cd551dd8d774c8a319448bd381a6
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
