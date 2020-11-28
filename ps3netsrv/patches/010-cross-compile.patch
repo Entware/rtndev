@@ -1,24 +1,18 @@
 --- a/_Projects_/ps3netsrv/Makefile.linux
 +++ b/_Projects_/ps3netsrv/Makefile.linux
-@@ -1,10 +1,10 @@
- OS =  linux
+@@ -1,5 +1,5 @@
+ OS = linux
 -BUILD_TYPE = release_static
 +BUILD_TYPE = release
- 
  OUTPUT := ps3netsrv
- OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/File.o src/VIsoFile.o
  
--CFLAGS = -Wall -I./include -std=gnu99 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPOLARSSL
-+CFLAGS += -Wall -I./include -std=gnu99 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPOLARSSL
- CPPFLAGS += -Wall -I./include -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPOLARSSL
- 
- CFLAGS += -Doff64_t=off_t
-@@ -14,7 +14,7 @@
- #CPPFLAGS +=-DNOSSL
- #OBJS = src/main.o src/compat.o src/File.o src/VIsoFile.o
+ OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/Console.o src/File.o src/VIsoFile.o
+@@ -17,7 +17,7 @@
+ #CFLAGS += -DNOSSL
+ #CXXFLAGS += -DNOSSL
  
 -LDFLAGS = -L.
 +LDFLAGS += -L.
  LIBS = -lstdc++
  
- 
+ ifeq ($(OS), linux)
