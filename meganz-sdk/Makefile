@@ -9,8 +9,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meganz-sdk
-PKG_VERSION:=3.7.0a
-PKG_REV:=e16d87ac6a33a8f271f12f98b9781bb53cee6f32
+PKG_VERSION:=3.7.3c
+PKG_REV:=2337aca38daaca6deedd04d8ea400293503f00ff
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
