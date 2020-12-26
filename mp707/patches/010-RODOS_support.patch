@@ -1,0 +1,186 @@
+--- a/package/bmtemp/src/bmtemp.cpp
++++ b/package/bmtemp/src/bmtemp.cpp
+@@ -13,14 +13,16 @@
+ #include <usb.h>
+ #include <time.h>
+ 
+-#define VENDOR_ID	0x16c0
+-#define PRODUCT_ID	0x05df
++#define VENDOR_ID_OLYMP		0x20a0
++#define PRODUCT_ID_OLYMP	0x4173
++#define VENDOR_ID_MASTERKIT	0x16c0
++#define PRODUCT_ID_MASTERKIT	0x05df
+ #define DEBUG		0
+ #define EXIT_OK		0
+ #define EXIT_NO_ARG	1
+ #define EXIT_NO_SENSOR	2
+ #define EXIT_ERROR	127
+-#define VERSION		"0.1.0"
++#define VERSION		"1.0.2"
+ 
+ static	int			ONEWIRE_COUNT;		// number of ROM
+ static	unsigned long long	ONEWIRE_ROM[128];	// ROM identifiers
+@@ -62,8 +64,24 @@
+ 	for (bus = usb_get_busses(); bus; bus = bus->next)
+ 	for (dev = bus->devices; dev; dev = dev->next)
+ 	{
+-		if (dev->descriptor.idVendor == VENDOR_ID &&
+-		    dev->descriptor.idProduct == PRODUCT_ID)
++		if (dev->descriptor.idVendor == VENDOR_ID_OLYMP &&
++		    dev->descriptor.idProduct == PRODUCT_ID_OLYMP)
++		{
++			usb_dev_handle *udev;
++			if (!(udev = usb_open(dev)))
++			{
++				return NULL;
++			}
++			char s1[256];
++			char s2[256];
++			usb_get_string_simple(udev, dev->descriptor.iManufacturer, s1, 256);
++			usb_get_string_simple(udev, dev->descriptor.iProduct, s2, 256);
++			if ( verbose ) printf("[.] Device: %s - %s\n", s1, s2);
++
++			return udev;
++		}
++		else if (dev->descriptor.idVendor == VENDOR_ID_MASTERKIT &&
++		    dev->descriptor.idProduct == PRODUCT_ID_MASTERKIT)
+ 		{
+ 			usb_dev_handle *udev;
+ 			if (!(udev = usb_open(dev)))
+@@ -229,9 +247,13 @@
+     int i=3;   //  число попыток
+     while (!RESULT & ((i--)>0))
+         if (USB_SET_FEATURE())
+-            if (USB_GET_FEATURE())
+-                if (USB_BUFI[1]==0x1D) { RESULT=true; FAMILY=USB_BUFI[2]; }
+-                    else RESULT=false;
++            if (USB_GET_FEATURE()) {
++                if (USB_BUFI[1]==0x1D) {
++                    RESULT=true; FAMILY=USB_BUFI[2];
++                }
++                else 
++                    RESULT=false;
++            }
+     if (!RESULT) printf("[!] USB_GET_FAMILY: Error reading family\n");
+     return RESULT;
+ }
+@@ -247,9 +269,13 @@
+     int i=3;   // number of attempts
+     while (!RESULT & ((i--)>0))
+         if (USB_SET_FEATURE())
+-            if (USB_GET_FEATURE())
+-                if (USB_BUFI[1]==0x1D) { RESULT=true; SV=USB_BUFI[3]+(USB_BUFI[4]<<8); }
+-                    else RESULT=false;
++            if (USB_GET_FEATURE()) {
++                if (USB_BUFI[1]==0x1D) {
++                    RESULT=true; SV=USB_BUFI[3]+(USB_BUFI[4]<<8); 
++                }
++                else
++                    RESULT=false;
++            }
+     if (!RESULT) printf("[!] USB_GET_SOFTV: Error reading firmware version\n");
+     return RESULT;
+ }
+@@ -265,9 +291,13 @@
+     int i=3;   //  number of attempts
+     while (!RESULT & ((i--)>0))
+         if (USB_SET_FEATURE())
+-            if (USB_GET_FEATURE())
+-                if (USB_BUFI[1]==0x1D) { RESULT=true; ID=(USB_BUFI[5]<<24)+(USB_BUFI[6]<<16)+(USB_BUFI[7]<<8)+USB_BUFI[8]; }
+-                    else RESULT=false;
++            if (USB_GET_FEATURE()) {
++                if (USB_BUFI[1]==0x1D) {
++                    RESULT=true; ID=(USB_BUFI[5]<<24)+(USB_BUFI[6]<<16)+(USB_BUFI[7]<<8)+USB_BUFI[8]; 
++                }
++                else
++                    RESULT=false;
++            }
+     if (!RESULT) printf("[!] USB_GET_ID: Error reading devide ID\n");
+     return RESULT;
+ }
+@@ -286,7 +316,7 @@
+         if (USB_SET_FEATURE())
+         {
+ 	    if ( DEBUG ) printf("[D] OW_RESET: if USB_SET_FEATURE() true...\n");
+-            msleep(2);
++            msleep(5);
+             if (USB_GET_FEATURE()) 
+ 	    {
+ 		if ( DEBUG ) printf("[D] OW_RESET: if USB_GET_FEATURE() true...\n");
+@@ -309,7 +339,7 @@
+     USB_BUFO[3]=0x01;    USB_BUFO[4]=0x01;
+     if (USB_SET_FEATURE())
+         {
+-        msleep(1);
++        msleep(2);
+         if (USB_GET_FEATURE())
+             { RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x82); B=(USB_BUFI[3]&0x01)+((USB_BUFI[4]<<1)&0x02); }
+         }
+@@ -328,7 +358,7 @@
+     USB_BUFO[1]=0x18;    USB_BUFO[2]=0x88;    USB_BUFO[3]=0xFF;
+     if (USB_SET_FEATURE())
+         {
+-        msleep(1);
++        msleep(5);
+         if (USB_GET_FEATURE())
+             { RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x88); B=USB_BUFI[3]; }
+         }
+@@ -348,7 +378,7 @@
+     USB_BUFO[4]=0xFF;    USB_BUFO[5]=0xFF;    USB_BUFO[6]=0xFF;
+     if (USB_SET_FEATURE())
+         {
+-        msleep(2);
++        msleep(30);
+         if (USB_GET_FEATURE())
+             { RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x84); B=USB_BUFI[3]+(USB_BUFI[4]<<8)+(USB_BUFI[5]<<16)+(USB_BUFI[6]<<24); }
+         }
+@@ -386,11 +416,11 @@
+     USB_BUFO[1]=0x18;    USB_BUFO[2]=0x88;    USB_BUFO[3]=B;
+     if (USB_SET_FEATURE())
+         {
+-        msleep(1);
++        msleep(5);
+         if (USB_GET_FEATURE())
+             RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x88)&(USB_BUFI[3]==B);
+         }
+-    if (!RESULT) printf("[!] Error OW_WRITE_BYTE\n");
++//    if (!RESULT) printf("[!] Error OW_WRITE_BYTE\n");
+     return RESULT;
+ }
+ 
+@@ -413,11 +443,11 @@
+     USB_BUFO[6]=(B>>24)&0xFF;
+     if (USB_SET_FEATURE())
+         {
+-        msleep(2);
++        msleep(30);
+         if (USB_GET_FEATURE())
+-            RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x84)&(USB_BUFI[3]==D0&(USB_BUFI[4]==D1)&(USB_BUFI[5]==D2)&(USB_BUFI[6]==D3));
++            RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x84)&((USB_BUFI[3]==D0)&(USB_BUFI[4]==D1)&(USB_BUFI[5]==D2)&(USB_BUFI[6]==D3));
+         }
+-    if (!RESULT) printf("[!] Error OW_WRITE_4BYTE\n");
++//    if (!RESULT) printf("[!] Error OW_WRITE_4BYTE\n");
+     return RESULT;
+ }
+ 
+@@ -429,7 +459,7 @@
+     if ( DEBUG ) printf("[D] enter CRC8\n");
+     unsigned char R=CRC;
+     for (int i=0; i<8; i++)
+-        if ((R^(D>>i))&0x01==0x01) R=((R^0x18)>>1)|0x80;
++        if (((R^(D>>i))&0x01)==0x01) R=((R^0x18)>>1)|0x80;
+             else R=(R>>1)&0x7F;
+     return R;
+ }
+@@ -612,9 +642,9 @@
+ 	printf("USAGE: %s <options>\n", exec);
+ 	printf("\t-i\t\tshow device info\n");
+ 	printf("\t-s\t\tscan for sensors and show their ID ony by one\n");
+-	printf("\t-tID\tget temperature for sensor with specified ID\n");
++	printf("\t-tID\t\tget temperature for sensor with specified ID\n");
+ 	printf("\t-a\t\tscan for sensors and show their data in format id:value\n");
+-	printf("\t-n\t\tscan for sensors and show their data in format for narodmon.ru\n");
++	printf("\t-n\t\tscan for sensors and show their data in special format\n");
+ 	printf("\t-v\t\tverbose mode on (default is off)\n");
+ 	printf("\nExit codes:\n");
+ 	printf("\t0\tEXIT_OK\n");
