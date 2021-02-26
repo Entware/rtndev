@@ -1,6 +1,6 @@
 --- a/configure.sh
 +++ b/configure.sh
-@@ -726,7 +726,7 @@
+@@ -726,7 +726,7 @@ BPATH       = $ARG_BPATH
  
  \$(APP): $APP_OBJS \$(CORE_OBJS) \$(MODS_OBJS)
  	@echo "BUILD: \$@"

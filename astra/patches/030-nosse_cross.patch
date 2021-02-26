@@ -1,6 +1,6 @@
 --- a/configure.sh
 +++ b/configure.sh
-@@ -138,7 +138,6 @@
+@@ -138,7 +138,6 @@ MACHINE=`$APP_C -dumpmachine`
  ARCH=`echo $MACHINE | sed "s|-.*\$||"`
  
  echo $ARCH | grep -q "i[3-6]86\|x86_64"
@@ -8,7 +8,7 @@
  
  cpucheck_c()
  {
-@@ -184,7 +184,7 @@
+@@ -184,7 +183,7 @@ if [ $ARG_CC -eq 0 ]; then
              CFLAGS="$CFLAGS $CPUFLAGS"
          fi
      fi

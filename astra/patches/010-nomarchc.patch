@@ -1,6 +1,6 @@
 --- a/configure.sh
 +++ b/configure.sh
-@@ -199,12 +199,7 @@
+@@ -199,12 +199,7 @@ elif [ $ISx86 -eq 0 ]; then
      fi
  fi
  
