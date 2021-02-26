@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
 PKG_VERSION:=2.0.3
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PYPI_NAME:=deluge
 PKG_HASH:=bd26950f417de2a5b26827d989935a30e770f880c22cb59ca69f781cdc9a14c9
@@ -31,9 +31,8 @@ define Package/deluge
 	$(call Package/deluge/Default)
 	TITLE+= (console UI & daemon)
 	DEPENDS:= \
-	    +rblibtorrent \
-	    +python3 \
 	    +python3-chardet \
+	    +python3-libtorrent \
 	    +python3-mako \
 	    +python3-markupsafe \
 	    +python3-pillow \
