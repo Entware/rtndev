@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=chromaprint
 PKG_VERSION:=1.5.0
 PKG_REV:=516e3b31c7fa6e822035ea3b3e31f9c7f51ef4b6
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -45,10 +45,10 @@ define Build/InstallDev
 endef
 
 define Package/chromaprint/install
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/libchromaprint.so* $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/fpcalc $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libchromaprint.so.* $(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,chromaprint))
