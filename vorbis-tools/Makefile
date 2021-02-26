@@ -14,6 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.xiph.org/releases/vorbis
+PKG_HASH:=a389395baa43f8e5a796c99daf62397e435a7e73531c9f44d9084055a05d22bc
 
 include $(INCLUDE_DIR)/package.mk
 
