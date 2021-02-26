@@ -36,5 +36,5 @@ CONFIGURE_VARS += \
 TARGET_CPPFLAGS += \
 	-I$(STAGING_DIR)/opt/include/GraphicsMagick
 
-$(eval $(call PECLPackage,$(PECL_NAME),$(PECL_LONGNAME),+graphicsmagick))
+$(eval $(call PHP7PECLPackage,$(PECL_NAME),$(PECL_LONGNAME),+graphicsmagick))
 $(eval $(call BuildPackage,$(PKG_NAME)))
