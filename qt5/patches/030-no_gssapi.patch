@@ -1,0 +1,17 @@
+--- a/qtbase/src/network/configure.json
++++ b/qtbase/src/network/configure.json
+@@ -427,8 +427,13 @@
+             "label": "GSSAPI",
+             "purpose": "Enable SPNEGO authentication through GSSAPI",
+             "section": "Networking",
++            "autoDetect": false,
++            "enable": "false",
+             "condition": "!config.win32 && libs.gssapi",
+-            "output": [ "publicFeature", "feature" ]
++            "output": [
++                "publicFeature",
++                { "type": "define", "negative": true, "name": "QT_NO_GSSAPI" }
++            ]
+         },
+         "sspi": {
+             "label": "SSPI",

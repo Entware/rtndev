@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
 PKG_VERSION:=5.14.2
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.14/$(PKG_VERSION)/single
@@ -86,6 +86,7 @@ define Build/Configure
 			-no-eglfs \
 			-no-feature-getentropy \
 			-no-iconv \
+			-no-icu \
 			-no-kms \
 			-no-opengl \
 			-no-pch \
@@ -94,6 +95,7 @@ define Build/Configure
 			-no-xcb \
 			-no-gui \
 			-no-widgets \
+			-no-zstd \
 			-make libs \
 			-nomake examples \
 			-nomake tests \
