@@ -28,7 +28,7 @@ define Package/iprange
 endef
 
 define Package/iprange/description
- iprange
+ manage IP ranges
 endef
 
 define Package/iprange/install
