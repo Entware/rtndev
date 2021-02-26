@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=microdc2
 PKG_VERSION:=0.15.6-20180718
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_REV:=9343cf76972f4f16ac1782788933589e72be63b7
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -21,6 +21,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/microdc2
 	SECTION:=net
