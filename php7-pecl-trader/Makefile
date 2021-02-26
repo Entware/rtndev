@@ -30,5 +30,5 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 include $(TOPDIR)/feeds/packages/lang/php7/pecl.mk
 
-$(eval $(call PECLPackage,$(PECL_NAME),$(PECL_LONGNAME)))
+$(eval $(call PHP7PECLPackage,$(PECL_NAME),$(PECL_LONGNAME)))
 $(eval $(call BuildPackage,$(PKG_NAME)))
