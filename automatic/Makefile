@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=automatic
 PKG_VERSION:=0.8.3-20200405
 PKG_REV:=cc988b8459c38c939c5d85868a92cd808c815bb4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -22,6 +22,7 @@ PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/automatic
 	SECTION:=net
