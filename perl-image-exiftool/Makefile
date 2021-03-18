@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-image-exiftool
-PKG_VERSION:=12.11
+PKG_VERSION:=12.22
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://exiftool.org
 PKG_SOURCE:=Image-ExifTool-$(PKG_VERSION).tar.gz
-PKG_HASH:=e57b89cba62e508d00778a7e4d46f89437cc77552106962ce678831e36d948e7
+PKG_HASH:=8c913623b9007e9cf18f15a43d31a05459dbdb9aa5daaef8201eaec753fe5a6d
 
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
