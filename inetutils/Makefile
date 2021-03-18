@@ -4,17 +4,16 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2015
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=inetutils
-PKG_VERSION:=1.9.4
+PKG_VERSION:=2.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@GNU/$(PKG_NAME)
-PKG_HASH:=be8f75eff936b8e41b112462db51adf689715658a1b09e0d6b05d11ec92cc616
+PKG_HASH:=e573d566e55393940099862e7f8994164a0ed12f5a86c3345380842bdc124722
 
 PKG_INSTALL:=1
 
