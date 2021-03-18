@@ -1,0 +1,11 @@
+--- a/src/ftp.c
++++ b/src/ftp.c
+@@ -634,7 +634,7 @@ static int dtp_open_active(ftp_session *
+     char *a, *p;
+     int ret;
+     int listener;
+-    ksize_t alen;
++    size_t alen;
+     struct sockaddr_in addr;
+ 
+     ret = ftp_open(sess);

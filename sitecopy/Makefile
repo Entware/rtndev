@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sitecopy
 PKG_VERSION:=0.16.6
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.manyfish.co.uk/$(PKG_NAME)
@@ -24,7 +24,7 @@ define Package/sitecopy
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libexpat +libneon +libxml2
+	DEPENDS:=+libneon
 	TITLE:=WebDAV sync utility
 	URL:=http://www.manyfish.co.uk/sitecopy/
 	MAINTAINER:=Entware team, https://entware.net
@@ -36,6 +36,14 @@ define Package/sitecopy/description
  from the server which have been removed locally, to keep the remote site
  synchronized with the local site with a single command.
 endef
+
+CONFIGURE_ARGS += \
+	--with-libxml2 \
+	--with-expat \
+	--with-included-expat=no \
+	--with-neon \
+	--with-included-neon=no \
+	--with-ssl=gnutls
 
 define Package/sitecopy/install
 	$(INSTALL_DIR) $(1)/opt/bin
