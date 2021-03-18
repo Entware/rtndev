@@ -5,6 +5,7 @@
 # See /LICENSE for more information.
 #
 # FUSE module is not working, https://github.com/MediaFire/mediafire-fuse/issues/36
+# Abandoned in 2016
 
 include $(TOPDIR)/rules.mk
 
