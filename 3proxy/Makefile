@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2020 Entware
+# Copyright (C) 2011-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=3proxy
-PKG_VERSION:=0.9.2
-PKG_REV:=b1cc2c7c706e2aff03921dc67f13722a680f3983
+PKG_VERSION:=0.9.3
+PKG_REV:=0c902525e57bc8105434b4fe86ef0832832012d2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
