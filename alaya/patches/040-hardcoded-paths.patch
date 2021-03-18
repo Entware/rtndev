@@ -1,38 +1,40 @@
 --- a/websocket.c
 +++ b/websocket.c
-@@ -174,7 +174,7 @@ STREAM *Prog, *S;
- ListNode *Streams;
+@@ -174,7 +174,7 @@
+     ListNode *Streams;
  
- 	Streams=ListCreate();
--	Prog=ChrootSendPathRequest(Session, "WEBSOCKET", Helper, "/bin:/usr/bin");
-+	Prog=ChrootSendPathRequest(Session, "WEBSOCKET", Helper, "/opt/bin:/bin:/usr/bin");
- 	STREAMSetFlushType(Prog, FLUSH_FULL, 0, 4096);
- 	ListAddItem(Streams, Prog);
- 	ListAddItem(Streams, Client);
+     Streams=ListCreate();
+-    Prog=ChrootSendPathRequest(Session, "WEBSOCKET", Helper, "/bin:/usr/bin");
++    Prog=ChrootSendPathRequest(Session, "WEBSOCKET", Helper, "/opt/bin:/bin:/usr/bin");
+     STREAMSetFlushType(Prog, FLUSH_FULL, 0, 4096);
+     ListAddItem(Streams, Prog);
+     ListAddItem(Streams, Client);
 --- a/Settings.c
 +++ b/Settings.c
-@@ -558,7 +558,7 @@
- fprintf(stdout,"	-a:		Specify the authentication file for 'built in' authentication.\n");
- fprintf(stdout,"	-A:		Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken. For 'Alaya native only' just use 'native' on its own\n");
- fprintf(stdout,"	-d:		No daemon, don't background process.\n");
--fprintf(stdout,"	-f:		Path to config file, defaults to /etc/alaya.conf, but alaya can be configured by command-line args only.\n");
-+fprintf(stdout,"	-f:		Path to config file, defaults to /opt/etc/alaya.conf, but alaya can be configured by command-line args only.\n");
- fprintf(stdout,"	-O:		Open, don't require authentication.\n");
- fprintf(stdout,"	-h:		'ChHome mode', switch to users home dir and chroot.\n");
- fprintf(stdout,"	-i:		Set interface listen on, allows running separate servers on the same port on different interfaces/network cards.\n");
-@@ -799,13 +799,13 @@
- Settings.MaxLogSize=999999;
- Settings.MaxLogRotate=5;
- Settings.LogPath=CopyStr(Settings.LogPath,"SYSLOG");
--Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/etc/alaya.conf");
-+Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/opt/etc/alaya.conf");
- Settings.DefaultDir=CopyStr(Settings.DefaultDir,"./");
- Settings.BindAddress=CopyStr(Settings.BindAddress,"");
- Settings.Flags |= FLAG_KEEPALIVES | FLAG_USE_REUSEPORT | FLAG_USE_UNSHARE | FLAG_USE_HTTPS_FASTOPEN;
- Settings.DirListFlags=DIR_SHOWFILES | DIR_FANCY;
- Settings.AuthFlags=FLAG_AUTH_REQUIRED | FLAG_AUTH_COOKIE;
--Settings.AuthPath=CopyStr(Settings.AuthPath,"/etc/alaya.auth:~/.alaya/alaya.auth");
-+Settings.AuthPath=CopyStr(Settings.AuthPath,"/opt/etc/alaya.auth:~/.alaya/alaya.auth");
- Settings.AuthMethods=CopyStr(Settings.AuthMethods,"accesstoken,cookie,native");
- Settings.AuthRealm=CopyStr(Settings.AuthRealm,UnameData.nodename);
- Settings.IndexFiles=CopyStr(Settings.IndexFiles,"index.html,dir.html");
+@@ -564,7 +564,7 @@
+     fprintf(stdout,"	-a:		Specify the authentication file for 'built in' authentication.\n");
+     fprintf(stdout,"	-A:		Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken. For 'Alaya native only' just use 'native' on its own\n");
+     fprintf(stdout,"	-d:		No daemon, don't background process.\n");
+-    fprintf(stdout,"	-f:		Path to config file, defaults to /etc/alaya.conf, but alaya can be configured by command-line args only.\n");
++    fprintf(stdout,"	-f:		Path to config file, defaults to /opt/etc/alaya.conf, but alaya can be configured by command-line args only.\n");
+     fprintf(stdout,"	-O:		Open, don't require authentication.\n");
+     fprintf(stdout,"	-h:		'ChHome mode', switch to users home dir and chroot.\n");
+     fprintf(stdout,"	-i:		Set interface listen on, allows running separate servers on the same port on different interfaces/network cards.\n");
+@@ -808,14 +808,14 @@
+     Settings.MaxLogSize=999999;
+     Settings.MaxLogRotate=5;
+     Settings.LogPath=CopyStr(Settings.LogPath,"SYSLOG");
+-    Settings.PidFilePath=CopyStr(Settings.PidFilePath,"/var/run/alaya.pid");
+-    Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/etc/alaya.conf");
++    Settings.PidFilePath=CopyStr(Settings.PidFilePath,"/opt/var/run/alaya.pid");
++    Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/opt/etc/alaya.conf");
+     Settings.DefaultDir=CopyStr(Settings.DefaultDir,"./");
+     Settings.BindAddress=CopyStr(Settings.BindAddress,"");
+     Settings.Flags |= FLAG_KEEPALIVES | FLAG_USE_REUSEPORT | FLAG_USE_UNSHARE | FLAG_USE_HTTPS_FASTOPEN;
+     Settings.DirListFlags=DIR_SHOWFILES | DIR_FANCY;
+     Settings.AuthFlags=FLAG_AUTH_REQUIRED | FLAG_AUTH_COOKIE;
+-    Settings.AuthPath=CopyStr(Settings.AuthPath,"/etc/alaya.auth:~/.alaya/alaya.auth");
++    Settings.AuthPath=CopyStr(Settings.AuthPath,"/opt/etc/alaya.auth:~/.alaya/alaya.auth");
+     Settings.AuthMethods=CopyStr(Settings.AuthMethods,"accesstoken,cookie,native");
+     Settings.AuthRealm=CopyStr(Settings.AuthRealm,UnameData.nodename);
+     Settings.IndexFiles=CopyStr(Settings.IndexFiles,"index.html,dir.html");
