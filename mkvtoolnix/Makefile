@@ -8,15 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
-PKG_VERSION:=51.0.0
+PKG_VERSION:=55.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
-PKG_HASH:=c17aa010a13c943b1347c5a20f7f6e05337a7d90317f525345813bcbcdcf4c70
+PKG_HASH:=6061639bda18adbf5c49264d5498fd2abab420113ba680d0eb441a9aa02afba6
 
 PKG_FIXUP:=autoreconf
-PKG_BUILD_DEPENDS:=ruby/host pugixml libmatroska 
+PKG_BUILD_DEPENDS:=ruby/host pugixml libmatroska
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
