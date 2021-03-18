@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bindfs
-PKG_VERSION:=1.14.8
+PKG_VERSION:=1.15.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://bindfs.org/downloads
-PKG_HASH:=e5ca5aff55204b993a025a77c3f8c0e2ee901ba8059d71bea11de2cc685ec497
+PKG_HASH:=04dd3584a6cdf9af4344d403c62185ca9fab31ce3ae5a25d0101bc10936c68ab
 
 PKG_INSTALL:=1
 
@@ -23,7 +23,7 @@ define Package/bindfs
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+fuse-utils +librt
+	DEPENDS:=+fuse3-utils +librt
 	TITLE:=bindfs filesystem
 	URL:=http://bindfs.org
 	MAINTAINER:=Entware team, https://entware.net
