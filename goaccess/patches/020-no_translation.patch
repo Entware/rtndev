@@ -1,6 +1,6 @@
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -215,7 +215,7 @@
+@@ -221,7 +221,7 @@
  
  dist_man_MANS = goaccess.1
  
