@@ -8,14 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ctags
-PKG_VERSION:=p5.9.20201122.0
+PKG_VERSION:=p5.9.20210314.0
+PKG_REV:=0e4c307b305d99ab9f56f7b346da52ad69457768
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_REV:=1b2f82fdb22f55f729f643fb7e9c51372f7ee15e
-PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
