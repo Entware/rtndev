@@ -1,0 +1,23 @@
+--- ./CMakeLists.txt.orig	2021-03-18 21:06:16.920140647 +0300
++++ ./CMakeLists.txt	2021-03-18 21:17:29.156953344 +0300
+@@ -26,7 +26,7 @@
+ 
+ # Now CMAKE_INSTALL_PREFIX is a base prefix for everything.
+ if (NOT CONFDIR)
+-	set(CONFDIR "${CMAKE_INSTALL_PREFIX}/etc/msd")
++	set(CONFDIR "${CMAKE_INSTALL_SYSCONFDIR}/msd")
+ endif()
+ 
+ if (NOT RUNDIR)
+@@ -234,9 +234,9 @@
+ ##################### INSTALLATION #####################################
+ 
+ # Configs
+-install(CODE "FILE(MAKE_DIRECTORY ${CONFDIR})")
++#install(CODE "FILE(MAKE_DIRECTORY ${CONFDIR})")
+ 
+-install_if_not_exists(conf/msd.conf ${CONFDIR} "msd.conf" ".sample")
++install_if_not_exists(conf/msd.conf "${CONFDIR}/msd" "msd.conf" ".sample")
+ 
+ if (CMAKE_SYSTEM_NAME MATCHES "^.*BSD$|DragonFly")
+ 	install_script(os/freebsd/msd "${CMAKE_INSTALL_PREFIX}/etc/rc.d/")

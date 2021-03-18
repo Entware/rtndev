@@ -1,0 +1,11 @@
+--- a/src/stream_src.c
++++ b/src/stream_src.c
+@@ -1307,7 +1307,7 @@
+ 	md5_get_digest_str((char*)&ts_now, sizeof(ts_now), (char*)hash);
+ 	if (0 != (STR_SRC_S_F_ENABLE_RING_BUF_SHM_FILE & src->s.flags)) {
+ 		snprintf(src->r_buf_f_name, sizeof(src->r_buf_f_name),
+-		    "/msd-%zu-%s.tmp",
++		    "/opt/tmp/msd-%zu-%s.tmp",
+ 		    (size_t)getpid(), hash);
+ 	} else { /* Normal file. */
+ 		snprintf(src->r_buf_f_name, sizeof(src->r_buf_f_name),

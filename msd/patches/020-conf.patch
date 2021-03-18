@@ -1,0 +1,33 @@
+--- a/conf/msd.conf
++++ b/conf/msd.conf
+@@ -26,7 +26,7 @@
+ 
+ <msd>
+ 	<log>
+-		<file>/root/msd/msd.log</file>
++		<file>/opt/var/log/msd.log</file>
+ 	</log>
+ 
+ 
+--- a/conf/msd_minimal.conf
++++ b/conf/msd_minimal.conf
+@@ -26,7 +26,7 @@
+ 
+ <msd>
+ 	<log>
+-		<file>/root/msd/msd.log</file>
++		<file>/opt/var/log/msd.log</file>
+ 	</log>
+ 
+ 
+@@ -131,8 +131,8 @@
+ 
+ 
+ 	<channelList>
+-		<includeFile>/root/msd/msd_channels.conf</includeFile>
+-		<includeFile>-/root/msd/msd_channels_lanport.conf</includeFile>
++		<includeFile>/opt/etc/msd/msd_channels.conf</includeFile>
++		<includeFile>/opt/etc/msd/msd_channels_lanport.conf</includeFile>
+ 		<c-hannel>
+ 			<name>Test1.ts</name> <!-- Channel name, used in request: /channel/... . -->
+ 			<hubProfileName>default</hubProfileName> <!-- Profile template. -->
