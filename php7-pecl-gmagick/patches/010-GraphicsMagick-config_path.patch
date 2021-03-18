@@ -1,14 +1,14 @@
 --- a/config.m4
 +++ b/config.m4
-@@ -4,11 +4,6 @@
- if test $PHP_GMAGICK != "no"; then
+@@ -5,11 +5,6 @@
  
  		AC_MSG_CHECKING(GraphicsMagick configuration program)
--	
+ 
 -		for i in $PHP_GMAGICK /usr/local /usr;
 -		do
 -			test -r $i/bin/GraphicsMagick-config && WAND_BINARY=$i/bin/GraphicsMagick-config && break
--		done	
- 		
+-		done
+-
  		if test -z "$WAND_BINARY"; then
  			AC_MSG_ERROR(not found. Please provide a path to GraphicsMagick-config program.)
+ 		fi

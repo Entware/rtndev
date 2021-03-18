@@ -10,9 +10,9 @@ include $(TOPDIR)/rules.mk
 PECL_NAME:=gmagick
 PECL_LONGNAME:=Provides a wrapper to the GraphicsMagick library
 
-PKG_VERSION:=2.0.5RC1
+PKG_VERSION:=2.0.6RC1
 PKG_RELEASE:=1
-PKG_HASH:=fbef36c02fe07dd4d7922ec9ce3d5d71b27a2e91dbcc69604230b3d4013bc6a5
+PKG_HASH:=350cb71a4fbd58e037c7182cafa14e6f6df952126869205918fcc9ec5798e2fa
 
 PKG_NAME:=php7-pecl-$(PECL_NAME)
 PKG_SOURCE:=$(PECL_NAME)-$(PKG_VERSION).tgz
