@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=3.2.8
+PKG_VERSION:=3.4.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://wireshark.org/download/src/all-versions
-PKG_HASH:=a8a595d08f38c6bd083886f6c199b9d4fb007e363031b263667c7da72323cc32
+PKG_HASH:=729cd11e9715c600e5ad74ca472bacf8af32c20902192d5f2b271268511d4d29
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -22,7 +22,9 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/wireshark
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libcares +bcg729 +libcap +libgcrypt +glib2 +libgnutls +krb5-libs +libnghttp2 +libpcap +sbc +libspandsp +libspeexdsp +libxml2 +liblz4 +zstd
+	DEPENDS:=+bcg729 +glib2 +krb5-libs +libcares +libcap +libgcrypt +libgnutls \
+		+liblz4 +libnghttp2 +libopus +libpcap +libspandsp +libspeexdsp \
+		+libxml2 +sbc +zstd
 	TITLE:=network protocol analyzer
 	URL:=https://www.wireshark.org/
 	MAINTAINER:=Entware team, https://entware.net
