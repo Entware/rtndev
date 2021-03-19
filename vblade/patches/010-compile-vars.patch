@@ -3,10 +3,10 @@
 @@ -9,11 +9,11 @@
  mandir = ${sharedir}/man
  
- O=aoe.o bpf.o ${PLATFORM}.o ata.o
--CFLAGS += -Wall -g -O2
+ O=aoe.o bpf.o ${PLATFORM}.o ata.o dat.o
+-CFLAGS += -Wall -g -O2 -fno-common
 -CC = gcc
-+CFLAGS ?= -Wall -g -O2
++CFLAGS ?= -Wall -g -O2 -fno-common
 +CC ?= gcc
  
  vblade: $O
