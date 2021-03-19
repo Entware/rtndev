@@ -1,0 +1,11 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -34,7 +34,7 @@
+ AC_PROG_LIBTOOL
+ 
+ ALL_LINGUAS="be cs da en_GB eo es fr hr hu nl pl ro ru sk sv uk vi"
+-AM_GNU_GETTEXT
++AM_GNU_GETTEXT([external])
+ 
+ dnl --------------------------------------------------
+ dnl System checks

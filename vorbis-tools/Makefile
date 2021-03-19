@@ -4,17 +4,22 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2010
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vorbis-tools
-PKG_VERSION:=1.4.0
+PKG_VERSION:=1.4.2
+PKG_REV:=71687237c07cd9d5564c73990d0de45520c5bec1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://downloads.xiph.org/releases/vorbis
-PKG_HASH:=a389395baa43f8e5a796c99daf62397e435a7e73531c9f44d9084055a05d22bc
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/xiph/vorbis-tools.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+
+PKG_FIXUP:=autoreconf
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -31,19 +36,15 @@ define Package/vorbis-tools/description
  oggdec, oggenc, ogginfo, vcut, vorbiscomment command line utilities.
 endef
 
-CONFIGURE_ARGS+= \
-	--without-flac \
-	--disable-nls \
-
-TARGET_LDFLAGS += -lm
+CONFIGURE_ARGS += \
+	--disable-ogg123 \
+	--disable-oggtest \
+	--disable-vorbistest \
+	--disable-curltest
 
 define Package/vorbis-tools/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(CP) $(PKG_BUILD_DIR)/oggdec/oggdec $(1)/opt/bin
-	$(CP) $(PKG_BUILD_DIR)/oggenc/oggenc $(1)/opt/bin
-	$(CP) $(PKG_BUILD_DIR)/ogginfo/ogginfo $(1)/opt/bin
-	$(CP) $(PKG_BUILD_DIR)/vcut/vcut $(1)/opt/bin
-	$(CP) $(PKG_BUILD_DIR)/vorbiscomment/vorbiscomment $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,vorbis-tools))
