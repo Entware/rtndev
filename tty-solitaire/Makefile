@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/mpereira/tty-solitaire.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=b8fac31b84616017016b6ce6b148234e05ddeb9316d19b1f939ed1a2d22a2cb9
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -38,7 +39,7 @@ TARGET_CFLAGS += \
 
 define Package/tty-solitaire/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ttysolitaire $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ttysolitaire $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,tty-solitaire))

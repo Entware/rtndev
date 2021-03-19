@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/fwdillema/totd.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=10c98c0bf77cdafcd21bca02432dbdaa6405bc311f29ef037bb493e92e474bd2
 
 include $(INCLUDE_DIR)/package.mk
 

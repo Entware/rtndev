@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2020-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/trojan-gfw/trojan.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=5e7158b38309183a9b5a3fcb8f758f8cbe77e7ad285be33d977a364afa8d8f3a
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

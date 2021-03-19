@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/clark15b/xupnpd2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=fa4d74851da91e145b1d50327b1ccbcd0817e26b02769d80fedfd5a6ccdd990f
 
 include $(INCLUDE_DIR)/package.mk
 

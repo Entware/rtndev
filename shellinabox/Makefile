@@ -19,6 +19,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/shellinabox/shellinabox.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=b9698c4f8e93ac0501315d2e937da3b1c8083cffdc9ced221eed82996e0968e4
 
 PKG_FIXUP:=autoreconf
 

@@ -14,9 +14,10 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/klange/nyancat
+PKG_SOURCE_URL:=https://github.com/klange/nyancat.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=ad17461ffdf8f9f4ee0cf641bb845645f0b7cc1ed8107693b8855e651d0460d7
 
 include $(INCLUDE_DIR)/package.mk
 

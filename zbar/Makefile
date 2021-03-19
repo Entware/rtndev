@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2020-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,13 +9,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zbar
 PKG_VERSION:=0.23.92
+PKG_REV:=aac86d5f08d64ab4c3da78188eb622fa3cb07182
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_REV:=aac86d5f08d64ab4c3da78188eb622fa3cb07182
-PKG_SOURCE_URL:=https://github.com/mchehab/zbar
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/mchehab/zbar
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=c95283633709cca5c1c5f93ead20765795cb99d3c63338151352091a92385c37
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

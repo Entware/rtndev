@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/clarkwang/sexpect.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=1e6db9fe19c5cba325ea969987a5bad063a19f95f1b33d29ba3de1549053c232
 
 include $(INCLUDE_DIR)/package.mk
 

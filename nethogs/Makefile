@@ -18,6 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/raboof/nethogs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=7bbae512915e1162fd59025d6e29ae325a74ba781ee2aeefc652111c7da7adcd
 
 include $(INCLUDE_DIR)/package.mk
 

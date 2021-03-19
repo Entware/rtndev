@@ -18,6 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/facebookarchive/nfusr.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=5917ee6bdeccce72fbb195fc19d2071ed85a08bb4fb48bdb86389c0ba0a640c8
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

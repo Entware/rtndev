@@ -14,9 +14,10 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent
+PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=e53a83d122ad8e2043a6b1ead006604aa4952ebcb2290919889d56fdaa6125f8
 
 include $(INCLUDE_DIR)/package.mk
 

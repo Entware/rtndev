@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/xiph/vorbis-tools.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=82a982dce46dc9609a20db46bcbfffdb8ebc6e0e0b296abd5be392eaf709e536
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
