@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-borgbackup
-PKG_VERSION:=1.1.14
+PKG_VERSION:=1.1.15
 PKG_RELEASE:=1
 
 PYPI_NAME:=borgbackup
-PKG_HASH:=7dbb0747cc948673f695cd6de284af215f810fed2eb2a615ef26ddc7c691edba
+PKG_HASH:=49cb9eed98b8e32ae3b97beaedf94cdff46f796445043f1923fd0fce7ed3c2bc
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
