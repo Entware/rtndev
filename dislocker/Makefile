@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Aorimn/dislocker.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=6164cbca3e0bcca33e00df4189bf908650b8c3871d5dd252fdd6db15c657d465
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

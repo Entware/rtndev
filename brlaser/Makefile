@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2020-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/pdewacht/brlaser.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=9fc4faeca0de666ac034bf24752bd8f4eb7998172aeffdaf8759a044502d7afe
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2020-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=http://www.freediameter.net/hg/freeDiameter
 PKG_SOURCE_PROTO:=hg
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=1425848bec5532f9ad60d1b9266a8e27c66745e91fcbc69fd62c6bf1c0eb4ecf
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

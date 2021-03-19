@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://vcs-git.duckcorp.org/projects/bip/bip.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=88504cfd92cf79aaf1d84d099430e19eee2b7c5aa05e36d21e1d767eb1c67dc1
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

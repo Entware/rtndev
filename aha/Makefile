@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2020-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/theZiz/aha.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=5a1b944d756e245df0131b9e49aabe12bb62cb45f28b2ebfebae63009305e5e6
 
 include $(INCLUDE_DIR)/package.mk
 

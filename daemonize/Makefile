@@ -14,9 +14,10 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/bmc/daemonize
+PKG_SOURCE_URL:=https://github.com/bmc/daemonize.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=caabb35256661efcacb27e4cf3a0c9d70eb11054382590ea804eb44e36fe061d
 
 include $(INCLUDE_DIR)/package.mk
 

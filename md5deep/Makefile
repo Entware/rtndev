@@ -11,13 +11,15 @@ PKG_NAME:=md5deep
 PKG_VERSION:=4.4
 PKG_REV:=b88a659572925e748115bdc3f4f64cacf15f2061
 PKG_RELEASE:=1
-PKG_FIXUP:=autoreconf
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/jessek/hashdeep
+PKG_SOURCE_URL:=https://github.com/jessek/hashdeep.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=ad78d42142f9a74fe8ec0c61bc78d6588a528cbb9aede9440f50b6ff477f3a7f
+
+PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 

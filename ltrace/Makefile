@@ -1,4 +1,6 @@
 #
+# Copyright (C) 2011-2021 Entware
+#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -7,13 +9,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ltrace
 PKG_VERSION:=0.7.9
+PKG_REV:=82c66409c7a93ca6ad2e4563ef030dfb7e6df4d4
 PKG_RELEASE:=2
 
-PKG_REV:=82c66409c7a93ca6ad2e4563ef030dfb7e6df4d4
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/dkogan/ltrace
+PKG_SOURCE_URL:=https://github.com/dkogan/ltrace.git
 PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=c0d12fe49de1c364ccf9cadf91c293fa6f47ae67be2b8de8c0b6780e46cb4963
 
 PKG_LICENSE:=GPL-2.0-only
 

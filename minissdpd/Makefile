@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/miniupnp/miniupnp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=fd90ce0d446748ac41f00b7cb41e44c7d40ab7845f328cdfacf52a19ec079179
 
 include $(INCLUDE_DIR)/package.mk
 

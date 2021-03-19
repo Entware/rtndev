@@ -17,6 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/ar-/incron.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=d981dc9d68271c28df0d1da84e0795cf1514b0acf6accb1859eed61cbb614e34
 
 include $(INCLUDE_DIR)/package.mk
 

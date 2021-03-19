@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2020-2021 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,6 +19,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/trapexit/mergerfs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=afbda28ade46095fb30fbaaa465446710d618422e6c05469540745a2bb67d750
 
 include $(INCLUDE_DIR)/package.mk
 

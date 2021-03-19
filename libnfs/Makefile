@@ -14,15 +14,15 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/sahlberg/libnfs
+PKG_SOURCE_URL:=https://github.com/sahlberg/libnfs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=ec8cf39b37f2a56f39c2872a2698911c486473e7de7c9dbef87ff0b4e18170e9
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
-
 
 define Package/libnfs/Default
 	SUBMENU:=Filesystem
