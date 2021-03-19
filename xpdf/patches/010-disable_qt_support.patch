@@ -1,66 +1,19 @@
 --- a/cmake-config.txt
 +++ b/cmake-config.txt
-@@ -186,63 +186,6 @@ find_package(ZLIB)
- find_package(PNG)
+@@ -209,7 +209,7 @@
  
  
+ 
 -
--
--#--- look for Qt
--find_package(Qt5Widgets QUIET)
--if (Qt5Widgets_FOUND)
--  find_package(Qt5Network)
--  find_package(Qt5PrintSupport)
--else ()
--  find_package(Qt4 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
--endif ()
--if(Qt5Widgets_FOUND)
--  message(STATUS "Qt5 found")
--  if (XPDFWIDGET_PRINTING)
--    set(QT_INCLUDES "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5PrintSupport_INCLUDE_DIRS}")
--    set(QT_DEFINITIONS "${Qt5Widgets_DEFINITIONS} ${Qt5Network_DEFINITIONS} ${Qt5PrintSupport_DEFINITIONS}")
--    set(QT_LIBRARIES Qt5::Widgets Qt5::Network Qt5::PrintSupport)
--  else ()
--    set(QT_INCLUDES "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS}")
--    set(QT_DEFINITIONS "${Qt5Widgets_DEFINITIONS} ${Qt5Network_DEFINITIONS}")
--    set(QT_LIBRARIES Qt5::Widgets Qt5::Network)
--  endif ()
--  if (XPDFWIDGET_PRINTING)
--    if (APPLE)
--      set(EXTRA_QT_LIBRARIES "-framework ApplicationServices")
--    elseif (UNIX)
--      find_package(Cups)
--      if (CUPS_FOUND)
--        set(EXTRA_QT_LIBRARIES ${CUPS_LIBRARIES})
--      else ()
--        set (XPDFWIDGET_PRINTING OFF)
--      endif ()
--    else ()
--      set(EXTRA_QT_LIBRARIES "")
--    endif ()
--  endif ()
--  # remove "-fPIE" here because we added "-fPIC" above
--  string(REPLACE "-fPIE" "" QT_CFLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
--elseif(QT4_FOUND)
--  message(STATUS "Qt4 found")
--  if (XPDFWIDGET_PRINTING)
--    if (APPLE)
--      set(EXTRA_QT_LIBRARIES "-framework ApplicationServices")
--    elseif (UNIX)
--      find_package(Cups)
--      if (CUPS_FOUND)
--        set(EXTRA_QT_LIBRARIES ${CUPS_LIBRARIES})
--      else ()
--        set (XPDFWIDGET_PRINTING OFF)
--      endif ()
--    else ()
--      set(EXTRA_QT_LIBRARIES "")
--    endif ()
--  endif ()
--else()
--  message(STATUS "No Qt library found")
--endif()
--
++if(FALSE)
+ #--- look for Qt
+ find_package(Qt5Widgets QUIET)
+ if (Qt5Widgets_FOUND)
+@@ -264,6 +264,7 @@
+ else()
+   message(STATUS "No Qt library found")
+ endif()
++endif()
+ 
  #--- look for libpaper
  find_library(PAPER_LIBRARY
-              NAMES paper libpaper
