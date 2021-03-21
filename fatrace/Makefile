@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=git://git.launchpad.net/fatrace.git
+PKG_SOURCE_URL:=https://github.com/martinpitt/fatrace.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=07ed15f62d639f5568309edc9912aefab4a20ae2a2eb828767462f300ad22024
@@ -24,6 +24,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/fatrace
 	SECTION:=utils
 	CATEGORY:=Utilities
+	DEPENDS:=@!LINUX_2_6_36
 	TITLE:=fatrace reports file access events from all running processes
 	URL:=https://piware.de/2012/02/fatrace-report-system-wide-file-access-events/
 	MAINTAINER:=Entware team, https://entware.net
