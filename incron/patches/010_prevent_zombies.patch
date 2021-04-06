@@ -1,0 +1,28 @@
+Description: Prevent zombies
+Author: Mikhail Teterin <Mikhail.Teterin@Refinery29.com> (UnitedMarsupials on github)
+Forwarded: no
+Last-Update: 2019-11-12
+Origin: https://github.com/ar-/incron/pull/42 -> https://github.com/ar-/incron/pull/42/commits/196975d26fd04176a1c877fa3c404efd8103c9c2
+Bug-Debian: https://bugs.debian.org/930526
+
+From 196975d26fd04176a1c877fa3c404efd8103c9c2 Mon Sep 17 00:00:00 2001
+From: Mikhail T <Mikhail.Teterin@Refinery29.com>
+Date: Mon, 30 Oct 2017 14:15:03 -0400
+Subject: [PATCH 2/2] Rework the zombie prevention
+
+---
+ icd-main.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/icd-main.cpp b/icd-main.cpp
+index aef4d70..1e4d07f 100644
+--- a/icd-main.cpp
++++ b/icd-main.cpp
+@@ -104,6 +104,7 @@ void on_signal(int signo)
+       g_fFinish = true;
+       break;
+     case SIGCHLD:
++      do {} while (waitpid((pid_t)-1, 0, WNOHANG) > 0); /* Prevent zombies */
+       // first empty pipe (to prevent internal buffer overflow)
+       do {} while (read(g_cldPipe[0], g_cldPipeBuf, CHILD_PIPE_BUF_LEN) > 0);
+       
