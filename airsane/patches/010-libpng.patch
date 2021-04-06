@@ -1,0 +1,11 @@
+--- a/imageformats/pngencoder.cpp
++++ b/imageformats/pngencoder.cpp
+@@ -17,7 +17,7 @@
+ */
+ 
+ #include "pngencoder.h"
+-#include <libpng/png.h>
++#include <png.h>
+ #include <stdexcept>
+ #include <vector>
+ #if __APPLE__

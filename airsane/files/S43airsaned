@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. /opt/etc/config/airsaned.conf
+
+ENABLED=yes
+PROCS=airsaned
+ARGS="--interface=${INTERFACE} --base-port=${BASE_PORT} --access-log=${ACCESS_LOG} --hotplug=${HOTPLUG} --mdns-announce=${MDNS_ANNOUNCE} --local-scanners-only=${LOCAL_SCANNERS_ONLY} --options-file=${OPTIONS_FILE} --ignore-list=${IGNORE_LIST}"
+PREARGS=""
+DESC=$PROCS
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func
