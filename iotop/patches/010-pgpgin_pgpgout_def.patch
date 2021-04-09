@@ -1,0 +1,16 @@
+--- a/iotop/vmstat.py
++++ b/iotop/vmstat.py
+@@ -26,11 +26,13 @@
+         def extract(line):
+             return int(line.split()[1]) * 1024
+ 
++        pgpgin = ''
+         for line in self.vmstat_file:
+             if line.startswith('pgpgin '):
+                 pgpgin = extract(line)
+                 break
+ 
++        pgpgout = ''
+         for line in self.vmstat_file:
+             if line.startswith('pgpgout '):
+                 pgpgout = extract(line)
