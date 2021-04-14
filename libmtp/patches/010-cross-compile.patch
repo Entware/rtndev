@@ -1,0 +1,44 @@
+Description: Fix cross build from source
+ libmtp fails to cross build from source, because it fails running the
+ built mtp-hotplug during build. Looking closer, it is needed to generate
+ files, which are installed into libmtp-common, which is Architecture:
+ all. Since cross builds are arch-only, we don't actually need to do
+ this. So all that is needed to make libmtp cross buildable is skipping
+ these calls.
+Author: Helmut Grohne <helmut@subdivi.de>
+Bug: https://bugs.debian.org/971516
+Last-Update: 2020-09-30
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -11,6 +11,7 @@
+ if USE_LINUX
+ udevrulesdir=@UDEV@/rules.d
+ hwdbdir=@UDEV@/hwdb.d
++if ENABLE_CONFIGFILES
+ udevrules_DATA=@UDEV_RULES@
+ hwdb_DATA=69-libmtp.hwdb
+ noinst_DATA=libmtp.usermap libmtp.fdi
+@@ -26,6 +27,7 @@
+ 
+ $(hwdb_DATA): util/mtp-hotplug
+ 	util/mtp-hotplug -w > $(hwdb_DATA)
++endif
+ 
+ CLEANFILES = libmtp.usermap @UDEV_RULES@ libmtp.fdi libmtp.hwdb
+ endif
+--- a/configure.ac
++++ b/configure.ac
+@@ -14,6 +14,12 @@
+ AC_PROG_LIBTOOL
+ AM_ICONV
+ 
++AC_ARG_ENABLE(configfiles,
++    [build configuration files for integrating into udev etc],
++    [ENABLE_CONFIGFILES=$enableval],
++    [ENABLE_CONFIGFILES=yes])
++AM_CONDITIONAL(ENABLE_CONFIGFILES,[test "$ENABLE_CONFIGFILES" = yes])
++
+ # Optionally set install location of udev
+ UDEV=/usr/lib/udev
+ AC_ARG_WITH(udev,
