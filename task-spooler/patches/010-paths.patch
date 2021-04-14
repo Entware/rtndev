@@ -1,0 +1,33 @@
+--- a/mail.c
++++ b/mail.c
+@@ -36,7 +36,7 @@ static int run_sendmail(const char *dest
+             close(2);
+ 	    close(p[1]);
+             dup2(p[0], 0);
+-            execl("/usr/sbin/sendmail", "sendmail", "-oi", dest, NULL);
++            execl("/opt/sbin/sendmail", "sendmail", "-oi", dest, NULL);
+             error("run sendmail");
+         case -1:
+             error("fork sendmail");
+--- a/execute.c
++++ b/execute.c
+@@ -163,7 +163,7 @@ static void run_child(int fd_send_filena
+         char *outfname_full;
+ 
+         if (tmpdir == NULL)
+-            tmpdir = "/tmp";
++            tmpdir = "/opt/tmp";
+         lname = strlen(tmpdir) + strlen(outfname) + 1 /* \0 */;
+ 
+         outfname_full = (char *)malloc(lname);
+--- a/server_start.c
++++ b/server_start.c
+@@ -51,7 +51,7 @@ void create_socket_path(char **path)
+     /* Create the path */
+     tmpdir = getenv("TMPDIR");
+     if (tmpdir == NULL)
+-        tmpdir = "/tmp";
++        tmpdir = "/opt/tmp";
+ 
+     sprintf(userid, "%u", (unsigned int) getuid());
+ 
