@@ -1,0 +1,19 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ VERSION=1.0
+ 
+-CPPFLAGS=-DVERSION=\"${VERSION}\" -D_GNU_SOURCE
++CPPFLAGS+=-DVERSION=\"${VERSION}\" -D_GNU_SOURCE
+ CFLAGS+=-Wall -Wextra -g -std=c99 -O3 -pedantic -Ideps
+ PREFIX?=/usr/local
+ MANDIR?=$(PREFIX)/share/man
+@@ -29,7 +29,7 @@
+ 	$(DEBUGGER) ./test/fzytest
+ 
+ fzy: $(OBJECTS)
+-	$(CC) $(CFLAGS) $(CCFLAGS) -o $@ $(OBJECTS) $(LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJECTS) $(LIBS)
+ 
+ %.o: %.c config.h
+ 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
