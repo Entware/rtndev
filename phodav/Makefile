@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://download.gnome.org/sources/phodav/$(PKG_VERSION)
-PKG_HASH:=skip
+PKG_HASH:=71f0a9cd70afd4dd1412a0298331dbb8ac71c0377f52117afc15eb88dc6fb910
 
 PKG_INSTALL:=1
 
