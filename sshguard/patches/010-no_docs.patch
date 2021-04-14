@@ -1,0 +1,11 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,7 +1,6 @@
+ SUBDIRS = src
+ 
+-EXTRA_DIST = doc/ examples/ CHANGELOG.rst CONTRIBUTING.rst INSTALL.rst README.rst
+-dist_man_MANS = doc/sshguard-setup.7 doc/sshguard.8
++EXTRA_DIST = examples/ CHANGELOG.rst CONTRIBUTING.rst INSTALL.rst README.rst
+ 
+ if BUILD_MAN
+ SUFFIXES=.rst
