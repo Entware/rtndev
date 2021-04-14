@@ -1,0 +1,53 @@
+--- a/lib/tgdb/gdbwire.c
++++ b/lib/tgdb/gdbwire.c
+@@ -1689,7 +1689,7 @@
+     /* The GDB/MI lexer state */
+     yyscan_t mils;
+     /* The GDB/MI push parser state */
+-    gdbwire_mi_pstate *mips;
++    gdbwire_mi_pstate *mi_ps;
+     /* The client parser callbacks */
+     struct gdbwire_mi_parser_callbacks callbacks;
+ };
+@@ -1720,8 +1720,8 @@
+     }
+ 
+     /* Create a new push parser state instance */
+-    parser->mips = gdbwire_mi_pstate_new();
+-    if (!parser->mips) {
++    parser->mi_ps = gdbwire_mi_pstate_new();
++    if (!parser->mi_ps) {
+         gdbwire_mi_lex_destroy(parser->mils);
+         gdbwire_string_destroy(parser->buffer);
+         free(parser);
+@@ -1730,7 +1730,7 @@
+ 
+     /* Ensure that the callbacks are non null */
+     if (!callbacks.gdbwire_mi_output_callback) {
+-        gdbwire_mi_pstate_delete(parser->mips);
++        gdbwire_mi_pstate_delete(parser->mi_ps);
+         gdbwire_mi_lex_destroy(parser->mils);
+         gdbwire_string_destroy(parser->buffer);
+         free(parser);
+@@ -1758,9 +1758,9 @@
+         }
+ 
+         /* Free the push parser instance */
+-        if (parser->mips) {
+-            gdbwire_mi_pstate_delete(parser->mips);
+-            parser->mips = NULL;
++        if (parser->mi_ps) {
++            gdbwire_mi_pstate_delete(parser->mi_ps);
++            parser->mi_ps = NULL;
+         }
+ 
+         free(parser);
+@@ -1811,7 +1811,7 @@
+         pattern = gdbwire_mi_lex(parser->mils);
+         if (pattern == 0)
+             break;
+-        mi_status = gdbwire_mi_push_parse(parser->mips, pattern, NULL,
++        mi_status = gdbwire_mi_push_parse(parser->mi_ps, pattern, NULL,
+             parser->mils, &output);
+     } while (mi_status == YYPUSH_MORE);
+ 
