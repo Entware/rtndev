@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jdupes
-PKG_VERSION:=1.19.1
-PKG_REV:=44767219e07418fd50273a6fa16f3528a4019461
+PKG_VERSION:=1.19.2
+PKG_REV:=18bc0417cd6ed258c0d4204c49f03afa6471937d
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,16 +17,16 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jbruchon/jdupes.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=d5d34341de02bfff316fb8a304f81a1e5849926ea14d3b9d0f885897116aaa7f
+PKG_MIRROR_HASH:=d456d9dfbaf3a1684834526602bc526b3daa36082c0d4e92d2f2c84b5260f7c9
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/jdupes
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=duplicate files finder
-  URL:=https://github.com/jbruchon/jdupes
-  MAINTAINER:=Entware team, https://entware.net
+	SECTION:=utils
+	CATEGORY:=Utilities
+	TITLE:=duplicate files finder
+	URL:=https://github.com/jbruchon/jdupes
+	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/jdupes/description
