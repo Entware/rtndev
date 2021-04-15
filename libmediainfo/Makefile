@@ -28,7 +28,6 @@ include $(INCLUDE_DIR)/package.mk
 define Package/libmediainfo
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS:=libcurl
 	TITLE:=Mediainfo support library
 	URL:=http://mediaarea.net/
 	MAINTAINER:=Entware team, https://entware.net
