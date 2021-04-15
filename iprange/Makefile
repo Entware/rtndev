@@ -4,14 +4,12 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Not updated since 2004
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=iprange
 PKG_VERSION:=1.0.4
 PKG_RELEASE:=1
-
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/firehol/iprange/releases/download/v1.0.4
@@ -22,13 +20,13 @@ include $(INCLUDE_DIR)/package.mk
 define Package/iprange
 	SECTION:=net
 	CATEGORY:=Network
-	TITLE:=iprange
+	TITLE:=manage IP ranges
 	URL:=https://github.com/firehol/iprange
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/iprange/description
- manage IP ranges
+ Manage IP ranges.
 endef
 
 define Package/iprange/install
