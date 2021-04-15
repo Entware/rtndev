@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ctags
-PKG_VERSION:=p5.9.20210314.0
-PKG_REV:=0e4c307b305d99ab9f56f7b346da52ad69457768
+PKG_VERSION:=p5.9.20210411.0
+PKG_REV:=6eda3844954e39e44e7254c1290f29bb6b5973ea
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=3dfa3e01fdaa7021b8deac3228a8c03977cd9a0a6be0885fb5ab82ba5d3d5b7b
+PKG_MIRROR_HASH:=5f9c75356d183f35a2a24da529df67a743d7749ce759e63bed0e78bd692e9de6
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -58,7 +58,7 @@ CONFIGURE_VARS += \
 define Build/Configure
 	$(call Build/Configure/Default)
 	( cd $(PKG_BUILD_DIR); \
-	$(HOSTCC) -o packcc misc/packcc/packcc.c \
+	$(HOSTCC) -o packcc misc/packcc/src/packcc.c \
 	)
 endef
 

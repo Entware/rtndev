@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -312,23 +312,23 @@
+@@ -347,23 +347,23 @@ AC_CHECK_PROGS([PYTHON],
  AC_MSG_CHECKING(directory to use for temporary files)
  if test -n "$enable_tmpdir"; then
  	tmpdir="$enable_tmpdir"
@@ -40,13 +40,12 @@
  AC_MSG_CHECKING(for case-insensitive filenames)
 --- a/source.mak
 +++ b/source.mak
-@@ -375,11 +375,4 @@
- 	       \
+@@ -389,10 +389,4 @@ READTAGS_HEADS = \
  	       $(NULL)
  READTAGS_OBJS  = $(READTAGS_SRCS:.c=.$(OBJEXT))
--
+ 
 -PACKCC_SRCS = \
--	misc/packcc/packcc.c \
+-	misc/packcc/src/packcc.c \
 -	\
 -	$(NULL)
 -
