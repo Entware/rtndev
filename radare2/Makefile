@@ -25,7 +25,7 @@ include ../../packages/devel/meson/meson.mk
 define Package/radare2
 	SECTION:=devel
 	CATEGORY:=Development
-	DEPENDS:=+libuv
+	DEPENDS:=@!TARGET_armv7_2_6 +libuv
 	TITLE:=reverse engineering framework
 	URL:=https://www.radare.org/
 	MAINTAINER:=Entware team, https://entware.net
