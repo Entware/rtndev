@@ -1,12 +1,11 @@
 --- a/makefile
 +++ b/makefile
-@@ -3,9 +3,6 @@
+@@ -3,8 +3,6 @@
  #--------------------------------
- OBJ=.
+ OBJ=obj
  SRC=.
--CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
 -CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
 -LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
  
- all: jhead
+ all: objdir jhead
  

@@ -8,12 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jhead
-PKG_VERSION:=3.04
+PKG_VERSION:=3.06.0.1
+PKG_REV:=78057ab115e7fe68ba18869f97240cba58b9e996
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.sentex.net/%7Emwandel/jhead
-PKG_HASH:=ef89bbcf4f6c25ed88088cf242a47a6aedfff4f08cc7dc205bf3e2c0f10a03c9
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/Matthias-Wandel/jhead.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=b9f9d91f7e726a148b11f69bffe5f399401c9e59aa2bb07109eb8682433c89fb
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -26,7 +30,7 @@ define Package/jhead
 endef
 
 define Package/jhead/description
- Exif Jpeg header manipulation tool
+ Exif Jpeg header manipulation tool.
 endef
 
 define Package/jhead/install
