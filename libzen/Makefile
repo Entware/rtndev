@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libzen
-PKG_VERSION:=0.4.38
+PKG_VERSION:=0.4.39
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://mediaarea.net/download/source/libzen/$(PKG_VERSION)
-PKG_HASH:=594e07bb4a0472cd9da258b3c4e050e9a37a39cccd85e3d8b5bf597d027b7eda
+PKG_HASH:=bd2772ab1ae4e375cdbbbdd114ad8471ebe67bf78c76e3812d66c7d462ed8ae7
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
