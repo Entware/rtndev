@@ -35,7 +35,7 @@ define Package/libmega
 	$(call Package/meganz-sdk/Default)
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS:=+libcares +libcryptoxx +libcurl +libfuse +libmediainfo \
+	DEPENDS:=+libcares +libcryptopp +libcurl +libfuse +libmediainfo \
 		+libncursesw +libreadline +libsodium +libsqlite3 +libuv
 	TITLE+= (library)
 endef
@@ -60,6 +60,7 @@ endef
 CONFIGURE_ARGS += \
 	--disable-doxygen-doc \
 	--without-freeimage \
+	 --with-cryptopp=$(STAGING_DIR)/opt \
 	--with-libuv=$(STAGING_DIR)/opt \
 	--with-ffmpeg=$(STAGING_DIR)/opt
 
