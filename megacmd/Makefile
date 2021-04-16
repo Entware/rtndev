@@ -4,19 +4,20 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# Should be linked against proper version of meganz-sdk
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=megacmd
-PKG_VERSION:=1.4.0
-PKG_REV:=4fc0787c44d1894a476355c147ad8c207333fe94
+PKG_VERSION:=1.4.1
+PKG_REV:=28f96da93904c49cd08d4174fa5f3ded881eee85
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/meganz/MEGAcmd.git
 PKG_SOURCE_PROTO:=git
-PKG_MIRROR_HASH:=84f94ba0c6eaf4e102c7508d44acb3f383fd55a93c964f0113ee2e9a24151cd7
+PKG_MIRROR_HASH:=6f87d984c4a3649406b0ca2abcbb45efd9748ada13ee8704c9b3a69c11819b08
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
