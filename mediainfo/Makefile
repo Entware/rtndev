@@ -9,26 +9,26 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
 PKG_VERSION:=21.03
+PKG_REV:=761cbe2fbd845784c0ec7136b2b3a2c59e98dbe6
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://mediaarea.net/download/source/mediainfo/$(PKG_VERSION)
-PKG_HASH:=e5d1a62766f674b5eb224cea40283973f4d2cda9cf8a51a39ad364ea9d95e212
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/MediaArea/MediaInfo.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=94dfaef9e36e6bf9206abc9749fc1dc497a5ace724d242bad2cd085becb871da
 
 PKG_FIXUP:=autoreconf
-
-PKG_BUILD_DEPENDS:=libmediainfo
-
-PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/mediainfo
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
+	DEPENDS:=+libmediainfo
 	TITLE:=Mediainfo
 	URL:=http://mediaarea.net/
-	DEPENDS:=+zlib +libstdcpp +libcurl
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
