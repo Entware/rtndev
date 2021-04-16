@@ -4,13 +4,13 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# megacmd must be linked against proper version
+# megacmd must be linked against proper sdk version
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meganz-sdk
-PKG_VERSION:=3.7.3c
-PKG_REV:=2337aca38daaca6deedd04d8ea400293503f00ff
+PKG_VERSION:=3.7.3h
+PKG_REV:=0e79b2739f695d08efed5a61bbf44362e127c30b
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -18,7 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/meganz/sdk.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=09e725f4b5726b62a96b0dc7aedfb03f470dafcad7ecfda9781c0bc1d8845ce4
+PKG_MIRROR_HASH:=8786578776f354c43d38bb9d125642b52fa671bf73a180240ad5720cbe739e56
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -35,8 +35,8 @@ define Package/libmega
 	$(call Package/meganz-sdk/Default)
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS:=+libcares +libcryptoxx +libcurl +libfuse +libreadline \
-		+libncursesw +libsodium +libsqlite3 +libuv
+	DEPENDS:=+libcares +libcryptoxx +libcurl +libfuse +libmediainfo \
+		+libncursesw +libreadline +libsodium +libsqlite3 +libuv
 	TITLE+= (library)
 endef
 
