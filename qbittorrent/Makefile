@@ -6,6 +6,10 @@
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
 # This is the last release which can use libtorrent 1.1.x
+# 4.3.4.1 raises following compilation error:
+# base/bittorrent/session.cpp: In member function 'void BitTorrent::Session::loadLTSettings(libtorrent::settings_pack&)':
+# base/bittorrent/session.cpp:1401:46: error: 'allow_idna' is not a member of 'libtorrent::settings_pack'
+
 
 include $(TOPDIR)/rules.mk
 
