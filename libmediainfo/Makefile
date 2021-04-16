@@ -9,48 +9,54 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmediainfo
 PKG_VERSION:=21.03
+PKG_REV:=d5fb067e1539aa7a74c491e8262c81214f9c8bcb
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://mediaarea.net/download/source/libmediainfo/$(PKG_VERSION)
-PKG_HASH:=62b15b73d169cd111d6e29a07abf46b7ea2ba7f734a0423f6494b9cd9e2698c9
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/MediaArea/MediaInfoLib.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=b19acafbc2090282e50246c55d95139e4c0a63ff8c0ee50f11a587b4174e154c
 
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
-
-PKG_BUILD_DEPENDS:=libzen
-
-PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/libmediainfo
 	SECTION:=libs
 	CATEGORY:=Libraries
+	DEPENDS:=+libzen +zlib
 	TITLE:=Mediainfo support library
 	URL:=http://mediaarea.net/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
 define Package/libmediainfo/description
- libmediainfo - used by mediainfo.
+ LibediaInfo is a convenient unified display of the most relevant technical and tag data for
+ video and audio files.
 endef
 
 CONFIGURE_PATH:=Project/GNU/Library
 
-CONFIGURE_ARGS += \
-	--enable-static \
-	--disable-shared \
-	--with-libcurl=$(STAGING_DIR)/opt
+#CONFIGURE_ARGS += \
+#	--with-libcurl=$(STAGING_DIR)/opt
 
 MAKE_PATH:=$(CONFIGURE_PATH)
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/opt/include $(1)/opt/lib
+	$(INSTALL_DIR) $(1)/opt/include $(1)/opt/lib/pkgconfig
 	$(CP) $(PKG_INSTALL_DIR)/opt/include/MediaInfo $(1)/opt/include
 	$(CP) $(PKG_INSTALL_DIR)/opt/include/MediaInfoDLL $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libmediainfo.a $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libmediainfo.so* $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libmediainfo.pc $(1)/opt/lib/pkgconfig
+endef
+
+define Package/libmediainfo/install
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libmediainfo.so* $(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,libmediainfo))
