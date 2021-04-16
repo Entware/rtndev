@@ -26,7 +26,7 @@ MAKE_PATH:=$(PKG_NAME)
 define Package/minissdpd
 	SECTION:=net
 	CATEGORY:=Network
-	 DEPENDS:=+libnfnetlink
+	DEPENDS:=+libnfnetlink
 	TITLE:=SSDP daemon
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
