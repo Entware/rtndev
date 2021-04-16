@@ -1,6 +1,6 @@
 --- a/plugin_lua.cpp
 +++ b/plugin_lua.cpp
-@@ -248,7 +248,7 @@
+@@ -248,7 +248,7 @@ std::string luas::translate_url(const st
      {
          reglibs(st);
  

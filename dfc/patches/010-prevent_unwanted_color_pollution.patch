@@ -8,8 +8,6 @@ Subject: [PATCH] text header: prevent unwanted color pollution of the next
  src/export/text.c | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/src/export/text.c b/src/export/text.c
-index 37a87d7..2c33321 100644
 --- a/src/export/text.c
 +++ b/src/export/text.c
 @@ -132,9 +132,10 @@ text_disp_header(void)

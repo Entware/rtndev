@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -46,25 +46,6 @@
+@@ -46,25 +46,6 @@ project(ArpON C)
  set(AUTHOR "Andrea Di Pasquale <spikey.it@gmail.com>" INTERNAL "Author")
  set(VERSION "3.0-ng")
  
@@ -26,7 +26,7 @@
  include_directories(
      ${PROJECT_BINARY_DIR}
      ${PROJECT_SOURCE_DIR}/src
-@@ -93,7 +74,7 @@
+@@ -93,7 +74,7 @@ else(cmake_build_type_tolower STREQUAL "
      message(STATUS "Build type: Release")
  
      set(CMAKE_BUILD_TYPE "Release")

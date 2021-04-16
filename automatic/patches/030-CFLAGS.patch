@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -14,20 +14,12 @@
+@@ -14,20 +14,12 @@ AC_PROG_CC
  AC_PROG_CXX
  
  PKG_PROG_PKG_CONFIG()

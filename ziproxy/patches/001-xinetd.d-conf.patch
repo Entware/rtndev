@@ -1,6 +1,6 @@
 --- a/etc/xinetd.d/ziproxy
 +++ b/etc/xinetd.d/ziproxy
-@@ -4,8 +4,8 @@
+@@ -4,8 +4,8 @@ service ziproxy
   	socket_type		= stream
   	wait			= no
   	user			= root

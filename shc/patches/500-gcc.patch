@@ -1,6 +1,6 @@
 --- a/src/shc.c
-+++ b/scr/shc.c
-@@ -93,7 +93,7 @@
++++ b/src/shc.c
+@@ -93,7 +93,7 @@ static const char * help[] = {
  "",
  "    Environment variables used:",
  "    Name    Default  Usage",
@@ -9,7 +9,7 @@
  "    CFLAGS  <none>   C compiler flags",
  "    LDFLAGS <none>   Linker flags",
  "",
-@@ -375,7 +375,7 @@
+@@ -375,7 +375,7 @@ static const char * RTC[] = {
  "    char cmd[4096];",
  "",
  "	cc = getenv(\"CC\");",
@@ -18,7 +18,7 @@
  "",
  "	sprintf(cmd, \"%s %s -o %s %s\", cc, \"-Wall -fpic -shared\", \"/tmp/shc_x.so\", \"/tmp/shc_x.c -ldl\");",
  "	if (system(cmd)) {remove(\"/tmp/shc_x.c\"); return -1;}",
-@@ -1291,7 +1291,7 @@
+@@ -1291,7 +1291,7 @@ int make(void)
  
  	cc = getenv("CC");
  	if (!cc)

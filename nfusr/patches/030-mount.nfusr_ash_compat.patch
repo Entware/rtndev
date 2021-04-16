@@ -6,7 +6,7 @@
  
  NFUSR="@bindir@/nfusr"
  
-@@ -12,13 +12,16 @@
+@@ -12,13 +12,16 @@ function usage() {
  # Parse the 'host' command line argument, return a set of NFS hosts in $HOSTS global.
  function get_hosts () {
      local HOST=$1

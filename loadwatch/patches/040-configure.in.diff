@@ -1,6 +1,6 @@
---- loadwatch-1.0+1.1alpha1.orig/configure.in
-+++ loadwatch-1.0+1.1alpha1/configure.in
-@@ -8,7 +8,7 @@
+--- a/configure.in
++++ b/configure.in
+@@ -8,7 +8,7 @@ AC_PROG_INSTALL
  
  dnl Checks for libraries.
  AC_CHECK_LIB(elf, elf_begin, [LIBS="$LIBS -lelf"])

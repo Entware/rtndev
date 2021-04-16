@@ -1,15 +1,15 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -3,7 +3,7 @@
+@@ -3,7 +3,7 @@ include config.mk
  PROGNAME = tetris$(EXE)
  
  # Uncomment to change the default.  (Only used in Unix-like systems.)
 -#HISCORE_FILENAME = /var/games/vitetris-hiscores
 +HISCORE_FILENAME = /opt/var/vitetris-hiscores
  
- INSTALL = install -oroot -groot
+ INSTALL = install
  
-@@ -17,8 +17,6 @@
+@@ -17,8 +17,6 @@ $(PROGNAME):
  build: src/src-conf.mk
  	cd src; $(MAKE) tetris
  	mv -f src/tetris$(EXE) $(PROGNAME)

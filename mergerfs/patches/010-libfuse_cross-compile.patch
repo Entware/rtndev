@@ -1,6 +1,6 @@
 --- a/libfuse/Makefile
 +++ b/libfuse/Makefile
-@@ -78,22 +78,22 @@
+@@ -78,22 +78,22 @@ objects: build/config.h
  	$(MAKE) $(OBJS)
  
  build/libfuse.a: objects
@@ -27,7 +27,7 @@
  
  clean:
  	rm -rf build
-@@ -101,8 +101,8 @@
+@@ -101,8 +101,8 @@ clean:
  distclean: clean
  
  strip:

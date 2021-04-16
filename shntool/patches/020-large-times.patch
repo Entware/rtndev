@@ -6,8 +6,7 @@ Description: fix large files processing.
 
 --- a/src/core_mode.c
 +++ b/src/core_mode.c
-@@ -309,10 +309,10 @@
- 
+@@ -310,8 +310,8 @@ static wlong is_m_ss(unsigned char *buf,
    if (sec >= 60)
      st_error("invalid value for seconds: [%d]",sec);
  
@@ -18,9 +17,7 @@ Description: fix large files processing.
  
    return bytes;
  }
- 
-@@ -357,11 +357,11 @@
- 
+@@ -358,9 +358,9 @@ static wlong is_m_ss_ff(unsigned char *b
    if (frames >= 75)
      st_error("invalid value for frames: [%d]",frames);
  
@@ -33,9 +30,7 @@ Description: fix large files processing.
  
    return bytes;
  }
- 
-@@ -402,10 +402,10 @@
-     st_error("invalid value for seconds: [%d]",sec);
+@@ -403,8 +403,8 @@ static wlong is_m_ss_nnn(unsigned char *
  
    nearest_byte = (int)((((double)ms * (double)info->rate) / 1000.0) + 0.5);
  
@@ -46,4 +41,3 @@ Description: fix large files processing.
  
    if (PROB_NOT_CD(info)) {
      bytes += nearest_byte;
-   }

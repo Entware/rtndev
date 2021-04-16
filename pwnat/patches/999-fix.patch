@@ -1,6 +1,6 @@
 --- a/socket.c
 +++ b/socket.c
-@@ -152,7 +152,7 @@
+@@ -152,7 +152,7 @@ int sock_connect(socket_t *sock, int is_
  	sa.sin_addr.s_addr = htonl(INADDR_ANY);
  
      setsockopt(sock->fd, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(int));

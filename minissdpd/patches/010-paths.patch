@@ -1,6 +1,6 @@
 --- a/minissdpd/minissdpd.c
 +++ b/minissdpd/minissdpd.c
-@@ -1246,9 +1246,9 @@
+@@ -1246,9 +1246,9 @@ int main(int argc, char * * argv)
  	int max_fd;
  	struct lan_addr_s * lan_addr;
  	int i;
@@ -14,7 +14,7 @@
  #ifdef ENABLE_IPV6
 --- a/minissdpd/showminissdpdnotif.c
 +++ b/minissdpd/showminissdpdnotif.c
-@@ -31,7 +31,7 @@
+@@ -31,7 +31,7 @@ int main(int argc, char * * argv)
  	int i;
  	int s;
  	struct sockaddr_un addr;
@@ -25,7 +25,7 @@
  	const char command5[] = { 0x05, 0x00 };
 --- a/minissdpd/testminissdpd.c
 +++ b/minissdpd/testminissdpd.c
-@@ -74,7 +74,7 @@
+@@ -74,7 +74,7 @@ main(int argc, char * * argv)
  	unsigned char buf[4096];
  	ssize_t n;
  	int total = 0;

@@ -10,8 +10,6 @@ Last-Update: 2012-12-13
  src/block.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/src/block.c b/src/block.c
-index db1d16b..1500503 100644
 --- a/src/block.c
 +++ b/src/block.c
 @@ -77,6 +77,7 @@ struct ext2_extent_handle {

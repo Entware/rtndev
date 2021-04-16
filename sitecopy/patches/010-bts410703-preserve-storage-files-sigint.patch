@@ -2,8 +2,8 @@ From: Andreas Henriksson <andreas@fatal.se>
 Subject: Preserve storage files it SIGINT (Ctrl+C) is sent
 
 
---- sitecopy-0.16.3/src/sitestore.c	2006-02-04 11:18:08.000000000 +0100
-+++ sitecopy-0.16.3-pending/src/sitestore.c	2008-06-08 21:56:23.000000000 +0200
+--- a/src/sitestore.c
++++ b/src/sitestore.c
 @@ -60,17 +60,42 @@
  /* Opens the storage file for writing */
  FILE *site_open_storage_file(struct site *site) 

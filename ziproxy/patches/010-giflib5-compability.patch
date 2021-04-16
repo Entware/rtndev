@@ -11,7 +11,7 @@
  #define SRC_IMAGE_C
  #include "image.h"
  #include "cfgfile.h"
-@@ -904,10 +908,13 @@
+@@ -904,10 +908,13 @@ int gif2bitmap(char *inbuf, int insize,
  	desc.buf=inbuf;
  	desc.size=insize;
  	desc.x.pos=0;
@@ -27,7 +27,7 @@
  	bmp = new_raw_bitmap();
  	*out = bmp;
  	bmp->width=GifFile->SWidth;
-@@ -1083,7 +1090,11 @@
+@@ -1083,7 +1090,11 @@ int gif2bitmap(char *inbuf, int insize,
  	}
  	bmp->pal_bpp = bmp->bpp;
  	

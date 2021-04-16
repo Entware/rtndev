@@ -1,6 +1,6 @@
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -40,20 +40,17 @@
+@@ -40,20 +40,17 @@ jailkit: all
  all:
  	@cd src/ && $(MAKE) all
  	@cd py/ && $(MAKE) all
@@ -21,7 +21,7 @@
  
  install:
  	${INSTALL} -d -m 755 ${DESTDIR}${iniprefix}
-@@ -66,22 +63,13 @@
+@@ -66,22 +63,13 @@ install:
  	done
  	@cd src/ && $(MAKE) install
  	@cd py/ && $(MAKE) install

@@ -1,6 +1,6 @@
---- loadwatch-1.0+1.1alpha1.orig/Makefile.in
-+++ loadwatch-1.0+1.1alpha1/Makefile.in
-@@ -6,23 +6,26 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -6,23 +6,26 @@ bindir = @bindir@
  INSTALL = @INSTALL@
  INSTALL_PROGRAM = @INSTALL_PROGRAM@
  MKINSTALLDIRS= @srcdir@/mkinstalldirs

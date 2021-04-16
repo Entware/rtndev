@@ -1,6 +1,6 @@
 --- a/libjbig/Makefile
 +++ b/libjbig/Makefile
-@@ -6,7 +6,7 @@
+@@ -6,7 +6,7 @@ CC = gcc
  # Options for the compiler: A high optimization level is suggested
  CFLAGS = -g -O -W -Wall -ansi -pedantic # --coverage
  
@@ -9,7 +9,7 @@
  
  tstcodec: tstcodec.o jbig.o jbig_ar.o
  	$(CC) $(CFLAGS) -o tstcodec tstcodec.o jbig.o jbig_ar.o
-@@ -16,13 +16,26 @@
+@@ -16,13 +16,26 @@ tstcodec85: tstcodec85.o jbig85.o jbig_a
  
  libjbig.a: jbig.o jbig_ar.o
  	rm -f libjbig.a

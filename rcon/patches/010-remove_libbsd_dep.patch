@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -32,7 +32,8 @@
+@@ -32,7 +32,8 @@ ADD_DEFINITIONS("-Wall -Werror")
  
  CHECK_FUNCTION_EXISTS(open_memstream HAVE_OPEN_MEMSTREAM)
  CHECK_FUNCTION_EXISTS(fmemopen HAVE_FMEMOPEN)
@@ -10,7 +10,7 @@
  CHECK_FUNCTION_EXISTS(pledge HAVE_PLEDGE)
  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/sysconfig.h.in
    ${CMAKE_CURRENT_BINARY_DIR}/sysconfig.h)
-@@ -74,5 +74,3 @@
+@@ -73,5 +74,3 @@ IF(INSTALL_BASH_COMPLETION)
      RENAME "rcon")
  ENDIF()
  
@@ -18,7 +18,7 @@
 -ADD_SUBDIRECTORY(tests)
 --- a/srcrcon.c
 +++ b/srcrcon.c
-@@ -95,7 +95,7 @@
+@@ -95,7 +95,7 @@ static void src_rcon_message_update_size
  
  static void src_rcon_message_random_id(src_rcon_message_t *m)
  {
@@ -29,7 +29,7 @@
  static rcon_error_t
 --- a/main.c
 +++ b/main.c
-@@ -460,6 +460,7 @@
+@@ -480,6 +480,7 @@ int main(int ac, char **av)
      }
  #endif
  

@@ -1,6 +1,6 @@
 --- a/shellinabox/launcher.c
 +++ b/shellinabox/launcher.c
-@@ -1685,6 +1685,8 @@
+@@ -1685,6 +1685,8 @@ static void childProcess(struct Service
             (void *)0, environment);
      execle("/usr/bin/login", "login", "-p", "-h", remoteHost,
             (void *)0, environment);

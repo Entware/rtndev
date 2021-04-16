@@ -8,4 +8,4 @@
 +    FILE=/opt/etc/fake-hwclock.data
  fi
  
- COMMAND=$1
+ # Midnight on the day of this release, used as a sanity check when

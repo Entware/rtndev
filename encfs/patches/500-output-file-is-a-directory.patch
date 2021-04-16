@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -215,7 +215,7 @@
+@@ -320,7 +320,7 @@ set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL
  
  add_executable (encfs-bin encfs/main.cpp)
  target_link_libraries (encfs-bin encfs)
@@ -8,4 +8,4 @@
 +set_target_properties (encfs-bin PROPERTIES OUTPUT_NAME "encfs.bin")
  install (TARGETS encfs-bin DESTINATION bin)
  
- add_executable (encfsctl encfs/encfsctl.cpp)
+ if(LINT AND CLANG_TIDY_EXE)

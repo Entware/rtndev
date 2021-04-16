@@ -8,7 +8,7 @@
  
  ACLOCAL_AMFLAGS = -I m4
  if GCC
-@@ -72,15 +72,6 @@
+@@ -72,15 +72,6 @@ EXTRA_DIST += $(usage_texts) usage2c.awk
  $(generated_usage_sources) : usage2c.awk
  
  

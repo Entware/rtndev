@@ -1,6 +1,6 @@
 --- a/src/gnuchess.ini
 +++ b/src/gnuchess.ini
-@@ -6,16 +6,16 @@
+@@ -6,16 +6,16 @@ LogFile = adapter.log
  Resign = true
  ResignMoves = 1 # 1 is safe for Fruit
  

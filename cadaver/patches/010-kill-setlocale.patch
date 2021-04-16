@@ -1,9 +1,9 @@
 --- a/configure
 +++ b/configure
-@@ -28839,7 +28839,7 @@
-
-
-
+@@ -28839,7 +28839,7 @@ done
+ 
+ 
+ 
 -for ac_func in asprintf fwprintf putenv setenv setlocale snprintf wcslen
 +for ac_func in asprintf fwprintf putenv setenv snprintf wcslen
  do

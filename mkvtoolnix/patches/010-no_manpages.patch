@@ -1,6 +1,6 @@
 --- a/Rakefile
 +++ b/Rakefile
-@@ -263,23 +263,6 @@ def define_default_task
+@@ -272,23 +272,6 @@ def define_default_task
      targets << "BROWSE" if !c(:EBROWSE).empty?
    end
  
@@ -26,7 +26,7 @@
    task :default => targets do
 --- a/configure.ac
 +++ b/configure.ac
-@@ -46,7 +46,6 @@
+@@ -44,7 +44,6 @@ m4_include(ac/boost.m4)
  m4_include(ac/gtest.m4)
  m4_include(ac/benchmark.m4)
  m4_include(ac/pandoc.m4)

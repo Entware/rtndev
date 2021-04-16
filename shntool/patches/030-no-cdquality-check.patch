@@ -6,8 +6,7 @@ Description: disable CD-quality check, needed to process 24bit 96kHz files.
 
 --- a/src/core_mode.c
 +++ b/src/core_mode.c
-@@ -344,10 +344,10 @@
- 
+@@ -345,8 +345,8 @@ static wlong is_m_ss_ff(unsigned char *b
    *colon = 0;
    *dot = 0;
  
@@ -18,4 +17,3 @@ Description: disable CD-quality check, needed to process 24bit 96kHz files.
  
    min = atoi((const char *)buf);
    sec = atoi((const char *)(colon+1));
-   frames = atoi((const char *)(dot+1));

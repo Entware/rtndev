@@ -1,6 +1,6 @@
 --- a/src/chk.c
 +++ b/src/chk.c
-@@ -30,15 +30,9 @@
+@@ -30,15 +30,9 @@ int chk_file(char *dir, char *filename);
  char *get_data_dir(int verbose)
  {
    if (verbose) puts("Looking for data directory:");

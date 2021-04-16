@@ -1,6 +1,6 @@
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -380,7 +380,7 @@
+@@ -380,7 +380,7 @@ dist: dist-clean doc
  	cp $(DIST_ROOT)/$(PKG_DIR).tar.gz $(top_builddir)
  
  $(SCRIPTS):

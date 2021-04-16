@@ -1,6 +1,6 @@
 --- a/src/xml/printers/Makefile.am
 +++ b/src/xml/printers/Makefile.am
-@@ -34,11 +34,6 @@
+@@ -34,11 +34,6 @@ pkgxmldata_DATA =				\
  	raw.xml
  
  AM_TESTS_ENVIRONMENT=STP_MODULE_PATH=$(top_builddir)/src/main/.libs:$(top_builddir)/src/main STP_DATA_PATH=$(top_srcdir)/src/xml

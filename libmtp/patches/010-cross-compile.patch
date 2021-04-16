@@ -11,7 +11,7 @@ Last-Update: 2020-09-30
 
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -11,6 +11,7 @@
+@@ -11,6 +11,7 @@ EXTRA_DIST=libmtp.pc libmtp.sh COPYING R
  if USE_LINUX
  udevrulesdir=@UDEV@/rules.d
  hwdbdir=@UDEV@/hwdb.d
@@ -19,7 +19,7 @@ Last-Update: 2020-09-30
  udevrules_DATA=@UDEV_RULES@
  hwdb_DATA=69-libmtp.hwdb
  noinst_DATA=libmtp.usermap libmtp.fdi
-@@ -26,6 +27,7 @@
+@@ -26,6 +27,7 @@ libmtp.fdi: util/mtp-hotplug
  
  $(hwdb_DATA): util/mtp-hotplug
  	util/mtp-hotplug -w > $(hwdb_DATA)
@@ -29,7 +29,7 @@ Last-Update: 2020-09-30
  endif
 --- a/configure.ac
 +++ b/configure.ac
-@@ -14,6 +14,12 @@
+@@ -14,6 +14,12 @@ AC_LIBTOOL_WIN32_DLL
  AC_PROG_LIBTOOL
  AM_ICONV
  

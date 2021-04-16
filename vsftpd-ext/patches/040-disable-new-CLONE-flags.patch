@@ -1,6 +1,6 @@
 --- a/sysdeputil.c
 +++ b/sysdeputil.c
-@@ -1270,7 +1273,7 @@
+@@ -1270,7 +1270,7 @@ vsf_sysutil_fork_isolate_all_failok()
    if (cloneflags_work)
    {
      int ret = syscall(__NR_clone,
@@ -9,7 +9,7 @@
                        NULL);
      if (ret != -1 || (errno != EINVAL && errno != EPERM))
      {
-@@ -1293,7 +1296,7 @@
+@@ -1293,7 +1293,7 @@ vsf_sysutil_fork_isolate_failok()
    static int cloneflags_work = 1;
    if (cloneflags_work)
    {

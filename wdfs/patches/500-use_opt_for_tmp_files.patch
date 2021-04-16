@@ -1,6 +1,6 @@
 --- a/src/wdfs-main.c
 +++ b/src/wdfs-main.c
-@@ -358,7 +358,7 @@
+@@ -358,7 +358,7 @@ static char* get_remotepath(const char *
  /* returns a filehandle for read and write on success or -1 on error */
  static int get_filehandle()
  {

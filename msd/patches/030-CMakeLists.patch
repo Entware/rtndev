@@ -1,6 +1,6 @@
---- ./CMakeLists.txt.orig	2021-03-18 21:06:16.920140647 +0300
-+++ ./CMakeLists.txt	2021-03-18 21:17:29.156953344 +0300
-@@ -26,7 +26,7 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,7 +26,7 @@ option(ENABLE_FULL_DEBUG	"Build with all
  
  # Now CMAKE_INSTALL_PREFIX is a base prefix for everything.
  if (NOT CONFDIR)
@@ -9,7 +9,7 @@
  endif()
  
  if (NOT RUNDIR)
-@@ -234,9 +234,9 @@
+@@ -234,9 +234,9 @@ add_custom_target(dist ${CMAKE_CURRENT_S
  ##################### INSTALLATION #####################################
  
  # Configs

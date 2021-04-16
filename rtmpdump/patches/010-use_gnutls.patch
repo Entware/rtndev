@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -8,9 +8,9 @@
+@@ -8,9 +8,9 @@ LD=$(CROSS_COMPILE)ld
  SYS=posix
  #SYS=mingw
  
@@ -14,7 +14,7 @@
  LIB_OPENSSL=-lssl -lcrypto $(LIBZ)
 --- a/librtmp/Makefile
 +++ b/librtmp/Makefile
-@@ -16,8 +16,8 @@
+@@ -16,8 +16,8 @@ LD=$(CROSS_COMPILE)ld
  AR=$(CROSS_COMPILE)ar
  
  SYS=posix

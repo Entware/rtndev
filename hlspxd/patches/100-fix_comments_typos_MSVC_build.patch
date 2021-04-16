@@ -13,8 +13,6 @@ Signed-off-by: Andrei Lebedev <lebdron@gmail.com>
  hlspxd/src/videoviewer.h   | 40 ++++++++++-----------
  6 files changed, 88 insertions(+), 84 deletions(-)
 
-diff --git a/platform.cpp b/platform.cpp
-index 2a9ac4d..e4d0854 100644
 --- a/platform.cpp
 +++ b/platform.cpp
 @@ -34,7 +34,7 @@ int HideSignals()
@@ -26,8 +24,6 @@ index 2a9ac4d..e4d0854 100644
  {
  	_message = NULL;
  	int size = 0;
-diff --git a/platform.h b/platform.h
-index c94303b..55f4f60 100644
 --- a/platform.h
 +++ b/platform.h
 @@ -29,7 +29,7 @@ class Exception : public std::exception
@@ -39,22 +35,20 @@ index c94303b..55f4f60 100644
  	virtual ~Exception() throw() { delete[] _message; }
  	virtual const char *what() const throw() { return _message; }
  };
-diff --git a/utils.cpp b/utils.cpp
-index f4b4042..8d3b4cd 100644
 --- a/utils.cpp
 +++ b/utils.cpp
-@@ -16,6 +16,10 @@ void LogWriter::WriteBuf(const char *message)
+@@ -16,6 +16,10 @@ void LogWriter::WriteBuf(const char *mes
  	struct tm *loctim = localtime(&ltime);
  
  	FILE *logfil = fopen(LogFileName.c_str(), "a+t");
 +	if (!logfil) {
-+		std::cerr << "fopen failed, filename " << LogFileName << ", errno " << errno << std::endl;
++		std::cerr << "fopen() failed, filename " << LogFileName << ": " << strerror(errno) << std::endl;
 +		std::terminate();
 +	}
  	fprintf(logfil, "%02d-%02d-%02dT%02d:%02d:%02d (%d) - %s\n",
  		loctim->tm_mday, loctim->tm_mon + 1, loctim->tm_year % 100,
  		loctim->tm_hour, loctim->tm_min, loctim->tm_sec,
-@@ -228,11 +232,11 @@ HttpRequest::HttpRequest(istream& stream)
+@@ -228,11 +232,11 @@ HttpRequest::HttpRequest(istream& stream
  	HttpMessage::init(stream);
  }
  
@@ -70,7 +64,7 @@ index f4b4042..8d3b4cd 100644
  //_status(status),
  //_reason(reason)
  //{
-@@ -250,17 +254,17 @@ std::regex HttpResponce::respRx("(http|HTTP)/[[:digit:].]+[[:space:]]+([[:digit:
+@@ -250,17 +254,17 @@ std::regex HttpResponce::respRx("(http|H
  //	//operator[]("Connection") = "close";
  //}
  
@@ -92,7 +86,7 @@ index f4b4042..8d3b4cd 100644
  
  	_status = (HttpStatus)atoi(res[2].str().c_str());
  	_reason = res[3].str();
-@@ -268,7 +272,7 @@ HttpResponce::HttpResponce(socketstream &stream)
+@@ -268,7 +272,7 @@ HttpResponce::HttpResponce(socketstream
  	HttpMessage::init(stream);
  }
  
@@ -128,7 +122,7 @@ index f4b4042..8d3b4cd 100644
  			&ClientSocket,          // argument to thread function 
  			0,                      // use default creation flags 
  			NULL);   // returns the thread identifier 
-@@ -452,9 +456,9 @@ void HttpClient::connect2Host(Uri &reqUri)
+@@ -452,9 +456,9 @@ void HttpClient::connect2Host(Uri &reqUr
  	_sockstream.open(reqUri);
  }
  
@@ -140,7 +134,7 @@ index f4b4042..8d3b4cd 100644
  
  	for (int att500 = 0; att500 < 5; att500++)
  	{
-@@ -464,13 +468,13 @@ HttpResponce HttpClient::getResponce(Uri &reqUri)
+@@ -464,13 +468,13 @@ HttpResponce HttpClient::getResponce(Uri
  			<< "\nUser-agent: hlspxd\nAccept: */*\nConnection: close\n\n";
  		_sockstream.flush();
  
@@ -159,11 +153,9 @@ index f4b4042..8d3b4cd 100644
  			)
  		{
  			const string *Location = contResp.getHeaderRecord("Location");
-diff --git a/utils.h b/utils.h
-index 63db1d0..3391311 100644
 --- a/utils.h
 +++ b/utils.h
-@@ -16,7 +16,7 @@ static inline void rtrim(std::string &s) {
+@@ -16,7 +16,7 @@ static inline void rtrim(std::string &s)
  		std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
  }
  
@@ -172,7 +164,7 @@ index 63db1d0..3391311 100644
  size_t copyToString(std::istream &src, std::string& str);
  
  class LogWriter
-@@ -129,7 +129,7 @@ class Uri
+@@ -129,7 +129,7 @@ public:
  };
  
  
@@ -181,7 +173,7 @@ index 63db1d0..3391311 100644
  class socketbuf
  	: public std::streambuf
  {
-@@ -320,7 +320,7 @@ class HttpRequest : public HttpMessage
+@@ -320,7 +320,7 @@ public:
  	inline std::string &getPath(){ return _path; }
  };
  
@@ -190,7 +182,7 @@ index 63db1d0..3391311 100644
  {
  	//static const char *dayOfWeek[];
  	//static const char *MonthName[];
-@@ -371,10 +371,10 @@ class HttpResponce : public HttpMessage
+@@ -371,10 +371,10 @@ public:
  		//HTTP_VERSION_NOT_SUPPORTED = 505
  	};
  
@@ -212,11 +204,9 @@ index 63db1d0..3391311 100644
  	socketstream &getStream(){ return _sockstream; }
  	inline bool connected(){ return _sockstream.good(); }
  	inline void abort(){ _sockstream.close(); }
-diff --git a/videoviewer.cpp b/videoviewer.cpp
-index 06473a2..4aeac2c 100644
 --- a/videoviewer.cpp
 +++ b/videoviewer.cpp
-@@ -44,7 +44,7 @@ VideoViewer::VideoViewer(SOCKET ClientSocket)
+@@ -44,7 +44,7 @@ VideoViewer::VideoViewer(SOCKET ClientSo
  		{
  			for (size_t i = 1; i < uscvec.size(); i += 3)
  			{
@@ -407,8 +397,6 @@ index 06473a2..4aeac2c 100644
  				if ((curdel > 0.01) && !endList)
  				{
  					Sleep((long)(curdel * 1000));
-diff --git a/videoviewer.h b/videoviewer.h
-index f351ae8..d8775c5 100644
 --- a/videoviewer.h
 +++ b/videoviewer.h
 @@ -3,22 +3,22 @@
@@ -482,27 +470,3 @@ index f351ae8..d8775c5 100644
  
  	HttpClient tsClient;
  
-
-From 6eb07060b93f1e62c3377642274f7a4cc5595960 Mon Sep 17 00:00:00 2001
-From: Andrei Lebedev <lebdron@gmail.com>
-Date: Sun, 14 Apr 2019 00:39:56 +0300
-Subject: [PATCH 2/2] Prettify cerr output
-
-Signed-off-by: Andrei Lebedev <lebdron@gmail.com>
----
- hlspxd/src/utils.cpp | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/utils.cpp b/utils.cpp
-index 8d3b4cd..df022c8 100644
---- a/utils.cpp
-+++ b/utils.cpp
-@@ -17,7 +17,7 @@ void LogWriter::WriteBuf(const char *message)
- 
- 	FILE *logfil = fopen(LogFileName.c_str(), "a+t");
- 	if (!logfil) {
--		std::cerr << "fopen failed, filename " << LogFileName << ", errno " << errno << std::endl;
-+		std::cerr << "fopen() failed, filename " << LogFileName << ": " << strerror(errno) << std::endl;
- 		std::terminate();
- 	}
- 	fprintf(logfil, "%02d-%02d-%02dT%02d:%02d:%02d (%d) - %s\n",

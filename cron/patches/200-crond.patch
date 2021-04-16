@@ -1,6 +1,6 @@
 --- a/database.c
 +++ b/database.c
-@@ -36,7 +36,7 @@
+@@ -36,7 +36,7 @@ static	void		process_crontab(const char
  
  void
  load_database(cron_db *old_db) {
@@ -9,7 +9,7 @@
  	cron_db new_db;
  	DIR_T *dp;
  	DIR *dir;
-@@ -53,6 +53,11 @@
+@@ -53,6 +53,11 @@ load_database(cron_db *old_db) {
  		(void) exit(ERROR_EXIT);
  	}
  
@@ -21,7 +21,7 @@
  	/* track system crontab file
  	 */
  	if (stat(SYSCRONTAB, &syscron_stat) < OK)
-@@ -65,7 +70,9 @@
+@@ -65,7 +70,9 @@ load_database(cron_db *old_db) {
  	 * so is guaranteed to be different than the stat() mtime the first
  	 * time this function is called.
  	 */
@@ -32,7 +32,7 @@
  		Debug(DLOAD, ("[%ld] spool dir mtime unch, no load needed.\n",
  			      (long)getpid()))
  		return;
-@@ -76,13 +83,54 @@
+@@ -76,13 +83,54 @@ load_database(cron_db *old_db) {
  	 * actually changed.  Whatever is left in the old database when
  	 * we're done is chaff -- crontabs that disappeared.
  	 */

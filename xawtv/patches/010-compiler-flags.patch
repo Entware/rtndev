@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -73,6 +73,8 @@
+@@ -75,6 +75,8 @@ FOUND_EXPLAIN="no"
  case "`uname -s`" in
  	Linux)
  		FOUND_OS="linux"
@@ -9,7 +9,7 @@
  		;;
  	OpenBSD | FreeBSD | NetBSD)
  		# *BSD has important stuff (from ports)
-@@ -131,7 +133,7 @@
+@@ -133,7 +135,7 @@ if test "$LIBCURSES" = ""; then
    exit 1
  fi
  if test "$LIBCURSES" = "-lncursesw"; then
@@ -20,7 +20,7 @@
  AC_SUBST(LIBOSS)
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -3,7 +3,7 @@
+@@ -3,7 +3,7 @@ VPATH		:= $(srcdir)
  
  # for package builds (buildroot install + no root privs needed)
  DESTDIR=
@@ -29,7 +29,7 @@
  STRIP_FLAG=
  
  # install paths
-@@ -30,7 +30,7 @@
+@@ -30,7 +30,7 @@ VERSION		:= @VERSION@
  # for CFLAGS
  WARN_FLAGS	:= -Wall -Wmissing-prototypes -Wstrict-prototypes -Wpointer-arith -Wno-pointer-sign
  LFS_FLAGS	:= -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64

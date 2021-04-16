@@ -1,8 +1,6 @@
-Index: cgit-1.2.1/Makefile
-===================================================================
---- cgit-1.2.1.orig/Makefile
-+++ cgit-1.2.1/Makefile
-@@ -4,8 +4,8 @@ CGIT_VERSION = v1.2.1
+--- a/Makefile
++++ b/Makefile
+@@ -4,8 +4,8 @@ CGIT_VERSION = v1.2.3
  CGIT_SCRIPT_NAME = cgit.cgi
  CGIT_SCRIPT_PATH = /var/www/htdocs/cgit
  CGIT_DATA_PATH = $(CGIT_SCRIPT_PATH)

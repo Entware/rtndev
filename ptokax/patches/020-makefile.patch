@@ -1,6 +1,6 @@
 --- a/makefile
 +++ b/makefile
-@@ -22,12 +22,12 @@
+@@ -22,12 +22,12 @@ INSTDIR = /usr/local/bin
  #*******************************************************************************
  # Release flags
  #*******************************************************************************
@@ -15,7 +15,7 @@
  
  #*******************************************************************************
  # Files to compile and link
-@@ -52,10 +52,9 @@
+@@ -52,10 +52,9 @@ OBJS = $(CURDIR)/obj/colUsers.o $(CURDIR
  # then remove -llua5.1 and after tinyxml/tinyxml.a add /usr/local/lib/liblua.a (default path when is Lua compiled from sources).
  #*******************************************************************************
  

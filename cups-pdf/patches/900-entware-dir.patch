@@ -9,7 +9,7 @@
  
  
  /* --- DO NOT EDIT BELOW THIS LINE --- */
-@@ -55,17 +55,17 @@
+@@ -55,17 +55,17 @@ struct {
      mode_t modval;
    } value;
  } configData[] = {

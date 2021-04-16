@@ -1,5 +1,3 @@
-diff --git a/tunsafe_cpu.h b/tunsafe_cpu.h
-index c19f6b1..2347ce3 100644
 --- a/tunsafe_cpu.h
 +++ b/tunsafe_cpu.h
 @@ -32,7 +32,11 @@ extern uint32 x86_pcap[3];

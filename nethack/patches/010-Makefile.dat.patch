@@ -102,5 +102,5 @@
 +	../util/makedefs.host -e
 +	../util/dgn_comp.host dungeon.pdf
  
- spotless:
- 	-rm -f spec_levs quest_levs *.lev $(VARDAT) dungeon dungeon.pdf
+ # gitinfo.txt is optionally made by src/Makefile when creating date.h
+ clean:

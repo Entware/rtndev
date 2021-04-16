@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -96,7 +96,7 @@
+@@ -96,7 +96,7 @@ endif()
  
  # Check for FUSE.
  find_package (FUSE REQUIRED)
@@ -9,7 +9,7 @@
  add_definitions (-D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=29)
  if (CYGWIN)
    # Cygwin build is intended to use WinFsp
-@@ -105,7 +105,7 @@
+@@ -105,7 +105,7 @@ endif()
  
  # Check for OpenSSL.
  find_package (OpenSSL REQUIRED)
@@ -18,7 +18,7 @@
  
  find_program (POD2MAN pod2man)
  
-@@ -187,7 +187,7 @@
+@@ -187,7 +187,7 @@ include_directories (${CMAKE_CURRENT_LIS
  if (ENABLE_NLS)
    find_package (Intl)
    if (Intl_FOUND)
@@ -27,7 +27,7 @@
    endif()
  
    add_subdirectory(po)
-@@ -236,11 +236,11 @@
+@@ -236,11 +236,11 @@ if (USE_INTERNAL_TINYXML)
    endif ()
    set(BUILD_TESTS OFF CACHE BOOL "build tests")
    add_subdirectory(${TINYXML_DIR} EXCLUDE_FROM_ALL)
@@ -40,4 +40,4 @@
 +  include_directories (${TINYXML_INCLUDE_DIR})
  endif ()
  
- set(SOURCE_FILES
+ if (USE_INTERNAL_EASYLOGGING)

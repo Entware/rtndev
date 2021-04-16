@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -10,7 +10,7 @@
+@@ -10,7 +10,7 @@ set(mediafire-tools_VERSION
  # to feed iwyu during tests
  set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
  

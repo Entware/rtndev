@@ -1,6 +1,6 @@
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -53,8 +53,3 @@
+@@ -53,8 +53,3 @@ microdc2_LDADD = \
  #  ../lib/libgnu.a
  
  # $(LIBICONV) - not yet used

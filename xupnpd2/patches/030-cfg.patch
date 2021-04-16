@@ -1,6 +1,6 @@
 --- a/xupnpd.cfg
 +++ b/xupnpd.cfg
-@@ -12,10 +12,10 @@
+@@ -12,10 +12,10 @@ log_level=3
  #log_file=udp://127.0.0.1:514/local0
  
  # detach from terminal
@@ -13,7 +13,7 @@
  
  # default multicast UDP/RTP interface
  multicast_interface=eth1
-@@ -40,7 +40,7 @@
+@@ -40,7 +40,7 @@ http_snd_timeout=0
  http_keep_alive_timeout=15
  http_keep_alive_max=10000
  http_max_post_size=4096
@@ -22,7 +22,7 @@
  http_templates=/index.html,/dev.xml
  
  # live streams settings
-@@ -65,7 +65,7 @@
+@@ -65,7 +65,7 @@ upnp_hdr_content_disp=true      # Conten
  #io_charset=windows-1251
  
  # db

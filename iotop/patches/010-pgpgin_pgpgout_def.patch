@@ -1,6 +1,6 @@
 --- a/iotop/vmstat.py
 +++ b/iotop/vmstat.py
-@@ -26,11 +26,13 @@
+@@ -26,11 +26,13 @@ class VmStat(object):
          def extract(line):
              return int(line.split()[1]) * 1024
  

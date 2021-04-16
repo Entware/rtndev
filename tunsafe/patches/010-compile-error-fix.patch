@@ -1,5 +1,3 @@
-diff --git a/tunsafe_bsd.cpp b/tunsafe_bsd.cpp
-index 17f855c..2772d06 100644
 --- a/tunsafe_bsd.cpp
 +++ b/tunsafe_bsd.cpp
 @@ -36,7 +36,7 @@

@@ -1,6 +1,6 @@
 --- a/ngrok.cpp
 +++ b/ngrok.cpp
-@@ -274,7 +274,7 @@
+@@ -274,7 +274,7 @@ int RemoteToLocal(ssl_info *sslinfo1,soc
                  char srchost[256] = { 0 };
                  sprintf(srchost,"%s\r\n",tunnelreq->hostheader);
                  //≤ÈµΩ¡À°£°£

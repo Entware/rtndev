@@ -9,11 +9,9 @@ Notably Apache HTTP 2.4 requires this.
  hlspxd/src/utils.cpp | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/hlspxd/src/utils.cpp b/hlspxd/src/utils.cpp
-index 858b21d..b5fee01 100644
 --- a/utils.cpp
 +++ b/utils.cpp
-@@ -465,8 +465,8 @@ HttpResponse HttpClient::getResponse(Uri &reqUri)
+@@ -465,8 +465,8 @@ HttpResponse HttpClient::getResponse(Uri
  	{
  		connect2Host(reqUri);
  
@@ -24,6 +22,3 @@ index 858b21d..b5fee01 100644
  		_sockstream.flush();
  
  		contResp = HttpResponse(_sockstream);
--- 
-2.17.1
-

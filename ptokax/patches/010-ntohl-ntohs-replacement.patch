@@ -23,7 +23,7 @@
  //---------------------------------------------------------------------------
  RegManager * RegManager::m_Ptr = NULL;
  //---------------------------------------------------------------------------
-@@ -583,7 +599,7 @@
+@@ -583,7 +599,7 @@ void RegManager::Load(void) {
      }
  
      {
@@ -32,7 +32,7 @@
  
          if(ui32FileVersion < 1) {
              return;
-@@ -605,7 +621,7 @@
+@@ -605,7 +621,7 @@ void RegManager::Load(void) {
  
      while(bSuccess == true) {
  		if(pxbRegs.m_ui16ItemLengths[0] < 65 && pxbRegs.m_ui16ItemLengths[1] < 65 && pxbRegs.m_ui16ItemLengths[2] == 2) {
@@ -41,4 +41,3 @@
  
              if(iProfile > iProfilesCount) {
                  iProfile = iProfilesCount;
-

@@ -13,8 +13,6 @@ binaries share the same signature.
  configure | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/configure b/configure
-index ceff15e..3816fa1 100755
 --- a/configure
 +++ b/configure
 @@ -58,6 +58,10 @@ if [ "$NGX_PLATFORM" != win32 ]; then

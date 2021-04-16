@@ -1,6 +1,6 @@
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -67,22 +67,22 @@
+@@ -67,22 +67,22 @@ OBJS = $(SRCS:.c=.o)
  all: ${BINARIES}
  
  jk_chrootlaunch: jk_chrootlaunch.o jk_lib.o utils.o
@@ -29,7 +29,7 @@
  
  clean:
  	rm -f ${BINARIES}
-@@ -114,7 +114,7 @@
+@@ -114,7 +114,7 @@ uninstall:
  	rm -f  ${prefix}/sbin/jk_procmailwrapper
  
  iniparsertester: iniparser.o iniparsertester.o jk_lib.o

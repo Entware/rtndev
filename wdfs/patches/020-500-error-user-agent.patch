@@ -7,8 +7,6 @@ Subject: [PATCH] fix a remote '500' error due to the lack of a useragent
  src/webdav.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/src/webdav.c b/src/webdav.c
-index ce4bd35..e54b828 100644
 --- a/src/webdav.c
 +++ b/src/webdav.c
 @@ -204,6 +204,8 @@ int setup_webdav_session(

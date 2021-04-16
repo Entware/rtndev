@@ -1,6 +1,6 @@
 --- a/src/main.c
 +++ b/src/main.c
-@@ -157,7 +157,7 @@
+@@ -157,7 +157,7 @@ warn_socket_error(int res, bool write, c
  bool
  get_package_file(const char *name, char **outname)
  {
@@ -11,7 +11,7 @@
  
 --- a/src/common/tempdir.c
 +++ b/src/common/tempdir.c
-@@ -53,7 +53,7 @@
+@@ -53,7 +53,7 @@ tempdir(void)
      if (tmpdir != NULL && direxists(tmpdir))
          return tmpdir;
  

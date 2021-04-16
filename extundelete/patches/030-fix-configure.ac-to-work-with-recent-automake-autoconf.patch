@@ -6,11 +6,9 @@ Subject: Fix configure.ac to work with recent automake/autoconf
  configure.ac | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/configure.ac b/configure.ac
-index 3546068..ea10989 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -6,8 +6,8 @@ m4_ifval(m4_esyscmd([printf %s $EU_VER]),
+@@ -6,8 +6,8 @@ m4_ifval(m4_esyscmd([printf %s $EU_VER])
  [m4_define(EU_VERSION, m4_esyscmd([printf $EU_VER])) ],
  [m4_define(EU_VERSION, m4_esyscmd([git describe --tags| tr -d '\010-\012'])) ])
  AC_INIT(extundelete, EU_VERSION, extundelete.sourceforge.net)

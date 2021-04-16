@@ -1,6 +1,6 @@
 --- a/source/util/gen-mi-enum
 +++ b/source/util/gen-mi-enum
-@@ -5,7 +5,7 @@
+@@ -5,7 +5,7 @@ undef $/;
  $_=<IN>;
  s/\r//g;
  

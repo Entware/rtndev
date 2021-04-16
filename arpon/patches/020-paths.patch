@@ -1,6 +1,6 @@
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -40,8 +40,8 @@
+@@ -40,8 +40,8 @@ else(${CMAKE_INSTALL_PREFIX} STREQUAL "/
      set(ARPON_SBIN ${CMAKE_INSTALL_PREFIX}/sbin/arpon)
      set(ARPON_DOC ${CMAKE_INSTALL_PREFIX}/share/doc/arpon/index.html)
      set(ARPON_ETC ${CMAKE_INSTALL_PREFIX}/etc/arpon.conf)

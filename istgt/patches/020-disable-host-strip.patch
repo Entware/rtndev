@@ -1,6 +1,6 @@
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -88,8 +88,8 @@
+@@ -89,8 +89,8 @@ istgtcontrol: $(ISTGTCONTROL)
  	$(CC) $(LDFLAGS) -o $@ $(ISTGTCONTROL) $(LIBS)
  
  install: install-dirs

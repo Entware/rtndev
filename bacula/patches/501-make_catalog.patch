@@ -1,6 +1,6 @@
 --- a/src/cats/make_catalog_backup.in
 +++ b/src/cats/make_catalog_backup.in
-@@ -59,7 +59,7 @@
+@@ -60,7 +60,7 @@ rm -f $1.sql
  
  case ${db_type} in
    sqlite3)
@@ -15,9 +15,9 @@
 -#!/usr/bin/env perl
 +#!/opt/bin/perl
  #
- # Author: Eric Bollengier, Copyright, 2006
+ # Author: Eric Bollengier, Copyright, 2006-2017
  # License: BSD 2-Clause; see file LICENSE-FOSS
-@@ -29,11 +29,11 @@
+@@ -29,11 +29,11 @@ if ($cat eq '-m') {
  
  my $dir_conf='@sbindir@/dbcheck -B -c @sysconfdir@/bacula-dir.conf';
  my $wd = "@working_dir@";
@@ -31,9 +31,9 @@
      exec("echo .dump | sqlite3 '$wd/$args{db_name}.db' > '$wd/$args{db_name}.sql'");
      print "Error while executing sqlite dump $!\n";
      return 1;
-@@ -138,19 +138,19 @@
- {
-     my ($mode, %args) = @_;
+@@ -141,19 +141,19 @@ sub handle_catalog
+ 	$wd = $args{working_dir};
+     }
      if ($args{db_type} eq 'SQLite3') {
 -        $ENV{PATH}="@SQLITE_BINDIR@:$ENV{PATH}";
 +        $ENV{PATH}="/opt/bin:$ENV{PATH}";

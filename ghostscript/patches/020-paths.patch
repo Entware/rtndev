@@ -61,9 +61,9 @@
  if [ ! -w $GSDIR ]; then
    echo "$GSDIR must be writable to create filter directory"
    exit 1
---- ./configure.ac.orig	2021-04-15 17:32:05.645324885 +0300
-+++ ./configure.ac	2021-04-15 17:33:23.950265488 +0300
-@@ -1810,12 +1810,6 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1810,12 +1810,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
          if test x$with_local_cups != xyes; then
              if test x"$CUPSCONFIG" = x""; then
                AC_PATH_TOOL(CUPSCONFIG,cups-config)

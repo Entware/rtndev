@@ -20,7 +20,7 @@
  
  static	int			ONEWIRE_COUNT;		// number of ROM
  static	unsigned long long	ONEWIRE_ROM[128];	// ROM identifiers
-@@ -62,8 +64,24 @@
+@@ -62,8 +64,24 @@ usb_dev_handle* find_device()
  	for (bus = usb_get_busses(); bus; bus = bus->next)
  	for (dev = bus->devices; dev; dev = dev->next)
  	{
@@ -47,7 +47,7 @@
  		{
  			usb_dev_handle *udev;
  			if (!(udev = usb_open(dev)))
-@@ -229,9 +247,13 @@
+@@ -229,9 +247,13 @@ bool USB_GET_FAMILY(unsigned char &FAMIL
      int i=3;   //  число попыток
      while (!RESULT & ((i--)>0))
          if (USB_SET_FEATURE())
@@ -64,7 +64,7 @@
      if (!RESULT) printf("[!] USB_GET_FAMILY: Error reading family\n");
      return RESULT;
  }
-@@ -247,9 +269,13 @@
+@@ -247,9 +269,13 @@ bool USB_GET_SOFTV(unsigned int &SV)
      int i=3;   // number of attempts
      while (!RESULT & ((i--)>0))
          if (USB_SET_FEATURE())
@@ -81,7 +81,7 @@
      if (!RESULT) printf("[!] USB_GET_SOFTV: Error reading firmware version\n");
      return RESULT;
  }
-@@ -265,9 +291,13 @@
+@@ -265,9 +291,13 @@ bool USB_GET_ID(unsigned int &ID)
      int i=3;   //  number of attempts
      while (!RESULT & ((i--)>0))
          if (USB_SET_FEATURE())
@@ -98,7 +98,7 @@
      if (!RESULT) printf("[!] USB_GET_ID: Error reading devide ID\n");
      return RESULT;
  }
-@@ -286,7 +316,7 @@
+@@ -286,7 +316,7 @@ bool OW_RESET()
          if (USB_SET_FEATURE())
          {
  	    if ( DEBUG ) printf("[D] OW_RESET: if USB_SET_FEATURE() true...\n");
@@ -107,7 +107,7 @@
              if (USB_GET_FEATURE()) 
  	    {
  		if ( DEBUG ) printf("[D] OW_RESET: if USB_GET_FEATURE() true...\n");
-@@ -309,7 +339,7 @@
+@@ -309,7 +339,7 @@ bool OW_READ_2BIT(unsigned char &B)
      USB_BUFO[3]=0x01;    USB_BUFO[4]=0x01;
      if (USB_SET_FEATURE())
          {
@@ -116,7 +116,7 @@
          if (USB_GET_FEATURE())
              { RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x82); B=(USB_BUFI[3]&0x01)+((USB_BUFI[4]<<1)&0x02); }
          }
-@@ -328,7 +358,7 @@
+@@ -328,7 +358,7 @@ bool OW_READ_BYTE(unsigned char &B)
      USB_BUFO[1]=0x18;    USB_BUFO[2]=0x88;    USB_BUFO[3]=0xFF;
      if (USB_SET_FEATURE())
          {
@@ -125,7 +125,7 @@
          if (USB_GET_FEATURE())
              { RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x88); B=USB_BUFI[3]; }
          }
-@@ -348,7 +378,7 @@
+@@ -348,7 +378,7 @@ bool OW_READ_4BYTE(unsigned long &B)
      USB_BUFO[4]=0xFF;    USB_BUFO[5]=0xFF;    USB_BUFO[6]=0xFF;
      if (USB_SET_FEATURE())
          {
@@ -134,7 +134,7 @@
          if (USB_GET_FEATURE())
              { RESULT=(USB_BUFI[1]==0x18)&(USB_BUFI[2]==0x84); B=USB_BUFI[3]+(USB_BUFI[4]<<8)+(USB_BUFI[5]<<16)+(USB_BUFI[6]<<24); }
          }
-@@ -386,11 +416,11 @@
+@@ -386,11 +416,11 @@ bool OW_WRITE_BYTE(unsigned char B)
      USB_BUFO[1]=0x18;    USB_BUFO[2]=0x88;    USB_BUFO[3]=B;
      if (USB_SET_FEATURE())
          {
@@ -148,7 +148,7 @@
      return RESULT;
  }
  
-@@ -413,11 +443,11 @@
+@@ -413,11 +443,11 @@ bool OW_WRITE_4BYTE(unsigned long B)
      USB_BUFO[6]=(B>>24)&0xFF;
      if (USB_SET_FEATURE())
          {
@@ -163,7 +163,7 @@
      return RESULT;
  }
  
-@@ -429,7 +459,7 @@
+@@ -429,7 +459,7 @@ unsigned char CRC8(unsigned char CRC, un
      if ( DEBUG ) printf("[D] enter CRC8\n");
      unsigned char R=CRC;
      for (int i=0; i<8; i++)
@@ -172,7 +172,7 @@
              else R=(R>>1)&0x7F;
      return R;
  }
-@@ -612,9 +642,9 @@
+@@ -612,9 +642,9 @@ void showUsage(char *exec)
  	printf("USAGE: %s <options>\n", exec);
  	printf("\t-i\t\tshow device info\n");
  	printf("\t-s\t\tscan for sensors and show their ID ony by one\n");

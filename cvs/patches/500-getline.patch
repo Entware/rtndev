@@ -11,7 +11,7 @@
                           int limit));
 --- a/lib/getline.c
 +++ b/lib/getline.c
-@@ -155,7 +155,7 @@
+@@ -155,7 +155,7 @@ getstr (lineptr, n, stream, terminator,
  }
  
  int

@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -43,8 +43,6 @@
+@@ -43,8 +43,6 @@ AC_PROG_CC
  AC_CONFIG_FILES(Makefile)
  AC_OUTPUT
  
@@ -9,7 +9,7 @@
  
  # Define _GNU_SOURCE
  # AC_GNU_SOURCE
-@@ -446,8 +444,6 @@
+@@ -448,8 +446,6 @@ AM_CONDITIONAL([HAVE_PTHREAD], [test "${
  
  #This will simulate compilation of sdk and extract the includes defined for it. Thus we can
  # take care of the configuration done for the subproject withtout having to recheck here
@@ -20,7 +20,7 @@
  # Output
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -23,13 +23,7 @@
+@@ -23,13 +23,7 @@ AM_CPPFLAGS = \
  
  #include m4/aminclude.am
  
@@ -35,7 +35,7 @@
  
  #if ANDROID
  AM_LIBTOOLFLAGS="--tag=CXX"
-@@ -46,7 +40,6 @@
+@@ -46,7 +40,6 @@ DISTCLEANFILES=
  BUILT_SOURCES=
  noinst_PROGRAMS=
  
@@ -45,7 +45,7 @@
  #EXTRA_DIST += autogen.sh
 --- a/src/include.am
 +++ b/src/include.am
-@@ -7,7 +7,6 @@
+@@ -7,7 +7,6 @@ noinst_HEADERS=
  
  MEGACMD = mega-cmd mega-exec mega-cmd-server
  bin_PROGRAMS += $(MEGACMD)
@@ -53,7 +53,7 @@
  noinst_HEADERS += src/comunicationsmanager.h src/configurationmanager.h src/megacmd.h src/megacmdlogger.h src/megacmdsandbox.h src/megacmdutils.h src/megacmdcommonutils.h src/listeners.h src/megacmdexecuter.h src/megacmdversion.h src/megacmdplatform.h src/comunicationsmanagerportsockets.h
  megacmdcompletiondir = $(sysconfdir)/bash_completion.d/
  megacmdcompletion_DATA = src/client/megacmd_completion.sh
-@@ -20,19 +19,19 @@
+@@ -20,19 +19,19 @@ mega_cmd_server_SOURCES = src/megacmd.cp
  mega_cmddir=examples
  
  #CMDCLIENT
@@ -77,7 +77,7 @@
  mega_cmd_LDADD = $(RL_LDFLAGS) $(RL_LIBS) $(TERMCAP_LDFLAGS) $(TERMCAP_LIBS) 
  
  mega_cmd_server_CXXFLAGS = $(LMEGAINC)
-@@ -41,12 +40,12 @@
+@@ -41,12 +40,12 @@ mega_cmd_server_CXXFLAGS += -DUSE_PCRE=1
  endif
  
  if WIN32
@@ -94,7 +94,7 @@
  mega_cmd_server_LDADD = $(LIBS_EXTRA) $(top_builddir)/src/libmega.la $(LIBS_EXTRA)
  
  mega_exec_CXXFLAGS += -D_WIN32=1
-@@ -56,12 +55,10 @@
+@@ -56,12 +55,10 @@ mega_cmd_LDADD += $(LIBS_EXTRA)
  
  else
  

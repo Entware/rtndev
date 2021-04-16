@@ -1,6 +1,6 @@
 --- a/deluge/core/core.py
 +++ b/deluge/core/core.py
-@@ -342,7 +342,6 @@
+@@ -342,7 +342,6 @@ class Core(component.Component):
      def _on_alert_session_stats(self, alert):
          """The handler for libtorrent session stats alert"""
          self.session_status.update(alert.values)

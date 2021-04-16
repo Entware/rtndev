@@ -1,6 +1,6 @@
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -367,7 +367,7 @@
+@@ -367,7 +367,7 @@ endif
  endif
  
  

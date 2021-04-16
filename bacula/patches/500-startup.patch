@@ -17,7 +17,7 @@
  
  # All these are not *really* needed but it makes it
  #  easier to "steal" this code for the development 
-@@ -81,31 +81,31 @@
+@@ -81,31 +81,31 @@ killproc() {
     # Kill it.
     if [ "$pid" != "" ] ; then
        if [ "$notset" = "1" ] ; then
@@ -71,7 +71,7 @@
        fi
     else
        failure "$base shutdown"
-@@ -166,7 +166,7 @@
+@@ -166,7 +166,7 @@ status() {
  
     # First try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -80,7 +80,7 @@
     fi
     if [ "$pid" != "" ] ; then
        echo "$base (pid $pid) is running..."
-@@ -254,8 +254,12 @@
+@@ -254,8 +254,12 @@ case "$1" in
        [ -x ${BACDIRBIN}/bacula-dir ] && status ${BACDIRBIN}/bacula-dir ${DIR_PORT}
        ;;
  
@@ -113,7 +113,7 @@
  
  # All these are not *really* needed but it makes it
  #  easier to "steal" this code for the development 
-@@ -78,31 +78,31 @@
+@@ -78,31 +78,31 @@ killproc() {
     # Kill it.
     if [ "$pid" != "" ] ; then
        if [ "$notset" = "1" ] ; then
@@ -167,7 +167,7 @@
        fi
     else
        failure "$base shutdown"
-@@ -130,14 +130,14 @@
+@@ -130,14 +130,14 @@ pidofproc() {
     if [ -f ${PIDDIR}/$base.$2.pid ] ; then
        pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
        if [ "$pid" != "" ] ; then
@@ -185,7 +185,7 @@
     fi
     if [ "$pid" != "" ] ; then
        echo $pid
-@@ -163,19 +163,19 @@
+@@ -163,19 +163,19 @@ status() {
  
     # First try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -211,7 +211,7 @@
        fi
     fi
  
-@@ -183,8 +183,8 @@
+@@ -183,8 +183,8 @@ status() {
     if [ -f ${PIDDIR}/$base.$2.pid ] ; then
        pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
        if [ "$pid" != "" ] ; then
@@ -222,7 +222,7 @@
        fi
     fi
     # See if the subsys lock exists
-@@ -215,29 +215,29 @@
+@@ -215,29 +215,29 @@ fi
  case "$1" in
     start)
        [ -x ${BACFDBIN}/bacula-fd ] && {
@@ -269,7 +269,7 @@
        }
        ;;
  
-@@ -251,8 +251,11 @@
+@@ -251,8 +251,11 @@ case "$1" in
        [ -x ${BACFDBIN}/bacula-fd ] && status ${BACFDBIN}/bacula-fd  ${FD_PORT}
        ;;
  
@@ -282,7 +282,6 @@
        exit 1
        ;;
  esac
-
 --- a/scripts/bacula-ctl-sd.in
 +++ b/scripts/bacula-ctl-sd.in
 @@ -26,14 +26,14 @@
@@ -302,7 +301,7 @@
  
  # All these are not *really* needed but it makes it
  #  easier to "steal" this code for the development 
-@@ -78,31 +78,31 @@
+@@ -78,31 +78,31 @@ killproc() {
     # Kill it.
     if [ "$pid" != "" ] ; then
        if [ "$notset" = "1" ] ; then
@@ -356,7 +355,7 @@
        fi
     else
        failure "$base shutdown"
-@@ -130,14 +130,14 @@
+@@ -130,14 +130,14 @@ pidofproc() {
     if [ -f ${PIDDIR}/$base.$2.pid ] ; then
        pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
        if [ "$pid" != "" ] ; then
@@ -374,7 +373,7 @@
     fi
     if [ "$pid" != "" ] ; then
        echo $pid
-@@ -163,19 +163,19 @@
+@@ -163,19 +163,19 @@ status() {
  
     # First try "pidof"
     if [ -x ${PIDOF} ] ; then
@@ -400,7 +399,7 @@
        fi
     fi
  
-@@ -183,8 +183,8 @@
+@@ -183,8 +183,8 @@ status() {
     if [ -f ${PIDDIR}/$base.$2.pid ] ; then
        pid=`head -n 1 ${PIDDIR}/$base.$2.pid`
        if [ "$pid" != "" ] ; then
@@ -411,7 +410,7 @@
        fi
     fi
     # See if the subsys lock exists
-@@ -252,8 +252,11 @@
+@@ -252,8 +252,11 @@ case "$1" in
        [ -x ${BACSDBIN}/bacula-sd   ] && status ${BACSDBIN}/bacula-sd  ${SD_PORT}
        ;;
  

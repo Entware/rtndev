@@ -9,7 +9,7 @@
  
  
  typedef std::map<std::string, std::string> CFG_MAP;
-@@ -37,13 +37,13 @@
+@@ -37,13 +37,13 @@ CFG_MAP IncronCfg::m_defaults;
  
  void IncronCfg::Init()
  {

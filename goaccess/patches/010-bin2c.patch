@@ -1,6 +1,6 @@
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -12,9 +12,6 @@
+@@ -12,9 +12,6 @@ dist_noinst_DATA =                 \
    resources/js/d3.v3.min.js        \
    resources/js/hogan.min.js
  
@@ -10,7 +10,7 @@
  BUILT_SOURCES =       \
    src/tpls.h          \
    src/bootstrapcss.h  \
-@@ -43,6 +40,9 @@
+@@ -43,6 +40,9 @@ CLEANFILES =                          \
    resources/js/charts.js.tmp          \
    resources/js/app.js.tmp
  

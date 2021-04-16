@@ -1,6 +1,6 @@
 --- a/Makefile.tgl
 +++ b/Makefile.tgl
-@@ -28,9 +28,6 @@
+@@ -28,9 +28,6 @@ ${TGL_OBJECTS_AUTO}: ${OBJ}/auto/%.o: ${
  ${LIB}/libtgl.a: ${TGL_OBJECTS} ${TGL_COMMON_OBJECTS} ${TGL_OBJECTS_AUTO}
  	rm -f $@ && ar ruv $@ $^
  

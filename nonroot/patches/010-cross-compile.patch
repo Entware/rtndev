@@ -9,7 +9,7 @@
  INSTALL = install -D
  INSTALL_PROGRAM = $(INSTALL)
  INSTALL_DATA = $(INSTALL) -m 644
-@@ -22,7 +20,7 @@
+@@ -22,7 +20,7 @@ MAKE = make
  all: nonroot
  
  nonroot: nonroot.c

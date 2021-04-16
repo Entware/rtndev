@@ -1,6 +1,6 @@
 --- a/console/Subdir.mk
 +++ b/console/Subdir.mk
-@@ -20,7 +20,6 @@
+@@ -20,7 +20,6 @@ endif
  ifeq ($(FOUND_OS),linux)
  TARGETS-console += \
  	console/radio \

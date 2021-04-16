@@ -1,6 +1,6 @@
 --- a/build.sh
 +++ b/build.sh
-@@ -13,12 +13,11 @@
+@@ -13,12 +13,11 @@ VERSION="3.09b"
  
  test "$CC" = "" && CC="gcc"
  

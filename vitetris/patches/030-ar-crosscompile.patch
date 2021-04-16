@@ -1,6 +1,6 @@
 --- a/src/game/Makefile
 +++ b/src/game/Makefile
-@@ -4,7 +4,7 @@
+@@ -4,7 +4,7 @@ OBJS = tetris.o $(tetris2p_obj) game.o w
  HEADERS = tetris.h ../timer.h ../input/input.h ../draw/draw.h
  
  game.a: $(OBJS)
@@ -11,7 +11,7 @@
  	$(CC) $(CCFLAGS) -I..  -c tetris.c
 --- a/src/input/Makefile
 +++ b/src/input/Makefile
-@@ -6,19 +6,19 @@
+@@ -6,19 +6,19 @@ default: $(BACKEND)
  
  unixterm: $(OBJS) inp_unixterm.o escseq.o select.o $(joylinux_obj)
  	rm -f input.a
@@ -37,7 +37,7 @@
  	 ../timer.h ../draw/draw.h ../game/tetris.h ../netw/sock.h \
 --- a/src/menu/Makefile
 +++ b/src/menu/Makefile
-@@ -12,11 +12,11 @@
+@@ -12,11 +12,11 @@ HEADERS = menu.h ../input/input.h ../tex
  all: menu.a $(menuext_lib)
  
  menu.a: $(OBJS)
@@ -53,7 +53,7 @@
  	$(CC) $(CCFLAGS) $(DNO_MENU) -c menucore.c 
 --- a/src/textgfx/Makefile
 +++ b/src/textgfx/Makefile
-@@ -5,7 +5,7 @@
+@@ -5,7 +5,7 @@ OBJS = block.o win.o print.o ibmgfx.o \
  
  textgfx.a: $(OBJS)
  	rm -f textgfx.a
@@ -64,7 +64,7 @@
  	$(CC) $(CCFLAGS) -I.. -c term.c
 --- a/src/draw/Makefile
 +++ b/src/draw/Makefile
-@@ -4,7 +4,7 @@
+@@ -4,7 +4,7 @@ OBJS = draw.o draw_menu.o draw2p.o draw2
  HEADERS = draw.h internal.h ../textgfx/textgfx.h
  
  draw.a: $(OBJS)
@@ -75,7 +75,7 @@
  			  ../netw/sock.h ../src-conf.mk
 --- a/src/netw/Makefile
 +++ b/src/netw/Makefile
-@@ -6,12 +6,12 @@
+@@ -6,12 +6,12 @@ config_h = ../config.h ../config2.h
  all: $(netw_lib)$(inet_obj)
  
  netw.ainet.o: $(OBJS) comm_inet.o

@@ -1,6 +1,6 @@
 --- a/daemonize.c
 +++ b/daemonize.c
-@@ -521,7 +521,7 @@
+@@ -522,7 +522,7 @@ int main(int argc, char **argv)
          setenv("IFS"," \t\n",1);
  
      if (getenv("PATH") == NULL)

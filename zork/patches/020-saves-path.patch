@@ -1,6 +1,6 @@
 --- a/dverb2.c
 +++ b/dverb2.c
-@@ -22,7 +22,7 @@
+@@ -22,7 +22,7 @@ void savegm_()
     /* 						!DISABLE GAME. */
     /* Note: save file format is different for PDP vs. non-PDP versions */
  
@@ -9,7 +9,7 @@
        goto L100;
  
     gttime_(&i);
-@@ -113,7 +113,7 @@
+@@ -113,7 +113,7 @@ void rstrgm_()
     /* 						!DISABLE GAME. */
     /* Note: save file format is different for PDP vs. non-PDP versions */
  

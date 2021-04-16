@@ -1,16 +1,6 @@
---- a/src/main.c
-+++ b/src/main.c
-   { "version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, print_version,
-       "Print version and compilation information.", NULL },
-   { "session-dir", 'c', 0, G_OPTION_ARG_FILENAME, &db_dir,
--      "Use a different session directory. Default: `$NCDC_DIR' or `$HOME/.ncdc'.", "<dir>" },
-+      "Use a different session directory. Default: `$NCDC_DIR' or `/opt/var/ncdc'.", "<dir>" },
-   { "no-autoconnect", 'n', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &auto_open,
-       "Don't automatically connect to hubs with the `autoconnect' option set.", NULL },
-   { NULL }
 --- a/src/db.c
 +++ b/src/db.c
-@@ -1444,7 +1444,7 @@
+@@ -1444,7 +1444,7 @@ static int db_dir_init() {
    if(!db_dir && (db_dir = g_getenv("NCDC_DIR")))
      db_dir = g_strdup(db_dir);
    if(!db_dir)

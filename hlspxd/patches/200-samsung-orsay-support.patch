@@ -11,11 +11,9 @@ Samsung Orsay TVs (from 2014) require this, tested on H5570.
  hlspxd/videoviewer.h   | 1 +
  4 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/utils.cpp b/utils.cpp
-index df022c8..858b21d 100644
 --- a/utils.cpp
 +++ b/utils.cpp
-@@ -212,7 +212,7 @@ const std::string *HttpMessage::getHeaderRecord(std::string key)
+@@ -212,7 +212,7 @@ const std::string *HttpMessage::getHeade
  	return &(it->second);
  }
  
@@ -24,7 +22,7 @@ index df022c8..858b21d 100644
  
  HttpRequest::HttpRequest(istream& stream)
  {
-@@ -227,6 +227,7 @@ HttpRequest::HttpRequest(istream& stream)
+@@ -227,6 +227,7 @@ HttpRequest::HttpRequest(istream& stream
  
  	if (!regex_search(inStr.c_str(), res, reqRx)) throw Exception("bad request");
  
@@ -32,8 +30,6 @@ index df022c8..858b21d 100644
  	_path = res[2].str();
  
  	HttpMessage::init(stream);
-diff --git a/utils.h b/utils.h
-index 3391311..780e46c 100644
 --- a/utils.h
 +++ b/utils.h
 @@ -314,9 +314,11 @@ public:
@@ -48,11 +44,9 @@ index 3391311..780e46c 100644
  	inline std::string &getPath(){ return _path; }
  };
  
-diff --git a/videoviewer.cpp b/videoviewer.cpp
-index 4aeac2c..cfc9161 100644
 --- a/videoviewer.cpp
 +++ b/videoviewer.cpp
-@@ -25,6 +25,7 @@ VideoViewer::VideoViewer(SOCKET ClientSocket)
+@@ -25,6 +25,7 @@ VideoViewer::VideoViewer(SOCKET ClientSo
  	HttpRequest req(VideoStream);
  
  	string reqStr;
@@ -60,8 +54,12 @@ index 4aeac2c..cfc9161 100644
  	Uri::decode(req.getPath(), reqStr);
  
  	string reqUri = reqStr;
-@@ -134,6 +135,11 @@ void VideoViewer::Run()
- 	VideoStream << "HTTP/1.1 200 OK\nServer: hlspxd\nContent-Type: application/octet-stream\nConnection : close\n\n";
+@@ -131,9 +132,14 @@ void VideoViewer::Run()
+ {	
+ 	ReadM3U8();		// parse preliminary
+ 	// successful - send the response to TV
+-	VideoStream << "HTTP/1.1 200 OK\nServer: hlspxd\nContent-Type: application/octet-stream\nConnection : close\n\n";
++	VideoStream << "HTTP/1.1 200 OK\r\nServer: hlspxd\r\nContent-Type: application/octet-stream\r\nConnection : close\r\n\r\n";
  	VideoStream.flush();
  
 +	if (httpReqMethod == "HEAD" || httpReqMethod == "head")
@@ -72,8 +70,6 @@ index 4aeac2c..cfc9161 100644
  	// find redirections to different resolutions
  	vector<StreamInf> streamVec;
  
-diff --git a/videoviewer.h b/videoviewer.h
-index d8775c5..5309a1c 100644
 --- a/videoviewer.h
 +++ b/videoviewer.h
 @@ -76,6 +76,7 @@ class VideoViewer
@@ -84,33 +80,3 @@ index d8775c5..5309a1c 100644
  	Uri VideoUri;						// current URI
  	HttpClient M3U8Client;				// content server session
  	char TsBuf[TS_BUF_LEN];				// output buffer
--- 
-2.17.1
-
-
-From 5c266b53cc11a0d197892bd5e6b1cef4e220d349 Mon Sep 17 00:00:00 2001
-From: Julius Schwartzenberg <julius.schwartzenberg@gmail.com>
-Date: Thu, 30 May 2019 18:07:14 +0200
-Subject: [PATCH 2/2] Change HTTP response header to double byte \r\n newline
-
-Samsung Orsay TVs (from 2014) require this, tested on H5570.
----
- hlspxd/videoviewer.cpp | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/videoviewer.cpp b/videoviewer.cpp
-index cfc9161..5b7e7f2 100644
---- a/videoviewer.cpp
-+++ b/videoviewer.cpp
-@@ -132,7 +132,7 @@ void VideoViewer::Run()
- {	
- 	ReadM3U8();		// parse preliminary
- 	// successful - send the response to TV
--	VideoStream << "HTTP/1.1 200 OK\nServer: hlspxd\nContent-Type: application/octet-stream\nConnection : close\n\n";
-+	VideoStream << "HTTP/1.1 200 OK\r\nServer: hlspxd\r\nContent-Type: application/octet-stream\r\nConnection : close\r\n\r\n";
- 	VideoStream.flush();
- 
- 	if (httpReqMethod == "HEAD" || httpReqMethod == "head")
--- 
-2.17.1
-

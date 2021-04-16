@@ -1,6 +1,6 @@
 --- a/src/cpp-utils/crypto/kdf/Scrypt.h
 +++ b/src/cpp-utils/crypto/kdf/Scrypt.h
-@@ -22,7 +22,7 @@
+@@ -22,7 +22,7 @@ namespace cpputils {
      class SCrypt final : public PasswordBasedKDF {
      public:
          static constexpr SCryptSettings ParanoidSettings = SCryptSettings {32, 1048576, 8, 16};

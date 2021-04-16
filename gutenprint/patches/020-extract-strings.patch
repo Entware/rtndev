@@ -1,6 +1,6 @@
 --- a/src/xml/Makefile.am
 +++ b/src/xml/Makefile.am
-@@ -38,11 +38,6 @@
+@@ -38,11 +38,6 @@ pkgxmldatadir = $(pkgdatadir)/@GUTENPRIN
  
  ## Rules
  

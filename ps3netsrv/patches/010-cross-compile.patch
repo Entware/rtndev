@@ -7,7 +7,7 @@
  OUTPUT := ps3netsrv
  
  OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/Console.o src/File.o src/VIsoFile.o
-@@ -17,7 +17,7 @@
+@@ -17,7 +17,7 @@ CXXFLAGS += -Doff64_t=off_t
  #CFLAGS += -DNOSSL
  #CXXFLAGS += -DNOSSL
  

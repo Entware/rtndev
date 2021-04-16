@@ -1,6 +1,6 @@
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -10,27 +10,27 @@
+@@ -10,27 +10,27 @@ if DBG_BUILD
  endif
  
  automatic_SOURCES = \
@@ -49,7 +49,7 @@
  
  noinst_HEADERS =    \
     $(top_srcdir)/include/automatic.h      \
-@@ -57,7 +57,7 @@
+@@ -57,7 +57,7 @@ noinst_HEADERS =    \
  
  automatic_mw_SOURCES =  \
    $(automatic_SOURCES) \

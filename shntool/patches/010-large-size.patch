@@ -6,8 +6,7 @@ Description: fix large files processing.
 
 --- a/src/core_fileio.c
 +++ b/src/core_fileio.c
-@@ -109,12 +109,18 @@
- 
+@@ -110,10 +110,16 @@ bool read_value_long(FILE *file,unsigned
    buf[4] = 0;
  
    if (be_val)
@@ -26,4 +25,3 @@ Description: fix large files processing.
  
    if (tag_val)
      tagcpy(tag_val,buf);
- 

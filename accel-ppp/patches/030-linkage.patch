@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -10,7 +10,7 @@
+@@ -10,7 +10,7 @@ project(accel-ppp C)
  
  include(cmake/cpack.cmake)
  

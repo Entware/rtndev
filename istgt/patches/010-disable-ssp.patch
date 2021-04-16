@@ -1,6 +1,6 @@
 --- a/configure.in
 +++ b/configure.in
-@@ -143,15 +143,6 @@
+@@ -155,15 +155,6 @@ AC_ARG_WITH([rcdir],
    esac])
  AC_SUBST([rcdir])
  

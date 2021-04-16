@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -399,19 +399,6 @@
+@@ -399,19 +399,6 @@ dnl a problem and the old version was wo
  dnl it should be safe to re-edit 0.40 back down to 0.23
  
  use_nls=no
@@ -20,7 +20,7 @@
  AC_SUBST(INTLLIBS)
  
  
-@@ -524,8 +524,7 @@
+@@ -524,8 +511,7 @@ AC_CONFIG_FILES([Makefile
                   web/style/transmission/images/Makefile
                   web/style/transmission/images/buttons/Makefile
                   web/javascript/Makefile
@@ -32,7 +32,7 @@
  
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -9,7 +9,7 @@
+@@ -9,7 +9,7 @@ if !WIN32
  endif
  endif
  if BUILD_GTK

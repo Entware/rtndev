@@ -117,7 +117,7 @@
  
  UseContentLength = false
  
-@@ -616,8 +616,8 @@
+@@ -616,8 +616,8 @@ UseContentLength = false
  ## being corrupted.
  ## ****** THESE OPTIONS ARE EXPERIMENTAL ******
  ##
@@ -128,7 +128,7 @@
  # ProcessJS = false
  
  ## Options for fine-tuning text/html optimization.
-@@ -627,13 +627,13 @@
+@@ -627,13 +627,13 @@ UseContentLength = false
  ## Note: CSS and JS switches apply _only_ to such data when embedded into HTML data,
  ##       for JS, CSS-only data, see ProcessJS and ProcessCSS options.
  ##
@@ -149,7 +149,7 @@
  
  ## If enabled, will discard PNG/GIF/JP2K transparency and de-animate
  ## GIF images if necessary for recompression, at the cost of some image
-@@ -668,7 +668,7 @@
+@@ -668,7 +668,7 @@ UseContentLength = false
  
  ## Image quality for JPG (JPEG) compression.
  ## Image quality is specified in integers between 100 (best) and 0 (worst).
@@ -158,7 +158,7 @@
  
  ## Alpha channel (image transparency data) removal threshold
  ## Removes alpha channel from images with a minimum opacity
-@@ -718,7 +718,7 @@
+@@ -718,7 +718,7 @@ ImageQuality = {30,25,25,20}
  ## *** THIS IS NOT SUPPOSED TO BE A DEFINITIVE SOLUTION TO INCOMPATIBILITIES ***
  ##
  ## Default: empty (no file specified, inactive)
@@ -167,7 +167,7 @@
  
  ## This option specifies a file containing a list of URLs which its
  ## data should be intercepted and replaced by another.
-@@ -737,7 +737,7 @@
+@@ -737,7 +737,7 @@ ImageQuality = {30,25,25,20}
  ##
  ## Default: empty (no file specified, inactive)
  ## See also: URLReplaceDataCT
@@ -176,7 +176,7 @@
  
  ## Same as URLReplaceData, except it will only replace the data
  ## from matching URLs if the content-type matches
-@@ -751,7 +751,7 @@
+@@ -751,7 +751,7 @@ ImageQuality = {30,25,25,20}
  ##
  ## Default: empty (no file specified, inactive)
  ## See also: URLReplaceDataCTList, URLReplaceData
@@ -185,7 +185,7 @@
  
  ## List of content-types to use with the URLReplaceDataCT option.
  ## This option is required by URLReplaceDataCT.
-@@ -777,7 +777,7 @@
+@@ -777,7 +777,7 @@ ImageQuality = {30,25,25,20}
  ## A "access denied" 403 error will be returned when trying to access
  ## one of those URLs.
  ## Default: empty (no file specified, inactive)
@@ -194,7 +194,7 @@
  
  ## Custom HTTP Error Messages
  ## Define here the full path to the HTML file which should be
-@@ -785,21 +785,21 @@
+@@ -785,21 +785,21 @@ ImageQuality = {30,25,25,20}
  ## Note: The internal defaults give more precise error messages.
  ##
  ## 400 - Bad request (malformed URL, or unknown URL type)

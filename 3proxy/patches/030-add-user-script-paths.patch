@@ -1,5 +1,5 @@
---- ./scripts/add3proxyuser.sh.orig	2020-11-27 16:31:11.962147949 +0300
-+++ ./scripts/add3proxyuser.sh	2020-11-27 16:34:04.480266308 +0300
+--- a/scripts/add3proxyuser.sh
++++ b/scripts/add3proxyuser.sh
 @@ -1,12 +1,12 @@
  #!/bin/sh
  if [ $4 ]; then  

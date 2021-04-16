@@ -1,6 +1,6 @@
 --- a/globals.h
 +++ b/globals.h
-@@ -64,6 +64,10 @@
+@@ -64,6 +64,10 @@ XTRN int	LineNumber INIT(0);
  XTRN time_t	StartTime INIT(0);
  XTRN int	NoFork INIT(0);
  
@@ -13,7 +13,7 @@
  XTRN const char *DebugFlagNames[]
 --- a/misc.c
 +++ b/misc.c
-@@ -517,6 +517,8 @@
+@@ -517,6 +517,8 @@ log_it(const char *username, PID_T xpid,
  #endif /*LOG_FILE*/
  
  #if defined(SYSLOG)
@@ -22,7 +22,7 @@
  	if (!syslog_open) {
  # ifdef LOG_DAEMON
  		openlog(ProgramName, LOG_PID, FACILITY);
-@@ -545,6 +547,8 @@
+@@ -545,6 +547,8 @@ log_close(void) {
  		LogFD = ERR;
  	}
  #if defined(SYSLOG)
@@ -33,7 +33,7 @@
  #endif /*SYSLOG*/
 --- a/cron.c
 +++ b/cron.c
-@@ -47,8 +47,11 @@
+@@ -47,8 +47,11 @@ static	long			GMToff;
  static void
  usage(void) {
  	const char **dflags;
@@ -46,7 +46,7 @@
  	for (dflags = DebugFlagNames; *dflags; dflags++)
  		fprintf(stderr, "%s%s", *dflags, dflags[1] ? "," : "]");
  	fprintf(stderr, "]\n");
-@@ -70,6 +73,10 @@
+@@ -70,6 +73,10 @@ main(int argc, char *argv[]) {
  	setlinebuf(stderr);
  #endif
  
@@ -57,7 +57,7 @@
  	NoFork = 0;
  	parse_args(argc, argv);
  
-@@ -434,7 +441,7 @@
+@@ -434,7 +441,7 @@ static void
  parse_args(int argc, char *argv[]) {
  	int argch;
  
@@ -66,7 +66,7 @@
  		switch (argch) {
  		default:
  			usage();
-@@ -445,6 +452,11 @@
+@@ -445,6 +452,11 @@ parse_args(int argc, char *argv[]) {
  		case 'n':
  			NoFork = 1;
  			break;

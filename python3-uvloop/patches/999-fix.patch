@@ -1,6 +1,6 @@
 --- a/setup.py
 +++ b/setup.py
-@@ -165,18 +165,6 @@ class uvloop_build_ext(build_ext):
+@@ -209,18 +209,6 @@ class uvloop_build_ext(build_ext):
  
          # Sometimes pip fails to preserve the timestamps correctly,
          # in which case, make will try to run autotools again.
@@ -34,7 +34,7 @@
  
 --- a/uvloop/loop.c
 +++ b/uvloop/loop.c
-@@ -628,6 +628,17 @@ static CYTHON_INLINE float __PYX_NAN() {
+@@ -640,6 +640,17 @@ static CYTHON_INLINE float __PYX_NAN() {
  #include <omp.h>
  #endif /* _OPENMP */
  

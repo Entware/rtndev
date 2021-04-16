@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -15,9 +15,7 @@
+@@ -15,9 +15,7 @@ SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g
  SET(CMAKE_C_FLAGS_RELEASE "-O2")
  SET(CMAKE_C_FLAGS_DEBUG "-O0 -g -DDEBUG")
  
@@ -11,7 +11,7 @@
  
  add_definitions(-D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=26)
  
-@@ -42,4 +40,4 @@
+@@ -42,4 +40,4 @@ ELSE (WITH_XATTR)
  ENDIF (WITH_XATTR)
  
  add_subdirectory(src)

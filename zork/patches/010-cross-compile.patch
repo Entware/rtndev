@@ -16,7 +16,7 @@
  
  # The dungeon program provides a ``more'' facility which tries to
  # figure out how many rows the terminal has.  Several mechanisms are
-@@ -18,8 +18,8 @@
+@@ -18,8 +18,8 @@ LIBDIR = /usr/games/lib
  # variable may need to be set to -lcurses.  On some it may need to
  # be /usr/lib/termcap.o.  These options are commented out below.
  # LIBS = -ltermcap
@@ -27,7 +27,7 @@
  # LIBS = /usr/lib/termcap.o
  
  # more option 2: use the terminfo routines.  On some systems the LIBS
-@@ -29,8 +29,8 @@
+@@ -29,8 +29,8 @@ LIBS = -lcurses
  # TERMFLAG = -DMORE_TERMINFO
  
  # more option 3: assume all terminals have 24 rows
@@ -38,7 +38,7 @@
  
  # more option 4: don't use the more facility at all
  # LIBS =
-@@ -43,7 +43,7 @@
+@@ -43,7 +43,7 @@ WIZARDID=$(shell id -u)
  # Although a K&R compiler is somewhat difficult to come by these days,
  # we can make GCC enforce ANSI C, which is pretty close.
  # If you aren't building with GCC, comment the next line out.
@@ -47,7 +47,7 @@
  
  CFLAGS += -Wall -Werror -Wextra
  # Compilation flags
-@@ -87,7 +87,7 @@
+@@ -87,7 +87,7 @@ clean:
  	rm -f $(OBJS) dungeon dtextc.dat core dsave.dat *~
  
  dtextc.dat:

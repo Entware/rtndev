@@ -1,6 +1,6 @@
 --- a/source/Makefile
 +++ b/source/Makefile
-@@ -101,7 +101,7 @@
+@@ -101,7 +101,7 @@ include Makefile.obj
  #
  
  
@@ -9,7 +9,7 @@
  CFWARN := -Wall -Wformat-security
  CFWARN_L := -Wundef
  
-@@ -110,7 +110,7 @@
+@@ -110,7 +110,7 @@ DEFINES := $(EXTERNAL_DEFINES)
  ifdef ANDROID
  LDFLAGS := $(EXTERNAL_LDFLAGS) $(LDFLAGS)
  else
@@ -18,7 +18,7 @@
  endif
  
  #
-@@ -183,6 +183,7 @@
+@@ -183,6 +183,7 @@ ifdef CROSSHOST
  	endif
  
  endif
@@ -26,7 +26,7 @@
  ifneq (,$(findstring MINGW,$(uname_S)))
  	GAME = crawl.exe
  	bin_prefix = .
-@@ -253,7 +254,7 @@
+@@ -253,7 +254,7 @@ LIBSDL := contrib/install/$(ARCH)/lib/li
  LIBPNG := contrib/install/$(ARCH)/lib/libpng.a
  LIBSDLIMAGE := contrib/install/$(ARCH)/lib/libSDL_image.a
  LIBFREETYPE := contrib/install/$(ARCH)/lib/libfreetype.a
@@ -35,7 +35,7 @@
  ifdef USE_LUAJIT
  LIBLUA := contrib/install/$(ARCH)/lib/libluajit.a
  else
-@@ -262,7 +263,7 @@
+@@ -262,7 +263,7 @@ endif
  LIBZ := contrib/install/$(ARCH)/lib/libz.a
  
  ifndef CROSSHOST
@@ -44,7 +44,7 @@
  else
  	# This is totally wrong, works only with some old-style setups, and
  	# on some architectures of Debian/new FHS multiarch -- excluding, for
-@@ -377,7 +378,6 @@
+@@ -377,7 +378,6 @@ endif
  
  
  INCLUDES_L += -Icontrib/install/$(ARCH)/include
@@ -52,7 +52,7 @@
  
  INCLUDES_L += -Iutil -I.
  
-@@ -929,10 +929,8 @@
+@@ -929,10 +929,8 @@ NC_LIB = ncursesw
  NC_INCLUDE = $(NC_PREFIX)/include/ncursesw
  endif
  
@@ -64,7 +64,7 @@
  endif
  
  endif
-@@ -953,7 +951,6 @@
+@@ -953,7 +951,6 @@ CFWARN := -wd383,810,869,981,1418 -we14,
  CFWARN_L :=
  endif
  
@@ -72,7 +72,7 @@
  
  ifdef REPORT
  CFOTHERS += -ftime-report
-@@ -962,7 +959,7 @@
+@@ -962,7 +959,7 @@ endif
  ifdef ANDROID
  CFLAGS   := $(CFOPTIMIZE) $(CFOTHERS) $(CFWARN) $(CFLAGS)
  else
@@ -81,7 +81,7 @@
  endif
  CFLAGS_L := $(CFOPTIMIZE_L) $(DEFINES_L) $(CFWARN_L) $(INCLUDES_L) $(CFOTHERS_L)
  ALL_CFLAGS := $(CFLAGS) $(CFLAGS_L)
-@@ -1058,8 +1055,7 @@
+@@ -1058,8 +1055,7 @@ endif
  CONTRIB_LIBS += $(LIBLUA)
  endif
  ifdef BUILD_SQLITE

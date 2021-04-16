@@ -12,8 +12,6 @@ See inline comment for details.
  libgrive/src/bfd/SymbolInfo.cc | 35 ++++++++++++++++++++--------------
  1 file changed, 21 insertions(+), 14 deletions(-)
 
-diff --git a/libgrive/src/bfd/SymbolInfo.cc b/libgrive/src/bfd/SymbolInfo.cc
-index 5876cc0..cdb5d7c 100644
 --- a/libgrive/src/bfd/SymbolInfo.cc
 +++ b/libgrive/src/bfd/SymbolInfo.cc
 @@ -49,9 +49,9 @@ SymbolInfo::SymbolInfo( )
@@ -62,7 +60,7 @@ index 5876cc0..cdb5d7c 100644
  	static void Callback( bfd *abfd, asection *section, void* addr ) ;
  } ;
  
-@@ -117,17 +117,24 @@ void SymbolInfo::BacktraceInfo::Callback( bfd *abfd, asection *section,
+@@ -117,17 +117,24 @@ void SymbolInfo::BacktraceInfo::Callback
  	BacktraceInfo *info = (BacktraceInfo *)data ;
  	if ((section->flags & SEC_ALLOC) == 0)
  		return ;
@@ -93,7 +91,7 @@ index 5876cc0..cdb5d7c 100644
  	const SymbolInfo *pthis	= info->m_pthis ;
  	info->m_is_found	=  bfd_find_nearest_line( abfd, section,
  	                                              pthis->m_impl->m_symbols,
-@@ -149,7 +156,7 @@ void SymbolInfo::PrintTrace( void *addr, std::ostream& os, std::size_t idx )
+@@ -149,7 +156,7 @@ void SymbolInfo::PrintTrace( void *addr,
  	{
  		this, addr, 0, 0, 0, false
  	} ;
@@ -111,6 +109,3 @@ index 5876cc0..cdb5d7c 100644
  			<< " "
  			<< (btinfo.m_func_name != 0 ? Demangle(btinfo.m_func_name) : "" )
  			<< std::endl ;
--- 
-2.20.1
-

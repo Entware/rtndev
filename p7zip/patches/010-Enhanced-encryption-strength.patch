@@ -14,11 +14,9 @@ https://sourceforge.net/p/sevenzip/bugs/2176
  .../source/CPP/7zip/Crypto/ZipCrypto.cpp      |   2 +-
  6 files changed, 146 insertions(+), 18 deletions(-)
 
-diff --git a/CPP/7zip/Archive/Wim/WimHandlerOut.cpp b/CPP/7zip/Archive/Wim/WimHandlerOut.cpp
-index 1d198df0..39679883 100644
 --- a/CPP/7zip/Archive/Wim/WimHandlerOut.cpp
 +++ b/CPP/7zip/Archive/Wim/WimHandlerOut.cpp
-@@ -671,7 +671,7 @@ void CHeader::SetDefaultFields(bool useLZX)
+@@ -671,7 +671,7 @@ void CHeader::SetDefaultFields(bool useL
      ChunkSize = kChunkSize;
      ChunkSizeBits = kChunkSizeBits;
    }
@@ -27,8 +25,6 @@ index 1d198df0..39679883 100644
    PartNumber = 1;
    NumParts = 1;
    NumImages = 1;
-diff --git a/CPP/7zip/Crypto/7zAes.cpp b/CPP/7zip/Crypto/7zAes.cpp
-index d33b562a..2ed69bad 100644
 --- a/CPP/7zip/Crypto/7zAes.cpp
 +++ b/CPP/7zip/Crypto/7zAes.cpp
 @@ -164,8 +164,8 @@ STDMETHODIMP CEncoder::ResetInitVector()
@@ -42,8 +38,6 @@ index d33b562a..2ed69bad 100644
    return S_OK;
  }
  
-diff --git a/CPP/7zip/Crypto/RandGen.cpp b/CPP/7zip/Crypto/RandGen.cpp
-index f5ea31f0..a70f4ec8 100644
 --- a/CPP/7zip/Crypto/RandGen.cpp
 +++ b/CPP/7zip/Crypto/RandGen.cpp
 @@ -2,14 +2,44 @@
@@ -226,14 +220,12 @@ index f5ea31f0..a70f4ec8 100644
    Sha256_Final(&hash, _buff);
    _needInit = false;
  }
-@@ -120,3 +227,5 @@ void CRandomGenerator::Generate(Byte *data, unsigned size)
+@@ -120,3 +227,5 @@ void CRandomGenerator::Generate(Byte *da
  }
  
  CRandomGenerator g_RandomGenerator;
 +
 +#endif
-diff --git a/CPP/7zip/Crypto/RandGen.h b/CPP/7zip/Crypto/RandGen.h
-index cfdcd60d..5122ec4b 100644
 --- a/CPP/7zip/Crypto/RandGen.h
 +++ b/CPP/7zip/Crypto/RandGen.h
 @@ -5,6 +5,21 @@
@@ -267,8 +259,6 @@ index cfdcd60d..5122ec4b 100644
 +#endif
 +
  #endif
-diff --git a/CPP/7zip/Crypto/WzAes.cpp b/CPP/7zip/Crypto/WzAes.cpp
-index 4572f06e..d415ab84 100644
 --- a/CPP/7zip/Crypto/WzAes.cpp
 +++ b/CPP/7zip/Crypto/WzAes.cpp
 @@ -96,7 +96,7 @@ STDMETHODIMP CBaseCoder::Init()
@@ -280,11 +270,9 @@ index 4572f06e..d415ab84 100644
    Init2();
    RINOK(WriteStream(outStream, _key.Salt, saltSize));
    return WriteStream(outStream, _key.PwdVerifComputed, kPwdVerifSize);
-diff --git a/CPP/7zip/Crypto/ZipCrypto.cpp b/CPP/7zip/Crypto/ZipCrypto.cpp
-index ae715063..8610297a 100644
 --- a/CPP/7zip/Crypto/ZipCrypto.cpp
 +++ b/CPP/7zip/Crypto/ZipCrypto.cpp
-@@ -49,7 +49,7 @@ HRESULT CEncoder::WriteHeader_Check16(ISequentialOutStream *outStream, UInt16 cr
+@@ -49,7 +49,7 @@ HRESULT CEncoder::WriteHeader_Check16(IS
       PKZIP 2.0+ used 1 byte CRC check. It's more secure.
       We also use 1 byte CRC. */
  
@@ -293,6 +281,3 @@ index ae715063..8610297a 100644
    // h[kHeaderSize - 2] = (Byte)(crc);
    h[kHeaderSize - 1] = (Byte)(crc >> 8);
    
--- 
-2.17.1
-

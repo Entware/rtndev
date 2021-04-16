@@ -1,6 +1,6 @@
 --- a/SConstruct
 +++ b/SConstruct
-@@ -68,7 +68,7 @@
+@@ -68,7 +68,7 @@ if sys.platform == 'win32':
    default_libdir='..'
    default_prefix='Debug'
  else:
@@ -9,7 +9,7 @@
    default_libdir='$PREFIX/lib'
    default_prefix='/usr/local'
  
-@@ -166,7 +166,7 @@
+@@ -166,7 +166,7 @@ env.Append(BUILDERS = {
  match = re.search('SERF_MAJOR_VERSION ([0-9]+).*'
                    'SERF_MINOR_VERSION ([0-9]+).*'
                    'SERF_PATCH_VERSION ([0-9]+)',
@@ -18,7 +18,7 @@
                    re.DOTALL)
  MAJOR, MINOR, PATCH = [int(x) for x in match.groups()]
  env.Append(MAJOR=str(MAJOR))
-@@ -183,7 +183,7 @@
+@@ -183,7 +183,7 @@ CALLOUT_OKAY = not (env.GetOption('clean
  
  unknown = opts.UnknownVariables()
  if unknown:
@@ -27,7 +27,7 @@
  
  apr = str(env['APR'])
  apu = str(env['APU'])
-@@ -224,9 +224,6 @@
+@@ -224,9 +224,6 @@ if sys.platform != 'win32':
  else:
    LIBNAMESTATIC = 'serf-${MAJOR}'
  
@@ -37,7 +37,7 @@
  if sys.platform == 'darwin':
  #  linkflags.append('-Wl,-install_name,@executable_path/%s.dylib' % (LIBNAME,))
    env.Append(LINKFLAGS=['-Wl,-install_name,%s/%s.dylib' % (thisdir, LIBNAME,)])
-@@ -385,12 +382,6 @@
+@@ -385,12 +382,6 @@ if gssapi and CALLOUT_OKAY:
  if sys.platform == 'win32':
    env.Append(CPPDEFINES=['SERF_HAVE_SSPI'])
  
@@ -50,7 +50,7 @@
  # Set up the construction of serf-*.pc
  pkgconfig = env.Textfile('serf-%d.pc' % (MAJOR,),
                           env.File('build/serf.pc.in'),
-@@ -461,7 +452,6 @@
+@@ -461,7 +452,6 @@ else:
    TEST_EXES = [ os.path.join('test', '%s' % (prog)) for prog in TEST_PROGRAMS ]
  
  # Find the (dynamic) library in this directory

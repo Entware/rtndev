@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -4,7 +4,7 @@
+@@ -4,7 +4,7 @@ CC=gcc
  CFLAGS=-O2 -Wall
  
  yamdi: yamdi.c Makefile

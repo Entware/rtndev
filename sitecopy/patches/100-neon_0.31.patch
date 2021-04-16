@@ -1,6 +1,6 @@
 --- a/configure
 +++ b/configure
-@@ -8456,7 +8456,7 @@
+@@ -8456,7 +8456,7 @@ fi
  echo "${ECHO_T}$ne_cv_lib_neon" >&6; }
      if test "$ne_cv_lib_neon" = "yes"; then
         ne_cv_lib_neonver=no

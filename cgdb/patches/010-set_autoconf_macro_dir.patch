@@ -1,6 +1,6 @@
 --- a/configure.init
 +++ b/configure.init
-@@ -2,6 +2,7 @@
+@@ -2,6 +2,7 @@ dnl Process this file with autoconf to p
  AC_PREREQ(2.5)
  AC_INIT(cgdb, 0.6.8)
  AC_CONFIG_AUX_DIR(config)

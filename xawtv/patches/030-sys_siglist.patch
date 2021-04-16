@@ -1,8 +1,6 @@
-Index: xawtv-3.95/console/fbtools.c
-===================================================================
---- xawtv-3.95.orig/console/fbtools.c	2011-02-26 22:38:35.406698306 +0100
-+++ xawtv-3.95/console/fbtools.c	2011-02-26 22:39:48.986803306 +0100
-@@ -520,6 +520,6 @@
+--- a/console/fbtools.c
++++ b/console/fbtools.c
+@@ -520,6 +520,6 @@ fb_catch_exit_signals(void)
  
      /* cleanup */
      fb_cleanup();
@@ -10,11 +8,9 @@ Index: xawtv-3.95/console/fbtools.c
 +    fprintf(stderr,"Oops: %s\n", strsignal(termsig));
      exit(42);
  }
-Index: xawtv-3.95/console/record.c
-===================================================================
---- xawtv-3.95.orig/console/record.c	2003-04-03 12:51:00.000000000 +0200
-+++ xawtv-3.95/console/record.c	2011-02-26 22:39:34.836398305 +0100
-@@ -429,7 +429,7 @@
+--- a/console/record.c
++++ b/console/record.c
+@@ -429,7 +429,7 @@ ctrlc(int signal)
  {
      if (verbose)
  	fprintf(stderr,"\n%s - exiting\n",
@@ -23,11 +19,9 @@ Index: xawtv-3.95/console/record.c
      stop = 1;
  }
  
-Index: xawtv-3.95/x11/rootv.c
-===================================================================
---- xawtv-3.95.orig/x11/rootv.c	2003-02-14 15:14:08.000000000 +0100
-+++ xawtv-3.95/x11/rootv.c	2011-02-26 22:38:35.810233306 +0100
-@@ -133,7 +133,7 @@
+--- a/x11/rootv.c
++++ b/x11/rootv.c
+@@ -133,7 +133,7 @@ catch_sig(int signal)
      termsig = signal;
      if (verbose)
  	fprintf(stderr,"received signal %d [%s]\n",
@@ -36,7 +30,7 @@ Index: xawtv-3.95/x11/rootv.c
  }
  
  static void usage(FILE *fp)
-@@ -422,7 +422,7 @@
+@@ -422,7 +422,7 @@ main(int argc, char *argv[])
      }
      if (verbose && termsig)
  	fprintf(stderr,"exiting on signal %d [%s]\n",

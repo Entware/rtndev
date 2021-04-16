@@ -1,6 +1,6 @@
 --- a/cmake-config.txt
 +++ b/cmake-config.txt
-@@ -209,7 +209,7 @@
+@@ -209,7 +209,7 @@ find_package(PNG)
  
  
  
@@ -9,7 +9,7 @@
  #--- look for Qt
  find_package(Qt5Widgets QUIET)
  if (Qt5Widgets_FOUND)
-@@ -264,6 +264,7 @@
+@@ -264,6 +264,7 @@ elseif(QT4_FOUND)
  else()
    message(STATUS "No Qt library found")
  endif()

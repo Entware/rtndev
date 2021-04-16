@@ -1,8 +1,8 @@
 --- a/src/options.c
 +++ b/src/options.c
-@@ -247,10 +247,10 @@
-   "  --ignore-status=<CODE>          - Ignore parsing the given status code.\n"
-   "  --keep-last=<NDAYS>             - Keep the last NDAYS in storage.\n"
+@@ -254,10 +254,10 @@ cmd_help (void)
+   "  --no-ip-validation              - Disable client IPv4/6  validation.\n"
+   "  --no-strict-status              - Disable HTTP status code validation.\n"
    "  --num-tests=<number>            - Number of lines to test. >= 0 (10 default)\n"
 -  "  --persist                       - Persist data to disk on exit to the given --db-path or to /tmp.\n"
 +  "  --persist                       - Persist data to disk on exit to the given --db-path or to /opt/tmp.\n"

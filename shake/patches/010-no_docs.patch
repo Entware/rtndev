@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -38,20 +38,9 @@
+@@ -38,20 +38,9 @@ set (CPACK_PACKAGE_CONTACT "Brice Arnoul
  
  set (VERSION "${CPACK_VERSION_MAJOR}.${CPACK_VERSION_MINOR}")
  
@@ -21,7 +21,7 @@
  
  #### Platform Specific ####
  
-@@ -68,7 +57,7 @@
+@@ -68,7 +57,7 @@ ENDIF ()
  
  ## GCC  ##
  IF (CMAKE_COMPILER_IS_GNUCC)
@@ -30,7 +30,7 @@
    set (CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -O0 -ggdb3 -pedantic -Wconversion -Werror -DDEBUG=1")
  ENDIF ()
  
-@@ -90,8 +79,6 @@
+@@ -90,8 +79,6 @@ ENDIF()
  #### Installation ####
  install (TARGETS shake unattr
    DESTINATION bin)

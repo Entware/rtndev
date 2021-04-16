@@ -1,6 +1,6 @@
 --- a/conf/msd.conf
 +++ b/conf/msd.conf
-@@ -26,7 +26,7 @@
+@@ -26,7 +26,7 @@ available.
  
  <msd>
  	<log>
@@ -11,7 +11,7 @@
  
 --- a/conf/msd_minimal.conf
 +++ b/conf/msd_minimal.conf
-@@ -26,7 +26,7 @@
+@@ -26,7 +26,7 @@ available.
  
  <msd>
  	<log>
@@ -20,7 +20,7 @@
  	</log>
  
  
-@@ -131,8 +131,8 @@
+@@ -131,8 +131,8 @@ available.
  
  
  	<channelList>

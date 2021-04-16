@@ -1,6 +1,6 @@
 --- a/lib/tgdb/gdbwire.c
 +++ b/lib/tgdb/gdbwire.c
-@@ -1689,7 +1689,7 @@
+@@ -1689,7 +1689,7 @@ struct gdbwire_mi_parser {
      /* The GDB/MI lexer state */
      yyscan_t mils;
      /* The GDB/MI push parser state */
@@ -9,7 +9,7 @@
      /* The client parser callbacks */
      struct gdbwire_mi_parser_callbacks callbacks;
  };
-@@ -1720,8 +1720,8 @@
+@@ -1720,8 +1720,8 @@ gdbwire_mi_parser_create(struct gdbwire_
      }
  
      /* Create a new push parser state instance */
@@ -20,7 +20,7 @@
          gdbwire_mi_lex_destroy(parser->mils);
          gdbwire_string_destroy(parser->buffer);
          free(parser);
-@@ -1730,7 +1730,7 @@
+@@ -1730,7 +1730,7 @@ gdbwire_mi_parser_create(struct gdbwire_
  
      /* Ensure that the callbacks are non null */
      if (!callbacks.gdbwire_mi_output_callback) {
@@ -29,7 +29,7 @@
          gdbwire_mi_lex_destroy(parser->mils);
          gdbwire_string_destroy(parser->buffer);
          free(parser);
-@@ -1758,9 +1758,9 @@
+@@ -1758,9 +1758,9 @@ void gdbwire_mi_parser_destroy(struct gd
          }
  
          /* Free the push parser instance */
@@ -42,7 +42,7 @@
          }
  
          free(parser);
-@@ -1811,7 +1811,7 @@
+@@ -1811,7 +1811,7 @@ gdbwire_mi_parser_parse_line(struct gdbw
          pattern = gdbwire_mi_lex(parser->mils);
          if (pattern == 0)
              break;

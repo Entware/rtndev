@@ -1,6 +1,6 @@
 --- a/makefile
 +++ b/makefile
-@@ -9,11 +9,11 @@
+@@ -9,11 +9,11 @@ sharedir = ${prefix}/share
  mandir = ${sharedir}/man
  
  O=aoe.o bpf.o ${PLATFORM}.o ata.o dat.o

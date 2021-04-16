@@ -1,5 +1,3 @@
-diff --git a/tgl/crypto/rsa_pem_openssl.c b/tgl/crypto/rsa_pem_openssl.c
-index db653f2..5e6a697 100644
 --- a/tgl/crypto/rsa_pem_openssl.c
 +++ b/tgl/crypto/rsa_pem_openssl.c
 @@ -36,6 +36,12 @@ TGLC_WRAPPER_ASSOC(rsa,RSA)
@@ -15,7 +13,7 @@ index db653f2..5e6a697 100644
  TGLC_rsa *TGLC_rsa_new (unsigned long e, int n_bytes, const unsigned char *n) {
    RSA *ret = RSA_new ();
    ret->e = unwrap_bn (TGLC_bn_new ());
-@@ -47,7 +53,30 @@ TGLC_rsa *TGLC_rsa_new (unsigned long e, int n_bytes, const unsigned char *n) {
+@@ -47,7 +53,30 @@ TGLC_rsa *TGLC_rsa_new (unsigned long e,
  #define RSA_GETTER(M)                                                          \
    TGLC_bn *TGLC_rsa_ ## M (TGLC_rsa *key) {                                    \
      return wrap_bn (unwrap_rsa (key)->M);                                      \
@@ -47,17 +45,15 @@ index db653f2..5e6a697 100644
  
  RSA_GETTER(n);
  RSA_GETTER(e);
-@@ -60,4 +89,4 @@ TGLC_rsa *TGLC_pem_read_RSAPublicKey (FILE *fp) {
+@@ -60,4 +89,4 @@ TGLC_rsa *TGLC_pem_read_RSAPublicKey (FI
    return wrap_rsa (PEM_read_RSAPublicKey (fp, NULL, NULL, NULL));
  }
  
 -#endif
 +#endif // TGL_AVOID_OPENSSL
-diff --git a/tgl/mtproto-utils.c b/tgl/mtproto-utils.c
-index 0948bc8..cfdb216 100644
 --- a/tgl/mtproto-utils.c
 +++ b/tgl/mtproto-utils.c
-@@ -98,7 +98,7 @@ static unsigned long long BN2ull (TGLC_bn *b) {
+@@ -98,7 +98,7 @@ static unsigned long long BN2ull (TGLC_b
    if (sizeof (unsigned long) == 8) {
      return TGLC_bn_get_word (b);
    } else if (sizeof (unsigned long long) == 8) {
@@ -66,7 +62,7 @@ index 0948bc8..cfdb216 100644
      unsigned long long tmp;
      /* Here be dragons, but it should be okay due to be64toh */
      TGLC_bn_bn2bin (b, (unsigned char *) &tmp);
-@@ -112,7 +112,7 @@ static void ull2BN (TGLC_bn *b, unsigned long long val) {
+@@ -112,7 +112,7 @@ static void ull2BN (TGLC_bn *b, unsigned
    if (sizeof (unsigned long) == 8 || val < (1ll << 32)) {
      TGLC_bn_set_word (b, val);
    } else if (sizeof (unsigned long long) == 8) {
@@ -75,11 +71,9 @@ index 0948bc8..cfdb216 100644
      htobe64(val);
      /* Here be dragons, but it should be okay due to htobe64 */
      TGLC_bn_bin2bn ((unsigned char *) &val, 8, b);
-diff --git a/tgl/tl-parser/tl-parser.c b/tgl/tl-parser/tl-parser.c
-index 524b196..aeadbd2 100644
 --- a/tgl/tl-parser/tl-parser.c
 +++ b/tgl/tl-parser/tl-parser.c
-@@ -1903,7 +1903,7 @@ struct tl_combinator_tree *tl_parse_args134 (struct tree *T) {
+@@ -1903,7 +1903,7 @@ struct tl_combinator_tree *tl_parse_args
        //assert (S->data);
        char *name = S->data;
        if (!name) {

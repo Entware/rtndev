@@ -1,5 +1,5 @@
---- ./rules.mk.orig	2013-11-16 20:38:26.847342363 +0400
-+++ ./rules.mk	2013-11-16 20:38:44.611342887 +0400
+--- a/rules.mk
++++ b/rules.mk
 @@ -6,12 +6,12 @@
  
  $(rastertoqpdl_TARGET): $(rastertoqpdl_OBJ)

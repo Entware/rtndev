@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -22,7 +22,7 @@
+@@ -22,7 +22,7 @@ project (dislocker C)
  
  set (AUTHOR "Romain Coltel")
  

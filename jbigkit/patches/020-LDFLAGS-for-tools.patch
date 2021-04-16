@@ -1,6 +1,6 @@
 --- a/pbmtools/Makefile
 +++ b/pbmtools/Makefile
-@@ -15,16 +15,16 @@
+@@ -15,16 +15,16 @@ all: pbmtojbg jbgtopbm pbmtojbg85 jbgtop
  txt: pbmtojbg.txt jbgtopbm.txt pbm.txt pgm.txt
  
  pbmtojbg: pbmtojbg.o ../libjbig/libjbig.a

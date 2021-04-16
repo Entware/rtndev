@@ -1,6 +1,6 @@
 --- a/accel-pppd/ctrl/l2tp/l2tp.c
 +++ b/accel-pppd/ctrl/l2tp/l2tp.c
-@@ -4947,8 +4947,6 @@
+@@ -4961,8 +4961,6 @@ static void l2tp_init(void)
  	fd = socket(AF_PPPOX, SOCK_DGRAM, PX_PROTO_OL2TP);
  	if (fd >= 0)
  		close(fd);
@@ -11,7 +11,7 @@
  	memset(l2tp_conn, 0, (UINT16_MAX + 1) * sizeof(struct l2tp_conn_t *));
 --- a/accel-pppd/ctrl/pppoe/pppoe.c
 +++ b/accel-pppd/ctrl/pppoe/pppoe.c
-@@ -2065,8 +2065,6 @@
+@@ -2071,8 +2071,6 @@ static void pppoe_init(void)
  	fd = socket(AF_PPPOX, SOCK_STREAM, PX_PROTO_OE);
  	if (fd >= 0)
  		close(fd);
@@ -22,7 +22,7 @@
  	pado_pool = mempool_create(sizeof(struct delayed_pado_t));
 --- a/accel-pppd/ctrl/pptp/pptp.c
 +++ b/accel-pppd/ctrl/pptp/pptp.c
-@@ -806,8 +806,6 @@
+@@ -816,8 +816,6 @@ static void pptp_init(void)
  	fd = socket(AF_PPPOX, SOCK_STREAM, PX_PROTO_PPTP);
  	if (fd >= 0)
  		close(fd);

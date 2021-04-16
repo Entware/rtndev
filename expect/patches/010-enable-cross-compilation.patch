@@ -8,11 +8,9 @@ each AC_MSG_CHECKING that bombed out with an error.
 Signed-off-by: Andrew Ruder <andrew.ruder@elecsyscorp.com>
 ---
 
-Index: expect-5.45/configure.in
-===================================================================
---- expect-5.45.orig/configure.in	2013-11-14 07:59:58.732100595 -0600
-+++ expect-5.45/configure.in	2013-11-14 07:59:58.732100595 -0600
-@@ -481,7 +481,7 @@
+--- a/configure.in
++++ b/configure.in
+@@ -481,7 +481,7 @@ main() {
  ,
  	AC_MSG_RESULT(no)
  ,
@@ -21,7 +19,7 @@ Index: expect-5.45/configure.in
  )
  
  AC_MSG_CHECKING([if any value exists for WNOHANG])
-@@ -506,7 +506,8 @@
+@@ -506,7 +506,8 @@ main() {
  	AC_MSG_RESULT(no)
  	AC_DEFINE(WNOHANG_BACKUP_VALUE, 1)
  ,
@@ -31,7 +29,7 @@ Index: expect-5.45/configure.in
  )
  
  #
-@@ -574,7 +575,7 @@
+@@ -574,7 +575,7 @@ main()
  	AC_DEFINE(REARM_SIG)
  ,
  	AC_MSG_RESULT(no)
@@ -40,7 +38,7 @@ Index: expect-5.45/configure.in
  )
  
  # HPUX7 has trouble with the big cat so split it
-@@ -725,7 +726,7 @@
+@@ -725,7 +726,7 @@ main()
  ,
          AC_MSG_RESULT(no)
  ,
@@ -49,7 +47,7 @@ Index: expect-5.45/configure.in
  )
  
  # mach systems have include files for unimplemented features
-@@ -749,7 +750,9 @@
+@@ -749,7 +750,9 @@ if test $mach -eq 0 ; then
  ,
          AC_MSG_RESULT(no)
  ,
@@ -60,7 +58,7 @@ Index: expect-5.45/configure.in
  )
  
    # now check for the new style ttys (not yet posix)
-@@ -771,7 +774,9 @@
+@@ -771,7 +774,9 @@ if test $mach -eq 0 ; then
    ,
          AC_MSG_RESULT(no)
    ,
@@ -71,7 +69,7 @@ Index: expect-5.45/configure.in
    )
  fi
  
-@@ -794,7 +799,7 @@
+@@ -794,7 +799,7 @@ main() {
  ,
  	AC_MSG_RESULT(no)
  ,
@@ -80,7 +78,7 @@ Index: expect-5.45/configure.in
  )
  
  AC_MSG_CHECKING([if TIOCGWINSZ in termios.h])
-@@ -816,7 +821,7 @@
+@@ -816,7 +821,7 @@ main() {
  ,
  	AC_MSG_RESULT(no)
  ,
@@ -89,7 +87,7 @@ Index: expect-5.45/configure.in
  )
  
  # finally check for Cray style ttys
-@@ -837,7 +842,7 @@
+@@ -837,7 +842,7 @@ main(){
  ,
  	AC_MSG_RESULT(no)
  ,
@@ -98,7 +96,7 @@ Index: expect-5.45/configure.in
  )
  
  #
-@@ -869,7 +874,9 @@
+@@ -869,7 +874,9 @@ AC_HAVE_FUNCS(_getpty)
  AC_HAVE_FUNCS(getpty)
  
  # following test sets SETPGRP_VOID if setpgrp takes 0 args, else takes 2
@@ -109,7 +107,7 @@ Index: expect-5.45/configure.in
  
  #
  # check for timezones
-@@ -889,7 +896,7 @@
+@@ -889,7 +896,7 @@ main()
  	AC_MSG_RESULT(yes),
  	AC_MSG_RESULT(no)
  ,

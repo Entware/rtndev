@@ -1,6 +1,6 @@
 --- a/websocket.c
 +++ b/websocket.c
-@@ -174,7 +174,7 @@
+@@ -174,7 +174,7 @@ void WebsocketTransact(STREAM *Client, H
      ListNode *Streams;
  
      Streams=ListCreate();
@@ -11,7 +11,7 @@
      ListAddItem(Streams, Client);
 --- a/Settings.c
 +++ b/Settings.c
-@@ -564,7 +564,7 @@
+@@ -564,7 +564,7 @@ void PrintUsage()
      fprintf(stdout,"	-a:		Specify the authentication file for 'built in' authentication.\n");
      fprintf(stdout,"	-A:		Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken. For 'Alaya native only' just use 'native' on its own\n");
      fprintf(stdout,"	-d:		No daemon, don't background process.\n");
@@ -20,7 +20,7 @@
      fprintf(stdout,"	-O:		Open, don't require authentication.\n");
      fprintf(stdout,"	-h:		'ChHome mode', switch to users home dir and chroot.\n");
      fprintf(stdout,"	-i:		Set interface listen on, allows running separate servers on the same port on different interfaces/network cards.\n");
-@@ -808,14 +808,14 @@
+@@ -808,14 +808,14 @@ void InitSettings()
      Settings.MaxLogSize=999999;
      Settings.MaxLogRotate=5;
      Settings.LogPath=CopyStr(Settings.LogPath,"SYSLOG");

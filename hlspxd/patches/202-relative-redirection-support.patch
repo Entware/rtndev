@@ -8,11 +8,9 @@ Subject: [PATCH] Relative redirection support
  hlspxd/src/videoviewer.cpp | 8 ++++++--
  2 files changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/hlspxd/src/utils.cpp b/hlspxd/src/utils.cpp
-index b5fee01..31e3443 100644
 --- a/utils.cpp
 +++ b/utils.cpp
-@@ -481,7 +481,8 @@ HttpResponse HttpClient::getResponse(Uri &reqUri)
+@@ -481,7 +481,8 @@ HttpResponse HttpClient::getResponse(Uri
  			const string *Location = contResp.getHeaderRecord("Location");
  			if (Location == NULL) throw Exception("Redirect - no location");
  			clientUri = Uri(*Location);
@@ -22,8 +20,6 @@ index b5fee01..31e3443 100644
  			LogWriter::WriteLog("Redirect ->'%s'", Location->c_str());
  			reqUri = clientUri;
  		}
-diff --git a/hlspxd/src/videoviewer.cpp b/hlspxd/src/videoviewer.cpp
-index 5b7e7f2..f79e84c 100644
 --- a/videoviewer.cpp
 +++ b/videoviewer.cpp
 @@ -116,8 +116,12 @@ void VideoViewer::ReadM3U8()
@@ -41,6 +37,3 @@ index 5b7e7f2..f79e84c 100644
  		}
  
  		PlayList.push_back(recrd);
--- 
-2.17.1
-
