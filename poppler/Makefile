@@ -10,14 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
-PKG_VERSION:=21.03.0
+PKG_VERSION:=21.04.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
-PKG_HASH:=fd51ead4aac1d2f4684fa6e7b0ec06f0233ed21667e720a4e817e4455dd63d27
-
-CMAKE_INSTALL:=1
+PKG_HASH:=5e2219656c6bbd36154133fef2e12b7d0938464518827098b29a10b1697ea79c
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
