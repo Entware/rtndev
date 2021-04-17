@@ -12,12 +12,15 @@ PKG_VERSION:=5.2.0
 PKG_REV:=cf3db945083fb4dab951874e5ec1283128deab11
 PKG_RELEASE:=1
 
+
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/radareorg/radare2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=c91fa6da0d1204dccb263211612365e0221c406c680f36f7ebf15c652f9f296d
+
+PKG_BUILD_DEPENDS:=meson/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/devel/meson/meson.mk
