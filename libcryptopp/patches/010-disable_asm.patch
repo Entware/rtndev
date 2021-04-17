@@ -1,12 +1,21 @@
---- a/config_asm.h
-+++ b/config_asm.h
-@@ -36,8 +36,7 @@
- // #define CRYPTOPP_DISABLE_ASM 1
- 
- // https://github.com/weidai11/cryptopp/issues/719
--#if defined(__native_client__)
--# undef CRYPTOPP_DISABLE_ASM
-+#ifndef CRYPTOPP_DISABLE_ASM
- # define CRYPTOPP_DISABLE_ASM 1
+--- a/config.h
++++ b/config.h
+@@ -412,6 +412,18 @@
+ #define CRYPTOPP_UNCAUGHT_EXCEPTION_AVAILABLE
  #endif
  
++// Configuration option doesn't saved to config.h after compilation, so we have to add
++// following definition manually:
++#ifndef CRYPTOPP_DISABLE_ASM
++#define CRYPTOPP_DISABLE_ASM
++#endif
++#ifndef CRYPTOPP_DISABLE_SSSE3
++#define CRYPTOPP_DISABLE_SSSE3
++#endif
++#ifndef CRYPTOPP_DISABLE_AESNI
++#define CRYPTOPP_DISABLE_AESNI
++#endif
++
+ #ifdef CRYPTOPP_DISABLE_X86ASM		// for backwards compatibility: this macro had both meanings
+ #define CRYPTOPP_DISABLE_ASM
+ #define CRYPTOPP_DISABLE_SSE2

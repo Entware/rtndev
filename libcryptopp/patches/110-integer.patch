@@ -1,0 +1,102 @@
+--- a/integer.cpp
++++ b/integer.cpp
+@@ -2929,6 +2929,11 @@ signed long Integer::ConvertToLong() con
+ 	return sign==POSITIVE ? value : -(signed long)value;
+ }
+ 
++Integer::Integer(BufferedTransformation &encodedInteger, size_t byteCount, Signedness s)
++{
++	Decode(encodedInteger, byteCount, s);
++}
++
+ Integer::Integer(BufferedTransformation &encodedInteger, size_t byteCount, Signedness s, ByteOrder o)
+ {
+ 	assert(o == BIG_ENDIAN_ORDER || o == LITTLE_ENDIAN_ORDER);
+@@ -2946,6 +2951,11 @@ Integer::Integer(BufferedTransformation
+ 	Decode(encodedInteger, byteCount, s);
+ }
+ 
++Integer::Integer(const byte *encodedInteger, size_t byteCount, Signedness s)
++{
++	Decode(encodedInteger, byteCount, s);
++}
++
+ Integer::Integer(const byte *encodedInteger, size_t byteCount, Signedness s, ByteOrder o)
+ {
+ 	assert(o == BIG_ENDIAN_ORDER || o == LITTLE_ENDIAN_ORDER);
+@@ -3104,7 +3114,7 @@ Integer::Integer(word value, size_t leng
+ }
+ 
+ template <class T>
+-static Integer StringToInteger(const T *str, ByteOrder order)
++static Integer StringToInteger(const T *str, ByteOrder order = BIG_ENDIAN_ORDER)
+ {
+ 	assert( order == BIG_ENDIAN_ORDER || order == LITTLE_ENDIAN_ORDER );
+ 
+@@ -3238,12 +3248,24 @@ static Integer StringToInteger(const T *
+ 	return v;
+ }
+ 
++Integer::Integer(const char *str)
++	: reg(2), sign(POSITIVE)
++{
++	*this = StringToInteger(str);
++}
++
+ Integer::Integer(const char *str, ByteOrder order)
+ 	: reg(2), sign(POSITIVE)
+ {
+ 	*this = StringToInteger(str,order);
+ }
+ 
++Integer::Integer(const wchar_t *str)
++	: reg(2), sign(POSITIVE)
++{
++	*this = StringToInteger(str);
++}
++
+ Integer::Integer(const wchar_t *str, ByteOrder order)
+ 	: reg(2), sign(POSITIVE)
+ {
+--- a/integer.h
++++ b/integer.h
+@@ -120,7 +120,8 @@ public:
+ 		//!   insensitive suffix of 'h', 'o', or 'b'.  No suffix means base 10.
+ 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
+ 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
+-		explicit Integer(const char *str, ByteOrder order = BIG_ENDIAN_ORDER);
++		explicit Integer(const char *str);
++		explicit Integer(const char *str, ByteOrder order);
+ 
+ 		//! \brief Convert from a wide C-string
+ 		//! \param str wide C-string value
+@@ -129,7 +130,8 @@ public:
+ 		//!   insensitive suffix of 'h', 'o', or 'b'.  No suffix means base 10.
+ 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
+ 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
+-		explicit Integer(const wchar_t *str, ByteOrder order = BIG_ENDIAN_ORDER);
++		explicit Integer(const wchar_t *str);
++		explicit Integer(const wchar_t *str, ByteOrder order);
+ 
+ 		//! \brief Convert from a big-endian byte array
+ 		//! \param encodedInteger big-endian byte array
+@@ -138,7 +140,8 @@ public:
+ 		//! \param order byte order
+ 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
+ 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
+-		Integer(const byte *encodedInteger, size_t byteCount, Signedness sign=UNSIGNED, ByteOrder order = BIG_ENDIAN_ORDER);
++		Integer(const byte *encodedInteger, size_t byteCount, Signedness sign=UNSIGNED);
++		Integer(const byte *encodedInteger, size_t byteCount, Signedness sign, ByteOrder order);
+ 
+ 		//! \brief Convert from a big-endian array
+ 		//! \param bt BufferedTransformation object with big-endian byte array
+@@ -147,7 +150,8 @@ public:
+ 		//! \param order byte order
+ 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
+ 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
+-		Integer(BufferedTransformation &bt, size_t byteCount, Signedness sign=UNSIGNED, ByteOrder order = BIG_ENDIAN_ORDER);
++		Integer(BufferedTransformation &bt, size_t byteCount, Signedness sign=UNSIGNED);
++		Integer(BufferedTransformation &bt, size_t byteCount, Signedness sign, ByteOrder order);
+ 
+ 		//! \brief Convert from a BER encoded byte array
+ 		//! \param bt BufferedTransformation object with BER encoded byte array

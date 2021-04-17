@@ -1,0 +1,20 @@
+From 856c7c56ad2ebc9a534ec4136f6eca38a83950e2 Mon Sep 17 00:00:00 2001
+From: Jeffrey Walton <noloader@gmail.com>
+Date: Mon, 31 Oct 2016 22:34:59 -0400
+Subject: [PATCH] Fix potential zeroizer removal (Issue 331)
+
+---
+ cast.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/cast.cpp
++++ b/cast.cpp
+@@ -290,7 +290,7 @@ void CAST256::Base::UncheckedSetKey(cons
+ 		}
+ 	}
+ 
+-	memset(kappa, 0, sizeof(kappa));
++	SecureWipeBuffer(kappa, 8);
+ }
+ 
+ NAMESPACE_END

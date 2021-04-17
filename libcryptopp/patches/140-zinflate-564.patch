@@ -1,0 +1,39 @@
+Description: Add Inflator::BadDistanceErr exception
+ The improved validation and excpetion clears the Address Sanitizer and
+ Undefined Behavior Sanitizer findings
+Author: Jeffrey Walton <noloader@gmail.com>
+Origin: upstream, https://github.com/weidai11/cryptopp/commit/07dbcc3d9644b18e05c1776db2a57fe04d780965
+Bug: https://github.com/weidai11/cryptopp/issues/414
+Last-Update: 2017-06-05
+
+---
+
+--- a/zinflate.cpp
++++ b/zinflate.cpp
+@@ -550,12 +550,16 @@ bool Inflator::DecodeBody()
+ 						break;
+ 					}
+ 		case DISTANCE_BITS:
++					if (m_distance >= sizeof(distanceExtraBits)/sizeof(distanceExtraBits[0]))
++						throw BadDistanceErr();
+ 					bits = distanceExtraBits[m_distance];
+ 					if (!m_reader.FillBuffer(bits))
+ 					{
+ 						m_nextDecode = DISTANCE_BITS;
+ 						break;
+ 					}
++					if (m_distance >= sizeof(distanceStarts)/sizeof(distanceStarts[0]))
++						throw BadDistanceErr();
+ 					m_distance = m_reader.GetBits(bits) + distanceStarts[m_distance];
+ 					OutputPast(m_literal, m_distance);
+ 				}
+--- a/zinflate.h
++++ b/zinflate.h
+@@ -96,6 +96,7 @@ public:
+ 	};
+ 	class UnexpectedEndErr : public Err {public: UnexpectedEndErr() : Err(INVALID_DATA_FORMAT, "Inflator: unexpected end of compressed block") {}};
+ 	class BadBlockErr : public Err {public: BadBlockErr() : Err(INVALID_DATA_FORMAT, "Inflator: error in compressed block") {}};
++	class BadDistanceErr : public Err {public: BadDistanceErr() : Err(INVALID_DATA_FORMAT, "Inflator: error in bit distance") {}};
+ 
+ 	//! \brief RFC 1951 Decompressor
+ 	//! \param attachment the filter's attached transformation
