@@ -20,10 +20,6 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=0c80c6e362844b895d55389ab2df197d0aa9474ffa0da943a1c3dfb7cd77a719
 
-ifeq ($(CONFIG_TARGET_armv5_3_2),y)
-PATCH_DIR:=./patches-arm5
-endif
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 

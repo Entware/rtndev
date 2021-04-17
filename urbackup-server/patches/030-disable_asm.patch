@@ -1,0 +1,16 @@
+--- a/cryptoplugin/src/config.h
++++ b/cryptoplugin/src/config.h
+@@ -60,6 +60,13 @@
+ // may use higher ISAs depending on compiler options, but the library will not
+ // explictly use the ISAs.
+ // #define CRYPTOPP_DISABLE_ASM 1
++
++// Configuration option doesn't saved to config.h after compilation, so we have to add
++// following definition manually:
++#ifndef CRYPTOPP_DISABLE_ASM
++#define CRYPTOPP_DISABLE_ASM
++#endif
++
+ 
+ // Define CRYPTOPP_NO_CXX11 to avoid C++11 related features shown at the
+ // end of this file. Some compilers and standard C++ headers advertise C++11
