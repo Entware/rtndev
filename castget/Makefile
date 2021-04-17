@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=castget
 PKG_VERSION:=2.0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SAVANNAH/castget
@@ -24,7 +24,7 @@ define Package/castget
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libcurl +glib2 +libxml2 +id3lib $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+libcurl +libstdcpp +glib2 +libxml2 +id3lib $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=a command-line podcast downloader
 	URL:=http://johndal.com/castget
 	MAINTAINER:=Entware team, https://entware.net
