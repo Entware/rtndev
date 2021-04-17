@@ -20,7 +20,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=e3f93a4209e04251de4f6025b8e59e617f69a58ea693c928858b34edcec6ca13
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
 
 define Package/tsmuxer
 	SECTION:=multimedia

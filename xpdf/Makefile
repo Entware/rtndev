@@ -20,7 +20,7 @@ CMAKE_INSTALL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
 
 define Package/xpdf
 	SECTION:=utils

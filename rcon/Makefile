@@ -20,7 +20,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=30f1aa0215049a267330a8f71cc980de10613027e565e830146803647e008073
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/rcon

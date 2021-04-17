@@ -18,7 +18,7 @@ PKG_HASH:=3f1808b9b00281df06c91dd7a021d7f52f724101000da7985a401678dfe035b0
 PKG_LICENSE:=BSD-3-Clause
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
 
 define Package/cmake
 	SECTION:=devel

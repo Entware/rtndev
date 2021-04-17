@@ -20,7 +20,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=988ad77b04651357354efb7ce603c2956b8d0bc5a9fcc380198e6a2190616b56
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
 
 define Package/unionfs-fuse
 	SECTION:=utils

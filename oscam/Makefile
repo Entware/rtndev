@@ -20,7 +20,7 @@ PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
 PKG_MIRROR_HASH:=3f49f696f501a307c8852a05814fb301f7e08a78ed444d88b5610fc66b8b2136
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
 
 define Package/oscam
 	SECTION:=net
