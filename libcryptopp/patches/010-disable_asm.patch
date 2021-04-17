@@ -1,0 +1,12 @@
+--- a/config_asm.h
++++ b/config_asm.h
+@@ -36,8 +36,7 @@
+ // #define CRYPTOPP_DISABLE_ASM 1
+ 
+ // https://github.com/weidai11/cryptopp/issues/719
+-#if defined(__native_client__)
+-# undef CRYPTOPP_DISABLE_ASM
++#ifndef CRYPTOPP_DISABLE_ASM
+ # define CRYPTOPP_DISABLE_ASM 1
+ #endif
+ 

@@ -54,11 +54,13 @@ define Build/InstallDev
 endef
 
 define Package/libcryptopp/install
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/libcryptopp.so $(1)/opt/lib
+
+# Uncomment this section to run tests on target platform
 #	$(INSTALL_DIR) $(1)/opt/bin
 #	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/cryptest.exe $(1)/opt/bin
 #	$(INSTALL_BIN) files/cryptest.sh $(1)/opt/bin
-	$(INSTALL_DIR) $(1)/opt/lib
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/libcryptopp.so $(1)/opt/lib
 #	$(INSTALL_DIR) $(1)/opt/share
 #	$(CP) $(PKG_INSTALL_DIR)/opt/share/cryptopp $(1)/opt/share
 endef
