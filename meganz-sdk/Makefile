@@ -60,7 +60,7 @@ endef
 CONFIGURE_ARGS += \
 	--disable-doxygen-doc \
 	--without-freeimage \
-	 --with-cryptopp=$(STAGING_DIR)/opt \
+	--with-cryptopp=$(STAGING_DIR)/opt \
 	--with-libuv=$(STAGING_DIR)/opt \
 	--with-ffmpeg=$(STAGING_DIR)/opt
 
