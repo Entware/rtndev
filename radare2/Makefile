@@ -20,7 +20,7 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=c91fa6da0d1204dccb263211612365e0221c406c680f36f7ebf15c652f9f296d
 
-PKG_BUILD_DEPENDS:=meson/host
+PKG_BUILD_DEPENDS:=meson/host python3/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/devel/meson/meson.mk
