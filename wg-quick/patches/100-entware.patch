@@ -1,0 +1,17 @@
+--- a/src/wg-quick/linux.bash
++++ b/src/wg-quick/linux.bash
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/opt/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # Copyright (C) 2015-2020 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
+@@ -40,7 +40,7 @@
+ parse_options() {
+ 	local interface_section=0 line key value stripped v
+ 	CONFIG_FILE="$1"
+-	[[ $CONFIG_FILE =~ ^[a-zA-Z0-9_=+.-]{1,15}$ ]] && CONFIG_FILE="/etc/wireguard/$CONFIG_FILE.conf"
++	[[ $CONFIG_FILE =~ ^[a-zA-Z0-9_=+.-]{1,15}$ ]] && CONFIG_FILE="/opt/etc/wireguard/$CONFIG_FILE.conf"
+ 	[[ -e $CONFIG_FILE ]] || die "\`$CONFIG_FILE' does not exist"
+ 	[[ $CONFIG_FILE =~ (^|/)([a-zA-Z0-9_=+.-]{1,15})\.conf$ ]] || die "The config file must be a valid interface name, followed by .conf"
+ 	CONFIG_FILE="$(readlink -f "$CONFIG_FILE")"
