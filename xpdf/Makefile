@@ -15,8 +15,6 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://dl.xpdfreader.com
 PKG_HASH:=0fe4274374c330feaadcebb7bd7700cb91203e153b26aa95952f02bf130be846
 
-CMAKE_INSTALL:=1
-
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
