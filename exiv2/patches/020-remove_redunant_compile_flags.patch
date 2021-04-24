@@ -1,0 +1,22 @@
+--- a/cmake/compilerFlags.cmake
++++ b/cmake/compilerFlags.cmake
+@@ -23,19 +23,6 @@ if ( MINGW OR UNIX OR MSYS ) # MINGW, Li
+ 
+     if (COMPILER_IS_GCC OR COMPILER_IS_CLANG)
+ 
+-        # This fails under Fedora, MinGW GCC 8.3.0 and CYGWIN/MSYS 9.3.0
+-        if (NOT (MINGW OR CMAKE_HOST_SOLARIS OR CYGWIN OR MSYS) )
+-            if (COMPILER_IS_GCC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 8.0)
+-                add_compile_options(-fstack-clash-protection -fcf-protection)
+-            endif()
+-
+-            if( (COMPILER_IS_GCC   AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5.0) # Not in GCC 4.8
+-            OR  (COMPILER_IS_CLANG AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 3.7) # Not in Clang 3.4.2
+-            )
+-                add_compile_options(-fstack-protector-strong)
+-            endif()
+-        endif()
+-
+         add_compile_options(-Wp,-D_GLIBCXX_ASSERTIONS)
+ 
+         if (CMAKE_BUILD_TYPE STREQUAL Release AND NOT APPLE AND NOT MSYS)
