@@ -1,0 +1,18 @@
+Drop looking for voices in /usr/share/mbrola/voices: our Debian packages
+never put voices there, and letting espeak look there would show a
+warning to the user that suggests that voices should be put there, which
+is not the case in Debian.
+
+--- a/src/libespeak-ng/synth_mbrola.c
++++ b/src/libespeak-ng/synth_mbrola.c
+@@ -95,8 +95,10 @@ espeak_ng_STATUS LoadMbrolaTable(const c
+ 		if (GetFileLength(path) <= 0) {
+ 			sprintf(path, "/usr/share/mbrola/%s/%s", mbrola_voice, mbrola_voice);
+ 
++#if 0
+ 			if (GetFileLength(path) <= 0)
+ 				sprintf(path, "/usr/share/mbrola/voices/%s", mbrola_voice);
++#endif
+ 		}
+ 	}
+ 	close_MBR();
