@@ -1,0 +1,31 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -17,7 +17,7 @@ datarootdir ?= $(prefix)/share
+ 
+ rundir ?= $(localstatedir)/run
+ 
+-pingustatedir = $(rundir)/pingu
++pingustatedir = $(rundir)
+ 
+ DESTDIR ?=
+ 
+@@ -36,7 +36,7 @@ CFLAGS += -I../
+ CFLAGS += -DPINGU_VERSION=\"$(PINGU_VERSION)\"
+ CFLAGS += -Wall -Wstrict-prototypes -D_GNU_SOURCE -std=gnu99
+ CFLAGS += -DDEFAULT_PIDFILE=\"$(pingustatedir)/pingu.pid\"
+-CFLAGS += -DDEFAULT_CONFIG=\"$(sysconfdir)/pingu/pingu.conf\"
++CFLAGS += -DDEFAULT_CONFIG=\"$(sysconfdir)/pingu.conf\"
+ CFLAGS += -DDEFAULT_ADM_client=\"$(pingustatedir)/pingu.ctl\"
+ 
+ pingu_OBJS = \
+--- a/src/pingu_adm.h
++++ b/src/pingu_adm.h
+@@ -4,7 +4,7 @@
+ #include <ev.h>
+ 
+ #ifndef DEFAULT_ADM_SOCKET
+-#define DEFAULT_ADM_SOCKET "/var/run/pingu/pingu.ctl"
++#define DEFAULT_ADM_SOCKET "/opt/var/run/pingu.ctl"
+ #endif
+ 
+ int pingu_adm_init(struct ev_loop *loop, const char *socket_path);
