@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-pages
-PKG_VERSION:=5.11
+PKG_VERSION:=5.12
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/docs/man-pages
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=3759aee7cd4a229173d3cb651fbba438777bee6206da8d75ea04caaa7c8662b0
+PKG_HASH:=2684d42ab53184d7607105834e277577daa7e854cdce0d4aacf9f7ad8437c7ce
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -27,6 +27,9 @@ endef
 
 define Package/man-pages/description
  Linux kernel and C library user-space interface documentation.
+endef
+
+define Build/Compile
 endef
 
 define Package/man-pages/install
