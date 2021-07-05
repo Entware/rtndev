@@ -4,6 +4,8 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 1.45 and 1.46 suffers from following error, whenever HAVE_NVME enabled or disabled^
+# sg_pt_linux_nvme.c:1913:9: error: 'vb' undeclared
 
 include $(TOPDIR)/rules.mk
 
