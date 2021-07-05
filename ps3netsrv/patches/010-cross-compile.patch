@@ -1,18 +1,18 @@
 --- a/_Projects_/ps3netsrv/Makefile.linux
 +++ b/_Projects_/ps3netsrv/Makefile.linux
 @@ -1,5 +1,5 @@
- OS = linux
+ OS =  linux
 -BUILD_TYPE = release_static
 +BUILD_TYPE = release
- OUTPUT := ps3netsrv
  
- OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/Console.o src/File.o src/VIsoFile.o
-@@ -17,7 +17,7 @@ CXXFLAGS += -Doff64_t=off_t
- #CFLAGS += -DNOSSL
- #CXXFLAGS += -DNOSSL
+ OUTPUT := ps3netsrv
+ OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/File.o src/VIsoFile.o
+@@ -14,7 +14,7 @@ CPPFLAGS += -Doff64_t=off_t
+ #CPPFLAGS +=-DNOSSL
+ #OBJS = src/main.o src/compat.o src/File.o src/VIsoFile.o
  
 -LDFLAGS = -L.
 +LDFLAGS += -L.
  LIBS = -lstdc++
  
- ifeq ($(OS), linux)
+ 
