@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=11691
+PKG_REV:=11693
 PKG_VERSION:=1.20-r$(PKG_REV)
 PKG_RELEASE:=1
 
@@ -17,7 +17,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_SOURCE_SUBDIR:=oscam-$(PKG_VERSION)
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
-PKG_MIRROR_HASH:=3f49f696f501a307c8852a05814fb301f7e08a78ed444d88b5610fc66b8b2136
+PKG_MIRROR_HASH:=72475d0c6c281f7f859a409b09e51f164df5075d99ef4991f1c2a79a0cfaca0b
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
