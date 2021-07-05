@@ -1,6 +1,6 @@
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -221,7 +221,7 @@ AM_CFLAGS += -Wdeclaration-after-stateme
+@@ -223,7 +223,7 @@ AM_CFLAGS += -Wdeclaration-after-stateme
  
  dist_man_MANS = goaccess.1
  

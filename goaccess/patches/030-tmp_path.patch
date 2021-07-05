@@ -1,6 +1,6 @@
 --- a/src/options.c
 +++ b/src/options.c
-@@ -254,10 +254,10 @@ cmd_help (void)
+@@ -256,10 +256,10 @@ cmd_help (void)
    "  --no-ip-validation              - Disable client IPv4/6  validation.\n"
    "  --no-strict-status              - Disable HTTP status code validation.\n"
    "  --num-tests=<number>            - Number of lines to test. >= 0 (10 default)\n"
