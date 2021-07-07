@@ -23,7 +23,7 @@ CMAKE_SOURCE_SUBDIR:=Receivers/unix
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/scream-receiver
 	SECTION:=sound
