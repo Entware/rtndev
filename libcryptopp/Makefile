@@ -19,11 +19,8 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=70f092de10ae3a5dfecbfb8eaabc6cf6df6530e844fda80b5fd431baedd6150e
 
-PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
-
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/libcryptopp
 	SECTION:=libs
