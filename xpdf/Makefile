@@ -18,7 +18,7 @@ PKG_HASH:=0fe4274374c330feaadcebb7bd7700cb91203e153b26aa95952f02bf130be846
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/xpdf
 	SECTION:=utils
