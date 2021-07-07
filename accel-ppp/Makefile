@@ -20,7 +20,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=9b2684187ef67fb55bb2ed76a968e15ed70a2aa4de39460e6c69b66b55e14cfa
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/accel-ppp
 	SECTION:=net
