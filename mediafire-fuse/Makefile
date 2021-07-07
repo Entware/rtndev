@@ -22,7 +22,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=8cec15924bb9e6729a16ee1f0133c1b5462d0a7ab883a259436fa88d8403618f
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/mediafire-fuse
 	SECTION:=net
