@@ -19,6 +19,9 @@ PKG_SOURCE_PROTO:=hg
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=1425848bec5532f9ad60d1b9266a8e27c66745e91fcbc69fd62c6bf1c0eb4ecf
 
+# FIXME ninja: error: manifest 'build.ninja' still dirty after 100 tries
+PKG_USE_NINJA:=0
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
