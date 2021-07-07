@@ -22,7 +22,7 @@ PKG_MIRROR_HASH:=4813904e12804c16db24167346218dab48435eecf65cc556cdb1292a93886f6
 CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/exiv2/Default
 	TITLE:=Image metadata library and tools
