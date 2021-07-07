@@ -21,7 +21,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=0c80c6e362844b895d55389ab2df197d0aa9474ffa0da943a1c3dfb7cd77a719
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/cryfs
 	SECTION:=utils
