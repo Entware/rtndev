@@ -16,6 +16,9 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/$(PKG_VERSION)
 PKG_HASH:=1cb24059c38223f657b300c84dd80491b7040d4b69471c4fea69be862bc99b5b
 
+# FIXME ninja: error: loading 'build.ninja': No such file or directory
+PKG_USE_NINJA:=0
+
 CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
