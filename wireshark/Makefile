@@ -15,6 +15,9 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://wireshark.org/download/src/all-versions
 PKG_HASH:=12a678208f8cb009e6b9d96026e41a6ef03c7ad086b9e1029f42053b249b4628
 
+# FIXME FAILED: ... run/lemon: Exec format error
+PKG_USE_NINJA:=0
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 include $(INCLUDE_DIR)/cmake.mk
