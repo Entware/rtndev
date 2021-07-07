@@ -19,7 +19,7 @@ PKG_HASH:=ea55d1641b4573b19103ca596368e418aecd2a1409adbdce3a9f76dc8ebad590
 PKG_BUILD_DIR:=$(BUILD_DIR)/ArpON-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/arpon
 	SECTION:=net
