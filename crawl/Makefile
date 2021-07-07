@@ -4,28 +4,27 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 0.23 uses host python with pyyaml dependency
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=crawl
-PKG_VERSION:=0.12.3
+PKG_VERSION:=0.26.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=stone_soup-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=@SF/crawl-ref/Stone%20Soup/$(PKG_VERSION)
-PKG_HASH:=0478f20ee5f3579720ca71176e3ba37505d49793997d04043c92627c898b7d14
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/crawl/crawl/tar.gz/$(PKG_VERSION)?
+PKG_HASH:=c8c6abbefa7f21383ea77cd017033050471e06c60ea4deebd033f5198bc39596
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/stone_soup-$(PKG_VERSION)
+PKG_BUILD_DEPENDS:=python-yaml
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/crawl
 	SECTION:=games
 	CATEGORY:=Games
-	DEPENDS:=+zlib +libstdcpp +libncursesw +libsqlite3
+	DEPENDS:=+liblua +libncursesw +libsqlite3 +libstdcpp +zlib
 	TITLE:=Dungeon Crawl Stone Soup is a role-playing roguelike game
-	URL:=http://crawl.develz.org
+	URL:=https://crawl.develz.org
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
@@ -36,7 +35,10 @@ define Package/crawl/description
  the mystifyingly fabulous Orb of Zot.
 endef
 
+MAKE_PATH:=crawl-ref/source
+
 define Build/Configure
+	echo $(PKG_VERSION) > $(PKG_BUILD_DIR)/crawl-ref/source/util/release_ver
 endef
 
 MAKE_FLAGS += \
@@ -44,12 +46,8 @@ MAKE_FLAGS += \
 	DESTDIR=$(PKG_INSTALL_DIR) \
 	DATADIR=/opt/share/crawl/ \
 	SAVEDIR=/opt/var/crawl/ \
+	NO_TRY_GOLD=yes \
 	install
-
-define Build/Compile
-	$(MAKE_VARS) $(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)/source \
-		$(MAKE_FLAGS)
-endef
 
 define Package/crawl/install
 	$(INSTALL_DIR) $(1)/opt/bin

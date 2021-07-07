@@ -1,6 +1,6 @@
---- a/source/initfile.cc
-+++ b/source/initfile.cc
-@@ -728,7 +728,7 @@ void game_options::reset_options()
+--- a/crawl-ref/source/initfile.cc
++++ b/crawl-ref/source/initfile.cc
+@@ -1035,7 +1035,7 @@ void game_options::reset_options()
      if (macro_dir.empty())
      {
  #ifdef UNIX

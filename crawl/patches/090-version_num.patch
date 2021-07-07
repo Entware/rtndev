@@ -1,5 +1,5 @@
---- a/source/util/gen_ver.pl
-+++ b/source/util/gen_ver.pl
+--- a/crawl-ref/source/util/gen_ver.pl
++++ b/crawl-ref/source/util/gen_ver.pl
 @@ -13,8 +13,7 @@ $mergebase or $mergebase = "";
  
  mkdir dirname($outfile);

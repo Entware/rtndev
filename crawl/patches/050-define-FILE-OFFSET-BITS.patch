@@ -1,10 +1,9 @@
---- a/source/package.h
-+++ b/source/package.h
-@@ -1,6 +1,6 @@
- #ifndef PACKAGE_H
- #define PACKAGE_H
+--- a/crawl-ref/source/package.h
++++ b/crawl-ref/source/package.h
+@@ -1,5 +1,5 @@
+ #pragma once
 -
 +#define _FILE_OFFSET_BITS 64
  #define USE_ZLIB
  
- #include <string>
+ #include <map>

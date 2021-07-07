@@ -1,7 +1,7 @@
---- a/source/rltiles/Makefile
-+++ b/source/rltiles/Makefile
-@@ -52,7 +52,7 @@ ifeq ($(uname_S),Darwin)
- LDFLAGS += -framework AppKit -framework AudioUnit -framework Carbon -framework IOKit -framework OpenGL
+--- a/crawl-ref/source/rltiles/Makefile
++++ b/crawl-ref/source/rltiles/Makefile
+@@ -45,7 +45,7 @@ ifeq ($(uname_S),Darwin)
+ LDFLAGS += -framework AppKit -framework AudioUnit -framework CoreAudio -framework ForceFeedback -framework Carbon -framework IOKit -framework OpenGL
  endif
  ifeq ($(uname_S),Linux)
 -LDFLAGS += -ldl -lpthread
