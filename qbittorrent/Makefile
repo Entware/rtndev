@@ -5,17 +5,13 @@
 # See /LICENSE for more information.
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
-# This is the last release which can use libtorrent 1.1.x
-# 4.3.4.1 raises following compilation error:
-# base/bittorrent/session.cpp: In member function 'void BitTorrent::Session::loadLTSettings(libtorrent::settings_pack&)':
-# base/bittorrent/session.cpp:1401:46: error: 'allow_idna' is not a member of 'libtorrent::settings_pack'
 
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
-PKG_VERSION:=4.3.4.1
-PKG_REV:=332b173e080aa2deb2933eb848298fd98b71514b
+PKG_VERSION:=4.3.6
+PKG_REV:=ac8105c304b84c77b7b72fbf4547e7ad977d44fc
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -23,7 +19,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=6a305f889ed7fa77a3bb1a934007d9e03db55ffdd6d069af5bacdf7ed4991353
+PKG_MIRROR_HASH:=672f9eb7f0d1088960a5feebe9b25445c52dcebf467beb88728e4887a95f272c
 
 PKG_LICENSE:=GPL-2.0+
 PKG_LICENSE_FILES:=COPYING
