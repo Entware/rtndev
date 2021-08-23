@@ -4,21 +4,22 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# XXX https://github.com/cryfs/cryfs/commit/ef4bc7aba2eeed728176b4ff5737d959cfcdc4d7
+# 0.11.0 requires host Conan, Cryptopp library bumped to 8.5.0,
+# so few additional runtime tests required.
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cryfs
-PKG_VERSION:=0.10.3
-PKG_REV:=0f83a1ab7e5ca9f37f97bc57b20d3fab0f351d11
+PKG_VERSION:=0.10.4
+PKG_REV:=2514e123d27dc3175ccbfeebe68ecee0b6cb897a
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/cryfs/cryfs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=0c80c6e362844b895d55389ab2df197d0aa9474ffa0da943a1c3dfb7cd77a719
+PKG_MIRROR_HASH:=2b5f3b22c1306fc1a6b36516694e70fd20937c028a2c6ea10ca5c0941eec1652
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
