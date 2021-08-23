@@ -10,15 +10,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.28.9
+PKG_VERSION:=1.28.10
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/$(PKG_VERSION)
-PKG_HASH:=2f69372a4fa76dc91e54b4c98ab4c65368e3dfbde92456205c98a39573e860ae
+PKG_HASH:=cf8c904694c44cf689b5724e46d23da9ae5125d54374b340c642077cc29ca837
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
+PKG_BUILD_DEPENDS:=glib2/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
