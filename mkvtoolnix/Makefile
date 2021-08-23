@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 59.0.0+ requires QT-libraries even for command line tools, see https://gitlab.com/mbunkus/mkvtoolnix/-/blob/main/NEWS.md#build-system-changes-2
 
 include $(TOPDIR)/rules.mk
 
