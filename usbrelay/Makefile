@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/usbrelay
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+hidapi $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+hidapi
 	TITLE:=control usb relay
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
@@ -35,16 +35,11 @@ define Package/usbrelay/description
  USB Relay driver for linux.
 endef
 
-define Build/Compile
-	$(TARGET_CC) $(TARGET_CFLAGS) -I$(STAGING_DIR)/opt/include \
-		-o $(PKG_BUILD_DIR)/$(PKG_NAME) \
-		$(PKG_BUILD_DIR)/usbrelay.c $(PKG_BUILD_DIR)/libusbrelay.c \
-		$(TARGET_LDFLAGS) -lhidapi-libusb
-endef
-
 define Package/usbrelay/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/libusbrelay.so $(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,usbrelay))
