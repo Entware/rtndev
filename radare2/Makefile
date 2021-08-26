@@ -4,6 +4,8 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 5.4.0 failed to compile with following message
+# ../libr/util/signal.c:19:17: error: 'SIGSTKFLT' undeclared here (not in a function); did you mean 'SIGSTKSZ'?
 
 include $(TOPDIR)/rules.mk
 
