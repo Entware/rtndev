@@ -34,7 +34,7 @@
  
 --- a/uvloop/loop.c
 +++ b/uvloop/loop.c
-@@ -640,6 +640,17 @@ static CYTHON_INLINE float __PYX_NAN() {
+@@ -650,6 +650,17 @@ static CYTHON_INLINE float __PYX_NAN() {
  #include <omp.h>
  #endif /* _OPENMP */
  
