@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sexpect
-PKG_VERSION:=2.3.5
-PKG_REV:=8351841f309b03c3e38b8bf10a7da2c7625f9a3d
+PKG_VERSION:=2.3.7
+PKG_REV:=77a2797453511c733c54aecf207830cd91b44540
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,9 +17,10 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/clarkwang/sexpect.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=4cc849adeeb20f9d2b7f422a6887d5b34f935be70c66e4a03c8806e6bf25aea2
+PKG_MIRROR_HASH:=074adcf243f7bbd823070dc26db0214e770063284ff8a527d3018c6768b350a3
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/sexpect
 	SECTION:=utils
@@ -44,7 +45,7 @@ endef
 
 define Package/sexpect/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/sexpect $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/sexpect $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,sexpect))
