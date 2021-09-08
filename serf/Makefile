@@ -12,7 +12,7 @@ PKG_VERSION:=1.3.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://archive.apache.org/dist/serf
+PKG_SOURCE_URL:=@APACHE/$(PKG_NAME)
 PKG_HASH:=549c2d21c577a8a9c0450facb5cca809f26591f048e466552240947bdf7a87cc
 
 include $(INCLUDE_DIR)/package.mk
