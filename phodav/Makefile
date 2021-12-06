@@ -15,11 +15,9 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@GNOME/$(PKG_NAME)/$(PKG_VERSION)
 PKG_HASH:=71f0a9cd70afd4dd1412a0298331dbb8ac71c0377f52117afc15eb88dc6fb910
 
-PKG_INSTALL:=1
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
-include $(TOPDIR)/feeds/packages/devel/meson/meson.mk
+include $(INCLUDE_DIR)/meson.mk
 
 define Package/phodav
 	SECTION:=net
