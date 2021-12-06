@@ -1,0 +1,10 @@
+--- a/src/fspp/fuse/Fuse.h
++++ b/src/fspp/fuse/Fuse.h
+@@ -12,6 +12,7 @@
+ #include <cpp-utils/macros.h>
+ #include <atomic>
+ #include "stat_compatibility.h"
++#include <memory>
+ 
+ namespace fspp {
+ class Device;
