@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=mpdscribble
 PKG_VERSION:=0.23
 PKG_REV:=bba2687581cc7f6f62409b8565a9188e7feea205
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -19,12 +19,10 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=c5656d38bab7ea9dd9cb58af093504186be3345aa4e7d61cb2e5f8fa4ae60425
 
-PKG_INSTALL:=1
-
-PKG_BUILD_DEPENDS:=meson/host boost
+PKG_BUILD_DEPENDS:=boost
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/meson/meson.mk
+include $(INCLUDE_DIR)/meson.mk
 
 define Package/mpdscribble
 	SECTION:=sound
