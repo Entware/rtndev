@@ -22,10 +22,10 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=76af00ae1be02002413dcbb783f66c8557fb5c39f79036c50d01e3132f229550
 
-PKG_BUILD_DEPENDS:=meson/host python3/host
+PKG_BUILD_DEPENDS:=python3/host
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/devel/meson/meson.mk
+include $(INCLUDE_DIR)/meson.mk
 
 define Package/radare2
 	SECTION:=devel
