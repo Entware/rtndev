@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asciinema
-PKG_VERSION:=2.0.2
+PKG_VERSION:=2.1.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=32f2c1a046564e030708e596f67e0405425d1eca9d5ec83cd917ef8da06bc423
+PKG_HASH:=7bdb358c1f6d61b07169c5476b2f9607ce66da12e78e4c17b7c898d72402cddc
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
