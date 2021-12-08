@@ -6,6 +6,7 @@
 # See /LICENSE for more information.
 #
 # Makefile taken from http://github.com/FranciscoBorges/openwrt-printing-packages
+# New ImageEmbedding interface from 21.12.0 is inconsistent
 
 include $(TOPDIR)/rules.mk
 
