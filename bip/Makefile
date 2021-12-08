@@ -8,18 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bip
-PKG_VERSION:=0.9.0-rc4
-PKG_REV:=75317ae17ce24e8aafe0358125a632226d3b84fc
+PKG_VERSION:=0.9.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://vcs-git.duckcorp.org/projects/bip/bip.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=88504cfd92cf79aaf1d84d099430e19eee2b7c5aa05e36d21e1d767eb1c67dc1
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://projects.duckcorp.org/attachments/download/103
+PKG_HASH:=f643b39b7af2a0d5fe7c45c57ffe3e6710be33278455eab8aeefe5b2842764ea
 
-PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
