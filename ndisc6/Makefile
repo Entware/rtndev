@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ndisc6
-PKG_VERSION:=1.0.4
+PKG_VERSION:=1.0.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.remlab.net/files/ndisc6
-PKG_HASH:=abb1da4a98d94e5abe1dd7b1c975de540306b0581cbbd36aff035118b2f25c1f
+PKG_HASH:=36932f9fc47e2844abcda7550fa1343b3af4b4208dfb61e0c9d9224aad5df351
 
 PKG_LICENSE:=GPL-3.0-only
 
