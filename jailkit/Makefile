@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jailkit
-PKG_VERSION:=2.22
+PKG_VERSION:=2.23
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://olivier.sessink.nl/jailkit
-PKG_HASH:=985564721366eaf5c6482dd17e91647d21e70b4c9803c74847d649d8c8c2bbcf
+PKG_HASH:=aa27dc1b2dbbbfcec2b970731f44ced7079afc973dc066757cea1beb4e8ce59c
 
 PKG_INSTALL:=1
 
