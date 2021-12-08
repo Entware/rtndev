@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# regex import from shipped gnulib is broken after https://github.com/universal-ctags/ctags/releases/tag/p5.9.20210725.0
 
 include $(TOPDIR)/rules.mk
 
