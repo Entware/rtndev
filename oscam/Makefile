@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=11695
+PKG_REV:=11704
 PKG_VERSION:=1.20-r$(PKG_REV)
 PKG_RELEASE:=1
 
@@ -17,7 +17,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_SOURCE_SUBDIR:=oscam-$(PKG_VERSION)
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
-PKG_MIRROR_HASH:=503a7f35669dfc348fcec31bcfb6b2a67e94db4af933f78bac16484ffdd66078
+PKG_MIRROR_HASH:=6d70b8746ceba5cc92e13d37245854e9a18cc6b328bc66e24ec4db1e4e5e925f
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
