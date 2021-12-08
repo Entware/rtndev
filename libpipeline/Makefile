@@ -5,6 +5,7 @@
 # See /LICENSE for more information.
 #
 # Project moved to https://gitlab.com/cjwatson/libpipeline/
+# The newer version not so cross-compilation friendly during bootstrap stage.
 
 include $(TOPDIR)/rules.mk
 
