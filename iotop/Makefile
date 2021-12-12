@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://repo.or.cz/iotop.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=eaaceff00bf6916e37d2d121a843fb14acf1e53711b42bc02197f408607f358a
+PKG_MIRROR_HASH:=8e07f44dbfb861e46f8a0758f94aa9ca2a5f728454025b27cbed77ebddfe69f1
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
