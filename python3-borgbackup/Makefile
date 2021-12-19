@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-borgbackup
 PKG_VERSION:=1.1.17
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=borgbackup
 PKG_HASH:=7ab924fc017b24929bedceba0dcce16d56f9868bf9b5050d2aae2eb080671674
@@ -25,7 +25,7 @@ define Package/python3-borgbackup
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Backup
-	DEPENDS:=+python3-light +python3-pkg-resources +libacl +libopenssl +libstdcpp +zstd
+	DEPENDS:=+python3-light +python3-pkg-resources +python3-packaging +libacl +libopenssl +libstdcpp +zstd
 	TITLE:=a deduplicating backup program
 	URL:=https://borgbackup.readthedocs.io
 	MAINTAINER:=Entware team, https://entware.net
