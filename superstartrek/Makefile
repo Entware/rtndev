@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=superstartrek
 PKG_VERSION:=0.0.21-2015
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=sstsrc.zip
 PKG_SOURCE_URL:=http://www.almy.us/files
@@ -38,6 +38,8 @@ endef
 define Package/superstartrek/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/sst $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/share/superstartrek
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/sst.doc $(1)/opt/share/superstartrek
 endef
 
 $(eval $(call BuildPackage,superstartrek))
