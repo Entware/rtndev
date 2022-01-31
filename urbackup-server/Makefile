@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2022 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=urbackup-server
-PKG_VERSION:=2.4.13
+PKG_VERSION:=2.4.15
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://hndl.urbackup.org/Server/$(PKG_VERSION)
-PKG_HASH:=07e679ebcff25e064d68a06ef0cec0e1419d08b9829f08ed96e07568c07b25ca
+PKG_HASH:=b5588af3ba2c5520f1aff88320b9e4f94984b433a45e2e4613f1a7abcf64437d
 
 PKG_INSTALL:=1
 
