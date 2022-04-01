@@ -4,16 +4,15 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.17.4
-PKG_RELEASE:=2
+PKG_VERSION:=1.18
+PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=4bef3699381ef09e075628504187416565d710660fec65b057edf1ceb187fc4b
+PKG_HASH:=38f423db4cc834883f2b52344282fa7a39fbb93650dc62a11fdf0be6409bdad6
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
