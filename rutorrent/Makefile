@@ -9,8 +9,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
 PKG_VERSION:=3.10
+PKG_RELEASE:=2
 PKG_REV:=f100be61ce9dda385e4854cc680016d127fcdd60
-PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -29,12 +29,12 @@ RUTORRENT_PLUGINS := \
 	screenshots seedingtime show_peers_like_wtorrent source spectrogram _task theme \
 	throttle tracklabels trafic unpack uploadeta xmpp
 
-RUTORRENT_PLUGIN_DEPENDS_datadir = +php7-mod-json
-RUTORRENT_PLUGIN_DEPENDS__getdir = +php7-mod-json
-RUTORRENT_PLUGIN_DEPENDS_edit = +php7-mod-json
-RUTORRENT_PLUGIN_DEPENDS_extratio = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS_datadir = +php8-cgi
+RUTORRENT_PLUGIN_DEPENDS__getdir = +php8-cgi
+RUTORRENT_PLUGIN_DEPENDS_edit = +php8-cgi
+RUTORRENT_PLUGIN_DEPENDS_extratio = +php8-cgi
 RUTORRENT_PLUGIN_DEPENDS_mediainfo = +mediainfo
-RUTORRENT_PLUGIN_DEPENDS_rss = +php7-mod-json
+RUTORRENT_PLUGIN_DEPENDS_rss = +php8-cgi
 RUTORRENT_PLUGIN_DEPENDS_screenshots = +ffmpeg
 #RUTORRENT_PLUGIN_DEPENDS_spectrogram = +sox
 RUTORRENT_PLUGIN_DEPENDS__task = +procps-ng-pgrep
