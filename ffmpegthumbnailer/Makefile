@@ -10,14 +10,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ffmpegthumbnailer
 PKG_VERSION:=2.2.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/$(PKG_VERSION)
 PKG_HASH:=1cb24059c38223f657b300c84dd80491b7040d4b69471c4fea69be862bc99b5b
-
-# FIXME ninja: error: loading 'build.ninja': No such file or directory
-PKG_USE_NINJA:=0
 
 CMAKE_INSTALL:=1
 
@@ -37,9 +34,6 @@ define Package/libffmpegthumbnailer/description
  libffmpegthumbnailer is a library that can be used to create thumbnails
  for your video files.
 endef
-
-CMAKE_OPTIONS = -DCMAKE_BUILD_TYPE=Release
-# -DENABLE_STATIC=On
 
 define Package/libffmpegthumbnailer/install
 	$(INSTALL_DIR) $(1)/opt/lib
