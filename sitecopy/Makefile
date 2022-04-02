@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sitecopy
 PKG_VERSION:=0.16.6
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.manyfish.co.uk/$(PKG_NAME)
