@@ -8,16 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=chromaprint
-PKG_VERSION:=1.5.0
-PKG_REV:=516e3b31c7fa6e822035ea3b3e31f9c7f51ef4b6
-PKG_RELEASE:=2
+PKG_VERSION:=1.5.1
+PKG_REV:=41e23c212594ee22d30a9d64b3438efae7ab6148
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/acoustid/chromaprint.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=178d0058efc6700afafddb7f294c53cc5b2ff77a9bb9c5a26110d1f625790905
+PKG_MIRROR_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -39,7 +39,8 @@ define Package/chromaprint/description
 endef
 
 CMAKE_OPTIONS += \
-	-DBUILD_TOOLS=ON
+	-DBUILD_TOOLS=ON \
+	-DBUILD_TESTS=OFF
 
 define Build/InstallDev
 	true
