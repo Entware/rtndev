@@ -42,6 +42,8 @@ CMAKE_OPTIONS += \
 	-DBUILD_TOOLS=ON \
 	-DBUILD_TESTS=OFF
 
+TARGET_CFLAGS+=-fpermissive
+
 define Build/InstallDev
 	true
 endef
