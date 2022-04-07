@@ -1,6 +1,6 @@
 --- a/manual/Makefile.in
 +++ b/manual/Makefile.in
-@@ -1672,22 +1672,22 @@ uninstall-am:
+@@ -1789,22 +1789,22 @@ uninstall-am:
  @BUILD_MANUAL_TRUE@	$(SOELIM) -I$(srcdir) man_db.me | tbl > $@.new && mv -f $@.new $@
  
  @BUILD_MANUAL_TRUE@.pp.dvi:
@@ -30,7 +30,7 @@
  @BUILD_MANUAL_TRUE@dvi-local: $(MANUAL).dvi
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -2419,11 +2419,6 @@ apropos$(EXEEXT): whatis$(EXEEXT)
+@@ -2558,11 +2558,6 @@ apropos$(EXEEXT): whatis$(EXEEXT)
  all-am: apropos$(EXEEXT)
  
  install-exec-hook:
