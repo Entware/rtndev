@@ -63,7 +63,7 @@
    exit 1
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1810,12 +1810,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
+@@ -1789,12 +1789,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
          if test x$with_local_cups != xyes; then
              if test x"$CUPSCONFIG" = x""; then
                AC_PATH_TOOL(CUPSCONFIG,cups-config)
