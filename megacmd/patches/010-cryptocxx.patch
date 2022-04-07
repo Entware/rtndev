@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -367,7 +367,7 @@ AC_ARG_WITH(readline,
+@@ -366,7 +366,7 @@ AC_ARG_WITH(readline,
      # readline requires termcap (or ncurses)
      SAVE_LIBS=$LIBS
      LIBS="$TERMCAP_LIBS $LIBS"
@@ -9,7 +9,7 @@
          AC_MSG_ERROR([readline library is required for the sample client.])],
          [$LIBS])
      LIBS=$SAVE_LIBS
-@@ -397,8 +397,8 @@ AC_ARG_WITH(readline,
+@@ -396,8 +396,8 @@ AC_ARG_WITH(readline,
  
      # readline requires termcap (or ncurses)
      SAVE_LIBS=$LIBS
@@ -20,7 +20,7 @@
          AC_MSG_ERROR([readline library is required for the sample client.])])
      LIBS=$SAVE_LIBS
  
-@@ -415,8 +415,8 @@ AC_ARG_WITH(readline,
+@@ -414,8 +414,8 @@ AC_ARG_WITH(readline,
      ])
      # readline requires termcap (or ncurses)
      SAVE_LIBS=$LIBS
@@ -93,7 +93,7 @@
  
  # Define _GNU_SOURCE
  # AC_GNU_SOURCE
-@@ -367,8 +367,8 @@ SAVE_CXXFLAGS=$CXXFLAGS
+@@ -426,8 +426,8 @@ SAVE_CXXFLAGS=$CXXFLAGS
  SAVE_CPPFLAGS=$CPPFLAGS
  
  #libcryptopp
@@ -104,7 +104,7 @@
  cryptopp=false
  AC_ARG_WITH(cryptopp,
    AS_HELP_STRING(--with-cryptopp=PATH, base of libcrypto installation),
-@@ -378,11 +378,11 @@ AC_ARG_WITH(cryptopp,
+@@ -437,11 +437,11 @@ AC_ARG_WITH(cryptopp,
      cryptopp=false
       ;;
     yes)
@@ -120,7 +120,7 @@
      ])
      cryptopp=true
       ;;
-@@ -394,11 +394,11 @@ AC_ARG_WITH(cryptopp,
+@@ -453,11 +453,11 @@ AC_ARG_WITH(cryptopp,
          CXXFLAGS="-I$with_cryptopp/include $CXXFLAGS"
          CPPFLAGS="-I$with_cryptopp/include $CPPFLAGS"
  
@@ -134,7 +134,7 @@
           )
      # assume we are using crypto source directory
      else
-@@ -406,16 +406,16 @@ AC_ARG_WITH(cryptopp,
+@@ -465,16 +465,16 @@ AC_ARG_WITH(cryptopp,
          CXXFLAGS="-I$with_cryptopp $CXXFLAGS"
          CPPFLAGS="-I$with_cryptopp $CPPFLAGS"
  
@@ -156,7 +156,7 @@
      ])
  
      cryptopp=true
-@@ -428,18 +428,18 @@ AC_ARG_WITH(cryptopp,
+@@ -487,18 +487,18 @@ AC_ARG_WITH(cryptopp,
     esac
    ],
    [AC_MSG_RESULT([--with-cryptopp not specified])
@@ -180,7 +180,7 @@
  
  #libsodium
  AC_MSG_CHECKING(for libsodium)
-@@ -1789,8 +1789,8 @@ if test "x$enable_examples" = "xyes" ; t
+@@ -1865,8 +1865,8 @@ if test "x$enable_examples" = "xyes" ; t
          ])
          # readline requires termcap (or ncurses)
          SAVE_LIBS=$LIBS
@@ -191,7 +191,7 @@
              AC_MSG_ERROR([readline library is required for the sample client.])])
          LIBS=$SAVE_LIBS
           ;;
-@@ -1819,8 +1819,8 @@ if test "x$enable_examples" = "xyes" ; t
+@@ -1895,8 +1895,8 @@ if test "x$enable_examples" = "xyes" ; t
  
          # readline requires termcap (or ncurses)
          SAVE_LIBS=$LIBS
@@ -202,7 +202,7 @@
              AC_MSG_ERROR([readline library is required for the sample client.])])
          LIBS=$SAVE_LIBS
  
-@@ -1837,8 +1837,8 @@ if test "x$enable_examples" = "xyes" ; t
+@@ -1913,8 +1913,8 @@ if test "x$enable_examples" = "xyes" ; t
          ])
          # readline requires termcap (or ncurses)
          SAVE_LIBS=$LIBS
