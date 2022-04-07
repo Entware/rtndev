@@ -18,6 +18,8 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
 PKG_HASH:=e9cf5dc5964bce4bb0264d1c4f8122706c910588b421cfc30abc97d6b23e602d
 
+PKG_BUILD_DEPENDS:=boost
+
 CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
