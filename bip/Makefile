@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 0.9.3 suffers from several -W*-conversation errors
 
 include $(TOPDIR)/rules.mk
 
