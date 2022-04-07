@@ -9,8 +9,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meganz-sdk
-PKG_VERSION:=3.7.3h
-PKG_REV:=0e79b2739f695d08efed5a61bbf44362e127c30b
+PKG_VERSION:=3.9.11b
+PKG_REV:=f6438d55fa6b1ef54eb2b8832a1da7502a56df13
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -18,7 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/meganz/sdk.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=8786578776f354c43d38bb9d125642b52fa671bf73a180240ad5720cbe739e56
+PKG_MIRROR_HASH:=4fcb73e18f669713fc5c8cb6c1660f4351c752f87585a72d6a94d30aa79c5772
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -70,6 +70,8 @@ TARGET_LDFLAGS += \
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt
 	$(CP) $(PKG_INSTALL_DIR)/opt/include $(1)/opt
+	# Forgotten header
+	$(CP) $(PKG_BUILD_DIR)/include/mega/heartbeats.h $(1)/opt/include/mega
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libmega.so* $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
