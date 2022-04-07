@@ -40,9 +40,9 @@
 -SSLDHParams=/etc/ssl/dh/dh_param_1024.pem
 +#SSLDHParams=/opt/etc/ssl/dh/dh_param_1024.pem
  
- 
- #######  VPaths and FileType Settings  ######
-@@ -78,11 +78,11 @@ SSLDHParams=/etc/ssl/dh/dh_param_1024.pe
+ # Turn this on to use eliptic curve, or DH with auto-generated params 
+ #PerfectForwardSecrecy=yes
+@@ -80,11 +80,11 @@ SSLDHParams=/etc/ssl/dh/dh_param_1024.pe
  FileType=*.jpg,cache=3600,compress=N
  FileType=*.mp3,cache=3600,compress=N
  
@@ -58,7 +58,7 @@
  
  #Proxy VPath, when someone asks for he directory /google, get it from http://www.google.com/
  Path=proxy,/google,http://www.google.com/
-@@ -91,7 +91,7 @@ Path=proxy,/google,http://www.google.com
+@@ -93,7 +93,7 @@ Path=proxy,/google,http://www.google.com
  Path=logout,/Logout
  
  #MimeIcons VPath. This is used on the 'directory listing' page to find icons to display for files
@@ -67,7 +67,7 @@
  
  
  ##### Scripts and websockets #####
-@@ -100,14 +100,14 @@ Path=MimeIcons,/mimeicons,/home/app-them
+@@ -102,14 +102,14 @@ Path=MimeIcons,/mimeicons,/home/app-them
  # this option then you must put the correct hashes in the file for cgi scripts to work.
  # Hashes can be generated with md5sum, shasum or sha256sum or sha512sum. They should be generated against
  # the full path of the script files
@@ -87,7 +87,7 @@
  
  
  ######  EVENTS  #######
-@@ -122,9 +122,9 @@ WebsocketHandler:*:test=/tmp/test.sh
+@@ -124,9 +124,9 @@ WebsocketHandler:*:test=/tmp/test.sh
  # BadURL (when the server considers a requested URL to be malformed)
  
  Event=Path:/favicon.ico:ignore
