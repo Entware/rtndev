@@ -12,7 +12,7 @@ PKG_VERSION:=3.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://projects.gw-computing.net/attachments/download/615
+PKG_SOURCE_URL:=https://github.com/rolinh/dfc/releases/download/v$(PKG_VERSION)
 PKG_HASH:=962466e77407dd5be715a41ffc50a54fce758a78831546f03a6bb282e8692e54
 
 include $(INCLUDE_DIR)/package.mk
@@ -23,7 +23,7 @@ define Package/dfc
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
 	TITLE:=file system space usage information with style
-	URL:=https://projects.gw-computing.net/projects/dfc
+	URL:=https://github.com/rolinh/dfc
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
