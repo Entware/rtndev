@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=airsane
-PKG_VERSION:=0.3.2
-PKG_REV:=53909a59dd6e73c88b91d3c5f7b4beea1775c59c
+PKG_VERSION:=0.3.4
+PKG_REV:=7ecfff322b1a5bdc73588e551a00def73762f9e6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/SimulPiscator/AirSane.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=65df455f498285fb1103f053355ddd6de7a68c82feb248af390aa16e340afbec
+PKG_MIRROR_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
