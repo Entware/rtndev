@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=angband
-PKG_VERSION:=4.2.3
+PKG_VERSION:=4.2.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Angband-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/angband/angband/releases/download/$(PKG_VERSION)
-PKG_HASH:=833c4f8cff2aee61ad015f9346fceaa4a8c739fe2dbe5bd1acd580c91818e6bb
+PKG_HASH:=a07c78c1dd05e48ddbe4d8ef5d1880fcdeab55fd05f1336d9cba5dd110b15ff3
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
