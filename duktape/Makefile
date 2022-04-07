@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=duktape
-PKG_VERSION:=2.6.0
+PKG_VERSION:=2.7.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://duktape.org
-PKG_HASH:=96f4a05a6c84590e53b18c59bb776aaba80a205afbbd92b82be609ba7fe75fa7
+PKG_SOURCE_URL:=https://duktape.org
+PKG_HASH:=90f8d2fa8b5567c6899830ddef2c03f3c27960b11aca222fa17aa7ac613c2890
 
 PKG_INSTALL:=1
 
@@ -34,6 +34,9 @@ define Package/duktape/description
  compact footprint.
 endef
 
+MAKE_VARS += \
+	INSTALL_PREFIX="/opt"
+
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(CP) $(PKG_BUILD_DIR)/Makefile.sharedlibrary $(PKG_BUILD_DIR)/Makefile
@@ -42,8 +45,9 @@ endef
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
 	$(CP) $(PKG_INSTALL_DIR)/opt/include/*.h $(1)/opt/include
-	$(INSTALL_DIR) $(1)/opt/lib
+	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libduktape.so* $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/duktape.pc $(1)/opt/lib/pkgconfig
 endef
 
 define Package/duktape/install

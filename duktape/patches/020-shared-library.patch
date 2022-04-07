@@ -1,47 +1,34 @@
 --- a/Makefile.sharedlibrary
 +++ b/Makefile.sharedlibrary
-@@ -45,29 +45,33 @@ else
- endif
- 
- # Change to actual path for actual distribution packaging.
--INSTALL_PREFIX = /usr/local
-+INSTALL_PREFIX ?= $(DESTDIR)/opt
- 
- # The 'noline' variant may be more appropriate for some distributions; it
- # doesn't have #line directives in the combined source.
- DUKTAPE_SRCDIR = ./src
- #DUKTAPE_SRCDIR = ./src-noline
- 
--CC = gcc
-+CC ?= gcc
+@@ -63,7 +63,7 @@ CC ?= gcc
+ CC := $(CC)
  
  .PHONY: all
--all: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX)
-+all: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX) duk
+-all: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX) duktape.pc
++all: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX) duktape.pc duk
  
  # If the default duk_config.h is not suitable for the distribution, modify it
  # before compiling the shared library and copy the same, edited duk_config.h
- # to $INSTALL_PREFIX/include on installation.
- 
+@@ -72,10 +72,16 @@ all: libduktape.$(SO_REALNAME_SUFFIX) li
  libduktape.$(SO_REALNAME_SUFFIX):
--	$(CC) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
-+	$(CC) $(CFLAGS) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
  		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
 +	ln -s libduktape.so.$(REAL_VERSION) libduktape.so
 +	ln -s libduktape.so.$(REAL_VERSION) libduktape.so.$(SONAME_VERSION)
++
  
  libduktaped.$(SO_REALNAME_SUFFIX):
--	$(CC) -shared -fPIC -g -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) \
-+	$(CC) $(CFLAGS) -shared -fPIC -g -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) \
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -g -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) \
  		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
 +	ln -s libduktaped.so.$(REAL_VERSION) libduktaped.so
 +	ln -s libduktaped.so.$(REAL_VERSION) libduktaped.so.$(SONAME_VERSION)
++
  
- # Symlinks depend on platform conventions.
- .PHONY: install
-@@ -85,4 +89,4 @@ install: libduktape.$(SO_REALNAME_SUFFIX
+ duktape.pc:
+ 	sed -e "s|@PREFIX@|$(INSTALL_PREFIX)|" \
+@@ -101,4 +107,4 @@ install: libduktape.$(SO_REALNAME_SUFFIX
  
  CCOPTS = -I./examples/cmdline
  duk:
--	$(CC) $(CCOPTS) -I$(INSTALL_PREFIX)/include -L$(INSTALL_PREFIX)/lib -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
+-	$(CC) $(CCOPTS) -I$(INSTALL_PREFIX)/include -L$(INSTALL_PREFIX)$(LIBDIR) -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
 +	$(CC) $(CFLAGS) -Isrc $(LDFLAGS) -DDUK_CMDLINE_PRINTALERT_SUPPORT -I./extras/print-alert -L. -Wall -Wextra -o $@ ./examples/cmdline/duk_cmdline.c ./extras/print-alert/duk_print_alert.c -lduktape -lm
