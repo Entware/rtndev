@@ -1,18 +1,20 @@
---- a/meson.build
-+++ b/meson.build
-@@ -26,7 +26,6 @@ endif
- thread_dep = dependency('threads')
- boost_dep = dependency('boost', version: '>= 1.62')
- libmpdclient_dep = dependency('libmpdclient', version: '>= 2.5')
--libgcrypt_dep = dependency('libgcrypt')
- libcurl_dep = dependency('libcurl', version: '>= 7.18')
+--- a/src/lib/gcrypt/meson.build
++++ b/src/lib/gcrypt/meson.build
+@@ -1,17 +1,9 @@
+-gcrypt_dep = dependency('libgcrypt')
+-
+ gcrypt = static_library(
+   'gcrypt',
+   'MD5.cxx',
+   include_directories: inc,
+-  dependencies: [
+-    gcrypt_dep,
+-  ],
+ )
  
- if host_machine.system() == 'linux'
-@@ -121,7 +120,6 @@ executable(
-     thread_dep,
-     boost_dep,
-     libmpdclient_dep,
--    libgcrypt_dep,
-     libcurl_dep,
-     libsystemd_dep,
-   ],
+ gcrypt_dep = declare_dependency(
+   link_with: gcrypt,
+-  dependencies: [
+-    gcrypt_dep,
+-  ],
+ )

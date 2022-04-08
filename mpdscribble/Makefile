@@ -8,16 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mpdscribble
-PKG_VERSION:=0.23
-PKG_REV:=bba2687581cc7f6f62409b8565a9188e7feea205
-PKG_RELEASE:=2
+PKG_VERSION:=0.24
+PKG_REV:=a0ae861f2349c676eebedfbcebfae0b61090b6fb
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/MusicPlayerDaemon/mpdscribble.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=c5656d38bab7ea9dd9cb58af093504186be3345aa4e7d61cb2e5f8fa4ae60425
+PKG_MIRROR_HASH:=57557e13cf25ef4d6910451d3a7d3efab7537ec4e9a23b25cf161d1be7efae18
 
 PKG_BUILD_DEPENDS:=boost
 
@@ -41,7 +41,7 @@ endef
 MESON_ARGS += \
 	-Dsystemd=disabled
 
-MESON_VARS+=BOOST_ROOT=$(STAGING_DIR)/opt
+MESON_VARS += BOOST_ROOT=$(STAGING_DIR)/opt
 
 TARGET_CFLAGS += $(shell $(STAGING_DIR)/opt/bin/libgcrypt-config --cflags)
 TARGET_LDFLAGS += $(shell $(STAGING_DIR)/opt/bin/libgcrypt-config --libs)
