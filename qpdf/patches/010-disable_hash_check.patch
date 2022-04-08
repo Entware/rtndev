@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -21,18 +21,6 @@ AC_ARG_ENABLE(check-autofiles,
+@@ -31,18 +31,6 @@ AC_ARG_ENABLE(check-autofiles,
      fi],
     [CHECK_AUTOFILES=1])
  
