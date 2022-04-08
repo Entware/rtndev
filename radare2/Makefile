@@ -4,14 +4,12 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 5.4.0 failed to compile with following message
-# ../libr/util/signal.c:19:17: error: 'SIGSTKFLT' undeclared here (not in a function); did you mean 'SIGSTKSZ'?
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=radare2
-PKG_VERSION:=5.3.1
-PKG_REV:=afe6d96aaf1722a9e4783a689f9f1a3a4685d612
+PKG_VERSION:=5.6.6
+PKG_REV:=50b8813f1df7fbae3bbcb0e8d04397cd353d4759
 PKG_RELEASE:=1
 
 
@@ -20,7 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/radareorg/radare2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=76af00ae1be02002413dcbb783f66c8557fb5c39f79036c50d01e3132f229550
+PKG_MIRROR_HASH:=f44eb69076480791d7afce56291e9e3e52803f4a626bfc6defde1dbc7d978083
 
 PKG_BUILD_DEPENDS:=python3/host
 
