@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
-
+# 4.4.2 requires 1.2.14 =< libtorrent-rasterbar < 2
 
 include $(TOPDIR)/rules.mk
 
