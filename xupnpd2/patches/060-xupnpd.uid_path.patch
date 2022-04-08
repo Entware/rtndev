@@ -1,6 +1,6 @@
 --- a/common.cpp
 +++ b/common.cpp
-@@ -218,7 +218,7 @@ void utils::rm_last_slash(std::string& s
+@@ -216,7 +216,7 @@ void utils::rm_last_slash(std::string& s
  
  std::string utils::uuid_gen(void)
  {
