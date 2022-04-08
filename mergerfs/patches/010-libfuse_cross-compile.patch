@@ -1,33 +1,16 @@
 --- a/libfuse/Makefile
 +++ b/libfuse/Makefile
-@@ -78,22 +78,22 @@ objects: build/config.h
- 	$(MAKE) $(OBJS)
- 
- build/libfuse.a: objects
--	ar rcs build/libfuse.a $(OBJS)
-+	$(AR) rcs build/libfuse.a $(OBJS)
- 
- utils: mergerfs-fusermount mount.mergerfs
- 
- build/mergerfs-fusermount: build/config.h util/fusermount.c lib/mount_util.c
--	$(CC) $(CFLAGS) $(FUSE_FLAGS) -Ilib -o build/mergerfs-fusermount util/fusermount.c lib/mount_util.c
-+	$(CC) $(CFLAGS) $(CXXFLAGS) $(FUSE_FLAGS) $(LDFLAGS) -Ilib -o build/mergerfs-fusermount util/fusermount.c lib/mount_util.c
- 
- mergerfs-fusermount: build/mergerfs-fusermount
- 
- build/mount.mergerfs: build/libfuse.a util/mount.mergerfs.c
--	$(CC) $(CFLAGS) $(FUSE_FLAGS) -o build/mount.mergerfs util/mount.mergerfs.c build/libfuse.a $(LDFLAGS)
-+	$(CC) $(CFLAGS) $(CXXFLAGS) $(FUSE_FLAGS) $(LDFLAGS) -o build/mount.mergerfs util/mount.mergerfs.c build/libfuse.a $(LDFLAGS)
- 
- mount.mergerfs: build/mount.mergerfs
- 
- build/%.o: lib/%.c
--	$(CC) $(CFLAGS) $(FUSE_FLAGS) -c $< -o $@
-+	$(CC) $(CFLAGS) $(CXXFLAGS) $(FUSE_FLAGS) -c $< -o $@
- 
- clean:
- 	rm -rf build
-@@ -101,8 +101,8 @@ clean:
+@@ -56,7 +56,8 @@ CFLAGS := \
+ 	-std=gnu99 \
+ 	-Wall \
+ 	-pipe \
+-	-MMD
++	-MMD \
++	$(CXXFLAGS)
+ FUSERMOUNT_DIR = $(BINDIR)
+ FUSE_FLAGS = \
+ 	-Iinclude \
+@@ -107,8 +108,8 @@ clean:
  distclean: clean
  
  strip:
