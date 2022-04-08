@@ -6,10 +6,10 @@
 +BUILD_TYPE = release
  
  OUTPUT := ps3netsrv
- OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/File.o src/VIsoFile.o
+ OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/mem.o src/File.o src/VIsoFile.o
 @@ -14,7 +14,7 @@ CPPFLAGS += -Doff64_t=off_t
  #CPPFLAGS +=-DNOSSL
- #OBJS = src/main.o src/compat.o src/File.o src/VIsoFile.o
+ #OBJS = src/main.o src/compat.o src/mem.o src/File.o src/VIsoFile.o
  
 -LDFLAGS = -L.
 +LDFLAGS += -L.
