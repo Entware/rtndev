@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=chromaprint
 PKG_VERSION:=1.5.1
-PKG_REV:=41e23c212594ee22d30a9d64b3438efae7ab6148
+PKG_REV:=5c3be6803856f25b11d1d704bac56e733b4fc997
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/acoustid/chromaprint.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=skip
+PKG_MIRROR_HASH:=4ee45223ddf86466e3424d11ea503a55c403ebf812afbeb6e2a60d35f753f8d5
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
