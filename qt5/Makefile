@@ -11,12 +11,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.14.2
-PKG_RELEASE:=3
+PKG_VERSION:=5.15.2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.14/$(PKG_VERSION)/single
-PKG_HASH:=c6fcd53c744df89e7d3223c02838a33309bd1c291fcb6f9341505fe99f7f19fa
+PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single
+PKG_HASH:=3a530d1b243b5dec00bc54937455471aaa3e56849d2593edb8ded07228202240
 
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
@@ -54,6 +54,12 @@ define Package/qt5-network
 	$(call Package/qt5/Default)
 	TITLE+=network
 	DEPENDS+=+qt5-core +libopenssl
+endef
+
+define Package/qt5-sql
+	$(call Package/qt5/Default)
+	TITLE+=sql
+	DEPENDS+=+qt5-core
 endef
 
 define Package/qt5-xml
@@ -149,6 +155,11 @@ define Package/qt5-network/install
 	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Network.so* $(1)/opt/lib
 endef
 
+define Package/qt5-sql/install
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Sql.so* $(1)/opt/lib
+endef
+
 define Package/qt5-xml/install
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_BUILD_DIR)/qtbase/lib/libQt5Xml.so* $(1)/opt/lib
@@ -156,4 +167,5 @@ endef
 
 $(eval $(call BuildPackage,qt5-core))
 $(eval $(call BuildPackage,qt5-network))
+$(eval $(call BuildPackage,qt5-sql))
 $(eval $(call BuildPackage,qt5-xml))

@@ -1,7 +1,6 @@
-This patch disables prinstsupport, sql, concurrent, testlib  base libs compilation
 --- a/qtbase/src/src.pro
 +++ b/qtbase/src/src.pro
-@@ -81,22 +81,10 @@ src_dbus.target = sub-dbus
+@@ -81,10 +81,6 @@
  src_dbus.depends = src_corelib
  force_dbus_bootstrap: src_dbus.depends += src_tools_bootstrap_dbus  # avoid syncqt race
  
@@ -9,11 +8,10 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
 -src_concurrent.target = sub-concurrent
 -src_concurrent.depends = src_corelib
 -
--src_sql.subdir = $$PWD/sql
--src_sql.target = sub-sql
--src_sql.depends = src_corelib
--
- src_network.subdir = $$PWD/network
+ src_sql.subdir = $$PWD/sql
+ src_sql.target = sub-sql
+ src_sql.depends = src_corelib
+@@ -93,10 +89,6 @@
  src_network.target = sub-network
  src_network.depends = src_corelib
  
@@ -24,7 +22,7 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  src_3rdparty_pcre2.subdir = $$PWD/3rdparty/pcre2
  src_3rdparty_pcre2.target = sub-3rdparty-pcre2
  
-@@ -140,10 +128,6 @@ src_openglextensions.subdir = $$PWD/open
+@@ -140,10 +132,6 @@
  src_openglextensions.target = sub-openglextensions
  src_openglextensions.depends = src_gui
  
@@ -35,20 +33,15 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  src_plugins.subdir = $$PWD/plugins
  src_plugins.target = sub-plugins
  
-@@ -169,12 +153,7 @@ qtConfig(network) {
-     SUBDIRS += src_network
-     src_plugins.depends += src_network
+@@ -175,7 +163,6 @@
+     src_plugins.depends += src_sql
  }
--qtConfig(sql) {
--    SUBDIRS += src_sql
--    src_plugins.depends += src_sql
--}
  qtConfig(xml): SUBDIRS += src_xml
 -qtConfig(testlib): SUBDIRS += src_testlib
+ 
  qtConfig(dbus) {
      force_dbus_bootstrap|qtConfig(private_tests): \
-         SUBDIRS += src_tools_bootstrap_dbus
-@@ -192,7 +171,6 @@ android {
+@@ -194,7 +181,6 @@
               src_tools_androidtestrunner
  }
  
@@ -56,7 +49,7 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
  qtConfig(gui) {
      qtConfig(harfbuzz):!qtConfig(system-harfbuzz) {
          SUBDIRS += src_3rdparty_harfbuzzng
-@@ -219,12 +197,10 @@ qtConfig(gui) {
+@@ -221,12 +207,10 @@
      SUBDIRS += src_gui src_platformsupport src_platformheaders
      qtConfig(opengl): SUBDIRS += src_openglextensions
      src_plugins.depends += src_gui src_platformsupport src_platformheaders
@@ -69,7 +62,7 @@ This patch disables prinstsupport, sql, concurrent, testlib  base libs compilati
          qtConfig(printer) {
              SUBDIRS += src_printsupport
              src_plugins.depends += src_printsupport
-@@ -237,7 +213,7 @@ qtConfig(gui) {
+@@ -239,7 +223,7 @@
  }
  SUBDIRS += src_plugins
  
