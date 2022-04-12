@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
-PKG_VERSION:=2.0.3
-PKG_RELEASE:=6
+PKG_VERSION:=2.0.5
+PKG_RELEASE:=1
 
 PYPI_NAME:=deluge
-PKG_HASH:=bd26950f417de2a5b26827d989935a30e770f880c22cb59ca69f781cdc9a14c9
+PKG_HASH:=a00a3920413c6c191e89e0cb22184f05387f5f26062fdb2c3ed8753adede385b
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
