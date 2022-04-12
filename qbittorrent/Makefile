@@ -10,8 +10,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
-PKG_VERSION:=4.3.9
-PKG_REV:=01519b5e77d2a1e577ebc0c4291611fc37df0d4a
+PKG_VERSION:=4.4.2
+PKG_REV:=ede7c8acbb79c1c6627fa03e8402b89f47711f70
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -19,7 +19,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=73bd2f8264a6b21918def648e5a488b371086c304f39c91e1ab8eed52d62ff38
+PKG_MIRROR_HASH:=52ff1f71f7ec27d14cfa1917c3f5ac8b361161dabff4fa888dab69ed191de313
 
 PKG_LICENSE:=GPL-2.0+
 PKG_LICENSE_FILES:=COPYING
@@ -35,7 +35,7 @@ define Package/qbittorrent
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	DEPENDS:=+qt5-network +qt5-xml +libtorrent-rasterbar $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+qt5-network +qt5-sql +qt5-xml +libtorrent-rasterbar $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=bittorrent client programmed in C++ / Qt
 	URL:=https://www.qbittorrent.org/
 	PROVIDES:=qBittorrent
