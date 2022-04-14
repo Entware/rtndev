@@ -4,21 +4,20 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Project archieved
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=multitail
-PKG_VERSION:=6.5.0
-PKG_REV:=2c8f90cd253b270afa88c9845c8a927bb4fbb4e5
-PKG_RELEASE:=2
+PKG_VERSION:=6.5.1
+PKG_REV:=4598b879e568d97ea98eb8134b459870a2a349a1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/flok99/multitail.git
+PKG_SOURCE_URL:=https://github.com/halturin/multitail.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=4dac4f9052f6b300c71f7be21fa06c6c7d83b5dc909c3434c7ae71d1c060674b
+PKG_MIRROR_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 
