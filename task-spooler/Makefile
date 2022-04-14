@@ -8,14 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=task-spooler
-PKG_VERSION:=1.0.2
+PKG_VERSION:=1.3.0
+PKG_REV:=052db94bc588e4f4471e37599dfdff77dc44c8bb
 PKG_RELEASE:=1
 
-PKG_SOURCE:=ts-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://viric.name/soft/ts
-PKG_HASH:=f73452aed80e2f9a7764883e9353aa7f40e65d3c199ad1f3be60fd58b58eafec
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/ts-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/justanhduc/task-spooler.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=b4493ab5c359714b78a567d475c7fb014bb0fcb230597181c93f693ba5f6f917
 
 include $(INCLUDE_DIR)/package.mk
 
