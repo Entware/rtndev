@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/acoustid/chromaprint.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=4ee45223ddf86466e3424d11ea503a55c403ebf812afbeb6e2a60d35f753f8d5
+PKG_MIRROR_HASH:=971a282a9eec8a482341a1abecb1c3730a12d69fdb231ddb2bcdaa8ad1251d56
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
