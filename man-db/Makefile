@@ -41,6 +41,7 @@ CONFIGURE_ARGS += \
 	--with-pager="/opt/bin/less" \
 	--enable-cache-owner=root \
 	--disable-setuid \
+	--disable-manual \
 	--enable-mb-groff \
 	--disable-nls \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
