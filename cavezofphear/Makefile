@@ -4,21 +4,27 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2011
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cavezofphear
-PKG_VERSION:=0.5.1
+PKG_VERSION:=0.6.1
+PKG_REV:=fa0b1b1cb87b7de8beee6b1e658da90e6bd52d31
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
-PKG_SOURCE_URL:=@DEBIAN/pool/main/c/cavezofphear
-PKG_HASH:=5bcb2975094721bedb823ba4697e27bfaae1115ff043b284fa156f5964d8d542
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/phear-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/AMDmi3/cavezofphear.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=840b295adf5e75c6ba3806cbd7e93e6902c874b901220caab4150cf6c11360df
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
+
+CMAKE_OPTIONS += \
+	-DWITH_MANPAGE=OFF \
+	-DSYSTEMWIDE=ON
 
 define Package/cavezofphear
 	SECTION:=games
@@ -37,10 +43,9 @@ endef
 
 define Package/cavezofphear/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/phear $(1)/opt/bin
-	$(INSTALL_DIR) $(1)/opt/share/phear/data/levels
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/data/{gover,htext,spgraf,tdesc} $(1)/opt/share/phear/data
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/data/levels/{01..11} $(1)/opt/share/phear/data/levels
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/phear $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/share
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/phear $(1)/opt/share
 endef
 
 $(eval $(call BuildPackage,cavezofphear))
