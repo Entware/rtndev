@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=grive2
 PKG_VERSION:=0.5.1-20191113
 PKG_REV:=548ea362f319cd1f7fcbad0344fde8449fa14255
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -39,7 +39,7 @@ define Package/grive2/description
  Drive client with the support for the new Drive REST API and partial sync.
 endef
 
-TARGET_CXXFLAGS += -fpermissive
+TARGET_CXXFLAGS += -fpermissive -DBOOST_BIND_GLOBAL_PLACEHOLDERS
 TARGET_LDFLAGS += $(if $(INTL_FULL),-lintl)
 
 ifneq ($(CONFIG_USE_UCLIBC),)
