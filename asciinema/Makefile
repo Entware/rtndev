@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 2.2.0 has no setup.py
 
 include $(TOPDIR)/rules.mk
 
