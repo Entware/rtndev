@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=suricata
 PKG_VERSION:=4.1.8
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.openinfosecfoundation.org/download
@@ -40,8 +40,9 @@ endef
 CONFIGURE_ARGS += \
 	--disable-static \
 	--disable-afl \
-	--disable-suricata-update \
-	--disable-python
+	--disable-nspr \
+	--disable-python \
+	--disable-suricata-update
 
 define Package/suricata/conffiles
 /opt/etc/suricata/suricata.yaml
