@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -394,23 +394,23 @@ AC_CHECK_PROGS([PYTHON],
+@@ -419,23 +419,23 @@ AC_CHECK_PROGS([PYTHON],
  AC_MSG_CHECKING(directory to use for temporary files)
  if test -n "$enable_tmpdir"; then
  	tmpdir="$enable_tmpdir"
@@ -38,19 +38,3 @@
  
  # Test for case-insensitive filenames
  AC_MSG_CHECKING(for case-insensitive filenames)
---- a/source.mak
-+++ b/source.mak
-@@ -414,13 +414,6 @@ READTAGS_HEADS = \
- 	       $(NULL)
- READTAGS_OBJS  = $(READTAGS_SRCS:.c=.$(OBJEXT))
- 
--PACKCC_SRCS = \
--	misc/packcc/src/packcc.c \
--	\
--	$(NULL)
--
--PACKCC_OBJS = $(PACKCC_SRCS:.c=.$(OBJEXT))
--
- OPTSCRIPT_DSL_OBJS = $(OPTSCRIPT_DSL_SRCS:.c=.$(OBJEXT))
- 
- OPTSCRIPT_OBJS = $(OPTSCRIPT_SRCS:.c=.$(OBJEXT))
