@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goaccess
-PKG_VERSION:=1.5.6
+PKG_VERSION:=1.6.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://tar.goaccess.io
-PKG_HASH:=df6585f179fdda9240f6a0e772c27b61fa1c88b3320c2409bcdfefbb4b14aabf
+PKG_HASH:=5a3152ee0ce2bed0dcee6bd3935338f40658c0b3f034b6305745c7440cd76518
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
