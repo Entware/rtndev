@@ -1,6 +1,6 @@
 --- a/ifconfig/system/linux.c
 +++ b/ifconfig/system/linux.c
-@@ -53,6 +53,10 @@
+@@ -51,6 +51,10 @@
  #include "../ifconfig.h"
  
  
