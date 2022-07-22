@@ -1,6 +1,6 @@
 --- a/qtbase/src/src.pro
 +++ b/qtbase/src/src.pro
-@@ -81,10 +81,6 @@
+@@ -81,10 +81,6 @@ src_dbus.target = sub-dbus
  src_dbus.depends = src_corelib
  force_dbus_bootstrap: src_dbus.depends += src_tools_bootstrap_dbus  # avoid syncqt race
  
@@ -11,7 +11,7 @@
  src_sql.subdir = $$PWD/sql
  src_sql.target = sub-sql
  src_sql.depends = src_corelib
-@@ -93,10 +89,6 @@
+@@ -93,10 +89,6 @@ src_network.subdir = $$PWD/network
  src_network.target = sub-network
  src_network.depends = src_corelib
  
@@ -22,7 +22,7 @@
  src_3rdparty_pcre2.subdir = $$PWD/3rdparty/pcre2
  src_3rdparty_pcre2.target = sub-3rdparty-pcre2
  
-@@ -140,10 +132,6 @@
+@@ -143,10 +135,6 @@ src_openglextensions.subdir = $$PWD/open
  src_openglextensions.target = sub-openglextensions
  src_openglextensions.depends = src_gui
  
@@ -33,7 +33,7 @@
  src_plugins.subdir = $$PWD/plugins
  src_plugins.target = sub-plugins
  
-@@ -175,7 +163,6 @@
+@@ -178,7 +166,6 @@ qtConfig(sql) {
      src_plugins.depends += src_sql
  }
  qtConfig(xml): SUBDIRS += src_xml
@@ -41,7 +41,7 @@
  
  qtConfig(dbus) {
      force_dbus_bootstrap|qtConfig(private_tests): \
-@@ -194,7 +181,6 @@
+@@ -197,7 +184,6 @@ android {
               src_tools_androidtestrunner
  }
  
@@ -49,7 +49,7 @@
  qtConfig(gui) {
      qtConfig(harfbuzz):!qtConfig(system-harfbuzz) {
          SUBDIRS += src_3rdparty_harfbuzzng
-@@ -221,12 +207,10 @@
+@@ -228,12 +214,10 @@ qtConfig(gui) {
      SUBDIRS += src_gui src_platformsupport src_platformheaders
      qtConfig(opengl): SUBDIRS += src_openglextensions
      src_plugins.depends += src_gui src_platformsupport src_platformheaders
@@ -62,7 +62,7 @@
          qtConfig(printer) {
              SUBDIRS += src_printsupport
              src_plugins.depends += src_printsupport
-@@ -239,7 +223,7 @@
+@@ -246,7 +230,7 @@ qtConfig(gui) {
  }
  SUBDIRS += src_plugins
  

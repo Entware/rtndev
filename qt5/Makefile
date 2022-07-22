@@ -11,12 +11,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.15.2
+PKG_VERSION:=5.15.5
 PKG_RELEASE:=1
 
-PKG_SOURCE:=qt-everywhere-src-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single
-PKG_HASH:=3a530d1b243b5dec00bc54937455471aaa3e56849d2593edb8ded07228202240
+PKG_SOURCE:=qt-everywhere-opensource-src-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single \
+	https://ftp.fau.de/qtproject/archive/qt/5.15/$(PKG_VERSION)/single
+PKG_HASH:=5a97827bdf9fd515f43bc7651defaf64fecb7a55e051c79b8f80510d0e990f06
 
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
