@@ -14,7 +14,7 @@ PKG_VERSION:=10.6.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@SF/$(PKG_NAME)
+PKG_SOURCE_URL:=https://github.com/qpdf/qpdf/releases/download/release-qpdf-$(PKG_VERSION)
 PKG_HASH:=e8fc23b2a584ea68c963a897515d3eb3129186741dd19d13c86d31fa33493811
 
 PKG_FIXUP:=autoreconf
