@@ -1,0 +1,11 @@
+--- a/src/main.mk
++++ b/src/main.mk
+@@ -11,7 +11,7 @@
+ #
+ 
+ XBCC = $(BCC) $(BCCFLAGS)
+-XTCC = $(TCC) $(CFLAGS_INCLUDE) -I$(OBJDIR) $(TCCFLAGS)
++XTCC = $(TCC) -I. -I$(SRCDIR) -I$(SRCDIR_extsrc) -I$(OBJDIR) $(TCCFLAGS)
+ 
+ TESTFLAGS := -quiet
+ 

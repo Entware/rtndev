@@ -1,6 +1,6 @@
 --- a/Makefile.classic
 +++ b/Makefile.classic
-@@ -21,7 +21,7 @@ OBJDIR = ./bld
+@@ -27,7 +27,7 @@ OBJDIR = ./bld
  #    See TCC below for the C compiler for building the finished binary.
  #
  BCC = gcc
@@ -9,12 +9,21 @@
  
  #### The suffix to add to final executable file.  When cross-compiling
  #    to windows, make this ".exe".  Otherwise leave it blank.
-@@ -36,7 +36,7 @@ E =
+@@ -42,7 +42,7 @@ E =
  #
  #TCC = gcc -O6
  #TCC = gcc -g -O0 -Wall -fprofile-arcs -ftest-coverage
 -TCC = gcc -g -Os -Wall
 +TCC = $(CC)
  
- # To use the included miniz library
- # FOSSIL_ENABLE_MINIZ = 1
+ # To add support for HTTPS
+ TCC += -DFOSSIL_ENABLE_SSL
+@@ -84,7 +84,7 @@ TCLSH = tclsh
+ 
+ CFLAGS += -fPIE
+ CPPFLAGS += -I. -I$(SRCDIR_extsrc) -I$(SRCDIR)
+-LIB = -lm -lz -lssl
++#LIB = -lm -lz -lssl
+ INSTALLDIR = $(DESTDIR)$(prefix)/bin
+ SQLITE3_ORIGINAL = 0
+ USE_LINENOISE = 1
