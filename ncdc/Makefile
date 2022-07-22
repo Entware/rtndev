@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ncdc
-PKG_VERSION:=1.22.1
+PKG_VERSION:=1.23
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.yorhel.nl/download
-PKG_HASH:=d15fd378aa345f423e59a38691c668f69b516cd4b8afbbcdc446007740c3afad
+PKG_HASH:=804abae41fcca969e87f650483ae7e3a237419dabbd320897e25fe8851f0a2cb
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1

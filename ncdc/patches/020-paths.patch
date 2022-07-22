@@ -1,6 +1,6 @@
 --- a/src/db.c
 +++ b/src/db.c
-@@ -1444,7 +1444,7 @@ static int db_dir_init() {
+@@ -1443,7 +1443,7 @@ static int db_dir_init() {
    if(!db_dir && (db_dir = g_getenv("NCDC_DIR")))
      db_dir = g_strdup(db_dir);
    if(!db_dir)
