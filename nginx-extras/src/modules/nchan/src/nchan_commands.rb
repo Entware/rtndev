@@ -62,7 +62,7 @@ CfCmd.new do
       :nchan_set_sub_channel_id,
       :loc_conf,
       args: 1..7,
-      alt: [ :nchan_sub_channel_id ],
+      alt: :nchan_sub_channel_id,
       group: "pubsub",
       tags: ["pubsub", 'channel-id'],
       
@@ -73,7 +73,7 @@ CfCmd.new do
       :nchan_pubsub_directive,
       :loc_conf,
       args: 0..6,
-      alt: ["nchan_pubsub_location"],
+      alt: :nchan_pubsub_location,
       
       group: "pubsub",
       tags: [ 'publisher', 'subscriber', 'pubsub' ],
@@ -82,6 +82,24 @@ CfCmd.new do
       info: "Defines a server or location as a pubsub endpoint. For long-polling, GETs subscribe. and POSTs publish. For Websockets, publishing data on a connection does not yield a channel metadata response. Without additional configuration, this turns a location into an echo server.",
       uri: '#pubsub-endpoint'
   
+  nchan_subscriber_info [:loc],
+      :nchan_subscriber_info_directive,
+      :loc_conf,
+      args: 0,
+      
+      group: "pubsub",
+      tags: ["subscriber", "debug"],
+      info: "A subscriber location for debugging the state of subscribers on a given channel. The subscribers of the channel specified by `nchan_channel_id` evaluate `nchan_subscriber_info_string` and send it back to the requested on this location. This is useful to see where subscribers are in an Nchan cluster, as well as debugging subscriber connection issues."
+  
+  nchan_subscriber_info_string [:srv, :loc],
+      :ngx_http_set_complex_value_slot,
+      [:loc_conf, :subscriber_info_string],
+      args: 1,
+      
+      group: "pubsub",
+      tags: ["subscriber", "debug"],
+      default: "$nchan_subscriber_type $remote_addr:$remote_port $http_user_agent $server_name $request_uri $pid",
+      info: "this string is evaluated by each subscriber on a given channel and sent to the requester of a `nchan_subscriber_info` location"
   
   nchan_longpoll_multipart_response [:srv, :loc, :if],
       :nchan_set_longpoll_multipart,
@@ -149,7 +167,7 @@ CfCmd.new do
       :loc_conf,
       args: 0..5,
       legacy: "push_subscriber",
-      alt: ["nchan_subscriber_location"],
+      alt: :nchan_subscriber_location,
       
       group: "pubsub",
       tags: ['subscriber'],
@@ -204,7 +222,7 @@ CfCmd.new do
       tags: ['subscriber-rawstream'],
       value: "<string>",
       default: "\\n",
-      info: "Message separator string for the http-raw-stream subscriber. Automatically terminated with a newline character."
+      info: "Message separator string for the http-raw-stream subscriber. Automatically terminated with a newline character if not explicitly set to an empty string."
   
   nchan_subscriber_first_message [:srv, :loc, :if],
       :nchan_subscriber_first_message_directive,
@@ -256,7 +274,7 @@ CfCmd.new do
       :loc_conf,
       args: 0..2,
       legacy: "push_publisher",
-      alt: ["nchan_publisher_location"],
+      alt: :nchan_publisher_location,
       
       group: "pubsub",
       tags: ['publisher'],
@@ -415,6 +433,15 @@ CfCmd.new do
       undocumented: true,
       group: "storage"
   
+  nchan_redis_discovered_ip_range_blacklist [:upstream],
+      :ngx_conf_set_redis_ip_blacklist,
+      :srv_conf,
+      args: 1..7,
+      group: "storage",
+      tags: ['redis'],
+      value: "<CIDR range>",
+      info: "do not attempt to connect to **autodiscovered** nodes with IPs in the specified ranges. Useful for blacklisting private network ranges for clusters and Redis slaves. NOTE that this blacklist applies only to autodiscovered nodes, and not ones specified in the upstream block"
+  
   nchan_redis_server [:upstream],
       :ngx_conf_upstream_redis_server,
       :loc_conf,
@@ -424,7 +451,7 @@ CfCmd.new do
       info: "Used in upstream { } blocks to set redis servers. Redis url is in the form 'redis://:password@hostname:6379/0'. Shorthands 'host:port' or 'host' are permitted.",
       uri: "#connecting-to-a-redis-server"
   
-  nchan_redis_storage_mode [:main, :srv, :upstream], 
+  nchan_redis_storage_mode [:main, :srv, :upstream, :loc], 
       :ngx_conf_set_redis_storage_mode_slot,
       [:loc_conf, :"redis.storage_mode"],
       
@@ -450,6 +477,101 @@ CfCmd.new do
       default: :off,
       info: "Increases publishing capacity by 2-3x for Redis nostore mode at the expense of inaccurate subscriber counts in the publisher response."
   
+  nchan_redis_username [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.username"],
+      
+      group: "storage",
+      tags: ['redis'],
+      default: "<none>",
+      info: "Set Redis username for AUTH command (available when using ACLs on the Redis server). All servers in the upstream block will use this username _unless_ a different username is specified by a server URL."
+  
+  nchan_redis_password [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.password"],
+      
+      group: "storage",
+      tags: ['redis'],
+      default: "<none>",
+      info: "Set Redis password for AUTH command. All servers in the upstream block will use this password _unless_ a different password is specified by a server URL."
+  
+  nchan_redis_ssl [:upstream],
+      :ngx_conf_set_flag_slot,
+      [:srv_conf, :"redis.tls.enabled"],
+      alt: :nchan_redis_tls,
+      
+      group: "storage",
+      tags: ['redis', 'ssl'],
+      value: [:on, :off],
+      default: :off,
+      info: "Enables SSL/TLS for all connections to Redis servers in this upstream block. When enabled, no unsecured connections are permitted"
+  
+  nchan_redis_ssl_client_certificate [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.tls.client_certificate"],
+      alt: :nchan_redis_tls_client_certificate,
+      
+      group: "storage",
+      tags: ['redis', 'ssl'],
+      info: "Path to client certificate when using TLS for Redis connections"
+  
+  nchan_redis_ssl_client_certificate_key [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.tls.client_certificate_key"],
+      alt: :nchan_redis_tls_client_certificate,
+      
+      group: "storage",
+      tags: ['redis', 'ssl'],
+      info: "Path to client certificate key when using TLS for Redis connections"
+  
+  nchan_redis_ssl_server_name [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.tls.server_name"],
+      alt: :nchan_redis_tls_server_name,
+      
+      group: "storage",
+      tags: ['redis', 'ssl'],
+      info: "Server name to verify (CN) when using TLS for Redis connections"
+  
+  nchan_redis_ssl_trusted_certificate [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.tls.trusted_certificate"],
+      alt: :nchan_redis_tls_trusted_certificate,
+      
+      group: "storage",
+      tags: ['redis', 'ssl'],
+      info: "Trusted certificate (CA) when using TLS for Redis connections"
+      
+  nchan_redis_ssl_trusted_certificate_path [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.tls.trusted_certificate_path"],
+      alt: :nchan_redis_tls_trusted_certificate_path,
+      
+      group: "storage",
+      default: "<system default>",
+      tags: ['redis', 'ssl'],
+      info: "Trusted certificate (CA) when using TLS for Redis connections. Defaults tothe system's SSL cert path unless nchan_redis_ssl_trusted_certificate is set"
+  
+  nchan_redis_ssl_ciphers [:upstream],
+      :ngx_conf_set_str_slot,
+      [:srv_conf, :"redis.tls.ciphers"],
+      alt: :nchan_redis_tls_ciphers,
+      
+      group: "storage",
+      default: "<system default>",
+      tags: ['redis', 'ssl'],
+      info: "Acceptable cipers when using TLS for Redis connections"
+  
+  nchan_redis_ssl_verify_certificate [:upstream],
+      :ngx_conf_set_flag_slot,
+      [:srv_conf, :"redis.tls.ciphers"],
+      alt: :nchan_redis_tls_verify_certificate,
+      
+      group: "storage",
+      value: [:on, :off],
+      default: :on,
+      tags: ['redis', 'ssl'],
+      info: "Should the server certificate be verified when using TLS for Redis connections? Useful to disable when testing with a self-signed server certificate."
   
   nchan_use_redis [:main, :srv, :loc],
       :ngx_conf_enable_redis,
@@ -470,6 +592,15 @@ CfCmd.new do
       tags: ['redis'],
       default: "4m",
       info: "Send a keepalive command to redis to keep the Nchan redis clients from disconnecting. Set to 0 to disable."
+  
+  nchan_redis_cluster_check_interval [:main, :srv, :upstream, :loc],
+      :ngx_conf_set_sec_slot,
+      [:loc_conf, :"redis.cluster_check_interval"],
+      
+      group: "storage",
+      tags: ['redis'],
+      default: "5s",
+      info: "Send a CLUSTER INFO command to each connected Redis node to see if the cluster config epoch has changed. Sent only when in Cluster mode and if any other command that may result in a MOVE error has not been sent in the configured time."
   
   nchan_redis_wait_after_connecting [:main, :srv, :loc],
       :nchan_ignore_obsolete_setting,
@@ -553,7 +684,7 @@ CfCmd.new do
       :nchan_set_message_buffer_length,
       [:loc_conf, :max_messages],
       legacy: [ "push_max_message_buffer_length", "push_message_buffer_length" ],
-      alt: ["nchan_message_max_buffer_length"],
+      alt: :nchan_message_max_buffer_length,
       
       group: "storage",
       tags: ['publisher'],
@@ -775,12 +906,12 @@ CfCmd.new do
       [:loc_conf, "benchmark.subscribers_per_channel"],
       group: "development",
       undocumented: true
-    nchan_benchmark_subscriber_distribution [:loc],
+  nchan_benchmark_subscriber_distribution [:loc],
       :nchan_benchmark_subscriber_distribution_directive,
       [:loc_conf, "benchmark.subscriber_distribution"],
       group: "development",
       undocumented: true
-    nchan_benchmark_publisher_distribution [:loc],
+  nchan_benchmark_publisher_distribution [:loc],
       :nchan_benchmark_publisher_distribution_directive,
       [:loc_conf, "benchmark.publisher_distribution"],
       group: "development",

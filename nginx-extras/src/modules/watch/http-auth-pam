@@ -1,4 +1,4 @@
 version=4
 opts="dversionmangle=s/v//,filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%libnginx-mod-http-auth-pam-$1.tar.gz%" \
-    https://github.com/stogh/ngx_http_auth_pam_module/tags \
+    https://github.com/sto/ngx_http_auth_pam_module/tags \
     (?:.*?/)?v?(\d[\d.]*)\.tar\.gz debian debian/ngxmod uupdate http-auth-pam

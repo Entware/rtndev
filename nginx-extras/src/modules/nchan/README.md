@@ -22,7 +22,7 @@ In a web browser, you can use Websocket or EventSource natively, or the [NchanSu
 
 ## Status and History
 
-The latest Nchan release is 1.2.7 (March 17, 2020) ([changelog](https://nchan.io/changelog)).
+The latest Nchan release is 1.2.15 (December 27, 2021) ([changelog](https://nchan.io/changelog)).
 
 The first iteration of Nchan was written in 2009-2010 as the [Nginx HTTP Push Module](https://pushmodule.slact.net), and was vastly refactored into its present state in 2014-2016.
 
@@ -704,6 +704,14 @@ Redis Cluster connections are designed to be resilient and try to recover from e
 
 All Nchan servers sharing a Redis server or cluster should have their times synchronized (via ntpd or your favorite ntp daemon). Failure to do so may result in missed or duplicate messages.
 
+#### Using Redis securely
+
+Redis servers can be connected to via TLS by using the [nchan_redis_ssl](#nchan_redis_ssl) config setting in an `upstream` block, or by using the `rediss://`  schema for the server URLs.
+
+A password and optional username for the `AUTH` command can be set by the [nchan_redis_username](#nchan_redis_username) and [nchan_redis_password](#nchan_redis_password) config settings in an `upstream` block, or by using the `redis://<username>:<password>@hostname` server URL schema.
+
+Note that autodiscovered Redis nodes inherit their parent's SSL, username, and password settings.
+
 #### Tweaks and Optimizations
 
 As of version 1.2.0, Nchan uses Redis slaves to load-balance PUBSUB traffic. By default, there is an equal chance that a channel's PUBSUB subscription will go to any master or slave. The [`nchan_redis_subscribe_weights`](#nchan_redis_subscribe_weights) setting is available to fine-tune this load-balancing.
@@ -1003,16 +1011,25 @@ Nchan makes several variables usabled in the config file:
 - `$nchan_subscriber_type`  
   For subscriber locations, this variable is set to the subscriber type (websocket, longpoll, etc.).
 
+- `$nchan_channel_subscriber_last_seen`  
+  For publisher locations, this variable is set to the timestamp for the last connected subscriber.
+  
+- `$nchan_channel_subscriber_count`  
+  For publisher locations, this variable is set to the number of subscribers in the published channel.
+  
+- `$nchan_channel_message_count`  
+  For publisher locations, this variable is set to the number of messages buffered in the published channel.
+  
 - `$nchan_publisher_type`  
   For publisher locations, this variable is set to the subscriber type (http or websocket).
   
-- `$nchan_prev_message_id`, `$nchan_message_id`
+- `$nchan_prev_message_id`, `$nchan_message_id`  
   The current and previous (if applicable) message id for publisher request or subscriber response.
 
-- `$nchan_channel_event`
+- `$nchan_channel_event`  
   For channel events, this is the event name. Useful when configuring `nchan_channel_event_string`.
 
-- `$nchan_version`
+- `$nchan_version`  
   Current Nchan version. Available since 1.1.5.
   
 Additionally, `nchan_stub_status` data is also exposed as variables. These are available only when `nchan_stub_status` is enabled on at least one location:
@@ -1180,7 +1197,18 @@ Additionally, `nchan_stub_status` data is also exposed as variables. These are a
   arguments: 1  
   default: `\n`  
   context: server, location, if  
-  > Message separator string for the http-raw-stream subscriber. Automatically terminated with a newline character.    
+  > Message separator string for the http-raw-stream subscriber. Automatically terminated with a newline character if not explicitly set to an empty string.    
+
+- **nchan_subscriber_info**  
+  arguments: 0  
+  context: location  
+  > A subscriber location for debugging the state of subscribers on a given channel. The subscribers of the channel specified by `nchan_channel_id` evaluate `nchan_subscriber_info_string` and send it back to the requested on this location. This is useful to see where subscribers are in an Nchan cluster, as well as debugging subscriber connection issues.    
+
+- **nchan_subscriber_info_string**  
+  arguments: 1  
+  default: `$nchan_subscriber_type $remote_addr:$remote_port $http_user_agent $server_name $request_uri $pid`  
+  context: server, location  
+  > this string is evaluated by each subscriber on a given channel and sent to the requester of a `nchan_subscriber_info` location    
 
 - **nchan_subscriber_last_message_id**  
   arguments: 1 - 5  
@@ -1327,11 +1355,22 @@ Additionally, `nchan_stub_status` data is also exposed as variables. These are a
   legacy name: push_message_timeout  
   > Publisher configuration setting the length of time a message may be queued before it is considered expired. If you do not want messages to expire, set this to 0. Note that messages always expire from oldest to newest, so an older message may prevent a newer one with a shorter timeout from expiring. An Nginx variable can also be used to set the timeout dynamically.    
 
+- **nchan_redis_cluster_check_interval**  
+  arguments: 1  
+  default: `5s`  
+  context: http, server, upstream, location  
+  > Send a CLUSTER INFO command to each connected Redis node to see if the cluster config epoch has changed. Sent only when in Cluster mode and if any other command that may result in a MOVE error has not been sent in the configured time.    
+
 - **nchan_redis_connect_timeout**  
   arguments: 1  
   default: `600ms`  
   context: upstream  
   > Redis server connection timeout.    
+
+- **nchan_redis_discovered_ip_range_blacklist** `<CIDR range>`  
+  arguments: 1 - 7  
+  context: upstream  
+  > do not attempt to connect to **autodiscovered** nodes with IPs in the specified ranges. Useful for blacklisting private network ranges for clusters and Redis slaves. NOTE that this blacklist applies only to autodiscovered nodes, and not ones specified in the upstream block    
 
 - **nchan_redis_idle_channel_cache_timeout** `<time>`  
   arguments: 1  
@@ -1362,6 +1401,12 @@ Additionally, `nchan_stub_status` data is also exposed as variables. These are a
   > Use an upstream config block for Redis servers.    
   [more details](#connecting-to-a-redis-server)  
 
+- **nchan_redis_password**  
+  arguments: 1  
+  default: `<none>`  
+  context: upstream  
+  > Set Redis password for AUTH command. All servers in the upstream block will use this password _unless_ a different password is specified by a server URL.    
+
 - **nchan_redis_ping_interval**  
   arguments: 1  
   default: `4m`  
@@ -1374,10 +1419,54 @@ Additionally, `nchan_stub_status` data is also exposed as variables. These are a
   > Used in upstream { } blocks to set redis servers. Redis url is in the form 'redis://:password@hostname:6379/0'. Shorthands 'host:port' or 'host' are permitted.    
   [more details](#connecting-to-a-redis-server)  
 
+- **nchan_redis_ssl** `[ on | off ]`  
+  arguments: 1  
+  default: `off`  
+  context: upstream  
+  > Enables SSL/TLS for all connections to Redis servers in this upstream block. When enabled, no unsecured connections are permitted    
+
+- **nchan_redis_ssl_ciphers**  
+  arguments: 1  
+  default: `<system default>`  
+  context: upstream  
+  > Acceptable cipers when using TLS for Redis connections    
+
+- **nchan_redis_ssl_client_certificate**  
+  arguments: 1  
+  context: upstream  
+  > Path to client certificate when using TLS for Redis connections    
+
+- **nchan_redis_ssl_client_certificate_key**  
+  arguments: 1  
+  context: upstream  
+  > Path to client certificate key when using TLS for Redis connections    
+
+- **nchan_redis_ssl_server_name**  
+  arguments: 1  
+  context: upstream  
+  > Server name to verify (CN) when using TLS for Redis connections    
+
+- **nchan_redis_ssl_trusted_certificate**  
+  arguments: 1  
+  context: upstream  
+  > Trusted certificate (CA) when using TLS for Redis connections    
+
+- **nchan_redis_ssl_trusted_certificate_path**  
+  arguments: 1  
+  default: `<system default>`  
+  context: upstream  
+  > Trusted certificate (CA) when using TLS for Redis connections. Defaults tothe system's SSL cert path unless nchan_redis_ssl_trusted_certificate is set    
+
+- **nchan_redis_ssl_verify_certificate** `[ on | off ]`  
+  arguments: 1  
+  default: `on`  
+  context: upstream  
+  > Should the server certificate be verified when using TLS for Redis connections? Useful to disable when testing with a self-signed server certificate.    
+
 - **nchan_redis_storage_mode** `[ distributed | backup | nostore ]`  
   arguments: 1  
   default: `distributed`  
-  context: http, server, upstream  
+  context: http, server, upstream, location  
   > The mode of operation of the Redis server. In `distributed` mode, messages are published directly to Redis, and retrieved in real-time. Any number of Nchan servers in distributed mode can share the Redis server (or cluster). Useful for horizontal scalability, but suffers the latency penalty of all message publishing going through Redis first.  
   >   
   > In `backup` mode, messages are published locally first, then later forwarded to Redis, and are retrieved only upon chanel initialization. Only one Nchan server should use a Redis server (or cluster) in this mode. Useful for data persistence without sacrificing response times to the latency of a round-trip to Redis.  
@@ -1396,6 +1485,12 @@ Additionally, `nchan_stub_status` data is also exposed as variables. These are a
   context: http, server, location  
   > Use of this command is discouraged in favor of upstreams blocks with (`nchan_redis_server`)[#nchan_redis_server]. The path to a redis server, of the form 'redis://:password@hostname:6379/0'. Shorthand of the form 'host:port' or just 'host' is also accepted.    
   [more details](#connecting-to-a-redis-server)  
+
+- **nchan_redis_username**  
+  arguments: 1  
+  default: `<none>`  
+  context: upstream  
+  > Set Redis username for AUTH command (available when using ACLs on the Redis server). All servers in the upstream block will use this username _unless_ a different username is specified by a server URL.    
 
 - **nchan_shared_memory_size** `<size>`  
   arguments: 1  

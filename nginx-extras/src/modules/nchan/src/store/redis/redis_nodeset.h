@@ -5,9 +5,19 @@
 #if NCHAN_HAVE_HIREDIS_WITH_SOCKADDR
 #include <hiredis/hiredis.h>
 #include <hiredis/async.h>
+#if (NGX_OPENSSL)
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <hiredis/hiredis_ssl.h>
+#endif
 #else
 #include <store/redis/hiredis/hiredis.h>
 #include <store/redis/hiredis/async.h>
+#if (NGX_OPENSSL)
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <store/redis/hiredis/hiredis_ssl.h>
+#endif
 #endif
 #include <util/nchan_reaper.h>
 #include <util/nchan_rbtree.h>
@@ -27,7 +37,7 @@
 #define node_log_debug(node, fmt, args...)    node_log((node), NGX_LOG_DEBUG, fmt, ##args)
   
 #define nodeset_log(nodeset, lvl, fmt, args...) \
-  ngx_log_error(lvl, ngx_cycle->log, 0, "nchan: Redis %s: " fmt, __nodeset_nickname_cstr(nodeset), ##args)
+  ngx_log_error(lvl, ngx_cycle->log, 0, "nchan: Redis %s: " fmt, (nodeset)->name, ##args)
 #define nodeset_log_error(nodeset, fmt, args...)    nodeset_log((nodeset), NGX_LOG_ERR, fmt, ##args)
 #define nodeset_log_warning(nodeset, fmt, args...)  nodeset_log((nodeset), NGX_LOG_WARN, fmt, ##args)
 #define nodeset_log_notice(nodeset, fmt, args...)   nodeset_log((nodeset), NGX_LOG_NOTICE, fmt, ##args)
@@ -46,24 +56,28 @@
 #define REDIS_NODE_DISCONNECTED            0
 #define REDIS_NODE_CMD_CONNECTING          1
 #define REDIS_NODE_PUBSUB_CONNECTING       2
-#define REDIS_NODE_CONNECTED               3
-#define REDIS_NODE_CMD_AUTHENTICATING      4
-#define REDIS_NODE_PUBSUB_AUTHENTICATING   5
-#define REDIS_NODE_SELECT_DB               6
-#define REDIS_NODE_CMD_SELECTING_DB        7
-#define REDIS_NODE_PUBSUB_SELECTING_DB     8
-#define REDIS_NODE_SCRIPTS_LOAD            9
-#define REDIS_NODE_SCRIPTS_LOADING        10
-#define REDIS_NODE_GET_INFO               11
-#define REDIS_NODE_GETTING_INFO           12
-#define REDIS_NODE_PUBSUB_GET_INFO        13
-#define REDIS_NODE_PUBSUB_GETTING_INFO    14
-#define REDIS_NODE_SUBSCRIBE_WORKER       15
-#define REDIS_NODE_SUBSCRIBING_WORKER     16
-#define REDIS_NODE_GET_CLUSTERINFO        17
-#define REDIS_NODE_GETTING_CLUSTERINFO    18
-#define REDIS_NODE_GET_CLUSTER_NODES      19
-#define REDIS_NODE_GETTING_CLUSTER_NODES  20
+#define REDIS_NODE_CMD_CHECKING_CONNECTION 3
+#define REDIS_NODE_CMD_CHECKED_CONNECTION  4
+#define REDIS_NODE_PUBSUB_CHECKING_CONNECTION 5
+#define REDIS_NODE_PUBSUB_CHECKED_CONNECTION 6
+#define REDIS_NODE_CONNECTED               7
+#define REDIS_NODE_CMD_AUTHENTICATING      8
+#define REDIS_NODE_PUBSUB_AUTHENTICATING   9
+#define REDIS_NODE_SELECT_DB              10
+#define REDIS_NODE_CMD_SELECTING_DB       11
+#define REDIS_NODE_PUBSUB_SELECTING_DB    12
+#define REDIS_NODE_SCRIPTS_LOAD           13
+#define REDIS_NODE_SCRIPTS_LOADING        14
+#define REDIS_NODE_GET_INFO               15
+#define REDIS_NODE_GETTING_INFO           16
+#define REDIS_NODE_PUBSUB_GET_INFO        17
+#define REDIS_NODE_PUBSUB_GETTING_INFO    18
+#define REDIS_NODE_SUBSCRIBE_WORKER       19
+#define REDIS_NODE_SUBSCRIBING_WORKER     20
+#define REDIS_NODE_GET_CLUSTERINFO        21
+#define REDIS_NODE_GETTING_CLUSTERINFO    22
+#define REDIS_NODE_GET_CLUSTER_NODES      23
+#define REDIS_NODE_GETTING_CLUSTER_NODES  24
 #define REDIS_NODE_READY                  100
   
 typedef struct redis_nodeset_s redis_nodeset_t;
@@ -116,7 +130,7 @@ struct redis_nodeset_s {
   //  maybe a master and its slaves
   //  maybe a cluster of masters and their slaves
   //slaves of slaves not included
-  
+  char                       *name;
   redis_nodeset_status_t      status;
   ngx_event_t                 status_check_ev;
   const char                 *status_msg;
@@ -136,10 +150,22 @@ struct redis_nodeset_s {
       ngx_int_t                   slave;
     }                           node_weight;
     time_t                      ping_interval;
+    time_t                      cluster_check_interval;
     ngx_str_t                  *namespace;
     nchan_redis_optimize_t      optimize_target;
     ngx_msec_t                  connect_timeout;
+    struct {
+      int                         count;
+      nchan_redis_ip_range_t     *list;
+    }                           blacklist;
+    nchan_redis_tls_settings_t  tls;
+    ngx_str_t                   username;
+    ngx_str_t                   password;
   }                           settings;
+  
+  #if (NGX_OPENSSL)
+  SSL_CTX                    *ssl_context;
+  #endif
   
   struct {
     nchan_slist_t               all;
@@ -176,6 +202,9 @@ struct redis_node_s {
     unsigned                  enabled:1;
     unsigned                  ok:1;
     ngx_str_t                 id;
+    ngx_event_t               check_timer;
+    time_t                    last_successful_check;
+    int                       current_epoch; //as reported on this node
     struct {
       redis_slot_range_t         *range;
       size_t                      n;
@@ -216,6 +245,7 @@ ngx_int_t nodeset_node_destroy(redis_node_t *node);
 
 int node_disconnect(redis_node_t *node, int disconnected_state);
 int node_connect(redis_node_t *node);
+redisContext *node_connect_sync_context(redis_node_t *node);
 void node_set_role(redis_node_t *node, redis_node_role_t role);
 int node_set_master_node(redis_node_t *node, redis_node_t *master);
 redis_node_t *node_find_slave_node(redis_node_t *node, redis_node_t *slave);
@@ -270,7 +300,6 @@ redis_node_t *nodeset_node_create(redis_nodeset_t *ns, redis_connect_params_t *r
 uint16_t redis_crc16(uint16_t crc, const char *buf, int len);
 
 
-const char *__nodeset_nickname_cstr(redis_nodeset_t *nodeset);
 const char *__node_nickname_cstr(redis_node_t *node);
   
 #endif /* NCHAN_REDIS_NODESET_H */

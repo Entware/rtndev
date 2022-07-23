@@ -39,6 +39,7 @@ typedef struct {
   ngx_str_t                     url;
   ngx_flag_t                    url_enabled;
   time_t                        ping_interval;
+  time_t                        cluster_check_interval;
   ngx_str_t                     namespace;
   nchan_redis_storage_mode_t    storage_mode;
   ngx_int_t                     nostore_fastpublish;
@@ -221,6 +222,10 @@ typedef struct{
   ngx_int_t (*set_group_limits)(ngx_str_t *name, nchan_loc_conf_t *, nchan_group_limits_t *limits, callback_pt, void *);
   ngx_int_t (*delete_group)(ngx_str_t *name, nchan_loc_conf_t *, callback_pt, void *);
 
+  //subscriber info stuff
+  ngx_int_t (*get_subscriber_info_id)(nchan_loc_conf_t *,  callback_pt, void *);
+  ngx_int_t (*request_subscriber_info)(ngx_str_t *channel_id, ngx_int_t request_id, nchan_loc_conf_t *, callback_pt, void *);
+  
 } nchan_store_t;
 
 #define NCHAN_MULTI_SEP_CHR '\0'
@@ -272,11 +277,60 @@ typedef enum {
 } nchan_redis_optimize_t;
 
 typedef struct {
+  int family;
+  int prefix_size;
+  ngx_str_t str;
+  struct {
+    union {
+      struct in_addr ipv4;
+#ifdef AF_INET6
+      struct in6_addr ipv6;
+      char            str[16];
+#endif
+    };
+  } addr;
+  struct {
+    union {
+      struct in_addr ipv4;
+#ifdef AF_INET6
+      struct in6_addr ipv6;
+      char            str[16];
+#endif
+    };
+  } addr_block;
+  struct {
+    union {
+      struct in_addr ipv4;
+#ifdef AF_INET6
+      struct in6_addr ipv6;
+#endif
+      char            str[16];
+    };
+  } mask;
+} nchan_redis_ip_range_t;
+
+typedef struct {
+  ngx_int_t         enabled;
+  ngx_str_t         trusted_certificate;
+  ngx_str_t         trusted_certificate_path;
+  ngx_str_t         client_certificate;
+  ngx_str_t         client_certificate_key;
+  ngx_str_t         server_name;
+  ngx_str_t         ciphers;
+  ngx_int_t         verify_certificate;
+} nchan_redis_tls_settings_t;
+
+typedef struct {
   struct {
       ngx_msec_t                    connect_timeout;
       nchan_redis_optimize_t        optimize_target;
       ngx_int_t                     master_weight;
       ngx_int_t                     slave_weight;
+      ngx_int_t                     blacklist_count;
+      nchan_redis_ip_range_t       *blacklist;
+      ngx_str_t                     username;
+      ngx_str_t                     password;
+      nchan_redis_tls_settings_t    tls;
   }                               redis;
   nchan_loc_conf_t                *upstream_nchan_loc_conf;
 } nchan_srv_conf_t;
@@ -359,6 +413,9 @@ struct nchan_loc_conf_s { //nchan_loc_conf_t
   
   ngx_int_t                       subscriber_first_message;
   
+  ngx_http_complex_value_t       *subscriber_info_string;
+  ngx_int_t                       subscriber_info_location;
+  
   ngx_http_complex_value_t       *channel_events_channel_id;
   ngx_http_complex_value_t       *channel_event_string;
   
@@ -393,6 +450,7 @@ typedef struct {
   ngx_int_t              (*dequeue)(struct subscriber_s *);
   ngx_int_t              (*respond_message)(struct subscriber_s *, nchan_msg_t *);
   ngx_int_t              (*respond_status)(struct subscriber_s *, ngx_int_t, const ngx_str_t *, ngx_chain_t *);
+  ngx_int_t              (*set_enqueue_callback)(subscriber_t *self, subscriber_callback_pt cb, void *privdata);
   ngx_int_t              (*set_dequeue_callback)(subscriber_t *self, subscriber_callback_pt cb, void *privdata);
   ngx_int_t              (*reserve)(struct subscriber_s *);
   ngx_int_t              (*release)(struct subscriber_s *, uint8_t nodestroy);
@@ -444,10 +502,16 @@ typedef struct {
   ngx_str_t                     *channel_event_name;
   ngx_str_t                      channel_id[NCHAN_MULTITAG_REQUEST_CTX_MAX];
   int                            channel_id_count;
+  time_t                         channel_subscriber_last_seen;
+  int                            channel_subscriber_count;
+  int                            channel_message_count;
   ngx_str_t                     *channel_group_name;
   
   ngx_str_t                     *request_origin_header;
   ngx_str_t                     *allow_origin;
+  
+  ngx_int_t                      subscriber_info_response_id;
+  ngx_str_t                     *subscriber_info_response_channel_id;
   
   unsigned                       sent_unsubscribe_request:1;
   unsigned                       request_ran_content_handler:1;
@@ -459,8 +523,10 @@ typedef struct {
   ngx_str_t     hostname;
   ngx_str_t     peername; // resolved hostname (ip address)
   ngx_int_t     port;
+  ngx_str_t     username;
   ngx_str_t     password;
   ngx_int_t     db;
+  ngx_int_t     use_tls;
 } redis_connect_params_t;
 
 #endif  /* NCHAN_TYPES_H */

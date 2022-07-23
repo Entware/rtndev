@@ -184,8 +184,10 @@ struct full_subscriber_s {
   subscriber_t            sub;
   ngx_http_cleanup_t     *cln;
   nchan_request_ctx_t    *ctx;
-  subscriber_callback_pt  dequeue_handler;
-  void                   *dequeue_handler_data;
+  subscriber_callback_pt  enqueue_callback;
+  void                   *enqueue_callback_data;
+  subscriber_callback_pt  dequeue_callback;
+  void                   *dequeue_callback_data;
   ngx_event_t             timeout_ev;
   ngx_event_t             closing_ev;
   ws_frame_t              frame;
@@ -463,6 +465,9 @@ static ngx_int_t websocket_publish_callback(ngx_int_t status, nchan_channel_t *c
     last_seen = ch->last_seen;
     messages  = ch->messages;
     msgid = &ch->last_published_msg_id;
+    fsub->ctx->channel_subscriber_last_seen = last_seen;
+    fsub->ctx->channel_subscriber_count = subscribers;
+    fsub->ctx->channel_message_count = messages;
   }
   if(d->subrequest) {
     nchan_requestmachine_request_cleanup_manual(d->subrequest);
@@ -740,8 +745,11 @@ subscriber_t *websocket_subscriber_create(ngx_http_request_t *r, nchan_msg_id_t 
   
   ngx_memzero(&fsub->deflate, sizeof(fsub->deflate));
   
-  fsub->dequeue_handler = empty_handler;
-  fsub->dequeue_handler_data = NULL;
+  fsub->enqueue_callback = empty_handler;
+  fsub->enqueue_callback_data = NULL;
+  
+  fsub->dequeue_callback = empty_handler;
+  fsub->dequeue_callback_data = NULL;
   fsub->awaiting_destruction = 0;
   
   ngx_memzero(&fsub->closing_ev, sizeof(fsub->closing_ev));
@@ -1188,6 +1196,10 @@ static ngx_int_t websocket_enqueue(subscriber_t *self) {
   }
   self->enqueued = 1;
   
+  if(fsub->enqueue_callback) {
+    fsub->enqueue_callback(&fsub->sub, fsub->enqueue_callback_data);
+  }
+  
   if(self->cf->websocket_ping_interval > 0) {
     //add timeout timer
     //nextsub->ev should be zeroed;
@@ -1220,7 +1232,9 @@ static void websocket_delete_timers(full_subscriber_t *fsub) {
 static ngx_int_t websocket_dequeue(subscriber_t *self) {
   full_subscriber_t  *fsub = (full_subscriber_t  *)self;
   DBG("%p dequeue", self);
-  fsub->dequeue_handler(&fsub->sub, fsub->dequeue_handler_data);
+  if(fsub->dequeue_callback) {
+    fsub->dequeue_callback(&fsub->sub, fsub->dequeue_callback_data);
+  }
   
   self->enqueued = 0;
   
@@ -1236,10 +1250,17 @@ static ngx_int_t websocket_dequeue(subscriber_t *self) {
   return NGX_OK;
 }
 
+static ngx_int_t websocket_set_enqueue_callback(subscriber_t *self, subscriber_callback_pt cb, void *privdata) {
+  full_subscriber_t  *fsub = (full_subscriber_t  *)self;
+  fsub->enqueue_callback = cb;
+  fsub->enqueue_callback_data = privdata;
+  return NGX_OK;
+}
+
 static ngx_int_t websocket_set_dequeue_callback(subscriber_t *self, subscriber_callback_pt cb, void *privdata) {
   full_subscriber_t  *fsub = (full_subscriber_t  *)self;
-  fsub->dequeue_handler = cb;
-  fsub->dequeue_handler_data = privdata;
+  fsub->dequeue_callback = cb;
+  fsub->dequeue_callback_data = privdata;
   return NGX_OK;
 }
 
@@ -2015,10 +2036,11 @@ static const subscriber_fn_t websocket_fn = {
   &websocket_dequeue,
   &websocket_respond_message,
   &websocket_respond_status,
+  &websocket_set_enqueue_callback,
   &websocket_set_dequeue_callback,
   &websocket_reserve,
   &websocket_release,
-  &nchan_subscriber_empty_notify,
+  &nchan_subscriber_receive_notice,
   &nchan_subscriber_authorize_subscribe_request
 };
 

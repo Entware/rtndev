@@ -1,0 +1,24 @@
+Author: shmux8 <75251845+shmux8@users.noreply.github.com>
+Date:   Tue Dec 28 11:15:00 2021 +0300
+Subject: [PATCH] pcre2 support
+Origin: https://github.com/yaoweibin/ngx_http_substitutions_filter_module/commit/cc494d7f5c5273a7a8ae503faebf1101689d75c0
+
+    PCRE2 support added
+
+    Use pcre2_pattern_info call if nginx built with PCRE2.
+
+diff --git a/debian/modules/http-subs-filter/ngx_http_subs_filter_module.c b/debian/modules/http-subs-filter/ngx_http_subs_filter_module.c
+index 483c9c3..11a5b79 100644
+--- a/ngx_http_subs_filter_module.c
++++ b/ngx_http_subs_filter_module.c
+@@ -1203,7 +1203,9 @@ ngx_http_subs_regex_capture_count(ngx_regex_t *re)
+ 
+     n = 0;
+ 
+-#if defined(nginx_version) && nginx_version >= 1002002
++#if (NGX_PCRE2)
++     rc = pcre2_pattern_info(re, PCRE2_INFO_CAPTURECOUNT, &n);
++#elif defined(nginx_version) && nginx_version >= 1002002
+     rc = pcre_fullinfo(re->code, NULL, PCRE_INFO_CAPTURECOUNT, &n);
+ #elif defined(nginx_version) && nginx_version >= 1001012
+     rc = pcre_fullinfo(re->pcre, NULL, PCRE_INFO_CAPTURECOUNT, &n);

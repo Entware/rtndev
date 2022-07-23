@@ -8,7 +8,12 @@
 #include <zlib.h>
 #endif
 
+static char *nchan_set_complex_value_array(ngx_conf_t *cf, ngx_command_t *cmd, void *conf, nchan_complex_value_arr_t *chid);
+static ngx_int_t set_complex_value_array_size1(ngx_conf_t *cf, nchan_complex_value_arr_t *chid, char *val);
+
 static ngx_str_t      DEFAULT_CHANNEL_EVENT_STRING = ngx_string("$nchan_channel_event $nchan_channel_id");
+
+static ngx_str_t      DEFAULT_SUBSCRIBER_INFO_STRING = ngx_string("$nchan_subscriber_type $remote_addr:$remote_port $http_user_agent $server_name $request_uri $pid");
 
 nchan_store_t   *default_storage_engine = &nchan_store_memory;
 ngx_flag_t       global_nchan_enabled = 0;
@@ -135,6 +140,10 @@ static void *nchan_create_srv_conf(ngx_conf_t *cf) {
   scf->redis.optimize_target = NCHAN_REDIS_OPTIMIZE_UNSET;
   scf->redis.master_weight = NGX_CONF_UNSET;
   scf->redis.slave_weight = NGX_CONF_UNSET;
+  scf->redis.blacklist_count = NGX_CONF_UNSET;
+  scf->redis.blacklist = NULL;
+  scf->redis.tls.enabled = NGX_CONF_UNSET;
+  scf->redis.tls.verify_certificate = NGX_CONF_UNSET;
   scf->upstream_nchan_loc_conf = NULL;
   return scf;
 }
@@ -145,6 +154,22 @@ static char *nchan_merge_srv_conf(ngx_conf_t *cf, void *parent, void *child) {
   MERGE_UNSET_CONF(conf->redis.optimize_target, prev->redis.optimize_target, NCHAN_REDIS_OPTIMIZE_UNSET, NCHAN_REDIS_OPTIMIZE_CPU);
   ngx_conf_merge_value(conf->redis.master_weight, prev->redis.master_weight, 1);
   ngx_conf_merge_value(conf->redis.slave_weight, prev->redis.slave_weight, 1);
+  ngx_conf_merge_value(conf->redis.blacklist_count, prev->redis.blacklist_count, 0);
+  if(conf->redis.blacklist == NULL) {
+    conf->redis.blacklist = prev->redis.blacklist;
+  }
+  ngx_conf_merge_value(conf->redis.tls.enabled, prev->redis.tls.enabled, 0);
+  ngx_conf_merge_value(conf->redis.tls.verify_certificate, prev->redis.tls.verify_certificate, 1);
+  ngx_conf_merge_str_value(conf->redis.tls.trusted_certificate, prev->redis.tls.trusted_certificate, "");
+    ngx_conf_merge_str_value(conf->redis.tls.trusted_certificate_path, prev->redis.tls.trusted_certificate_path, "");
+  ngx_conf_merge_str_value(conf->redis.tls.client_certificate, prev->redis.tls.client_certificate, "");
+  ngx_conf_merge_str_value(conf->redis.tls.client_certificate_key, prev->redis.tls.client_certificate_key, "");
+  ngx_conf_merge_str_value(conf->redis.tls.server_name, prev->redis.tls.server_name, "");
+  ngx_conf_merge_str_value(conf->redis.tls.ciphers, prev->redis.tls.ciphers, "");
+  
+  ngx_conf_merge_str_value(conf->redis.username, prev->redis.username, "");
+  ngx_conf_merge_str_value(conf->redis.password, prev->redis.password, "");
+  
   return NGX_CONF_OK;
 }
 
@@ -183,6 +208,9 @@ static void *nchan_create_loc_conf(ngx_conf_t *cf) {
   
   lcf->subscriber_first_message=NCHAN_SUBSCRIBER_FIRST_MESSAGE_UNSET;
   
+  lcf->subscriber_info_string=NULL;
+  lcf->subscriber_info_location=NGX_CONF_UNSET;
+  
   lcf->subscriber_timeout=NGX_CONF_UNSET;
   lcf->subscribe_only_existing_channel=NGX_CONF_UNSET;
   lcf->redis_idle_channel_cache_timeout=NGX_CONF_UNSET;
@@ -218,6 +246,7 @@ static void *nchan_create_loc_conf(ngx_conf_t *cf) {
   ngx_memzero(&lcf->redis, sizeof(lcf->redis));
   lcf->redis.url_enabled=NGX_CONF_UNSET;
   lcf->redis.ping_interval = NGX_CONF_UNSET;
+  lcf->redis.cluster_check_interval=NGX_CONF_UNSET;
   lcf->redis.upstream_inheritable=NGX_CONF_UNSET;
   lcf->redis.storage_mode = REDIS_MODE_CONF_UNSET;
   lcf->redis.nostore_fastpublish = NGX_CONF_UNSET;
@@ -379,6 +408,15 @@ static char * nchan_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child) {
     conf->subscriber_first_message = (prev->subscriber_first_message == NCHAN_SUBSCRIBER_FIRST_MESSAGE_UNSET) ? NCHAN_SUBSCRIBER_DEFAULT_FIRST_MESSAGE : prev->subscriber_first_message;
   }
   
+  MERGE_CONF(conf, prev, subscriber_info_string);
+  if(conf->subscriber_info_string == NULL) { //still null? use the default string
+    if(create_complex_value_from_ngx_str(cf, &conf->subscriber_info_string, &DEFAULT_SUBSCRIBER_INFO_STRING) == NGX_CONF_ERROR) {
+      return NGX_CONF_ERROR;
+    }
+  }
+  
+  ngx_conf_merge_value(conf->subscriber_info_location, prev->subscriber_info_location, 0);
+  
   ngx_conf_merge_sec_value(conf->websocket_ping_interval, prev->websocket_ping_interval, NCHAN_DEFAULT_SUBSCRIBER_PING_INTERVAL);
   
   ngx_conf_merge_sec_value(conf->eventsource_ping.interval, prev->eventsource_ping.interval, NCHAN_DEFAULT_SUBSCRIBER_PING_INTERVAL);
@@ -474,6 +512,10 @@ static char * nchan_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child) {
   if(up)
     ngx_conf_merge_value(conf->redis.ping_interval, up->redis.ping_interval, NGX_CONF_UNSET);
   ngx_conf_merge_value(conf->redis.ping_interval, prev->redis.ping_interval, NCHAN_REDIS_DEFAULT_PING_INTERVAL_TIME);
+  
+  if(up)
+    ngx_conf_merge_value(conf->redis.cluster_check_interval, up->redis.cluster_check_interval, NGX_CONF_UNSET);
+  ngx_conf_merge_value(conf->redis.cluster_check_interval, prev->redis.cluster_check_interval, NCHAN_REDIS_DEFAULT_CLUSTER_CHECK_INTERVAL_TIME);
   
   if(up)
     ngx_conf_merge_value(conf->redis.nostore_fastpublish, up->redis.nostore_fastpublish, NGX_CONF_UNSET);
@@ -682,6 +724,28 @@ static char *nchan_pubsub_directive(ngx_conf_t *cf, ngx_command_t *cmd, void *co
     return NGX_CONF_ERROR;
   }
   
+  return NGX_CONF_OK;
+}
+
+static char *nchan_subscriber_info_directive(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
+  nchan_loc_conf_t     *lcf = conf;
+  nchan_conf_subscriber_types_t *subt = &lcf->sub;
+  
+  // doesn't make sense to have longpoll be the default HTTP subscriber, since channel info locations are likely to be curl'd by developers
+  subt->poll=0;
+  subt->http_raw_stream = 1;
+  subt->longpoll=0;
+  subt->websocket=1;
+  subt->eventsource=1;
+  subt->http_chunked=1;
+  subt->http_multipart=1;
+  
+  lcf->subscriber_info_location = 1;
+  
+  lcf->message_timeout=10;
+  lcf->complex_message_timeout = NULL;
+  
+  lcf->request_handler = &nchan_subscriber_info_handler;
   return NGX_CONF_OK;
 }
 
@@ -1018,11 +1082,13 @@ static char *nchan_set_pub_channel_id(ngx_conf_t *cf, ngx_command_t *cmd, void *
 }
 
 static char *nchan_set_sub_channel_id(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
-  return nchan_set_complex_value_array(cf, cmd, conf, &((nchan_loc_conf_t *)conf)->sub_chid);
+  nchan_loc_conf_t *lcf = conf;
+  return nchan_set_complex_value_array(cf, cmd, conf, &lcf->sub_chid);
 }
 
 static char *nchan_set_pubsub_channel_id(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
-  return nchan_set_complex_value_array(cf, cmd, conf, &((nchan_loc_conf_t *)conf)->pubsub_chid);
+  nchan_loc_conf_t *lcf = conf;
+  return nchan_set_complex_value_array(cf, cmd, conf, &lcf->pubsub_chid);
 }
 
 static char *nchan_subscriber_last_message_id(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
@@ -1133,7 +1199,7 @@ static char *nchan_set_raw_subscriber_separator(ngx_conf_t *cf, ngx_command_t *c
   nchan_loc_conf_t   *lcf = conf;
   ngx_str_t          *cf_val = &lcf->subscriber_http_raw_stream_separator;
   
-  if( val->data[val->len - 1] != '\n' ) { //must end in a newline
+  if( val->len && val->data[val->len - 1] != '\n' ) { //must end in a newline if not empty
     u_char   *cur;
     if((cur = ngx_palloc(cf->pool, val->len + 1)) == NULL) {
       return NGX_CONF_ERROR;
@@ -1313,6 +1379,119 @@ static char *ngx_conf_upstream_redis_server(ngx_conf_t *cf, ngx_command_t *cmd, 
   
   uscf->peer.init_upstream = nchan_upstream_dummy_roundrobin_init;
   return NGX_CONF_OK;
+}
+
+static void ipv6_prefix_size_to_mask(int prefix_size, struct in6_addr *mask) {
+  ngx_memzero(mask, sizeof(*mask));
+  int i;
+  for(i=0; prefix_size > 0; prefix_size-=8, i++) {
+    mask->s6_addr[i]= (prefix_size >= 8) ? 0xFF : (unsigned long)(0xFFU << (8 - prefix_size));
+  }
+}
+
+static void ipv4_prefix_size_to_mask(int prefix_size, struct in_addr *mask) {
+  mask->s_addr= (in_addr_t )(prefix_size > 0 ? htonl(~((1 << (32 - prefix_size)) - 1)) : 0);
+}
+
+static char *ngx_conf_set_redis_ip_blacklist(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
+  nchan_srv_conf_t    *scf = conf;
+  ngx_str_t           *cur;
+  ngx_str_t           *val = cf->args->elts;
+  int                  i;
+  nchan_redis_ip_range_t *blacklist = ngx_palloc(cf->pool, sizeof(*blacklist) * (cf->args->nelts - 1));
+  if(blacklist == NULL) {
+    return "couldn't allocate Redis server blacklist";
+  }
+  
+  scf->redis.blacklist = blacklist;
+  scf->redis.blacklist_count = cf->args->nelts - 1;
+  
+  for(i=1; i <= scf->redis.blacklist_count; i++) {
+    cur = &val[i];
+    nchan_redis_ip_range_t *entry = &blacklist[i-1];
+    entry->str = *cur;
+    int                     prefix_size;
+    u_char                 *slash = memchr(cur->data, '/', cur->len);
+    if(slash) {
+      prefix_size = ngx_atoi(slash+1, cur->len - (slash + 1 - cur->data));
+      if(prefix_size == NGX_ERROR) {
+        return "invalid CIDR range prefix size";
+      }
+    }
+    else {
+      prefix_size = -1;
+      slash = &cur->data[cur->len];
+    }
+    
+    char buf[64];
+    ngx_memzero(buf, sizeof(buf));
+    memcpy(buf, cur->data, (slash - cur->data));
+    
+    struct addrinfo hints = {0};
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags    = AI_PASSIVE;
+    
+    struct addrinfo *res;
+    if(getaddrinfo(buf, NULL, &hints, &res) != 0) {
+      return "unable to parse IP address";
+    }
+    entry->family = res->ai_family;
+    if(entry->family == AF_INET) {
+      struct sockaddr_in *sa = (struct sockaddr_in *)res->ai_addr;
+      entry->addr.ipv4 = sa->sin_addr;
+      entry->addr_block.ipv4 = sa->sin_addr;
+    }
+#ifdef AF_INET6
+    else if(entry->family == AF_INET6) {
+      struct sockaddr_in6 *sa = (struct sockaddr_in6 *)res->ai_addr;
+      entry->addr.ipv6 = sa->sin6_addr;
+      entry->addr_block.ipv6 = sa->sin6_addr;
+    }
+#endif
+    else {
+      return "invalid address family";
+    }
+    
+    if(prefix_size == 0) {
+      return "netmask size of 0 would block everything";
+    }
+    
+    if(prefix_size == -1) {
+      //no prefix size given, assume we're blacklisting single ip.
+      //prefix size depends on ipv4 or ipv6
+      prefix_size = entry->family == AF_INET ? 32 : 128;
+    }
+    entry->prefix_size = prefix_size;
+    
+    if(entry->family == AF_INET) {
+      if(prefix_size > 32) {
+        return "netmask size cannot exceed 32 for IPv4";
+      }
+      ipv4_prefix_size_to_mask(prefix_size, &entry->mask.ipv4);
+      entry->addr_block.ipv4.s_addr &= entry->mask.ipv4.s_addr;
+      
+    }
+#ifdef AF_INET6
+    else if(entry->family == AF_INET6) {
+      if(prefix_size > 128) {
+        return "netmask size cannot exceed 128 for IPv4";
+      }
+      ipv6_prefix_size_to_mask(prefix_size, &entry->mask.ipv6);
+      unsigned j;
+      uint8_t *addr = entry->addr_block.ipv6.s6_addr;
+      uint8_t *mask = entry->mask.ipv6.s6_addr;
+      for(j=0; j<sizeof(entry->addr_block.ipv6.s6_addr); j++) {
+        addr[j] &= mask[j];
+      }
+    }
+#endif
+    else {
+      return "invalid address family";
+    }
+    freeaddrinfo(res);
+  }
+  return NGX_OK;
 }
 
 static char *ngx_conf_set_str_slot_no_newlines(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {

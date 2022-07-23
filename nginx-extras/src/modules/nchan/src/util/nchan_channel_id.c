@@ -45,6 +45,11 @@ static ngx_int_t nchan_process_multi_channel_id(ngx_http_request_t *r, nchan_com
       
       u_char     *cur_first = cur;
       while ((cur_last = nchan_strsplit(&cur, delim, last)) != NULL) {
+        if(n_out >= NCHAN_MULTITAG_MAX) {
+          nchan_log_warning("can't exceed %d channels on a single multiplexed location", NCHAN_MULTITAG_MAX);
+          *ret_id = NULL;
+          return NGX_DECLINED;
+        }
         id[n_out].data = cur_first;
         id[n_out].len = cur_last - cur_first;
         cur_first = cur;
@@ -57,6 +62,11 @@ static ngx_int_t nchan_process_multi_channel_id(ngx_http_request_t *r, nchan_com
       
     }
     else {
+      if(n_out >= NCHAN_MULTITAG_MAX) {
+        nchan_log_warning("can't exceed %d channels on a single multiplexed location", NCHAN_MULTITAG_MAX);
+        *ret_id = NULL;
+        return NGX_DECLINED;
+      }
       sz += id[n_out].len + 1 + grouplen; // "group/<channel-id>"
       if(n_out < NCHAN_MULTITAG_REQUEST_CTX_MAX) {
         ctx->channel_id[n_out] = id[n_out];
@@ -277,4 +287,30 @@ done:
   }
   
   return id;
+}
+
+
+ngx_str_t *nchan_get_subscriber_info_response_channel_id(ngx_http_request_t *r, uintptr_t request_id) {
+  nchan_request_ctx_t    *ctx = ngx_http_get_module_ctx(r, ngx_nchan_module);
+  
+  ngx_str_t *chid = ctx->subscriber_info_response_channel_id;
+  if(!chid) {
+    chid = ngx_palloc(r->pool, sizeof(ngx_str_t));
+    if(chid == NULL) {
+      return NULL;
+    }
+    ctx->subscriber_info_response_channel_id = chid;
+    
+    chid->data = ngx_palloc(r->pool, NCHAN_SUBSCRIBER_INFO_CHANNEL_ID_BUFFER_SIZE);
+    if(chid->data == NULL) {
+      ctx->subscriber_info_response_channel_id = NULL;
+      return NULL;
+    }
+  }
+    
+  u_char *end = ngx_snprintf(chid->data, NCHAN_SUBSCRIBER_INFO_CHANNEL_ID_BUFFER_SIZE, "meta/sr%d", (ngx_int_t )request_id);
+  chid->len = end - chid->data;
+  
+  return chid;
+  
 }

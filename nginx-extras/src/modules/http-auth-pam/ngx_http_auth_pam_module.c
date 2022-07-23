@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2016 Sergio Talens-Oliag <sto@iti.es>
+ * Copyright (C) 2008-2020 Sergio Talens-Oliag <sto@mixinet.net>
  *
  * Based on nginx's 'ngx_http_auth_basic_module.c' by Igor Sysoev and apache's
  * 'mod_auth_pam.c' by Ingo Luetkebolhe.
@@ -182,7 +182,7 @@ ngx_auth_pam_talker(int num_msg, const struct pam_message ** msg,
         case PAM_PROMPT_ECHO_OFF:
             response[i].resp = strdup((const char *)ainfo->password.data);
             break;
-	case PAM_ERROR_MSG:
+        case PAM_ERROR_MSG:
             ngx_log_error(NGX_LOG_ERR, ainfo->log, 0,
                           "PAM: \'%s\'.", msg[i]->msg);
             break;
@@ -335,11 +335,20 @@ ngx_http_auth_pam_authenticate(ngx_http_request_t *r,
                         (const char *) ainfo.username.data,
                         &conv_info,
                         &pamh)) != PAM_SUCCESS) {
-        ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+        ngx_log_error(NGX_LOG_CRIT, r->connection->log, 0,
                       "PAM: Could not start pam service: %s",
                       pam_strerror(pamh, rc));
         return NGX_HTTP_INTERNAL_SERVER_ERROR;
     }
+
+    /* send client IP address to PAM */
+    char *client_ip_addr = ngx_strncpy_s(r->connection->addr_text, r->pool);
+    if ((rc = pam_set_item(pamh, PAM_RHOST, client_ip_addr)) != PAM_SUCCESS) {
+        ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+                      "PAM: Could not set item PAM_RHOST: %s",
+                      pam_strerror(pamh, rc));
+        return NGX_HTTP_INTERNAL_SERVER_ERROR;
+  }
 
     if (alcf->set_pam_env) {
         add_request_info_to_pam_env(pamh, r);
@@ -348,7 +357,7 @@ ngx_http_auth_pam_authenticate(ngx_http_request_t *r,
     /* try to authenticate user, log error on failure */
     if ((rc = pam_authenticate(pamh,
                                PAM_DISALLOW_NULL_AUTHTOK)) != PAM_SUCCESS) {
-        ngx_log_debug2(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+        ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
                       "PAM: user '%s' - not authenticated: %s",
                       ainfo.username.data, pam_strerror(pamh, rc));
         pam_end(pamh, PAM_SUCCESS);
@@ -357,8 +366,8 @@ ngx_http_auth_pam_authenticate(ngx_http_request_t *r,
 
     /* check that the account is healthy */
     if ((rc = pam_acct_mgmt(pamh, PAM_DISALLOW_NULL_AUTHTOK)) != PAM_SUCCESS) {
-        ngx_log_debug2(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
-                      "PAM: user '%s'  - invalid account: %s",
+        ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
+                      "PAM: user '%s' - invalid account: %s",
                       ainfo.username.data, pam_strerror(pamh, rc));
         pam_end(pamh, PAM_SUCCESS);
         return ngx_http_auth_pam_set_realm(r, &alcf->realm);

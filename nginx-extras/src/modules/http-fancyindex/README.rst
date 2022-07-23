@@ -2,8 +2,8 @@
 Nginx Fancy Index module
 ========================
 
-.. image:: https://travis-ci.org/aperezdc/ngx-fancyindex.svg?branch=master
-   :target: https://travis-ci.org/aperezdc/ngx-fancyindex
+.. image:: https://travis-ci.com/aperezdc/ngx-fancyindex.svg?branch=master
+   :target: https://travis-ci.com/aperezdc/ngx-fancyindex
    :alt: Build Status
 
 .. contents::
@@ -46,10 +46,8 @@ Then load the module in `/etc/nginx/nginx.conf` using::
 Other platforms
 ~~~~~~~~~~~~~~~
 
-In most other cases you will need the sources for Nginx_. Any version starting from the 0.7
-series onwards will work.  Note that the modules *might* compile with
-versions in the 0.6 series by applying ``nginx-0.6-support.patch``, but this
-is unsupported (YMMV).
+In most other cases you will need the sources for Nginx_. Any version starting
+from the 0.8 series should work.
 
 In order to use the ``fancyindex_header_`` and ``fancyindex_footer_`` directives
 you will also need the `ngx_http_addition_module <https://nginx.org/en/docs/http/ngx_http_addition_module.html>`_
@@ -184,13 +182,15 @@ fancyindex_name_length
 
 fancyindex_footer
 ~~~~~~~~~~~~~~~~~
-:Syntax: *fancyindex_footer path*
+:Syntax: *fancyindex_footer path* [*subrequest* | *local*]
 :Default: fancyindex_footer ""
 :Context: http, server, location
 :Description:
   Specifies which file should be inserted at the foot of directory listings.
   If set to an empty string, the default footer supplied by the module will
-  be sent.
+  be sent. The optional parameter indicates whether the *path* is to be
+  treated as an URI to load using a *subrequest* (the default), or whether
+  it refers to a *local* file.
 
 .. note:: Using this directive needs the ngx_http_addition_module_ built
    into Nginx.
@@ -205,13 +205,15 @@ fancyindex_footer
 
 fancyindex_header
 ~~~~~~~~~~~~~~~~~
-:Syntax: *fancyindex_header path*
+:Syntax: *fancyindex_header path* [*subrequest* | *local*]
 :Default: fancyindex_header ""
 :Context: http, server, location
 :Description:
   Specifies which file should be inserted at the head of directory listings.
   If set to an empty string, the default header supplied by the module will
-  be sent.
+  be sent. The optional parameter indicates whether the *path* is to be
+  treated as an URI to load using a *subrequest* (the default), or whether
+  it refers to a *local* file.
 
 .. note:: Using this directive needs the ngx_http_addition_module_ built
    into Nginx.
@@ -228,6 +230,15 @@ fancyindex_show_path
 
 .. warning:: This directive can be turned off only if a custom header is provided
    using fancyindex_header.
+
+fancyindex_show_dotfiles
+~~~~~~~~~~~~~~~~~~~~
+:Syntax: *fancyindex_show_dotfiles* [*on* | *off*]
+:Default: fancyindex_show_dotfiles off
+:Context: http, server, location
+:Description:
+  Whether to list files that are proceeded with a dot. Normal convention is to
+  hide these. 
 
 fancyindex_ignore
 ~~~~~~~~~~~~~~~~~

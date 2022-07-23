@@ -1,3 +1,39 @@
+1.2.15 (Dec. 27 2021)
+ fix: publishing to >255 string-delimitered channels could result in a crash
+ fix: Redis connection failures (since 1 2.14)
+1.2.14 [WITHDRAWN] (Dec. 20 2021)
+ fix: compiler warnings from the use of the 'typeof' macro
+ fix: Nchan can't be built without the Nginx SSL module (bug introduced in 1.2.13)
+ update: hiredis updated to 1.0.2
+ fix: some Redis connection failures could result in a crash (bug introduced in 1.2.13)
+ fix: upstream subrequests crashed with Nginx >= 1.19.9
+1.2.13 [WITHDRAWN] (Dec. 13 2021)
+ feature: Redis ACL support with username and passwword
+ feature: Redis TLS support
+1.2.12 (Sep. 22 2021)
+ fix: better Redis cluster connection logging
+ fix: redundant method to discover Redis slave nodes in cluster mode could result in receiving unreachable IPs
+1.2.11 (Sep. 17 2021)
+ feature: nchan_redis_discovered_ip_range_blacklist for ignoring autotiscoreved nodes
+ feature: nchan_redis_storage_mode is now configurable in location contexts 
+1.2.10 (Aug. 25 2021)
+ fix: Nchan could not be built without openssl due to hiredis dependency
+      (introduced in v1.2.9)
+ feature: allow no separator for http-raw-stream (thanks @sclem)
+1.2.9 (Aug. 12 2021)
+ feature: Redis cluster reconfiguration check timer,
+      nchan_redis_cluster_check_interval setting
+ fix: detect Redis cluster reconfiguration when publishing messages in "nostore" mode
+ update: hiredis updated to v1.0.0 
+ fix: segfault on out-of-shared-memory condition for multiplexed publishers
+1.2.8 (Apr. 12 2021)
+ feature: nchan_subscriber_info locations for receiving customizable info from 
+      subscribers of a given channel.
+ fix: incorrect lgging of disconnected subscribers with 400 error instead of 499
+      (bug introduced in v1.2.7)
+ feature: add $nchan_channel_subscriber_last_seen, $nchan_channel_subscriber_count 
+      and $nchan_channel_message_count variables
+ fix: GCC 10 compatibility
 1.2.7 (Mar. 17 2020)
  fix: unidirectional subscribers have their connection terminated if they send any data to the server
       after the initial request handshake. This applies to all subscribers except Websocket

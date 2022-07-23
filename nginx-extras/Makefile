@@ -4,34 +4,33 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.18.0-1.debian.tar.xz
+# Extract debian/modules from http://ftp.debian.org/debian/pool/main/n/nginx/nginx_1.22.0-*.debian.tar.xz
 # to src folder.
-# Manually added hiredis/* to modules/nchan
 # Debian differences: threads, geoip, http_upstream_zone, stream_upstream_zone
 # http_perl modules are turned off
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.18.0
-PKG_RELEASE:=3
+PKG_VERSION:=1.22.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=4c373e7ab5bf91d34a4f11a0c9496561061ba5eee6020db272a17a7228d35f99
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-$(PKG_VERSION)
+PKG_HASH:=b33d569a6f11a01433a57ce17e83935e953ad4dc77cdd4d40f896c88ac26eb53
 
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
+
 define Package/nginx-extras
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+libpam +libexpat +libopenssl +libexslt +libgd +liblua +libpcre
+	DEPENDS:=+libpam +libexpat +libopenssl +libexslt +libgd +liblua +libpcre2
 	TITLE:=Nginx web server
 	URL:=http://nginx.org/
 	CONFLICTS:=nginx
@@ -123,7 +122,6 @@ define Build/Configure
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-echo \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-fancyindex \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nchan \
-			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-lua \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/rtmp \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-uploadprogress \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-upstream-fair \

@@ -140,28 +140,34 @@ ngx_fancyindex_timefmt (u_char *buffer, const ngx_str_t *fmt, const ngx_tm_t *tm
 #undef DATETIME_CASE
 }
 
+typedef struct {
+    ngx_str_t path;
+    ngx_str_t local;
+} ngx_fancyindex_headerfooter_conf_t;
 
 /**
  * Configuration structure for the fancyindex module. The configuration
  * commands defined in the module do fill in the members of this structure.
  */
 typedef struct {
-    ngx_flag_t enable;       /**< Module is enabled. */
-    ngx_uint_t default_sort; /**< Default sort criterion. */
-    ngx_flag_t dirs_first;   /**< Group directories together first when sorting */
-    ngx_flag_t localtime;    /**< File mtime dates are sent in local time. */
-    ngx_flag_t exact_size;   /**< Sizes are sent always in bytes. */
-    ngx_uint_t name_length;  /**< Maximum length of file names in bytes. */
-    ngx_flag_t hide_symlinks;/**< Hide symbolic links in listings. */
-    ngx_flag_t show_path;    /**< Whether to display or not the path + '</h1>' after the header */
-    ngx_flag_t hide_parent;  /**< Hide parent directory. */
+    ngx_flag_t enable;         /**< Module is enabled. */
+    ngx_uint_t default_sort;   /**< Default sort criterion. */
+    ngx_flag_t dirs_first;     /**< Group directories together first when sorting */
+    ngx_flag_t localtime;      /**< File mtime dates are sent in local time. */
+    ngx_flag_t exact_size;     /**< Sizes are sent always in bytes. */
+    ngx_uint_t name_length;    /**< Maximum length of file names in bytes. */
+    ngx_flag_t hide_symlinks;  /**< Hide symbolic links in listings. */
+    ngx_flag_t show_path;      /**< Whether to display or not the path + '</h1>' after the header */
+    ngx_flag_t hide_parent;    /**< Hide parent directory. */
+    ngx_flag_t show_dot_files; /**< Show files that start with a dot.*/
 
-    ngx_str_t  header;       /**< File name for header, or empty if none. */
-    ngx_str_t  footer;       /**< File name for footer, or empty if none. */
-    ngx_str_t  css_href;     /**< Link to a CSS stylesheet, or empty if none. */
-    ngx_str_t  time_format;  /**< Format used for file timestamps. */
+    ngx_str_t  css_href;       /**< Link to a CSS stylesheet, or empty if none. */
+    ngx_str_t  time_format;    /**< Format used for file timestamps. */
 
-    ngx_array_t *ignore;     /**< List of files to ignore in listings. */
+    ngx_array_t *ignore;       /**< List of files to ignore in listings. */
+
+    ngx_fancyindex_headerfooter_conf_t header;
+    ngx_fancyindex_headerfooter_conf_t footer;
 } ngx_http_fancyindex_loc_conf_t;
 
 #define NGX_HTTP_FANCYINDEX_SORT_CRITERION_NAME       0
@@ -181,6 +187,106 @@ static ngx_conf_enum_t ngx_http_fancyindex_sort_criteria[] = {
     { ngx_null_string, 0 }
 };
 
+enum {
+    NGX_HTTP_FANCYINDEX_HEADERFOOTER_SUBREQUEST,
+    NGX_HTTP_FANCYINDEX_HEADERFOOTER_LOCAL,
+};
+
+static ngx_uint_t
+headerfooter_kind(const ngx_str_t *value)
+{
+    static const struct {
+        ngx_str_t name;
+        ngx_uint_t value;
+    } values[] = {
+        { ngx_string("subrequest"), NGX_HTTP_FANCYINDEX_HEADERFOOTER_SUBREQUEST },
+        { ngx_string("local"), NGX_HTTP_FANCYINDEX_HEADERFOOTER_LOCAL },
+    };
+
+    unsigned i;
+
+    for (i = 0; i < sizeof(values) / sizeof(values[0]); i++) {
+        if (value->len == values[i].name.len &&
+            ngx_strcasecmp(value->data, values[i].name.data) == 0)
+        {
+            return values[i].value;
+        }
+    }
+
+    return NGX_CONF_UNSET_UINT;
+}
+
+static char*
+ngx_fancyindex_conf_set_headerfooter(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+{
+    ngx_fancyindex_headerfooter_conf_t *item =
+        (void*) (((char*) conf) + cmd->offset);
+    ngx_str_t *values = cf->args->elts;
+
+    if (item->path.data)
+        return "is duplicate";
+
+    item->path = values[1];
+
+    /* Kind of path. Default is "subrequest". */
+    ngx_uint_t kind = NGX_HTTP_FANCYINDEX_HEADERFOOTER_SUBREQUEST;
+    if (cf->args->nelts == 3) {
+        kind = headerfooter_kind(&values[2]);
+        if (kind == NGX_CONF_UNSET_UINT) {
+            ngx_conf_log_error(NGX_LOG_EMERG, cf, 0,
+                               "unknown header/footer kind \"%V\"", &values[2]);
+            return NGX_CONF_ERROR;
+        }
+    }
+
+    if (kind == NGX_HTTP_FANCYINDEX_HEADERFOOTER_LOCAL) {
+        ngx_file_t file;
+        ngx_file_info_t fi;
+        ssize_t n;
+
+        ngx_memzero(&file, sizeof(ngx_file_t));
+        file.log = cf->log;
+        file.fd = ngx_open_file(item->path.data, NGX_FILE_RDONLY, 0, 0);
+        if (file.fd == NGX_INVALID_FILE) {
+            ngx_conf_log_error(NGX_LOG_EMERG, cf, ngx_errno,
+                               "cannot open file \"%V\"", &values[1]);
+            return NGX_CONF_ERROR;
+        }
+
+        if (ngx_fd_info(file.fd, &fi) == NGX_FILE_ERROR) {
+            ngx_close_file(file.fd);
+            ngx_conf_log_error(NGX_LOG_EMERG, cf, ngx_errno,
+                               "cannot get info for file \"%V\"", &values[1]);
+            return NGX_CONF_ERROR;
+        }
+
+        item->local.len = ngx_file_size(&fi);
+        item->local.data = ngx_pcalloc(cf->pool, item->local.len + 1);
+        if (item->local.data == NULL) {
+            ngx_close_file(file.fd);
+            return NGX_CONF_ERROR;
+        }
+
+        n = item->local.len;
+        while (n > 0) {
+            ssize_t r = ngx_read_file(&file,
+                                      item->local.data + file.offset,
+                                      n,
+                                      file.offset);
+            if (r == NGX_ERROR) {
+                ngx_close_file(file.fd);
+                ngx_conf_log_error(NGX_LOG_EMERG, cf, ngx_errno,
+                                   "cannot read file \"%V\"", &values[1]);
+                return NGX_CONF_ERROR;
+            }
+
+            n -= r;
+        }
+        item->local.data[item->local.len] = '\0';
+    }
+
+    return NGX_CONF_OK;
+}
 
 #define NGX_HTTP_FANCYINDEX_PREALLOCATE  50
 
@@ -222,6 +328,7 @@ typedef struct {
     ngx_str_t      name;
     size_t         utf_len;
     ngx_uint_t     escape;
+    ngx_uint_t     escape_html;
     ngx_uint_t     dir;
     time_t         mtime;
     off_t          size;
@@ -229,19 +336,17 @@ typedef struct {
 
 
 
-static ngx_int_t ngx_libc_cdecl
-    ngx_http_fancyindex_cmp_entries_dirs_first(const void *one, const void *two);
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
     ngx_http_fancyindex_cmp_entries_name_desc(const void *one, const void *two);
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
     ngx_http_fancyindex_cmp_entries_size_desc(const void *one, const void *two);
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
     ngx_http_fancyindex_cmp_entries_mtime_desc(const void *one, const void *two);
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
     ngx_http_fancyindex_cmp_entries_name_asc(const void *one, const void *two);
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
     ngx_http_fancyindex_cmp_entries_size_asc(const void *one, const void *two);
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
     ngx_http_fancyindex_cmp_entries_mtime_asc(const void *one, const void *two);
 
 static ngx_int_t ngx_http_fancyindex_error(ngx_http_request_t *r,
@@ -269,11 +374,6 @@ static uintptr_t
 static ngx_inline ngx_buf_t*
     make_header_buf(ngx_http_request_t *r, const ngx_str_t css_href)
     ngx_force_inline;
-
-static ngx_inline ngx_buf_t*
-    make_footer_buf(ngx_http_request_t *r)
-    ngx_force_inline;
-
 
 
 static ngx_command_t  ngx_http_fancyindex_commands[] = {
@@ -321,15 +421,15 @@ static ngx_command_t  ngx_http_fancyindex_commands[] = {
       NULL },
 
     { ngx_string("fancyindex_header"),
-      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
-      ngx_conf_set_str_slot,
+      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE12,
+      ngx_fancyindex_conf_set_headerfooter,
       NGX_HTTP_LOC_CONF_OFFSET,
       offsetof(ngx_http_fancyindex_loc_conf_t, header),
       NULL },
 
     { ngx_string("fancyindex_footer"),
-      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
-      ngx_conf_set_str_slot,
+      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE12,
+      ngx_fancyindex_conf_set_headerfooter,
       NGX_HTTP_LOC_CONF_OFFSET,
       offsetof(ngx_http_fancyindex_loc_conf_t, footer),
       NULL },
@@ -362,6 +462,13 @@ static ngx_command_t  ngx_http_fancyindex_commands[] = {
       offsetof(ngx_http_fancyindex_loc_conf_t, show_path),
       NULL },
 
+    { ngx_string("fancyindex_show_dotfiles"),
+      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
+      ngx_conf_set_flag_slot,
+      NGX_HTTP_LOC_CONF_OFFSET,
+      offsetof(ngx_http_fancyindex_loc_conf_t, show_dot_files),
+      NULL },
+
     { ngx_string("fancyindex_hide_parent_dir"),
       NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
       ngx_conf_set_flag_slot,
@@ -390,8 +497,8 @@ static ngx_http_module_t  ngx_http_fancyindex_module_ctx = {
     NULL,                                  /* create server configuration */
     NULL,                                  /* merge server configuration */
 
-    ngx_http_fancyindex_create_loc_conf,   /* create location configration */
-    ngx_http_fancyindex_merge_loc_conf     /* merge location configration */
+    ngx_http_fancyindex_create_loc_conf,   /* create location configuration */
+    ngx_http_fancyindex_merge_loc_conf     /* merge location configuration */
 };
 
 
@@ -444,6 +551,8 @@ ngx_fancyindex_escape_filename(u_char *dst, u_char *src, size_t size)
         switch (*psrc++) {
             case ':':
             case '?':
+            case '[':
+            case ']':
                 escapes++;
                 break;
         }
@@ -485,6 +594,16 @@ ngx_fancyindex_escape_filename(u_char *dst, u_char *src, size_t size)
                     *dst++ = '3';
                     *dst++ = 'F';
                     break;
+                case '[':
+                    *dst++ = '%';
+                    *dst++ = '5';
+                    *dst++ = 'B';
+                    break;
+                case ']':
+                    *dst++ = '%';
+                    *dst++ = '5';
+                    *dst++ = 'D';
+                    break;
                 default:
                     *dst++ = *buf;
             }
@@ -504,6 +623,7 @@ ngx_fancyindex_escape_filename(u_char *dst, u_char *src, size_t size)
 static ngx_inline ngx_buf_t*
 make_header_buf(ngx_http_request_t *r, const ngx_str_t css_href)
 {
+    ngx_buf_t *b;
     size_t blen = r->uri.len
         + ngx_sizeof_ssz(t01_head1)
         + ngx_sizeof_ssz(t02_head2)
@@ -518,9 +638,8 @@ make_header_buf(ngx_http_request_t *r, const ngx_str_t css_href)
               ;
     }
 
-    ngx_buf_t *b = ngx_create_temp_buf(r->pool, blen);
-
-    if (b == NULL) goto bailout;
+    if ((b = ngx_create_temp_buf(r->pool, blen)) == NULL)
+        return NULL;
 
     b->last = ngx_cpymem_ssz(b->last, t01_head1);
 
@@ -535,29 +654,8 @@ make_header_buf(ngx_http_request_t *r, const ngx_str_t css_href)
     b->last = ngx_cpymem_ssz(b->last, t03_head3);
     b->last = ngx_cpymem_ssz(b->last, t04_body1);
 
-bailout:
     return b;
 }
-
-
-
-static ngx_inline ngx_buf_t*
-make_footer_buf(ngx_http_request_t *r)
-{
-    /*
-     * TODO: Make this buffer static (i.e. readonly and reusable from
-     * one request to another.
-     */
-    ngx_buf_t *b = ngx_create_temp_buf(r->pool, ngx_sizeof_ssz(t08_foot1));
-
-    if (b == NULL) goto bailout;
-
-    b->last = ngx_cpymem_ssz(b->last, t08_foot1);
-
-bailout:
-    return b;
-}
-
 
 
 static ngx_inline ngx_int_t
@@ -567,11 +665,11 @@ make_content_buf(
 {
     ngx_http_fancyindex_entry_t *entry;
 
-    ngx_int_t (*sort_cmp_func) (const void*, const void*);
+    int (*sort_cmp_func)(const void *, const void *);
     const char  *sort_url_args = "";
 
     off_t        length;
-    size_t       len, root, copy, allocated;
+    size_t       len, root, copy, allocated, escape_html;
     int64_t      multiplier;
     u_char      *filename, *last;
     ngx_tm_t     tm;
@@ -654,7 +752,7 @@ make_content_buf(
 
         len = ngx_de_namelen(&dir);
 
-        if (ngx_de_name(&dir)[0] == '.')
+        if (!alcf->show_dot_files && ngx_de_name(&dir)[0] == '.')
             continue;
 
         if (alcf->hide_symlinks && ngx_de_is_link (&dir))
@@ -735,6 +833,9 @@ make_content_buf(
         entry->escape = 2 * ngx_fancyindex_escape_filename(NULL,
                                                            ngx_de_name(&dir),
                                                            len);
+        entry->escape_html = ngx_escape_html(NULL,
+                                             entry->name.data,
+                                             entry->name.len);
 
         entry->dir     = ngx_de_is_dir(&dir);
         entry->mtime   = ngx_de_mtime(&dir);
@@ -753,8 +854,11 @@ make_content_buf(
     /*
      * Calculate needed buffer length.
      */
+
+    escape_html = ngx_escape_html(NULL, r->uri.data, r->uri.len);
+
     if (alcf->show_path)
-        len = r->uri.len
+        len = r->uri.len + escape_html
           + ngx_sizeof_ssz(t05_body2)
           + ngx_sizeof_ssz(t06_list1)
           + ngx_sizeof_ssz(t_parentdir_entry)
@@ -762,7 +866,7 @@ make_content_buf(
           + ngx_fancyindex_timefmt_calc_size (&alcf->time_format) * entries.nelts
           ;
    else
-        len = r->uri.len
+        len = r->uri.len + escape_html
           + ngx_sizeof_ssz(t06_list1)
           + ngx_sizeof_ssz(t_parentdir_entry)
           + ngx_sizeof_ssz(t07_list2)
@@ -792,9 +896,9 @@ make_content_buf(
             + entry[i].name.len + entry[i].escape /* Escaped URL */
             + ngx_sizeof_ssz("?C=x&amp;O=y") /* URL sorting arguments */
             + ngx_sizeof_ssz("\" title=\"")
-            + entry[i].name.len + entry[i].utf_len
+            + entry[i].name.len + entry[i].utf_len + entry[i].escape_html
             + ngx_sizeof_ssz("\">")
-            + entry[i].name.len + entry[i].utf_len
+            + entry[i].name.len + entry[i].utf_len + entry[i].escape_html
             + alcf->name_length + ngx_sizeof_ssz("&gt;")
             + ngx_sizeof_ssz("</a></td><td class=\"size\">")
             + 20 /* File size */
@@ -890,24 +994,46 @@ make_content_buf(
 
     /* Sort entries, if needed */
     if (entries.nelts > 1) {
-        /* Use ngx_sort for stability */ 
-        ngx_sort(entry, (size_t) entries.nelts,
-                  sizeof(ngx_http_fancyindex_entry_t),
-                  sort_cmp_func);
-
         if (alcf->dirs_first)
         {
-            /* Sort directories first */
-            ngx_sort(entry, (size_t) entries.nelts,
-                      sizeof(ngx_http_fancyindex_entry_t),
-                      ngx_http_fancyindex_cmp_entries_dirs_first);
-        }
+            ngx_http_fancyindex_entry_t *l, *r;
 
+            l = entry;
+            r = entry + entries.nelts - 1;
+            while (l < r)
+            {
+                while (l < r && l->dir)
+                    l++;
+                while (l < r && !r->dir)
+                    r--;
+                if (l < r) {
+                    /* Now l points a file while r points a directory */
+                    ngx_http_fancyindex_entry_t tmp;
+                    tmp = *l;
+                    *l = *r;
+                    *r = tmp;
+                }
+            }
+            if (r->dir)
+                r++;
+
+            if (r > entry)
+                /* Sort directories */
+                ngx_qsort(entry, (size_t)(r - entry),
+                        sizeof(ngx_http_fancyindex_entry_t), sort_cmp_func);
+            if (r < entry + entries.nelts)
+                /* Sort files */
+                ngx_qsort(r, (size_t)(entry + entries.nelts - r),
+                        sizeof(ngx_http_fancyindex_entry_t), sort_cmp_func);
+        } else {
+            ngx_qsort(entry, (size_t)entries.nelts,
+                    sizeof(ngx_http_fancyindex_entry_t), sort_cmp_func);
+        }
     }
 
     /* Display the path, if needed */
     if (alcf->show_path){
-        b->last = ngx_cpymem_str(b->last, r->uri);
+        b->last = last = (u_char *) ngx_escape_html(b->last, r->uri.data, r->uri.len);
         b->last = ngx_cpymem_ssz(b->last, t05_body2);
     }
 
@@ -960,26 +1086,32 @@ make_content_buf(
 
         *b->last++ = '"';
         b->last = ngx_cpymem_ssz(b->last, " title=\"");
-        b->last = ngx_cpymem_str(b->last, entry[i].name);
+        b->last = (u_char *) ngx_escape_html(b->last, entry[i].name.data, entry[i].name.len);
         *b->last++ = '"';
         *b->last++ = '>';
 
         len = entry[i].utf_len;
 
-        if (entry[i].name.len - len) {
+        if (entry[i].name.len != len) {
             if (len > alcf->name_length) {
                 copy = alcf->name_length - 3 + 1;
             } else {
                 copy = alcf->name_length + 1;
             }
 
+            last = b->last;
             b->last = ngx_utf8_cpystrn(b->last, entry[i].name.data,
-                                          copy, entry[i].name.len);
+                copy, entry[i].name.len);
+
+            b->last = (u_char *) ngx_escape_html(last, entry[i].name.data, b->last - last);
             last = b->last;
 
         } else {
-            b->last = ngx_cpystrn(b->last, entry[i].name.data,
-                                  alcf->name_length + 1);
+            if (len > alcf->name_length) {
+                b->last = (u_char *) ngx_escape_html(b->last, entry[i].name.data, alcf->name_length + 1);
+            } else {
+                b->last = (u_char *) ngx_escape_html(b->last, entry[i].name.data, entry[i].name.len);
+            }
             last = b->last - 3;
         }
 
@@ -1016,7 +1148,7 @@ make_content_buf(
                 if (j == DIM(sizes) - 1)
                     b->last = ngx_sprintf(b->last, "%O %s", length, sizes[j]);
                 else
-                    b->last = ngx_sprintf(b->last, "%.1f %s", 
+                    b->last = ngx_sprintf(b->last, "%.1f %s",
                                           (float) length / multiplier, sizes[j]);
             }
         }
@@ -1088,19 +1220,19 @@ ngx_http_fancyindex_handler(ngx_http_request_t *r)
     if (rc == NGX_ERROR || rc > NGX_OK || r->header_only)
         return rc;
 
-    if (alcf->header.len > 0) {
+    if (alcf->header.path.len > 0 && alcf->header.local.len == 0) {
         /* URI is configured, make Nginx take care of with a subrequest. */
-        sr_uri = &alcf->header;
+        sr_uri = &alcf->header.path;
 
         if (*sr_uri->data != '/') {
             /* Relative path */
-            rel_uri.len  = r->uri.len + alcf->header.len;
+            rel_uri.len  = r->uri.len + alcf->header.path.len;
             rel_uri.data = ngx_palloc(r->pool, rel_uri.len);
             if (rel_uri.data == NULL) {
                 return NGX_HTTP_INTERNAL_SERVER_ERROR;
             }
             ngx_memcpy(ngx_cpymem(rel_uri.data, r->uri.data, r->uri.len),
-                    alcf->header.data, alcf->header.len);
+                    alcf->header.path.data, alcf->header.path.len);
             sr_uri = &rel_uri;
         }
 
@@ -1128,25 +1260,42 @@ ngx_http_fancyindex_handler(ngx_http_request_t *r)
     }
     else {
 add_builtin_header:
-        ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
-                "http fancyindex: adding built-in header");
         /* Make space before */
         out[1].next = out[0].next;
         out[1].buf  = out[0].buf;
         /* Chain header buffer */
         out[0].next = &out[1];
-        out[0].buf  = make_header_buf(r, alcf->css_href);
+        if (alcf->header.local.len > 0) {
+            /* Header buffer is local, make a buffer pointing to the data. */
+            out[0].buf = ngx_calloc_buf(r->pool);
+            if (out[0].buf == NULL)
+                return NGX_ERROR;
+            out[0].buf->memory = 1;
+            out[0].buf->pos = alcf->header.local.data;
+            out[0].buf->last = alcf->header.local.data + alcf->header.local.len;
+        } else {
+            /* Prepare a buffer with the contents of the builtin header. */
+            out[0].buf = make_header_buf(r, alcf->css_href);
+        }
     }
 
     /* If footer is disabled, chain up footer buffer. */
-    if (alcf->footer.len == 0) {
-        ngx_uint_t last  = (alcf->header.len == 0) ? 2 : 1;
-
-        ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
-                "http fancyindex: adding built-in footer at %i", last);
+    if (alcf->footer.path.len == 0 || alcf->footer.local.len > 0) {
+        ngx_uint_t last = (alcf->header.path.len == 0) ? 2 : 1;
 
         out[last-1].next = &out[last];
-        out[last].buf    = make_footer_buf(r);
+        out[last].buf = ngx_calloc_buf(r->pool);
+        if (out[last].buf == NULL)
+            return NGX_ERROR;
+
+        out[last].buf->memory = 1;
+        if (alcf->footer.local.len > 0) {
+            out[last].buf->pos = alcf->footer.local.data;
+            out[last].buf->last = alcf->footer.local.data + alcf->footer.local.len;
+        } else {
+            out[last].buf->pos = (u_char*) t08_foot1;
+            out[last].buf->last = (u_char*) t08_foot1 + sizeof(t08_foot1) - 1;
+        }
 
         out[last-1].buf->last_in_chain = 0;
         out[last].buf->last_in_chain   = 1;
@@ -1167,17 +1316,17 @@ add_builtin_header:
         return NGX_HTTP_INTERNAL_SERVER_ERROR;
 
     /* URI is configured, make Nginx take care of with a subrequest. */
-    sr_uri = &alcf->footer;
+    sr_uri = &alcf->footer.path;
 
     if (*sr_uri->data != '/') {
         /* Relative path */
-        rel_uri.len  = r->uri.len + alcf->footer.len;
+        rel_uri.len  = r->uri.len + alcf->footer.path.len;
         rel_uri.data = ngx_palloc(r->pool, rel_uri.len);
         if (rel_uri.data == NULL) {
             return NGX_HTTP_INTERNAL_SERVER_ERROR;
         }
         ngx_memcpy(ngx_cpymem(rel_uri.data, r->uri.data, r->uri.len),
-                alcf->footer.data, alcf->footer.len);
+                alcf->footer.path.data, alcf->footer.path.len);
         sr_uri = &rel_uri;
     }
 
@@ -1202,7 +1351,12 @@ add_builtin_header:
          * we get something different from a 404?
          */
         out[0].next = NULL;
-        out[0].buf  = make_footer_buf(r);
+        out[0].buf = ngx_calloc_buf(r->pool);
+        if (out[0].buf == NULL)
+            return NGX_ERROR;
+        out[0].buf->memory = 1;
+        out[0].buf->pos = (u_char*) t08_foot1;
+        out[0].buf->last = (u_char*) t08_foot1 + sizeof(t08_foot1) - 1;
         out[0].buf->last_in_chain = 1;
         out[0].buf->last_buf = 1;
         /* Directly send out the builtin footer */
@@ -1212,25 +1366,8 @@ add_builtin_header:
     return (r != r->main) ? rc : ngx_http_send_special(r, NGX_HTTP_LAST);
 }
 
-static ngx_int_t ngx_libc_cdecl
-ngx_http_fancyindex_cmp_entries_dirs_first(const void *one, const void *two)
-{
-    ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
-    ngx_http_fancyindex_entry_t *second = (ngx_http_fancyindex_entry_t *) two;
 
-    /* move the directories to the start */
-    if (first->dir && !second->dir) {
-        return -1;
-    }
-    if (!first->dir && second->dir) {
-        return 1;
-    }
-
-    return 0;
-}
-
-
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
 ngx_http_fancyindex_cmp_entries_name_desc(const void *one, const void *two)
 {
     ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
@@ -1240,7 +1377,7 @@ ngx_http_fancyindex_cmp_entries_name_desc(const void *one, const void *two)
 }
 
 
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
 ngx_http_fancyindex_cmp_entries_size_desc(const void *one, const void *two)
 {
     ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
@@ -1250,7 +1387,7 @@ ngx_http_fancyindex_cmp_entries_size_desc(const void *one, const void *two)
 }
 
 
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
 ngx_http_fancyindex_cmp_entries_mtime_desc(const void *one, const void *two)
 {
     ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
@@ -1260,7 +1397,7 @@ ngx_http_fancyindex_cmp_entries_mtime_desc(const void *one, const void *two)
 }
 
 
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
 ngx_http_fancyindex_cmp_entries_name_asc(const void *one, const void *two)
 {
     ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
@@ -1270,7 +1407,7 @@ ngx_http_fancyindex_cmp_entries_name_asc(const void *one, const void *two)
 }
 
 
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
 ngx_http_fancyindex_cmp_entries_size_asc(const void *one, const void *two)
 {
     ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
@@ -1280,7 +1417,7 @@ ngx_http_fancyindex_cmp_entries_size_asc(const void *one, const void *two)
 }
 
 
-static ngx_int_t ngx_libc_cdecl
+static int ngx_libc_cdecl
 ngx_http_fancyindex_cmp_entries_mtime_asc(const void *one, const void *two)
 {
     ngx_http_fancyindex_entry_t *first = (ngx_http_fancyindex_entry_t *) one;
@@ -1314,25 +1451,26 @@ ngx_http_fancyindex_create_loc_conf(ngx_conf_t *cf)
 
     /*
      * Set by ngx_pcalloc:
-     *    conf->header.len       = 0
-     *    conf->header.data      = NULL
-     *    conf->footer.len       = 0
-     *    conf->footer.data      = NULL
+     *    conf->header.*.len     = 0
+     *    conf->header.*.data    = NULL
+     *    conf->footer.*.len     = 0
+     *    conf->footer.*.data    = NULL
      *    conf->css_href.len     = 0
      *    conf->css_href.data    = NULL
      *    conf->time_format.len  = 0
      *    conf->time_format.data = NULL
      */
-    conf->enable        = NGX_CONF_UNSET;
-    conf->default_sort  = NGX_CONF_UNSET_UINT;
-    conf->dirs_first    = NGX_CONF_UNSET;
-    conf->localtime     = NGX_CONF_UNSET;
-    conf->name_length   = NGX_CONF_UNSET_UINT;
-    conf->exact_size    = NGX_CONF_UNSET;
-    conf->ignore        = NGX_CONF_UNSET_PTR;
-    conf->hide_symlinks = NGX_CONF_UNSET;
-    conf->show_path     = NGX_CONF_UNSET;
-    conf->hide_parent   = NGX_CONF_UNSET;
+    conf->enable         = NGX_CONF_UNSET;
+    conf->default_sort   = NGX_CONF_UNSET_UINT;
+    conf->dirs_first     = NGX_CONF_UNSET;
+    conf->localtime      = NGX_CONF_UNSET;
+    conf->name_length    = NGX_CONF_UNSET_UINT;
+    conf->exact_size     = NGX_CONF_UNSET;
+    conf->ignore         = NGX_CONF_UNSET_PTR;
+    conf->hide_symlinks  = NGX_CONF_UNSET;
+    conf->show_path      = NGX_CONF_UNSET;
+    conf->hide_parent    = NGX_CONF_UNSET;
+    conf->show_dot_files = NGX_CONF_UNSET;
 
     return conf;
 }
@@ -1352,10 +1490,14 @@ ngx_http_fancyindex_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
     ngx_conf_merge_value(conf->localtime, prev->localtime, 0);
     ngx_conf_merge_value(conf->exact_size, prev->exact_size, 1);
     ngx_conf_merge_value(conf->show_path, prev->show_path, 1);
+    ngx_conf_merge_value(conf->show_dot_files, prev->show_dot_files, 0);
     ngx_conf_merge_uint_value(conf->name_length, prev->name_length, 50);
 
-    ngx_conf_merge_str_value(conf->header, prev->header, "");
-    ngx_conf_merge_str_value(conf->footer, prev->footer, "");
+    ngx_conf_merge_str_value(conf->header.path, prev->header.path, "");
+    ngx_conf_merge_str_value(conf->header.path, prev->header.local, "");
+    ngx_conf_merge_str_value(conf->footer.path, prev->footer.path, "");
+    ngx_conf_merge_str_value(conf->footer.path, prev->footer.local, "");
+
     ngx_conf_merge_str_value(conf->css_href, prev->css_href, "");
     ngx_conf_merge_str_value(conf->time_format, prev->time_format, "%Y-%b-%d %H:%M");
 
@@ -1364,7 +1506,7 @@ ngx_http_fancyindex_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
     ngx_conf_merge_value(conf->hide_parent, prev->hide_parent, 0);
 
     /* Just make sure we haven't disabled the show_path directive without providing a custom header */
-    if (conf->show_path == 0 && conf->header.len == 0)
+    if (conf->show_path == 0 && conf->header.path.len == 0)
     {
         ngx_conf_log_error(NGX_LOG_EMERG, cf, 0, "FancyIndex : cannot set show_path to off without providing a custom header !");
         return NGX_CONF_ERROR;
