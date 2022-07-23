@@ -25,7 +25,9 @@ define Package/python3-borgbackup
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Backup
-	DEPENDS:=+python3-light +python3-pkg-resources +python3-packaging +libacl +libopenssl +libstdcpp +zstd
+	DEPENDS:=+libacl +libopenssl +libstdcpp +zstd
+	DEPENDS+=+python3-codecs +python3-logging +python3-lzma +python3-msgpack
+	DEPENDS+=+python3-packaging +python3-readline +python3-unittest +python3-uuid
 	TITLE:=a deduplicating backup program
 	URL:=https://borgbackup.readthedocs.io
 	MAINTAINER:=Entware team, https://entware.net
