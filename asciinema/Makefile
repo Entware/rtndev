@@ -4,16 +4,15 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 2.2.0 has no setup.py
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asciinema
-PKG_VERSION:=2.1.0
+PKG_VERSION:=2.2.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=7bdb358c1f6d61b07169c5476b2f9607ce66da12e78e4c17b7c898d72402cddc
+PKG_HASH:=5ec5c4e5d3174bb7c559e45db4680eb8fa6c40c058fa5e5005ee96a1d99737b4
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -23,7 +22,7 @@ define Package/asciinema
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Terminal
-	DEPENDS:=+python3-requests +ncurses-bin +python3-setuptools
+	DEPENDS:=+ncurses-bin +python3-multiprocessing +python3-urllib +python3-uuid
 	TITLE:=A terminal sessions recorder
 	URL:=http://asciinema.org/
 	MAINTAINER:=Entware team, https://entware.net
