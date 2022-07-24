@@ -1,0 +1,12 @@
+--- a/src/man.c
++++ b/src/man.c
+@@ -250,8 +250,8 @@ static struct timespec man_modtime;	/* m
+ static bool ditroff;
+ static const char *gxditview;
+ static bool htmlout;
+-static const char *html_pager;
+ # endif /* TROFF_IS_GROFF */
++static const char *html_pager;
+ 
+ const char *argp_program_version = "man " PACKAGE_VERSION;
+ const char *argp_program_bug_address = PACKAGE_BUGREPORT;

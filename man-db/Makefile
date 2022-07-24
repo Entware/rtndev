@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
 PKG_VERSION:=2.10.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=@SAVANNAH/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -36,13 +36,13 @@ define Package/man-db/description
 endef
 
 CONFIGURE_ARGS += \
-	--prefix=/opt \
 	--mandir=/opt/share/man \
-	--with-pager="/opt/bin/less" \
-	--enable-cache-owner=root \
 	--disable-setuid \
-	--disable-manual \
+	--with-device=latin1 \
 	--enable-mb-groff \
+	--with-pager=less \
+	--disable-cache-owner \
+	--disable-manual \
 	--disable-nls \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
 	--with-libintl-prefix="$(INTL_PREFIX)"
