@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# No chance to get stable PKG_MIRROR_HASH from SVN sources
 
 include $(TOPDIR)/rules.mk
 
@@ -17,7 +18,7 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_SOURCE_SUBDIR:=oscam-$(PKG_VERSION)
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
-PKG_MIRROR_HASH:=7833070c3beee6839fb76b9e8ee2efda0eb54e360d0ab4227cf3319b34e18e4a
+PKG_MIRROR_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
