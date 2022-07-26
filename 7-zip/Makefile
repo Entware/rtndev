@@ -38,6 +38,12 @@ MAKE_PATH:=CPP/7zip/Bundles/Alone2
 MAKE_VARS += \
 	MY_ARCH="$(TARGET_CFLAGS) $(TARGET_LDFLAGS)"
 
+define Build/Prepare
+	$(PKG_UNPACK)
+	chmod +w -R $(PKG_BUILD_DIR)/*
+	$(Build/Patch)
+endef
+
 define Build/Compile
 	$(call Build/Compile/Default,-f makefile.gcc)
 endef

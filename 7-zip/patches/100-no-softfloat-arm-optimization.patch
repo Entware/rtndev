@@ -1,0 +1,11 @@
+--- a/C/CpuArch.h
++++ b/C/CpuArch.h
+@@ -65,7 +65,7 @@
+   || defined(__ARMEB__) \
+   || defined(__THUMBEL__) \
+   || defined(__THUMBEB__)
+-  #define MY_CPU_ARM
++  #define MY_CPU_ARM1
+ 
+   #if defined(__thumb__) || defined(__THUMBEL__) || defined(_M_ARMT)
+     #define MY_CPU_NAME "armt"
