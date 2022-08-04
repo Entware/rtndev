@@ -1,0 +1,135 @@
+--- a/httpdocs/misc/ntopng-add-user.sh
++++ b/httpdocs/misc/ntopng-add-user.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/opt/bin/bash
+ 
+ ###!/usr/bin/env BASH
+ 
+--- a/httpdocs/misc/ntopng-utils-manage-config.in
++++ b/httpdocs/misc/ntopng-utils-manage-config.in
+@@ -1,8 +1,8 @@
+-#!/usr/bin/env bash
++#!/opt/bin/bash
+ 
+ OS="`uname`"
+ 
+-NTOPNG_CONFIG_PATH="/etc/ntopng"
++NTOPNG_CONFIG_PATH="/opt/etc/ntopng"
+ 
+ case $OS in
+   'FreeBSD')
+@@ -14,8 +14,8 @@ esac
+ 
+ DEFAULT_CONF_FILE="${NTOPNG_CONFIG_PATH}/ntopng.conf"
+ 
+-DEFAULT_DATADIR="/var/lib/ntopng"
+-OLD_DEFAULT_DATADIR="/var/tmp/ntopng"
++DEFAULT_DATADIR="/opt/var/lib/ntopng"
++OLD_DEFAULT_DATADIR="/opt/var/tmp/ntopng"
+ if [ -d "${OLD_DEFAULT_DATADIR}" ]; then
+     DEFAULT_DATADIR="${OLD_DEFAULT_DATADIR}"
+ fi
+@@ -266,13 +266,13 @@ function manifest_to_staging_dir() {
+ }
+ 
+ function backup_to_staging_dir() {
+-    copy_to_staging_dir "/etc/ntopng" "__etc_ntopng"
++    copy_to_staging_dir "/opt/etc/ntopng" "__etc_ntopng"
+     copy_to_staging_dir "${DATADIR}/runtimeprefs.json" "__datadir"
+ 
+     if [ "${NEDGE}" == "0" ]; then
+-	copy_to_staging_dir "/etc/ntopng.license" "__license"
++	copy_to_staging_dir "/opt/etc/ntopng.license" "__license"
+     else
+-	copy_to_staging_dir "/etc/nedge.license" "__license"
++	copy_to_staging_dir "/opt/etc/nedge.license" "__license"
+ 	copy_to_staging_dir "${DATADIR}/system.config" "__datadir"
+     fi
+ 
+@@ -399,16 +399,16 @@ function restore_files() {
+     if [ -d "${STAGING_DIR}/__etc_ntopng" ]; then
+ 	find "${STAGING_DIR}/__etc_ntopng"  -maxdepth 1 -type f -name '*.*' -print0 |
+ 	    while IFS= read -r -d '' FL; do
+-		restore_and_save_file "${FL}" "/etc/ntopng"
++		restore_and_save_file "${FL}" "/opt/etc/ntopng"
+ 	    done
+     fi
+ 
+     if [ "${NEDGE}" == "0" ] && [ -f "${STAGING_DIR}/__license/ntopng.license" ]; then
+-	restore_and_save_file "${STAGING_DIR}/__license/ntopng.license" "/etc" "root:root"
++	restore_and_save_file "${STAGING_DIR}/__license/ntopng.license" "/opt/etc" "root:root"
+     fi
+ 
+     if [ "${NEDGE}" == "1" ] && [ -f "${STAGING_DIR}/__license/nedge.license" ]; then
+-	restore_and_save_file "${STAGING_DIR}/__license/nedge.license" "/etc" "root:root"
++	restore_and_save_file "${STAGING_DIR}/__license/nedge.license" "/opt/etc" "root:root"
+     fi
+ 
+     if [ -z "${DATADIR}" ] || [ ! -d "${DATADIR}" ]; then
+@@ -455,7 +455,7 @@ function install_n2disk_conf() {
+ 	return
+     fi
+ 
+-    local DEST_PATH="/etc/n2disk"
++    local DEST_PATH="/opt/etc/n2disk"
+     local DEST_FILE="${DEST_PATH}/n2disk-ntopng-${INTERFACE}.conf"
+ 
+     mkdir -p "${DEST_PATH}"
+@@ -471,7 +471,7 @@ function install_n2n_conf() {
+ 	return
+     fi
+ 
+-    local DEST_PATH="/etc/n2n"
++    local DEST_PATH="/opt/etc/n2n"
+ 
+     mkdir -p "${DEST_PATH}"
+ 
+--- a/httpdocs/misc/ntopng-utils-manage-updates.in
++++ b/httpdocs/misc/ntopng-utils-manage-updates.in
+@@ -1,11 +1,11 @@
+-#!/usr/bin/env bash
++#!/opt/bin/bash
+ 
+ # bin paths
+ LSB_RELEASE="/usr/bin/lsb_release"
+ APT_GET="/usr/bin/apt-get -qq"
+ YUM="/usr/bin/yum"
+-NTOPNG_CONFIG_TOOL="/usr/bin/ntopng-utils-manage-config"
+-REDIS_CLI="/usr/bin/redis-cli"
++NTOPNG_CONFIG_TOOL="/opt/bin/ntopng-utils-manage-config"
++REDIS_CLI="/opt/bin/redis-cli"
+ PRODUCT="ntopng"
+ 
+ # redis keys
+@@ -20,7 +20,7 @@ REDIS_PRODUCT_NAME_KEY="ntopng.product_n
+ ACTION=""
+ QUIET=true
+ 
+-LOGFILE_BASE="/var/log/ntopng-updates"
++LOGFILE_BASE="/opt/var/log/ntopng-updates"
+ LOGFILE="${LOGFILE_BASE}.log"
+ RETAIN_NUM_LINES=1000
+ APT_SOURCE="ntop@STABLE_SUFFIX@.list"
+--- a/httpdocs/other/radcli_dictionary.txt
++++ b/httpdocs/other/radcli_dictionary.txt
+@@ -303,6 +303,6 @@ VALUE		Add-Port-To-IP-Address	Yes			1
+ #VALUE		Server-Config		Password-Expiration	30
+ #VALUE		Server-Config		Password-Warning	5
+ 
+-#$INCLUDE /etc/radcli/dictionary.microsoft
+-#$INCLUDE /etc/radcli/dictionary.roaringpenguin
++#$INCLUDE /opt/etc/radcli/dictionary.microsoft
++#$INCLUDE /opt/etc/radcli/dictionary.roaringpenguin
+ 
+--- a/httpdocs/templates/pages/notifications/shell/shell_endpoint.template
++++ b/httpdocs/templates/pages/notifications/shell/shell_endpoint.template
+@@ -5,7 +5,7 @@
+     <div class="col-sm-5">
+     <select name="shell_script" class="form-select" required>
+         {%
+-            for key, dir in pairs(ntop.readdir("/usr/share/ntopng/scripts/shell/")) do 
++            for key, dir in pairs(ntop.readdir("/opt/share/ntopng/scripts/shell/")) do 
+                 if(key:match('^(.*).[sh|py]$'))then   
+         %}
+                     <option value='{{ key }}'>{{ dir }}</option>
