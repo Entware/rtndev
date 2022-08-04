@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2009-2018 OpenWrt.org
-# Copyright (C) 2018-2021 Entware
+# Copyright (C) 2018-2022 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,31 +10,31 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cgit
 PKG_VERSION:=1.2.3
-PKG_RELEASE:=1
-PKG_REV:=55fa25adb097d2681607d8b0f51a0c393cc9af1a
+PKG_RELEASE:=2
+PKG_SOURCE_DATE:=2021-06-08
+PKG_SOURCE_VERSION:=5258c297ba6fb604ae1415fbc19a3fe42457e49e
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://git.zx2c4.com/cgit
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=28231068e5be3dd397fc5c70ae43471e4954a395abc8f9025850f413c2d61d29
+PKG_SOURCE_URL:=https://git.zx2c4.com/cgit
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_DATE).tar.xz
+PKG_MIRROR_HASH:=4cc56d39e5ef73eca843f8d431c249e7aef2ef551f07968317b2cb719a56f866
 
-PKG_LICENSE:=GPL-2.0
+PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
-PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/cgit
 	TITLE:=Web interface (cgi) for Git repositories, written in C
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Version Control Systems
-	DEPENDS:=+libopenssl +libpthread +librt +zlib +liblua
+	DEPENDS:=+libcharset +liblua +libopenssl +libpcre2 +zlib $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	URL:=https://git.zx2c4.com/cgit/
 	MAINTAINER:=Troels Gram [https://github.com/tgram75]
 endef
@@ -45,38 +45,28 @@ define Package/cgit/description
  SCM, using a built-in cache to decrease server I/O pressure.
 endef
 
-MAKE_FLAGS := \
-	CC="$(TARGET_CC)" \
-	CFLAGS="$(TARGET_CFLAGS)" \
-	CPPFLAGS="$(TARGET_CPPFLAGS)" \
-	LDFLAGS="$(TARGET_LDFLAGS)" \
-	NO_EXPAT="YesPlease" \
-	NO_MKSTEMPS="YesPlease" \
-	NO_GETTEXT="YesPlease" \
-	NO_UNIX_SOCKETS="YesPlease" \
-	NO_ICONV="YesPlease" \
-	NO_NSEC="YesPlease" \
-	NO_PERL="YesPlease" \
-	NO_PYTHON="YesPlease" \
-	NO_TCLTK="YesPlease" \
-	NO_INSTALL_HARDLINKS="yes" \
-	LUA_PKGCONFIG="lua"
-
-CONFIGURE_ARGS += \
-	--without-iconv
+define Build/Configure
+	( cd $(PKG_BUILD_DIR)/git;  \
+		make configure; \
+		./configure \
+			$(CONFIGURE_ARGS) \
+			--with-libpcre2 \
+			--with-gitconfig=/opt/etc/gitconfig \
+			--with-gitattributes=/opt/etc/gitattributes \
+			--with-pager=/opt/bin/less \
+			--with-editor=/opt/bin/vi \
+			--with-perl=/opt/bin/perl \
+			--with-python=/opt/bin/python \
+			--with-iconv=$(ICONV_PREFIX) \
+			CFLAGS="$(TARGET_CFLAGS)" \
+			CPPFLAGS="$(TARGET_CPPFLAGS)" \
+			LDFLAGS="$(TARGET_LDFLAGS)" \
+	)
+endef
 
 define Package/cgit/install
-	$(INSTALL_DIR) $(1)/opt/var/www/htdocs/cgit
-	$(CP) $(PKG_INSTALL_DIR)/var/www/htdocs/cgit/* $(1)/opt/var/www/htdocs/cgit
-	$(INSTALL_DIR) $(1)/opt/usr/local/lib/cgit/filters
-	$(CP) $(PKG_INSTALL_DIR)/usr/local/lib/cgit/filters/* $(1)/opt/usr/local/lib/cgit/filters
-	# Entware specific: fix exec path in scripts
-	$(SED) 's,^#!.*bash,#!/opt/bin/bash,' \
-		$(1)/opt/usr/local/lib/cgit/filters/html-converters/rst2html
-	$(SED) 's,^#!.*python,#!/opt/bin/python,' \
-		$(1)/opt/usr/local/lib/cgit/filters/email-gravatar.py \
-		$(1)/opt/usr/local/lib/cgit/filters/html-converters/md2html \
-		$(1)/opt/usr/local/lib/cgit/filters/syntax-highlighting.py
+	$(INSTALL_DIR) $(1)
+	$(CP) $(PKG_INSTALL_DIR)/opt $(1)/
 endef
 
 $(eval $(call BuildPackage,cgit))

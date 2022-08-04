@@ -1,0 +1,111 @@
+--- a/filters/file-authentication.lua
++++ b/filters/file-authentication.lua
+@@ -18,21 +18,21 @@ local hmac = require("openssl.hmac")
+ --	...
+ -- Hashes can be generated using something like `mkpasswd -m sha-512 -R 300000`.
+ -- This file should not be world-readable.
+-local users_filename = "/etc/cgit-auth/users"
++local users_filename = "/opt/etc/cgit-auth/users"
+ 
+ -- This file should contain a series of lines in the form of:
+ -- 	groupname1:username1,username2,username3,...
+ --	...
+-local groups_filename = "/etc/cgit-auth/groups"
++local groups_filename = "/opt/etc/cgit-auth/groups"
+ 
+ -- This file should contain a series of lines in the form of:
+ -- 	reponame1:groupname1,groupname2,groupname3,...
+ --	...
+-local repos_filename = "/etc/cgit-auth/repos"
++local repos_filename = "/opt/etc/cgit-auth/repos"
+ 
+ -- Set this to a path this script can write to for storing a persistent
+ -- cookie secret, which should not be world-readable.
+-local secret_filename = "/var/cache/cgit/auth-secret"
++local secret_filename = "/opt/var/cache/cgit/auth-secret"
+ 
+ --
+ --
+--- a/filters/gentoo-ldap-authentication.lua
++++ b/filters/gentoo-ldap-authentication.lua
+@@ -29,7 +29,7 @@ local protected_repos = {
+ 
+ -- Set this to a path this script can write to for storing a persistent
+ -- cookie secret, which should be guarded.
+-local secret_filename = "/var/cache/cgit/auth-secret"
++local secret_filename = "/opt/var/cache/cgit/auth-secret"
+ 
+ 
+ --
+@@ -119,9 +119,9 @@ function gentoo_ldap_user_groups(usernam
+ 		who = who,
+ 		password = password,
+ 		starttls = true,
+-		certfile = "/var/www/uwsgi/cgit/gentoo-ldap/star.gentoo.org.crt",
+-		keyfile = "/var/www/uwsgi/cgit/gentoo-ldap/star.gentoo.org.key",
+-		cacertfile = "/var/www/uwsgi/cgit/gentoo-ldap/ca.pem"
++		certfile = "/opt/var/www/uwsgi/cgit/gentoo-ldap/star.gentoo.org.crt",
++		keyfile = "/opt/var/www/uwsgi/cgit/gentoo-ldap/star.gentoo.org.key",
++		cacertfile = "/opt/var/www/uwsgi/cgit/gentoo-ldap/ca.pem"
+ 	}
+ 	if ldap == nil then
+ 		return nil
+--- a/filters/simple-authentication.lua
++++ b/filters/simple-authentication.lua
+@@ -32,7 +32,7 @@ local users = {
+ 
+ -- Set this to a path this script can write to for storing a persistent
+ -- cookie secret, which should be guarded.
+-local secret_filename = "/var/cache/cgit/auth-secret"
++local secret_filename = "/opt/var/cache/cgit/auth-secret"
+ 
+ --
+ --
+--- a/filters/email-gravatar.py
++++ b/filters/email-gravatar.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/opt/bin/python3
+ 
+ # Please prefer the email-gravatar.lua using lua: as a prefix over this script. This
+ # script is very slow, in comparison.
+--- a/filters/html-converters/md2html
++++ b/filters/html-converters/md2html
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/opt/bin/python3
+ import markdown
+ import sys
+ import io
+--- a/filters/html-converters/rst2html
++++ b/filters/html-converters/rst2html
+@@ -1,2 +1,2 @@
+-#!/bin/bash
++#!/opt/bin/bash
+ exec rst2html.py --template <(echo -e "%(stylesheet)s\n%(body_pre_docinfo)s\n%(docinfo)s\n%(body)s")
+--- a/filters/syntax-highlighting.py
++++ b/filters/syntax-highlighting.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/opt/bin/python3
+ 
+ # This script uses Pygments and Python3. You must have both installed
+ # for this to work.
+--- a/git/ident.c
++++ b/git/ident.c
+@@ -77,13 +77,13 @@ static int add_mailname_host(struct strb
+ 	FILE *mailname;
+ 	struct strbuf mailnamebuf = STRBUF_INIT;
+ 
+-	mailname = fopen_or_warn("/etc/mailname", "r");
++	mailname = fopen_or_warn("/opt/etc/mailname", "r");
+ 	if (!mailname)
+ 		return -1;
+ 
+ 	if (strbuf_getline(&mailnamebuf, mailname) == EOF) {
+ 		if (ferror(mailname))
+-			warning_errno("cannot read /etc/mailname");
++			warning_errno("cannot read /opt/etc/mailname");
+ 		strbuf_release(&mailnamebuf);
+ 		fclose(mailname);
+ 		return -1;
