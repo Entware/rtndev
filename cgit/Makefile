@@ -34,7 +34,7 @@ define Package/cgit
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Version Control Systems
-	DEPENDS:=+libcharset +liblua +libopenssl +libpcre2 +zlib $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+libcharset +luajit +libopenssl +libpcre2 +zlib $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	URL:=https://git.zx2c4.com/cgit/
 	MAINTAINER:=Troels Gram [https://github.com/tgram75]
 endef
