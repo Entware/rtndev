@@ -60,7 +60,7 @@ define Build/Configure
 			my_cv_rw_locks_supported=no \
 	)
 	( cd $(PKG_BUILD_DIR)/third-party/rrdtool-1.4.8; \
-		./configure \
+		NROFF=/bin/true TROFF=/bin/true ./configure \
 		$(CONFIGURE_ARGS) \
 		--disable-libdbi \
 		--disable-libwrap \
