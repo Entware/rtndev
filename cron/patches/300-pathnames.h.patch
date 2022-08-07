@@ -18,7 +18,7 @@
  
  			/* cron allow/deny file.  At least cron.deny must
  			 * exist for ordinary users to run crontab.
-@@ -60,30 +60,24 @@
+@@ -60,33 +60,27 @@
  			 * LOG_CRON is defined by <syslog.h>, LOG_FILE will not
  			 * be used.
  			 */
@@ -51,7 +51,25 @@
 -#else
 -# define EDITOR "/usr/ucb/vi"
 -#endif
-+#define EDITOR "/bin/vi"
++#define EDITOR "/opt/bin/vi"
  
  #ifndef _PATH_SENDMAIL
- # define _PATH_SENDMAIL "/usr/lib/sendmail"
+-# define _PATH_SENDMAIL "/usr/lib/sendmail"
++# define _PATH_SENDMAIL "/opt/lib/sendmail"
+ #endif
+ 
+ #ifndef _PATH_BSHELL
+@@ -94,11 +88,11 @@
+ #endif
+ 
+ #ifndef _PATH_DEFPATH
+-# define _PATH_DEFPATH "/usr/bin:/bin"
++# define _PATH_DEFPATH "/opt/bin:/usr/bin:/bin"
+ #endif
+ 
+ #ifndef _PATH_TMP
+-# define _PATH_TMP "/tmp"
++# define _PATH_TMP "/opt/tmp"
+ #endif
+ 
+ #ifndef _PATH_DEVNULL

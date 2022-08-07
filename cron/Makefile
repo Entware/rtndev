@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cron
 PKG_VERSION:=4.1
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).shar
 PKG_SOURCE_URL:=ftp://ftp.isc.org/isc/cron
