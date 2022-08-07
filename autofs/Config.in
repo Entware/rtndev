@@ -1,0 +1,19 @@
+# autofs avanced configuration
+
+menu "Configuration"
+	depends on PACKAGE_autofs
+
+config AUTOFS_OPENLDAP
+	bool "enable OpenLDAP map support"
+	default n
+
+config AUTOFS_SASL
+	bool "enable SASL support for LDAP maps"
+	depends on AUTOFS_OPENLDAP
+	default n
+
+config AUTOFS_TIRPC
+	bool "enable libtirpc support"
+	default n
+
+endmenu

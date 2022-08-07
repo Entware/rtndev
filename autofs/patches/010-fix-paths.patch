@@ -1,0 +1,33 @@
+--- a/fedfs/fedfs-nls.h
++++ b/fedfs/fedfs-nls.h
+@@ -8,7 +8,7 @@
+ int main(int argc, char *argv[]);
+ 
+ #ifndef LOCALEDIR
+-#define LOCALEDIR "/usr/share/locale"
++#define LOCALEDIR "/opt/share/locale"
+ #endif
+ 
+ #ifdef HAVE_LOCALE_H
+--- a/fedfs/mount.fedfs.c
++++ b/fedfs/mount.fedfs.c
+@@ -58,7 +58,7 @@
+ /**
+  * Pathname to mount.nfs
+  */
+-#define MOUNT_NFS_EXECUTABLE		"/sbin/mount.nfs"
++#define MOUNT_NFS_EXECUTABLE		"/opt/sbin/mount.nfs"
+ 
+ /**
+  * Mount status values, lifted from util-linux
+--- a/include/automount.h
++++ b/include/automount.h
+@@ -85,7 +85,7 @@
+ #define HOST_ENT_BUF_SIZE	2048
+ 
+ #define CHECK_RATIO	4			/* exp_runfreq = exp_timeout/CHECK_RATIO */
+-#define AUTOFS_LOCK	"/var/lock/autofs"	/* To serialize access to mount */
++#define AUTOFS_LOCK	"/opt/var/lock/autofs"	/* To serialize access to mount */
+ #define MOUNTED_LOCK	_PATH_MOUNTED "~"	/* mounts' lock file */
+ #define MTAB_NOTUPDATED 0x1000			/* mtab succeded but not updated */
+ #define NOT_MOUNTED     0x0100			/* path notmounted */

@@ -1,0 +1,280 @@
+--- a/include/ntop_defines.h
++++ b/include/ntop_defines.h
+@@ -196,7 +196,7 @@
+ #define MAX_NUM_QUEUED_ADDRS    500 /* Maximum number of queued address for resolution */
+ #define MAX_NUM_QUEUED_CONTACTS 25000
+ #define NTOP_COPYRIGHT          "(C) 1998-22 ntop.org"
+-#define DEFAULT_PID_PATH        "/var/run/ntopng.pid"
++#define DEFAULT_PID_PATH        "/opt/var/run/ntopng.pid"
+ #define SYSTEM_INTERFACE_NAME   "__system__"
+ #define SYSTEM_INTERFACE_ID     -1
+ #define INVALID_INTERFACE_ID    -2
+@@ -495,7 +495,7 @@
+ 
+ #define NTOPNG_NDPI_OS_PROTO_ID      (NDPI_LAST_IMPLEMENTED_PROTOCOL+NDPI_MAX_NUM_CUSTOM_PROTOCOLS-2)
+ #define CONST_DEFAULT_HOME_NET       "192.168.1.0/24"
+-#define CONST_OLD_DEFAULT_DATA_DIR   "/var/tmp/ntopng"
++#define CONST_OLD_DEFAULT_DATA_DIR   "/opt/var/tmp/ntopng"
+ #define CONST_DEFAULT_MAX_UI_STRLEN  24
+ #define CONST_DEFAULT_IS_AUTOLOGOUT_ENABLED               1
+ #define CONST_DEFAULT_IS_IDLE_LOCAL_HOSTS_CACHE_ENABLED   1
+@@ -526,14 +526,14 @@
+ #define CONST_ETC_DIR                "/usr/local/etc"
+ #define CONST_DEFAULT_DATA_DIR       "/var/db/ntopng"
+ #else
+-#define CONST_BIN_DIR                "/usr/bin"
+-#define CONST_SHARE_DIR              "/usr/share"
+-#define CONST_SHARE_DIR_2            "/usr/local/share"
+-#define CONST_ETC_DIR                "/etc"
+-#define CONST_DEFAULT_DATA_DIR       "/var/lib/ntopng"
++#define CONST_BIN_DIR                "/opt/bin"
++#define CONST_SHARE_DIR              "/opt/share"
++#define CONST_SHARE_DIR_2            "/opt/usr/share"
++#define CONST_ETC_DIR                "/opt/etc"
++#define CONST_DEFAULT_DATA_DIR       "/opt/var/lib/ntopng"
+ #endif
+ #define CONST_ALT_INSTALL_DIR        CONST_SHARE_DIR   "/ntopng"
+-#define CONST_ALT2_INSTALL_DIR       CONST_SHARE_DIR_2 "/usr/share/ntopng"
++#define CONST_ALT2_INSTALL_DIR       CONST_SHARE_DIR_2 "/ntopng"
+ #define CONST_HTTP_PREFIX_STRING     "@HTTP_PREFIX@"
+ #define CONST_NTOP_STARTUP_EPOCH     "@NTOP_STARTUP_EPOCH@"
+ #define CONST_NTOP_PRODUCT_NAME      "@NTOP_PRODUCT_NAME@"
+--- a/scripts/callbacks/system/boot.lua
++++ b/scripts/callbacks/system/boot.lua
+@@ -69,7 +69,7 @@ if ntop.isAppliance() then
+ end
+ 
+ -- Check if there is a local file to run
+-local local_boot_file = "/usr/share/ntopng/local/scripts/callbacks/system/boot.lua"
++local local_boot_file = "/opt/share/ntopng/local/scripts/callbacks/system/boot.lua"
+ 
+ if(ntop.exists(local_boot_file)) then
+    traceError(TRACE_NORMAL, TRACE_CONSOLE, "Running "..local_boot_file)
+--- a/scripts/callbacks/system/startup.lua
++++ b/scripts/callbacks/system/startup.lua
+@@ -194,7 +194,7 @@ end
+ ntop.delCache("ntopng.cache.rrd_format_change_warning_shown")
+ 
+ -- Check if there is a local file to run
+-local local_startup_file = "/usr/share/ntopng/local/scripts/callbacks/system/startup.lua"
++local local_startup_file = "/opt/share/ntopng/local/scripts/callbacks/system/startup.lua"
+ if(ntop.exists(local_startup_file)) then
+    traceError(TRACE_NORMAL, TRACE_CONSOLE, "Running "..local_startup_file)
+    dofile(local_startup_file)
+--- a/scripts/lua/modules/conf_handlers/netplan.lua
++++ b/scripts/lua/modules/conf_handlers/netplan.lua
+@@ -10,7 +10,7 @@ local config = {}
+ -- ################################################################
+ 
+ local NEDGE_NETPLAN_CONF = "20-nedge.yaml"
+-local CLOUD_DIRECTORY = "/etc/cloud/cloud.cfg.d"
++local CLOUD_DIRECTORY = "/opt/etc/cloud/cloud.cfg.d"
+ local CLOUD_DISABLED_FNAME = "99-disable-network-config.cfg"
+ 
+ local netplan_config = {}
+@@ -135,7 +135,7 @@ end
+ -- ################################################################
+ 
+ function config.openNetworkInterfacesConfigFile()
+-  local f = sys_utils.openFile("/etc/netplan/" .. NEDGE_NETPLAN_CONF, "w")
++  local f = sys_utils.openFile("/opt/etc/netplan/" .. NEDGE_NETPLAN_CONF, "w")
+ 
+   netplan_config.version = 2
+ 
+@@ -250,9 +250,9 @@ end
+ function config.isConfiguredInterface(iface)
+   local files_to_rename = {}
+ 
+-  for fname in pairs(ntop.readdir("/etc/netplan")) do
++  for fname in pairs(ntop.readdir("/opt/etc/netplan")) do
+     if fname ~= NEDGE_NETPLAN_CONF then
+-      local fpath = "/etc/netplan/".. fname
++      local fpath = "/opt/etc/netplan/".. fname
+       -- e.g.: "renderer: NetworkManager", "iface: enp1s0"
+       local res = sys_utils.execCmd("grep \"^\\s*[^#]*\\(" .. iface .. "\\|renderer\\):\" ".. fpath .." >/dev/null 2>/dev/null")
+ 
+--- a/scripts/lua/modules/conf_handlers/network_ifaces.lua
++++ b/scripts/lua/modules/conf_handlers/network_ifaces.lua
+@@ -32,7 +32,7 @@ function config.writeNetworkInterfaceCon
+     f:write("iface " .. iface .. " inet " .. network_conf.mode .. "\n")
+ 
+     if ntop.isnEdge() and network_conf.mode == "dhcp" then
+-      f:write("\tpre-up /bin/rm -f /var/lib/dhcp/dhclient.".. iface ..".leases\n")
++      f:write("\tpre-up /opt/bin/rm -f /opt/var/lib/dhcp/dhclient.".. iface ..".leases\n")
+     end
+   end
+ 
+@@ -64,19 +64,19 @@ function config.openNetworkInterfacesCon
+ 
+   -- verify that the file is actually included
+   for _, source in ipairs({network_conf_file, network_custom_conf_file}) do
+-    local source_line = "source /etc/network/interfaces.d/"..source
+-    local res = sys_utils.execShellCmd("grep \"^" .. source_line .. "\" /etc/network/interfaces 2>/dev/null")
++    local source_line = "source /opt/etc/network/interfaces.d/"..source
++    local res = sys_utils.execShellCmd("grep \"^" .. source_line .. "\" /opt/etc/network/interfaces 2>/dev/null")
+ 
+     if isEmptyString(res) then
+       traceError(TRACE_NORMAL, TRACE_CONSOLE, "Adding missing '" .. source_line .. "'")
+ 
+-      local f = sys_utils.openFile("/etc/network/interfaces", "a")
++      local f = sys_utils.openFile("/opt/etc/network/interfaces", "a")
+       f:write("\n" .. source_line .. "\n")
+       f:close()
+     end
+   end
+ 
+-  return sys_utils.openFile("/etc/network/interfaces.d/"..network_conf_file, "w")
++  return sys_utils.openFile("/opt/etc/network/interfaces.d/"..network_conf_file, "w")
+ end
+ 
+ -- ################################################################
+@@ -88,21 +88,21 @@ end
+ -- ################################################################
+ 
+ function config.backupNetworkInterfacesFiles(to_backup)
+-  os.rename("/etc/network/interfaces", "/etc/network/interfaces.old")
+-  traceError(TRACE_WARNING, TRACE_CONSOLE, "/etc/network/interfaces has been moved to /etc/network/interfaces.old")
++  os.rename("/opt/etc/network/interfaces", "/opt/etc/network/interfaces.old")
++  traceError(TRACE_WARNING, TRACE_CONSOLE, "/opt/etc/network/interfaces has been moved to /opt/etc/network/interfaces.old")
+ end
+ 
+ -- ################################################################
+ 
+ function config.isConfiguredInterface(iface)
+-  local res = sys_utils.execShellCmd("grep \"^\\s*[^#]*" .. iface .. "\" /etc/network/interfaces")
++  local res = sys_utils.execShellCmd("grep \"^\\s*[^#]*" .. iface .. "\" /opt/etc/network/interfaces")
+   return not isEmptyString(res)
+ end
+ 
+ -- ################################################################
+ 
+ function config.dhcpInterfaceGetGateway(iface)
+-  local res = sys_utils.execShellCmd("grep \"option routers\" /var/lib/dhcp/dhclient." .. iface .. ".leases 2>/dev/null | tail -n 1")
++  local res = sys_utils.execShellCmd("grep \"option routers\" /opt/var/lib/dhcp/dhclient." .. iface .. ".leases 2>/dev/null | tail -n 1")
+ 
+   if not isEmptyString(res) then
+     return res:gmatch("routers ([^;]+)")()
+--- a/scripts/lua/modules/conf_handlers/wireless.lua
++++ b/scripts/lua/modules/conf_handlers/wireless.lua
+@@ -137,15 +137,15 @@ function config.configureWiFiAccessPoint
+    f:close()
+ 
+    -- Configure dhcp
+-   config.execCmd("sed -i '/^interface/ d' /etc/dhcpcd.conf")
+-   config.execCmd("sed -i '/^denyinterfaces/ d' /etc/dhcpcd.conf")
++   config.execCmd("sed -i '/^interface/ d' /opt/etc/dhcpcd.conf")
++   config.execCmd("sed -i '/^denyinterfaces/ d' /opt/etc/dhcpcd.conf")
+    local dhcpcd_deny = wifi_dev.." "..wired_dev
+    if network_conf.mode ~= "dhcp" then
+       dhcpcd_deny = dhcpcd_deny.." "..bridge_dev
+    end
+-   config.execCmd("echo 'denyinterfaces "..dhcpcd_deny.."\\n' >> /etc/dhcpcd.conf")
++   config.execCmd("echo 'denyinterfaces "..dhcpcd_deny.."\\n' >> /opt/etc/dhcpcd.conf")
+    if network_conf.mode == "dhcp" then
+-      config.execCmd("echo 'interface "..bridge_dev.."\\n' >> /etc/dhcpcd.conf")
++      config.execCmd("echo 'interface "..bridge_dev.."\\n' >> /opt/etc/dhcpcd.conf")
+    end
+ 
+    -- Create wpa_supplicant configuration file
+--- a/scripts/lua/modules/notifications/endpoints/shell.lua
++++ b/scripts/lua/modules/notifications/endpoints/shell.lua
+@@ -65,7 +65,7 @@ end
+ -- ##############################################
+ 
+ function shell.runScript(alerts, settings)
+-   local where = { "/usr/share/ntopng/scripts/shell/", dirs.installdir.."/scripts/shell/" }
++   local where = { "/opt/share/ntopng/scripts/shell/", dirs.installdir.."/scripts/shell/" }
+    local fullpath = nil
+    local do_debug = false
+    local options = settings.options
+--- a/scripts/lua/modules/recording_utils.lua
++++ b/scripts/lua/modules/recording_utils.lua
+@@ -164,7 +164,7 @@ function recording_utils.getN2diskInfo()
+     end
+   end
+ 
+-  local license_file = io.open("/etc/n2disk.license", "r")
++  local license_file = io.open("/opt/etc/n2disk.license", "r")
+   if license_file ~= nil then
+     local license = license_file:read "*l"
+     info.license = license
+@@ -625,7 +625,7 @@ function recording_utils.createConfig(if
+ 
+   -- Ignored by systemd, required by init.d
+   f:write("--daemon\n")
+-  f:write("-P=/var/run/n2disk-"..ifname..".pid\n")
++  f:write("-P=/opt/var/run/n2disk-"..ifname..".pid\n")
+ 
+   f:close()
+ 
+--- a/scripts/lua/modules/system_config/system_config.lua
++++ b/scripts/lua/modules/system_config/system_config.lua
+@@ -20,7 +20,7 @@ local system_config = {}
+ local CONF_FILE = os_utils.fixPath(dirs.workingdir.."/system.config")
+ local CONF_FILE_EDITED = CONF_FILE..".edited"
+ local CONF_FILE_RELOAD = CONF_FILE..".reload" -- to force first start
+-local STOCK_CONF_FILE = "/etc/ntopng/system.config"
++local STOCK_CONF_FILE = "/opt/etc/ntopng/system.config"
+ 
+ -- ##############################################
+ 
+--- a/scripts/lua/modules/toasts/predicates_defined_toasts.lua
++++ b/scripts/lua/modules/toasts/predicates_defined_toasts.lua
+@@ -307,7 +307,7 @@ end
+ function predicates.temp_working_dir(toast, container)
+    if not IS_ADMIN or ntop.isWindows() then return end
+ 
+-    if (dirs.workingdir == "/var/tmp/ntopng") then
++    if (dirs.workingdir == "/opt/var/tmp/ntopng") then
+         table.insert(container, create_tempdir_toast_ui(toast))
+     end
+ end
+@@ -558,7 +558,7 @@ end
+ --- @param toast table The toast is the logic model defined in defined_toasts
+ --- @param container table Is the table where to put the new toast ui
+ function predicates.forced_community(toast, container)
+-   if(ntop.getInfo()["pro.forced_community"] and ntop.exists("/etc/ntopng.license")) then
++   if(ntop.getInfo()["pro.forced_community"] and ntop.exists("/opt/etc/ntopng.license")) then
+         table.insert(container, create_forced_community_toast(toast))
+     end
+ end
+--- a/scripts/lua/modules/tz_utils.lua
++++ b/scripts/lua/modules/tz_utils.lua
+@@ -21,7 +21,7 @@ end
+ 
+ function tz_utils.TimeZone()
+    -- currently not portable for WINDOWS
+-   local f = io.open(os_utils.fixPath("/etc/timezone"), "r")
++   local f = io.open(os_utils.fixPath("/opt/etc/localtime"), "r")
+    local tz
+    if f then
+       tz = f:read "*l"
+--- a/src/Geolocation.cpp
++++ b/src/Geolocation.cpp
+@@ -35,12 +35,12 @@ Geolocation::Geolocation() {
+   char docs_path[MAX_PATH];
+   const char *lookup_paths[] = {
+ #ifndef WIN32
+-    "/var/lib/GeoIP",                    // `geoipupdate` default install dir on Ubuntu 16,18 and Debian 10,9
+-    "/usr/share/GeoIP",                  // `geoipupdate` default install dir on Ubuntu 14 and Centos 7,8
++    "/opt/var/lib/GeoIP",                    // `geoipupdate` default install dir on Ubuntu 16,18 and Debian 10,9
++    "/opt/share/GeoIP",                  // `geoipupdate` default install dir on Ubuntu 14 and Centos 7,8
+ #if defined(__FreeBSD__)
+     "/usr/local/share/ntopng/httpdocs/geoip/",  // ntopng-data default install dir
+ #else
+-    "/usr/share/ntopng/httpdocs/geoip/",  // ntopng-data default install dir
++    "/opt/share/ntopng/httpdocs/geoip/",  // ntopng-data default install dir
+ #endif
+ #endif
+     docs_path
+--- a/src/PacketDumperTuntap.cpp
++++ b/src/PacketDumperTuntap.cpp
+@@ -85,7 +85,7 @@ int PacketDumperTuntap::openTap(char *de
+     return -1;
+   }
+   
+-  snprintf(buf, sizeof(buf), "/sbin/ifconfig %s up mtu %d",
++  snprintf(buf, sizeof(buf), "/opt/sbin/ifconfig %s up mtu %d",
+            ifr.ifr_name, DUMP_MTU);
+   rc = system(buf);
+ 

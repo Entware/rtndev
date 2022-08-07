@@ -1,0 +1,89 @@
+--- a/configure.ac.in
++++ b/configure.ac.in
+@@ -176,14 +176,14 @@ if test "${with_nedge+set}" = set; then
+   LIBS="${LIBS} -lnetfilter_queue -lnfnetlink -lnetfilter_conntrack"
+ fi
+ 
+-if test -d "/usr/local/include"; then
+-  CFLAGS="${CFLAGS} -I/usr/local/include"
+-  CPPFLAGS="${CPPFLAGS} -I/usr/local/include"
+-fi
+-
+-if test -d "/usr/local/lib"; then
+-  LIBS="${LIBS} -L/usr/local/lib"
+-fi
++#if test -d "/usr/local/include"; then
++  CFLAGS="${CFLAGS}"
++  CPPFLAGS="${CPPFLAGS}"
++#fi
++
++#if test -d "/usr/local/lib"; then
++  LIBS="${LIBS}"
++#fi
+ 
+ if test -d /opt/local/include; then :
+   CFLAGS="${CFLAGS} -I/opt/local/include"
+@@ -306,7 +306,7 @@ fi
+ pkg-config --exists libssl
+ if test "$?" -ne 1; then
+   AC_DEFINE_UNQUOTED(NO_SSL_DL, 1, [has openssl])
+-  SSL_INC="`pkg-config --cflags libssl` -I/usr/include/openssl"
++  SSL_INC="`pkg-config --cflags libssl`"
+   SSL_LIB="`pkg-config --libs libssl` -lssl -lcrypto"
+ else
+   dnl Workaround for MacOS Brew
+@@ -430,7 +430,7 @@ dnl> wget -O config.guess 'http://git.sa
+     OSNAME=`./config.guess`
+   fi
+ fi
+-AC_DEFINE_UNQUOTED(PACKAGE_OSNAME, "${OSNAME}", [OS name])
++AC_DEFINE_UNQUOTED(PACKAGE_OSNAME, "Entware", [OS name])
+ 
+ if test $MACHINE = "x86_64"; then
+   EXTN="amd64"
+@@ -444,7 +444,7 @@ DATE=`date +"%Y-%m-%d"`
+ 
+ pkg-config --exists hiredis
+ if test "$?" -ne 1; then
+-  HIREDIS_INC="`pkg-config --cflags hiredis` -I/usr/include/hiredis"
++  HIREDIS_INC="`pkg-config --cflags hiredis`"
+   if test $SYSTEM = "FreeBSD"; then
+      HIREDIS_LIB="/usr/local/lib/libhiredis.a"
+    else
+@@ -775,8 +775,8 @@ fi
+ 
+ PWD=${HERE}
+ AC_DEFINE_UNQUOTED(PACKAGE_RELEASE, "r$GIT_RELEASE", [GIT release of this package])
+-AC_DEFINE_UNQUOTED(PACKAGE_MACHINE, "$MACHINE", [Architecture of this host])
+-AC_DEFINE_UNQUOTED(PACKAGE_OS, "${OS}", [OS Name])
++AC_DEFINE_UNQUOTED(PACKAGE_MACHINE, "${ARCH}", [Architecture of this host])
++AC_DEFINE_UNQUOTED(PACKAGE_OS, "Linux", [OS Name])
+ AC_SUBST(PWD)
+ AC_SUBST(MACHINE)
+ AC_SUBST(SYSTEM)
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -32,7 +32,7 @@ MONGOOSE_INC=-I$(MONGOOSE_HOME)
+ LUA_PLATFORM=generic
+ LUA_HOME=${PWD}/third-party/lua-5.4.3
+ LUA_INC=-I$(LUA_HOME)/src
+-LUA_LIB=$(LUA_HOME)/src/liblua.a
++LUA_LIB=-llua5.3
+ 
+ ifeq ($(OS),Linux)
+ 	LUA_PLATFORM=linux
+@@ -148,14 +148,12 @@ test_alert_engine: $(OBJECTS_NO_MAIN) $(
+ 	$(CXX) $(CPPFLAGS) $(LDFLAGS) $(OBJECTS_NO_MAIN) -Wall $(LIBS) -o $@
+ 
+ $(LUA_LIB):
+-	$(MAKE) -C $(LUA_HOME) $(LUA_PLATFORM)
+ 
+ $(ZEROMQ_LIB):
+ 	cd $(ZEROMQ_HOME); ./configure --without-documentation --without-libsodium; $(MAKE)
+ 
+ # --disable-rrd_graph
+ $(LIBRRDTOOL_LIB):
+-	cd $(LIBRRDTOOL_HOME); ./configure --disable-libdbi --disable-libwrap --disable-rrdcgi --disable-libtool-lock --disable-nls --disable-rpath --disable-perl --disable-ruby --disable-lua --disable-tcl --disable-python --disable-dependency-tracking --disable-rrd_graph ; cd src; $(MAKE) librrd_th.la
+ 
+ hooks/.enabled:
+ 	git config core.hooksPath hooks || true

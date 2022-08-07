@@ -1,0 +1,51 @@
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -39,18 +39,18 @@ TODAY=`date +%y%m%d`
+ MAJOR_RELEASE="5"
+ MINOR_RELEASE="4"
+ SHORT_VERSION="$MAJOR_RELEASE.$MINOR_RELEASE"
+-VERSION="$SHORT_VERSION.$TODAY"
++VERSION="$SHORT_VERSION"
+ 
+-if test -d ".git"; then
+-GIT_TAG=`git rev-parse HEAD`
+-GIT_DATE=`date +%Y%m%d`
++#if test -d ".git"; then
++GIT_TAG="122a0829afd09ce10a8a9ea4b6e4d1781bd7ca77"
++GIT_DATE="20220719"
+ GIT_RELEASE="$GIT_TAG:$GIT_DATE"
+-GIT_BRANCH=`git rev-parse --abbrev-ref HEAD | sed "s/heads\///g"`
+-else
+-GIT_RELEASE="$VERSION"
+-GIT_DATE=`date`
+-GIT_BRANCH=""
+-fi
++GIT_BRANCH="5.4"
++#else
++#GIT_RELEASE="$VERSION"
++#GIT_DATE=`date`
++#GIT_BRANCH=""
++#fi
+ 
+ if test -d "pro"; then
+ PRO_GIT_RELEASE=`cd pro; git log --pretty=oneline | wc -l`
+--- a/configure.ac.in
++++ b/configure.ac.in
+@@ -65,7 +65,7 @@ NTOPNG_MINOR=`echo "${PACKAGE_VERSION}"
+ NTOPNG_PATCH=`echo "${PACKAGE_VERSION}" | cut -d . -f 3`
+ #NTOPNG_SHORT_VERSION="$NTOPNG_MAJOR.$NTOPNG_MINOR.$NTOPNG_PATCH"
+ NTOPNG_SHORT_VERSION="$NTOPNG_MAJOR.$NTOPNG_MINOR"
+-NTOPNG_VERSION="$NTOPNG_SHORT_VERSION.$TODAY"
++NTOPNG_VERSION="$NTOPNG_SHORT_VERSION"
+ 
+ MACHINE=`uname -m`
+ SYSTEM=`uname -s`
+@@ -403,7 +403,7 @@ else
+   AC_MSG_RESULT(not found)
+ fi
+ 
+-GIT_COMMITS=`git rev-list --all |wc -l | tr -d '[[:space:]]'`
++GIT_COMMITS=`echo @GIT_TAG@ | cut -b-8`
+ REVISION=${GIT_COMMITS}
+ AC_DEFINE_UNQUOTED(PACKAGE_REVISION, "${GIT_COMMITS}", [Package Revision])
+ 

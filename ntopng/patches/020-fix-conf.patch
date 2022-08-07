@@ -1,0 +1,20 @@
+--- a/packages/etc/ntopng/ntopng.conf
++++ b/packages/etc/ntopng/ntopng.conf
+@@ -7,7 +7,7 @@
+ #        Specifies the path where the PID (process ID) is saved. This option is ignored when
+ #        ntopng is controlled with systemd (e.g., service ntopng start).
+ #
+--G=/var/run/ntopng.pid
++-G=/opt/var/run/ntopng.pid
+ #
+ #       -e|--daemon
+ #        This  parameter  causes ntop to become a daemon, i.e. a task which runs in the background
+@@ -62,7 +62,7 @@
+ #       -d|--data-dir
+ #        Specifies the data directory (it must be writable by the user that is executing ntopng).
+ #
+-# -d=/var/lib/ntopng
++# -d=/opt/var/lib/ntopng
+ #
+ #       -q|--disable-autologout
+ #        Disable web interface logout for inactivity.
