@@ -1,17 +1,16 @@
 #
-# Copyright (C) 2017-2021 Entware
+# Copyright (C) 2017-2022 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
-# 4.4.2 requires 1.2.14 =< libtorrent-rasterbar < 2
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
-PKG_VERSION:=4.4.2
-PKG_REV:=ede7c8acbb79c1c6627fa03e8402b89f47711f70
+PKG_VERSION:=4.4.3.1
+PKG_REV:=6c546df70bbbb5602ddb91fbbd0e3762e75472c3
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -19,9 +18,9 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=52ff1f71f7ec27d14cfa1917c3f5ac8b361161dabff4fa888dab69ed191de313
+PKG_MIRROR_HASH:=e81586fd8218e66f6396e7c701033a4157aec643d56248b30ff0eff89e98774b
 
-PKG_LICENSE:=GPL-2.0+
+PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
 PKG_INSTALL:=1
