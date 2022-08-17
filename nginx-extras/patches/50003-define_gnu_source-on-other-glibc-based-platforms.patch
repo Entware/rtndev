@@ -7,8 +7,10 @@ Define _GNU_SOURCE not only on GNU/Hurd, but also other glibc-based
 platforms including GNU/kFreeBSD.
 
 modified by jan.mojzis@gmail.com
---- a/src/os/unix/ngx_posix_config.h
-+++ b/src/os/unix/ngx_posix_config.h
+Index: nginx/src/os/unix/ngx_posix_config.h
+===================================================================
+--- nginx.orig/src/os/unix/ngx_posix_config.h
++++ nginx/src/os/unix/ngx_posix_config.h
 @@ -21,10 +21,13 @@
  #endif
  

@@ -5,9 +5,9 @@
  $NGX_INCLUDE_AUTO_CONFIG_H
  
 +char object_code_block[] = {
-+       '\n', 'e', '4', 'V', 'A',
-+       '0', 'x', ('0' + sizeof($ngx_type)),
-+       'Y', '3', 'p', 'M', '\n'
++	'\n', 'e', '4', 'V', 'A',
++	'0', 'x', ('0' + sizeof($ngx_type)),
++	'Y', '3', 'p', 'M', '\n'
 +};
 +
  int main(void) {

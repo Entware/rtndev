@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2022 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -13,7 +13,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
 PKG_VERSION:=1.22.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
@@ -30,7 +30,7 @@ define Package/nginx-extras
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+libpam +libexpat +libopenssl +libexslt +libgd +liblua +libpcre2
+	DEPENDS:=+libpam +libopenssl +libexslt +libgd +libpcre2 +libmaxminddb +luajit
 	TITLE:=Nginx web server
 	URL:=http://nginx.org/
 	CONFLICTS:=nginx
@@ -54,9 +54,6 @@ define Build/Patch
 	)
 endef
 
-TARGET_CFLAGS += \
-	-I$(STAGING_DIR)/opt/include/libxml2 -Wno-error=parentheses
-
 ifeq ($(or $(CONFIG_GCC_USE_VERSION_7),$(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
 TARGET_CFLAGS += -Wno-error=implicit-fallthrough
 endif
@@ -65,16 +62,12 @@ ifeq ($(or $(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
 TARGET_CFLAGS += -Wno-error=cast-function-type
 endif
 
-TARGET_LDFLAGS += \
-	-lxml2
-
 define Build/Configure
 	( cd $(PKG_BUILD_DIR); \
+		LUAJIT_INC="$(STAGING_DIR)/opt/include/luajit-2.1" \
+		LUAJIT_LIB="$(STAGING_DIR)/opt/lib" \
+		LIBXML2_INC="$(STAGING_DIR)/opt/include/libxml2" \
 		./configure \
-			--crossbuild=Linux::$(ARCH) \
-			--with-cc="$(TARGET_CC)" \
-			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
-			--with-ld-opt="$(TARGET_LDFLAGS)" \
 			--prefix=/opt \
 			--conf-path=/opt/etc/nginx/nginx.conf \
 			--http-log-path=/opt/var/log/nginx/access.log \
@@ -87,6 +80,7 @@ define Build/Configure
 			--http-proxy-temp-path=/opt/var/lib/nginx/proxy \
 			--http-scgi-temp-path=/opt/var/lib/nginx/scgi \
 			--http-uwsgi-temp-path=/opt/var/lib/nginx/uwsgi \
+			--with-compat \
 			--with-debug \
 			--with-pcre-jit \
 			--with-http_ssl_module \
@@ -97,8 +91,10 @@ define Build/Configure
 			--with-http_dav_module \
 			--with-http_slice_module \
 			\
-			--without-http_upstream_zone_module \
-			--without-stream_upstream_zone_module \
+			--crossbuild=Linux::$(ARCH) \
+			--with-cc="$(TARGET_CC)" \
+			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
+			--with-ld-opt="$(TARGET_LDFLAGS)" \
 			\
 			--with-http_addition_module \
 			--with-http_flv_module \
@@ -114,6 +110,8 @@ define Build/Configure
 			--with-mail_ssl_module \
 			--with-stream=dynamic \
 			--with-stream_ssl_module \
+			--with-stream_ssl_preread_module \
+			\
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-headers-more-filter \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-auth-pam \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-cache-purge \
@@ -121,7 +119,9 @@ define Build/Configure
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-ndk \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-echo \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-fancyindex \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-geoip2 \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/nchan \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-lua \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/rtmp \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-uploadprogress \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-upstream-fair \
