@@ -13,7 +13,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
 PKG_VERSION:=1.22.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
@@ -30,7 +30,7 @@ define Package/nginx-extras
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+libpam +libopenssl +libexslt +libgd +libpcre2 +libmaxminddb +luajit
+	DEPENDS:=+libpam +libopenssl +libexslt +libgd +libmaxminddb +luajit +libpcre
 	TITLE:=Nginx web server
 	URL:=http://nginx.org/
 	CONFLICTS:=nginx
@@ -126,6 +126,8 @@ define Build/Configure
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-uploadprogress \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-upstream-fair \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-subs-filter \
+			\
+			--without-pcre2 \
 	)
 endef
 
