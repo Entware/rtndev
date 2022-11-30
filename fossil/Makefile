@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fossil
-PKG_VERSION:=2.19
+PKG_VERSION:=2.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-src-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/1e131febd3fbb028d00cab6d020214e8fe36be95daaf93237523c29c542e9a5f
-PKG_HASH:=4f135659ec9a3958a10eec98f79d4d3fc10edeae2605b4b38e0a58826800b490
+PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/210e89a0597f225f49722b096cf5563bf193e920e02a9bd38503a906deacd416
+PKG_HASH:=0892ea4faa573701ca285a3d4a2d203e8abbb022affe3b1be35658845e8de721
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-src-$(PKG_VERSION)
 
