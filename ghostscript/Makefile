@@ -5,17 +5,18 @@
 # See /LICENSE for more information.
 #
 # Based on https://github.com/FranciscoBorges/openwrt-printing-packages
+# This is the last release with old PDF implementation
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ghostscript
-PKG_VERSION:=9.56.1
+PKG_VERSION:=10.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs$(subst .,,$(PKG_VERSION))
-PKG_HASH:=1598b9a38659cce8448d42a73054b2f9cbfcc40a9b97eeec5f22d4d6cd1de8e6
+PKG_HASH:=a57764d70caf85e2fc0b0f59b83b92e25775631714dcdb97cc6e0cea414bb5a3
 
 PKG_BUILD_DEPENDS:=ghostscript/host
 PKG_FIXUP:=autoreconf

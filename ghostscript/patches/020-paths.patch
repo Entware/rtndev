@@ -63,7 +63,7 @@
    exit 1
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1789,12 +1789,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
+@@ -1788,12 +1788,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
          if test x$with_local_cups != xyes; then
              if test x"$CUPSCONFIG" = x""; then
                AC_PATH_TOOL(CUPSCONFIG,cups-config)
@@ -76,3 +76,20 @@
              else
  #             We were given a cups-config on the command line, assume the user intends to
  #             include cups, and make not finding a hard fail.
+@@ -2483,14 +2477,14 @@ PDF_MAK="\$(GLSRCDIR)\$(D)stub.mak"
+ PDFROMFS_MAK="\$(GLSRCDIR)\$(D)stub.mak"
+ 
+ if test x"$with_pdf" != x"no" ; then
+-
++ if test x"$build" != x"$host"; then
+   if test x"$JBIG2_DECODER" = x""; then
+       AC_MSG_ERROR([No JBIG2 decoder available, required for PDF support])
+   fi
+   if test x"$JPX_DECODER" = x""; then
+       AC_MSG_ERROR([No JPX/JPEG2000 decoder available, required for PDF support])
+   fi
+-
++ fi
+   if test -f $srcdir/pdf/pdf.mak; then
+     AC_ARG_WITH([pdf], AS_HELP_STRING([--with-pdf=NAME],
+         [name of the Ghostpdf executible (if the source is available, ignored otherwise) [[gpdf]]]),
