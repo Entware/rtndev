@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
-PKG_VERSION:=1.28.15
+PKG_VERSION:=1.28.16
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/$(PKG_VERSION)
-PKG_HASH:=a907ec769fbb72efbfbf9b540b250a08e33b6e373a8a7c343f9840fba4d0478b
+PKG_HASH:=3a400bfa751da2020775cd7d48d1647448551ff051f9345abc1df6357b199ac0
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -28,7 +28,8 @@ define Package/cups-filters
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libpoppler +qpdf +glib2 +libdbus +dejavu-fonts-ttf-DejaVuSans +dejavu-fonts-ttf-DejaVuSansMono
+	DEPENDS:=+cups +libpoppler +qpdf +glib2 +libdbus +libexif \
+	    +dejavu-fonts-ttf-DejaVuSans +dejavu-fonts-ttf-DejaVuSansMono
 	TITLE:=OpenPrinting CUPS filters
 	URL:=http://www.openprinting.org
 	MAINTAINER:=Entware team, https://entware.net
