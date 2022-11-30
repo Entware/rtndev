@@ -1,8 +1,8 @@
 --- a/libgrive/CMakeLists.txt
 +++ b/libgrive/CMakeLists.txt
-@@ -5,6 +5,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
- find_package(LibGcrypt REQUIRED)
+@@ -6,6 +6,9 @@ find_package(LibGcrypt REQUIRED)
  find_package(CURL REQUIRED)
+ find_package(Backtrace)
  find_package(Boost 1.40.0 COMPONENTS program_options filesystem unit_test_framework regex system REQUIRED)
 +if(Boost_FOUND)
 +    include_directories(${Boost_INCLUDE_DIRS}) 
