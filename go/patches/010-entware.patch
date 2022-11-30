@@ -18,7 +18,7 @@
  	"/system/etc/security/cacerts", // Android
 --- a/src/net/conf.go
 +++ b/src/net/conf.go
-@@ -95,7 +95,7 @@ func initConfVal() {
+@@ -113,7 +113,7 @@ func initConfVal() {
  	}
  
  	if runtime.GOOS != "openbsd" {
@@ -29,15 +29,15 @@
  	confVal.resolv = dnsReadConfig("/etc/resolv.conf")
 --- a/src/time/zoneinfo_unix.go
 +++ b/src/time/zoneinfo_unix.go
-@@ -20,6 +20,7 @@ import (
+@@ -19,6 +19,7 @@ import (
  // /usr/share/lib/zoneinfo, IRIX 6 has /usr/lib/locale/TZ.
- var zoneSources = []string{
+ var platformZoneSources = []string{
  	"/usr/share/zoneinfo/",
 +	"/opt/share/zoneinfo/",
  	"/usr/share/lib/zoneinfo/",
  	"/usr/lib/locale/TZ/",
- 	runtime.GOROOT() + "/lib/time/zoneinfo.zip",
-@@ -36,7 +37,7 @@ func initLocal() {
+ }
+@@ -34,7 +35,7 @@ func initLocal() {
  	tz, ok := syscall.Getenv("TZ")
  	switch {
  	case !ok:
