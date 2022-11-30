@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=crawl
-PKG_VERSION:=0.28.0
-PKG_RELEASE:=2
+PKG_VERSION:=0.29.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/crawl/crawl/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=287f35476d20bbe8aaa3e663140704462b4e304a4e1ed5c2b5da1d273dd1f383
+PKG_HASH:=e8ff1d09718ab3cbff6bac31651185b584c9eea2c9b6f42f0796127ca5599997
 
 PKG_BUILD_DEPENDS:=python-yaml
 
