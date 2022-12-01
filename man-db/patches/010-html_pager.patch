@@ -1,6 +1,6 @@
 --- a/src/man.c
 +++ b/src/man.c
-@@ -250,8 +250,8 @@ static struct timespec man_modtime;	/* m
+@@ -248,8 +248,8 @@ static struct timespec man_modtime;	/* m
  static bool ditroff;
  static const char *gxditview;
  static bool htmlout;
