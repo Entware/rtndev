@@ -10,22 +10,23 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qpdf
-PKG_VERSION:=10.6.3
+PKG_VERSION:=11.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/qpdf/qpdf/releases/download/release-qpdf-$(PKG_VERSION)
-PKG_HASH:=e8fc23b2a584ea68c963a897515d3eb3129186741dd19d13c86d31fa33493811
+PKG_SOURCE_URL:=https://github.com/qpdf/qpdf/releases/download/v$(PKG_VERSION)
+PKG_HASH:=fbd2d75050933487929dbbe1b5c50a238487194bc7263c277d6e49abb90ab7f2
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/qpdf
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libjpeg +libatomic +zlib +libstdcpp
+	DEPENDS:=+libjpeg +libgnutls +zlib +libstdcpp
 	TITLE:=PDF transformations utility
 	URL:=http://qpdf.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net
@@ -35,13 +36,10 @@ define Package/qpdf/description
  QPDF is a command-line program for transformations on PDF files.
 endef
 
-CONFIGURE_ARGS += \
-	--disable-implicit-crypto \
-	--enable-crypto-native \
-	--with-random=/dev/urandom
-
-CONFIGURE_VARS += \
-	LIBS=-latomic
+CMAKE_OPTIONS += \
+	-DUSE_IMPLICIT_CRYPTO=0 \
+	-DREQUIRE_CRYPTO_GNUTLS=1 \
+	-DRANDOM_DEVICE=/dev/urandom
 
 define Package/qpdf/install
 	$(INSTALL_DIR) $(1)/opt
