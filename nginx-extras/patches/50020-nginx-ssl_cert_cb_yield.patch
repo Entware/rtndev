@@ -1,0 +1,40 @@
+Description: SSL: handled SSL_CTX_set_cert_cb() callback yielding.
+Author: Yichun Zhang <agentzh@openresty.org>
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=884434
+Origin: https://raw.githubusercontent.com/openresty/openresty/v1.11.2.2/patches/nginx-1.11.2-ssl_cert_cb_yield.patch
+Last-Update: 2016-01-02
+
+OpenSSL 1.0.2+ introduces SSL_CTX_set_cert_cb() to allow custom
+callbacks to serve the SSL certificiates and private keys dynamically
+and lazily. The callbacks may yield for nonblocking I/O or sleeping.
+Here we added support for such usage in NGINX 3rd-party modules
+(like ngx_lua) in NGINX's event handlers for downstream SSL
+connections.
+
+diff -r 78b4e10b4367 -r 449f0461859c src/event/ngx_event_openssl.c
+--- a/src/event/ngx_event_openssl.c	Thu Dec 17 16:39:15 2015 +0300
++++ b/src/event/ngx_event_openssl.c	Sat Jan 02 11:14:44 2016 -0800
+@@ -1210,6 +1210,23 @@
+         return NGX_AGAIN;
+     }
+ 
++#if OPENSSL_VERSION_NUMBER >= 0x10002000L
++    if (sslerr == SSL_ERROR_WANT_X509_LOOKUP) {
++        c->read->handler = ngx_ssl_handshake_handler;
++        c->write->handler = ngx_ssl_handshake_handler;
++
++        if (ngx_handle_read_event(c->read, 0) != NGX_OK) {
++            return NGX_ERROR;
++        }
++
++        if (ngx_handle_write_event(c->write, 0) != NGX_OK) {
++            return NGX_ERROR;
++        }
++
++        return NGX_AGAIN;
++    }
++#endif
++
+     err = (sslerr == SSL_ERROR_SYSCALL) ? ngx_errno : 0;
+ 
+     c->ssl->no_wait_shutdown = 1;

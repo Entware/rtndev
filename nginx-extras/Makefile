@@ -12,12 +12,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
-PKG_VERSION:=1.22.0
-PKG_RELEASE:=3
+PKG_VERSION:=1.22.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
-PKG_HASH:=b33d569a6f11a01433a57ce17e83935e953ad4dc77cdd4d40f896c88ac26eb53
+PKG_HASH:=9ebb333a9e82b952acd3e2b4aeb1d4ff6406f72491bab6cd9fe69f0dea737f31
 
 PKG_INSTALL:=1
 
