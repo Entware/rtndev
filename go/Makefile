@@ -4,6 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
@@ -14,23 +15,15 @@ PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
 PKG_HASH:=18ac263e39210bcf68d85f4370e97fb1734166995a1f63fb38b4f6e07d90d212
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
-
-OS=$(shell uname | tr 'A-Z' 'a-z')
-bintype:=$(shell uname -m | sed \
-	-e 's/i[3-9]86/386/' \
-	-e 's/x86_64/amd64/' \
-)
+BINTYPE:=$(shell uname -m | sed 's/i[3-9]86/386/;s/x86_64/amd64/')
 
 # Strip is not recommended for go binaries. It may make binaries unusable
 RSTRIP:="/bin/true"
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/golang.mk
 
-ifeq ($(BUILD_VARIANT),nohf)
-GOARM=GOARM=5
-endif
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/go/Default
 	SECTION:=lang
@@ -52,17 +45,23 @@ define Package/go_nohf
 endef
 
 define Package/go/description
- Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+ Go is an open source programming language that makes it
+ easy to build simple, reliable, and efficient software.
 endef
 
 Package/go_nohf/description=$(Package/go/description)
 
+define Build/Prepare
+	$(call Build/Prepare/Default)
+endef
+
 define Build/Compile
 	( \
 		cd $(PKG_BUILD_DIR)/src; \
-		CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) $(GOARM) $(GOMIPS) GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go ./make.bash --no-clean ; \
+		$(GO_VARS) GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go \
+		./make.bash -no-clean=true; \
 	)
-	if [ -d $(PKG_BUILD_DIR)/bin/linux_$(GOARCH) ]; then \
+	if [ -d "$(PKG_BUILD_DIR)/bin/linux_$(GOARCH)" ]; then \
 		rm $(PKG_BUILD_DIR)/bin/go; \
 		rm $(PKG_BUILD_DIR)/bin/gofmt; \
 		mv $(PKG_BUILD_DIR)/bin/linux_$(GOARCH)/* $(PKG_BUILD_DIR)/bin/; \
@@ -70,9 +69,22 @@ define Build/Compile
 	fi
 	rm -rf $(PKG_BUILD_DIR)/pkg/bootstrap
 	rm -rf $(PKG_BUILD_DIR)/pkg/obj
-	[ "$(bintype)" == "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/linux_$(bintype)
-	[ "$(bintype)" == "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/tool/linux_$(bintype)
+	[ "$(BINTYPE)" == "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/linux_$(BINTYPE)
+	[ "$(BINTYPE)" == "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/tool/linux_$(BINTYPE)
 endef
+
+define Package/go/install
+	$(INSTALL_DIR) $(1)/opt/bin/go
+	$(CP) $(PKG_BUILD_DIR)/{api,bin,lib,misc,pkg,test,doc,src} $(1)/opt/bin/go
+	# Entware specific: fix exec path in scripts
+	$(FIND) $(1)/opt/bin/go -type f | $(XARGS) $(SED) \
+		's,^#!.*bash,#!/opt/bin/bash,;s,^#!.*perl,#!/opt/bin/perl,'
+	$(SED) 's,$(STAGING_DIR_HOST),/opt,' \
+		$(1)/opt/bin/go/src/cmd/cgo/zdefaultcc.go \
+		$(1)/opt/bin/go/src/cmd/go/internal/cfg/zdefaultcc.go
+endef
+
+Package/go_nohf/install=$(Package/go/install)
 
 define Package/go/postinst
 #!/bin/sh
@@ -81,16 +93,6 @@ echo "Please set GOROOT=/opt/bin/go environment variable to use GO compiler"
 endef
 
 Package/go_nohf/postinst=$(Package/go/postinst)
-
-define Package/go/install
-	$(INSTALL_DIR) $(1)/opt/bin/go
-	$(CP) $(PKG_BUILD_DIR)/{api,bin,lib,misc,pkg,test,doc,src} $(1)/opt/bin/go
-	# Entware specific: fix exec path in scripts
-	$(FIND) $(1)/opt/bin/go -type f | $(XARGS) $(SED) \
-		's,^#!.*bash,#!/opt/bin/bash,;s,^#!.*perl,#!/opt/bin/perl,'
-endef
-
-Package/go_nohf/install=$(Package/go/install)
 
 $(eval $(call BuildPackage,go))
 $(eval $(call BuildPackage,go_nohf))
