@@ -19,6 +19,8 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=9b2684187ef67fb55bb2ed76a968e15ed70a2aa4de39460e6c69b66b55e14cfa
 
+CMAKE_BINARY_SUBDIR:=openwrt-build
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
