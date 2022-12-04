@@ -42,6 +42,9 @@ by an executed process and the signals received by that process. It
 can also intercept and print the system calls executed by the program.
 endef
 
+CONFIGURE_ARGS += \
+	--with-libunwind=no
+
 CONFIGURE_VARS += \
 	ac_cv_lib_selinux_security_get_boolean_active=no
 
