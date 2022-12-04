@@ -40,8 +40,8 @@ PYTHON3_PKG_SETUP_ARGS:=$(filter-out --single-version-externally-managed,$(PYTHO
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/opt/{lib,sbin}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/* $(1)/opt/sbin
-	$(SED) 's!/usr/bin/python!/opt/bin/python!' $(1)/opt/sbin/iotop
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/sbin
+	$(SED) 's!/.*/python!/opt/bin/python!' $(1)/opt/sbin/iotop
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/* $(1)/opt/lib
 endef
 
