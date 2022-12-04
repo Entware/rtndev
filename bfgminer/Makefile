@@ -15,7 +15,6 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
 PKG_SOURCE_URL:=http://bfgminer.org/files/$(PKG_VERSION)
 PKG_HASH:=67e716b04e0bebb311d6e805e1e1fbabca2187a7d9fb05e38e1f8447d6cb72ac
 
-PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
