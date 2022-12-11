@@ -6,6 +6,6 @@ ARGS="--webui-port=9080 --profile=/opt/etc --configuration=entware -d"
 PREARGS=""
 DESC=$PROCS
 PATH=/opt/sbin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
+export LC_ALL=en_US.UTF-8
 
 . /opt/etc/init.d/rc.func
