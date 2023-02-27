@@ -1,0 +1,17 @@
+--- a/buckets/ssl_buckets.c
++++ b/buckets/ssl_buckets.c
+@@ -1325,9 +1325,14 @@ static int ssl_need_client_cert(SSL *ssl
+                 return 0;
+             }
+             else {
++#if OPENSSL_VERSION_NUMBER < 0x30000000L
+                 printf("OpenSSL cert error: %d %d %d\n", ERR_GET_LIB(err),
+                        ERR_GET_FUNC(err),
+                        ERR_GET_REASON(err));
++#else
++                printf("OpenSSL cert error: %d %d\n", ERR_GET_LIB(err),
++                       ERR_GET_REASON(err));
++#endif
+                 PKCS12_free(p12);
+                 bio_meth_free(biom);
+             }
