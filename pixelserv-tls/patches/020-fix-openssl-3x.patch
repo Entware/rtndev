@@ -1,0 +1,19 @@
+--- a/pixelserv.c
++++ b/pixelserv.c
+@@ -820,10 +820,16 @@ skip_ssl_accept:
+                     break;
+                   /* fall through */
+               default:
++#if OPENSSL_VERSION_NUMBER < 0x30000000L
+                   log_msg(LGG_WARNING, "handshake failed: client %s:%s server %s. Lib(%d) Func(%d) Reason(%d)",
+                       ip_buf, port_buf, t->servername,
+                           ERR_GET_LIB(ERR_peek_last_error()), ERR_GET_FUNC(ERR_peek_last_error()),
+                               ERR_GET_REASON(ERR_peek_last_error()));
++#else
++                  log_msg(LGG_WARNING, "handshake failed: client %s:%s server %s. Lib(%d) Reason(%d)",
++                      ip_buf, port_buf, t->servername,
++                          ERR_GET_LIB(ERR_peek_last_error()), ERR_GET_REASON(ERR_peek_last_error()));
++#endif
+           }
+           break;
+         case SSL_ERROR_SYSCALL:
