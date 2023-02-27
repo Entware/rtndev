@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bip
 PKG_VERSION:=0.9.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://projects.duckcorp.org/attachments/download/103
@@ -39,6 +39,9 @@ endef
 define Package/bip/conffiles
 /opt/etc/bip.conf
 endef
+
+# Allow compiling with OpenSSL 3.0
+TARGET_CFLAGS += -Wno-error=deprecated-declarations
 
 define Package/bip/install
 	$(INSTALL_DIR) $(1)/opt/bin
