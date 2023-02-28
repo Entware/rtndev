@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=sg3_utils
 PKG_VERSION:=1.44
 PKG_REV:=ed2e1216453184d7888122a32a6c1e58ebc6a2c6
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -49,7 +49,7 @@ define Package/sg3_utils/install
 	$(SED) 's|/bin/bash|/bin/sh|g' \
 		$(1)/opt/bin/rescan-scsi-bus.sh
 	$(SED) 's|/bin/bash|/bin/sh|g' \
-		$(1)/opt/bin/scsi_{logging_level,mandat,readcap,ready,satl,start,stop}
+		$(1)/opt/bin/scsi_{logging_level,mandat,readcap,ready,satl,start,stop,temperature}
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib*.so* $(1)/opt/lib
 endef
 
