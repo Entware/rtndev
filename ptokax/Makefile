@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ptokax
-PKG_VERSION:=0.5.2.2
-PKG_RELEASE:=2
+PKG_VERSION:=0.5.3.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_VERSION)-nix-src.tgz
 PKG_SOURCE_URL:=http://www.ptokax.org/files
-PKG_HASH:=ed65b63d085fb54df6695fb9d34eded4028059de836b71f257c6126bf0c7833b
+PKG_HASH:=cb5a4666142cfe4af7c20aec8cee5f77c4f8cf32c09dd51f34d905032ae65840
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -35,8 +35,8 @@ define Package/ptokax/description
  for Neo-Modus Direct Connect Peer-To-Peer sharing network.
 endef
 
-TARGET_CFLAGS += -DTIXML_USE_STL -fpermissive
-TARGET_LDFLAGS += -ldl -liconv
+TARGET_CXXFLAGS += -DTIXML_USE_STL -fpermissive
+TARGET_LDFLAGS += $(if $(ICONV_FULL),-liconv)
 
 define Build/Compile
 	$(MAKE_VARS) $(MAKE) -C $(PKG_BUILD_DIR)/skein $(MAKE_FLAGS)
