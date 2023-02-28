@@ -9,8 +9,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
-PKG_VERSION:=4.4.5
-PKG_REV:=f9811ec3b0f727562c6fa5376e8a43ca8c8c8fa3
+PKG_VERSION:=4.5.2
+PKG_REV:=97853f31f25bd427b7f821f16c8b1d7131842db8
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -18,7 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=874d7b6840917f75f97be0325958aaa52f39c6411398d82e11d2f2c377275955
+PKG_MIRROR_HASH:=6a1a0e88715a05ad51e51849e3bdd18930747a9ecf9b24ca918442f10a978920
 
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
@@ -48,7 +48,7 @@ define Package/qbittorrent/description
  well as many features.
 endef
 
-TARGET_LDFLAGS += $(if $(INTL_FULL),-liconv) $(if $(INTL_FULL),-lintl)
+TARGET_LDFLAGS += $(TOOLCHAIN_DIR)/lib/libstdc++fs.a $(if $(INTL_FULL),-liconv) $(if $(INTL_FULL),-lintl)
 
 CONFIGURE_VARS += \
 	QT_QMAKE="$(TOOLCHAIN_DIR)/bin" \
