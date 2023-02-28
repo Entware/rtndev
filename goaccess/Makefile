@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goaccess
-PKG_VERSION:=1.6.5
+PKG_VERSION:=1.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://tar.goaccess.io
-PKG_HASH:=355edbf8af2c14879fa4b90c68adcde340eb4efbc443d27de4f8a03a01002df9
+PKG_HASH:=a7549cb5bc78e99fb6c4f75aa53bed98403156123c08eeedef7831dafe87e676
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -24,8 +24,8 @@ define Package/goaccess
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=web log analyzer
-	DEPENDS:=+libncursesw +libpthread
-	URL:=$(PKG_SOURCE_URL)
+	DEPENDS:=+libncursesw
+	URL:=https://goaccess.io/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
