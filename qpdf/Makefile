@@ -10,15 +10,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qpdf
-PKG_VERSION:=11.2.0
+PKG_VERSION:=11.3.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/qpdf/qpdf/releases/download/v$(PKG_VERSION)
-PKG_HASH:=fbd2d75050933487929dbbe1b5c50a238487194bc7263c277d6e49abb90ab7f2
+PKG_HASH:=547cee67de77b5c4ef4917e57d2db9c848cfe3aa950361f68d36367a3a03936e
 
-PKG_FIXUP:=autoreconf
-PKG_INSTALL:=1
+CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -46,14 +45,6 @@ define Package/qpdf/install
 	$(CP) $(PKG_INSTALL_DIR)/opt/bin $(1)/opt
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libqpdf.so* $(1)/opt/lib
-endef
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/opt/include/qpdf $(1)/opt/include
-	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libqpdf.so* $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/libqpdf.pc $(1)/opt/lib/pkgconfig
 endef
 
 $(eval $(call BuildPackage,qpdf))
