@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.19.3
+PKG_VERSION:=1.20.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=18ac263e39210bcf68d85f4370e97fb1734166995a1f63fb38b4f6e07d90d212
+PKG_HASH:=b5c1a3af52c385a6d1c76aed5361cf26459023980d0320de7658bae3915831a2
 
 BINTYPE:=$(shell uname -m | sed 's/i[3-9]86/386/;s/x86_64/amd64/')
 
@@ -59,7 +59,7 @@ define Build/Compile
 	( \
 		cd $(PKG_BUILD_DIR)/src; \
 		$(GO_VARS) GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go \
-		./make.bash -no-clean=true; \
+		./make.bash --no-banner; \
 	)
 	if [ -d "$(PKG_BUILD_DIR)/bin/linux_$(GOARCH)" ]; then \
 		rm $(PKG_BUILD_DIR)/bin/go; \
