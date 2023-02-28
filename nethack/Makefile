@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nethack
-PKG_VERSION:=3.6.6
+PKG_VERSION:=3.6.7
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-366-src.tgz
+PKG_SOURCE:=$(PKG_NAME)-367-src.tgz
 PKG_SOURCE_URL:=https://nethack.org/download/$(PKG_VERSION)
-PKG_HASH:=cfde0c3ab6dd7c22ae82e1e5a59ab80152304eb23fb06e3129439271e5643ed2
+PKG_HASH:=98cf67df6debf9668a61745aa84c09bcab362e5d33f5b944ec5155d44d2aacb2
 
 PKG_INSTALL:=1
 PKG_BUILD_DEPENDS:=nethack/host
