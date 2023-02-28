@@ -87,7 +87,7 @@
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -650,12 +650,12 @@ static void cs_dumpstack(int32_t sig)
+@@ -652,12 +652,12 @@ static void cs_dumpstack(int32_t sig)
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -102,7 +102,7 @@
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1663,15 +1663,15 @@ static void find_conf_dir(void)
+@@ -1665,15 +1665,15 @@ static void find_conf_dir(void)
  {
  	static const char* confdirs[] =
  		{
