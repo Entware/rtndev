@@ -57,7 +57,7 @@ CONFIGURE_VARS += \
 	POPPLER_CFLAGS=-I$(STAGING_DIR)/opt/include/poppler \
 	POPPLER_LIBS=-L$(STAGING_DIR)/opt/lib
 
-TARGET_CXXFLAGS += -std=c++0x
+TARGET_CXXFLAGS += -std=c++17
 TARGET_LDFLAGS += -liconv -lqpdf -lpoppler-cpp
 
 define Package/cups-filters/conffiles
