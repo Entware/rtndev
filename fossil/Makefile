@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fossil
-PKG_VERSION:=2.20
+PKG_VERSION:=2.21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-src-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/210e89a0597f225f49722b096cf5563bf193e920e02a9bd38503a906deacd416
-PKG_HASH:=0892ea4faa573701ca285a3d4a2d203e8abbb022affe3b1be35658845e8de721
+PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/f9aa474081f0618c76f4c2f4d6f0277a3fd480aa185d7da0b8b61b00fad1aa78
+PKG_HASH:=195faf0b20c101834a809979d0a9cdf04a0dcbae1fdabae792c9db900b73bda0
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-src-$(PKG_VERSION)
 
@@ -43,6 +43,8 @@ endef
 define Build/Configure
 endef
 
+TCL_VERSION:=$(shell grep ^TCL_MAJOR_VERSION ../../packages/lang/tcl/Makefile | cut -d= -f2)
+
 TARGET_CFLAGS += \
 	-DFOSSIL_ENABLE_SSL \
 	-DFOSSIL_ENABLE_TCL \
@@ -51,7 +53,7 @@ TARGET_CFLAGS += \
 	-DFOSSIL_ENABLE_JSON \
 	-DUSE_SYSTEM_SQLITE
 
-TARGET_LDFLAGS += -lsqlite3 -lm -ltcl8.5
+TARGET_LDFLAGS += -lsqlite3 -lm -ltcl$(TCL_VERSION)
 
 define Package/fossil/install
 	$(INSTALL_DIR) $(1)/opt/bin
