@@ -5,17 +5,16 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2009
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cadaver
-PKG_VERSION:=0.23.3
+PKG_VERSION:=0.24
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.webdav.org/cadaver
-PKG_HASH:=fd4ce68a3230ba459a92bcb747fc6afa91e46d803c1d5ffe964b661793c13fca
+PKG_SOURCE_URL:=https://notroj.github.io/cadaver
+PKG_HASH:=46cff2f3ebd32cd32836812ca47bcc75353fc2be757f093da88c0dd8f10fd5f6
 
 PKG_INSTALL:=1
 
@@ -26,9 +25,9 @@ define Package/cadaver
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libncurses +libexpat +libneon +libopenssl +libreadline
+	DEPENDS:=+libexpat +libncurses +libneon +libopenssl +libreadline +zlib
 	TITLE:=Command-line WebDAV client
-	URL:=http://www.webdav.org/cadaver/
+	URL:=https://notroj.github.io/cadaver/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
@@ -39,11 +38,9 @@ define Package/cadaver/description
 endef
 
 CONFIGURE_ARGS += \
-	--prefix=/opt \
-	--with-libs=$(STAGING_DIR)/opt \
-	--with-ssl=openssl \
 	--disable-nls \
-	--without-gssapi \
+	--with-ssl=openssl \
+	--without-gssapi
 
 TARGET_CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
 
