@@ -8,21 +8,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=3.10
-PKG_RELEASE:=2
-PKG_REV:=f100be61ce9dda385e4854cc680016d127fcdd60
+PKG_VERSION:=4.0.2
+PKG_RELEASE:=1
+PKG_REV:=172d0f0d52af307a632803db17e6b612368acd93
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=e53a83d122ad8e2043a6b1ead006604aa4952ebcb2290919889d56fdaa6125f8
+PKG_MIRROR_HASH:=8a326e1b1700a6da9cc83e67f296b10be43074b2c86490ea1b81a3713150ae70
 
 include $(INCLUDE_DIR)/package.mk
 
 RUTORRENT_PLUGINS := \
-	autotools check_port chunks _cloudflare cookies cpuload create data datadir \
+	autotools bulk_magnet check_port chunks _cloudflare cookies cpuload create data datadir \
 	diskspace edit erasedata extratio extsearch feeds filedrop geoip \
 	_getdir history httprpc ipad loginmgr lookat mediainfo _noty _noty2 \
 	ratio retrackers rpc rss rssurlrewrite rutracker_check scheduler \
