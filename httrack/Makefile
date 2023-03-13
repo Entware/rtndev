@@ -44,6 +44,8 @@ endef
 CONFIGURE_ARGS += \
 	--with-zlib="$(STAGING_DIR)/opt"
 
+TARGET_LDFLAGS += -lssp
+
 define Package/httrack/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) \
