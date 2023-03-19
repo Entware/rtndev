@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=qbittorrent
 PKG_VERSION:=4.5.2
 PKG_REV:=97853f31f25bd427b7f821f16c8b1d7131842db8
-PKG_RELEASE=1
+PKG_RELEASE=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -48,11 +48,7 @@ define Package/qbittorrent/description
  well as many features.
 endef
 
-TARGET_LDFLAGS += $(TOOLCHAIN_DIR)/lib/libstdc++fs.a $(if $(INTL_FULL),-liconv) $(if $(INTL_FULL),-lintl)
-
-CONFIGURE_VARS += \
-	QT_QMAKE="$(TOOLCHAIN_DIR)/bin" \
-	PKG_CONFIG_PATH="$(TOOLCHAIN_DIR)/lib/pkgconfig"
+TARGET_LDFLAGS += $(TOOLCHAIN_DIR)/lib/libstdc++fs.a $(if $(ICONV_FULL),-liconv) $(if $(INTL_FULL),-lintl)
 
 CONFIGURE_ARGS += \
 	--disable-gui \
