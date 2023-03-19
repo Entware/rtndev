@@ -1,0 +1,133 @@
+--- a/qtbase/src/corelib/configure.json
++++ b/qtbase/src/corelib/configure.json
+@@ -58,7 +58,8 @@
+                     "size_t inbytes, outbytes;",
+                     "iconv(x, &inp, &inbytes, &outp, &outbytes);",
+                     "iconv_close(x);"
+-                ]
++                ],
++                "qmake": "LIBS += -L@ICONV_PREFIX@/lib -liconv"
+             },
+             "headers": "iconv.h",
+             "sources": [
+@@ -72,12 +73,13 @@
+             "test": {
+                 "main": [
+                     "iconv_t x = iconv_open(\"\", \"\");",
+-                    "const char *inp;",
++                    "char *inp;",
+                     "char *outp;",
+                     "size_t inbytes, outbytes;",
+                     "iconv(x, &inp, &inbytes, &outp, &outbytes);",
+                     "iconv_close(x);"
+-                ]
++                ],
++                "qmake": "LIBS += -L@ICONV_PREFIX@/lib -liconv"
+             },
+             "headers": "iconv.h",
+             "sources": [
+--- a/qtdeclarative/tools/qml/qml.pro
++++ b/qtdeclarative/tools/qml/qml.pro
+@@ -22,6 +22,10 @@ mac {
+     ICON = resources/qml.icns
+ }
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ qtConfig(qml-debug): DEFINES += QT_QML_DEBUG_NO_WARNING
+ 
+ load(qt_tool)
+--- a/qtdeclarative/tools/qmlpreview/qmlpreview.pro
++++ b/qtdeclarative/tools/qmlpreview/qmlpreview.pro
+@@ -10,6 +10,10 @@ HEADERS += \
+     qmlpreviewapplication.h \
+     qmlpreviewfilesystemwatcher.h
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ QMAKE_TARGET_DESCRIPTION = QML Preview
+ 
+ load(qt_tool)
+--- a/qtdeclarative/tools/qmlscene/qmlscene.pro
++++ b/qtdeclarative/tools/qmlscene/qmlscene.pro
+@@ -7,6 +7,10 @@ SOURCES += main.cpp
+ DEFINES += QML_RUNTIME_TESTING
+ qtConfig(qml-debug): DEFINES += QT_QML_DEBUG_NO_WARNING
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ QMAKE_TARGET_DESCRIPTION = QML Scene Viewer
+ 
+ load(qt_tool)
+--- a/qtdeclarative/tools/qmltime/qmltime.pro
++++ b/qtdeclarative/tools/qmltime/qmltime.pro
+@@ -12,4 +12,8 @@ QMAKE_TARGET_DESCRIPTION = QML Time
+ SOURCES += qmltime.cpp
+ HEADERS += qmltime.h
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ load(qt_tool)
+--- a/qtserialbus/.qmake.conf
++++ b/qtserialbus/.qmake.conf
+@@ -2,4 +2,8 @@ load(qt_build_config)
+ CONFIG += warning_clean
+ DEFINES += QT_NO_FOREACH
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ MODULE_VERSION = 5.15.8
+--- a/qttools/src/qtdiag/qtdiag.pro
++++ b/qttools/src/qtdiag/qtdiag.pro
+@@ -15,4 +15,8 @@ qtHaveModule(network) {
+ SOURCES += main.cpp qtdiag.cpp
+ HEADERS += qtdiag.h
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ load(qt_app)
+--- a/qttools/src/qtpaths/qtpaths.pro
++++ b/qttools/src/qtpaths/qtpaths.pro
+@@ -6,4 +6,8 @@ SOURCES = qtpaths.cpp
+ QT = core
+ win32:CONFIG += console
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ load(qt_app)
+--- a/qttools/src/qtplugininfo/qtplugininfo.pro
++++ b/qttools/src/qtplugininfo/qtplugininfo.pro
+@@ -6,4 +6,8 @@ SOURCES = qtplugininfo.cpp
+ QT = core
+ CONFIG += console
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ load(qt_app)
+--- a/qtxmlpatterns/.qmake.conf
++++ b/qtxmlpatterns/.qmake.conf
+@@ -2,4 +2,8 @@ load(qt_build_config)
+ CONFIG += warning_clean
+ DEFINES += QT_NO_FOREACH
+ 
++LIBS += \
++    -lintl \
++    -liconv
++
+ MODULE_VERSION = 5.15.8

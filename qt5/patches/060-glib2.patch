@@ -1,0 +1,12 @@
+--- a/qtbase/src/corelib/configure.json
++++ b/qtbase/src/corelib/configure.json
+@@ -41,7 +41,8 @@
+                     "(void) g_main_context_default();",
+                     "(void) g_source_new(0, 0);",
+                     "g_source_add_poll(NULL, NULL);"
+-                ]
++                ],
++                "qmake": "LIBS += -L@INTL_PREFIX@/lib -lintl -L@ICONV_PREFIX@/lib -liconv"
+             },
+             "headers": "glib.h",
+             "sources": [

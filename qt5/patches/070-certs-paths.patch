@@ -1,0 +1,12 @@
+--- a/qtbase/src/network/ssl/qsslsocket.cpp
++++ b/qtbase/src/network/ssl/qsslsocket.cpp
+@@ -2950,7 +2950,8 @@ bool QSslSocketPrivate::rootCertOnDemand
+ */
+ QList<QByteArray> QSslSocketPrivate::unixRootCertDirectories()
+ {
+-    return QList<QByteArray>() <<  "/etc/ssl/certs/" // (K)ubuntu, OpenSUSE, Mandriva ...
++    return QList<QByteArray>() << "/opt/etc/ssl/certs/" // Entware
++                               << "/etc/ssl/certs/" // (K)ubuntu, OpenSUSE, Mandriva ...
+                                << "/usr/lib/ssl/certs/" // Gentoo, Mandrake
+                                << "/usr/share/ssl/" // Centos, Redhat, SuSE
+                                << "/usr/local/ssl/" // Normal OpenSSL Tarball

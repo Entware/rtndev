@@ -1,0 +1,12 @@
+--- a/qtbase/src/corelib/configure.json
++++ b/qtbase/src/corelib/configure.json
+@@ -309,7 +309,8 @@
+                     "test(fptr);"
+                 ],
+                 "qmake": "CONFIG += c++11"
+-            }
++            },
++            "use": "libatomic"
+         },
+         "clock-monotonic": {
+             "label": "POSIX monotonic clock",
