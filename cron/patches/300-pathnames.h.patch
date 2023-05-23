@@ -5,7 +5,7 @@
  			 * are all relative to this directory.
  			 */
 -#define CRONDIR		"/var/cron"
-+#define CRONDIR		"/opt/var/cron"
++#define CRONDIR		"/opt/var/spool/cron"
  #endif
  
  			/* SPOOLDIR is where the crontabs live.
@@ -14,7 +14,7 @@
  			 * didn't exist last time around...)
  			 */
 -#define SPOOL_DIR	"tabs"
-+#define SPOOL_DIR	"crontabs"
++#define SPOOL_DIR	CRONDIR"/crontabs"
  
  			/* cron allow/deny file.  At least cron.deny must
  			 * exist for ordinary users to run crontab.

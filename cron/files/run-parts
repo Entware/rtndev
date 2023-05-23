@@ -5,31 +5,30 @@
 #
 # based on rc.unslung by unslung guys :-)
 #
-if [ -z "$1" ]
-then 
-echo "Usage : $0 "
-exit 0
+if [ -z "$1" ]; then
+    echo "Usage : $0 "
+    exit 0
 fi
 
 RUNDIR=$1"/*"
 
-for i in $RUNDIR ;do
+for i in $RUNDIR ; do
 
 # Ignore dangling symlinks (if any).
 [ ! -f "$i" ] && continue
 
 case "$i" in
-*.sh)
-# Source shell script for speed.
-(
-trap - INT QUIT TSTP
-set start
-. $i
-)
-;;
-*)
-# No sh extension, so fork subprocess.
-$i start
-;;
+    *.sh)
+        # Source shell script for speed.
+        (
+        trap - INT QUIT TSTP
+        set start
+        . $i
+        )
+    ;;
+    *)
+        # No sh extension, so fork subprocess.
+        $i start
+    ;;
 esac
 done
