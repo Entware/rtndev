@@ -1,6 +1,6 @@
---- ./crawl-ref/source/util/gen_ver.pl.orig	2023-05-25 08:48:48.856457850 +0000
-+++ ./crawl-ref/source/util/gen_ver.pl	2023-05-25 10:20:28.213044677 +0000
-@@ -20,8 +20,7 @@
+--- a/crawl-ref/source/util/gen_ver.pl
++++ b/crawl-ref/source/util/gen_ver.pl
+@@ -20,8 +20,7 @@ mkdir dirname($outfile);
  #
  # Source tarbells distributed as part of a release include this file already
  # generated with the release version.

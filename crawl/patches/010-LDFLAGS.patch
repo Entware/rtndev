@@ -1,6 +1,6 @@
 --- a/crawl-ref/source/Makefile
 +++ b/crawl-ref/source/Makefile
-@@ -157,10 +157,6 @@ CFWARN_L += -Wextra \
+@@ -156,10 +156,6 @@ CFWARN_L += -Wextra \
  
  DEFINES := $(EXTERNAL_DEFINES)
  
