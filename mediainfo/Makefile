@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=22.12
-PKG_REV:=125a74b6eb378c9e4383ebb6972628b56ed90d3c
+PKG_VERSION:=23.04
+PKG_REV:=4a2c96220b55711b1420e32154eae4b2d4bb4ad6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/MediaArea/MediaInfo.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1bcafa2c812d56eac8a2688bcb207308542725b37f833e061e5cac84d8b0f036
+PKG_MIRROR_HASH:=67bbd9ae6053bedbaae235ae905d2bcac1a4680390bb55b42f7304f0f26aaf04
 
 PKG_FIXUP:=autoreconf
 
