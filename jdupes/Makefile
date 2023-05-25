@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2021 Entware
+# Copyright (C) 2017-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jdupes
-PKG_VERSION:=1.21.3
-PKG_REV:=4b72120adc6127151b6806f2bd77e3c448a84a99
+PKG_VERSION:=1.23.0
+PKG_REV:=ae3cce7901bbc829928259249ce80dcef8ace2e8
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,9 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jbruchon/jdupes.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=6ab779602aed188aa183fac1aa4236059d2827cd5f7777a92c8afe7c2ee0c881
+PKG_MIRROR_HASH:=cb7d63a33c9df0e21ec19c90b56a36b3968a6f0eb730035267ed40dbe78eadce
+
+PKG_BUILD_DEPENDS:=libjodycode
 
 include $(INCLUDE_DIR)/package.mk
 
