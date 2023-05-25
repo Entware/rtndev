@@ -63,7 +63,7 @@
    exit 1
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1788,12 +1788,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
+@@ -1806,12 +1806,6 @@ if ( test -f $srcdir/cups/gdevcups.c );
          if test x$with_local_cups != xyes; then
              if test x"$CUPSCONFIG" = x""; then
                AC_PATH_TOOL(CUPSCONFIG,cups-config)
@@ -76,10 +76,10 @@
              else
  #             We were given a cups-config on the command line, assume the user intends to
  #             include cups, and make not finding a hard fail.
-@@ -2483,14 +2477,14 @@ PDF_MAK="\$(GLSRCDIR)\$(D)stub.mak"
+@@ -2565,14 +2559,14 @@ PDF_MAK="\$(GLSRCDIR)\$(D)stub.mak"
  PDFROMFS_MAK="\$(GLSRCDIR)\$(D)stub.mak"
  
- if test x"$with_pdf" != x"no" ; then
+ if test x"$with_pdf" != x"no" -a x"$enable_auxtools_only" != x"yes" ; then
 -
 + if test x"$build" != x"$host"; then
    if test x"$JBIG2_DECODER" = x""; then
