@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tsmuxer
-PKG_VERSION:=2.6.16-20210212
-PKG_REV:=a50c2c5a169546beaa6fff93f1be785b3b8aed68
+PKG_VERSION:=2.6.16-20230526
+PKG_REV:=ddadf58f0c139d95451a5dac836f79dfd17e143d
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/justdan96/tsMuxer.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=e3f93a4209e04251de4f6025b8e59e617f69a58ea693c928858b34edcec6ca13
+PKG_MIRROR_HASH:=eca07c9b1b34e216ac76789a2702f6d112f810fb9ed7fea5f40b54e7adb2e474
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
