@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2021 Entware
+# Copyright (C) 2015-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-image-exiftool
-PKG_VERSION:=12.57
+PKG_VERSION:=12.62
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://exiftool.org
 PKG_SOURCE:=Image-ExifTool-$(PKG_VERSION).tar.gz
-PKG_HASH:=923833ecd300a033f19a1ec857acb46b6710fda3236c7049e38e8f1e0afe6a57
+PKG_HASH:=4990a46c69b656888d7d5732baf4039da964688edddf7a1c2eeb51404999ec1d
 
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
