@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020-2021 Entware
+# Copyright (C) 2020-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ndisc6
-PKG_VERSION:=1.0.6
+PKG_VERSION:=1.0.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.remlab.net/files/ndisc6
-PKG_HASH:=a713210e9be1f15cfa0809f4c2728b00cd5f25881d7585126986982055453cfb
+PKG_HASH:=edc431d70510d7321a5a39d243de0d0f63846dc9145b3b549c7348cc2bc96609
 
 PKG_LICENSE:=GPL-3.0-only
 
