@@ -1,0 +1,23 @@
+--- a/src/netutils.c
++++ b/src/netutils.c
+@@ -85,7 +85,8 @@ setinterface(int socket_fd, const char *
+ {
+     struct ifreq interface;
+     memset(&interface, 0, sizeof(struct ifreq));
+-    strncpy(interface.ifr_name, interface_name, IFNAMSIZ);
++    strncpy(interface.ifr_name, interface_name, IFNAMSIZ - 1);
++    interface.ifr_name[IFNAMSIZ - 1] = '\0';
+     int res = setsockopt(socket_fd, SOL_SOCKET, SO_BINDTODEVICE, &interface,
+                          sizeof(struct ifreq));
+     return res;
+--- a/src/obfs_http.c
++++ b/src/obfs_http.c
+@@ -244,7 +244,7 @@ check_http_header(buffer_t *buf)
+             }
+ 
+         result = OBFS_ERROR;
+-        if (strncasecmp(hostname, obfs_http->host, result) == 0) {
++        if (strncasecmp(hostname, obfs_http->host, len) == 0) {
+             result = OBFS_OK;
+         }
+         free(hostname);

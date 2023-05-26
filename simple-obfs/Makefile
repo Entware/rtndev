@@ -29,7 +29,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(PKG_SOURCE_SUBDIR)
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
-PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -54,15 +54,10 @@ endef
 
 Package/simple-obfs-server/description = $(Package/simple-obfs/description)
 
-CONFIGURE_ARGS += --disable-ssp --disable-documentation --disable-assert
-
-ifeq ($(or $(CONFIG_GCC_USE_VERSION_8),$(CONFIG_GCC_USE_VERSION_9)),y)
-TARGET_CFLAGS += -Wno-error=stringop-truncation
-endif
-ifeq ($(CONFIG_GCC_USE_VERSION_9),y)
-TARGET_CFLAGS += -Werror=stringop-overflow=0
-endif
-
+CONFIGURE_ARGS += \
+	--disable-ssp \
+	--disable-documentation \
+	--disable-assert
 
 define Package/simple-obfs/install
 	$(INSTALL_DIR) $(1)/opt/bin
