@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmtp
-PKG_VERSION:=1.1.20
-PKG_REV:=0c77683423b1b12019d0dd73f04c0eace2c52bf2
+PKG_VERSION:=1.1.21
+PKG_REV:=3b417127bf92c660053dea7d106021dc805d0f73
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/libmtp/libmtp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=81517425ae1646aa3c1d292436a70d2a3601fc14838d5f57fad37aa2824ab831
+PKG_MIRROR_HASH:=15818aca20921e2d893365dd4fb7c2ff2e052c33e57b426a0f1da1d79576b92e
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
