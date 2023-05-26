@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=unionfs-fuse
-PKG_VERSION:=3.2
-PKG_REV:=453f588a0d227e31730244f45fce3adb0ecbe95d
+PKG_VERSION:=3.3
+PKG_REV:=1682b698d6247669f3e2cfbbe26e4ea235e6cae4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/rpodgorny/unionfs-fuse.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=fc52d594fd0bce232ef897a61de7a59b50401688fcc66e2e4e64fdfa4ca9d8bd
+PKG_MIRROR_HASH:=0d84f8ab86303707b35ccb0b665d1159a90b1d1f9339e9805d6bb4bfaa2344ea
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
