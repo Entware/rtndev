@@ -19,6 +19,7 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=1f50b92fd88d977d0bcd78fd7b80a1fcb82d8705038d893c756201929a24922d
 
+PKG_BUILD_FLAGS:=no-mips16
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -44,7 +45,7 @@ endef
 CONFIGURE_ARGS += \
 	--with-zlib="$(STAGING_DIR)/opt"
 
-TARGET_LDFLAGS += -lssp
+TARGET_LDFLAGS += $(if $(CONFIG_GCC_LIBSSP),-lssp)
 
 define Package/httrack/install
 	$(INSTALL_DIR) $(1)/opt/bin
