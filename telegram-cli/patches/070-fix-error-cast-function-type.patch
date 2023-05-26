@@ -1,0 +1,114 @@
+--- a/interface.c
++++ b/interface.c
+@@ -117,11 +117,11 @@ extern int one_string_len;
+ extern char *one_string_prompt;
+ extern int one_string_flags;
+ extern int enable_json;
+-int disable_auto_accept;
+-int msg_num_mode;
+-int permanent_msg_id_mode;
+-int permanent_peer_id_mode;
+-int disable_colors;
++extern int disable_auto_accept;
++extern int msg_num_mode;
++extern int permanent_msg_id_mode;
++extern int permanent_peer_id_mode;
++extern int disable_colors;
+ extern int alert_sound;
+ extern int binlog_read;
+ extern char *home_directory;
+@@ -130,7 +130,7 @@ int do_html;
+ int safe_quit;
+ 
+ int in_readline;
+-int readline_active;
++extern  int readline_active;
+ 
+ int log_level;
+ 
+@@ -3711,7 +3711,7 @@ void interpreter (char *line) {
+   interpreter_ex (line, 0);
+ }
+ 
+-int readline_active;
++extern int readline_active;
+ /*void rprintf (const char *format, ...) {
+   mprint_start (ev);
+   va_list ap;
+--- a/loop.c
++++ b/loop.c
+@@ -74,7 +74,7 @@
+ 
+ #include <openssl/sha.h>
+ 
+-int verbosity;
++extern int verbosity;
+ extern int readline_disabled;
+ extern char *bot_hash;
+ 
+@@ -87,7 +87,7 @@ extern int binlog_enabled;
+ 
+ extern int unknown_user_list_pos;
+ extern int unknown_user_list[];
+-int register_mode;
++extern int register_mode;
+ extern int safe_quit;
+ extern int sync_from_start;
+ 
+@@ -389,7 +389,7 @@ int zero[512];
+ 
+ int readline_active;
+ int new_dc_num;
+-int wait_dialog_list;
++extern int wait_dialog_list;
+ 
+ extern struct tgl_update_callback upd_cb;
+ 
+--- a/main.c
++++ b/main.c
+@@ -26,7 +26,6 @@
+ #endif
+ 
+ #include <stdio.h>
+-#include <unistd.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <pwd.h>
+@@ -821,7 +820,7 @@ void termination_signal_handler (int sig
+     rl_cleanup_after_signal ();
+   }
+   
+-  if (write (1, "SIGNAL received\n", 18) < 0) { 
++  if (write (1, "SIGNAL received\n", sizeof(int)) < 0) { 
+     // Sad thing
+   }
+  
+--- a/tgl/queries.c
++++ b/tgl/queries.c
+@@ -2088,7 +2088,7 @@ static void _tgl_do_send_photo (struct t
+       }
+     } else {
+       if (callback) {
+-        ((void (*)(struct tgl_state *, void *, int))callback) (TLS, callback_extra, 0);
++        ((void (*)(struct tgl_state *, void *, int,  struct tgl_message *))callback) (TLS, callback_extra, 0, 0);
+       }
+     }
+     return;
+@@ -2105,7 +2105,7 @@ static void _tgl_do_send_photo (struct t
+       }
+     } else {
+       if (callback) {
+-        ((void (*)(struct tgl_state *, void *, int))callback) (TLS, callback_extra, 0);
++        ((void (*)(struct tgl_state *, void *, int,  struct tgl_message *))callback) (TLS, callback_extra, 0, 0);
+       }
+     }
+     return;
+@@ -2138,7 +2138,7 @@ static void _tgl_do_send_photo (struct t
+       }
+     } else {
+       if (callback) {
+-        ((void (*)(struct tgl_state *, void *, int))callback) (TLS, callback_extra, 0);
++        ((void (*)(struct tgl_state *, void *, int,  struct tgl_message *))callback) (TLS, callback_extra, 0, 0);
+       }
+     }
+     return;
