@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
 PKG_VERSION:=21.08.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://poppler.freedesktop.org
@@ -52,14 +52,18 @@ define Package/poppler-utils/description
  Poppler is a PDF rendering utilities based on the xpdf-3.0.
 endef
 
+TARGET_CFLAGS += -pthread
+TARGET_LDFLAGS += -lpthread
+
 CMAKE_OPTIONS += \
-	-DENABLE_XPDF_HEADERS=ON \
+	-DENABLE_LIBCURL=OFF \
 	-DENABLE_LIBOPENJPEG=unmaintained \
 	-DENABLE_QT5=OFF \
-	-DENABLE_LIBCURL=OFF \
 	-DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+	-DENABLE_XPDF_HEADERS=ON \
 	-DICONV_INCLUDE_DIR=$(ICONV_PREFIX)/include \
-	-DICONV_LIBRARIES=$(ICONV_PREFIX)/lib/libiconv.$(if $(CONFIG_BUILD_NLS),so,a)
+	-DICONV_SECOND_ARGUMENT_IS_CONST=0 \
+	-DWITH_NSS3=OFF
 
 define Package/libpoppler/install
 	$(INSTALL_DIR) $(1)/opt/lib

@@ -1,0 +1,22 @@
+--- a/poppler-cpp.pc.cmake
++++ b/poppler-cpp.pc.cmake
+@@ -1,6 +1,6 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+-includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++libdir=${prefix}/lib
++includedir=${prefix}/include
+ 
+ Name: poppler-cpp
+ Description: cpp backend for Poppler PDF rendering library
+--- a/poppler.pc.cmake
++++ b/poppler.pc.cmake
+@@ -1,6 +1,6 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+-includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++libdir=${prefix}/lib
++includedir=${prefix}/include
+ 
+ Name: poppler
+ Description: PDF rendering library
