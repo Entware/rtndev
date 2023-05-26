@@ -20,11 +20,13 @@ PKG_HASH:=0949c32be1090585e88e4c01d828002e87603136d87c598a29dff42bb3ed2a40
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/bacula
 	SECTION:=utils
 	CATEGORY:=Utilities
 	DEPENDS:=+libopenssl +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk
+	DEPENDS+=$(INTL_DEPENDS)
 	TITLE:=Open Source Network Backup Solution
 	URL:=http://www.bacula.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -88,6 +90,14 @@ define Package/bacula/install
 	$(CP) $(PKG_INSTALL_DIR)/opt/etc/bacula/scripts/* $(1)/opt/etc/bacula/scripts
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S* $(1)/opt/etc/init.d
+	# XXX
+	$(SED) 's,$(STAGING_DIR),,g;s,$(TOOLCHAIN_DIR),/opt,g; \
+		s,$(STAGING_DIR_HOST),/opt,g; \
+		s,/lib/libiconv-full,,g;s,/lib/libintl-full,,g; \
+		s,-f\(file\|macro\)-prefix-map=$(PKG_BUILD_DIR)=$(PKG_NAME)-$(PKG_VERSION),,g' \
+			$(1)/opt/etc/bacula/scripts/bacula_config
+# create_sqlite3_database, grant_sqlite3_privileges, make_sqlite3_tables, update_sqlite3_tables
+	$(SED) 's,$(STAGING_DIR),,g' $(1)/opt/etc/bacula/scripts/*
 endef
 
 $(eval $(call BuildPackage,bacula))
