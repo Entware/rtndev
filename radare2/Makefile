@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=radare2
-PKG_VERSION:=5.7.8
-PKG_REV:=8e965bef30457a12e07a32a9047a9620a944bc39
+PKG_VERSION:=5.8.6
+PKG_REV:=3c9ad151adf52658d814f56b9bb80bc9231da36b
 PKG_RELEASE:=1
 
 
@@ -18,7 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/radareorg/radare2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=8a25bef9ff1717abbe438572c827d867efc3ac5a7f1f8ba4499be18280e14529
+PKG_MIRROR_HASH:=fcdea8417f756a2d40e284feefc21b3df718ed6dfbeefb82edd22c8659cae08e
 
 PKG_BUILD_DEPENDS:=python3/host
 
