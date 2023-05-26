@@ -19,6 +19,7 @@ PKG_HASH:=0a8f7bc23056b3e93dc33b9f12241fc487f73259e7299bd20109e84c4bdfc687
 
 # FIXME FAILED: ... run/lemon: Exec format error
 PKG_USE_NINJA:=0
+PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
