@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bfgminer
 PKG_VERSION:=5.5.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
 PKG_SOURCE_URL:=http://bfgminer.org/files/$(PKG_VERSION)
@@ -18,13 +18,6 @@ PKG_HASH:=67e716b04e0bebb311d6e805e1e1fbabca2187a7d9fb05e38e1f8447d6cb72ac
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-
-define Download/uthash
-	FILE:=v2.1.0
-	URL:=https://codeload.github.com/troydhanson/uthash/tar.gz/
-	HASH:=152ccd8e64d0f495377232e3964d06c7ec8bb8c3fbd3217f8a5702614f9a669e
-endef
-$(eval $(call Download,uthash))
 
 define Package/bfgminer
 	SECTION:=utils
@@ -40,9 +33,18 @@ define Package/bfgminer/description
  Modular Bitcoin ASIC/FPGA/GPU/CPU miner in C.
 endef
 
+UTHASH_VER:=2.3.0
+UTHASH_FILE:=uthash-$(UTHASH_VER).tar.gz
+define Download/uthash
+	FILE:=$(UTHASH_FILE)
+	URL:=https://codeload.github.com/troydhanson/uthash/tar.gz/refs/tags/v$(UTHASH_VER)?
+	HASH:=e10382ab75518bad8319eb922ad04f907cb20cccb451a3aa980c9d005e661acc
+endef
+$(eval $(call Download,uthash))
+
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	gzip -dc $(DL_DIR)/v2.1.0 | $(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+	$(HOST_TAR) -xzf $(DL_DIR)/$(UTHASH_FILE) -C $(PKG_BUILD_DIR)
 endef
 
 CONFIGURE_ARGS += \
@@ -59,7 +61,7 @@ CONFIGURE_ARGS += \
 
 TARGET_CFLAGS += \
 	-std=gnu99 \
-	-Iuthash-2.1.0/src \
+	-Iuthash-$(UTHASH_VER)/src \
 	-DJSON_INTEGER_IS_LONG_LONG
 
 define Build/Configure
@@ -76,7 +78,7 @@ define Package/bfgminer/install
 	    $(PKG_INSTALL_DIR)/opt/lib/libbase58.so* \
 	    $(PKG_INSTALL_DIR)/opt/lib/libblkmaker-0.1.so* \
 	    $(PKG_INSTALL_DIR)/opt/lib/libblkmaker_jansson-0.1.so* \
-	    $(1)/opt/lib
+		$(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,bfgminer))
