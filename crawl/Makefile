@@ -15,7 +15,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/crawl/crawl/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=a4ba0d5a6fcf9bb1ad57b6a116f5d577b7ee9dac33d90448525a1061207a6abf
 
-PKG_BUILD_DEPENDS:=python-yaml
+PKG_BUILD_DEPENDS:=python-yaml/host
 
 include $(INCLUDE_DIR)/package.mk
 
