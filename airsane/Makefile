@@ -21,6 +21,7 @@ PKG_MIRROR_HASH:=631a01ec34503a34a070db8ca4582e1081adf5bdfb05f6df8fe1116528291a0
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/airsane
 	SECTION:=utils
