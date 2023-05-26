@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 Entware
+# Copyright (C) 2021-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-dbd-pg
-PKG_VERSION:=3.16.0
+PKG_VERSION:=3.16.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=DBD-Pg-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP
-PKG_HASH:=2c31163d8bdaaf8beaef9c97b8f260432d67a534bc7b69e7265c21cb841432b8
+PKG_HASH:=8872f13034b6f9f0c7e08f9a6edf2bb0ae53b8eb51f1959e9d568d9c4dd8d57c
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/DBD-Pg-$(PKG_VERSION)
 
