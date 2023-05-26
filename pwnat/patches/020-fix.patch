@@ -1,5 +1,5 @@
---- a/socket.c
-+++ b/socket.c
+--- a/src/socket.c
++++ b/src/socket.c
 @@ -152,7 +152,7 @@ int sock_connect(socket_t *sock, int is_
  	sa.sin_addr.s_addr = htonl(INADDR_ANY);
  
