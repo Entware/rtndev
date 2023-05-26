@@ -79,6 +79,7 @@ endef
 define Download/transmission-cfp-web-client
 	FILE:=transmission-cfp-web-client-$(PKG_VERSION).tar.bz2
 	URL:=$(PKG_SOURCE_URL)
+	MIRROR_HASH:=skip
 	PROTO:=git
 	VERSION:=f104a68aa2a5b76914cdebaf7ded7ba09defd23b
 	SUBDIR:=transmission-cfp-web-client-$(PKG_VERSION)
