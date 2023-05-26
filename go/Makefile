@@ -20,6 +20,9 @@ BINTYPE:=$(shell uname -m | sed 's/i[3-9]86/386/;s/x86_64/amd64/')
 # Strip is not recommended for go binaries. It may make binaries unusable
 RSTRIP:="/bin/true"
 
+PKG_BUILD_PARALLEL:=1
+PKG_BUILD_FLAGS:=no-mips16
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/golang.mk
 
