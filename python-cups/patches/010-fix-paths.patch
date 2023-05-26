@@ -1,0 +1,12 @@
+--- a/cupsconnection.c
++++ b/cupsconnection.c
+@@ -3866,7 +3866,8 @@ Connection_printTestPage (Connection *se
+ 	  break;
+       }
+     } else {
+-      const char *const dirs[] = { "/usr/share/cups",
++      const char *const dirs[] = { "/opt/share/cups",
++				   "/usr/share/cups",
+ 				   "/usr/local/share/cups",
+ 				   NULL };
+       int found = 0;

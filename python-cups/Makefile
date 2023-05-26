@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-cups
 PKG_VERSION:=2.0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=pycups
 PKG_HASH:=57434ce5f62548eb12949ca8217f066f4eeb21a5d6ab8b13471dce350e380c90
@@ -17,9 +17,6 @@ PKG_HASH:=57434ce5f62548eb12949ca8217f066f4eeb21a5d6ab8b13471dce350e380c90
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
-
-# XXX error: option --single-version-externally-managed not recognized
-PYTHON3_PKG_SETUP_ARGS:=
 
 define Package/python3-cups
 	SECTION:=lang
