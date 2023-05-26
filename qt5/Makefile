@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2021 Entware
+# Copyright (C) 2017-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -11,13 +11,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.15.8
+PKG_VERSION:=5.15.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=qt-everywhere-opensource-src-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single \
 		https://ftp.fau.de/qtproject/archive/qt/5.15/$(PKG_VERSION)/single
-PKG_HASH:=776a9302c336671f9406a53bd30b8e36f825742b2ec44a57c08217bff0fa86b9
+PKG_HASH:=26d5f36134db03abe4a6db794c7570d729c92a3fc1b0bf9b1c8f86d0573cd02f
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/qt-everywhere-src-$(PKG_VERSION)
 
