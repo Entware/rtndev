@@ -1,23 +1,21 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2023 Entware
-#
-# 4.6 requires libndpi update
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ntopng
 
-PKG_VERSION:=5.4
+PKG_VERSION:=5.6
 PKG_RELEASE:=1
-PKG_SOURCE_DATE:=2022-07-19
-PKG_SOURCE_VERSION:=122a0829afd09ce10a8a9ea4b6e4d1781bd7ca77
+PKG_SOURCE_DATE:=2023-02-02
+PKG_SOURCE_VERSION:=e7f302e1e2fb1c9f7eb3ca0508868f106e0018c1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ntop/ntopng
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_DATE).tar.xz
-PKG_MIRROR_HASH:=skip
+PKG_MIRROR_HASH:=5dede283c8261cf1648eafbe2d740a83883672a7718a362736c35d53fca8c7ce
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-3.0-or-later

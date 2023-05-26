@@ -32,7 +32,7 @@
    SSL_LIB="`pkg-config --libs libssl` -lssl -lcrypto"
  else
    dnl Workaround for MacOS Brew
-@@ -430,7 +430,7 @@ dnl> wget -O config.guess 'http://git.sa
+@@ -440,7 +440,7 @@ dnl> wget -O config.guess 'http://git.sa
      OSNAME=`./config.guess`
    fi
  fi
@@ -41,7 +41,7 @@
  
  if test $MACHINE = "x86_64"; then
    EXTN="amd64"
-@@ -444,7 +444,7 @@ DATE=`date +"%Y-%m-%d"`
+@@ -454,7 +454,7 @@ DATE=`date +"%Y-%m-%d"`
  
  pkg-config --exists hiredis
  if test "$?" -ne 1; then
@@ -50,7 +50,7 @@
    if test $SYSTEM = "FreeBSD"; then
       HIREDIS_LIB="/usr/local/lib/libhiredis.a"
     else
-@@ -775,8 +775,8 @@ fi
+@@ -775,8 +775,8 @@ CXXFLAGS=$CPPFLAGS
  
  PWD=${HERE}
  AC_DEFINE_UNQUOTED(PACKAGE_RELEASE, "r$GIT_RELEASE", [GIT release of this package])
@@ -73,7 +73,7 @@
  ifeq ($(OS),Linux)
  	LUA_PLATFORM=linux
 @@ -148,14 +148,12 @@ test_alert_engine: $(OBJECTS_NO_MAIN) $(
- 	$(CXX) $(CPPFLAGS) $(LDFLAGS) $(OBJECTS_NO_MAIN) -Wall $(LIBS) -o $@
+ 	$(CPP) $(CPPFLAGS) $(LDFLAGS) $(OBJECTS_NO_MAIN) -Wall $(LIBS) -o $@
  
  $(LUA_LIB):
 -	$(MAKE) -C $(LUA_HOME) $(LUA_PLATFORM)

@@ -9,7 +9,7 @@
  #
  #       -e|--daemon
  #        This  parameter  causes ntop to become a daemon, i.e. a task which runs in the background
-@@ -62,7 +62,7 @@
+@@ -61,7 +61,7 @@
  #       -d|--data-dir
  #        Specifies the data directory (it must be writable by the user that is executing ntopng).
  #

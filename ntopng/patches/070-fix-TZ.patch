@@ -1,6 +1,6 @@
 --- a/src/Ntop.cpp
 +++ b/src/Ntop.cpp
-@@ -3570,7 +3570,7 @@ void Ntop::setZoneInfo() {
+@@ -3728,7 +3728,7 @@ void Ntop::setZoneInfo() {
  
  #else
    char buf[64];
