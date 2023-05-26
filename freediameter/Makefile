@@ -21,6 +21,7 @@ PKG_MIRROR_HASH:=69cd6ff3f3199d2a2062b282c1a20ab05250b3c1e437701b343e5ea4cb49b2c
 
 # FIXME ninja: error: manifest 'build.ninja' still dirty after 100 tries
 PKG_USE_NINJA:=0
+PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
