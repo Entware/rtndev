@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2022 Entware
+# Copyright (C) 2023 Entware
+#
+# 4.6 requires libndpi update
 
 include $(TOPDIR)/rules.mk
 
