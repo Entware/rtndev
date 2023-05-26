@@ -1,0 +1,11 @@
+--- a/src/app/CMakeLists.txt
++++ b/src/app/CMakeLists.txt
+@@ -60,7 +60,7 @@ target_sources(qbt_app PRIVATE
+ )
+ 
+ target_link_libraries(qbt_app PRIVATE
+-    qbt_base
++    qbt_base stdc++fs
+ )
+ 
+ set_target_properties(qbt_app PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

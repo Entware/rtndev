@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=qbittorrent
 PKG_VERSION:=4.5.2
 PKG_REV:=97853f31f25bd427b7f821f16c8b1d7131842db8
-PKG_RELEASE=2
+PKG_RELEASE=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -23,18 +23,17 @@ PKG_MIRROR_HASH:=6a1a0e88715a05ad51e51849e3bdd18930747a9ecf9b24ca918442f10a97892
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
-PKG_INSTALL:=1
-PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/qbittorrent
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	DEPENDS:=+qt5-network +qt5-sql +qt5-xml +libtorrent-rasterbar $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+libtorrent-rasterbar +qt5-network +qt5-sql +qt5-xml $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=bittorrent client programmed in C++ / Qt
 	URL:=https://www.qbittorrent.org/
 	PROVIDES:=qBittorrent
@@ -48,14 +47,12 @@ define Package/qbittorrent/description
  well as many features.
 endef
 
-TARGET_LDFLAGS += $(TOOLCHAIN_DIR)/lib/libstdc++fs.a $(if $(ICONV_FULL),-liconv) $(if $(INTL_FULL),-lintl)
+TARGET_CXXFLAGS += -pthread
+TARGET_LDFLAGS += -latomic -lpthread
 
-CONFIGURE_ARGS += \
-	--disable-gui \
-	--with-boost=$(STAGING_DIR)/opt
-
-MAKE_VARS += \
-	INSTALL_ROOT="$(PKG_INSTALL_DIR)"
+CMAKE_OPTIONS += \
+	-DGUI=OFF \
+	-DSTACKTRACE=OFF
 
 define Package/qbittorrent/install
 	$(INSTALL_DIR) $(1)/opt/bin $(1)/opt/etc/init.d
