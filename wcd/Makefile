@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020-2021 Entware
+# Copyright (C) 2020-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wcd
-PKG_VERSION:=6.0.4
+PKG_VERSION:=6.0.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/wcd/$(PKG_VERSION)
-PKG_HASH:=5673645f77505c8d03ca75ffcb32f6a2a86fa1b1e9a8dd9d0a5bd10a202eabf2
+PKG_HASH:=f2970e01a52886d330604490fdbedd7373faff0910ff2e14889435677f563763
 
 include $(INCLUDE_DIR)/package.mk
 
