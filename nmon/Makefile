@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019-2021 Entware
+# Copyright (C) 2019-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -26,9 +26,9 @@ include $(INCLUDE_DIR)/package.mk
 define Package/nmon
 	SECTION:=nmon
 	CATEGORY:=Administration
-	URL:=http://nmon.sourceforge.net/pmwiki.php
-	TITLE:=Nigel's performance Monitor for Linux
 	DEPENDS:=+libncurses
+	TITLE:=Nigel's performance Monitor for Linux
+	URL:=http://nmon.sourceforge.net/pmwiki.php
 endef
 
 define Package/nmon/description
@@ -36,7 +36,7 @@ define Package/nmon/description
 endef
 
 TARGET_LDFLAGS += -lncurses -lm -g
-TARGET_CPPFLAGS += -g -O3 -Wall -D JFS -D GETUSER -D LARGEMEM
+TARGET_CFLAGS += -g -O3 -Wall -D JFS -D GETUSER -D LARGEMEM
 
 define Build/Compile
 	$(TARGET_CC) $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) -o $(PKG_BUILD_DIR)/$(PKG_NAME) \
