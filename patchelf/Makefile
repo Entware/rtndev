@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018-2021 Entware
+# Copyright (C) 2018-2023 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=patchelf
-PKG_VERSION:=0.17.2
-PKG_REV:=5908e16cd562bcb1909be4de0409c4912a8afc52
+PKG_VERSION:=0.18.0
+PKG_REV:=99c24238981b7b1084313aca8f5c493bb46f302c
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/NixOS/patchelf.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=b806c8cb371cc7197bd6bf1f9d98ce64006fb6802021c17b9f00c4383f399fe5
+PKG_MIRROR_HASH:=1952b2a782ba576279c211ee942e341748fdb44997f704dd53def46cd055470b
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
