@@ -1,0 +1,112 @@
+--- a/backend/beh.c
++++ b/backend/beh.c
+@@ -142,7 +142,7 @@ main(int  argc,				/* I - Number of comm
+ 
+     tmpdir = getenv("TMPDIR");
+     if (!tmpdir)
+-      tmpdir = "/tmp";
++      tmpdir = "/opt/tmp";
+     snprintf(tmpfilename, sizeof(tmpfilename), "%s/beh-XXXXXX", tmpdir);
+     fd = mkstemp(tmpfilename);
+     if (fd < 0) {
+--- a/cupsfilters/colormanager.c
++++ b/cupsfilters/colormanager.c
+@@ -281,7 +281,7 @@ _get_colord_profile(const char   *printe
+ 
+ 
+ #ifndef CUPSDATA
+-#define CUPSDATA "/usr/share/cups"
++#define CUPSDATA "/opt/share/cups"
+ #endif
+ 
+ /* From gstoraster */
+--- a/filter/foomatic-rip/foomaticrip.c
++++ b/filter/foomatic-rip/foomaticrip.c
+@@ -170,7 +170,8 @@ gnu echo and put gecho here or something
+ char echopath[PATH_MAX] = "echo";
+ 
+ /* CUPS raster drivers are searched here */
+-char cupsfilterpath[PATH_MAX] = "/usr/local/lib/cups/filter:"
++char cupsfilterpath[PATH_MAX] = "/opt/lib/cups/filter:"
++                                "/usr/local/lib/cups/filter:"
+                                 "/usr/local/libexec/cups/filter:"
+                                 "/opt/cups/filter:"
+                                 "/usr/lib/cups/filter";
+--- a/filter/foomatic-rip/foomaticrip.h
++++ b/filter/foomatic-rip/foomaticrip.h
+@@ -40,7 +40,7 @@
+  * The logfile will get the extension ".log", the PostScript data ".ps".
+  */
+ #ifndef LOG_FILE
+-#define LOG_FILE "/tmp/foomatic-rip"
++#define LOG_FILE "/opt/var/log/foomatic-rip"
+ #endif
+ 
+ 
+--- a/filter/foomatic-rip/spooler.c
++++ b/filter/foomatic-rip/spooler.c
+@@ -113,6 +113,9 @@ int find_ppdfile(const char *user_defaul
+     if (access(job->ppdfile, R_OK) == 0)
+         return 1;
+ 
++    snprintf(job->ppdfile, 2048, "/opt/etc/cups/ppd/%s.ppd", job->printer); /* Entware CUPS config dir */
++    if (access(job->ppdfile, R_OK) == 0)
++        return 1;
+     snprintf(job->ppdfile, 2048, "%s.ppd", job->printer); /* current dir */
+     if (access(job->ppdfile, R_OK) == 0)
+         return 1;
+--- a/filter/foomatic-rip/util.c
++++ b/filter/foomatic-rip/util.c
+@@ -40,7 +40,7 @@ const char * temp_dir()
+ 
+     if (!tmpdir)
+     {
+-        const char *dirs[] = { getenv("TMPDIR"), P_tmpdir, "/tmp" };
++        const char *dirs[] = { getenv("TMPDIR"), P_tmpdir, "/opt/tmp" };
+         int i;
+ 
+         for (i = 0; i < (sizeof(dirs) / sizeof(dirs[0])); i++) {
+--- a/filter/mupdftoraster.c
++++ b/filter/mupdftoraster.c
+@@ -52,8 +52,8 @@ MIT Open Source License  -  http://www.o
+ 
+ #define PDF_MAX_CHECK_COMMENT_LINES	20
+ 
+-#define CUPS_IPTEMPFILE "/tmp/ip-XXXXXX"
+-#define CUPS_OPTEMPFILE "/tmp/op-XXXXXX"
++#define CUPS_IPTEMPFILE "/opt/tmp/ip-XXXXXX"
++#define CUPS_OPTEMPFILE "/opt/tmp/op-XXXXXX"
+ 
+ #ifdef CUPS_RASTER_SYNCv1
+ typedef cups_page_header2_t mupdf_page_header;
+--- a/utils/cups-browsed.c
++++ b/utils/cups-browsed.c
+@@ -146,8 +146,8 @@ static int  ldap_rebind_proc(LDAP *Rebin
+ #define CUPS_DBUS_PATH "/org/cups/cupsd/Notifier"
+ #define CUPS_DBUS_INTERFACE "org.cups.cupsd.Notifier"
+ 
+-#define DEFAULT_CACHEDIR "/var/cache/cups"
+-#define DEFAULT_LOGDIR "/var/log/cups"
++#define DEFAULT_CACHEDIR "/opt/var/cache/cups"
++#define DEFAULT_LOGDIR "/opt/var/log/cups"
+ #define LOCAL_DEFAULT_PRINTER_FILE "/cups-browsed-local-default-printer"
+ #define REMOTE_DEFAULT_PRINTER_FILE "/cups-browsed-remote-default-printer"
+ #define SAVE_OPTIONS_FILE "/cups-browsed-options-%s"
+--- a/utils/cups-browsed.conf.in
++++ b/utils/cups-browsed.conf.in
+@@ -10,13 +10,13 @@
+ # generated when shutting down, like whether one of these queues was the
+ # default printer, or default option settings of the queues?
+ 
+-# CacheDir /var/cache/cups
++# CacheDir /opt/var/cache/cups
+ 
+ 
+ # Where should cups-browsed create its debug log file (if "DebugLogging file"
+ # is set)?
+ 
+-# LogDir /var/log/cups
++# LogDir /opt/var/log/cups
+ 
+ 
+ # How should debug logging be done? Into the file

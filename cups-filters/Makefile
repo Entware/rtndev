@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-filters
 PKG_VERSION:=1.28.17
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://github.com/OpenPrinting/cups-filters/releases/download/$(PKG_VERSION)
@@ -28,7 +28,7 @@ define Package/cups-filters
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Printing
-	DEPENDS:=+cups +libpoppler +qpdf +glib2 +libdbus +libexif \
+	DEPENDS:=+cups +libpoppler +qpdf +glib2 +libdbus +libexif +libavahi-glib \
 	    +dejavu-fonts-ttf-DejaVuSans +dejavu-fonts-ttf-DejaVuSansMono
 	TITLE:=OpenPrinting CUPS filters
 	URL:=http://www.openprinting.org
@@ -42,23 +42,19 @@ define Package/cups-filters/description
 endef
 
 CONFIGURE_ARGS += \
-	--disable-avahi \
 	--disable-ldap \
 	--disable-braille \
+	--enable-avahi \
 	--with-pdftops=gs \
 	--with-gs-path=/opt/bin/gs \
 	--with-pdftops-path=/opt/bin/gs \
 	--with-test-font-path=/opt/share/fonts/ttf-dejavu/DejaVuSans.ttf \
-	--with-shell=/bin/sh
-
-CONFIGURE_VARS += \
-	LIBQPDF_CFLAGS=-I$(STAGING_DIR)/opt/include \
-	LIBQPDF_LIBS=-L$(STAGING_DIR)/opt/lib \
-	POPPLER_CFLAGS=-I$(STAGING_DIR)/opt/include/poppler \
-	POPPLER_LIBS=-L$(STAGING_DIR)/opt/lib
+	--with-shell=/bin/sh \
+	--with-cups-config=$(STAGING_DIR)/opt/bin/cups-config \
+	--with-sysroot=$(STAGING_DIR) \
+	--without-rcdir
 
 TARGET_CXXFLAGS += -std=c++17
-TARGET_LDFLAGS += -liconv -lqpdf -lpoppler-cpp
 
 define Package/cups-filters/conffiles
 /opt/etc/cups/cups-browsed.conf
@@ -71,6 +67,8 @@ define Package/cups-filters/install
 	$(INSTALL_CONF) \
 	    $(PKG_INSTALL_DIR)/opt/etc/cups/cups-browsed.conf \
 	    $(1)/opt/etc/cups
+	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_BIN) files/S82cups-browsed $(1)/opt/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib*.so* $(1)/opt/lib
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cups $(1)/opt/lib
