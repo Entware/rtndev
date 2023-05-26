@@ -35,6 +35,10 @@ define Package/qpdf/description
  QPDF is a command-line program for transformations on PDF files.
 endef
 
+CMAKE_BINARY_SUBDIR:=build
+
+TARGET_LDFLAGS += -latomic
+
 CMAKE_OPTIONS += \
 	-DUSE_IMPLICIT_CRYPTO=0 \
 	-DREQUIRE_CRYPTO_GNUTLS=1 \
