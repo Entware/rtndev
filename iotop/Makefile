@@ -8,41 +8,37 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=iotop
-PKG_VERSION:=0.6-20200108
+PKG_VERSION:=0.6
 PKG_RELEASE:=1
-PKG_REV:=1bfb3bc70febb1ffb95146b6dcd65257228099a3
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://repo.or.cz/iotop.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=8e07f44dbfb861e46f8a0758f94aa9ca2a5f728454025b27cbed77ebddfe69f1
+PKG_SOURCE_VERSION:=1bfb3bc70febb1ffb95146b6dcd65257228099a3
+PKG_SOURCE_URL:=https://repo.or.cz/iotop.git
+PKG_MIRROR_HASH:=2f3c7951c946d5269bbe6523718ad53d1e8a093e59a5b7be16a12c59158ed6e3
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
-define Package/$(PKG_NAME)
+define Package/iotop
 	SECTION:=admin
 	CATEGORY:=Administration
 	TITLE:=iotop watches I/O usage information output by the Linux kernel
 	URL:=http://guichaz.free.fr/iotop/
-	DEPENDS:=+python3-ncurses +python3-ctypes
+	DEPENDS:=+python3-ctypes +python3-ncurses
 endef
 
-define Package/$(PKG_NAME)/description
+define Package/iotop/description
  Iotop is a Python program with a top like UI used to show of behalf of
  which process is the I/O going on.
 endef
 
-PYTHON3_PKG_SETUP_ARGS:=$(filter-out --single-version-externally-managed,$(PYTHON3_PKG_SETUP_ARGS))
-
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/opt/{lib,sbin}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/sbin
-	$(SED) 's!/.*/python!/opt/bin/python!' $(1)/opt/sbin/iotop
-	$(CP) $(PKG_INSTALL_DIR)/opt/lib/* $(1)/opt/lib
+define Package/iotop/install
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/iotop $(1)/opt/sbin
+	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
+	$(CP) $(PKG_INSTALL_DIR)$(PYTHON3_PKG_DIR)/* $(1)$(PYTHON3_PKG_DIR)
+	$(call Python3/FixShebang,$(1)/opt/sbin/iotop)
 endef
 
 $(eval $(call Py3Package,iotop))
