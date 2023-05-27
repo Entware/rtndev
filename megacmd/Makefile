@@ -27,8 +27,8 @@ define Package/megacmd
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libcares +libcryptopp +libcurl +libmediainfo \
-	    +libreadline +libsodium +libsqlite3 +libuv
+	DEPENDS:=+libcares +libcryptopp +libcurl +libffmpeg +libmediainfo \
+	    +libpcre +libreadline +libsodium +libsqlite3 +libuv
 	TITLE:=Command Line Interactive and Scriptable Application
 	URL:=https://github.com/meganz/megacmd
 	MAINTAINER:=Entware team, https://entware.net
