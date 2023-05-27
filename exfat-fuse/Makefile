@@ -28,7 +28,7 @@ define Package/exfat-fuse
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Filesystem
-	DEPENDS:=+fuse-utils +libpthread
+	DEPENDS:=+fuse-utils +fuse3-utils +libpthread
 	TITLE:=a full-featured exFAT file system implementation
 	URL:=https://github.com/relan/exfat
 	MAINTAINER:=Entware team, https://entware.net
