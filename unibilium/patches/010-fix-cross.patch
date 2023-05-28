@@ -1,0 +1,16 @@
+--- a/unibilium.pc.in
++++ b/unibilium.pc.in
+@@ -1,9 +1,10 @@
+-libdir=@LIBDIR@
+-includedir=@INCDIR@
+-version=@VERSION@
++prefix=/opt
++includedir=${prefix}/include
++libdir=${prefix}/lib
+ 
+ Name: unibilium
+ Description: terminfo parser and utility functions
+ Version: ${version}
++
+ Libs: -L${libdir} -lunibilium
+ Cflags: -I${includedir}
