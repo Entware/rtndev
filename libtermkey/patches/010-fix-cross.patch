@@ -1,0 +1,47 @@
+--- a/Makefile
++++ b/Makefile
+@@ -21,18 +21,8 @@ ifeq ($(PROFILE),1)
+   override LDFLAGS+=-pg
+ endif
+ 
+-ifeq ($(call pkgconfig, --atleast-version=0.1.0 unibilium && echo 1),1)
+-  override CFLAGS +=$(call pkgconfig, --cflags unibilium) -DHAVE_UNIBILIUM
+-  override LDFLAGS+=$(call pkgconfig, --libs   unibilium)
+-else ifeq ($(call pkgconfig, tinfo && echo 1),1)
+-  override CFLAGS +=$(call pkgconfig, --cflags tinfo)
+-  override LDFLAGS+=$(call pkgconfig, --libs   tinfo)
+-else ifeq ($(call pkgconfig, ncursesw && echo 1),1)
+-  override CFLAGS +=$(call pkgconfig, --cflags ncursesw)
+-  override LDFLAGS+=$(call pkgconfig, --libs   ncursesw)
+-else
+-  override LDFLAGS+=-lncurses
+-endif
++  CFLAGS +=$(call pkgconfig, --cflags ncursesw)
++  LDFLAGS+=$(call pkgconfig, --libs   ncursesw)
+ 
+ OBJECTS=termkey.lo driver-csi.lo driver-ti.lo
+ LIBRARY=libtermkey.la
+@@ -57,20 +47,20 @@ VERSION_CURRENT=15
+ VERSION_REVISION=2
+ VERSION_AGE=14
+ 
+-PREFIX=/usr/local
++PREFIX=/opt
+ LIBDIR=$(PREFIX)/lib
+ INCDIR=$(PREFIX)/include
+ MANDIR=$(PREFIX)/share/man
+ MAN3DIR=$(MANDIR)/man3
+ MAN7DIR=$(MANDIR)/man7
+ 
+-all: $(LIBRARY) $(DEMOS)
++all: $(LIBRARY)
+ 
+ %.lo: %.c termkey.h termkey-internal.h
+ 	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(CFLAGS) -o $@ -c $<
+ 
+ $(LIBRARY): $(OBJECTS)
+-	$(LIBTOOL) --mode=link --tag=CC $(CC) -rpath $(LIBDIR) -version-info $(VERSION_CURRENT):$(VERSION_REVISION):$(VERSION_AGE) $(LDFLAGS) -o $@ $^
++	$(LIBTOOL) --mode=link --tag=CC $(CC) -version-info $(VERSION_CURRENT):$(VERSION_REVISION):$(VERSION_AGE) -o $@ $^ $(LDFLAGS)
+ 
+ demo: $(LIBRARY) demo.lo
+ 	$(LIBTOOL) --mode=link --tag=CC $(CC) -o $@ $^
