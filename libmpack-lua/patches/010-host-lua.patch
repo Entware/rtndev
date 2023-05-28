@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ # makefile to setup environment for travis and development
+ 
+ # distributors probably want to set this to 'yes' for both make and make install
+-USE_SYSTEM_LUA ?= no
++USE_SYSTEM_LUA ?= yes
+ USE_SYSTEM_MPACK ?= no
+ ifneq ($(USE_SYSTEM_MPACK),no)
+ # Can't use luarocks to build if linking against system libmpack because
