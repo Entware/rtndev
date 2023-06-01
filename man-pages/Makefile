@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-pages
 PKG_VERSION:=6.04
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/docs/man-pages
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -34,7 +34,7 @@ endef
 
 define Package/man-pages/install
 	$(INSTALL_DIR) $(1)/opt/share/man
-	$(CP) $(PKG_BUILD_DIR)/man[1-8] $(1)/opt/share/man
+	$(CP) $(PKG_BUILD_DIR)/man[1-8]* $(1)/opt/share/man
 endef
 
 define Package/man-pages/postinst
