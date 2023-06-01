@@ -1,0 +1,40 @@
+--- a/include/manconfig.h
++++ b/include/manconfig.h
+@@ -179,11 +179,11 @@ extern int quiet;		/* be quiet(er) if 1
+ #define CAN_ACCESS(pathname, mode)	(access (pathname, mode) == 0)
+ 
+ /* FSSTND directories */
+-#define CAT_ROOT	"/var/catman"		/* required by fsstnd() */
+-#define MAN_ROOT	"/usr" 			/* required by fsstnd() */
++#define CAT_ROOT	"/opt/var/catman"	/* required by fsstnd() */
++#define MAN_ROOT	"/opt" 			/* required by fsstnd() */
+ /* FHS directories */
+-#define FHS_CAT_ROOT	"/var/cache/man"	/* required by fsstnd() */
+-#define FHS_MAN_ROOT	"/usr/share"		/* required by fsstnd() */
++#define FHS_CAT_ROOT	"/opt/var/cache/man"	/* required by fsstnd() */
++#define FHS_MAN_ROOT	"/opt/share"		/* required by fsstnd() */
+ 
+ /* some special database keys used for storing important info */
+ #define VER_KEY         "$version$"	/* version key */
+--- a/lib/encodings.c
++++ b/lib/encodings.c
+@@ -527,7 +527,7 @@ char *find_charset_locale (const char *c
+ {
+ 	const char *canonical_charset = get_canonical_charset_name (charset);
+ 	char *saved_locale;
+-	const char supported_path[] = "/usr/share/i18n/SUPPORTED";
++	const char supported_path[] = "/opt/usr/share/i18n/SUPPORTED";
+ 	FILE *supported = NULL;
+ 	char *line = NULL;
+ 	size_t n = 0;
+--- a/src/manp.c
++++ b/src/manp.c
+@@ -907,7 +907,7 @@ static char *def_path (enum config_flag
+ 
+ 	/* If we have complete config file failure... */
+ 	if (!manpath)
+-		return xstrdup ("/usr/man");
++		return xstrdup ("/opt/share/man");
+ 
+ 	return manpath;
+ }

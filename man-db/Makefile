@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
 PKG_VERSION:=2.11.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=@SAVANNAH/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
