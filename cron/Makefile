@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cron
 PKG_VERSION:=4.1
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).shar
 PKG_SOURCE_URL:=ftp://ftp.isc.org/isc/cron
@@ -26,6 +26,9 @@ define Package/cron
 	TITLE:=Vixie cron
 	URL:=ftp://ftp.isc.org/isc/cron
 	MAINTAINER:=Entware team, https://entware.net
+	ALTERNATIVES:= \
+		200:/opt/bin/crontab:/opt/bin/crontab-vixie \
+		200:/opt/bin/run-parts:/opt/bin/run-parts-vixie
 endef
 
 define Package/cron/description
@@ -38,8 +41,8 @@ endef
 
 define Package/cron/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/crontab $(1)/opt/bin
-	$(INSTALL_BIN) ./files/run-parts $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/crontab $(1)/opt/bin/crontab-vixie
+	$(INSTALL_BIN) ./files/run-parts $(1)/opt/bin/run-parts-vixie
 	$(INSTALL_DIR) $(1)/opt/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/cron $(1)/opt/sbin
 	$(INSTALL_DIR) $(1)/opt/etc/cron.d
