@@ -33,6 +33,7 @@ if [ -x '/opt/bin/locale.new' ] && [ -z "$$(/opt/bin/locale.new -V | grep $(LVER
 	echo 'locale-archive needs upgrade, deleting old one.'
 	rm -f /opt/usr/lib/locale/locale-archive
 fi
+exit 0
 endef
 
 define Package/locales/postinst
@@ -53,6 +54,7 @@ if ! [ -f '/opt/usr/lib/locale/locale-archive' ]; then
 fi
 echo 'You can download locale sources from http://bin.entware.net/other/i18n_glib$(LVERSION2).tar.gz'
 echo 'You can add new locales to Entware using /opt/bin/localedef.new'
+exit 0
 endef
 
 define Build/Configure
