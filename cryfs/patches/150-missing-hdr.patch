@@ -1,3 +1,13 @@
+--- a/src/cpp-utils/thread/LeftRight.h
++++ b/src/cpp-utils/thread/LeftRight.h
+@@ -4,6 +4,7 @@
+ #include <thread>
+ #include <cpp-utils/macros.h>
+ #include <array>
++#include <stdexcept>
+ 
+ namespace cpputils {
+ 
 --- a/src/fspp/fuse/Fuse.h
 +++ b/src/fspp/fuse/Fuse.h
 @@ -12,6 +12,7 @@
