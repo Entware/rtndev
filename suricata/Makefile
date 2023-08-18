@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/suricata
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libyaml +jansson +libpcap +libpcre +libfile +liblz4 +libcap-ng
+	DEPENDS:=+libyaml +jansson +libpcap +libpcre +libmagic +liblz4 +libcap-ng
 	TITLE:=IDS, IPS, NSM engine
 	URL:=https://suricata-ids.org/
 	MAINTAINER:=Entware team, https://entware.net
