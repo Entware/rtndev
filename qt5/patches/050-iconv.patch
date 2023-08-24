@@ -86,7 +86,7 @@
 +    -lintl \
 +    -liconv
 +
- MODULE_VERSION = 5.15.9
+ MODULE_VERSION = 5.15.10
 --- a/qttools/src/qtdiag/qtdiag.pro
 +++ b/qttools/src/qtdiag/qtdiag.pro
 @@ -15,4 +15,8 @@ qtHaveModule(network) {
@@ -130,4 +130,4 @@
 +    -lintl \
 +    -liconv
 +
- MODULE_VERSION = 5.15.9
+ MODULE_VERSION = 5.15.10
