@@ -49,7 +49,7 @@
    WORKING_DIRECTORY "${GENERATED_RUNTIME_DIR}/doc"
 --- a/src/nvim/CMakeLists.txt
 +++ b/src/nvim/CMakeLists.txt
-@@ -888,4 +888,4 @@ add_custom_target(generated-sources DEPE
+@@ -897,4 +897,4 @@ add_custom_target(generated-sources DEPE
    ${NVIM_GENERATED_SOURCES}
  )
  
