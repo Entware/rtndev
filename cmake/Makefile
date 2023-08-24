@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cmake
-PKG_VERSION:=3.26.0
+PKG_VERSION:=3.26.5
 PKG_VERSION_MAJOR:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/Kitware/CMake/releases/download/v$(PKG_VERSION)/ \
 		https://cmake.org/files/v$(PKG_VERSION_MAJOR)/
-PKG_HASH:=4256613188857e95700621f7cdaaeb954f3546a9249e942bc2f9b3c26e381365
+PKG_HASH:=c0970b1e44a7fbca4322997ce05dac521b04748fe424922152faf22d20782bf9
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=Copyright.txt
