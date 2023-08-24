@@ -1,0 +1,20 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -21,7 +21,7 @@ AC_ARG_WITH(
+ 	[asterisk],
+ 	AS_HELP_STRING([--with-asterisk=path], [set asterisk headers location]),
+ 	[ if test "x$with_asterisk" = "xyes" -o "x$with_asterisk" = "xno" ; then  AC_MSG_ERROR([Invalid --with-asterisk=path value]); fi ],
+-	[ with_asterisk="../include /usr/include /usr/local/include /opt/local/include" ]
++	[ with_asterisk="${STAGING_DIR}/opt/include" ]
+ )
+ dnl  Set iconv headers patch
+ AC_ARG_WITH(
+@@ -225,7 +225,7 @@ if test "x$enable_debug" = "xyes" ; then
+   CFLAGS="$CFLAGS -O0 -g"
+   AC_DEFINE([__DEBUG__], [1], [Build with debugging])
+ else
+-  CFLAGS="$CFLAGS -O6"
++  CFLAGS="$CFLAGS"
+ fi
+ 
+ dnl Asterisk header files use lots of old style declarations, ignore those.
