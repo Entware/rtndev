@@ -8,16 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sshguard
-PKG_VERSION:=2.4.2
-PKG_REV:=77589e10f3ed70d14c2adb931a7482a96d9a4bbf
+PKG_VERSION:=2.4.3
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://bitbucket.org/sshguard/sshguard.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1b9d6bbc0ad302ffea6023075f45bdde8306ed164bf006659ff5afd4a73ac044
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=@SF/sshguard
+PKG_HASH:=64029deff6de90fdeefb1f497d414f0e4045076693a91da1a70eb7595e97efeb
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -29,7 +25,7 @@ define Package/sshguard
 	CATEGORY:=Network
 	SUBMENU:=Firewall
 	TITLE:=bruteforce protection
-	URL:=$(PKG_SOURCE_URL)
+	URL:=https://www.sshguard.net
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
