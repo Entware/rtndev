@@ -1,11 +1,15 @@
 --- a/makefile
 +++ b/makefile
-@@ -3,8 +3,6 @@
- #--------------------------------
+@@ -8,12 +8,6 @@ MANDIR=$(PREFIX)/share/man/man1
  OBJ=obj
  SRC=.
+ 
+-DPKG_BUILDFLAGS := $(shell command -v dpkg-buildflags 2> /dev/null)
+-ifdef DPKG_BUILDFLAGS
 -CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
 -LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
- 
- all: objdir jhead
- 
+-endif
+-
+ # To enable electric fence, set ELECTRIC_FENCE=1
+ ifeq ($(ELECTRIC_FENCE),1)
+ CFLAGS += -fsanitize=address
