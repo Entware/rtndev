@@ -14,6 +14,8 @@ PKG_RELEASE:=1
 PYPI_NAME:=deluge
 PKG_HASH:=d6ea7e1f5bdd75f40cbd1d56f0c97cd1b5b74bc9e03783858c7daa81063dd4b9
 
+PKG_BUILD_DEPENDS:=python-wheel/host
+
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
