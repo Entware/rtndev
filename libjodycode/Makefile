@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libjodycode
-PKG_VERSION:=2.0.1
-PKG_REV:=c763b39c6651d2100f08461374ea806cf3d2fb7b
+PKG_VERSION:=3.1
+PKG_REV:=e44699edc8915f65635d2fa1c9dcfac38b1784c7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jbruchon/libjodycode.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=2a27bf5927fe76ff6a280b09280afd2a961c5928abe885a250f66d633ed3d7fd
+PKG_MIRROR_HASH:=544cee6fc40ef65fa0ae6c2f9b7548b5b70f96c956b526b4f36c6afd8766e4bb
 
 PKG_INSTALL:=1
 
@@ -29,16 +29,19 @@ define Package/libjodycode
 	TITLE:=Jody Bruchon library
 	URL:=https://www.jodybruchon.com/software
 	MAINTAINER:=Entware team, https://entware.net
+	BUILDONLY:=1
 endef
 
 define Package/libjodycode/description
  Shared code used by several utilities written by Jody Bruchon.
 endef
 
+MAKE_VARS += PREFIX=/opt
+
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include $(1)/opt/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/local/include/$(PKG_NAME).h $(1)/opt/include
-	$(CP) $(PKG_INSTALL_DIR)/usr/local/lib/$(PKG_NAME).a $(1)/opt/lib
+	$(CP) $(PKG_INSTALL_DIR)/opt/include/$(PKG_NAME).h $(1)/opt/include
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/$(PKG_NAME).a $(1)/opt/lib
 endef
 
 $(eval $(call BuildPackage,libjodycode))
