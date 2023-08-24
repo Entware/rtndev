@@ -1,5 +1,0 @@
---- /dev/null
-+++ b/setup.py
-@@ -0,0 +1,2 @@
-+from setuptools import setup
-+setup()

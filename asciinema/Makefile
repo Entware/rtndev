@@ -11,8 +11,10 @@ PKG_NAME:=asciinema
 PKG_VERSION:=2.3.0
 PKG_RELEASE:=1
 
-PYPI_NAME:=$(PKG_NAME)
+PYPI_NAME:=asciinema
 PKG_HASH:=db8b056c00e9bbb2751c958298b522518c4bd80326d90bedab7f8943c7a494d5
+
+PKG_BUILD_DEPENDS:=python-wheel/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -24,7 +26,7 @@ define Package/asciinema
 	SUBMENU:=Terminal
 	DEPENDS:=+libncurses-dev +python3-codecs +python3-multiprocessing +python3-urllib +python3-uuid
 	TITLE:=A terminal sessions recorder
-	URL:=http://asciinema.org/
+	URL:=https://asciinema.org
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
