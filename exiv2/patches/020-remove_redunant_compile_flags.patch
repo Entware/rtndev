@@ -1,6 +1,6 @@
 --- a/cmake/compilerFlags.cmake
 +++ b/cmake/compilerFlags.cmake
-@@ -22,7 +22,7 @@ if ( MINGW OR UNIX OR MSYS ) # MINGW, Li
+@@ -26,7 +26,7 @@ if ( MINGW OR UNIX OR MSYS ) # MINGW, Li
      endif()
  
  

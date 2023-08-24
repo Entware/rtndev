@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=exiv2
-PKG_VERSION:=0.27.7
-PKG_REV:=3c648bc619ef7a3d50e3ddeb7d64a5e47d126eb4
+PKG_VERSION:=0.28.0
+PKG_REV:=931a40a746f5678dcc4625b06a2eb25fa4f00b34
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Exiv2/exiv2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=4491a1652bcde89b4dee56825b7b8e82a7c9c154b2c3d95f69e2b85bc504de1e
+PKG_MIRROR_HASH:=38a7484ee6117bae94e6137827ec94183780e87e086931a34621a0410849e89d
 
 CMAKE_INSTALL:=1
 
@@ -34,7 +34,7 @@ define Package/libexiv2
 	$(call Package/exiv2/Default)
 	SECTION:=libs
 	CATEGORY:=Libraries
-	DEPENDS:=+libexpat +libstdcpp +zlib
+	DEPENDS:=+libexpat +libinireader +libstdcpp +zlib
 	TITLE+= (library)
 endef
 
@@ -55,6 +55,7 @@ Package/exiv2/description = $(Package/libexiv2/description)
 TARGET_CFLAGS += -Wno-deprecated -Wno-deprecated-declarations
 
 CMAKE_OPTIONS += \
+	-DEXIV2_ENABLE_BROTLI=OFF \
 	-DEXIV2_ENABLE_VIDEO=ON \
 	-DEXIV2_ENABLE_WEBREADY=ON \
 	-DEXIV2_BUILD_SAMPLES=OFF
