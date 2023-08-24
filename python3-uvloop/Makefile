@@ -39,10 +39,10 @@ define Package/python3-uvloop/description
 endef
 
 PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
-	--global-option=build_ext \
-	--global-option=--inplace \
-	--global-option=--cython-always \
-	--global-option=--use-system-libuv
+	--build-option=build_ext \
+	--build-option=--inplace \
+	--build-option=--cython-always \
+	--build-option=--use-system-libuv
 
 $(eval $(call Py3Package,python3-uvloop))
 $(eval $(call BuildPackage,python3-uvloop))
