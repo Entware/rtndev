@@ -1,0 +1,55 @@
+--- a/src/cmd/link/internal/amd64/obj.go
++++ b/src/cmd/link/internal/amd64/obj.go
+@@ -64,7 +64,7 @@ func Init() (*sys.Arch, ld.Arch) {
+ 		PEreloc1:         pereloc1,
+ 		TLSIEtoLE:        tlsIEtoLE,
+ 
+-		Linuxdynld:     "/lib64/ld-linux-x86-64.so.2",
++		Linuxdynld:     "/opt/lib/ld-linux-x86-64.so.2",
+ 		LinuxdynldMusl: "/lib/ld-musl-x86_64.so.1",
+ 		Freebsddynld:   "/libexec/ld-elf.so.1",
+ 		Openbsddynld:   "/usr/libexec/ld.so",
+--- a/src/cmd/link/internal/arm/obj.go
++++ b/src/cmd/link/internal/arm/obj.go
+@@ -62,7 +62,7 @@ func Init() (*sys.Arch, ld.Arch) {
+ 		Machoreloc1:      machoreloc1,
+ 		PEreloc1:         pereloc1,
+ 
+-		Linuxdynld:     "/lib/ld-linux.so.3", // 2 for OABI, 3 for EABI
++		Linuxdynld:     "/opt/lib/ld-linux.so.3", // 2 for OABI, 3 for EABI
+ 		LinuxdynldMusl: "/lib/ld-musl-arm.so.1",
+ 		Freebsddynld:   "/usr/libexec/ld-elf.so.1",
+ 		Openbsddynld:   "/usr/libexec/ld.so",
+--- a/src/cmd/link/internal/arm64/obj.go
++++ b/src/cmd/link/internal/arm64/obj.go
+@@ -63,7 +63,7 @@ func Init() (*sys.Arch, ld.Arch) {
+ 		Trampoline:       trampoline,
+ 
+ 		Androiddynld:   "/system/bin/linker64",
+-		Linuxdynld:     "/lib/ld-linux-aarch64.so.1",
++		Linuxdynld:     "/opt/lib/ld-linux-aarch64.so.1",
+ 		LinuxdynldMusl: "/lib/ld-musl-aarch64.so.1",
+ 
+ 		Freebsddynld:   "/usr/libexec/ld-elf.so.1",
+--- a/src/cmd/link/internal/mips/obj.go
++++ b/src/cmd/link/internal/mips/obj.go
+@@ -62,7 +62,7 @@ func Init() (*sys.Arch, ld.Arch) {
+ 		Gentext:          gentext,
+ 		Machoreloc1:      machoreloc1,
+ 
+-		Linuxdynld:     "/lib/ld.so.1",
++		Linuxdynld:     "/opt/lib/ld.so.1",
+ 		LinuxdynldMusl: musl,
+ 
+ 		Freebsddynld:   "XXX",
+--- a/src/cmd/link/internal/x86/obj.go
++++ b/src/cmd/link/internal/x86/obj.go
+@@ -61,7 +61,7 @@ func Init() (*sys.Arch, ld.Arch) {
+ 		Machoreloc1:      machoreloc1,
+ 		PEreloc1:         pereloc1,
+ 
+-		Linuxdynld:     "/lib/ld-linux.so.2",
++		Linuxdynld:     "/opt/lib/ld-linux.so.2",
+ 		LinuxdynldMusl: "/lib/ld-musl-i386.so.1",
+ 		Freebsddynld:   "/usr/libexec/ld-elf.so.1",
+ 		Openbsddynld:   "/usr/libexec/ld.so",

@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.20.4
+PKG_VERSION:=1.20.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=9f34ace128764b7a3a4b238b805856cc1b2184304df9e5690825b0710f4202d6
+PKG_HASH:=2c5ee9c9ec1e733b0dbbc2bdfed3f62306e51d8172bf38f4f4e542b27520f597
 
-BINTYPE:=$(shell uname -m | sed 's/i[3-9]86/386/;s/x86_64/amd64/')
+BINTYPE:=$(shell uname -m | sed 's/i[3-6]86/386/;s/x86_64/amd64/')
 
 # Strip is not recommended for go binaries. It may make binaries unusable
 RSTRIP:="/bin/true"
