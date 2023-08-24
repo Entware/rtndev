@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bindfs
-PKG_VERSION:=1.17.2
+PKG_VERSION:=1.17.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://bindfs.org/downloads
-PKG_HASH:=5f2c50a70b8d58c025b81fbf364fad432d154936630ce0023cc88baa8d5ca1d0
+PKG_HASH:=6fd4af9ba2ec2bdb603ef8eea2a9d12db2e5fe9cbe52b8640b415734a59f3dcc
 
 PKG_INSTALL:=1
 
