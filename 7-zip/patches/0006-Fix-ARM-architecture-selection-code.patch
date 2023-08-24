@@ -1,0 +1,23 @@
+From: YOKOTA Hiroshi <yokota.hgml@gmail.com>
+Date: Wed, 21 Jun 2023 08:58:52 +0900
+Subject: Fix ARM architecture selection code
+
+Forwarded: https://sourceforge.net/p/sevenzip/patches/413/
+
+This fix guards NEON function usage from older ARM architectures like armel
+(__ARM_ARCH == 5).
+---
+ C/SwapBytes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/C/SwapBytes.c
++++ b/C/SwapBytes.c
+@@ -330,7 +330,7 @@ ShufBytes_256(void *items8, const void *
+ 
+ 
+ // compile message "NEON intrinsics not available with the soft-float ABI"
+-#elif defined(MY_CPU_ARM_OR_ARM64) || \
++#elif defined(MY_CPU_ARM_OR_ARM64) && \
+     (defined(__ARM_ARCH) && (__ARM_ARCH >= 7))
+ // #elif defined(MY_CPU_ARM64)
+ 

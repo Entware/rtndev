@@ -1,0 +1,23 @@
+Prevents compilation error on following warning
+
+mipsel-openwrt-linux-gnu-g++ -O2 -pipe -mno-branch-likely -mips32r2 -mtune=mips32r2 -fno-caller-saves -fhonour-copts -msoft-float -Wl,--dynamic-linker=/opt/lib/ld.so.1 -Wl,-rpath=/opt/lib -L/home/me/E/staging_dir/toolchain-mipsel_mips32r2_gcc-8.4.0_glibc-2.27/lib     -O2 -c -Wall -Wextra  -DNDEBUG -D_REENTRANT -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fPIC      -o _o/UpdateCallback.o ../../UI/Common/UpdateCallback.cpp
+../../UI/Common/UpdateCallback.cpp:504:13: warning: In the GNU C Library, "major" is defined
+ by <sys/sysmacros.h>. For historical compatibility, it is
+ currently defined by <sys/types.h> as well, but we plan to
+ remove this soon. To use "major", include <sys/sysmacros.h>
+ directly. If you did not intend to use a system-defined macro
+ "major", you should undefine it after including <sys/types.h>.
+           prop = (UInt32)major(di.rdev);
+
+
+--- a/CPP/7zip/7zip_gcc.mak
++++ b/CPP/7zip/7zip_gcc.mak
+@@ -24,7 +24,7 @@ PROGPATH_STATIC = $(O)/$(PROG)s
+ 
+ 
+ ifneq ($(CC), xlc)
+-CFLAGS_WARN_WALL = -Werror -Wall -Wextra
++CFLAGS_WARN_WALL = -Wall -Wextra
+ endif
+ 
+ # for object file

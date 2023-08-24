@@ -1,0 +1,88 @@
+From: YOKOTA Hiroshi <yokota.hgml@gmail.com>
+Date: Wed, 21 Jun 2023 12:08:38 +0900
+Subject: "PPC" is already defined as "1" on PowerPC compilers
+
+Forwarded: https://sourceforge.net/p/sevenzip/patches/413/
+
+Use "Z7_PPC" to avoid symbol name conflicts
+---
+ C/Bra.c                              | 4 ++--
+ C/Bra.h                              | 2 +-
+ C/XzDec.c                            | 2 +-
+ C/XzEnc.c                            | 2 +-
+ CPP/7zip/Compress/BranchRegister.cpp | 4 ++--
+ 5 files changed, 7 insertions(+), 7 deletions(-)
+
+--- a/C/Bra.c
++++ b/C/Bra.c
+@@ -155,7 +155,7 @@ Z7_BRANCH_FUNC_MAIN(ARM)
+ Z7_BRANCH_FUNCS_IMP(ARM)
+ 
+ 
+-Z7_BRANCH_FUNC_MAIN(PPC)
++Z7_BRANCH_FUNC_MAIN(Z7_PPC)
+ {
+   // Byte *p = data;
+   const Byte *lim;
+@@ -192,7 +192,7 @@ Z7_BRANCH_FUNC_MAIN(PPC)
+     }
+   }
+ }
+-Z7_BRANCH_FUNCS_IMP(PPC)
++Z7_BRANCH_FUNCS_IMP(Z7_PPC)
+ 
+ 
+ #ifdef Z7_CPU_FAST_ROTATE_SUPPORTED
+--- a/C/Bra.h
++++ b/C/Bra.h
+@@ -30,7 +30,7 @@ Z7_BRANCH_CONV_DECL(Z7_BRANCH_CONV_ENC(n
+ Z7_BRANCH_FUNCS_DECL(ARM64)
+ Z7_BRANCH_FUNCS_DECL(ARM)
+ Z7_BRANCH_FUNCS_DECL(ARMT)
+-Z7_BRANCH_FUNCS_DECL(PPC)
++Z7_BRANCH_FUNCS_DECL(Z7_PPC)
+ Z7_BRANCH_FUNCS_DECL(SPARC)
+ Z7_BRANCH_FUNCS_DECL(IA64)
+ 
+--- a/C/XzDec.c
++++ b/C/XzDec.c
+@@ -151,7 +151,7 @@ static void XzBcFilterState_Init(void *p
+ 
+ static const z7_Func_BranchConv g_Funcs_BranchConv_RISC_Dec[] =
+ {
+-  Z7_BRANCH_CONV_DEC(PPC),
++  Z7_BRANCH_CONV_DEC(Z7_PPC),
+   Z7_BRANCH_CONV_DEC(IA64),
+   Z7_BRANCH_CONV_DEC(ARM),
+   Z7_BRANCH_CONV_DEC(ARMT),
+--- a/C/XzEnc.c
++++ b/C/XzEnc.c
+@@ -325,7 +325,7 @@ typedef struct
+ 
+ static const z7_Func_BranchConv g_Funcs_BranchConv_RISC_Enc[] =
+ {
+-  Z7_BRANCH_CONV_ENC(PPC),
++  Z7_BRANCH_CONV_ENC(Z7_PPC),
+   Z7_BRANCH_CONV_ENC(IA64),
+   Z7_BRANCH_CONV_ENC(ARM),
+   Z7_BRANCH_CONV_ENC(ARMT),
+--- a/CPP/7zip/Compress/BranchRegister.cpp
++++ b/CPP/7zip/Compress/BranchRegister.cpp
+@@ -22,7 +22,7 @@ namespace NBranch {
+     REGISTER_FILTER_CREATE(CreateBra_Decoder_ ## n, CCoder(Z7_BRANCH_CONV_DEC(n))) \
+     CREATE_BRA_E(n)
+ 
+-CREATE_BRA(PPC)
++CREATE_BRA(Z7_PPC)
+ CREATE_BRA(IA64)
+ CREATE_BRA(ARM)
+ CREATE_BRA(ARMT)
+@@ -36,7 +36,7 @@ CREATE_BRA(SPARC)
+ 
+ REGISTER_CODECS_VAR
+ {
+-  METHOD_ITEM(PPC,   0x205, "PPC"),
++  METHOD_ITEM(Z7_PPC,0x205, "PPC"),
+   METHOD_ITEM(IA64,  0x401, "IA64"),
+   METHOD_ITEM(ARM,   0x501, "ARM"),
+   METHOD_ITEM(ARMT,  0x701, "ARMT"),

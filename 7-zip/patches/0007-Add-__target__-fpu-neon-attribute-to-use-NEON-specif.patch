@@ -1,0 +1,48 @@
+From: YOKOTA Hiroshi <yokota.hgml@gmail.com>
+Date: Wed, 21 Jun 2023 09:43:09 +0900
+Subject: Add __target__("fpu=neon") attribute to use NEON specific codes
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Forwarded: https://sourceforge.net/p/sevenzip/patches/413/
+
+https://sourceforge.net/p/sevenzip/patches/413/#8bce
+> Igor Pavlov:
+> 7-zip detects neon availability at runtime via hwcap.
+> And 7-zip can select between neon and non-neon code.
+> So we want to use NEON in some functions, even if main code is not neon.
+> for x86, we just use `__attribute__` for avx2 functions:
+>
+> ```
+> __attribute__((__target__("avx2")))
+> ```
+>
+> What way to do similar thing for arm-neon ?
+
+From armhf build log:
+> /usr/lib/gcc/arm-linux-gnueabihf/12/include/arm_neon.h:9186:1:
+> error: inlining failed in call to ‘always_inline’ ‘vrev16q_u8’:
+> target specific option mismatch
+
+vrev16q_u8() requires NEON option to use.
+Add __target__("fpu=neon") attribute to enable NEON intrinsics.
+
+__target__("fpu=crypto-neon-fp-armv8") is too much to use vrev16q_u8().
+Use simple __target__("fpu=neon") to satisfy lowest requirement to
+use vrev16q_u8().
+---
+ C/SwapBytes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/C/SwapBytes.c
++++ b/C/SwapBytes.c
+@@ -343,7 +343,7 @@ ShufBytes_256(void *items8, const void *
+     #ifdef MY_CPU_ARM64
+       // #define SWAP_ATTRIB_NEON __attribute__((__target__("")))
+     #else
+-      // #define SWAP_ATTRIB_NEON __attribute__((__target__("fpu=crypto-neon-fp-armv8")))
++      #define SWAP_ATTRIB_NEON __attribute__((__target__("fpu=neon")))
+     #endif
+   #elif defined(_MSC_VER)
+     #if (_MSC_VER >= 1910)

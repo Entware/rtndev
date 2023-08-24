@@ -1,0 +1,23 @@
+From: YOKOTA Hiroshi <yokota.hgml@gmail.com>
+Date: Wed, 13 Oct 2021 07:59:13 +0900
+Subject: Guard ARM v8 feature from old architecture
+
+Forwarded: https://sourceforge.net/p/sevenzip/patches/369/
+---
+ C/7zCrc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/C/7zCrc.c
++++ b/C/7zCrc.c
+@@ -84,8 +84,9 @@ UInt32 Z7_FASTCALL CrcUpdateT1(UInt32 v,
+     #endif
+     #endif
+     #endif
+-  #elif (defined(__clang__) && (__clang_major__ >= 3)) \
+-     || (defined(__GNUC__) && (__GNUC__ > 4))
++  #elif ( (defined(__clang__) && (__clang_major__ >= 3)) ||	 \
++          (defined(__GNUC__)  && (__GNUC__ > 4)        )    ) && \
++        (__ARM_ARCH >= 8)
+       #if !defined(__ARM_FEATURE_CRC32)
+         #define __ARM_FEATURE_CRC32 1
+         #if defined(__clang__)
