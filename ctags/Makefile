@@ -4,21 +4,17 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# regex import from shipped gnulib is broken after https://github.com/universal-ctags/ctags/releases/tag/p5.9.20210725.0
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ctags
-PKG_VERSION:=p5.9.20220717.0
-PKG_REV:=5de74853b424f8f2ace678b0344dcf18b2314424
+PKG_VERSION:=6.0.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=f3c03aa0034952e5178afa9a5075a37ab95b7fa6f837b89bfc2cd4c086b14872
+PKG_SOURCE_VERSION:=3af413544a0ed0a4c52200894cfd6391f06d2e94
+PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
+PKG_MIRROR_HASH:=2ae69345579768122bf6580b359a3dcf7d020103ab8901d32aae88cc60c37141
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -50,7 +46,6 @@ CONFIGURE_ARGS += \
 	--enable-dependency-tracking \
 	--enable-etags \
 	--enable-macro-patterns \
-	--enable-readlib \
 	--enable-tmpdir=/opt/tmp
 
 CONFIGURE_VARS += \

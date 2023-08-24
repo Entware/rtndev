@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -419,23 +419,23 @@ AC_CHECK_PROGS([PYTHON],
+@@ -430,23 +430,23 @@ AC_CHECK_PROGS([PYTHON],
  AC_MSG_CHECKING(directory to use for temporary files)
  if test -n "$enable_tmpdir"; then
  	tmpdir="$enable_tmpdir"
