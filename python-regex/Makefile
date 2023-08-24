@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2023.5.5
+PKG_VERSION:=2023.8.8
 PKG_RELEASE:=1
 
 PYPI_NAME:=regex
-PKG_HASH:=7d76a8a1fc9da08296462a18f16620ba73bcbf5909e42383b253ef34d9d5141e
+PKG_HASH:=fcbdc5f2b0f1cd0f6a56cdb46fe41d2cce1e644e3b68832f3eeebc5fb0f7712e
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -25,7 +25,7 @@ define Package/python3-regex
 	TITLE:=python-regexp
 	URL:=https://bitbucket.org/mrabarnett/mrab-regex
 	MAINTAINER:=Entware team, https://entware.net
-	DEPENDS:=+python3-light
+	DEPENDS:=+python3-light +python3-codecs +python3-urllib
 endef
 
 define Package/python3-regex/description
