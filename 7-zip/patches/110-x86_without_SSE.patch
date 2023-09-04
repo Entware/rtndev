@@ -1,0 +1,15 @@
+--- a/CPP/7zip/UI/Console/MainAr.cpp
++++ b/CPP/7zip/UI/Console/MainAr.cpp
+@@ -67,10 +67,10 @@ static inline bool CheckIsa()
+     #elif defined(__AVX__)
+       if (!CPU_IsSupported_AVX())
+         return false;
+-    #elif defined(__SSE2__) && !defined(MY_CPU_AMD64) || defined(_M_IX86_FP) && (_M_IX86_FP >= 2)
++    #elif !defined(MY_CPU_X86) && (defined(__SSE2__) && !defined(MY_CPU_AMD64) || defined(_M_IX86_FP) && (_M_IX86_FP >= 2))
+       if (!CPU_IsSupported_SSE2())
+         return false;
+-    #elif defined(__SSE__) && !defined(MY_CPU_AMD64) || defined(_M_IX86_FP) && (_M_IX86_FP >= 1)
++    #elif !defined(MY_CPU_X86) && (defined(__SSE__) && !defined(MY_CPU_AMD64) || defined(_M_IX86_FP) && (_M_IX86_FP >= 1))
+       if (!CPU_IsSupported_SSE() ||
+           !CPU_IsSupported_CMOV())
+         return false;
