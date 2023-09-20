@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=11724
+PKG_REV:=11725
 PKG_VERSION:=1.20-r$(PKG_REV)
 PKG_RELEASE:=1
 
@@ -51,6 +51,8 @@ CMAKE_OPTIONS += \
 	-DHAVE_LIBCRYPTO=1 \
 
 define Build/Configure
+	touch $(PKG_BUILD_DIR)/*
+	touch $(PKG_BUILD_DIR)/*/*
 	$(SED) 's,svnversion -n .,echo $(PKG_REV),g' $(PKG_BUILD_DIR)/config.sh
 	$(call Build/Configure/Default)
 endef
