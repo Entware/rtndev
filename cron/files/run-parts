@@ -6,13 +6,11 @@
 # based on rc.unslung by unslung guys :-)
 #
 if [ -z "$1" ]; then
-    echo "Usage : $0 "
+    echo "Usage: $0 <dir>"
     exit 0
 fi
 
-RUNDIR=$1"/*"
-
-for i in $RUNDIR ; do
+for i in $(/opt/bin/find $1 -perm '-u+x'); do
 
 # Ignore dangling symlinks (if any).
 [ ! -f "$i" ] && continue
