@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2021 Entware
+# Copyright (C) 2017-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-release
 PKG_VERSION:=1.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -64,6 +64,20 @@ endef
 define Package/entware-release/install
 	$(INSTALL_DIR) $(1)/opt/etc
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/entware_release $(1)/opt/etc
+endef
+
+define Package/entware-release/postinst
+#!/bin/sh
+cat << EOF
+
+We will end support for this feed soon and recommend migrating
+to new one if possible.
+
+As usual, every package/feed ever been created for Entware will
+stay available at bin.entware.net.
+
+Regards, Entware team.
+EOF
 endef
 
 $(eval $(call BuildPackage,entware-release))
