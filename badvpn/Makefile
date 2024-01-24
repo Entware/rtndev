@@ -1,11 +1,9 @@
+# SPDX-License-Identifier: BSD-3-Clause
 #
-# Copyright (C) 2017-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2017-2024 Entware
 #
 # ported to Entware from https://github.com/helmiau/badvpn_corkscrew
-
+# Project archieved
 
 include $(TOPDIR)/rules.mk
 
@@ -21,10 +19,8 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=b8f0e0402ada9942543ada848db18e4f3851bcf8c69fc0ab23b1c6d629297020
 
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
-
 
 define Package/$(PKG_NAME)
 	SECTION:=net
