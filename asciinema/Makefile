@@ -1,18 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asciinema
-PKG_VERSION:=2.3.0
+PKG_VERSION:=2.4.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=asciinema
-PKG_HASH:=db8b056c00e9bbb2751c958298b522518c4bd80326d90bedab7f8943c7a494d5
+PKG_HASH:=828e04c36ba622a7b8f8f912c8f0c1329538b6c7ed1c0d1b131bbbfe3a221707
 
 PKG_BUILD_DEPENDS:=python-wheel/host
 
