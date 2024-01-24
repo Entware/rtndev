@@ -1,11 +1,13 @@
 --- a/systemd/airsaned.default
 +++ b/systemd/airsaned.default
-@@ -11,6 +11,6 @@ DISCLOSE_VERSION=true
- LOCAL_SCANNERS_ONLY=true
+@@ -11,7 +11,7 @@ DISCLOSE_VERSION=true
+ LOCAL_SCANNERS_ONLY=false
  RANDOM_PATHS=false
  COMPATIBLE_PATH=true
 -OPTIONS_FILE=/etc/airsane/options.conf
+-ACCESS_FILE=/etc/airsane/access.conf
 -IGNORE_LIST=/etc/airsane/ignore.conf
 +OPTIONS_FILE=/opt/etc/airsane/options.conf
++ACCESS_FILE=/opt/etc/airsane/access.conf
 +IGNORE_LIST=/opt/etc/airsane/ignore.conf
  
