@@ -1,6 +1,6 @@
 --- a/crawl-ref/source/initfile.cc
 +++ b/crawl-ref/source/initfile.cc
-@@ -1473,7 +1473,7 @@ void game_options::reset_paths()
+@@ -1508,7 +1508,7 @@ void game_options::reset_paths()
      {
          macro_dir_option = ""; // maybe unnecessary?
  #ifdef UNIX
