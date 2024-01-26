@@ -1,20 +1,17 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ctags
-PKG_VERSION:=6.0.0
+PKG_VERSION:=6.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=3af413544a0ed0a4c52200894cfd6391f06d2e94
+PKG_SOURCE_VERSION:=7ad90a853a5aee974c757217c87a3b468855c2b1
 PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
-PKG_MIRROR_HASH:=2ae69345579768122bf6580b359a3dcf7d020103ab8901d32aae88cc60c37141
+PKG_MIRROR_HASH:=c978ba0815b010ce2c277be283ddd1aacd72112bda77b88c0d76852c8d86b33f
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
