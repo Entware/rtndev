@@ -1,19 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lcms
-PKG_VERSION:=2.15
+PKG_VERSION:=2.16
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)2-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_HASH:=b20cbcbd0f503433be2a4e81462106fa61050a35074dc24a4e356792d971ab39
+PKG_HASH:=d873d34ad8b9b4cea010631f1a6228d2087475e4dc5e763eb81acc23d9d45a51
 
 PKG_INSTALL:=1
 
