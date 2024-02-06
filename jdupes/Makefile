@@ -1,23 +1,20 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2017-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jdupes
-PKG_VERSION:=1.26.1
-PKG_REV:=b23cc2f907fee0e24d0b4e3eb421b5e6c0656937
+PKG_VERSION:=1.27.3
+PKG_REV:=79ccff163020670298a615930fd1bf69c4e71d10
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/jbruchon/jdupes.git
+PKG_SOURCE_URL:=https://codeberg.org/jbruchon/jdupes.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=a1895682ee6c60180453022445aeef2dac11f11cff7b518ba472c9e29145dcc6
+PKG_MIRROR_HASH:=77faae0ae83f7a0bdffa2f64ccb31f2547b282cd40392789be3de3a575cdf9f5
 
 PKG_BUILD_DEPENDS:=libjodycode
 
