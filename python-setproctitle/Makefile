@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=setproctitle
 PKG_VERSION:=1.3.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=setproctitle
 PKG_HASH:=b9fb97907c830d260fa0658ed58afd48a86b2b88aac521135c352ff7fd3477fd
