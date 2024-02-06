@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2017-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=httrack
-PKG_VERSION:=3.49.4
-PKG_REV:=4f24477a13e53346577691a0193e588e9ba992aa
+PKG_VERSION:=3.49.5
+PKG_REV:=70d43d42b5bef9057b5387c0d80556ecb9045779
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,9 +14,10 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/xroche/httrack.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1f50b92fd88d977d0bcd78fd7b80a1fcb82d8705038d893c756201929a24922d
+PKG_MIRROR_HASH:=97f49f3df36aec68ef8afd9aa568477c98e96b502422ae0155b14005ee36fb01
 
 PKG_BUILD_FLAGS:=no-mips16
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
