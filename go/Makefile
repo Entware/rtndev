@@ -1,19 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.20.7
+PKG_VERSION:=1.21.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=2c5ee9c9ec1e733b0dbbc2bdfed3f62306e51d8172bf38f4f4e542b27520f597
+PKG_HASH:=124926a62e45f78daabbaedb9c011d97633186a33c238ffc1e25320c02046248
 
 BINTYPE:=$(shell uname -m | sed 's/i[3-6]86/386/;s/x86_64/amd64/')
 
