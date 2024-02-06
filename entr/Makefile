@@ -1,15 +1,12 @@
+# PDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entr
-PKG_VERSION:=5.4
-PKG_REV:=a4259d243c6306fb4754053b32268e34e290d94e
+PKG_VERSION:=5.5
+PKG_REV:=8ed69ace080a73ff923c20f01a3ded28df3b4e1c
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/eradman/entr.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=e82d3cfb591bd9cec4bfe9e926361e8e08691ad689d77ea786065daac30b2ae0
+PKG_MIRROR_HASH:=eb2dd0f11573a69c18a7d9dd2814a1f9da6f59337f0859e51fc0a69dab40cb13
 
 include $(INCLUDE_DIR)/package.mk
 
