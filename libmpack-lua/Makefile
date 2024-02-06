@@ -1,20 +1,18 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2023-2024 Entware
 #
 # only build host library (neovim)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmpack-lua
-PKG_VERSION:=1.0.10
+PKG_VERSION:=1.0.11
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/libmpack/libmpack-lua/tar.gz/refs/tags/$(PKG_VERSION)?
-PKG_HASH:=b58a25a0b48e1ec584beee6c80e0e31182dad7a45005ce58e88e6cfff3a3f3e4
+PKG_HASH:=1d7181514aef66e6c4cad025ae7bd3f8e354125847e33db2394d91fc8dd3e478
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE-MIT
