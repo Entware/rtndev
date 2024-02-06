@@ -1,7 +1,7 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
- VERSION := 0.20.9
+ VERSION := 0.20.10
  
  # install directory layout
 -PREFIX ?= /usr/local
@@ -18,18 +18,18 @@
  
  libtree-sitter.a: $(OBJ)
  	$(AR) rcs $@ $^
-@@ -54,9 +54,6 @@ libtree-sitter.$(SOEXTVER): $(OBJ)
- install: all
+@@ -62,9 +62,6 @@ install: all
+ 
  	install -d '$(DESTDIR)$(LIBDIR)'
- 	install -m755 libtree-sitter.a '$(DESTDIR)$(LIBDIR)'/libtree-sitter.a
--	install -m755 libtree-sitter.$(SOEXTVER) '$(DESTDIR)$(LIBDIR)'/libtree-sitter.$(SOEXTVER)
+ 	install -m644 libtree-sitter.a '$(DESTDIR)$(LIBDIR)'/
+-	install -m755 libtree-sitter.$(SOEXTVER) '$(DESTDIR)$(LIBDIR)'/
 -	ln -sf libtree-sitter.$(SOEXTVER) '$(DESTDIR)$(LIBDIR)'/libtree-sitter.$(SOEXTVER_MAJOR)
 -	ln -sf libtree-sitter.$(SOEXTVER) '$(DESTDIR)$(LIBDIR)'/libtree-sitter.$(SOEXT)
+ 
  	install -d '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter
- 	install -m644 lib/include/tree_sitter/*.h '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter/
- 	install -d '$(DESTDIR)$(PCLIBDIR)'
-@@ -66,6 +63,6 @@ install: all
- 	    tree-sitter.pc.in > '$(DESTDIR)$(PCLIBDIR)'/tree-sitter.pc
+ 	install -m644 lib/include/tree_sitter/api.h '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter/
+@@ -73,6 +70,6 @@ install: all
+ 	install -m644 tree-sitter.pc '$(DESTDIR)$(PCLIBDIR)'/
  
  clean:
 -	rm -f lib/src/*.o libtree-sitter.a libtree-sitter.$(SOEXT) libtree-sitter.$(SOEXTVER_MAJOR) libtree-sitter.$(SOEXTVER)

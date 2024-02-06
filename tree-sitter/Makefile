@@ -1,20 +1,18 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2023-2024 Entware
 #
 # only build static library (neovim)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tree-sitter
-PKG_VERSION:=0.20.8
+PKG_VERSION:=0.20.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=6181ede0b7470bfca37e293e7d5dc1d16469b9485d13f13a605baec4a8b1f791
+PKG_HASH:=9b2fd489a7281e3a7e5e7cbbf3a974e5a6a115889ae65676d61b79bdae96464e
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
