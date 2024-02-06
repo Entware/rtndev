@@ -1,11 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
+# Copyright (C) 2011-2024 Entware
 # Copyright (C) 2013 Francisco Borges
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
 #
 # Makefile taken from http://github.com/FranciscoBorges/openwrt-printing-packages
+# 2.x requires significat changes, https://openprinting.github.io/current/#cups-filters-2x
 
 include $(TOPDIR)/rules.mk
 
