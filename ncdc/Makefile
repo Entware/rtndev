@@ -1,19 +1,16 @@
+# Copyright (C) 2011-2024 Entware
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ncdc
-PKG_VERSION:=1.23.1
+PKG_VERSION:=1.24
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.yorhel.nl/download
-PKG_HASH:=95881214077a5b3c24fbbaf020ada0d084ee3b596a7c3cc1e0e68aaac4c9b5e6
+PKG_HASH:=233510d5355fc72fdad3578ebc8ab35d1da95b21d2774990f3a1356b7112da1e
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
