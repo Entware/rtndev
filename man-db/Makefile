@@ -1,19 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2017-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
-PKG_VERSION:=2.11.2
-PKG_RELEASE:=2
+PKG_VERSION:=2.12.0
+PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=@SAVANNAH/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_HASH:=cffa1ee4e974be78646c46508e6dd2f37e7c589aaab2938cc1064f058fef9f8d
+PKG_HASH:=415a6284a22764ad22ff0f66710d853be7790dd451cd71436e3d25c74d996a95
 
 PKG_LICENSE:=GPL-2.0-or-later
 
