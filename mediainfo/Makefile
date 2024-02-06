@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=23.07
-PKG_REV:=c365dcb8c56202c6de861c7161e8fd9fb645fba3
+PKG_VERSION:=24.01
+PKG_REV:=d2c13410529435cc52757cd2dabe9d34c7e468f3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/MediaArea/MediaInfo.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=2c78fcd32530a40c92021cffa3b40335ee622562efb98fccc3626d8372ce7b50
+PKG_MIRROR_HASH:=377ad6009efd7d818679235a2942cc51267d4bc9e1f1cd2a32d5a15fafff0e08
 
 PKG_FIXUP:=autoreconf
 
