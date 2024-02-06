@@ -13,7 +13,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx-extras
 PKG_VERSION:=1.22.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nginx.org/download
@@ -31,7 +31,7 @@ define Package/nginx-extras
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+libpam +libopenssl +libexslt +libgd +libmaxminddb +luajit +libpcre
+	DEPENDS:=+libpam +libopenssl +libexslt +libgd +libmaxminddb @HAS_LUAJIT_ARCH +libpcre
 	TITLE:=Nginx web server
 	URL:=http://nginx.org/
 	CONFLICTS:=nginx
