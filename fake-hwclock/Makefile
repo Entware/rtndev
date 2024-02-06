@@ -1,19 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fake-hwclock
-PKG_VERSION:=0.12
+PKG_VERSION:=0.13
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@DEBIAN/pool/main/f/fake-hwclock
-PKG_HASH:=02a825f7460ab06b370c203250606c67b0effffa1645a4a4f7ff3928eec4957e
+PKG_HASH:=63c37d4befe388cfc65b30660403fff638692fc05fbf76d497340b4158747b11
 
 include $(INCLUDE_DIR)/package.mk
 
