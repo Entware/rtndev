@@ -1,9 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2023-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
@@ -14,7 +11,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/jbruchon/libjodycode.git
+PKG_SOURCE_URL:=https://codeberg.org/jbruchon/libjodycode.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=544cee6fc40ef65fa0ae6c2f9b7548b5b70f96c956b526b4f36c6afd8766e4bb
