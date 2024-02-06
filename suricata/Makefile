@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=suricata
 PKG_VERSION:=4.1.8
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.openinfosecfoundation.org/download
@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/suricata
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libyaml +jansson +libpcap +libpcre +libmagic +liblz4 +libcap-ng
+	DEPENDS:=+jansson +liblz4 +libcap-ng +libmagic +libpcap +libpcre +libyaml
 	TITLE:=IDS, IPS, NSM engine
 	URL:=https://suricata-ids.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -38,11 +38,12 @@ define Package/suricata/description
 endef
 
 CONFIGURE_ARGS += \
-	--disable-static \
 	--disable-afl \
 	--disable-nspr \
 	--disable-nss \
 	--disable-python \
+	--disable-rust \
+	--disable-static \
 	--disable-suricata-update
 
 define Package/suricata/conffiles
