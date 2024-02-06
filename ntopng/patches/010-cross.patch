@@ -1,29 +1,56 @@
 --- a/configure.ac.in
 +++ b/configure.ac.in
-@@ -176,14 +176,14 @@ if test "${with_nedge+set}" = set; then
+@@ -95,7 +95,7 @@ fi
+ CFLAGS="${CFLAGS} -I${HERE} -I${HERE}/include"
+ CXXFLAGS="${CXXFLAGS} -I${HERE} -I${HERE}/include"
+ 
+-CXXFLAGS="${CXXFLAGS} -Wno-address-of-packed-member -Wno-unused-function"
++CXXFLAGS="${CXXFLAGS} -Wno-unused-function"
+ 
+ dnl> MacOS brew.sh
+ HOMEBREW_DIR=/opt/homebrew
+@@ -220,23 +220,23 @@ if test "${with_nedge+set}" = set; then
    LIBS="${LIBS} -lnetfilter_queue -lnfnetlink -lnetfilter_conntrack"
  fi
  
 -if test -d "/usr/local/include"; then
 -  CFLAGS="${CFLAGS} -I/usr/local/include"
--  CPPFLAGS="${CPPFLAGS} -I/usr/local/include"
+-  CXXFLAGS="${CXXFLAGS} -I/usr/local/include"
 -fi
 -
 -if test -d "/usr/local/lib"; then
 -  LIBS="${LIBS} -L/usr/local/lib"
 -fi
+-
+-if test -d /opt/local/include; then :
+-  CFLAGS="${CFLAGS} -I/opt/local/include"
+-  CXXFLAGS="${CXXFLAGS} -I/opt/local/include"
+-fi
+-
+-if test -d /opt/local/lib; then :
+-  LIBS="${LIBS} -L/opt/local/lib"
+-fi
 +#if test -d "/usr/local/include"; then
-+  CFLAGS="${CFLAGS}"
-+  CPPFLAGS="${CPPFLAGS}"
++#  CFLAGS="${CFLAGS} -I/usr/local/include"
++#  CXXFLAGS="${CXXFLAGS} -I/usr/local/include"
 +#fi
 +
 +#if test -d "/usr/local/lib"; then
-+  LIBS="${LIBS}"
++#  LIBS="${LIBS} -L/usr/local/lib"
++#fi
++
++#if test -d /opt/local/include; then :
++#  CFLAGS="${CFLAGS} -I/opt/local/include"
++#  CXXFLAGS="${CXXFLAGS} -I/opt/local/include"
++#fi
++
++#if test -d /opt/local/lib; then :
++#  LIBS="${LIBS} -L/opt/local/lib"
 +#fi
  
- if test -d /opt/local/include; then :
-   CFLAGS="${CFLAGS} -I/opt/local/include"
-@@ -306,7 +306,7 @@ fi
+ if [ test -f /usr/bin/lsb_release ]; then
+   CODENAME=`/usr/bin/lsb_release -c|cut -f 2`
+@@ -347,7 +347,7 @@ if test "${FREEBSD_VERSION}" != "14"; th
  pkg-config --exists libssl
  if test "$?" -ne 1; then
    AC_DEFINE_UNQUOTED(NO_SSL_DL, 1, [has openssl])
@@ -32,25 +59,16 @@
    SSL_LIB="`pkg-config --libs libssl` -lssl -lcrypto"
  else
    dnl Workaround for MacOS Brew
-@@ -440,7 +440,7 @@ dnl> wget -O config.guess 'http://git.sa
-     OSNAME=`./config.guess`
-   fi
- fi
--AC_DEFINE_UNQUOTED(PACKAGE_OSNAME, "${OSNAME}", [OS name])
-+AC_DEFINE_UNQUOTED(PACKAGE_OSNAME, "Entware", [OS name])
- 
- if test $MACHINE = "x86_64"; then
-   EXTN="amd64"
-@@ -454,7 +454,7 @@ DATE=`date +"%Y-%m-%d"`
- 
- pkg-config --exists hiredis
- if test "$?" -ne 1; then
--  HIREDIS_INC="`pkg-config --cflags hiredis` -I/usr/include/hiredis"
-+  HIREDIS_INC="`pkg-config --cflags hiredis`"
-   if test $SYSTEM = "FreeBSD"; then
-      HIREDIS_LIB="/usr/local/lib/libhiredis.a"
-    else
-@@ -775,8 +775,8 @@ CXXFLAGS=$CPPFLAGS
+@@ -509,7 +509,7 @@ HIREDIS_LIB=
+ AS_VAR_IF(with_hiredis, yes, [
+     pkg-config --exists hiredis
+     if test "$?" -ne 1; then
+-    HIREDIS_INC="`pkg-config --cflags hiredis` -I/usr/include/hiredis"
++    HIREDIS_INC="`pkg-config --cflags hiredis`"
+     if test $SYSTEM = "FreeBSD"; then
+         HIREDIS_LIB="/usr/local/lib/libhiredis.a"
+     else
+@@ -840,8 +840,8 @@ fi
  
  PWD=${HERE}
  AC_DEFINE_UNQUOTED(PACKAGE_RELEASE, "r$GIT_RELEASE", [GIT release of this package])
@@ -72,8 +90,8 @@
  
  ifeq ($(OS),Linux)
  	LUA_PLATFORM=linux
-@@ -148,14 +148,12 @@ test_alert_engine: $(OBJECTS_NO_MAIN) $(
- 	$(CPP) $(CPPFLAGS) $(LDFLAGS) $(OBJECTS_NO_MAIN) -Wall $(LIBS) -o $@
+@@ -151,14 +151,12 @@ test_alert_engine: $(OBJECTS_NO_MAIN) $(
+ 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS_NO_MAIN) -Wall $(LIBS) -o $@
  
  $(LUA_LIB):
 -	$(MAKE) -C $(LUA_HOME) $(LUA_PLATFORM)
