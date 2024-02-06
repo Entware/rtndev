@@ -1,23 +1,20 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2020-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python3-uvloop
-PKG_VERSION:=0.17.0
-PKG_RELEASE:=2
+PKG_VERSION:=0.19.0
+PKG_RELEASE:=1
 
 PYPI_NAME:=uvloop
-PKG_HASH:=0ddf6baf9cf11a1a22c71487f39f15b2cf78eb5bde7e5b45fbb99e8a9d91b9e1
+PKG_HASH:=0246f4fd1bf2bf702e06b0d45ee91677ee5c31242f39aab4ea6fe0c51aedd0fd
 
-PKG_LICENSE:=MIT Apache-2.0
+PKG_LICENSE:=Apache-2.0 MIT
 PKG_LICENSE_FILES:=LICENSE-APACHE LICENSE-MIT
 
-PKG_BUILD_DEPENDS:=python-cython/host
+PKG_BUILD_DEPENDS:=python-cython/host python-wheel/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -27,7 +24,7 @@ define Package/python3-uvloop
 	SECTION:=lang
 	CATEGORY:=Languages
 	SUBMENU:=Python
-	DEPENDS:=+libuv +python3
+	DEPENDS:=+libuv +python3-asyncio +python3-logging +python3-openssl +python3-unittest
 	TITLE:=drop-in replacement of the built-in asyncio event loop
 	URL:=http://github.com/MagicStack/uvloop
 	MAINTAINER:=Entware team, https://entware.net
