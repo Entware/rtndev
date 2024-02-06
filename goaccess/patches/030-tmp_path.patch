@@ -1,6 +1,6 @@
 --- a/src/options.c
 +++ b/src/options.c
-@@ -280,7 +280,7 @@ cmd_help (void)
+@@ -286,7 +286,7 @@ cmd_help (void)
    "  --date-spec=<date|hr|min>       - Date specificity. Possible values: `date`\n"
    "                                    (default), `hr` or `min`.\n"
    "  --db-path=<path>                - Persist data to disk on exit to the given\n"
@@ -9,7 +9,7 @@
    "  --double-decode                 - Decode double-encoded values.\n"
    "  --enable-panel=<PANEL>          - Enable parsing/displaying the given panel.\n"
    "  --fname-as-vhost=<regex>        - Use log filename(s) as virtual host(s).\n"
-@@ -304,12 +304,12 @@ cmd_help (void)
+@@ -310,12 +310,12 @@ cmd_help (void)
    "  --no-strict-status              - Disable HTTP status code validation.\n"
    "  --num-tests=<number>            - Number of lines to test. >= 0 (10 default)\n"
    "  --persist                       - Persist data to disk on exit to the given\n"

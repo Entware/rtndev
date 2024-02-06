@@ -1,7 +1,7 @@
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -12,9 +12,6 @@ dist_noinst_DATA =                 \
-   resources/js/d3.v3.min.js        \
+   resources/js/d3.v7.min.js        \
    resources/js/hogan.min.js
  
 -noinst_PROGRAMS = bin2c
