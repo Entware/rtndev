@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2024 Entware
+# SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2011-2024 Entware
 
