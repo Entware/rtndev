@@ -1,11 +1,11 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -16,7 +16,7 @@ MANDIR=$(SHAREDIR)/man
- MAN1DIR=$(MANDIR)/man1
- DOCDIR=$(SHAREDIR)/doc/multitail-$(VERSION)
+@@ -9,7 +9,7 @@ DEBUG:=#XXX -g -D_DEBUG ###-pg -Wpedanti
  
--SYSCONFDIR=/etc
-+SYSCONFDIR=/opt/etc
- CONFIG_FILE=$(SYSCONFDIR)/multitail.conf
- CONFIG_DIR=$(SYSCONFDIR)/multitail
+ UTF8_SUPPORT:=yes
+ DESTDIR=
+-PREFIX=/usr/local
++PREFIX=/opt
+ CONFIG_FILE=$(DESTDIR)$(PREFIX)/etc/multitail.conf
  
+ CC?=gcc
