@@ -1,18 +1,15 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=setproctitle
-PKG_VERSION:=1.3.2
-PKG_RELEASE:=2
+PKG_VERSION:=1.3.3
+PKG_RELEASE:=1
 
 PYPI_NAME:=setproctitle
-PKG_HASH:=b9fb97907c830d260fa0658ed58afd48a86b2b88aac521135c352ff7fd3477fd
+PKG_HASH:=c913e151e7ea01567837ff037a23ca8740192880198b7fbb90b16d181607caae
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
