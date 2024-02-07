@@ -5,7 +5,7 @@
    default_prefix='Debug'
  else:
 -  default_incdir='/usr'
-+  default_incdir='$STAGING_DIR/opt'
++  default_incdir='@STAGING_DIR@'
    default_libdir='$PREFIX/lib'
    default_prefix='/usr/local'
  
@@ -19,7 +19,7 @@
  if sys.platform == 'darwin':
  #  linkflags.append('-Wl,-install_name,@executable_path/%s.dylib' % (LIBNAME,))
    env.Append(LINKFLAGS=['-Wl,-install_name,%s/%s.dylib' % (thisdir, LIBNAME,)])
-@@ -407,12 +404,6 @@ if gssapi and CALLOUT_OKAY:
+@@ -407,19 +404,12 @@ if gssapi and CALLOUT_OKAY:
  if sys.platform == 'win32':
    env.Append(CPPDEFINES=['SERF_HAVE_SSPI'])
  
@@ -32,7 +32,14 @@
  # Set up the construction of serf-*.pc
  pkgconfig = env.Textfile('serf-%d.pc' % (MAJOR,),
                           env.File('build/serf.pc.in'),
-@@ -483,7 +474,6 @@ else:
+                          SUBST_DICT = {
+                            '@MAJOR@': str(MAJOR),
+                            '@PREFIX@': '$PREFIX',
+-                           '@LIBDIR@': '$LIBDIR',
+                            '@INCLUDE_SUBDIR@': 'serf-%d' % (MAJOR,),
+                            '@VERSION@': '%d.%d.%d' % (MAJOR, MINOR, PATCH),
+                            '@LIBS@': '%s %s %s -lz' % (apu_libs, apr_libs,
+@@ -483,7 +473,6 @@ else:
    TEST_EXES = [ os.path.join('test', '%s' % (prog)) for prog in TEST_PROGRAMS ]
  
  # Find the (dynamic) library in this directory
@@ -40,3 +47,14 @@
  tenv.Prepend(LIBS=[LIBNAMESTATIC, ],
               LIBPATH=[thisdir, ])
  
+--- a/build/serf.pc.in
++++ b/build/serf.pc.in
+@@ -1,7 +1,7 @@
+ SERF_MAJOR_VERSION=@MAJOR@
+ prefix=@PREFIX@
+ exec_prefix=${prefix}
+-libdir=@LIBDIR@
++libdir=${exec_prefix}/lib
+ includedir=${prefix}/include/@INCLUDE_SUBDIR@
+ 
+ Name: serf

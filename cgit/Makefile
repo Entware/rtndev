@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cgit
 PKG_VERSION:=1.2.3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_SOURCE_DATE:=2021-06-08
 PKG_SOURCE_VERSION:=5258c297ba6fb604ae1415fbc19a3fe42457e49e
 
@@ -34,7 +34,7 @@ define Package/cgit
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Version Control Systems
-	DEPENDS:=+libcharset +luajit +libopenssl +libpcre2 +zlib $(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+libcharset @HAS_LUAJIT_ARCH +luajit +libopenssl +libpcre2 +zlib $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	URL:=https://git.zx2c4.com/cgit/
 	MAINTAINER:=Troels Gram [https://github.com/tgram75]
 endef

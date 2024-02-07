@@ -1,0 +1,22 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -55,7 +55,7 @@ docs = [
+ requires = [
+     "setuptools>=60",
+     "wheel",
+-    "Cython(>=0.29.36,<0.30.0)",
++    "Cython>=0.29.36",
+ ]
+ build-backend = "setuptools.build_meta"
+ 
+--- a/setup.py
++++ b/setup.py
+@@ -21,7 +21,7 @@ from setuptools.command.build_ext import
+ from setuptools.command.sdist import sdist
+ 
+ 
+-CYTHON_DEPENDENCY = 'Cython(>=0.29.36,<0.30.0)'
++CYTHON_DEPENDENCY = 'Cython>=0.29.36'
+ MACHINE = platform.machine()
+ MODULES_CFLAGS = [os.getenv('UVLOOP_OPT_CFLAGS', '-O2')]
+ _ROOT = pathlib.Path(__file__).parent

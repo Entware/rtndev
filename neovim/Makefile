@@ -29,7 +29,7 @@ define Package/neovim
   TITLE:=hyperextensible Vim-based text editor
   URL:=https://neovim.io
   PKG_MAINTAINER:=Entware team, https://entware.net
-  DEPENDS:=+libncursesw +luajit +luv +msgpack-c $(ICONV_DEPENDS) $(INTL_DEPENDS)
+  DEPENDS:=+libncursesw @HAS_LUAJIT_ARCH +luajit +luv +msgpack-c $(ICONV_DEPENDS) $(INTL_DEPENDS)
 endef
 
 define Package/neovim/description

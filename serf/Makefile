@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=serf
 PKG_VERSION:=1.3.10
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@APACHE/$(PKG_NAME)
@@ -41,30 +41,25 @@ define Package/libserf/description
  Serf is the default client library of Apache Subversion and Apache OpenOffice 
 endef
 
-# Dirty trick to define PATH_MAX. It is needed by apr.h. PATH_MAX is defined in <linux/limits> and is the same for all feeds
+# Dirty trick to define PATH_MAX. It is needed by apr.h.
+# PATH_MAX is defined in <linux/limits> and is the same for all feeds
 
 SCONS_OPTIONS += \
 	CC="STAGING_DIR=$(STAGING_DIR) $(TOOLCHAIN_DIR)/bin/$(TARGET_CC_NOCACHE)" \
 	CPPFLAGS="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS) -DPATH_MAX=4096" \
+	LIBDIR="$(STAGING_DIR)/opt/lib" \
 	LINKFLAGS="$(TARGET_LDFLAGS)" \
-	PREFIX="/opt" \
-	APR="$(STAGING_DIR)/opt" \
-	APU="$(STAGING_DIR)/opt"
+	PREFIX="/opt"
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	(cd $(PKG_BUILD_DIR) ; \
-		$(SED) "s!default_incdir='$$$$STAGING_DIR!default_incdir='$(STAGING_DIR)!g" SConstruct ;\
+	( cd $(PKG_BUILD_DIR); \
+		$(SED) 's,@STAGING_DIR@,$(STAGING_DIR)/opt,g' SConstruct; \
 	)
 endef
 
 define Build/Configure
-	( \
-		cd $(PKG_BUILD_DIR); \
-		$(SCONS_VARS) \
-		scons \
-		$(SCONS_OPTIONS) \
-	)
+	( cd $(PKG_BUILD_DIR); $(SCONS_VARS) scons $(SCONS_OPTIONS); )
 endef
 
 define Build/InstallDev
@@ -74,6 +69,7 @@ define Build/InstallDev
 	$(CP) $(PKG_BUILD_DIR)/libserf-1.{a,so*} $(1)/opt/lib
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
 	$(CP) $(PKG_BUILD_DIR)/serf-1.pc $(1)/opt/lib/pkgconfig
+	$(SED) 's,-\(L\|R\)$(STAGING_DIR)/opt/lib ,,g' $(1)/opt/lib/pkgconfig/serf-1.pc
 endef
 
 define Package/libserf/install

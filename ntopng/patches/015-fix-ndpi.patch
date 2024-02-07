@@ -1,6 +1,6 @@
 --- a/configure.ac.in
 +++ b/configure.ac.in
-@@ -242,11 +242,14 @@ if test -d /usr/local/include/ndpi ; the
+@@ -286,11 +286,14 @@ if test -d /usr/local/include/ndpi ; the
     echo "WARNING: /usr/local/include/ndpi is present and might lead to compile errors"
  fi
  
@@ -20,7 +20,7 @@
        if test -d "./nDPI" ; then :
           NDPI_HOME=./nDPI
        elif test -d "../nDPI" ; then :
-@@ -271,7 +274,7 @@ AC_MSG_CHECKING(for nDPI source)
+@@ -315,7 +318,7 @@ AC_MSG_CHECKING(for nDPI source)
        else
           AC_MSG_RESULT(not found)
        fi

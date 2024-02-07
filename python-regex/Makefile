@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
 PKG_VERSION:=2023.8.8
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=regex
 PKG_HASH:=fcbdc5f2b0f1cd0f6a56cdb46fe41d2cce1e644e3b68832f3eeebc5fb0f7712e
