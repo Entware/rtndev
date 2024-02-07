@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PECL_NAME:=event
 PECL_LONGNAME:=Provides interface to libevent library
 
-PKG_VERSION:=3.0.8
+PKG_VERSION:=3.1.3
 PKG_RELEASE:=1
 
 PKG_NAME:=php8-pecl-$(PECL_NAME)
 PKG_SOURCE:=$(PECL_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://pecl.php.net/get/
-PKG_HASH:=e3e91edd3dc15e0969b9254cc3626ae07825e39bf26d61b49935f66f603d7b6b
+PKG_HASH:=854a0bf07c6f3fedad398186ec71c3cd1bb8d35651e3f3341657a616a6981707
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/pecl-php8/$(PECL_NAME)-$(PKG_VERSION)
 
