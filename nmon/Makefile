@@ -1,19 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2019-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2019-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nmon
-PKG_VERSION:=16n
+PKG_VERSION:=16p
 PKG_RELEASE:=1
 
 PKG_SOURCE:=lmon$(PKG_VERSION).c
 PKG_SOURCE_URL:=@SF/nmon
-PKG_HASH:=c0012cc2d925dee940c37ceae297abac64ba5a5c30e575e7418b04028613f5f2
+PKG_HASH:=5dc6045f6725e3249a969918fae69663a1d669162087720babcdb90fce9e6b2a
 
 PKG_MAINTAINER:=Thomas Kupper <thomas.kupper@gmail.com>
 PKG_LICENSE:=GPL-2.0
