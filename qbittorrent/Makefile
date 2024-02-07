@@ -1,10 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2022 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2017-2024 Entware
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
+# 4.6.3 requires libtorrent-rasterbar >= 2.0.9
 
 include $(TOPDIR)/rules.mk
 
