@@ -1,9 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2021 Entware
+# Copyright (C) 2020-2024 Entware
 #
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Abandoned in 2018
 
 include $(TOPDIR)/rules.mk
 
@@ -43,8 +42,8 @@ endef
 
 ifeq ($(ARCH),arm)
 TUNSAFE_EXTRA_FILES+= \
-  	crypto/chacha20/chacha20-arm-linux.S \
-  	crypto/poly1305/poly1305-arm-linux.S
+	crypto/chacha20/chacha20-arm-linux.S \
+	crypto/poly1305/poly1305-arm-linux.S
 else ifeq ($(ARCH),x86_64)
 TUNSAFE_EXTRA_FILES+= \
 	crypto/aesgcm/aesni_gcm-x64-linux.s \
