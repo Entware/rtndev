@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -29,8 +29,8 @@ all: usbrelay libusbrelay.so
+@@ -11,8 +11,8 @@ all: usbrelay libusbrelay.so libusbrelay
  
  libusbrelay.so: libusbrelay.c libusbrelay.h 
  	$(CC) -shared -fPIC -Wl,-soname,$@.$(USBMAJOR) $(CPPFLAGS) $(CFLAGS)  $< $(LDFLAGS) -o $@.$(USBLIBVER) $(LDLIBS)

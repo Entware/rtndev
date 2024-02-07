@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=usbrelay
-PKG_VERSION:=1.2
-PKG_REV:=69b245056b121ca1385fa3120741cee406e3d98d
+PKG_VERSION:=1.2.1
+PKG_REV:=d4225458db37eac4232bd86231a976e91d1cd369
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/darrylb123/usbrelay.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=01fbfba8fc9a098ff80b15e209545e939f920aec0989e85661cf2c536755aac7
+PKG_MIRROR_HASH:=48547335c83efc7366e81ca29954ac6f9d34bb35af7e7732644952e0fc1fbb11
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
