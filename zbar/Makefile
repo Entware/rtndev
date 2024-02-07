@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2020-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zbar
-PKG_VERSION:=0.23.92
-PKG_REV:=aac86d5f08d64ab4c3da78188eb622fa3cb07182
+PKG_VERSION:=0.23.93
+PKG_REV:=bb05ec54eec57f8397cb13fb9161372a281a1219
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/mchehab/zbar
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=eb4e436d5fa5bfc67759122b4f0ecdfdb4f185099ba07c0585ae1a6a055ce20d
+PKG_MIRROR_HASH:=f678cf14b03b49a5fa395c18916fdc9e7c0c92a335a9387d10dff19a2ec9bc1c
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
