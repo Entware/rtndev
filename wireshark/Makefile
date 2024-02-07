@@ -1,21 +1,18 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2020-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=3.6.16
+PKG_VERSION:=3.6.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://1.eu.dl.wireshark.org/src \
 	http://ftp.uni-kl.de/pub/wireshark/src \
 	https://wireshark.org/download/src/all-versions
-PKG_HASH:=72d29297b23468434b6dd7c29114e5c2bc9ca84c04249fb5e433a0229fbe1033
+PKG_HASH:=b4db69a6b1b73a36cca605058a745593eca6fafebcb9246fc49c6ed61ed07f82
 
 # FIXME FAILED: ... run/lemon: Exec format error
 PKG_USE_NINJA:=0
