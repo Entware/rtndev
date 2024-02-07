@@ -15,7 +15,7 @@
  #define BOX_COUNT 7
 --- a/globals.h
 +++ b/globals.h
-@@ -373,10 +373,10 @@
+@@ -376,10 +376,10 @@
  # define CS_TARGET				"unknown"
  #endif
  #ifndef CS_CONFDIR
