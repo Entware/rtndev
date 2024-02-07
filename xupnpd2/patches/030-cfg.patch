@@ -21,8 +21,8 @@
 +http_www_root=/opt/share/xupnpd2/www/
  http_templates=/index.html,/dev.xml
  
- # live streams settings
-@@ -67,7 +67,7 @@ upnp_hdr_content_disp=true      # Conten
+ # OpenSSL settings
+@@ -71,7 +71,7 @@ upnp_hdr_content_disp=true      # Conten
  #io_charset=windows-1251
  
  # db

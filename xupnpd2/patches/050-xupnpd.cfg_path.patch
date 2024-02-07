@@ -1,7 +1,7 @@
 --- a/common.cpp
 +++ b/common.cpp
-@@ -808,7 +808,7 @@ bool xupnpd::all_init_1(int argc,char**
- #endif
+@@ -823,7 +823,7 @@ bool xupnpd::all_init_1(int argc,char**
+         return false;
  
      // parse config
 -    if(!cfg::load(argc>1?argv[1]:"xupnpd.cfg"))

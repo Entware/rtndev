@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xupnpd2
-PKG_VERSION:=2.0-20211215
-PKG_REV:=cf1046ae1a90417f6f5cfdaed13673808450f2a8
+PKG_VERSION:=2.0-20231215
+PKG_REV:=9dc123d7e034b338ef5824c390d1b4ae8b2cf639
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,14 +14,14 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/clark15b/xupnpd2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=ab0d2c2cec7640b2a55d2cc2a335b79dce3741f90f0a96b93e6bc498d2ce5278
+PKG_MIRROR_HASH:=b1058f14081ee3b0c9c6e5705dd0de8f52b04199c4a92fa9942e7afb5f255f1e
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/xupnpd2
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	DEPENDS:=+libsqlite3 +liblua5.3 +libuuid +libstdcpp
+	DEPENDS:=+libsqlite3 +liblua5.3 +libuuid +libstdcpp +libopenssl
 	TITLE:=eXtensible UPnP agent
 	URL:=https://github.com/clark15b/xupnpd2
 	MAINTAINER:=Entware team, https://entware.net
@@ -51,7 +48,7 @@ endef
 
 TARGET_CFLAGS += -I$(STAGING_DIR)/opt/include/lua5.3
 
-TARGET_LDFLAGS += -ldl -luuid -lsqlite3 -llua5.3
+TARGET_LDFLAGS += -ldl -luuid -lsqlite3 -llua5.3 -lssl -lcrypto
 
 
 define Package/xupnpd2/install
