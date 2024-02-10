@@ -41,6 +41,7 @@ CONFIGURE_ARGS += \
 	--disable-cache-owner \
 	--disable-manual \
 	--disable-nls \
+	--disable-year2038 \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
 	--with-libintl-prefix="$(INTL_PREFIX)"
 
