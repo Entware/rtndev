@@ -1,16 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2011-2024 Entware
+#
+# 1.9.0-1.9.1 uses _sync_add_and_fetch() which is unportable to mips
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goaccess
-PKG_VERSION:=1.9
+PKG_VERSION:=1.8.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://tar.goaccess.io
-PKG_HASH:=b11c8cf282c730541f2ac161d3ea3d4ad60bd88af56cc6ae87e4ab0f93378936
+PKG_HASH:=7f9432e6e95d0ece40be86d33f3c454b9c5eec31766914bc9c12f9cf4ead4597
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
