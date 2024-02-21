@@ -3,13 +3,12 @@
 # Copyright (C) 2017-2024 Entware
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
-# 4.6.3 requires libtorrent-rasterbar >= 2.0.9
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
-PKG_VERSION:=4.5.4
-PKG_REV:=c8763f08da080cd9a9ea22caafff999ee54cbaa2
+PKG_VERSION:=4.6.3
+PKG_REV:=cfa7a6db46e8376273ec9ae833cf637fe7670b4e
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -17,7 +16,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=29fb24f22124c2bda9fc76f0cc20dd8c22f1d994f8cc5fc1f4f5bd1d979c776c
+PKG_MIRROR_HASH:=36ad8de23fd7dcfe898d2f2e8086c0b802e6afe08f623bf7ccb31aabc015c070
 
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
