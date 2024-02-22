@@ -23,7 +23,11 @@ define Package/entware-release/description
  entware_release is a file in /opt/etc with entware info.
 endef
 
-CPUTYPE=$(if $(CONFIG_CPU_TYPE),$(CONFIG_CPU_TYPE),unknown)
+ifneq ($(firstword "x$(CONFIG_CPU_TYPE)"), "x")
+CPUTYPE=$(CONFIG_CPU_TYPE)
+else
+CPUTYPE=unknown
+endif
 CPUSUBTYPE=$(if $(CONFIG_CPU_SUBTYPE),$(CONFIG_CPU_SUBTYPE),unknown)
 FLOAT=$(if $(CONFIG_SOFT_FLOAT),soft,hard)
 
