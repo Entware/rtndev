@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cpio
-PKG_VERSION:=2.14
+PKG_VERSION:=2.15
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@GNU/$(PKG_NAME)
-PKG_HASH:=145a340fd9d55f0b84779a44a12d5f79d77c99663967f8cfa168d7905ca52454
+PKG_HASH:=efa50ef983137eefc0a02fdb51509d624b5e3295c980aa127ceee4183455499e
 
 PKG_INSTALL:=1
 
