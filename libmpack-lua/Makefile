@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libmpack-lua
-PKG_VERSION:=1.0.11
+PKG_VERSION:=1.0.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/libmpack/libmpack-lua/tar.gz/refs/tags/$(PKG_VERSION)?
-PKG_HASH:=1d7181514aef66e6c4cad025ae7bd3f8e354125847e33db2394d91fc8dd3e478
+PKG_HASH:=7c3f0a5fcd0d7c169fd7bc95978412628d8f59eb9da1d32cf3e8a864b741ec92
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE-MIT
