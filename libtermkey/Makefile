@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2023 Entware
+# Copyright (C) 2023-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# only build static library (neovim)
+# only build static library (neovim). Deprecated, no further updates
 
 include $(TOPDIR)/rules.mk
 
