@@ -1,6 +1,6 @@
 --- a/C/CpuArch.h
 +++ b/C/CpuArch.h
-@@ -71,7 +71,7 @@ MY_CPU_64BIT means that processor can wo
+@@ -82,7 +82,7 @@ MY_CPU_64BIT means that processor can wo
    || defined(__ARMEB__) \
    || defined(__THUMBEL__) \
    || defined(__THUMBEB__)
@@ -9,7 +9,7 @@
  
    #if defined(__thumb__) || defined(__THUMBEL__) || defined(_M_ARMT)
      #define MY_CPU_ARMT
-@@ -145,7 +145,7 @@ MY_CPU_64BIT means that processor can wo
+@@ -217,7 +217,7 @@ MY_CPU_64BIT means that processor can wo
  #endif
  
  

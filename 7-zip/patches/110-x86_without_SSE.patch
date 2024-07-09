@@ -1,6 +1,6 @@
 --- a/CPP/7zip/UI/Console/MainAr.cpp
 +++ b/CPP/7zip/UI/Console/MainAr.cpp
-@@ -67,10 +67,10 @@ static inline bool CheckIsa()
+@@ -72,10 +72,10 @@ static inline bool CheckIsa()
      #elif defined(__AVX__)
        if (!CPU_IsSupported_AVX())
          return false;
