@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2021 Entware
+# Copyright (C) 2017-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cmake
-PKG_VERSION:=3.28.1
+PKG_VERSION:=3.30.0
 PKG_VERSION_MAJOR:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/Kitware/CMake/releases/download/v$(PKG_VERSION)/ \
 		https://cmake.org/files/v$(PKG_VERSION_MAJOR)/
-PKG_HASH:=15e94f83e647f7d620a140a7a5da76349fc47a1bfed66d0f5cdee8e7344079ad
+PKG_HASH:=157e5be6055c154c34f580795fe5832f260246506d32954a971300ed7899f579
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=Copyright.txt
