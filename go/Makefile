@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.21.6
+PKG_VERSION:=1.22.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=124926a62e45f78daabbaedb9c011d97633186a33c238ffc1e25320c02046248
+PKG_HASH:=ac9c723f224969aee624bc34fd34c9e13f2a212d75c71c807de644bb46e112f6
 
 BINTYPE:=$(shell uname -m | sed 's/i[3-6]86/386/;s/x86_64/amd64/')
 
