@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=axel
-PKG_VERSION:=2.17.11
+PKG_VERSION:=2.17.14
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/axel-download-accelerator/axel/releases/download/v$(PKG_VERSION)
-PKG_HASH:=14fc89fda49b9ab332ea2bb5592542eb5e5c4f3d2ea599a04fabda1ff5330992
+PKG_HASH:=73f3aeafcb00b8101b212fcf47969a4962e7a1b50843306178b527a9942d8785
 
 include $(INCLUDE_DIR)/package.mk
 
