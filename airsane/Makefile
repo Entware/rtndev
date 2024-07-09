@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=airsane
-PKG_VERSION:=0.4
-PKG_REV:=1eb3f1b93afef568b070f9e58421ed08e75c50e9
+PKG_VERSION:=0.4.1
+PKG_REV:=776acdc8dce6c6834bded03e2741765ac4b9853a
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/SimulPiscator/AirSane.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1f5a4f269948c08a9075ed22ec18ba0f1b6d2ff0080b682f6d8fc66e6fb75086
+PKG_MIRROR_HASH:=b047a92f0a1f12991dd6b8831be140b4172e1dd7c5ce5d414e2a3867d1fa1425
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
