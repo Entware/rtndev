@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2022 Entware
+# Copyright (C) 2022-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=autofs
-PKG_VERSION:=5.1.8
+PKG_VERSION:=5.1.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mirrors.edge.kernel.org/pub/linux/daemons/autofs/v5
-PKG_HASH:=b33d1059855664b20eeda26f3e28ff518fb0c3d58f565570af2ae569dc73c0fd
+PKG_HASH:=87e6af6a03794b9462ea519781e50e7d23b5f7c92cd59e1142c85d2493b3c24b
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-only

@@ -22,7 +22,7 @@
   * Mount status values, lifted from util-linux
 --- a/include/automount.h
 +++ b/include/automount.h
-@@ -85,7 +85,7 @@
+@@ -90,7 +90,7 @@ char *autofs_strerror_r(int errnum, char
  #define HOST_ENT_BUF_SIZE	2048
  
  #define CHECK_RATIO	4			/* exp_runfreq = exp_timeout/CHECK_RATIO */
