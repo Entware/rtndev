@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bochs
-PKG_VERSION:=2.7
+PKG_VERSION:=2.8
+PKG_REV:=9177c93e4e69a5c9408a1393766f882ed1313ab3
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@SF/$(PKG_NAME)/$(PKG_VERSION)
-PKG_HASH:=a010ab1bfdc72ac5a08d2e2412cd471c0febd66af1d9349bc0d796879de5b17a
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/bochs-emu/Bochs.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=bd7971875af3bd0b374e303a6b3bc2d1e35c97fa695d89d85e3aefa0e97519b9
 
 PKG_INSTALL:=1
 
@@ -33,6 +37,9 @@ define Package/bochs/description
  that runs on most popular platforms. It includes emulation of the Intel x86 CPU,
  common I/O devices, and a custom BIOS.
 endef
+
+CONFIGURE_PATH:=bochs
+MAKE_PATH:=$(CONFIGURE_PATH)
 
 CONFIGURE_ARGS += \
 	--without-x11 \
