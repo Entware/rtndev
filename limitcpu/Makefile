@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2024 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=limitcpu
-PKG_VERSION:=3.0
+PKG_VERSION:=3.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=cpulimit-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_HASH:=ad2f415eb2bbda3e83a8a2d918ef5e90f52ebcc6fee61e94bf917b3e84ebb49c
+PKG_HASH:=946994ec60f39f03095b89bd74e660b89c14c82aba7545669398e302bc7b234c
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/cpulimit-$(PKG_VERSION)
 
