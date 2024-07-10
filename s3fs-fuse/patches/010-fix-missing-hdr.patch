@@ -11,7 +11,7 @@
  #include "mpu_util.h"
 --- a/src/s3fs.cpp
 +++ b/src/s3fs.cpp
-@@ -26,6 +26,7 @@
+@@ -29,6 +29,7 @@
  #include <dirent.h>
  #include <sys/types.h>
  #include <getopt.h>
