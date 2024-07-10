@@ -5,26 +5,66 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=4.2.10
+PKG_VERSION:=4.3.5
 PKG_RELEASE:=1
-PKG_REV:=c9644dda7a9ac1b3fc8b663392c4168adbe5a312
+PKG_REV:=9bf6e15c4864a71ff9e9ca5ea689fd001931279b
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=a7358403687b4ccf0d4130a155cdad7d9b40426a3f5b799f2df19f8f7123ac4f
+PKG_MIRROR_HASH:=813e8026d6e0c2149f8f2650e779cd4c4686ca0f5a0dd15f44373f90ceb7f657
 
 include $(INCLUDE_DIR)/package.mk
 
 RUTORRENT_PLUGINS := \
-	autotools bulk_magnet check_port chunks _cloudflare cookies cpuload create data datadir \
-	diskspace edit erasedata extratio extsearch feeds filedrop geoip \
-	_getdir history httprpc ipad loginmgr lookat mediainfo _noty _noty2 \
-	ratio retrackers rpc rss rssurlrewrite rutracker_check scheduler \
-	screenshots seedingtime show_peers_like_wtorrent source spectrogram _task theme \
-	throttle tracklabels trafic unpack uploadeta xmpp
+autotools \
+bulk_magnet \
+check_port \
+chunks \
+_cloudflare \
+cookies \
+cpuload \
+create \
+data \
+datadir \
+diskspace \
+edit \
+erasedata \
+extratio \
+extsearch \
+feeds \
+filedrop \
+geoip \
+_getdir \
+history \
+httprpc \
+ipad \
+loginmgr \
+lookat \
+mediainfo \
+_noty \
+_noty2 \
+ratio \
+retrackers \
+rss \
+rssurlrewrite \
+rutracker_check \
+scheduler \
+screenshots \
+seedingtime \
+show_peers_like_wtorrent \
+source \
+spectrogram \
+_task \
+theme \
+throttle \
+tracklabels \
+trafic \
+unpack \
+uploadeta \
+xmpp \
 
 RUTORRENT_PLUGIN_DEPENDS_datadir = +php8-cgi
 RUTORRENT_PLUGIN_DEPENDS__getdir = +php8-cgi
