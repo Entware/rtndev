@@ -1,15 +1,13 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2024 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tsmuxer
-PKG_VERSION:=2.6.16-20230526
-PKG_REV:=ddadf58f0c139d95451a5dac836f79dfd17e143d
+PKG_VERSION:=2.6.16-20240606
+PKG_REV:=7f8667d1e6100a5b6407340d91ad80d57d976e58
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +15,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/justdan96/tsMuxer.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=eca07c9b1b34e216ac76789a2702f6d112f810fb9ed7fea5f40b54e7adb2e474
+PKG_MIRROR_HASH:=4351d4db2f662e6b6c23b35b380953004f6463cffd31aa5323428b47d96ecba5
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
