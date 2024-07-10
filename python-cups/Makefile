@@ -1,18 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2024 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-cups
-PKG_VERSION:=2.0.1
-PKG_RELEASE:=3
+PKG_VERSION:=2.0.4
+PKG_RELEASE:=1
 
 PYPI_NAME:=pycups
-PKG_HASH:=57434ce5f62548eb12949ca8217f066f4eeb21a5d6ab8b13471dce350e380c90
+PKG_HASH:=843e385c1dbf694996ca84ef02a7f30c28376035588f5fbeacd6bae005cf7c8d
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk

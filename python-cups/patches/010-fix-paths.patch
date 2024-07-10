@@ -1,6 +1,6 @@
 --- a/cupsconnection.c
 +++ b/cupsconnection.c
-@@ -3866,7 +3866,8 @@ Connection_printTestPage (Connection *se
+@@ -3879,7 +3879,8 @@ Connection_printTestPage (Connection *se
  	  break;
        }
      } else {
