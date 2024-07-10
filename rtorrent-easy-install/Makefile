@@ -1,15 +1,13 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2024 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtorrent-easy-install
 PKG_VERSION:=0.2
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -17,7 +15,7 @@ define Package/rtorrent-easy-install
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	DEPENDS:=+rutorrent-plugin-rpc +screen +php8-cgi \
+	DEPENDS:=+rutorrent +screen +php8-cgi \
 	    +lighttpd-mod-fastcgi +lighttpd-mod-scgi +lighttpd-mod-auth \
 	    +lighttpd-mod-authn_file
 	TITLE:=Easy installation script for rtorrent with web UI
