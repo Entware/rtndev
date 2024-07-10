@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tree-sitter
-PKG_VERSION:=0.20.9
+PKG_VERSION:=0.22.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=9b2fd489a7281e3a7e5e7cbbf3a974e5a6a115889ae65676d61b79bdae96464e
+PKG_HASH:=e2b687f74358ab6404730b7fb1a1ced7ddb3780202d37595ecd7b20a8f41861f
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
