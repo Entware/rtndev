@@ -1,15 +1,13 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2023 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2024 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ps3netsrv
-PKG_VERSION:=1.47.45
-PKG_REV:=3833d2625f338de054652782eb3c908f0c2e8c21
+PKG_VERSION:=1.47.46
+PKG_REV:=72425f86504d6aac3f5d11da41c5e2d4ed77317b
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +15,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/aldostools/webMAN-MOD.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=c71f8d49792aa0c53a3388d0261cd4afab4982aa4c26c2b62f6bb0a097006446
+PKG_MIRROR_HASH:=96462d252299100e7c65eafcd308d487c099094178b3938f5bd7bceabec9a9fa
 
 include $(INCLUDE_DIR)/package.mk
 
