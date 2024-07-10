@@ -1,15 +1,13 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2024 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rar2fs
-PKG_VERSION:=1.29.6
-PKG_REV:=5ae31771c3f335bbd53882ff70650aba1ab58917
+PKG_VERSION:=1.29.7
+PKG_REV:=799ca3be1a2d9dcee416a650d737fb333fb4be5b
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +15,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/hasse69/rar2fs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=8b29a084f7fc037473bd2defbac8897956823eeef1e743848b681bf980a2496c
+PKG_MIRROR_HASH:=88604498ad519028fa99bff2fa794e991de4db65f72deff1e13533173d8e7ef7
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
