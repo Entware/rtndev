@@ -1,11 +1,19 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -9,7 +9,7 @@ DEBUG:=#XXX -g -D_DEBUG ###-pg -Wpedanti
+@@ -9,14 +9,14 @@ DEBUG:=#XXX -g -D_DEBUG ###-pg -Wpedanti
  
  UTF8_SUPPORT:=yes
  DESTDIR=
 -PREFIX=/usr/local
 +PREFIX=/opt
- CONFIG_FILE=$(DESTDIR)$(PREFIX)/etc/multitail.conf
+ BINDIR=$(PREFIX)/bin
+ SHAREDIR=$(PREFIX)/share
+ MANDIR=$(SHAREDIR)/man
+ MAN1DIR=$(MANDIR)/man1
+ DOCDIR=$(SHAREDIR)/doc/multitail-$(VERSION)
  
- CC?=gcc
+-SYSCONFDIR=/etc
++SYSCONFDIR=/opt/etc
+ CONFIG_FILE=$(SYSCONFDIR)/multitail.conf
+ CONFIG_DIR=$(SYSCONFDIR)/multitail
+ 
