@@ -5,11 +5,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2023.12.25
+PKG_VERSION:=2024.5.15
 PKG_RELEASE:=1
 
 PYPI_NAME:=regex
-PKG_HASH:=29171aa128da69afdf4bde412d5bedc335f2ca8fcfe4489038577d05f16181e5
+PKG_HASH:=d3ee02d9e5f482cc8309134a91eeaacbdd2261ba111b0fef3748eeb4913e6a2c
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
