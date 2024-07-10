@@ -1,20 +1,17 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2006-2015 OpenWrt.org
-# Copyright (C) 2020-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2020-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pinentry
-PKG_VERSION:=1.2.1
+PKG_VERSION:=1.3.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://gnupg.org/ftp/gcrypt/pinentry
-PKG_HASH:=457a185e5a85238fb945a955dc6352ab962dc8b48720b62fc9fa48c7540a4067
+PKG_HASH:=bc72ee27c7239007ab1896c3c2fae53b076e2c9bd2483dc2769a16902bce8c04
 
 PKG_LICENSE:=GPL-2.0+
 PKG_LICENSE_FILES:=COPYING
