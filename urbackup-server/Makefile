@@ -2,19 +2,18 @@
 #
 # Copyright (C) 2011-2024 Entware
 #
-# Official dist source is painfully slow from Russia
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=urbackup-server
-PKG_VERSION:=2.5.32
+PKG_VERSION:=2.5.33
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
 	http://hndl.urbackup.org/Server/$(PKG_VERSION) \
 	https://www.urbackup.org/downloads/Server/$(PKG_VERSION)
-PKG_HASH:=ff9be7c04f616010d165cea5035b0cbc9f3956c4b102a4192f6d9d4ace8516ff
+PKG_HASH:=65d7dab4d5178849c1ecc45b592143df066c641fd782d5a6448aa606561d7cff
 
 PKG_INSTALL:=1
 
