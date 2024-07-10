@@ -1,6 +1,6 @@
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -12,6 +12,7 @@ SET(CMAKE_C_FLAGS_DEBUG "-O0 -g -DDEBUG"
+@@ -12,6 +12,7 @@ SET(CMAKE_C_FLAGS_DEBUG "-O0 -g -DDEBUG
  add_executable(unionfs ${UNIONFS_SRCS} ${HASHTABLE_SRCS})
  
  option(WITH_LIBFUSE3 "Enable libfuse3 support" ON)
