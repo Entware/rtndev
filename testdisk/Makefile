@@ -1,19 +1,17 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2024 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=testdisk
-PKG_VERSION:=7.1
+PKG_VERSION:=7.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.cgsecurity.org
-PKG_HASH:=1413c47569e48c5b22653b943d48136cb228abcbd6f03da109c4df63382190fe
+PKG_HASH:=f8343be20cb4001c5d91a2e3bcd918398f00ae6d8310894a5a9f2feb813c283f
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
