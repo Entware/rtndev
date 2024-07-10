@@ -2,21 +2,21 @@
 #
 # Copyright (C) 2011-2024 Entware
 #
-# No chance to get stable PKG_MIRROR_HASH from SVN sources
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=11725
-PKG_VERSION:=1.20-r$(PKG_REV)
+PKG_REV:=96debcd763ee59c0c12a41f912d9f65ac3049925
+PKG_VERSION:=1.20-20240710
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=svn
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://git.streamboard.tv/common/oscam.git
+PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE_SUBDIR:=oscam-$(PKG_VERSION)
-PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
-PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
-PKG_MIRROR_HASH:=skip
+PKG_MIRROR_HASH:=fc845a0641accce7b6a17199915549e92fe5ece5165f5c07ec68628544467eda
+
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
