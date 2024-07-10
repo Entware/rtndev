@@ -9,13 +9,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.15.12
+PKG_VERSION:=5.15.14
 PKG_RELEASE:=1
 
 PKG_SOURCE:=qt-everywhere-opensource-src-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single \
-		https://ftp.fau.de/qtproject/archive/qt/5.15/$(PKG_VERSION)/single
-PKG_HASH:=93f2c0889ee2e9cdf30c170d353c3f829de5f29ba21c119167dee5995e48ccce
+PKG_SOURCE_URL:=https://ftp.fau.de/qtproject/archive/qt/5.15/$(PKG_VERSION)/single \
+	http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single
+PKG_HASH:=fdd3a4f197d2c800ee0085c721f4bef60951cbda9e9c46e525d1412f74264ed7
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/qt-everywhere-src-$(PKG_VERSION)
 
