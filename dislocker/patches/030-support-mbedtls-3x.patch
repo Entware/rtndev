@@ -1,0 +1,30 @@
+--- a/cmake/FindPolarSSL.cmake
++++ b/cmake/FindPolarSSL.cmake
+@@ -66,8 +66,8 @@ if( NOT CMAKE_CROSSCOMPILING )
+   )
+ else()
+   execute_process(
+-    COMMAND grep -w "MBEDTLS_VERSION_STRING" ${POLARSSL_INCLUDE_DIRS}/${POLARSSL_INC_FOLDER}/version.h
+-    COMMAND sed -e "s@\s\+@ @g"
++    COMMAND grep -w "MBEDTLS_VERSION_STRING" ${POLARSSL_INCLUDE_DIRS}/${POLARSSL_INC_FOLDER}/build_info.h
++    COMMAND sed -e "s@\\s\\+@ @g"
+     COMMAND cut -d\  -f3
+     COMMAND sed -e "s@\"@@g"
+     OUTPUT_VARIABLE POLARSSL_VERSION_STRING
+--- a/include/dislocker/ssl_bindings.h.in
++++ b/include/dislocker/ssl_bindings.h.in
+@@ -26,8 +26,13 @@
+ /*
+  * Here stand the bindings for polarssl SHA256/SHA2/SHA-2 function for dislocker
+  */
+-#include "@POLARSSL_INC_FOLDER@/config.h"
+ #include "@POLARSSL_INC_FOLDER@/version.h"
++#if MBEDTLS_VERSION_MAJOR >= 3
++#include "@POLARSSL_INC_FOLDER@/mbedtls_config.h"
++#include "@POLARSSL_INC_FOLDER@/compat-2.x.h"
++#else
++#include "@POLARSSL_INC_FOLDER@/config.h"
++#endif
+ #include "@POLARSSL_INC_FOLDER@/aes.h"
+ 
+ // Function's name changed
