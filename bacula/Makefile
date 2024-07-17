@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/bacula
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libopenssl +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk
+	DEPENDS:=+libopenssl +libwrap +libstdcpp +libsqlite3 +liblzo +libacl +libcap +gawk +libzstd
 	DEPENDS+=$(INTL_DEPENDS)
 	TITLE:=Open Source Network Backup Solution
 	URL:=http://www.bacula.org/
