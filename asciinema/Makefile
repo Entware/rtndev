@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asciinema
 PKG_VERSION:=2.4.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=asciinema
 PKG_HASH:=828e04c36ba622a7b8f8f912c8f0c1329538b6c7ed1c0d1b131bbbfe3a221707
@@ -21,7 +21,7 @@ define Package/asciinema
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Terminal
-	DEPENDS:=+libncurses-dev +python3-codecs +python3-multiprocessing +python3-urllib +python3-uuid
+	DEPENDS:=+ncurses-bin +python3-codecs +python3-multiprocessing +python3-urllib +python3-uuid
 	TITLE:=A terminal sessions recorder
 	URL:=https://asciinema.org
 	MAINTAINER:=Entware team, https://entware.net
