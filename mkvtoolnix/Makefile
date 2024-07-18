@@ -1,10 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-# 59.0.0+ requires QT-libraries even for command line tools, see https://gitlab.com/mbunkus/mkvtoolnix/-/blob/main/NEWS.md#build-system-changes-2
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
@@ -25,9 +21,8 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/mkvtoolnix
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
-	DEPENDS:=+boost-filesystem +boost-regex +libbz2 +libexpat +libflac \
-		+liblzo +libmagic +libvorbis +libfmt +libpcre2 \
-		$(ICONV_DEPENDS) $(INTL_DEPENDS)
+	DEPENDS:=+boost-filesystem +boost-regex +libbz2 +libexpat +libflac +liblzo \
+		+libmagic +libvorbis +libpcre2 $(ICONV_DEPENDS) $(INTL_DEPENDS)
 	TITLE:=tools for Matroska files
 	URL:=http://matroska.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -54,7 +49,7 @@ TARGET_LDFLAGS += \
 	-lintl
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR); rake
+	( cd $(PKG_BUILD_DIR); rake; )
 endef
 
 define Package/mkvtoolnix/install
