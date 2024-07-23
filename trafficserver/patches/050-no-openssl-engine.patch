@@ -1,0 +1,53 @@
+--- a/iocore/net/SSLUtils.cc
++++ b/iocore/net/SSLUtils.cc
+@@ -58,7 +58,9 @@
+ #include <openssl/conf.h>
+ #include <openssl/dh.h>
+ #include <openssl/ec.h>
++#ifndef OPENSSL_NO_ENGINE
+ #include <openssl/engine.h>
++#endif
+ #include <openssl/err.h>
+ #include <openssl/evp.h>
+ #include <openssl/pem.h>
+@@ -923,7 +925,7 @@ void
+ SSLPostConfigInitialize()
+ {
+   if (SSLConfigParams::engine_conf_file) {
+-#ifndef OPENSSL_IS_BORINGSSL
++#ifndef OPENSSL_NO_ENGINE
+     ENGINE_load_dynamic();
+ #endif
+ 
+@@ -1001,7 +1003,7 @@ static bool
+ SSLPrivateKeyHandler(SSL_CTX *ctx, const SSLConfigParams *params, const char *keyPath, const char *secret_data, int secret_data_len)
+ {
+   EVP_PKEY *pkey = nullptr;
+-#ifndef OPENSSL_IS_BORINGSSL
++#ifndef OPENSSL_NO_ENGINE
+   ENGINE *e = ENGINE_get_default_RSA();
+   if (e != nullptr) {
+     pkey = ENGINE_load_private_key(e, keyPath, nullptr, nullptr);
+--- a/tests/tools/plugins/async_engine.c
++++ b/tests/tools/plugins/async_engine.c
+@@ -28,6 +28,7 @@
+  * the asynchronous job
+  */
+ 
++#ifndef OPENSSL_NO_ENGINE
+ /* TLS_USE_TLS_ASYNC defined in ink_config.h */
+ #include "tscore/ink_config.h"
+ #if TS_USE_TLS_ASYNC
+@@ -41,6 +42,7 @@
+ #include <openssl/crypto.h>
+ #include <openssl/ssl.h>
+ #include <openssl/modes.h>
++#include <errno.h>
+ #include <pthread.h>
+ #include <unistd.h>
+ 
+@@ -318,3 +320,4 @@ async_rsa_finish(RSA *rsa)
+   return RSA_meth_get_finish(RSA_PKCS1_OpenSSL())(rsa);
+ }
+ #endif /* TS_USE_TLS_ASYNC */
++#endif /* OPENSSL_NO_ENGINE */

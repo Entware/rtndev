@@ -1,0 +1,33 @@
+--- a/include/tscore/ink_platform.h
++++ b/include/tscore/ink_platform.h
+@@ -137,7 +137,7 @@ struct ifafilt;
+ #endif
+ 
+ #ifdef HAVE_STROPTS_H
+-#include <stropts.h>
++#include <sys/ioctl.h>
+ #endif
+ 
+ #include "ink_endian.h"
+--- a/src/tscore/Makefile.am
++++ b/src/tscore/Makefile.am
+@@ -40,6 +40,10 @@ AM_CPPFLAGS += \
+ 	$(TS_INCLUDES) \
+ 	@YAMLCPP_INCLUDES@
+ 
++HOST_CXX_FOR_BUILD ?= 
++
++CPPFLAGS_FOR_BUILD ?= 
++
+ libtscore_la_LDFLAGS = @AM_LDFLAGS@ -no-undefined -version-info @TS_LIBTOOL_VERSION@ @YAMLCPP_LDFLAGS@
+ libtscore_la_LIBADD = \
+ 	$(top_builddir)/src/tscpp/util/libtscpputil.la \
+@@ -212,7 +216,7 @@ freelist_benchmark_SOURCES = unit_tests/
+ CompileParseRules_SOURCES = CompileParseRules.cc
+ 
+ CompileParseRules$(BUILD_EXEEXT): $(CompileParseRules_OBJECTS)
+-	$(CXX_FOR_BUILD) $(AM_CXXFLAGS) $(CPPFLAGS) -I$(top_builddir)/include -I$(abs_top_srcdir)/include -o $@ $(abs_top_srcdir)/src/tscore/CompileParseRules.cc
++	$(HOST_CXX_FOR_BUILD) $(AM_CXXFLAGS) $(CPPFLAGS_FOR_BUILD) -I$(top_builddir)/include -I$(abs_top_srcdir)/include -o $@ $(abs_top_srcdir)/src/tscore/CompileParseRules.cc
+ 
+ clean-local:
+ 	rm -f ParseRulesCType ParseRulesCTypeToLower ParseRulesCTypeToUpper

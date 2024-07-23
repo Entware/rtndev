@@ -1,0 +1,44 @@
+--- a/plugins/experimental/fastcgi/src/fcgi_config.cc
++++ b/plugins/experimental/fastcgi/src/fcgi_config.cc
+@@ -29,7 +29,7 @@ static char DEFAULT_HOSTNAME[]        =
+ static char DEFAULT_SERVER_IP[]       = "127.0.0.1";
+ static char DEFAULT_SERVER_PORT[]     = "60000";
+ static char DEFAULT_INCLUDE_FILE[]    = "fastcgi.config";
+-static char DEFAULT_DOCUMENT_ROOT[]   = "/var/www/html/";
++static char DEFAULT_DOCUMENT_ROOT[]   = "/opt/var/www/html/";
+ static char DEFAULT_HTML[]            = "index.php";
+ static int DEFAULT_MIN_CONNECTION     = 4;
+ static int DEFAULT_MAX_CONNECTION     = 10;
+--- a/proxy/logging/LogObject.cc
++++ b/proxy/logging/LogObject.cc
+@@ -1299,7 +1299,7 @@ MakeTestLogObject(const char *name)
+   LogFormat format("testfmt", nullptr);
+ 
+   if (!tmpdir) {
+-    tmpdir = "/tmp";
++    tmpdir = "/opt/tmp";
+   }
+ 
+   return new LogObject(Log::config, &format, tmpdir, name, LOG_FILE_ASCII /* file_format */, name /* header */,
+--- a/src/traffic_wccp/wccp_client.cc
++++ b/src/traffic_wccp/wccp_client.cc
+@@ -87,7 +87,7 @@ check_lockfile()
+   pid_t holding_pid;
+   int err;
+ 
+-  strcpy(lockfile, "/var/run/");
++  strcpy(lockfile, "/opt/var/run/");
+   strcat(lockfile, WCCP_LOCK);
+ 
+   Lockfile server_lockfile(lockfile);
+--- a/src/tscore/ts_file.cc
++++ b/src/tscore/ts_file.cc
+@@ -66,7 +66,7 @@ namespace file
+     char const *folder = nullptr;
+     if ((nullptr == (folder = getenv("TMPDIR"))) && (nullptr == (folder = getenv("TMP"))) &&
+         (nullptr == (folder = getenv("TEMPDIR")))) {
+-      folder = "/tmp";
++      folder = "/opt/tmp";
+     }
+     return path(folder);
+   }

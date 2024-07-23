@@ -1,0 +1,20 @@
+--- a/iocore/net/Connection.cc
++++ b/iocore/net/Connection.cc
+@@ -37,6 +37,17 @@
+ #include <sys/linker.h>
+ #endif
+ 
++#ifndef LINUX_VERSION_CODE
++#include <linux/version.h>
++#endif
++
++/* SO_REUSEPORT since Linux 3.9 */
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,9,0)
++#define SO_REUSEPORT SO_REUSEADDR
++/* or #define SO_REUSEPORT 0x0200 */
++/* Allow local address and port reuse. */
++#endif
++
+ // set in the OS
+ // #define RECV_BUF_SIZE            (1024*64)
+ // #define SEND_BUF_SIZE            (1024*64)
