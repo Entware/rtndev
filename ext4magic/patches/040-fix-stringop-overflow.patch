@@ -1,0 +1,29 @@
+--- a/src/file_type.c
++++ b/src/file_type.c
+@@ -7698,7 +7698,7 @@ void get_file_property(struct found_data
+ 	
+ 		case 0x0104     :               //octet-stream
+ 	//              this->func = file_octet-stream;
+-		strncat(this->name,".unknown",8);
++		strcat(this->name,".unknown");
+ 		break;
+ 	
+ 		case 0x0105     :               //ogg
+@@ -8297,7 +8297,7 @@ void get_file_property(struct found_data
+ 	
+ 		case 0x0313     :               //x-unknown
+ 	//              this->func = file_x-unknown ;
+-	              strncat(this->name,".unknown",8);
++	              strcat(this->name,".unknown");
+ 		break;
+ 	
+ 		case 0x0314     :               //x-xcursor
+@@ -8653,7 +8653,7 @@ void get_file_property(struct found_data
+ 	
+ 		case 0x0711     :               //x-unknown
+ 	//              this->func = file_x-unknown ;
+-	              strncat(this->name,".unknown",8);
++	              strcat(this->name,".unknown");
+ 		break;
+ 
+ 		case 0x0712     :               //x-ms-asf
