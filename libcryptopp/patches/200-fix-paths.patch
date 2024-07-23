@@ -1,0 +1,11 @@
+--- a/config.h
++++ b/config.h
+@@ -69,7 +69,7 @@
+ //   Be mindful of the trailing slash since its simple concatenation.
+ //   g++ ... -DCRYPTOPP_DATA_DIR='"/tmp/cryptopp_test/share/"'
+ #ifndef CRYPTOPP_DATA_DIR
+-# define CRYPTOPP_DATA_DIR ""
++# define CRYPTOPP_DATA_DIR "/opt/share/cryptopp/"
+ #endif
+ 
+ // define this to retain (as much as possible) old deprecated function and class names

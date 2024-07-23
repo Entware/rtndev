@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=libcryptopp
 PKG_VERSION:=5.6.4
 PKG_REV:=4132d85888ac6c30729f58bb442a4a26a5b16cfe
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -18,6 +18,10 @@ PKG_SOURCE_URL:=https://github.com/weidai11/cryptopp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=70f092de10ae3a5dfecbfb8eaabc6cf6df6530e844fda80b5fd431baedd6150e
+
+# ninja: error: build.ninja:1334: multiple rules generate cryptest.exe
+PKG_USE_NINJA:=0
+PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
