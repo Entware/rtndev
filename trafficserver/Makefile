@@ -61,6 +61,10 @@ ifeq ($(CONFIG_aarch64),y)
 TARGET_CFLAGS += -fsigned-char
 endif
 
+ifeq ($(CONFIG_arm),y)
+TARGET_CFLAGS += -Wno-narrowing
+endif
+
 CONFIGURE_ARGS:=$(filter-out	\
 	--libdir=%		\
 	--libexecdir=%		\
