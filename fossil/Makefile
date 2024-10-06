@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fossil
 PKG_VERSION:=2.24
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-src-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/8be0372c1051043761320c8ea8669c3cf320c406e5fe18ad36b7be5f844ca73b
