@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023-2024 Entware
+# Copyright (C) 2023-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libjodycode
-PKG_VERSION:=3.1
-PKG_REV:=e44699edc8915f65635d2fa1c9dcfac38b1784c7
+PKG_VERSION:=3.1.1
+PKG_REV:=0dc008e8d95c4899c9fc66fdb3ee5fc029df0470
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://codeberg.org/jbruchon/libjodycode.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=544cee6fc40ef65fa0ae6c2f9b7548b5b70f96c956b526b4f36c6afd8766e4bb
+PKG_MIRROR_HASH:=b46184687fc0d127976e8de69ee243d83cbb0ba2b2e37bbee0e18b702c8bb06a
 
 PKG_INSTALL:=1
 
