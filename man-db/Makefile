@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2024 Entware
+# Copyright (C) 2017-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
-PKG_VERSION:=2.12.1
+PKG_VERSION:=2.13.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=@SAVANNAH/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_HASH:=ddee249daeb78cf92bab794ccd069cc8b575992265ea20e239e887156e880265
+PKG_HASH:=82f0739f4f61aab5eb937d234de3b014e777b5538a28cbd31433c45ae09aefb9
 
 PKG_LICENSE:=GPL-2.0-or-later
 
