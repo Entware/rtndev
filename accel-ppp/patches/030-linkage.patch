@@ -1,8 +1,8 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -10,7 +10,7 @@ project(accel-ppp C)
+@@ -6,7 +6,7 @@ endif ()
  
- include(cmake/cpack.cmake)
+ project(accel-ppp C)
  
 -SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -fno-strict-aliasing -D_GNU_SOURCE -fPIC -rdynamic -Wno-unused-result")
 +SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -fno-strict-aliasing -D_GNU_SOURCE -rdynamic -Wno-unused-result")

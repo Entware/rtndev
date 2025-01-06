@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2025 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,16 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=accel-ppp
-PKG_VERSION:=1.12.0
-PKG_REV:=6ce96d9d6eb3fa036d73aaf535784caddc7f3552
+PKG_VERSION:=1.14.0
+PKG_REV:=6afbc5075a3cf88a47f01c9051dd0a7fdcb06299
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/xebd/accel-ppp.git
+PKG_SOURCE_URL:=https://github.com/accel-ppp/accel-ppp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=9b2684187ef67fb55bb2ed76a968e15ed70a2aa4de39460e6c69b66b55e14cfa
+PKG_MIRROR_HASH:=f14eff62c05629bb1f622fd17513d2eb4d3214f08ceb7f5fac0d40c29b647011
 
 CMAKE_BINARY_SUBDIR:=openwrt-build
 
