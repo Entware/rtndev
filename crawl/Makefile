@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=crawl
-PKG_VERSION:=0.31.0
+PKG_VERSION:=0.32.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/crawl/crawl/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=23153c36dbf27e1910f4386e3ba112f64bd8489d53aa5df2b57c9536db752c0a
+PKG_HASH:=8b9330a9a8156a7b93cc0964b5cc7cba8312f0cf745b64a072432f17f67f889d
 
 PKG_BUILD_DEPENDS:=python-yaml/host
 
