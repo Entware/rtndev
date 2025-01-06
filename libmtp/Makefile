@@ -1,9 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2023 Entware
+# Copyright (C) 2011-2025 Entware
 #
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# The newer version requires host compilation with their own deps
 
 include $(TOPDIR)/rules.mk
 
