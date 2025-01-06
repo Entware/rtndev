@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2024 Entware
+# Copyright (C) 2017-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jdupes
-PKG_VERSION:=1.27.3
-PKG_REV:=79ccff163020670298a615930fd1bf69c4e71d10
+PKG_VERSION:=1.28.0
+PKG_REV:=6a4959ac7a084ae3f4ea717c3888e3adc1fffe9e
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://codeberg.org/jbruchon/jdupes.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=77faae0ae83f7a0bdffa2f64ccb31f2547b282cd40392789be3de3a575cdf9f5
+PKG_MIRROR_HASH:=bd130419d5a19e5c85368b23bc02bf582285caebffe5438d9b9d60ca70e24522
 
 PKG_BUILD_DEPENDS:=libjodycode
 
