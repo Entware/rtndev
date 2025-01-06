@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2016-2024 Entware
+# Copyright (C) 2016-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fossil
-PKG_VERSION:=2.24
-PKG_RELEASE:=2
+PKG_VERSION:=2.25
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-src-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/8be0372c1051043761320c8ea8669c3cf320c406e5fe18ad36b7be5f844ca73b
-PKG_HASH:=20c343d10b778f139b8515a4d70cb8b3d5d468c99f1f946468eea9cc7ab32869
+PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/8f798279d5f7c3288099915f2ea88c57b6d6039f3f05eac5e237897af33376dc
+PKG_HASH:=611cfa50d08899eb993a5f475f988b4512366cded82688c906cf913e5191b525
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-src-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
@@ -50,6 +50,9 @@ TARGET_CFLAGS += \
 	-DUSE_SYSTEM_SQLITE
 
 TARGET_LDFLAGS += -lsqlite3 -lm -ltcl$(TCL_VERSION)
+
+MAKE_VARS += \
+	MAKE_COMPILATION_DB=no
 
 define Package/fossil/install
 	$(INSTALL_DIR) $(1)/opt/bin
