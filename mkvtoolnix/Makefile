@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
+#
+# This is the last version without qtcore dependency
 
 include $(TOPDIR)/rules.mk
 
