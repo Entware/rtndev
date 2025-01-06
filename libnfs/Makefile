@@ -1,9 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2025 Entware
 #
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# The newer version is incompatible with nfusr
 
 include $(TOPDIR)/rules.mk
 
@@ -19,10 +18,8 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_MIRROR_HASH:=61256ddbf6c2c7ebdc8889ffb6c0108cd20c95bb435ea3f9020ab3f9c2ae52e0
 
-PKG_INSTALL:=1
-PKG_FIXUP:=autoreconf
-
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/libnfs/Default
 	SUBMENU:=Filesystem
@@ -54,6 +51,9 @@ define Package/libnfs-utils/description
  over a network.
 endef
 
+CMAKE_OPTIONS += \
+	-DENABLE_UTILS=ON
+
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/include
 	$(CP) $(PKG_INSTALL_DIR)/opt/include/* $(1)/opt/include
@@ -69,7 +69,7 @@ endef
 
 define Package/libnfs-utils/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(CP) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,libnfs))
