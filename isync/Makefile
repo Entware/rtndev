@@ -1,19 +1,17 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2020-2025 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=isync
-PKG_VERSION:=1.4.4
+PKG_VERSION:=1.5.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)/$(PKG_VERSION)
-PKG_HASH:=7c3273894f22e98330a330051e9d942fd9ffbc02b91952c2f1896a5c37e700ff
+PKG_HASH:=a0c81e109387bf279da161453103399e77946afecf5c51f9413c5e773557f78d
 
 PKG_INSTALL:=1
 
