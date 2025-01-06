@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2012 Erinome.net
-# Copyright (C) 2013-2021 Entware
+# Copyright (C) 2013-2025 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cadaver
-PKG_VERSION:=0.24
+PKG_VERSION:=0.26
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://notroj.github.io/cadaver
-PKG_HASH:=46cff2f3ebd32cd32836812ca47bcc75353fc2be757f093da88c0dd8f10fd5f6
+PKG_HASH:=9236e43cdf3505d9ef06185fda43252840105c0c02d9370b6e1077d866357b55
 
 PKG_INSTALL:=1
 
@@ -25,7 +25,7 @@ define Package/cadaver
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
-	DEPENDS:=+libexpat +libncurses +libneon +libopenssl +libreadline +zlib
+	DEPENDS:=+libexpat +libncurses +libneon +libopenssl +libreadline +zlib $(ICONV_DEPENDS)
 	TITLE:=Command-line WebDAV client
 	URL:=https://notroj.github.io/cadaver/
 	MAINTAINER:=Entware team, https://entware.net
