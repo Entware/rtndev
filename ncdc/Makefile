@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ncdc
-PKG_VERSION:=1.24
+PKG_VERSION:=1.24.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.yorhel.nl/download
-PKG_HASH:=233510d5355fc72fdad3578ebc8ab35d1da95b21d2774990f3a1356b7112da1e
+PKG_HASH:=2a8ab9ad7d43f018fc73ba8babd689dfa44aba8cec53b88e4770185cb97778f7
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
