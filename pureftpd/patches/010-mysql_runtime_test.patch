@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1287,11 +1287,11 @@ AC_ARG_WITH(mysql,
+@@ -1234,11 +1234,11 @@ AC_ARG_WITH(mysql,
  [ if test "x$withval" != "xno" ; then
      if test "x$withval" != "x" && test "x$withval" != "xyes" ; then
        LD_RUN_PATH="${withval}/lib${LD_RUN_PATH:+:}${LD_RUN_PATH}"    

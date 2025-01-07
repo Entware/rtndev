@@ -1,23 +1,21 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2025 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pureftpd
-PKG_VERSION:=1.0.51
-PKG_REV:=c1efeb7be8ca3ef6b7660edbeb2d263de30e9a9e
-PKG_RELEASE:=2
+PKG_VERSION:=1.0.52
+PKG_REV:=15246910744807685fe00e1b301bd8e68123ed16
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jedisct1/pure-ftpd.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=7e6063555af35a241815c68c57ccdc49de870a324aa7105ce387bcd3b5c27271
+PKG_MIRROR_HASH:=9a43faecbc80b7338618e7da1e9280a5052cb026dd6d6465f1bf98edc7db956f
 
 PKG_BUILD_DEPENDS:=mariadb
 
