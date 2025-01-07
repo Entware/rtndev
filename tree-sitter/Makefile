@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023-2024 Entware
+# Copyright (C) 2023-2025 Entware
 #
 # only build static library (neovim)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tree-sitter
-PKG_VERSION:=0.22.6
+PKG_VERSION:=0.24.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=e2b687f74358ab6404730b7fb1a1ced7ddb3780202d37595ecd7b20a8f41861f
+PKG_HASH:=03c7ee1e6f9f4f3821fd4af0ae06e1da60433b304a73ff92ee9694933009121a
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
