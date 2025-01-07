@@ -1,14 +1,15 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2024 Entware
+# Copyright (C) 2017-2025 Entware
 #
 # ported to Entware from https://github.com/KryptonLee/qBittorrent-openwrt-package
+# This is the last version with Qt5 support
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qbittorrent
-PKG_VERSION:=4.6.5
-PKG_REV:=5e81347933adec219dab27a503f8dc9c4a1c522d
+PKG_VERSION:=4.6.7
+PKG_REV:=839bc696d066aca34ebd994ee1673c4b2d5afd7b
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -16,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/qbittorrent/qbittorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=08f58fd7b401216ff9065b58b7c40a07021e995a7914c73fbbb6f019e9946fb8
+PKG_MIRROR_HASH:=c91463a863ad0ab00be95744c0c166f895a07cd864e5de2a4372b165bde5155b
 
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
