@@ -1,19 +1,19 @@
 --- a/src/mpu_util.cpp
 +++ b/src/mpu_util.cpp
-@@ -21,6 +21,8 @@
- #include <cstdio>
+@@ -22,6 +22,8 @@
  #include <cstdlib>
+ #include <string>
  
 +#include <libxml/parser.h> /* xmlReadMemory */
 +
- #include "s3fs.h"
  #include "s3fs_logger.h"
  #include "mpu_util.h"
+ #include "curl.h"
 --- a/src/s3fs.cpp
 +++ b/src/s3fs.cpp
-@@ -29,6 +29,7 @@
- #include <dirent.h>
+@@ -34,6 +34,7 @@
  #include <sys/types.h>
+ #include <sys/wait.h>
  #include <getopt.h>
 +#include <libxml/parser.h> /* xmlReadMemory|xmlInitParser|xmlCleanupParser */
  
@@ -21,19 +21,19 @@
  #include "s3fs.h"
 --- a/src/s3fs_xml.cpp
 +++ b/src/s3fs_xml.cpp
-@@ -21,6 +21,7 @@
- #include <cstdio>
- #include <cstdlib>
- #include <libxml/xpathInternals.h>
-+#include <libxml/parser.h> /* xmlReadMemory */
+@@ -24,6 +24,7 @@
+ #include <mutex>
+ #include <string>
  
++#include <libxml/parser.h> /* xmlReadMemory */
  #include "common.h"
- #include "s3fs.h"
+ #include "s3fs_logger.h"
+ #include "s3fs_xml.h"
 --- a/src/string_util.cpp
 +++ b/src/string_util.cpp
-@@ -26,6 +26,8 @@
- 
- #include <sstream>
+@@ -27,6 +27,8 @@
+ #include <string>
+ #include <utility>
  
 +#include <libxml/parser.h> /* xmlReadMemory */
 +
