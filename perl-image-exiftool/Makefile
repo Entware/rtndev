@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2015-2024 Entware
+# Copyright (C) 2015-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-image-exiftool
-PKG_VERSION:=12.87
+PKG_VERSION:=13.11
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://exiftool.org
 PKG_SOURCE:=Image-ExifTool-$(PKG_VERSION).tar.gz
-PKG_HASH:=7da3428d374cb18b2ab7011278d29b85bcac560e0d551efc7a6704ef0e7f2c21
+PKG_HASH:=b8bb379b8f8d7534792de229f25557a83300d46a2d7c3448f29eb3358998366d
 
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
