@@ -1,20 +1,20 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=4.3.5
+PKG_VERSION:=5.1.5
 PKG_RELEASE:=1
-PKG_REV:=9bf6e15c4864a71ff9e9ca5ea689fd001931279b
+PKG_REV:=25679a45a1e2ca9f7a9e01cab5cc554b8eaa7230
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=813e8026d6e0c2149f8f2650e779cd4c4686ca0f5a0dd15f44373f90ceb7f657
+PKG_MIRROR_HASH:=2179bad2a8579adbd135c647ddc02c72a0509c50f1136d50a8702c855ca6ade0
 
 include $(INCLUDE_DIR)/package.mk
 
