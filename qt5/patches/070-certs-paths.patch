@@ -1,6 +1,6 @@
 --- a/qtbase/src/network/ssl/qsslsocket.cpp
 +++ b/qtbase/src/network/ssl/qsslsocket.cpp
-@@ -2950,7 +2950,8 @@ bool QSslSocketPrivate::rootCertOnDemand
+@@ -2955,7 +2955,8 @@ bool QSslSocketPrivate::rootCertOnDemand
  */
  QList<QByteArray> QSslSocketPrivate::unixRootCertDirectories()
  {
