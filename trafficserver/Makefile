@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2024 Entware
+# Copyright (C) 2024-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=trafficserver
-PKG_VERSION:=9.2.4
+PKG_VERSION:=9.2.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/apache/trafficserver/tar.gz/refs/tags/$(PKG_VERSION)?
-PKG_HASH:=8b1bc72f0e3220ef10cc3f911b2b473c46f2191fdeb36eaeffb55ca215cac96a
+PKG_HASH:=711d2a6bf7bcc0e690755b0fc2bbe3bec7d83a9e3e0718952f42a0200b1c8e15
 
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE

@@ -10,7 +10,7 @@
  #include <openssl/err.h>
  #include <openssl/evp.h>
  #include <openssl/pem.h>
-@@ -923,7 +925,7 @@ void
+@@ -914,7 +916,7 @@ void
  SSLPostConfigInitialize()
  {
    if (SSLConfigParams::engine_conf_file) {
@@ -19,7 +19,7 @@
      ENGINE_load_dynamic();
  #endif
  
-@@ -1001,7 +1003,7 @@ static bool
+@@ -992,7 +994,7 @@ static bool
  SSLPrivateKeyHandler(SSL_CTX *ctx, const SSLConfigParams *params, const char *keyPath, const char *secret_data, int secret_data_len)
  {
    EVP_PKEY *pkey = nullptr;
