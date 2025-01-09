@@ -1,16 +1,19 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2023-2025 Entware
+#
+# 6.2. fails to compile with new ndpi library
+# ntopng-6.2/include/NetworkInterface.h:543:59: error: cannot convert 'ndpi_protocol_breed_t' to 'ndpi_detection_module_struct*'
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ntopng
-PKG_VERSION:=6.2
+PKG_VERSION:=6.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ntop/ntopng/tar.gz/refs/tags/$(PKG_VERSION)?
-PKG_HASH:=de6ef8d468be3272bce27719ab06d5b7eed6e4a33872528f64c930a81000ccd1
+PKG_HASH:=937e3dea081f68cb8d85e0a925f5277f6a358d65ba45e90e215f0fc36d2401ac
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-3.0-or-later
