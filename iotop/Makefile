@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=1bfb3bc70febb1ffb95146b6dcd65257228099a3
 PKG_SOURCE_URL:=https://repo.or.cz/iotop.git
-PKG_MIRROR_HASH:=2f3c7951c946d5269bbe6523718ad53d1e8a093e59a5b7be16a12c59158ed6e3
+PKG_MIRROR_HASH:=5d59c65550626406b7a770b5e834afa471c03cd71f244934112a2ac7dd76ea97
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
