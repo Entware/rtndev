@@ -26,7 +26,7 @@ include $(INCLUDE_DIR)/meson.mk
 define Package/radare2
 	SECTION:=devel
 	CATEGORY:=Development
-	DEPENDS:=@!TARGET_armv7_2_6 +libuv
+	DEPENDS:=@!TARGET_armv7_2_6 +(mips||mipsel):libatomic +libuv
 	TITLE:=reverse engineering framework
 	URL:=https://www.radare.org/
 	MAINTAINER:=Entware team, https://entware.net
@@ -35,6 +35,10 @@ endef
 define Package/radare2/description
  UNIX-like reverse engineering framework and command-line toolset.
 endef
+
+ifeq ($(or $(CONFIG_mips),$(CONFIG_mipsel)),y)
+TARGET_LDFLAGS+=-latomic
+endif
 
 define Package/radare2/install
 	$(INSTALL_DIR) $(1)/opt/lib
