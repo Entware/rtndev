@@ -29,6 +29,7 @@ define Package/duperemove
 	SUBMENU:=Filesystem
 	TITLE:=Duplicate file removal tool
 	URL:=https://github.com/markfasheh/duperemove
+	# This "pkg-config" is reportedly needed by duperemove but it seems to compile fine without it.
 	DEPENDS:= \
 		+libsqlite3 \
 		+glib2 \
@@ -57,47 +58,80 @@ define Package/duperemove/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/btrfs-extent-same $(1)/usr/bin
 endef
 
+# Add "/usr/include" in the include path to have access to "btrfs.h"
+# These headers are not included in the Entware toolchain at $(STAGING_DIR)/opt/include
+TARGET_CFLAGS += \
+	-I/usr/include
+
+# Added these flags to enable linker debugging
+TARGET_CFLAGS += \
+	-Xlinker --verbose
+
+# Adding another path for libintl because the linker wrongly assumes that it's in $(STAGING_DIR)/opt/lib
+TARGET_LDFLAGS += \
+	-L$(STAGING_DIR)/opt/lib/libintl-full/lib
+
+# The linker couldn't also find libiconv, so I added the hacky solution below.
+# I tried using: -L$(STAGING_DIR)/opt/lib/libiconv-full/lib
+# But it didn't work because gcc wouldn't use it during the linking process. 
+# It gets used for linking other shared libraries, but not libiconv.
+#
+# So I tried using "rpath" instead and it seems to work, but I had issues to get a proper path.
+# I noticed that if rpath starts with "/" (e.g. /home/...), then the generated gcc command will treat it as a relative path.
+# If it starts with a non-slash character (e.g. example/opt/lib/...), it'll be treated as an absolute path, which is not what I want.
+# I'm not sure why it's the case. Maybe it's a custom behavior of the compiled gcc from Entware?
+#
+# I previously tried using $ORIGIN in various ways but couldn't find a way to escape it properly.
+# Either the generated gcc command fails because Make doesn't know how to escape it when generating intermediate bash commands, or the final command is incorrect.
+# E.g. Those don't work:
+# -Wl,-rpath,'$$$$ORIGIN'/libiconv-full/lib
+# -Wl,-rpath,"'"'$$'ORIGIN"'"/libiconv-full/lib
+# "'"'$'ORIGIN"'"
+
+# Some dirname magic to get the relative path to the staging directory
+PKG_REL_DIR := \
+	$(shell dirname \
+		$(patsubst \
+			$(shell dirname \
+				$(shell dirname $(PKG_BUILD_DIR)) \
+			)/%,%,$(PKG_BUILD_DIR) \
+		) \
+	)
+TARGET_LDFLAGS += \
+	-Wl,-rpath,/../$(PKG_REL_DIR)/opt/lib/libiconv-full/lib
+
+# DEBUGGING info
+$(info PKG_BUILD_DIR: $(PKG_BUILD_DIR))
+# E.g. PKG_BUILD_DIR: /home/me/Entware/build_dir/target-x86_64_glibc-2.33/duperemove-0.15.1
+$(info TARGET_LDFLAGS = $(TARGET_LDFLAGS))
+# E.g. TARGET_LDFLAGS = -Wl,--dynamic-linker=/opt/lib/ld-linux-x86-64.so.2 -Wl,-rpath=/opt/lib -L/home/me/Entware/staging_dir/toolchain-x86_64_gcc-12.3.0_glibc-2.33/usr/lib -L/home/me/Entware/staging_dir/toolchain-x86_64_gcc-12.3.0_glibc-2.33/lib -fuse-ld=bfd -L/
+
+# I tried other alternatives like copying or creating simlinks to the shared libraries but it felt too hacky. Maybe it's the right way to do it?
 # define Build/Configure
 # $(call Build/Configure/Default,, \
 # 	UNAME_S="Linux" \
 # 	UNAME_R="$(LINUX_VERSION)" \
 # 	UNAME_M="$(ARCH)" \
 # )
-# 	# Copy kernel headers to the staging directory
-# 	$(CP) /usr/include/linux $(STAGING_DIR)/opt/include
-# endef
-
-# define Build/InstallDev
-# 	$(INSTALL_DIR) \
-# 	  $(1)/opt/include \
-# 	  $(1)/opt/lib
-
-# 	$(CP) \
-# 	  $(PKG_INSTALL_DIR)/opt/include/* \
-# 	  $(1)/opt/include/
-
-# 	$(CP) \
-# 	  $(PKG_INSTALL_DIR)/opt/lib/{pkgconfig,*.so*} \
-# 	  $(1)/opt/lib/
-# endef
-
-
-# define Build/Configure
-# $(call Build/Configure/Default,, \
-# 	UNAME_S="Linux" \
-# 	UNAME_R="$(LINUX_VERSION)" \
-# 	UNAME_M="$(ARCH)" \
-# )
-# 	mkdir -p $(PKG_BUILD_DIR)/pppd/plugins/pppoatm/linux
-# 	$(CP) \
-# 		$(LINUX_DIR)/include/linux/compiler.h \
-# 		$(LINUX_DIR)/include/$(LINUX_UAPI_DIR)linux/atm*.h \
-# 		$(PKG_BUILD_DIR)/pppd/plugins/pppoatm/linux/
-
-# 	# Kernel 4.14.9+ only, ignore the exit status of cp in case the file
-# 	# doesn't exits
-# 	-$(CP) $(LINUX_DIR)/include/linux/compiler_types.h \
-# 		$(PKG_BUILD_DIR)/pppd/plugins/pppoatm/linux/
+# 	echo #####################################################	
+# 	echo PKG_BUILD_DIR: $(PKG_BUILD_DIR)
+# 	echo STAGING_DIR: $(STAGING_DIR)
+# 	echo CC: $(CC)
+# 	echo CFLAGS: $(CFLAGS)
+# 	echo EXTRA_CFLAGS: $(EXTRA_CFLAGS)
+# 	echo LDFLAGS: $(LDFLAGS)
+# 	echo TARGET_CFLAGS: $(TARGET_CFLAGS)
+# 	echo TARGET_LDFLAGS: $(TARGET_LDFLAGS)
+# 	echo #####################################################
+#
+# # echo #####################################################
+# # echo # Copy kernel headers to the staging directory
+# # echo #####################################################
+# # $(CP) /usr/include/linux $(STAGING_DIR)/opt/include
+#
+# 	# Create links to some shared libraries
+# 	# I tried using '$ORIGIN' with LDFLAGS but couldn't find a way to escape it properly to please Makefile and the generated gcc command.
+# 	# ln -sf $(STAGING_DIR)/opt/lib/libiconv-full/lib/* $(STAGING_DIR)/opt/lib
 # endef
 
 $(eval $(call BuildPackage,duperemove))
