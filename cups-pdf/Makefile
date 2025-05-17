@@ -1,18 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
-#
-# Inactive since 2017
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-pdf
-PKG_VERSION:=3.0.1
-PKG_RELEASE:=2
+PKG_VERSION:=3.0.2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.cups-pdf.de/src
-PKG_HASH:=738669edff7f1469fe5e411202d87f93ba25b45f332a623fb607d49c59aa9531
+PKG_HASH:=56284001f40da9854e56215527e292de4811ce349e27d7a3e8add35c72da2f95
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
