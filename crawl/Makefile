@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=crawl
-PKG_VERSION:=0.32.1
+PKG_VERSION:=0.33.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/crawl/crawl/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=8b9330a9a8156a7b93cc0964b5cc7cba8312f0cf745b64a072432f17f67f889d
+PKG_HASH:=d5b1cd9419fafb517174d573a6645dc839292b655361ada9ac42262672c1b8da
 
 PKG_BUILD_DEPENDS:=python-yaml/host
 
