@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=3proxy
-PKG_VERSION:=0.9.4
-PKG_REV:=346880eb2e73836385e5f7648f738efcece580ac
+PKG_VERSION:=0.9.5
+PKG_REV:=f23fc4fc4458606a257a9f26bc37251fc60e1cc7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/z3APA3A/3proxy.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=ce0278d6c7c08c16906b1cc557fd22dcbe88cb68ea5e67c73e94d0de14117c75
+PKG_MIRROR_HASH:=39640a3b881c09eaf7216618318dd0d2481d36ddb53cba367fe4a07144435d57
 
 include $(INCLUDE_DIR)/package.mk
 
