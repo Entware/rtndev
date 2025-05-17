@@ -5,7 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-release
-PKG_VERSION:=2025.01
+PKG_VERSION:=2025.05
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk

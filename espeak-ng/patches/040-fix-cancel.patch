@@ -9,7 +9,7 @@ the say_thread for proper safety.
 espeak-ng 1.49.2 added a cancel_audio() function which calls
 audio_object_flush and is called from close_stream(). That is however
 not enough for the stream to get interrupted on cancel (and we don't
-want to use upstream's current fix mentioned above this it poses
+want to use upstream's current fix mentioned above since it poses
 threading issues).
 
 ---
@@ -20,7 +20,7 @@ threading issues).
 
 --- a/src/libespeak-ng/fifo.c
 +++ b/src/libespeak-ng/fifo.c
-@@ -338,6 +338,10 @@ static void *say_thread(void *p)
+@@ -358,6 +358,10 @@ static void *say_thread(void *p)
  		}
  
  		if (my_stop_is_required || my_terminate_is_required) {
@@ -33,7 +33,7 @@ threading issues).
  			init(1);
 --- a/src/libespeak-ng/speech.c
 +++ b/src/libespeak-ng/speech.c
-@@ -98,6 +98,28 @@ void cancel_audio(void)
+@@ -97,6 +97,28 @@ void cancel_audio(void)
  #endif
  }
  
@@ -62,9 +62,9 @@ threading issues).
  static int dispatch_audio(short *outbuf, int length, espeak_EVENT *event)
  {
  	int a_wave_can_be_played = 1;
-@@ -566,6 +588,7 @@ espeak_ng_STATUS sync_espeak_Synth(unsig
+@@ -571,6 +593,7 @@ espeak_ng_STATUS sync_espeak_Synth(unsig
  	espeak_ng_STATUS aStatus = Synthesize(unique_identifier, text, flags);
- #ifdef HAVE_PCAUDIOLIB_AUDIO_H
+ #if USE_LIBPCAUDIO
  	if ((my_mode & ENOUTPUT_MODE_SPEAK_AUDIO) == ENOUTPUT_MODE_SPEAK_AUDIO) {
 +	    /* FIXME: This drain poses cancelling problems for end of speechs */
  		int error = (aStatus == ENS_SPEECH_STOPPED)
@@ -72,7 +72,7 @@ threading issues).
  		          : audio_object_drain(my_audio);
 --- a/src/libespeak-ng/speech.h
 +++ b/src/libespeak-ng/speech.h
-@@ -68,6 +68,9 @@ const char *LookupMnemName(MNEM_TAB *tab
+@@ -80,6 +80,9 @@ extern "C"
  
  void cancel_audio(void);
  
@@ -81,4 +81,4 @@ threading issues).
 +
  extern char path_home[N_PATH_HOME];    // this is the espeak-ng-data directory
  
- extern ESPEAK_NG_API int GetFileLength(const char *filename);
+ #ifdef __cplusplus

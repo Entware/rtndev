@@ -1,0 +1,19 @@
+commit 315fec6690fc9f86c5e1a40c41d29025d4b7db55
+Author: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Date:   Sun Dec 15 13:34:29 2024 +0100
+
+    Fix generating th_dict
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -904,8 +904,8 @@ espeak-ng-data/te_dict: dictsource/te_li
+ ti: espeak-ng-data/ti_dict
+ espeak-ng-data/ti_dict: dictsource/ti_list dictsource/ti_rules dictsource/ti_extra dictsource/ti_emoji
+ 
+-th: espeak-ng-data/th
+-espeak-ng-data/th: dictsource/th dictsource/th dictsource/te_extra
++th: espeak-ng-data/th_dict
++espeak-ng-data/th_dict: dictsource/th_list dictsource/th_rules dictsource/te_extra
+ 
+ tk: espeak-ng-data/tk_dict
+ espeak-ng-data/tk_dict: dictsource/tk_list dictsource/tk_listx dictsource/tk_rules dictsource/tk_extra

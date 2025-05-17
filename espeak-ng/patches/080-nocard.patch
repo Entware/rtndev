@@ -1,0 +1,15 @@
+---
+ tests/api.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/tests/api.c
++++ b/tests/api.c
+@@ -639,7 +639,7 @@ main(int argc, char **argv)
+ 	else if ((dir = strrchr(progdir, '/')) != NULL) *dir = 0;
+ 
+ 	test_espeak_terminate_without_initialize();
+-	test_espeak_initialize();
++	//test_espeak_initialize();
+ 
+ 	test_espeak_synth();
+ 	test_espeak_synth(); // Check that this does not crash when run a second time.

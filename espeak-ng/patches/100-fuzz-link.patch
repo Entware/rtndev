@@ -1,0 +1,60 @@
+commit 4d3160a8a6fb571bfaaf540f57a32c99b44b6fa7
+Author: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Date:   Sun Dec 15 00:40:56 2024 +0100
+
+    fuzz: Use main from libfuzzer
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -358,7 +358,8 @@ noinst_PROGRAMS =  tests/fuzzing/synth_f
+ tests_fuzzing_synth_fuzzer_test_SOURCES = tests/fuzzing/synth_fuzzer.c
+ tests_fuzzing_synth_fuzzer_test_LDADD =  src/libespeak-ng.la
+ tests_fuzzing_synth_fuzzer_test_CFLAGS=  ${AM_CFLAGS} -DPATH_ESPEAK_DATA=\"$(abs_top_srcdir)/espeak-ng-data\" -Isrc/libespeak-ng
+-tests_fuzzing_synth_fuzzer_test_LDFLAGS= ${AM_LDFLAGS} -static -lm -Wl,-z,relro ${PCAUDIOLIB_LIBS} ${LIBFUZZER_NO_MAIN}
++tests_fuzzing_synth_fuzzer_test_LDFLAGS= ${AM_LDFLAGS} -static -lm -Wl,-z,relro ${PCAUDIOLIB_LIBS} ${LIBFUZZER}
++tests_ssml_fuzzer_test_LDFLAGS = ${AM_LDFLAGS} ${LIBFUZZER}
+ else
+ tests_ssml_fuzzer_test_LDADD += tests/libfuzzrunner.la
+ endif
+--- a/configure.ac
++++ b/configure.ac
+@@ -142,6 +142,7 @@ if test "$with_libfuzzer" = yes ; then
+ 	TEMP_LIBS="$LIBS"
+ 	HOST_CPU="`$CC -print-target-triple | sed -e 's/-.*//'`"
+ 	LIBFUZZER_NO_MAIN="`$CC -print-file-name=libclang_rt.fuzzer_no_main-$HOST_CPU.a` -lstdc++ -lm"
++	LIBFUZZER="`$CC -print-file-name=libclang_rt.fuzzer-$HOST_CPU.a` -lstdc++ -lm"
+ 	CFLAGS="$CFLAGS -fsanitize=fuzzer-no-link"
+ 	LIBS="$LIBS $LIBFUZZER_NO_MAIN"
+ 	AC_MSG_CHECKING([if $CC supports fuzzer with the -fsanitize=fuzzer flag])
+@@ -153,8 +154,10 @@ if test "$with_libfuzzer" = yes ; then
+ 	if test "$have_fuzzer_fuzzer" != yes ; then
+ 		CFLAGS="$TEMP_CFLAGS"
+ 		LIBFUZZER_NO_MAIN=""
++		LIBFUZZER=""
+ 	fi
+ 	AC_SUBST(LIBFUZZER_NO_MAIN)
++	AC_SUBST(LIBFUZZER)
+ 	LIBS="$TEMP_LIBS"
+ 	AC_LANG_POP(C)
+ fi
+--- a/tests/fuzzing/synth_fuzzer.c
++++ b/tests/fuzzing/synth_fuzzer.c
+@@ -39,10 +39,6 @@ espeak_callback(short *data, int samples
+ 	return 0;
+ }
+ 
+-/* See http://llvm.org/docs/LibFuzzer.html */
+-extern int LLVMFuzzerRunDriver(int *argc, char ***argv,
+-                  int (*UserCb)(const uint8_t *Data, size_t Size));
+-
+ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+ {
+ 	int buflength = size+1;
+@@ -78,7 +74,3 @@ int LLVMFuzzerTestOneInput(const uint8_t
+ 
+ 	return 0;
+ }
+-
+-int main(int argc, char *argv[]) {
+-	LLVMFuzzerRunDriver(&argc, &argv, LLVMFuzzerTestOneInput);
+-}

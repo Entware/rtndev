@@ -1,0 +1,51 @@
+commit 2108b1e8ae02f49cc909894a1024efdfde6682fd
+Author: Jonathan McDowell <noodles@earth.li>
+Date:   Mon Mar 3 23:11:01 2025 +0000
+
+    Add espeak_TextToPhonemesWithTerminator (#2127)
+
+--- a/src/include/espeak-ng/speak_lib.h
++++ b/src/include/espeak-ng/speak_lib.h
+@@ -544,6 +544,12 @@ ESPEAK_API const char *espeak_TextToPhon
+ #ifdef __cplusplus
+ extern "C"
+ #endif
++ESPEAK_API const char *espeak_TextToPhonemesWithTerminator(const void **textptr, int textmode, int phonememode, int *terminator);
++/* Version of espeak_TextToPhonemes that also returns the clause terminator (e.g., CLAUSE_INTONATION_FULL_STOP) */
++
++#ifdef __cplusplus
++extern "C"
++#endif
+ ESPEAK_API void espeak_CompileDictionary(const char *path, FILE *log, int flags);
+ /* Compile pronunciation dictionary for a language which corresponds to the currently
+    selected voice.  The required voice should be selected before calling this function.
+--- a/src/libespeak-ng/speech.c
++++ b/src/libespeak-ng/speech.c
+@@ -873,7 +873,7 @@ ESPEAK_API void espeak_SetPhonemeTrace(i
+ 		f_trans = stderr;
+ }
+ 
+-ESPEAK_API const char *espeak_TextToPhonemes(const void **textptr, int textmode, int phonememode)
++ESPEAK_API const char* espeak_TextToPhonemesWithTerminator(const void** textptr, int textmode, int phonememode, int* terminator)
+ {
+ 	/* phoneme_mode
+ 	    bit 1:   0=eSpeak's ascii phoneme names, 1= International Phonetic Alphabet (as UTF-8 characters).
+@@ -887,12 +887,17 @@ ESPEAK_API const char *espeak_TextToPhon
+ 	if (text_decoder_decode_string_multibyte(p_decoder, *textptr, translator->encoding, textmode) != ENS_OK)
+ 		return NULL;
+ 
+-	TranslateClause(translator, NULL, NULL);
++	TranslateClauseWithTerminator(translator, NULL, NULL, terminator);
+ 	*textptr = text_decoder_get_buffer(p_decoder);
+ 
+ 	return GetTranslatedPhonemeString(phonememode);
+ }
+ 
++ESPEAK_API const char *espeak_TextToPhonemes(const void **textptr, int textmode, int phonememode)
++{
++	return espeak_TextToPhonemesWithTerminator(textptr, textmode, phonememode, NULL);
++}
++
+ ESPEAK_NG_API espeak_ng_STATUS espeak_ng_Cancel(void)
+ {
+ #if USE_ASYNC

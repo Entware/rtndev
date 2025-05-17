@@ -1,0 +1,50 @@
+---
+ README.md                |    2 +-
+ docs/building.md         |    2 +-
+ docs/languages/gmw/lb.md |    6 +-----
+ 3 files changed, 3 insertions(+), 7 deletions(-)
+
+--- a/README.md
++++ b/README.md
+@@ -54,7 +54,7 @@ The following platforms are supported:
+ 
+ | Platform    | Minimum Version | Status |
+ |-------------|-----------------|--------|
+-| Linux       |                 | ![CI](https://github.com/espeak-ng/espeak-ng/actions/workflows/ci.yml/badge.svg) |
++| Linux       |                 | OK     |
+ | BSD         |                 |        |
+ | Android     | 4.0             |        |
+ | Windows     | Windows 8       |        |
+--- a/docs/building.md
++++ b/docs/building.md
+@@ -250,7 +250,7 @@ already have an espeak-ng install by run
+ 
+ ## Android
+ 
+-<div align="right"><a href="https://play.google.com/store/apps/details?id=com.reecedunn.espeak" title="eSpeak for Android on Google Play"><img src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png"/></a></div>
++<div align="right"><a href="https://play.google.com/store/apps/details?id=com.reecedunn.espeak" title="eSpeak for Android on Google Play">Android App on Google play</a></div>
+ 
+ The espeak-ng sources contain the code for the Android™ port of the application.
+ This is published as the [eSpeak for Android](http://reecedunn.co.uk/espeak-for-android)
+--- a/docs/languages/gmw/lb.md
++++ b/docs/languages/gmw/lb.md
+@@ -262,9 +262,7 @@ To phonemize the above sentences I added
+ &#x1F418;  elefant
+ &#x1F98F;  rino:zerus
+ ```
+-A more comfortable option is to insert emoji's from the popup menu in the text-editor :   
+-
+-![insert emoji](https://github.com/mbarnig/espeak-ng-lb/blob/l%C3%ABtzebuergesch/_layouts/insert-emoji.png)
++A more comfortable option is to insert emoji's from the popup menu in the text-editor
+ 
+ Here are the results of the phonemization :
+ 
+@@ -338,8 +336,6 @@ make
+ sudo make install
+ ```
+ 
+-![build espeak-ng-lb](https://github.com/mbarnig/espeak-ng-lb/blob/l%C3%ABtzebuergesch/_layouts/espeak-ng-lb.png)
+-
+ The [building guide](https://github.com/mbarnig/espeak-ng-lb/blob/master/docs/building.md) provides detailed info how to compile and build eSpeak NG from the source on different operating systems. If you need help, please visit the [issues section](https://github.com/espeak-ng/espeak-ng/issues) from the master eSpeak-NG project. Currently there are 333 open and 311 closed issues, so probably another user found already a solution for your problem.
+ 
+ To use the project, I need only one command :
