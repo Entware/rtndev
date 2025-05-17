@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bochs
-PKG_VERSION:=2.8
-PKG_REV:=9177c93e4e69a5c9408a1393766f882ed1313ab3
+PKG_VERSION:=3.0
+PKG_REV:=02c851a93572071578d15f68c5701676a109dd19
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/bochs-emu/Bochs.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=bd7971875af3bd0b374e303a6b3bc2d1e35c97fa695d89d85e3aefa0e97519b9
+PKG_MIRROR_HASH:=605c6bd5a2154611e4938b0520debf881ca68d584a13841b0f7b5b8ebbf223bf
 
 PKG_INSTALL:=1
 

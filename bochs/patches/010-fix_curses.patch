@@ -1,11 +1,11 @@
 --- a/bochs/configure
 +++ b/bochs/configure
-@@ -26593,7 +26593,7 @@ esac
+@@ -26798,7 +26798,7 @@ esac
  
  
  
 -if test "$use_curses" = yes; then
 +if test "$use_curses" = yes -a "$cross_configure" = 0; then
-   if test "$PKGCONFIG" != not_found; then
+   if test "x$PKG_CONFIG" != x; then
      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for mvaddch in -lcurses" >&5
  printf %s "checking for mvaddch in -lcurses... " >&6; }
