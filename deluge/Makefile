@@ -1,18 +1,15 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=deluge
-PKG_VERSION:=2.1.1
+PKG_VERSION:=2.2.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=deluge
-PKG_HASH:=d6ea7e1f5bdd75f40cbd1d56f0c97cd1b5b74bc9e03783858c7daa81063dd4b9
+PKG_HASH:=f0fc64e052334ef294ca3951975dd926f129d62813f6c909bb523d914abe6537
 
 PKG_BUILD_DEPENDS:=python-wheel/host
 
