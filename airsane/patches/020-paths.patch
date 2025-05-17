@@ -1,6 +1,6 @@
 --- a/systemd/airsaned.default
 +++ b/systemd/airsaned.default
-@@ -11,7 +11,7 @@ DISCLOSE_VERSION=true
+@@ -13,7 +13,7 @@ DISCLOSE_VERSION=true
  LOCAL_SCANNERS_ONLY=false
  RANDOM_PATHS=false
  COMPATIBLE_PATH=true
