@@ -1,21 +1,19 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2006-2015 OpenWrt.org
-# Copyright (C) 2015-2024 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2015-2025 Entware
 #
 # UTF8 support added
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bacula
-PKG_VERSION:=15.0.2
+PKG_VERSION:=15.0.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/bacula
-PKG_HASH:=55515c2a66af9a86b955daea4089378b864d051b2e6e30383bef36e693acea7a
+PKG_HASH:=294afd3d2eb9d5b71c3d0e88fdf19eb513bfdb843b28d35c0552e4ae062827a1
 
 PKG_INSTALL:=1
 
