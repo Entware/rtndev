@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=alaya
-PKG_VERSION:=4.5
-PKG_REV:=00c9d13732ee48d2020bebe14329532c06d2a02d
+PKG_VERSION:=4.6
+PKG_REV:=30fbc24676957c6e836c9865dc364f6dbde974c4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,9 +14,8 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/ColumPaget/Alaya.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=e9807a9defe042afb8ebc70854bdd7c1d48c576c78cacb019e1fd08959c0f225
+PKG_MIRROR_HASH:=eade9b15d45f8c177a3cd80b3339abc4ffd94a8e9192fea692a076fd90dc9bd3
 
-PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
