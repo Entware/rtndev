@@ -5,16 +5,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=5.1.5
+PKG_VERSION:=5.2.5
 PKG_RELEASE:=1
-PKG_REV:=25679a45a1e2ca9f7a9e01cab5cc554b8eaa7230
+PKG_REV:=21697db4b08ec77b67af4075a24f456464481212
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=2179bad2a8579adbd135c647ddc02c72a0509c50f1136d50a8702c855ca6ade0
+PKG_MIRROR_HASH:=7076db684e75987fd9f03c262ec7d9fcf915e6dce894e830c6205d492eac1119
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -30,6 +30,7 @@ create \
 data \
 datadir \
 diskspace \
+dump \
 edit \
 erasedata \
 extratio \
