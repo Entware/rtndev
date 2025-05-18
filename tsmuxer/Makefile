@@ -1,13 +1,14 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
 #
+# Project archived
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tsmuxer
-PKG_VERSION:=2.6.16-20240606
-PKG_REV:=7f8667d1e6100a5b6407340d91ad80d57d976e58
+PKG_VERSION:=2.7.0
+PKG_REV:=f06ac394c55ccee1cb76ae54f4636532a2d10253
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -15,7 +16,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/justdan96/tsMuxer.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=4351d4db2f662e6b6c23b35b380953004f6463cffd31aa5323428b47d96ecba5
+PKG_MIRROR_HASH:=2f50703f356f863f197cfe9bcfc54af0b589f09600391b0c6070218e83212706
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
