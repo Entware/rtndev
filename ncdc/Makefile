@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ncdc
-PKG_VERSION:=1.24.1
+PKG_VERSION:=1.25
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.yorhel.nl/download
-PKG_HASH:=2a8ab9ad7d43f018fc73ba8babd689dfa44aba8cec53b88e4770185cb97778f7
+PKG_HASH:=b9be58e7dbe677f2ac1c472f6e76fad618a65e2f8bf1c7b9d3d97bc169feb740
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -23,7 +23,7 @@ define Package/ncdc
 	CATEGORY:=Network
 	SUBMENU:=P2P
 	TITLE:=ncdc is a modern and lightweight DC client
-	DEPENDS:=+libncursesw +bzip2 +libgnutls +libsqlite3 +glib2 $(ICONV_DEPENDS)
+	DEPENDS:=+libmaxminddb +libncursesw +bzip2 +libgnutls +libsqlite3 +glib2 $(ICONV_DEPENDS)
 	URL:=http://dev.yorhel.nl/ncdc
 	MAINTAINER:=Entware team, https://entware.net
 endef
@@ -32,6 +32,9 @@ define Package/ncdc/description
  ncdc is a modern and lightweight direct connect client with a friendly
  ncurses interface.
 endef
+
+CONFIGURE_ARGS += \
+	--with-geoip
 
 define Build/Compile
 	$(HOSTCC) $(PKG_BUILD_DIR)/deps/makeheaders.c -o $(PKG_BUILD_DIR)/makeheaders
