@@ -1,26 +1,22 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2019-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-# 1.45 and 1.46 suffers from following error, whenever HAVE_NVME enabled or disabled^
-# sg_pt_linux_nvme.c:1913:9: error: 'vb' undeclared
+# Copyright (C) 2019-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sg3_utils
-PKG_VERSION:=1.44
-PKG_REV:=ed2e1216453184d7888122a32a6c1e58ebc6a2c6
-PKG_RELEASE:=2
+PKG_VERSION:=1.48
+PKG_REV:=c2710e0ac7002193d63e843723e987015ca3b13d
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/hreinecke/sg3_utils.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=2140c16da0a9463c746cba6a0ab38e7ff6aa68b06eeb7e0e85ed5b6fc33383b8
+PKG_MIRROR_HASH:=f6ce7ce2e72ae616c20e736f0f189c40c64364b137e45e22aecc4726e7c9b464
 
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
