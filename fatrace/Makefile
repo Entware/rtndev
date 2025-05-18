@@ -1,15 +1,12 @@
+# PDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fatrace
-PKG_VERSION:=0.17.0
-PKG_REV:=43327b194d995df56ab1c447366169cbf3a26c13
+PKG_VERSION:=0.18.0
+PKG_REV:=c87300eea87be41871c6359611d82d5830c24d23
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/martinpitt/fatrace.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=8aa0982f9aec5c4f72e896d1ff88aab69e9d9a4051c03f2d96bc6746a3b1eb62
+PKG_MIRROR_HASH:=03eb4711990ebeda00c0d4e827c104c03b1035c14eb17780df538e7b290d0b45
 
 include $(INCLUDE_DIR)/package.mk
 
