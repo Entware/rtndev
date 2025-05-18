@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tty-solitaire
-PKG_VERSION:=1.3.1
-PKG_REV:=4875f34e6bbdb6e975bdcedefd5c1d0acf6e19e5
+PKG_VERSION:=1.4.1
+PKG_REV:=2887f9d27442d3717404bd6ce87707b754dfb113
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/mpereira/tty-solitaire.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=69f4df139f30aae1d21583cb0954081a5a1b417ac1b6bc23324a162c5ca24aba
+PKG_MIRROR_HASH:=dc58091a135c072d2cd735ee9a4a34141fc1c3e5581054428fac79b1065c1028
 
 include $(INCLUDE_DIR)/package.mk
 
