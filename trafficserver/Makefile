@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=trafficserver
-PKG_VERSION:=9.2.7
+PKG_VERSION:=9.2.10
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/apache/trafficserver/tar.gz/refs/tags/$(PKG_VERSION)?
-PKG_HASH:=711d2a6bf7bcc0e690755b0fc2bbe3bec7d83a9e3e0718952f42a0200b1c8e15
+PKG_HASH:=3a04254afd0467f679f2a3fe32d91fc71dfb1db19a64e89d863c03de61174a53
 
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
