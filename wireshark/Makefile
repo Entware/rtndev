@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2024 Entware
+# Copyright (C) 2020-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=3.6.24
+PKG_VERSION:=4.4.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://1.eu.dl.wireshark.org/src \
-	http://ftp.uni-kl.de/pub/wireshark/src \
+PKG_SOURCE_URL:=http://ftp.uni-kl.de/pub/wireshark/src/all-versions \
+	http://ftp.uni-kl.de/pub/wireshark/src/all-versions \
 	https://wireshark.org/download/src/all-versions
-PKG_HASH:=94e0642bfa0678fc98905785679697f1bd777fa0534081d432fbe95b7c80c42b
+PKG_HASH:=4fffcee3d18d1daac12f780c2e8da511824dffb3b0fd6446b53ab7516538edcd
 
 # FIXME FAILED: ... run/lemon: Exec format error
 PKG_USE_NINJA:=0
@@ -26,7 +26,7 @@ define Package/wireshark
 	SECTION:=net
 	CATEGORY:=Network
 	DEPENDS:=+bcg729 +glib2 +krb5-libs +libcap +libcares +libgcrypt +libgnutls \
-		+liblz4 +libnghttp2 +libopus +libpcap +libspandsp +libspeexdsp \
+		+liblz4 libmaxminddb +libnghttp2 +libopus +libpcap +libspandsp +libspeexdsp \
 		+libssh +libxml2 +sbc +zstd
 	TITLE:=network protocol analyzer
 	URL:=https://www.wireshark.org/
@@ -38,7 +38,6 @@ define Package/wireshark/description
 endef
 
 CMAKE_OPTIONS += \
-	-DBUILD_mmdbresolve=OFF \
 	-DBUILD_wireshark=OFF \
 	-DENABLE_LUA=OFF
 
