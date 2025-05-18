@@ -1,20 +1,18 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Copyright (C) 2011-2025 Entware
 #
 # Based on https://github.com/FranciscoBorges/openwrt-printing-packages
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gutenprint
-PKG_VERSION:=5.3.4
+PKG_VERSION:=5.3.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/gimp-print
-PKG_HASH:=db44a701d2b8e6a8931c83cec06c91226be266d23e5c189d20a39dd175f2023b
+PKG_HASH:=f5a9f47de28530b1ae2069cfbc647a9a641baeeabe809bb0ef2b3ec5b9668d70
 
 PKG_BUILD_DEPENDS:=gutenprint/host
 PKG_FIXUP:=autoreconf
