@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=par2cmdline
-PKG_VERSION:=0.8.1
-PKG_REV:=9935dbf808cfc30f6e08e85645a70e38f555eba5
+PKG_VERSION:=1.0.0
+PKG_REV:=620ca05e751f5c145a2d9a837ba91a9a498f0ef4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Parchive/par2cmdline.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=aad4eaf3b1d12332b618783aeba54b839173b53a07640d0c67329945975b6dba
+PKG_MIRROR_HASH:=036ac6615ebde2b6979ec9679465d48d8033399bccf432ad58f5ed56797b1301
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
