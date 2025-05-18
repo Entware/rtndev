@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minissdpd
-PKG_VERSION:=2.3.7
-PKG_REV:=b9f21a9cfe9d90afbd87dcff290a8dc8c078409b
+PKG_VERSION:=2.3.9
+PKG_REV:=d66872e34d9ff83a07f8b71371b13419b2089953
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/miniupnp/miniupnp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=255391cb112001e58c43b8872f01aeb88809bff8e1ae0494e30572a7ce6bf089
+PKG_MIRROR_HASH:=ed5ee2452d901461207fe2a66c7765e5d0483d2115304b5860ce3db3ab77d42b
 
 include $(INCLUDE_DIR)/package.mk
 
