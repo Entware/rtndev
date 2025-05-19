@@ -1,6 +1,6 @@
 --- a/backend/beh.c
 +++ b/backend/beh.c
-@@ -142,7 +142,7 @@ main(int  argc,				/* I - Number of comm
+@@ -143,7 +143,7 @@ main(int  argc,				/* I - Number of comm
  
      tmpdir = getenv("TMPDIR");
      if (!tmpdir)

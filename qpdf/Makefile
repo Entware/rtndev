@@ -1,22 +1,17 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2013 Francisco Borges
-# Copyright (C) 2011-2025 Entware
-#
-# Makefile taken from http://github.com/FranciscoBorges/openwrt-printing-packages
-#
-# The newer version is incopatible with cups-filters 1.28.17
-# filter/pdftopdf/qpdf_pdftopdf_processor.cc:89:10: error: 'class QPDFObjectHandle' has no member named 'replaceOrRemoveKey'
+# Copyright (C) 2013 Francisco Borges https://github.com/FranciscoBorges/openwrt-printing-packages
+# Copyright (C) 2011-2024 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qpdf
-PKG_VERSION:=11.9.1
+PKG_VERSION:=12.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/qpdf/qpdf/releases/download/v$(PKG_VERSION)
-PKG_HASH:=2ba4d248f9567a27c146b9772ef5dc93bd9622317978455ffe91b259340d13d1
+PKG_HASH:=b3d1575b2218badc3549d6977524bb0f8c468c6528eebc8967bbe3078cf2cace
 
 CMAKE_INSTALL:=1
 

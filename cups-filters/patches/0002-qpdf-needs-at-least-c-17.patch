@@ -1,0 +1,21 @@
+From: Thorsten Alteholz <debian@alteholz.de>
+Date: Fri, 10 Mar 2023 19:48:12 +0100
+Subject: qpdf needs at least c++17
+
+---
+ Makefile.am | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -528,7 +528,9 @@ pdftopdf_SOURCES = \
+ pdftopdf_CFLAGS = \
+ 	$(LIBQPDF_CFLAGS) \
+ 	$(CUPS_CFLAGS)
+-pdftopdf_CXXFLAGS = -std=c++0x $(pdftopdf_CFLAGS)   # -std=c++11
++# qpdf now needs at least c++17
++#pdftopdf_CXXFLAGS = -std=c++0x $(pdftopdf_CFLAGS)   # -std=c++11
++pdftopdf_CXXFLAGS = $(pdftopdf_CFLAGS)
+ pdftopdf_LDADD = \
+ 	$(LIBQPDF_LIBS) \
+ 	$(CUPS_LIBS)
