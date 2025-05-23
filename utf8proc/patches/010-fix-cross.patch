@@ -1,0 +1,30 @@
+--- a/Makefile
++++ b/Makefile
+@@ -39,7 +39,7 @@ else # GNU/Linux, at least (Windows shou
+ endif
+ 
+ # installation directories (for 'make install')
+-prefix=/usr/local
++prefix=/opt
+ libdir=$(prefix)/lib
+ includedir=$(prefix)/include
+ pkgconfigdir=$(libdir)/pkgconfig
+@@ -110,13 +110,13 @@ install: libutf8proc.a libutf8proc.$(SHL
+ 	$(INSTALL) -m 644 utf8proc.h $(DESTDIR)$(includedir)
+ 	mkdir -m 755 -p $(DESTDIR)$(libdir)
+ 	$(INSTALL) -m 644 libutf8proc.a $(DESTDIR)$(libdir)
+-	$(INSTALL) -m 755 libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)
++#	$(INSTALL) -m 755 libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)
+ 	mkdir -m 755 -p $(DESTDIR)$(pkgconfigdir)
+ 	$(INSTALL) -m 644 libutf8proc.pc $(DESTDIR)$(pkgconfigdir)/libutf8proc.pc
+-	ln -f -s libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)/libutf8proc.$(SHLIB_EXT)
+-ifneq ($(OS),Darwin)
+-	ln -f -s libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)/libutf8proc.so.$(MAJOR)
+-endif
++#	ln -f -s libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)/libutf8proc.$(SHLIB_EXT)
++#ifneq ($(OS),Darwin)
++#	ln -f -s libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)/libutf8proc.so.$(MAJOR)
++#endif
+ 
+ MANIFEST.new:
+ 	rm -rf tmp
