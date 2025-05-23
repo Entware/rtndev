@@ -1,65 +1,79 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -236,7 +236,7 @@ add_glob_target(
-   TARGET lintlua-luacheck
-   COMMAND ${LUACHECK_PRG}
-   FLAGS -q
--  GLOB_DIRS runtime/ scripts/ src/ test/
-+  GLOB_DIRS runtime/ scripts/ src/
-   GLOB_PAT *.lua
-   TOUCH_STRATEGY SINGLE)
+@@ -235,7 +235,7 @@ set(STYLUA_DIRS runtime scripts src test
  
-@@ -262,7 +262,6 @@ add_glob_target(
-   TOUCH_STRATEGY SINGLE)
+ add_glob_target(
+   TARGET lintlua-luacheck
+-  COMMAND $<TARGET_FILE:nvim_bin>
++  COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim
+   FLAGS -ll ${PROJECT_SOURCE_DIR}/test/lua_runner.lua ${CMAKE_BINARY_DIR}/usr luacheck -q
+   GLOB_DIRS runtime scripts src test
+   GLOB_PAT *.lua
+@@ -262,7 +262,7 @@ add_glob_target(
+   TOUCH_STRATEGY PER_DIR)
  
  add_custom_target(lintcommit
--  COMMAND ${PROJECT_BINARY_DIR}/bin/nvim -u NONE -es -c [[lua require('scripts.lintcommit').main({trace=false})]]
-   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-   VERBATIM)
- add_dependencies(lintcommit nvim)
+-  COMMAND $<TARGET_FILE:nvim_bin> -u NONE -l ${PROJECT_SOURCE_DIR}/scripts/lintcommit.lua main)
++  COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim -u NONE -l ${PROJECT_SOURCE_DIR}/scripts/lintcommit.lua main)
+ add_dependencies(lintcommit nvim_bin)
+ 
+ add_custom_target(lint)
 --- a/runtime/CMakeLists.txt
 +++ b/runtime/CMakeLists.txt
-@@ -32,8 +32,7 @@ foreach(PACKAGE ${PACKAGES})
+@@ -33,7 +33,7 @@ foreach(PACKAGE ${PACKAGES})
      add_custom_command(OUTPUT "${GENERATED_PACKAGE_DIR}/${PACKNAME}/doc/tags"
        COMMAND ${CMAKE_COMMAND} -E copy_directory
          ${PACKAGE} ${GENERATED_PACKAGE_DIR}/${PACKNAME}
--      COMMAND "${PROJECT_BINARY_DIR}/bin/nvim"
--        -u NONE -i NONE -e --headless -c "helptags doc" -c quit
-+      COMMAND touch "${GENERATED_PACKAGE_DIR}/${PACKNAME}/doc/tags"
+-      COMMAND $<TARGET_FILE:nvim_bin>
++      COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim
+         -u NONE -i NONE -e --headless -c "helptags doc" -c quit
        DEPENDS
-         nvim
-         nvim_runtime_deps
-@@ -66,8 +65,6 @@ add_custom_command(OUTPUT ${GENERATED_HE
+         nvim_bin
+@@ -65,7 +65,7 @@ add_custom_command(OUTPUT ${GENERATED_HE
    COMMAND ${CMAKE_COMMAND} -E remove_directory doc
    COMMAND ${CMAKE_COMMAND} -E copy_directory
      ${PROJECT_SOURCE_DIR}/runtime/doc doc
--  COMMAND "${PROJECT_BINARY_DIR}/bin/nvim"
--    -u NONE -i NONE -e --headless -c "helptags ++t doc" -c quit
+-  COMMAND $<TARGET_FILE:nvim_bin>
++  COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim
+     -u NONE -i NONE -e --headless -c "helptags ++t doc" -c quit
    DEPENDS
-     nvim
-     nvim_runtime_deps
-@@ -77,8 +74,6 @@ add_custom_command(OUTPUT ${GENERATED_HE
- 
- # TODO: This doesn't work. wait for "nvim -l" to land?
- add_custom_target(doc_html
--  COMMAND "${PROJECT_BINARY_DIR}/bin/nvim"
--    -V1 -es --clean -c "lua require('scripts.gen_help_html').gen('./build/runtime/doc', './build/doc_html', nil, 'todo_commit_id')" -c "0cq"
-   DEPENDS
-     ${GENERATED_HELP_TAGS}
-   WORKING_DIRECTORY "${GENERATED_RUNTIME_DIR}/doc"
+     nvim_bin
 --- a/src/nvim/CMakeLists.txt
 +++ b/src/nvim/CMakeLists.txt
-@@ -897,4 +897,4 @@ add_custom_target(generated-sources DEPE
-   ${NVIM_GENERATED_SOURCES}
- )
+@@ -519,7 +519,7 @@ set(LUA_GEN ${LUA_GEN_PRG} ${GENERATOR_P
+ set(LUA_GEN_DEPS ${GENERATOR_PRELOAD} $<TARGET_FILE:nlua0>)
  
--add_subdirectory(po)
-+#add_subdirectory(po)
---- a/test/CMakeLists.txt
-+++ b/test/CMakeLists.txt
-@@ -1,4 +1,4 @@
--add_subdirectory(functional/fixtures)  # compile test programs
-+#add_subdirectory(functional/fixtures)  # compile test programs
- get_directory_property(GENERATED_HELP_TAGS DIRECTORY ${PROJECT_SOURCE_DIR}/runtime DEFINITION GENERATED_HELP_TAGS)
+ # Like LUA_GEN but includes also vim.fn, vim.api, vim.uv, etc
+-set(NVIM_LUA $<TARGET_FILE:nvim_bin> -u NONE -l ${NVIM_LUA_PRELOAD} ${PROJECT_SOURCE_DIR})
++set(NVIM_LUA ${PROJECT_SOURCE_DIR}/build-native/bin/nvim -u NONE -l ${NVIM_LUA_PRELOAD} ${PROJECT_SOURCE_DIR})
  
- if(NOT BUSTED_OUTPUT_TYPE)
+ # NVIM_GENERATED_FOR_HEADERS: generated headers to be included in headers
+ # NVIM_GENERATED_FOR_SOURCES: generated headers to be included in sources
+--- a/src/nvim/po/CMakeLists.txt
++++ b/src/nvim/po/CMakeLists.txt
+@@ -55,14 +55,14 @@ if(HAVE_WORKING_LIBINTL AND GETTEXT_FOUN
+   list(SORT NVIM_RELATIVE_SOURCES)
+   add_custom_command(
+     OUTPUT ${NVIM_POT}
+-    COMMAND $<TARGET_FILE:nvim_bin> -u NONE -i NONE -n --headless --cmd "set cpo+=+"
++    COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim -u NONE -i NONE -n --headless --cmd "set cpo+=+"
+       -c "silent source ${CMAKE_CURRENT_SOURCE_DIR}/tojavascript.vim"
+       ${NVIM_POT} ${PROJECT_SOURCE_DIR}/runtime/optwin.vim
+     COMMAND ${XGETTEXT_PRG} -o ${NVIM_POT} --default-domain=nvim
+       --add-comments --keyword=_ --keyword=N_ --keyword=NGETTEXT:1,2
+       -D ${CMAKE_CURRENT_SOURCE_DIR} -D ${CMAKE_CURRENT_BINARY_DIR}
+       ${NVIM_RELATIVE_SOURCES} optwin.js
+-    COMMAND $<TARGET_FILE:nvim_bin> -u NONE -i NONE -n --headless --cmd "set cpo+=+"
++    COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim -u NONE -i NONE -n --headless --cmd "set cpo+=+"
+       -c "silent source ${CMAKE_CURRENT_SOURCE_DIR}/fixfilenames.vim"
+       ${NVIM_POT} ${PROJECT_SOURCE_DIR}/runtime/optwin.vim
+     VERBATIM
+@@ -92,7 +92,7 @@ if(HAVE_WORKING_LIBINTL AND GETTEXT_FOUN
+     set(poFile ${CMAKE_CURRENT_SOURCE_DIR}/${name}.po)
+ 
+     add_custom_target(check-po-${name}
+-      COMMAND $<TARGET_FILE:nvim_bin> -u NONE -n -e
++      COMMAND ${PROJECT_SOURCE_DIR}/build-native/bin/nvim -u NONE -n -e
+           -S ${CMAKE_CURRENT_SOURCE_DIR}/check.vim
+           -c "if error == 0 | q | endif" -c cq ${poFile} ||
+           ${CMAKE_COMMAND} -E echo "${name}.po failed the check."
