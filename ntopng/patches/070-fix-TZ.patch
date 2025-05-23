@@ -1,11 +1,11 @@
 --- a/src/Ntop.cpp
 +++ b/src/Ntop.cpp
-@@ -3920,7 +3920,7 @@ void Ntop::setZoneInfo() {
+@@ -4149,7 +4149,7 @@ void Ntop::setZoneInfo() {
  
- #else
-   char buf[64];
--  ssize_t rc = readlink("/etc/localtime", buf, sizeof(buf));
-+  ssize_t rc = readlink("/opt/etc/localtime", buf, sizeof(buf));
-   u_int num_slash = 0;
+   /* Read timezone from /etc/localtime (if TZ is not set) */
+   if (tz == NULL) {
+-    ssize_t rc = readlink("/etc/localtime", buf, sizeof(buf));
++    ssize_t rc = readlink("/opt/etc/localtime", buf, sizeof(buf));
  
-   zoneinfo = NULL;
+     if (rc > 0) {
+       buf[rc] = '\0';

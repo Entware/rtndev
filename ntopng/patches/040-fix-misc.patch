@@ -19,7 +19,7 @@
  
  case $OS in
    'FreeBSD')
-@@ -14,8 +14,8 @@ esac
+@@ -14,13 +14,13 @@ esac
  
  DEFAULT_CONF_FILE="${NTOPNG_CONFIG_PATH}/ntopng.conf"
  
@@ -30,7 +30,13 @@
  if [ -d "${OLD_DEFAULT_DATADIR}" ]; then
      DEFAULT_DATADIR="${OLD_DEFAULT_DATADIR}"
  fi
-@@ -266,13 +266,13 @@ function manifest_to_staging_dir() {
+ 
+-REDIS_DUMP_DIR="/var/lib/redis"
++REDIS_DUMP_DIR="/opt/var/lib/redis"
+ REDIS_DUMP_FILENAME="dump.rdb"
+ REDIS_DUMP_PATH="${REDIS_DUMP_DIR}/${REDIS_DUMP_FILENAME}"
+ 
+@@ -278,13 +278,13 @@ function manifest_to_staging_dir() {
  }
  
  function backup_to_staging_dir() {
@@ -47,7 +53,24 @@
  	copy_to_staging_dir "${DATADIR}/system.config" "__datadir"
      fi
  
-@@ -399,16 +399,16 @@ function restore_files() {
+@@ -296,13 +296,13 @@ function backup_to_staging_dir() {
+ 	fi
+ 
+ 	echo "[i] Saving configuration"
+-	LASTSAVE=`/usr/bin/redis-cli LASTSAVE|cut -f2`
+-	/usr/bin/redis-cli BGSAVE
++	LASTSAVE=`/opt/bin/redis-cli LASTSAVE|cut -f2`
++	/opt/bin/redis-cli BGSAVE
+ 
+ 	sleep 2
+ 
+ 	echo "[i] Creating backup"
+-	CURRSAVE=`/usr/bin/redis-cli LASTSAVE|cut -f2`
++	CURRSAVE=`/opt/bin/redis-cli LASTSAVE|cut -f2`
+ 
+ 	copy_to_staging_dir ${REDIS_DUMP_PATH} "__redis"
+ 
+@@ -450,7 +450,7 @@ function restore_files() {
      if [ -d "${STAGING_DIR}/__etc_ntopng" ]; then
  	find "${STAGING_DIR}/__etc_ntopng"  -maxdepth 1 -type f -name '*.*' -print0 |
  	    while IFS= read -r -d '' FL; do
@@ -56,6 +79,18 @@
  	    done
      fi
  
+@@ -464,7 +464,7 @@ function restore_files() {
+ 	fi
+ 
+ 	echo "[i] Stopping redis service"
+-	/usr/bin/redis-cli FLUSHALL
++	/opt/bin/redis-cli FLUSHALL
+ 	systemctl stop redis-server
+ 
+ 	echo "[i] Restoring configuration"
+@@ -482,11 +482,11 @@ function restore_files() {
+ 
+     # restore license
      if [ "${NEDGE}" == "0" ] && [ -f "${STAGING_DIR}/__license/ntopng.license" ]; then
 -	restore_and_save_file "${STAGING_DIR}/__license/ntopng.license" "/etc" "root:root"
 +	restore_and_save_file "${STAGING_DIR}/__license/ntopng.license" "/opt/etc" "root:root"
@@ -67,7 +102,7 @@
      fi
  
      if [ -z "${DATADIR}" ] || [ ! -d "${DATADIR}" ]; then
-@@ -455,7 +455,7 @@ function install_n2disk_conf() {
+@@ -533,7 +533,7 @@ function install_n2disk_conf() {
  	return
      fi
  
@@ -76,7 +111,7 @@
      local DEST_FILE="${DEST_PATH}/n2disk-ntopng-${INTERFACE}.conf"
  
      mkdir -p "${DEST_PATH}"
-@@ -491,7 +491,7 @@ function install_n2n_conf() {
+@@ -569,7 +569,7 @@ function install_n2n_conf() {
  	return
      fi
  

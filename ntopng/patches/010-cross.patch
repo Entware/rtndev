@@ -1,6 +1,6 @@
 --- a/configure.ac.in
 +++ b/configure.ac.in
-@@ -95,7 +95,7 @@ fi
+@@ -106,7 +106,7 @@ fi
  CFLAGS="${CFLAGS} -I${HERE} -I${HERE}/include"
  CXXFLAGS="${CXXFLAGS} -I${HERE} -I${HERE}/include"
  
@@ -9,7 +9,7 @@
  
  dnl> MacOS brew.sh
  HOMEBREW_DIR=/opt/homebrew
-@@ -220,23 +220,23 @@ if test "${with_nedge+set}" = set; then
+@@ -233,23 +233,23 @@ if test "${with_nedge+set}" = set; then
    LIBS="${LIBS} -lnetfilter_queue -lnfnetlink -lnetfilter_conntrack"
  fi
  
@@ -50,7 +50,7 @@
  
  if [ test -f /usr/bin/lsb_release ]; then
    CODENAME=`/usr/bin/lsb_release -c|cut -f 2`
-@@ -347,7 +347,7 @@ if test "${FREEBSD_VERSION}" != "14"; th
+@@ -377,7 +377,7 @@ fi
  pkg-config --exists libssl
  if test "$?" -ne 1; then
    AC_DEFINE_UNQUOTED(NO_SSL_DL, 1, [has openssl])
@@ -59,16 +59,35 @@
    SSL_LIB="`pkg-config --libs libssl` -lssl -lcrypto"
  else
    dnl Workaround for MacOS Brew
-@@ -509,7 +509,7 @@ HIREDIS_LIB=
+@@ -538,13 +538,13 @@ AC_CHECK_LIB(resolv, inet_aton)
+ HIREDIS_INC=
+ HIREDIS_LIB=
  AS_VAR_IF(with_hiredis, yes, [
-     pkg-config --exists hiredis
-     if test "$?" -ne 1; then
--    HIREDIS_INC="`pkg-config --cflags hiredis` -I/usr/include/hiredis"
-+    HIREDIS_INC="`pkg-config --cflags hiredis`"
-     if test $SYSTEM = "FreeBSD"; then
+-    if test -f "${HOME}/hiredis/libhiredis.a" ; then :
+-      HIREDIS_INC="-I${HOME}/hiredis/"
+-      HIREDIS_LIB="${HOME}/hiredis/libhiredis.a"
+-    else
++#    if test -f "${HOME}/hiredis/libhiredis.a" ; then :
++#      HIREDIS_INC="-I${HOME}/hiredis/"
++#      HIREDIS_LIB="${HOME}/hiredis/libhiredis.a"
++#    else
+       pkg-config --exists hiredis
+       if test "$?" -ne 1; then
+-      HIREDIS_INC="`pkg-config --cflags hiredis` -I/usr/include/hiredis"
++      HIREDIS_INC="`pkg-config --cflags hiredis`"
+       if test $SYSTEM = "FreeBSD" && $FREEBSD_VERSION != "15"; then
+ 	dnl> Note: on freebsd 15 .a is not installed
          HIREDIS_LIB="/usr/local/lib/libhiredis.a"
-     else
-@@ -840,8 +840,8 @@ fi
+@@ -555,7 +555,7 @@ AS_VAR_IF(with_hiredis, yes, [
+       echo "Please install hiredis package prerequisite"
+       exit -1
+       fi
+-   fi
++#   fi
+ ])
+ 
+ if test "${with_nedge+set}" != set; then
+@@ -870,8 +870,8 @@ fi
  
  PWD=${HERE}
  AC_DEFINE_UNQUOTED(PACKAGE_RELEASE, "r$GIT_RELEASE", [GIT release of this package])
@@ -83,10 +102,10 @@
 +++ b/Makefile.in
 @@ -32,7 +32,7 @@ MONGOOSE_INC=-I$(MONGOOSE_HOME)
  LUA_PLATFORM=generic
- LUA_HOME=${PWD}/third-party/lua-5.4.3
+ LUA_HOME=${PWD}/third-party/lua-5.4.6
  LUA_INC=-I$(LUA_HOME)/src
 -LUA_LIB=$(LUA_HOME)/src/liblua.a
-+LUA_LIB=-llua5.3
++LUA_LIB=-llua5.4
  
  ifeq ($(OS),Linux)
  	LUA_PLATFORM=linux

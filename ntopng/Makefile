@@ -1,19 +1,21 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2023-2025 Entware
-#
-# 6.2. fails to compile with new ndpi library
-# ntopng-6.2/include/NetworkInterface.h:543:59: error: cannot convert 'ndpi_protocol_breed_t' to 'ndpi_detection_module_struct*'
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ntopng
-PKG_VERSION:=6.0
+PKG_VERSION:=6.4
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/ntop/ntopng/tar.gz/refs/tags/$(PKG_VERSION)?
-PKG_HASH:=937e3dea081f68cb8d85e0a925f5277f6a358d65ba45e90e215f0fc36d2401ac
+#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+#PKG_SOURCE_URL:=https://codeload.github.com/ntop/ntopng/tar.gz/refs/tags/$(PKG_VERSION)?
+#PKG_HASH:=3eaff9f13566e349cada66d41191824a80288ea19ff4427a49a682386348931d
+
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/ntop/ntopng
+PKG_MIRROR_HASH:=cbb05d976f1e563b96655f4d1e9a67d14ab878b7968fc0888ee488fa0eb17564
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-3.0-or-later
@@ -31,11 +33,11 @@ define Package/ntopng
   TITLE:=display top network users
   URL:=https://www.ntop.org/
   DEPENDS:=+glib2 +libatomic +libcap +libcurl +libexpat +libgcrypt
-  DEPENDS+=+libgpg-error +libhiredis +libjson-c +liblua5.3 +libopenldap
+  DEPENDS+=+libgpg-error +libhiredis +libjson-c +liblua5.4 +libopenldap
   DEPENDS+=+libmariadb +libmaxminddb +libndpi +libnetsnmp +libpcap
   DEPENDS+=+libradcli +libsodium +libsqlite3 +libstdcpp +libwrap
   DEPENDS+=+libzmq-nc +libzstd +zlib
-  EXTRA_DEPENDS:=redis-server
+  EXTRA_DEPENDS:=redis-server, redis-cli
 endef
 
 define Package/ntopng/description
@@ -88,17 +90,13 @@ endef
 define Package/ntopng/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ntopng $(1)/opt/bin
-
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S72ntopng $(1)/opt/etc/init.d
-
 	$(INSTALL_DIR) $(1)/opt/etc/ntopng
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/packages/etc/ntopng/ntopng.conf \
 		 $(1)/opt/etc/ntopng
-
 	$(INSTALL_DIR) $(1)/opt/share
 	$(CP) $(PKG_INSTALL_DIR)/opt/share/ntopng $(1)/opt/share
-
 	$(INSTALL_DIR) $(1)/opt/var/lib/ntopng
 endef
 

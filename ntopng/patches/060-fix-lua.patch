@@ -1,6 +1,6 @@
 --- a/scripts/lua/modules/os_utils.lua
 +++ b/scripts/lua/modules/os_utils.lua
-@@ -83,8 +83,8 @@ function os_utils.execWithOutput(c, ret_
+@@ -86,8 +86,8 @@ function os_utils.execWithOutput(c, ret_
        f_name = os.tmpname()
        os.execute(c.." > "..f_name)
        f = io.open(f_name, 'r')
