@@ -9,15 +9,7 @@
  INCLUDEDIR ?= $(PREFIX)/include
  LIBDIR ?= $(PREFIX)/lib
  PCLIBDIR ?= $(LIBDIR)/pkgconfig
-@@ -69,16 +69,13 @@ tree-sitter.pc: lib/tree-sitter.pc.in
- 		-e 's|@CMAKE_INSTALL_PREFIX@|$(PREFIX)|' $< > $@
- 
- clean:
--	$(RM) $(OBJ) tree-sitter.pc libtree-sitter.a libtree-sitter.$(SOEXT)
-+	$(RM) $(OBJ) tree-sitter.pc libtree-sitter.a
- 
- install: all
- 	install -d '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter '$(DESTDIR)$(PCLIBDIR)' '$(DESTDIR)$(LIBDIR)'
+@@ -77,9 +77,6 @@ install: all
  	install -m644 lib/include/tree_sitter/api.h '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter/api.h
  	install -m644 tree-sitter.pc '$(DESTDIR)$(PCLIBDIR)'/tree-sitter.pc
  	install -m644 libtree-sitter.a '$(DESTDIR)$(LIBDIR)'/libtree-sitter.a
