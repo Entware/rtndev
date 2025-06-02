@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2025 Entware
 
 include $(TOPDIR)/rules.mk
 
@@ -11,7 +11,7 @@ PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=7ad90a853a5aee974c757217c87a3b468855c2b1
 PKG_SOURCE_URL:=https://github.com/universal-ctags/ctags
-PKG_MIRROR_HASH:=c978ba0815b010ce2c277be283ddd1aacd72112bda77b88c0d76852c8d86b33f
+PKG_MIRROR_HASH:=ea420f42d3596653f23c034343956e91245ba09e13fc7ba2750bb521dcd5ef58
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
