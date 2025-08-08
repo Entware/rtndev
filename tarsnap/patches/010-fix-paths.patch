@@ -1,0 +1,15 @@
+--- a/tar/tarsnap.conf.sample
++++ b/tar/tarsnap.conf.sample
+@@ -1,10 +1,10 @@
+ ### Recommended options
+ 
+ # Tarsnap cache directory
+-cachedir /usr/local/tarsnap-cache
++cachedir /opt/var/cache/tarsnap-cache
+ 
+ # Tarsnap key file
+-keyfile /root/tarsnap.key
++keyfile /opt/etc/tarsnap.key
+ 
+ # Don't archive files which have the nodump flag set.
+ nodump
