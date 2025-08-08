@@ -1,0 +1,25 @@
+--- a/pkgconfig/corosync.pc.in
++++ b/pkgconfig/corosync.pc.in
+@@ -1,9 +1,9 @@
+ prefix=@PREFIX@
+ exec_prefix=${prefix}
+-libdir=@LIBDIR@
++libdir=${exec_prefix}/lib
+ includedir=${prefix}/include
+-logdir=@LOGDIR@
+-corosysconfdir=@COROSYSCONFDIR@
++logdir=${prefix}/var/log/corosync
++corosysconfdir=${prefix}/etc/corosync
+ 
+ Name: corosync
+ Version: @LIBVERSION@
+--- a/pkgconfig/libtemplate.pc.in
++++ b/pkgconfig/libtemplate.pc.in
+@@ -1,6 +1,6 @@
+ prefix=@PREFIX@
+ exec_prefix=${prefix}
+-libdir=@LIBDIR@
++libdir=${exec_prefix}/lib
+ includedir=${prefix}/include
+ 
+ Name: @LIB@

@@ -1,0 +1,11 @@
+--- a/init/Makefile.am
++++ b/init/Makefile.am
+@@ -55,7 +55,7 @@ endif
+ 		-e 's#@''INITCONFIGDIR@#$(INITCONFIGDIR)#g' \
+ 		-e 's#@''INITDDIR@#$(INITDDIR)#g' \
+ 		-e 's#@''LOCALSTATEDIR@#$(localstatedir)#g' \
+-		-e 's#@''BASHPATH@#${BASHPATH}#g' \
++		-e 's#@''BASHPATH@#/opt/bin/bash#g' \
+ 	    > $@-t
+ 	mv $@-t $@
+ 

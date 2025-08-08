@@ -1,0 +1,11 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -51,7 +51,7 @@ MAINTAINERCLEANFILES	= Makefile.in acloc
+ dist_doc_DATA		= LICENSE INSTALL README.recovery AUTHORS
+ 
+ SUBDIRS			= include common_lib lib exec tools test pkgconfig \
+-			  man init conf vqsim bindings
++			  init conf vqsim bindings
+ 
+ coverity:
+ 	rm -rf cov

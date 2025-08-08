@@ -1,0 +1,60 @@
+--- a/init/corosync-notifyd.in
++++ b/init/corosync-notifyd.in
+@@ -22,8 +22,10 @@
+ desc="Corosync Notifier"
+ prog="corosync-notifyd"
+ 
++OPTIONS="-l"
++
+ # set secure PATH
+-PATH="/sbin:/bin:/usr/sbin:/usr/bin:@SBINDIR@"
++PATH="@BINDIR@:@SBINDIR@:/sbin:/bin:/usr/sbin:/usr/bin"
+ 
+ success()
+ {
+@@ -52,7 +54,7 @@ status()
+ case '@INITCONFIGDIR@' in
+     */sysconfig) # rpm based distros
+ 	[ -f @INITDDIR@/functions ] && . @INITDDIR@/functions
+-	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/subsys/$prog";;
++	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+     */default) # deb based distros
+ 	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+ esac
+--- a/init/corosync.in
++++ b/init/corosync.in
+@@ -25,7 +25,7 @@ prog="corosync"
+ prog_pid_file="@LOCALSTATEDIR@/run/$prog.pid"
+ 
+ # set secure PATH
+-PATH="/sbin:/bin:/usr/sbin:/usr/bin:@SBINDIR@"
++PATH="@BINDIR@:@SBINDIR@:/sbin:/bin:/usr/sbin:/usr/bin"
+ 
+ success()
+ {
+@@ -97,7 +97,7 @@ status()
+ case '@INITCONFIGDIR@' in
+     */sysconfig) # rpm based distros
+ 	[ -f @INITDDIR@/functions ] && . @INITDDIR@/functions
+-	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/subsys/$prog";;
++	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+     */default) # deb based distros
+ 	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+ esac
+@@ -132,7 +132,7 @@ wait_for_ipc()
+ 		if corosync-cpgtool > /dev/null 2>&1; then
+ 			return 0
+ 		fi
+-		sleep 0.5
++		sleep 1
+ 		try=$((try + 1))
+ 	done
+ 
+@@ -150,6 +150,7 @@ start()
+ 	# they also assume that init scripts will create
+ 	# required subdirectories for proper operations
+ 	mkdir -p @LOCALSTATEDIR@/run
++	mkdir -p /dev/shm
+ 
+ 	if status -p "$prog_pid_file" "$prog" > /dev/null 2>&1; then
+ 		success
