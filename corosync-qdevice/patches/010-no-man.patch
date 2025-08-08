@@ -1,0 +1,11 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -51,7 +51,7 @@ dist_doc_DATA		= LICENSE
+ pkgconfigdir		= ${prefix}/share/pkgconfig
+ pkgconfig_DATA		= corosync-qdevice.pc
+ 
+-SUBDIRS			= qdevices man init
++SUBDIRS			= qdevices init
+ 
+ install-exec-local:
+ if BUILD_QNETD

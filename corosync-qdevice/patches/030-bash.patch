@@ -1,0 +1,31 @@
+--- a/init/Makefile.am
++++ b/init/Makefile.am
+@@ -73,7 +73,7 @@ endif
+ 		-e 's#@''INITCONFIGDIR@#$(INITCONFIGDIR)#g' \
+ 		-e 's#@''INITDDIR@#$(INITDDIR)#g' \
+ 		-e 's#@''LOCALSTATEDIR@#$(localstatedir)#g' \
+-		-e 's#@''BASHPATH@#${BASHPATH}#g' \
++		-e 's#@''BASHPATH@#/opt/bin/bash#g' \
+ 	    > $@-t
+ 	mv $@-t $@
+ 
+--- a/qdevices/Makefile.am
++++ b/qdevices/Makefile.am
+@@ -82,7 +82,7 @@ corosync_qnetd_LDADD		= $(nss_LIBS)   $(
+ 
+ corosync-qnetd-certutil: corosync-qnetd-certutil.sh
+ 	sed -e 's#@''DATADIR@#${datadir}#g' \
+-	    -e 's#@''BASHPATH@#${BASHPATH}#g' \
++	    -e 's#@''BASHPATH@#/opt/bin/bash#g' \
+ 	    -e 's#@''COROSYSCONFDIR@#${COROSYSCONFDIR}#g' \
+ 	    $< > $@
+ 
+@@ -155,7 +155,7 @@ corosync_qdevice_LDADD  = $(nss_LIBS) $(
+ 
+ corosync-qdevice-net-certutil: corosync-qdevice-net-certutil.sh
+ 	sed -e 's#@''DATADIR@#${datadir}#g' \
+-	    -e 's#@''BASHPATH@#${BASHPATH}#g' \
++	    -e 's#@''BASHPATH@#/opt/bin/bash#g' \
+ 	    -e 's#@''COROSYSCONFDIR@#${COROSYSCONFDIR}#g' \
+ 	    $< > $@
+ 

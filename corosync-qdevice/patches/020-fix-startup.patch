@@ -1,0 +1,40 @@
+--- a/init/corosync-qdevice.in
++++ b/init/corosync-qdevice.in
+@@ -24,7 +24,7 @@ prog="corosync-qdevice"
+ prog_pid_file="@LOCALSTATEDIR@/run/corosync-qdevice/$prog.pid"
+ 
+ # set secure PATH
+-PATH="/sbin:/bin:/usr/sbin:/usr/bin:@SBINDIR@"
++PATH="@BINDIR@:@SBINDIR@:/sbin:/bin:/usr/sbin:/usr/bin"
+ 
+ success()
+ {
+@@ -91,7 +91,7 @@ status()
+ case '@INITCONFIGDIR@' in
+     */sysconfig) # rpm based distros
+ 	[ -f @INITDDIR@/functions ] && . @INITDDIR@/functions
+-	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/subsys/$prog";;
++	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+     */default) # deb based distros
+ 	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+ esac
+--- a/init/corosync-qnetd.in
++++ b/init/corosync-qnetd.in
+@@ -24,7 +24,7 @@ prog="corosync-qnetd"
+ prog_pid_file="@LOCALSTATEDIR@/run/corosync-qnetd/$prog.pid"
+ 
+ # set secure PATH
+-PATH="/sbin:/bin:/usr/sbin:/usr/bin:@SBINDIR@"
++PATH="@BINDIR@:@SBINDIR@:/sbin:/bin:/usr/sbin:/usr/bin"
+ 
+ success()
+ {
+@@ -91,7 +91,7 @@ status()
+ case '@INITCONFIGDIR@' in
+     */sysconfig) # rpm based distros
+ 	[ -f @INITDDIR@/functions ] && . @INITDDIR@/functions
+-	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/subsys/$prog";;
++	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+     */default) # deb based distros
+ 	[ -z "$LOCK_FILE" ] && LOCK_FILE="@LOCALSTATEDIR@/lock/$prog";;
+ esac
