@@ -1,0 +1,74 @@
+--- a/src/device.c
++++ b/src/device.c
+@@ -20,6 +20,10 @@
+ #include <stdio.h>
+ #include <sys/inotify.h>
+ 
++#ifndef LINUX_VERSION_CODE
++#include <linux/version.h>
++#endif
++
+ /*
+  * Abstract away evdev and inotify.
+  *
+@@ -424,12 +428,15 @@ struct device_event *device_read_event(s
+ 			devev.x = 0;
+ 
+ 			break;
++/* REL_HWHEEL_HI_RES/REL_WHEEL_HI_RES since Linux 5.0-rc1 */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,0,0)
+ //		case REL_WHEEL_HI_RES:
+ //			/* TODO: implement me */
+ //			return NULL;
+ //		case REL_HWHEEL_HI_RES:
+ //			/* TODO: implement me */
+ //			return NULL;
++#endif /* REL_HWHEEL_HI_RES/REL_WHEEL_HI_RES since Linux 5.0-rc1 */
+ 		default:
+ 			dbg("Unrecognized EV_REL code: %d\n", ev.code);
+ 			return NULL;
+@@ -485,8 +492,11 @@ struct device_event *device_read_event(s
+ 				ev.code = KEYD_FN;
+ 			else if (ev.code == KEY_ZOOM)
+ 				ev.code = KEYD_ZOOM;
++/* KEY_VOICECOMMAND since Linux 3.12.45 */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,12,45)
+ 			else if (ev.code == KEY_VOICECOMMAND)
+ 				ev.code = KEYD_VOICECOMMAND;
++#endif /* KEY_VOICECOMMAND since Linux 3.12.45 */
+ 			else if (ev.code >= BTN_DIGI
+ 				 && ev.code <= BTN_TOOL_QUADTAP);
+ 			else {
+--- a/src/vkbd/uinput.c
++++ b/src/vkbd/uinput.c
+@@ -13,12 +13,19 @@
+ #include <time.h>
+ #include <errno.h>
+ 
++#ifndef LINUX_VERSION_CODE
++#include <linux/version.h>
++#endif
++
+ #ifdef __FreeBSD__
+ 	#include <dev/evdev/uinput.h>
+ 	#include <dev/evdev/input-event-codes.h>
+ #else
+ 	#include <linux/uinput.h>
++/* <linux/input-event-codes.h> since Linux 4.4-rc1 */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,4,0)
+ 	#include <linux/input-event-codes.h>
++#endif /* <linux/input-event-codes.h> since Linux 4.4-rc1 */
+ #endif
+ 
+ #define REPEAT_INTERVAL 40
+@@ -180,7 +187,10 @@ static void write_key_event(const struct
+ 		case KEYD_MOUSE_BACK:	 ev.code = BTN_BACK; break;
+ 		case KEYD_MOUSE_FORWARD: ev.code = BTN_FORWARD; break;
+ 		case KEYD_ZOOM:		 ev.code = KEY_ZOOM; is_btn = 0; break;
++/* KEY_VOICECOMMAND since Linux 3.12.45 */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,12,45)
+ 		case KEYD_VOICECOMMAND: ev.code = KEY_VOICECOMMAND; is_btn = 0; break;
++#endif /* KEY_VOICECOMMAND since Linux 3.12.45 */
+ 		default:
+ 			ev.code = code;
+ 			is_btn = 0;
