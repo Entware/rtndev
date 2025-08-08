@@ -1,0 +1,11 @@
+--- a/src/configfile.c
++++ b/src/configfile.c
+@@ -97,7 +97,7 @@ int repair_timeout = TIMER_MARGIN; /* re
+ int dev_timeout = TIMER_MARGIN;    /* Watchdog hardware time-out. */
+ int retry_timeout = TIMER_MARGIN;  /* Retry on non-critical errors. */
+ 
+-char *logdir = "/var/log/watchdog";
++char *logdir = "/opt/var/log/watchdog";
+ 
+ char *heartbeat = NULL;
+ int hbstamps = 300;
