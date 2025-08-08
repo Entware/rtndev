@@ -1,0 +1,20 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,8 +6,6 @@
+ build-backend = 'mesonpy'
+ backend-path = ['.']
+ requires = [
+-  'meson >= 0.63.3; python_version < "3.12"',
+-  'meson >= 1.2.3; python_version >= "3.12"',
+   'packaging >= 19.0',
+   'pyproject-metadata >= 0.7.1',
+   'tomli >= 1.0.0; python_version < "3.11"',
+@@ -33,8 +31,6 @@ classifiers = [
+ ]
+ 
+ dependencies = [
+-  'meson >= 0.63.3; python_version < "3.12"',
+-  'meson >= 1.2.3; python_version >= "3.12"',
+   'packaging >= 19.0',
+   'pyproject-metadata >= 0.7.1',
+   'tomli >= 1.0.0; python_version < "3.11"',

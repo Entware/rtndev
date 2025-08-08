@@ -1,0 +1,11 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -65,6 +65,8 @@ repository = 'https://github.com/mesonbu
+ documentation = 'https://mesonbuild.com/meson-python/'
+ changelog = 'https://mesonbuild.com/meson-python/changelog.html'
+ 
++[tool.meson-python]
++meson = '@STAGING_DIR_HOST@/bin/meson.py'
+ 
+ [tool.mypy]
+ show_error_codes = true
