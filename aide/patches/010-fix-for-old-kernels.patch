@@ -1,0 +1,82 @@
+--- a/src/file.c
++++ b/src/file.c
+@@ -36,6 +36,9 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include "util.h"
++#ifndef LINUX_VERSION_CODE
++#include <linux/version.h>
++#endif
+ #endif
+ #include <limits.h>
+ 
+@@ -44,25 +47,41 @@ filesystem_t filesystems[] = {
+     { "9p",             V9FS_MAGIC              },
+     { "autofs",         AUTOFS_SUPER_MAGIC      },
+     { "bcachefs",       0xca451a4e              },
+-    { "binfmt",         BINFMTFS_MAGIC          },
+-    { "bpf",            BPF_FS_MAGIC            },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
++    { "binfmt",         BINFMTFS_MAGIC          }, /* since Linux 3.4 */
++#endif
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,4,0)
++    { "bpf",            BPF_FS_MAGIC            }, /* since Linux 4.4 */
++#endif
+     { "btrfs",          BTRFS_SUPER_MAGIC       },
+     { "cgroup",         CGROUP_SUPER_MAGIC      },
+-    { "cgroup2",        CGROUP2_SUPER_MAGIC     },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,5,0)
++    { "cgroup2",        CGROUP2_SUPER_MAGIC     }, /* since Linux 4.5 */
++#endif
+     { "configfs",       0x62656570              },
+     { "debugfs",        DEBUGFS_MAGIC           },
+     { "devpts",         DEVPTS_SUPER_MAGIC      },
+-    { "efivarfs",       EFIVARFS_MAGIC          },
+-    { "exfat",          EXFAT_SUPER_MAGIC       },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,8,0)
++    { "efivarfs",       EFIVARFS_MAGIC          }, /* since Linux 3.8 */
++#endif
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,17,0)
++    { "exfat",          EXFAT_SUPER_MAGIC       }, /* since Linux 5.17 */
++#endif
+     { "ext",            EXT2_SUPER_MAGIC        }, /* ext2/ext3/ext4 */
+-    { "f2fs",           F2FS_SUPER_MAGIC        },
+-    { "fuse",           FUSE_SUPER_MAGIC        },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,8,0)
++    { "f2fs",           F2FS_SUPER_MAGIC        }, /* since Linux 3.8 */
++#endif
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,17,0)
++    { "fuse",           FUSE_SUPER_MAGIC        }, /* since Linux 5.17 */
++#endif
+     { "fusectl",        0x65735543              },
+     { "hugetlbfs",      HUGETLBFS_MAGIC         },
+     { "mqueue",         0x19800202              },
+     { "nfs",            NFS_SUPER_MAGIC         },
+     { "nilfs",          NILFS_SUPER_MAGIC       },
+-    { "overlayfs",      OVERLAYFS_SUPER_MAGIC   },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,5,0)
++    { "overlayfs",      OVERLAYFS_SUPER_MAGIC   }, /* since Linux 4.5 */
++#endif
+     { "proc",           PROC_SUPER_MAGIC        },
+     { "pstore",         PSTOREFS_MAGIC          },
+     { "ramfs",          RAMFS_MAGIC             },
+@@ -71,10 +90,16 @@ filesystem_t filesystems[] = {
+     { "squashfs",       SQUASHFS_MAGIC          },
+     { "sysfs",          SYSFS_MAGIC             },
+     { "tmpfs",          TMPFS_MAGIC             },
+-    { "tracefs",        TRACEFS_MAGIC           },
+-    { "udf",            UDF_SUPER_MAGIC         },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,1,0)
++    { "tracefs",        TRACEFS_MAGIC           }, /* since Linux 4.1 */
++#endif
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,7,0)
++    { "udf",            UDF_SUPER_MAGIC         }, /* since Linux 4.7 */
++#endif
+     { "vfat",           MSDOS_SUPER_MAGIC       },
+-    { "xfs",            XFS_SUPER_MAGIC         },
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,20,0)
++    { "xfs",            XFS_SUPER_MAGIC         }, /* since Linux 4.20 */
++#endif
+ };
+ int num_filesystems = sizeof(filesystems)/sizeof(filesystem_t);
+ #endif
