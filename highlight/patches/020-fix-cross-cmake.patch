@@ -1,0 +1,20 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -42,7 +42,7 @@ find_package(Lua REQUIRED)
+ include_directories(${Boost_INCLUDE_DIRS} ${INCLUDE_DIR} ${LUA_INCLUDE_DIRS} )
+ 
+ # Set installation directories
+-set(PREFIX /usr)
++set(PREFIX /opt)
+ set(DATA_DIR ${PREFIX}/share)
+ 
+ set(BIN_DIR ${PREFIX}/bin)
+@@ -52,7 +52,7 @@ set(DOC_DIR ${DATA_DIR}/doc)
+ 
+ set(HIGHLIGHT_DATA_DIR ${DATA_DIR}/highlight/)
+ set(HIGHLIGHT_DOC_DIR ${DOC_DIR}/highlight/)
+-set(CONF_DIR /etc/highlight/)
++set(CONF_DIR ${PREFIX}/etc/highlight/)
+ 
+ set(BASH_COMP_DIR ${DATA_DIR}/bash-completion/completions)
+ set(FISH_COMP_DIR ${DATA_DIR}/fish/vendor_completions.d)

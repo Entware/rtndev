@@ -1,0 +1,26 @@
+--- a/src/core/datadir.cpp
++++ b/src/core/datadir.cpp
+@@ -42,9 +42,9 @@ using std::string;
+ using std::string_view;
+ 
+ 
+-string DataDir::LSB_DATA_DIR="/usr/share/highlight/";
+-string DataDir::LSB_CFG_DIR="/etc/highlight/";
+-string DataDir::LSB_DOC_DIR="/usr/share/doc/highlight/";
++string DataDir::LSB_DATA_DIR="/opt/share/highlight/";
++string DataDir::LSB_CFG_DIR="/opt/etc/highlight/";
++string DataDir::LSB_DOC_DIR="/opt/share/doc/highlight/";
+ 
+ 
+ void DataDir::initSearchDirectories ( const string &userDefinedDir )
+--- a/src/core/platform_fs.cpp
++++ b/src/core/platform_fs.cpp
+@@ -150,7 +150,7 @@ int isDarkTerminal() {
+ }
+ 
+ std::string getTempFilePath(){
+-    std::string path("/tmp");
++    std::string path("/opt/tmp");
+ 
+     char* tempOption=getenv("TEMP");
+     if (tempOption) path=string(tempOption);
