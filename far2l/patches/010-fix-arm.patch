@@ -1,0 +1,16 @@
+.../multiarc/src/formats/7z/C/CpuArch.c:843:79: error: 'HWCAP2_CRC32' undeclared (first use in this function); did you mean 'HWCAP_CRUNCH'?
+   BoolInt CPU_IsSupported_ ## name(void) { return (MY_getauxval(AT_HWCAP2) & (HWCAP2_ ## name)); }
+ 
+---
+
+--- a/multiarc/src/formats/7z/C/CpuArch.h
++++ b/multiarc/src/formats/7z/C/CpuArch.h
+@@ -82,7 +82,7 @@ MY_CPU_64BIT means that processor can wo
+   || defined(__ARMEB__) \
+   || defined(__THUMBEL__) \
+   || defined(__THUMBEB__)
+-  #define MY_CPU_ARM
++  #define MY_CPU_ARM1
+ 
+   #if defined(__thumb__) || defined(__THUMBEL__) || defined(_M_ARMT)
+     #define MY_CPU_ARMT
