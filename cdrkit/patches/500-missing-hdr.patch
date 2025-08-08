@@ -1,0 +1,50 @@
+ warning: In the GNU C Library, "major" is defined
+ by <sys/sysmacros.h>. For historical compatibility, it is
+ currently defined by <sys/types.h> as well, but we plan to
+ remove this soon. To use "major", include <sys/sysmacros.h>
+ directly. If you did not intend to use a system-defined macro
+ "major", you should undefine it after including <sys/types.h>.
+     switch (major(statstruct.st_rdev)) {
+             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~            
+---
+
+--- a/genisoimage/rock.c
++++ b/genisoimage/rock.c
+@@ -38,6 +38,7 @@
+ #include "genisoimage.h"
+ #include <device.h>
+ #include <schily.h>
++#include <sys/sysmacros.h>
+ 
+ #define	SU_VERSION 1
+ 
+--- a/genisoimage/tree.c
++++ b/genisoimage/tree.c
+@@ -48,6 +48,7 @@
+ #include <fctldefs.h>
+ #include <device.h>
+ #include <schily.h>
++#include <sys/sysmacros.h>
+ 
+ extern int allow_limited_size;
+ 
+--- a/icedax/interface.c
++++ b/icedax/interface.c
+@@ -53,6 +53,7 @@
+ #include <device.h>
+ 
+ #include <sys/ioctl.h>
++#include <sys/sysmacros.h>
+ #include <statdefs.h>
+ 
+ 
+--- a/icedax/ioctl.c
++++ b/icedax/ioctl.c
+@@ -32,6 +32,7 @@
+ #include <assert.h>
+ 
+ #include <sys/ioctl.h>
++#include <sys/sysmacros.h>
+ #include <statdefs.h>
+ #include <schily.h>
+ #include <device.h>

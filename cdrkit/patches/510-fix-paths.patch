@@ -1,0 +1,47 @@
+--- a/genisoimage/genisoimage.c
++++ b/genisoimage/genisoimage.c
+@@ -981,7 +981,7 @@ read_one_rcfile(char *filename)
+ 	return 1;
+ }
+ 
+-#define ETCDIR "/etc"
++#define ETCDIR "/opt/etc"
+ #define RCFILENAME "genisoimagerc"
+ #define OLD_RCFILENAME "mkisofsrc"
+ 
+--- a/libusal/scsi-remote.c
++++ b/libusal/scsi-remote.c
+@@ -565,7 +565,7 @@ rscsigetconn(usalp, host)
+ 	rscsipeer = host;
+ 
+ 	if ((rscsi = getenv("RSCSI")) == NULL)
+-		rscsi = "/usr/sbin/netscsid";
++		rscsi = "/opt/sbin/netscsid";
+ 	rsh = getenv("RSH");
+ 
+ #ifdef	USE_RCMD_RSH
+--- a/netscsid/netscsid.c
++++ b/netscsid/netscsid.c
+@@ -146,9 +146,9 @@ main(int argc, char *argv[])
+ 	 * don't contribute work and don't give support, they are causing extra
+ 	 * work for me and this way slow down the development.
+ 	 */
+-	if (cfg_open("/etc/netscsid.conf") < 0) {
++	if (cfg_open("/opt/etc/netscsid.conf") < 0) {
+ 		rscsierror(geterrno(), errmsgstr(geterrno()),
+-			"Remote configuration error: Cannot open /etc/netscsid.conf");
++			"Remote configuration error: Cannot open /opt/etc/netscsid.conf");
+ /*		rscsirespond(-1, geterrno());*/
+ 		exit(EX_BAD);
+ 	}
+--- a/wodim/defaults.c
++++ b/wodim/defaults.c
+@@ -29,7 +29,7 @@
+ #include <ctype.h>
+ #include <string.h>
+ 
+-#define CFGPATH "/etc/wodim.conf"
++#define CFGPATH "/opt/etc/wodim.conf"
+ /* The better way would be exporting the meta functions to getnum.h or so */
+ extern int	getnum(char *arg, long *valp);
+ 
