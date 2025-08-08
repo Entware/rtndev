@@ -1,0 +1,62 @@
+if PACKAGE_libknet
+
+comment "Build Options"
+
+config KRONOSNET_INSTALL_TESTS
+	bool "Install tests"
+	help
+		Provides all the libknet and libnozzle test suite.
+
+comment	"Compress modules support"
+
+config KRONOSNET_COMPRESS_BZIP2
+	bool "Enable libknet bzip2 support"
+	default y
+	help
+		Provides bzip2 compression support for libknet.
+
+config KRONOSNET_COMPRESS_LZ4
+	bool "Enable libknet lz4 support"
+	default y
+	help
+		Provides lz4 and lz4hc compression support for libknet.
+
+config KRONOSNET_COMPRESS_LZMA
+	bool "Enable libknet lzma support"
+	default y
+	help
+		Provides lzma compression support for libknet.
+
+config KRONOSNET_COMPRESS_LZO2
+	bool "Enable libknet lzo2 support"
+	default y
+	help
+		Provides lzo2 compression support for libknet.
+
+config KRONOSNET_COMPRESS_ZLIB
+	bool "Enable libknet zlib support"
+	default y
+	help
+		Provides zlib compression support for libknet.
+
+config KRONOSNET_COMPRESS_ZSTD
+	bool "Enable libknet zstd support"
+	default y
+	help
+		Provides zstd compression support for libknet.
+
+comment "Crypto modules support"
+
+config KRONOSNET_CRIPTO_NSS
+	bool "Enable libknet nss support"
+	default y
+	help
+		Provides NSS crypto support for libknet.
+
+config KRONOSNET_CRIPTO_OPENSSL
+	bool "Enable libknet openssl support"
+	default y
+	help
+		Provides OpenSSL crypto support for libknet.
+
+endif
