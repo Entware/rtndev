@@ -12,7 +12,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ClusterLabs/libqb/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=c062048245c191b3585b43a93a39f9001c52bb60c2051867773a6f80b548dfbc
+PKG_HASH:=e05aec8d59e8148f4bfb833ed077bf0a032363ce7bf7cdbec22586e1b7db4963
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=LGPL-2.1-or-later
