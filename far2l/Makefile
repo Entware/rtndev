@@ -28,7 +28,7 @@ define Package/far2l
   CATEGORY:=Utilities
   TITLE:=FAR Manager v2
   URL:=https://github.com/elfmz/far2l
-  DEPENDS:=+libarchive +libneon +libopenssl +libssh +libstdcpp +libxml2
+  DEPENDS:=+libarchive +libneon +libopenssl +libssh +libstdcpp +libxml2 +libnfs +libgnutls
 endef
 
 define Package/far2l/description
