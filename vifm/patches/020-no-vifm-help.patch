@@ -1,0 +1,22 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -48,7 +48,7 @@ nodist_vimdoc_doc__DATA = $(top_srcdir)/
+ 
+ dist_pkgdata_DATA = ../data/vifmrc@DATA_SUFFIX@
+ dist_pkgdata_SCRIPTS = ../data/vifm-media@DATA_SUFFIX@
+-nodist_pkgdata_DATA = ../data/vifm-help.txt
++nodist_pkgdata_DATA = 
+ 
+ bin_PROGRAMS = vifm
+ 
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -789,7 +789,7 @@ dist_vimdoc_doc__DATA = ../data/vim/doc/
+ nodist_vimdoc_doc__DATA = $(top_srcdir)/data/vim/doc/app/tags
+ dist_pkgdata_DATA = ../data/vifmrc@DATA_SUFFIX@
+ dist_pkgdata_SCRIPTS = ../data/vifm-media@DATA_SUFFIX@
+-nodist_pkgdata_DATA = ../data/vifm-help.txt
++nodist_pkgdata_DATA = 
+ dist_bin_SCRIPTS = vifm-pause vifm-screen-split vifm-convert-dircolors
+ dist_man_MANS = ../data/man/vifm.1 \
+ 					 ../data/man/vifm-pause.1 \
