@@ -9,27 +9,36 @@
      STREAMSetFlushType(Prog, FLUSH_FULL, 0, 4096);
      ListAddItem(Streams, Prog);
      ListAddItem(Streams, Client);
---- a/Settings.c
-+++ b/Settings.c
-@@ -567,7 +567,7 @@ void PrintUsage()
-     fprintf(stdout,"	-a:		Specify the authentication file for 'built in' authentication.\n");
-     fprintf(stdout,"	-A:		Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken. For 'Alaya native only' just use 'native' on its own\n");
-     fprintf(stdout,"	-d:		No daemon, don't background process.\n");
--    fprintf(stdout,"	-f:		Path to config file, defaults to /etc/alaya.conf, but alaya can be configured by command-line args only.\n");
-+    fprintf(stdout,"	-f:		Path to config file, defaults to /opt/etc/alaya.conf, but alaya can be configured by command-line args only.\n");
-     fprintf(stdout,"	-O:		Open, don't require authentication.\n");
-     fprintf(stdout,"	-h:		'ChHome mode', switch to users home dir and chroot.\n");
-     fprintf(stdout,"	-i:		Set interface listen on, allows running separate servers on the same port on different interfaces/network cards.\n");
-@@ -813,14 +813,14 @@ void InitSettings()
-     Settings.MaxLogSize=999999;
+--- a/settings.c
++++ b/settings.c
+@@ -613,7 +613,7 @@ void PrintUsage()
+     fprintf(stdout,"  %-15s %s", "-A", "Authentication methods. Comma separated list of pam,passwd,shadow,native,accesstoken,urltoken. For 'Alaya native only' just use 'native' on its own\n");
+     fprintf(stdout,"  %-15s %s", "-d", "No daemon, don't background process.\n");
+     fprintf(stdout,"  %-15s %s", "-nodemon", "No daemon, don't background process.\n");
+-    fprintf(stdout,"  %-15s %s","-f", "Path to config file, defaults to /etc/alaya.conf, but alaya can be configured by command-line args only.\n");
++    fprintf(stdout,"  %-15s %s","-f", "Path to config file, defaults to /opt/etc/alaya.conf, but alaya can be configured by command-line args only.\n");
+     fprintf(stdout,"  %-15s %s","-p", "Set port to listen on.\n");
+     fprintf(stdout,"  %-15s %s","-O", "Open server, don't require authentication.\n");
+     fprintf(stdout,"  %-15s %s","-m", "HTTP Methods (GET, PUT, DELETE, PROPFIND) that are allowed.\nComma Separated. Set to 'GET' for very basic webserver, 'GET,PROPFIND' for readonly DAV.\n'BASE' will set GET,POST,HEAD. 'DAV' will set everything needed for WebDAV. 'RGET' will allow proxy-server gets. 'PROXY' will enable CONNECT and RGET. 'DAV,PROXY' enables everything.\n");
+@@ -656,7 +656,7 @@ void PrintUsage()
+     fprintf(stdout,"  %-15s %s","-allow-ip <ip list>", "Comma-seperated list of shell-match patterns of allowed client IPs. If unset all IPs are allowed as clients. e.g. `alaya -allow-ips 10.[1-5].*.*,127.0.0.1`.\n");
+     fprintf(stdout,"  %-15s %s","-allow-ips <ip list>", "Comma-seperated list of shell-match patterns of allowed client IPs. If unset all IPs are allowed as clients. e.g. `alaya -allow-ips 10.[1-5].*.*,127.0.0.1`.\n");
+     fprintf(stdout,"\n\nUser Setup for Alaya Authentication\n");
+-    fprintf(stdout,"	Alaya can use PAM, /etc/shadow or /etc/passwd to authenticate, but has its own password file that offers extra features, or is useful to create users who can only use Alaya. Users in the Alaya password file are mapped to a 'real' user on the system (usually 'guest' or 'nobody'). The Alaya password file can be setup through the alaya commandline.\n");
++    fprintf(stdout,"	Alaya can use PAM, /opt/etc/shadow or /opt/etc/passwd to authenticate, but has its own password file that offers extra features, or is useful to create users who can only use Alaya. Users in the Alaya password file are mapped to a 'real' user on the system (usually 'guest' or 'nobody'). The Alaya password file can be setup through the alaya commandline.\n");
+     fprintf(stdout,"\nAdd User:\n   alaya -user add [-a <auth path>] [-e <password encryption type>]  [-h <user home directory>] <Username> <Password> <Setting> <Setting> <Setting>\n\n");
+     fprintf(stdout,"   %-15s %s","-a", "Specify the authentication file for 'built in' authentication.\n");
+     fprintf(stdout,"   %-15s %s","-h", "Specify home directory of new user.\n");
+@@ -941,14 +941,14 @@ void InitSettings()
+     Settings.MaxLogSize=9999999;
      Settings.MaxLogRotate=5;
-     Settings.LogPath=CopyStr(Settings.LogPath,"SYSLOG");
--    Settings.PidFilePath=CopyStr(Settings.PidFilePath,"/var/run/alaya.pid");
--    Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/etc/alaya.conf");
-+    Settings.PidFilePath=CopyStr(Settings.PidFilePath,"/opt/var/run/alaya.pid");
-+    Settings.ConfigPath=CopyStr(Settings.ConfigPath,"/opt/etc/alaya.conf");
-     Settings.DefaultDir=CopyStr(Settings.DefaultDir,"./");
-     Settings.BindAddress=CopyStr(Settings.BindAddress,"");
+     Settings.LogPath=CopyStr(Settings.LogPath, "SYSLOG");
+-    Settings.PidFilePath=CopyStr(Settings.PidFilePath, "/var/run/alaya.pid");
+-    Settings.ConfigPath=CopyStr(Settings.ConfigPath, "/etc/alaya.conf");
++    Settings.PidFilePath=CopyStr(Settings.PidFilePath, "/opt/var/run/alaya.pid");
++    Settings.ConfigPath=CopyStr(Settings.ConfigPath, "/opt/etc/alaya.conf");
+     Settings.DefaultDir=CopyStr(Settings.DefaultDir, "./");
+     Settings.BindAddress=CopyStr(Settings.BindAddress, "");
      Settings.Flags |= FLAG_KEEPALIVES | FLAG_USE_REUSEPORT | FLAG_USE_UNSHARE | FLAG_USE_HTTPS_FASTOPEN;
      Settings.DirListFlags=DIR_SHOWFILES | DIR_FANCY;
      Settings.AuthFlags=FLAG_AUTH_REQUIRED | FLAG_AUTH_COOKIE;
