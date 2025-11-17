@@ -11,7 +11,7 @@ This fix helps GNU Hurd.
 
 --- a/CPP/Windows/FileDir.cpp
 +++ b/CPP/Windows/FileDir.cpp
-@@ -1103,22 +1103,11 @@ bool GetCurrentDir(FString &path)
+@@ -1141,22 +1141,11 @@ bool GetCurrentDir(FString &path)
  {
    path.Empty();
  
