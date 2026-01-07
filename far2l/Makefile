@@ -1,20 +1,20 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/555
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=far2l
-PKG_VERSION:=2.6.5
+PKG_VERSION:=2.7.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2025-03-30
-PKG_SOURCE_VERSION:=a071317d3b659b7da5ca1e924b3b034b0123bf32
+PKG_SOURCE_VERSION:=1e7b03e21ab67bd7f6d78b9a2794583a9d8bd996
 PKG_SOURCE_URL:=https://github.com/elfmz/far2l
-PKG_MIRROR_HASH:=46ec415c9cd9370825b1b2e12475be8abcba24532529424fb654a94d6a36b8a6
+PKG_MIRROR_HASH:=5b0a848cce78e51dee49f94599fb425ebce432416151fd21f47a08b112601f37
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-only
