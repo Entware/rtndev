@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020-2021 Entware
+# Copyright (C) 2020-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freediameter
-PKG_VERSION:=1.5.0
-PKG_REV:=8ac823b77653a03da82232470b376c2b281b0973
+PKG_VERSION:=1.6.0
+PKG_REV:=5403feb543ed5e720165a4b3a3b4a365cdee28fb
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,19 +17,18 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/freeDiameter/freeDiameter.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=69cd6ff3f3199d2a2062b282c1a20ab05250b3c1e437701b343e5ea4cb49b2cc
+PKG_MIRROR_HASH:=10205d62e60a2d0ab0c75139c2339fb755d5969a5e77d89d227479a1c42228cb
 
-# FIXME ninja: error: manifest 'build.ninja' still dirty after 100 tries
-PKG_USE_NINJA:=0
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/freediameter
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+libgcrypt +libgnutls +libidn
+	DEPENDS:=+libgcrypt +libgnutls +libidn2
 	TITLE:=Diameter proto implementation
 	URL:=http://www.freediameter.net
 	MAINTAINER:=Entware team, https://entware.net
