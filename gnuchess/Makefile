@@ -1,16 +1,16 @@
 # PDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gnuchess
-PKG_VERSION:=6.2.11
+PKG_VERSION:=6.3.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@GNU/chess
-PKG_HASH:=d81140eea5c69d14b0cfb63816d4b4c9e18fba51f5267de5b1539f468939e9bd
+PKG_HASH:=0b37bec2098c2ad695b7443e5d7944dc6dc8284f8d01fcc30bdb94dd033ca23a
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -32,12 +32,14 @@ define Package/gnuchess/conffiles
 /opt/share/gnuchess/gnuchess.ini
 endef
 
+TARGET_LDFLAGS += \
+	-lpthread
+
 define Package/gnuchess/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/gnuchess $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/share/gnuchess
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/src/smallbook.bin $(1)/opt/share/gnuchess
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/src/gnuchess.ini $(1)/opt/share/gnuchess
 endef
 
 $(eval $(call BuildPackage,gnuchess))
