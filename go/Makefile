@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.24.3
+PKG_VERSION:=1.25.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=229c08b600b1446798109fae1f569228102c8473caba8104b6418cb5bc032878
+PKG_HASH:=22a5fd0a91efcd28a1b0537106b9959b2804b61f59c3758b51e8e5429c1a954f
 
 BINTYPE:=$(shell uname -m | sed 's/i[3-6]86/386/;s/x86_64/amd64/')
 
