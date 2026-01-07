@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2016-2025 Entware
+# Copyright (C) 2016-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fossil
-PKG_VERSION:=2.26
+PKG_VERSION:=2.27
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-src-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/1205ec86cb5508e94b90698db2900997fe5c9db62429c67ac6fdc03d59aa2782
-PKG_HASH:=a9be104c8055ada40985a158392d73f3c84829accb5b5d404e361fea360774c2
+PKG_SOURCE_URL:=https://www.fossil-scm.org/home/tarball/99675884a93c09125dbfbef0ca47959626c81545c132e247e67a08bd12ac7256
+PKG_HASH:=0405a96ba4d286b46fb5c3217d6c13391a2c637da90c51a927ee0c31c58f9064
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-src-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
