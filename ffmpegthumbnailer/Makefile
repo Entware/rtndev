@@ -1,17 +1,21 @@
 # PDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2006-2011 OpenWrt.org
-# Copyright (C) 2015-2025 Entware
+# Copyright (C) 2015-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ffmpegthumbnailer
-PKG_VERSION:=2.2.3
+PKG_VERSION:=2.3.0
+PKG_REV:=cfaf0c5018aec14e5ecbb687d40b090c2a6a14bd
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer/releases/download/$(PKG_VERSION)
-PKG_HASH:=6891833dd35f6811271aa479c7818063ab7e82128a27ca54b47c137245b645e7
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/dirkvdb/ffmpegthumbnailer.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_MIRROR_HASH:=2f6fedc7745cfe407e037b02cf0d498cb5e3bf8ef854d4510733a10a60626717
 
 CMAKE_INSTALL:=1
 
