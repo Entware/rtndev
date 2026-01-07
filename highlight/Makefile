@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/1149
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=highlight
-PKG_VERSION:=4.16
+PKG_VERSION:=4.18
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://andre-simon.de/zip
-PKG_HASH:=92261ff5c27c73e7a5c85ab65ada2a2edf8aa3dbe9c9c3d8e82e062088e60e5a
+PKG_HASH:=f52c211dcd5626526af45ab8e558253caa713d060709bbac22c23ceae35eb502
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-3.0-or-later
