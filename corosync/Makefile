@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=corosync
-PKG_VERSION:=3.1.9
+PKG_VERSION:=3.1.10
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/corosync/corosync/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=d7b7277c1c0af8fc9475cadce3a86f692e3db4b53509a845dbd028d725779dee
+PKG_HASH:=03c55b984380bdb68ecd8d0f9cb1f9f0c2a7e6e7b7f437becc33e9a804018340
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=BSD-3-Clause
