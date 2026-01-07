@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/994
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=corosync-qdevice
-PKG_VERSION:=3.0.3
+PKG_VERSION:=3.0.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/corosync/corosync-qdevice/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=8ed730f998c0bff65a15983b9859ff9a44dfba1a76fda45b040c10d8c13e5384
+PKG_HASH:=cbb701ac5207c66e7a9e06da33de83a814d563a624a2632414b8e9103d39e923
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=BSD-3-Clause
