@@ -1,11 +1,11 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -1,6 +1,6 @@
- VERSION=1.0
+ VERSION=1.1
  
 -CPPFLAGS=-DVERSION=\"${VERSION}\" -D_GNU_SOURCE
 +CPPFLAGS+=-DVERSION=\"${VERSION}\" -D_GNU_SOURCE
- CFLAGS+=-Wall -Wextra -g -std=c99 -O3 -pedantic -Ideps
+ CFLAGS+=-MD -Wall -Wextra -g -std=c99 -O3 -pedantic -Ideps -Werror=vla
  PREFIX?=/usr/local
  MANDIR?=$(PREFIX)/share/man
 @@ -29,7 +29,7 @@ check: test/fzytest

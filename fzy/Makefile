@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fzy
-PKG_VERSION:=1.0
-PKG_REV:=f5d41e726cd997ba038815e218c48017228a8f0e
+PKG_VERSION:=1.1
+PKG_REV:=d811eaf9d73593f8293a73f98a17b36f016873e6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jhawthorn/fzy.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1f3a48b11226e2e70cd3b6fa35024a47091a06e108e801f8feacee30173f4090
+PKG_MIRROR_HASH:=14144454d7c93fd2c191120c660f741974280182f6b34e340bcfc39b74ef8009
 
 include $(INCLUDE_DIR)/package.mk
 
