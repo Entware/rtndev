@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/987
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=keyd
-PKG_VERSION:=2.5.0
+PKG_VERSION:=2.6.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/rvaiya/keyd/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=93ec6c153ef673a7a8b4d8b686494dee11d182513f4531c71dce15a8db7f6c1c
+PKG_HASH:=697089681915b89d9e98caf93d870dbd4abce768af8a647d54650a6a90744e26
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=MIT

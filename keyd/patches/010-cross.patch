@@ -1,7 +1,7 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -2,14 +2,12 @@
- VERSION=2.5.0
+ VERSION=2.6.0
  COMMIT=$(shell git describe --no-match --always --abbrev=7 --dirty)
  VKBD=uinput
 -PREFIX?=/usr/local
@@ -18,8 +18,8 @@
 +CFLAGS:=-DVERSION=\"v$(VERSION)\" \
  	-Wall \
  	-Wextra \
- 	-Wno-unused \
-@@ -20,7 +18,8 @@ CFLAGS:=-DVERSION=\"v$(VERSION)\ \($(COM
+ 	-Wstrict-prototypes \
+@@ -21,7 +19,8 @@ CFLAGS:=-DVERSION=\"v$(VERSION)\ \($(COM
  	-D_FORTIFY_SOURCE=2 \
  	-D_DEFAULT_SOURCE \
  	-Werror=format-security \
@@ -29,36 +29,30 @@
  
  platform=$(shell uname -s)
  
-@@ -49,17 +48,17 @@ man:
- 		scdoc < "$$f" | gzip > "$$target"; \
+@@ -49,22 +48,6 @@ man:
  	done
  install:
--	@if [ -e /run/systemd/system ]; then \
+ 
+-	@if [ -e /run/systemd/system -o "$(FORCE_SYSTEMD)" ]; then \
+-		sed -e 's#@PREFIX@#$(PREFIX)#' keyd.service.in > keyd.service; \
 -		mkdir -p $(DESTDIR)$(PREFIX)/lib/systemd/system/; \
 -		install -Dm644 keyd.service $(DESTDIR)$(PREFIX)/lib/systemd/system/keyd.service; \
+-		mkdir -p $(DESTDIR)$(PREFIX)/lib/sysusers.d/; \
+-		install -m644 data/sysusers.d $(DESTDIR)$(PREFIX)/lib/sysusers.d/keyd.conf; \
 -	else \
 -		echo "NOTE: systemd not found, you will need to manually add keyd to your system's init process."; \
 -	fi
 -
 -	@if [ "$(VKBD)" = "usb-gadget" ]; then \
+-		sed -e 's#@PREFIX@#$(PREFIX)#' src/vkbd/usb-gadget.service.in > src/vkbd/usb-gadget.service; \
 -		install -Dm644 src/vkbd/usb-gadget.service $(DESTDIR)$(PREFIX)/lib/systemd/system/keyd-usb-gadget.service; \
 -		install -Dm755 src/vkbd/usb-gadget.sh $(DESTDIR)$(PREFIX)/bin/keyd-usb-gadget.sh; \
 -	fi
-+#	@if [ -e /run/systemd/system ]; then \
-+#		mkdir -p $(DESTDIR)$(PREFIX)/lib/systemd/system/; \
-+#		install -Dm644 keyd.service $(DESTDIR)$(PREFIX)/lib/systemd/system/keyd.service; \
-+#	else \
-+#		echo "NOTE: systemd not found, you will need to manually add keyd to your system's init process."; \
-+#	fi
-+
-+#	@if [ "$(VKBD)" = "usb-gadget" ]; then \
-+#		install -Dm644 src/vkbd/usb-gadget.service $(DESTDIR)$(PREFIX)/lib/systemd/system/keyd-usb-gadget.service; \
-+#		install -Dm755 src/vkbd/usb-gadget.sh $(DESTDIR)$(PREFIX)/bin/keyd-usb-gadget.sh; \
-+#	fi
- 
+-
  	mkdir -p $(DESTDIR)$(CONFIG_DIR)
  	mkdir -p $(DESTDIR)$(PREFIX)/bin/
-@@ -69,7 +68,7 @@ install:
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/keyd/
+@@ -73,7 +56,7 @@ install:
  	mkdir -p $(DESTDIR)$(PREFIX)/share/doc/keyd/
  	mkdir -p $(DESTDIR)$(PREFIX)/share/doc/keyd/examples/
  
