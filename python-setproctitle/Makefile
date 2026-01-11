@@ -1,15 +1,15 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=setproctitle
-PKG_VERSION:=1.3.6
+PKG_VERSION:=1.3.7
 PKG_RELEASE:=1
 
 PYPI_NAME:=setproctitle
-PKG_HASH:=c9f32b96c700bb384f33f7cf07954bb609d35dd82752cef57fb2ee0968409169
+PKG_HASH:=bc2bc917691c1537d5b9bca1468437176809c7e11e5694ca79a9ca12345dcb9e
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
