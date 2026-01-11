@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2011-2025 Entware
+#
+# 2025.11.3 requires setuptools>77.0.3
 
 include $(TOPDIR)/rules.mk
 
