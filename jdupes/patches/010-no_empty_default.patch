@@ -1,0 +1,10 @@
+--- a/act_linkfiles.c
++++ b/act_linkfiles.c
+@@ -362,7 +362,6 @@ void linkfiles(file_t *files, const int
+                 dupelist[x]->inode = srcfile->inode;
+                 dupelist[x]->flags |= FF_HASHDB_DIRTY | (srcfile->flags & (FF_HASH_PARTIAL | FF_HASH_FULL));
+                 add_hashdb_entry(NULL, 0, dupelist[x], 1);
+-              default:
+             }
+           }
+ #endif
