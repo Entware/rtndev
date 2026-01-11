@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2019-2024 Entware
+# Copyright (C) 2019-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nmon
-PKG_VERSION:=16p
+PKG_VERSION:=16s
 PKG_RELEASE:=1
 
 PKG_SOURCE:=lmon$(PKG_VERSION).c
 PKG_SOURCE_URL:=@SF/nmon
-PKG_HASH:=5dc6045f6725e3249a969918fae69663a1d669162087720babcdb90fce9e6b2a
+PKG_HASH:=0736ce0f729e48c124a7ba566c069c5a234511cc9c6ac9277da92f8bb44f2b11
 
 PKG_MAINTAINER:=Thomas Kupper <thomas.kupper@gmail.com>
 PKG_LICENSE:=GPL-2.0
