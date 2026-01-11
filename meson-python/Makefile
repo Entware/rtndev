@@ -1,15 +1,15 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2024-2025 Entware
+# Copyright (C) 2024-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meson-python
-PKG_VERSION:=0.17.1
+PKG_VERSION:=0.18.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=meson_python
-PKG_HASH:=efb91f69f2e19eef7bc9a471ed2a4e730088cc6b39eacaf3e49fc4f930eb5f83
+PKG_HASH:=c56a99ec9df669a40662fe46960321af6e4b14106c14db228709c1628e23848d
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
