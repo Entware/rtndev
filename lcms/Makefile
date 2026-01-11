@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
+#
+# popper 21.08.0 dependency, no need to be updated
 
 include $(TOPDIR)/rules.mk
 
