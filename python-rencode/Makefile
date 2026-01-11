@@ -1,9 +1,10 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+# 1.0.8: cythonize is mandatory
 
 include $(TOPDIR)/rules.mk
 
