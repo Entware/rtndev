@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=25.04
-PKG_REV:=8fb5f2180acf4d417bb4ad1eabeec63f5950b0b7
+PKG_VERSION:=25.10
+PKG_REV:=8b941d46fbcc8bb6c74881b33ed7817c8f98d750
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/MediaArea/MediaInfo.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=38607e29a939875ce34c8304196defbc2127ad0e6d917f3474d1362cff2446c1
+PKG_MIRROR_HASH:=43650b218b0ac50d695ad89de78aaae904cd2f90fce603fad1cf23cf04ce1c58
 
 PKG_FIXUP:=autoreconf
 
