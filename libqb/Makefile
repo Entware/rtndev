@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/994 (as deps)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libqb
-PKG_VERSION:=2.0.8
+PKG_VERSION:=2.0.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ClusterLabs/libqb/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=e05aec8d59e8148f4bfb833ed077bf0a032363ce7bf7cdbec22586e1b7db4963
+PKG_HASH:=499379e9d7c684c7919373eb041ca5bffd2bdec74ee41a8c489f8be925d0498b
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=LGPL-2.1-or-later
