@@ -1,19 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=limitcpu
-PKG_VERSION:=3.1
+PKG_VERSION:=3.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=cpulimit-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_HASH:=946994ec60f39f03095b89bd74e660b89c14c82aba7545669398e302bc7b234c
+PKG_HASH:=59ffeb1a3517afe45998714be8419260a43632f7cec08f0b026c1eccdff57cfc
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/cpulimit-$(PKG_VERSION)
 
