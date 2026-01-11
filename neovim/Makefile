@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023-2025 Entware
+# Copyright (C) 2023-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=neovim
-PKG_VERSION:=0.11.1
+PKG_VERSION:=0.11.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/neovim/neovim/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=ffe7f9a7633ed895ff6adb1039af7516cd6453715c8889ad844b6fa39c3df443
+PKG_HASH:=c63450dfb42bb0115cd5e959f81c77989e1c8fd020d5e3f1e6d897154ce8b771
 
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE.txt
