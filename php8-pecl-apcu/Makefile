@@ -1,19 +1,19 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023-2025 Entware
+# Copyright (C) 2023-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PECL_NAME:=apcu
 PECL_LONGNAME:=APCu - APC User Cache
 
-PKG_VERSION:=5.1.24
+PKG_VERSION:=5.1.28
 PKG_RELEASE:=1
 
 PKG_NAME:=php8-pecl-$(PECL_NAME)
 PKG_SOURCE:=$(PECL_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://pecl.php.net/get/
-PKG_HASH:=5c28a55b27082c69657e25b7ecf553e2cf6b74ec3fa77d6b76f4fb982e001e43
+PKG_HASH:=ca9c1820810a168786f8048a4c3f8c9e3fd941407ad1553259fb2e30b5f057bf
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/pecl-php8/$(PECL_NAME)-$(PKG_VERSION)
 
