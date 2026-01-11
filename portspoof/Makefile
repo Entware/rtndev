@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=portspoof
-PKG_VERSION:=1.3
-PKG_REV:=70b6bf2ad96b0824ae6e2c2cea4c59d2a156d2c1
+PKG_VERSION:=1.4
+PKG_REV:=a5d1a176b2a2cd35213c88615dd1ce1e6910b4d4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,11 +17,12 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/drk1wi/portspoof.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=06d9b017e9f9d7034c194e248839a87dbaf097709f9aef257ed3a6b7019542d5
+PKG_MIRROR_HASH:=022ba9a6d6433a90de809f735f2cd35858e99b4b0c034e096d3a9a3c21823ce9
 
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/portspoof
 	SECTION:=net
