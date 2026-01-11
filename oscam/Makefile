@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=76c92a2cb745fc32341bb4f43edd221cec5471e1
-PKG_VERSION:=2.25.05
+PKG_REV:=165afcc0c836516164ee74cc0e92de1071350124
+PKG_VERSION:=2.26.01
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -15,7 +15,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://git.streamboard.tv/common/oscam.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=b64a56d2ae1ff3979874deb34b864734280bd665479a30fb375f5de46a79463e
+PKG_MIRROR_HASH:=410a6db77eae19128fe8077ebee08d7050c11c0fb692e39b391f1be4ef5084c6
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

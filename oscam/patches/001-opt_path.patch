@@ -15,7 +15,7 @@
  #define BOX_COUNT 7
 --- a/globals.h
 +++ b/globals.h
-@@ -386,10 +386,10 @@
+@@ -387,10 +387,10 @@
  # define CS_TARGET				"unknown"
  #endif
  #ifndef CS_CONFDIR
@@ -30,7 +30,7 @@
  #define CS_MAXPROV				32
 --- a/module-dvbapi.c
 +++ b/module-dvbapi.c
-@@ -361,17 +361,17 @@ const char *boxdesc[] = { "none", "dream
+@@ -363,17 +363,17 @@ const char *boxdesc[] = { "none", "dream
  
  static const struct box_devices devices[BOX_COUNT] =
  {
@@ -56,7 +56,7 @@
  };
  
  static int32_t selected_box = -1;
-@@ -6483,7 +6483,7 @@ static void *dvbapi_main_local(void *cli
+@@ -6484,7 +6484,7 @@ static void *dvbapi_main_local(void *cli
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end; // start time poll, end time poll
@@ -87,7 +87,7 @@
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -674,12 +674,12 @@ static void cs_dumpstack(int32_t sig)
+@@ -673,12 +673,12 @@ static void cs_dumpstack(int32_t sig)
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -102,7 +102,7 @@
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1684,15 +1684,15 @@ static void find_conf_dir(void)
+@@ -1685,15 +1685,15 @@ static void find_conf_dir(void)
  {
  	static const char* confdirs[] =
  		{
