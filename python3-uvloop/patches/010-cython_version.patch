@@ -1,0 +1,11 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -58,7 +58,7 @@ docs = [
+ requires = [
+     "setuptools>=60",
+     "wheel",
+-    "Cython~=3.1",
++    "Cython~=3.0",
+ ]
+ build-backend = "setuptools.build_meta"
+ 
