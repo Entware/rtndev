@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2025 Entware
+# Copyright (C) 2017-2026 Entware
 #
 # ported to Entware from
 # https://github.com/KryptonLee/qBittorrent-openwrt-package and
@@ -9,13 +9,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qt5
-PKG_VERSION:=5.15.16
+PKG_VERSION:=5.15.18
 PKG_RELEASE:=1
 
 PKG_SOURCE:=qt-everywhere-opensource-src-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://ftp.fau.de/qtproject/archive/qt/5.15/$(PKG_VERSION)/single \
 	http://download.qt-project.org/archive/qt/5.15/$(PKG_VERSION)/single
-PKG_HASH:=efa99827027782974356aceff8a52bd3d2a8a93a54dd0db4cca41b5e35f1041c
+PKG_HASH:=cea1fbabf02455f3f0e8eaa839f5d6f45cdb56b62c8a83af5c1d00ac05f912ea
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/qt-everywhere-src-$(PKG_VERSION)
 
