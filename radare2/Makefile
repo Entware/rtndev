@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 #
+# 6.0.8 can't find exe_wrapper
 
 include $(TOPDIR)/rules.mk
 
