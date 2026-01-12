@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2013 Francisco Borges https://github.com/FranciscoBorges/openwrt-printing-packages
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2026 Entware
+#
+# 12.3.0 requires c++20 <concept>
 
 include $(TOPDIR)/rules.mk
 
