@@ -3,6 +3,7 @@
 # Copyright (C) 2023-2025 Entware
 #
 # only build static library (neovim)
+# 0.26.3 incompatible with neovim 0.11.5
 
 include $(TOPDIR)/rules.mk
 
