@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2024-2025 Entware
+# Copyright (C) 2024-2026 Entware
+#
+# 10.1.0 requires c++20
 
 include $(TOPDIR)/rules.mk
 
