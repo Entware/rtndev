@@ -1,19 +1,19 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2026 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=urbackup-server
-PKG_VERSION:=2.5.33
+PKG_VERSION:=2.5.35
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
 	http://hndl.urbackup.org/Server/$(PKG_VERSION) \
 	https://www.urbackup.org/downloads/Server/$(PKG_VERSION)
-PKG_HASH:=65d7dab4d5178849c1ecc45b592143df066c641fd782d5a6448aa606561d7cff
+PKG_HASH:=3505796b622e9e34c3093585d295eb850114d85d5ea69ecaa8b0f8939ed3a1b9
 
 PKG_INSTALL:=1
 
