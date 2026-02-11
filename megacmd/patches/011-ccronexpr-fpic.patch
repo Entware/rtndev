@@ -1,0 +1,12 @@
+--- a/sdk/third_party/ccronexpr/CMakeLists.txt
++++ b/sdk/third_party/ccronexpr/CMakeLists.txt
+@@ -8,8 +8,4 @@ target_include_directories(ccronexpr SYS
+     ${CMAKE_CURRENT_SOURCE_DIR}
+ )
+ 
+-if(ENABLE_JAVA_BINDINGS)
+-    set_target_properties(ccronexpr PROPERTIES
+-        POSITION_INDEPENDENT_CODE ON
+-    )
+-endif()
++set_target_properties(ccronexpr PROPERTIES POSITION_INDEPENDENT_CODE ON)

@@ -1,0 +1,20 @@
+--- a/sdk/src/hashcash.cpp
++++ b/sdk/src/hashcash.cpp
+@@ -82,7 +82,7 @@
+     h.Update(data, static_cast<unsigned>(len));
+ 
+     uint32_t word{};
+-    h.TruncatedFinal(reinterpret_cast<CryptoPP::byte*>(&word), 4);
++    h.TruncatedFinal(reinterpret_cast<unsigned char*>(&word), 4);
+     return word;
+ }
+ 
+@@ -220,7 +220,7 @@
+         }
+ 
+         uint32_t firstWord{};
+-        hasher.TruncatedFinal(reinterpret_cast<CryptoPP::byte*>(&firstWord), sizeof(uint32_t));
++        hasher.TruncatedFinal(reinterpret_cast<unsigned char*>(&firstWord), sizeof(uint32_t));
+ 
+         if (htonl(firstWord) <= thresholdNetOrder)
+         {

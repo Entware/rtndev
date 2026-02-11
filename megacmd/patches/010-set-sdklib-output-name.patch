@@ -1,0 +1,10 @@
+--- a/sdk/cmake/modules/sdklib_target.cmake
++++ b/sdk/cmake/modules/sdklib_target.cmake
+@@ -382,6 +382,7 @@
+ set_target_properties(SDKlib PROPERTIES
+     VERSION ${PROJECT_VERSION}
+     DEBUG_POSTFIX "d"
++    OUTPUT_NAME "mega"
+ )
+ 
+ if(ENABLE_JAVA_BINDINGS)
