@@ -1,0 +1,51 @@
+--- a/src/blobstore/CMakeLists.txt
++++ b/src/blobstore/CMakeLists.txt
+@@ -23,6 +23,6 @@ add_library(${PROJECT_NAME} STATIC ${SOU
+ 
+ target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils blockstore)
+ 
+-target_add_boost(${PROJECT_NAME} filesystem system thread)
++target_add_boost(${PROJECT_NAME} filesystem thread)
+ target_enable_style_warnings(${PROJECT_NAME})
+ target_activate_cpp14(${PROJECT_NAME})
+--- a/src/blockstore/CMakeLists.txt
++++ b/src/blockstore/CMakeLists.txt
+@@ -35,6 +35,6 @@ add_library(${PROJECT_NAME} STATIC ${SOU
+ 
+ target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils)
+ 
+-target_add_boost(${PROJECT_NAME} filesystem system thread)
++target_add_boost(${PROJECT_NAME} filesystem thread)
+ target_enable_style_warnings(${PROJECT_NAME})
+ target_activate_cpp14(${PROJECT_NAME})
+--- a/src/cpp-utils/CMakeLists.txt
++++ b/src/cpp-utils/CMakeLists.txt
+@@ -91,6 +91,6 @@ target_link_libraries(${PROJECT_NAME} PU
+ 
+ target_link_libraries(${PROJECT_NAME} PUBLIC spdlog cryptopp)
+ 
+-target_add_boost(${PROJECT_NAME} filesystem system thread chrono)
++target_add_boost(${PROJECT_NAME} filesystem thread chrono)
+ target_enable_style_warnings(${PROJECT_NAME})
+ target_activate_cpp14(${PROJECT_NAME})
+--- a/src/fspp/fs_interface/CMakeLists.txt
++++ b/src/fspp/fs_interface/CMakeLists.txt
+@@ -13,6 +13,6 @@ add_library(${PROJECT_NAME} STATIC ${SOU
+ 
+ target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils)
+ 
+-target_add_boost(${PROJECT_NAME} filesystem system)
++target_add_boost(${PROJECT_NAME} filesystem)
+ target_enable_style_warnings(${PROJECT_NAME})
+ target_activate_cpp14(${PROJECT_NAME})
+--- a/src/fspp/fuse/CMakeLists.txt
++++ b/src/fspp/fuse/CMakeLists.txt
+@@ -11,7 +11,7 @@ add_library(${PROJECT_NAME} STATIC ${SOU
+ target_compile_definitions(${PROJECT_NAME} PUBLIC _FILE_OFFSET_BITS=64)
+ target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils fspp-interface)
+ 
+-target_add_boost(${PROJECT_NAME} filesystem system thread chrono)
++target_add_boost(${PROJECT_NAME} filesystem thread chrono)
+ target_enable_style_warnings(${PROJECT_NAME})
+ target_activate_cpp14(${PROJECT_NAME})
+ 
