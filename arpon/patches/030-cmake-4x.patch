@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -40,7 +40,7 @@
+ #                        By default ArpON will be installed to / path.
+ #
+ 
+-cmake_minimum_required(VERSION 2.6)
++cmake_minimum_required(VERSION 2.6...3.10)
+ 
+ project(ArpON C)
+ set(AUTHOR "Andrea Di Pasquale <spikey.it@gmail.com>" INTERNAL "Author")
