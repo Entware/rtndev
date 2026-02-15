@@ -1,0 +1,8 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 2.8...3.10)
+ project(grive2)
+ 
+ SET (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -ldl")
