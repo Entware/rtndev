@@ -16,6 +16,26 @@
  	"/etc/ssl/certs",     // SLES10/SLES11, https://golang.org/issue/12139
  	"/etc/pki/tls/certs", // Fedora/RHEL
  }
+--- a/src/net/nss.go
++++ b/src/net/nss.go
+@@ -13,7 +13,7 @@ import (
+ )
+ 
+ const (
+-	nssConfigPath = "/etc/nsswitch.conf"
++	nssConfigPath = "/opt/etc/nsswitch.conf"
+ )
+ 
+ var nssConfig nsswitchConfig
+@@ -40,7 +40,7 @@ func getSystemNSS() *nssConf {
+ 
+ // init initializes conf and is only called via conf.initOnce.
+ func (conf *nsswitchConfig) init() {
+-	conf.nssConf = parseNSSConfFile("/etc/nsswitch.conf")
++	conf.nssConf = parseNSSConfFile("/opt/etc/nsswitch.conf")
+ 	conf.lastChecked = time.Now()
+ 	conf.ch = make(chan struct{}, 1)
+ }
 --- a/src/time/zoneinfo_unix.go
 +++ b/src/time/zoneinfo_unix.go
 @@ -19,6 +19,7 @@ import (
@@ -44,23 +64,3 @@
  					localLoc.name = "Local"
  				} else {
  					localLoc.name = tz
---- a/src/net/nss.go
-+++ b/src/net/nss.go
-@@ -13,7 +13,7 @@ import (
- )
- 
- const (
--	nssConfigPath = "/etc/nsswitch.conf"
-+	nssConfigPath = "/opt/etc/nsswitch.conf"
- )
- 
- var nssConfig nsswitchConfig
-@@ -40,7 +40,7 @@ func getSystemNSS() *nssConf {
- 
- // init initializes conf and is only called via conf.initOnce.
- func (conf *nsswitchConfig) init() {
--	conf.nssConf = parseNSSConfFile("/etc/nsswitch.conf")
-+	conf.nssConf = parseNSSConfFile("/opt/etc/nsswitch.conf")
- 	conf.lastChecked = time.Now()
- 	conf.ch = make(chan struct{}, 1)
- }

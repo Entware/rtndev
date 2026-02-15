@@ -1,48 +1,52 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2026 Entware
+# Copyright (C) 2016-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.25.5
+PKG_VERSION:=1.26.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
-PKG_SOURCE_URL:=https://dl.google.com/go
-PKG_HASH:=22a5fd0a91efcd28a1b0537106b9959b2804b61f59c3758b51e8e5429c1a954f
+PKG_SOURCE_URL:= \
+		https://dl.google.com/go/ \
+		https://mirrors.ustc.edu.cn/golang/ \
+		https://mirrors.nju.edu.cn/golang/
+PKG_HASH:=c9132a8a1f6bd2aa4aad1d74b8231d95274950483a4950657ee6c56e6e817790
 
-BINTYPE:=$(shell uname -m | sed 's/i[3-6]86/386/;s/x86_64/amd64/')
-
-# Strip is not recommended for go binaries. It may make binaries unusable
-RSTRIP:="/bin/true"
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER:=Entware team, https://entware.net
 
 PKG_BUILD_PARALLEL:=1
-PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/golang.mk
+include $(TOPDIR)/feeds/golang/go_env.mk
 
 PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/go/Default
-	SECTION:=lang
-	CATEGORY:=Languages
-	DEPENDS:=+libstdcpp +libtiff
-	TITLE:=The Go Programming Language
-	URL:=https://golang.org/
-	MAINTAINER:=Entware team, https://entware.net
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=The Go Programming Language
+  URL:=https://golang.org/
+  PROVIDES:=go
+  ALTERNATIVES:= \
+	100:/opt/sbin/go:/opt/bin/go/bin/go \
+	100:/opt/sbin/gofmt:/opt/bin/go/bin/gofmt
 endef
 
 define Package/go
-	$(call Package/go/Default)
-	VARIANT:=hf
+  $(call Package/go/Default)
+  VARIANT:=hf
+  DEFAULT_VARIANT:=1
 endef
 
 define Package/go_nohf
-	$(call Package/go/Default)
-	VARIANT:=nohf
-	DEPENDS+=@(TARGET_armv7_2_6||TARGET_armv7_3_2)
+  $(call Package/go/Default)
+  VARIANT:=nohf
+  DEPENDS:=@(TARGET_armv7_2_6||TARGET_armv7_3_2)
 endef
 
 define Package/go/description
@@ -52,26 +56,29 @@ endef
 
 Package/go_nohf/description=$(Package/go/description)
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-endef
+BINTYPE:=$(shell uname -m | sed 's/aarch64/arm64/;s/i[3-6]86/386/;s/x86_64/amd64/')
+
+RSTRIP:=:
+STRIP:=:
+
+Build/Configure:=:
 
 define Build/Compile
 	( \
 		cd $(PKG_BUILD_DIR)/src; \
-		$(GO_VARS) GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go \
-		./make.bash --no-banner; \
+		$(GO_VARS) GO_LDFLAGS="-s -w" PKG_CONFIG=/opt/bin/pkg-config \
+		GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go ./make.bash --no-banner; \
 	)
+# https://github.com/golang/go/commit/2e97c30d8d9f5740a503428c09efae7bedb68efb
+# remove .../src/debug/elf/testdata/libtiffxx.so_ or fix deps (add lib{tiff,stdcpp}
+	rm -f $(PKG_BUILD_DIR)/src/debug/elf/testdata/libtiffxx.so_
 	if [ -d "$(PKG_BUILD_DIR)/bin/linux_$(GOARCH)" ]; then \
-		rm $(PKG_BUILD_DIR)/bin/go; \
-		rm $(PKG_BUILD_DIR)/bin/gofmt; \
+		rm $(PKG_BUILD_DIR)/bin/go{,fmt}; \
 		mv $(PKG_BUILD_DIR)/bin/linux_$(GOARCH)/* $(PKG_BUILD_DIR)/bin/; \
-		rm -rf $(PKG_BUILD_DIR)/bin/linux_$(GOARCH); \
+		rm -rf $(PKG_BUILD_DIR)/{bin,pkg}/linux_$(GOARCH); \
 	fi
-	rm -rf $(PKG_BUILD_DIR)/pkg/bootstrap
-	rm -rf $(PKG_BUILD_DIR)/pkg/obj
-	[ "$(BINTYPE)" == "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/linux_$(BINTYPE)
-	[ "$(BINTYPE)" == "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/tool/linux_$(BINTYPE)
+	[ "$(BINTYPE)" = "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/linux_$(BINTYPE)
+	[ "$(BINTYPE)" = "$(GOARCH)" ] || rm -rf $(PKG_BUILD_DIR)/pkg/tool/linux_$(BINTYPE)
 endef
 
 define Package/go/install
@@ -80,20 +87,15 @@ define Package/go/install
 	# Entware specific: fix exec path in scripts
 	$(FIND) $(1)/opt/bin/go -type f | $(XARGS) $(SED) \
 		's,^#!.*bash,#!/opt/bin/bash,;s,^#!.*perl,#!/opt/bin/perl,'
-	$(SED) 's,$(STAGING_DIR_HOST),/opt,' \
-		$(1)/opt/bin/go/src/cmd/cgo/zdefaultcc.go \
-		$(1)/opt/bin/go/src/cmd/go/internal/cfg/zdefaultcc.go
 endef
 
 Package/go_nohf/install=$(Package/go/install)
 
-define Package/go/postinst
-#!/bin/sh
-echo "Please add /opt/bin/go/bin to your PATH"
-echo "Please set GOROOT=/opt/bin/go environment variable to use GO compiler"
+define Package/go/extra_provides
+	echo 'libc.so.6'
 endef
 
-Package/go_nohf/postinst=$(Package/go/postinst)
+Package/go_nohf/extra_provides=$(Package/go/extra_provides)
 
 $(eval $(call BuildPackage,go))
 $(eval $(call BuildPackage,go_nohf))
