@@ -1,0 +1,40 @@
+CMake Error at .../opt/lib/cmake/Boost-1.89.0/BoostConfig.cmake:141 (find_package):
+  Could not find a package configuration file provided by "boost_system"
+  (requested version 1.89.0) with any of the following names:
+
+    boost_systemConfig.cmake
+    boost_system-config.cmake
+
+  Add the installation prefix of "boost_system" to CMAKE_PREFIX_PATH or set
+  "boost_system_DIR" to a directory containing one of the above files.  If
+  "boost_system" provides a separate development package or SDK, be sure it
+  has been installed.
+Call Stack (most recent call first):
+  .../opt/lib/cmake/Boost-1.89.0/BoostConfig.cmake:262 (boost_find_component)
+  .../staging_dir/host/share/cmake-3.31/Modules/FindBoost.cmake:610 (find_package)
+  libgrive/CMakeLists.txt:8 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+
+---
+
+--- a/libgrive/CMakeLists.txt
++++ b/libgrive/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
+ find_package(LibGcrypt REQUIRED)
+ find_package(CURL REQUIRED)
+ find_package(Backtrace)
+-find_package(Boost 1.40.0 COMPONENTS program_options filesystem unit_test_framework regex system REQUIRED)
++find_package(Boost 1.40.0 COMPONENTS program_options filesystem unit_test_framework regex REQUIRED)
+ if(Boost_FOUND)
+     include_directories(${Boost_INCLUDE_DIRS}) 
+ endif()
+@@ -84,7 +84,6 @@ target_link_libraries( grive
+ 	${Boost_FILESYSTEM_LIBRARY}
+ 	${Boost_PROGRAM_OPTIONS_LIBRARY}
+ 	${Boost_REGEX_LIBRARY}
+-	${Boost_SYSTEM_LIBRARY}
+ 	${IBERTY_LIBRARY}
+ 	${OPT_LIBS}
+ )
