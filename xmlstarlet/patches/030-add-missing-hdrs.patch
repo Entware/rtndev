@@ -1,0 +1,34 @@
+src/xml_pyx.c:203:36: error: expected ';', ',' or ')' before 'ATTRIBUTE_UNUSED'
+  203 | pyxExternalSubsetHandler(void *ctx ATTRIBUTE_UNUSED, const xmlChar *name,
+      |                                    ^~~~~~~~~~~~~~~~
+src/xml_pyx.c:218:29: error: expected ';', ',' or ')' before 'ATTRIBUTE_UNUSED'
+  218 | pyxCommentHandler(void *ctx ATTRIBUTE_UNUSED, const xmlChar *value)
+      |                             ^~~~~~~~~~~~~~~~
+src/xml_pyx.c:226:32: error: expected ';', ',' or ')' before 'ATTRIBUTE_UNUSED'
+  226 | pyxCdataBlockHandler(void *ctx ATTRIBUTE_UNUSED, const xmlChar *value, int len)
+      |                                ^~~~~~~~~~~~~~~~
+src/xml_pyx.c: In function 'pyxMain':
+src/xml_pyx.c:291:29: error: 'pyxExternalSubsetHandler' undeclared (first use in this function)
+  291 |     pyxSAX.externalSubset = pyxExternalSubsetHandler;
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~~
+src/xml_pyx.c:291:29: note: each undeclared identifier is reported only once for each function it appears in
+src/xml_pyx.c:292:22: error: 'pyxCommentHandler' undeclared (first use in this function)
+  292 |     pyxSAX.comment = pyxCommentHandler;
+      |                      ^~~~~~~~~~~~~~~~~
+src/xml_pyx.c:293:25: error: 'pyxCdataBlockHandler' undeclared (first use in this function)
+  293 |     pyxSAX.cdataBlock = pyxCdataBlockHandler;
+      |                         ^~~~~~~~~~~~~~~~~~~~
+make[4]: *** [Makefile:908: src/xml_pyx.o] Error 1
+
+---
+
+--- a/src/xml_pyx.c
++++ b/src/xml_pyx.c
+@@ -16,6 +16,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ 
++#include <libexslt/exsltconfig.h> /* ATTRIBUTE_UNUSED */
+ #include <libxml/parser.h>
+ #include <libxml/parserInternals.h>
+ 
