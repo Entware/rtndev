@@ -1,0 +1,22 @@
+--- a/src/liblcb/CMakeLists.txt
++++ b/src/liblcb/CMakeLists.txt
+@@ -5,7 +5,7 @@
+ #
+ 
+ ############################# INITIAL SECTION ##########################
+-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+ 
+ ############################# OPTIONS SECTION ##########################
+ 
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -3,7 +3,7 @@
+ #
+ 
+ ############################# INITIAL SECTION ##########################
+-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+ 
+ project(msd C)
+ 
