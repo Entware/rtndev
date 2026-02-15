@@ -1,0 +1,15 @@
+--- a/vendor/github.com/leethomason/tinyxml2/CMakeLists.txt
++++ b/vendor/github.com/leethomason/tinyxml2/CMakeLists.txt
+@@ -5,11 +5,7 @@ IF(BIICODE)
+     ENDIF()
+     RETURN()
+ ENDIF(BIICODE)
+-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+-cmake_policy(VERSION 2.6)
+-if(POLICY CMP0063)
+-	cmake_policy(SET CMP0063 OLD)
+-endif()
++cmake_minimum_required(VERSION 2.6...3.10)
+ 
+ project(tinyxml2)
+ include(GNUInstallDirs)
