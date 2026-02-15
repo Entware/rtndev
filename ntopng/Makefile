@@ -1,30 +1,26 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023-2025 Entware
-#
-# 6.6 requires libndpi update
+# Copyright (C) 2023-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ntopng
-PKG_VERSION:=6.4
+PKG_VERSION:=6.6
 PKG_RELEASE:=1
-
-#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-#PKG_SOURCE_URL:=https://codeload.github.com/ntop/ntopng/tar.gz/refs/tags/$(PKG_VERSION)?
-#PKG_HASH:=3eaff9f13566e349cada66d41191824a80288ea19ff4427a49a682386348931d
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/ntop/ntopng
-PKG_MIRROR_HASH:=cbb05d976f1e563b96655f4d1e9a67d14ab878b7968fc0888ee488fa0eb17564
+PKG_MIRROR_HASH:=ccfb263d5f6911708ec1346789f8eb41c6cb9d75a32676e5ce409b0877adf1c5
 
-PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-3.0-or-later
 PKG_LICENSE_FILES:=COPYING LICENSE
+PKG_MAINTAINER:=Entware team, https://entware.net
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
+
+PKG_BUILD_DEPENDS:=glib2
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -34,12 +30,11 @@ define Package/ntopng
   CATEGORY:=Network
   TITLE:=display top network users
   URL:=https://www.ntop.org/
-  DEPENDS:=+glib2 +libatomic +libcap +libcurl +libexpat +libgcrypt
-  DEPENDS+=+libgpg-error +libhiredis +libjson-c +liblua5.4 +libopenldap
-  DEPENDS+=+libmariadb +libmaxminddb +libndpi +libnetsnmp +libpcap
-  DEPENDS+=+libradcli +libsodium +libsqlite3 +libstdcpp +libwrap
+  DEPENDS:=+libatomic +libcap +libcurl +libexpat +libhiredis +libjson-c
+  DEPENDS+=+liblua5.4 +libmaxminddb +libndpi +libnetsnmp-ssl +libopenldap
+  DEPENDS+=+libopenssl +libpcap +libradcli +libsodium +libsqlite3 +libstdcpp
   DEPENDS+=+libzmq-nc +libzstd +zlib
-  EXTRA_DEPENDS:=redis-server, redis-cli
+  EXTRA_DEPENDS:=redis-cli, redis-server
 endef
 
 define Package/ntopng/description
@@ -54,6 +49,7 @@ define Build/Configure
 	( cd $(PKG_BUILD_DIR); ./autogen.sh; \
 		./configure \
 			$(CONFIGURE_ARGS) \
+			--with-dynamic-ndpi \
 			ARCH="$(ARCH)" \
 			CFLAGS="$(TARGET_CFLAGS)" \
 			CXXFLAGS="$(TARGET_CXXFLAGS)" \
