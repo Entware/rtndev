@@ -1,0 +1,29 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -325,10 +325,25 @@
+     "${ProjectDir}/src/updater/MacUtils.mm"
+ )
+ 
+-if (ENABLE_MEGACMD_TESTS)
++if (ENABLE_MEGACMD_TESTS)
++    # For Entware/OpenWrt builds, fetch googletest if not available
++    # This allows tests to build without requiring system-wide gtest installation
++    if(NOT TARGET gtest)
++        include(FetchContent)
++        FetchContent_Declare(
++            googletest
++            URL https://github.com/google/googletest/archive/release-1.12.1.tar.gz
++            URL_HASH SHA256=81964fe578e9bd7c94dfdb09c8e4d6e6759e19967e397dbea48d1c10e45d0df2
++        )
++        # Force shared CRT on Windows
++        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
++        FetchContent_MakeAvailable(googletest)
++    endif()
++
+     #Test Common:
+     add_library(LMegacmdTestsCommon STATIC)
++    target_link_libraries(LMegacmdTestsCommon PUBLIC gtest gmock)
+     add_source_and_corresponding_header_to_target(LMegacmdTestsCommon PRIVATE
+         "${ProjectDir}/tests/common/Instruments.cpp"
+         "${ProjectDir}/tests/common/TestUtils.cpp"
+     )

@@ -1,0 +1,71 @@
+--- a/sdk/include/mega/common/serialization_traits_forward.h
++++ b/sdk/include/mega/common/serialization_traits_forward.h
+@@ -7,10 +7,6 @@
+ template<typename T>
+ struct HasSerializationTraits;
+ 
+-template<typename T>
+-static constexpr auto HasSerializationTraitsV =
+-  HasSerializationTraits<T>::value;
+-
+ template<typename T>
+ struct SerializationTraits;
+ 
+--- a/sdk/include/mega/common/serialization_traits.h
++++ b/sdk/include/mega/common/serialization_traits.h
+@@ -14,5 +14,9 @@
+ {
+ }; // HasSerializationTraits<T>
+ 
++template<typename T>
++constexpr bool HasSerializationTraitsV =
++  HasSerializationTraits<T>::value;
++
+ } // common
+ } // mega
+--- a/sdk/include/mega/common/expected_forward.h
++++ b/sdk/include/mega/common/expected_forward.h
+@@ -17,7 +17,4 @@
+ template<typename T>
+ struct IsExpected;
+ 
+-template<typename T>
+-constexpr auto IsExpectedV = IsExpected<T>::value;
+-
+ } // common
+--- a/sdk/include/mega/common/expected.h
++++ b/sdk/include/mega/common/expected.h
+@@ -31,6 +31,9 @@
+ struct IsExpected: detail::IsExpected<std::decay_t<T>>
+ {};
+ 
++template<typename T>
++constexpr bool IsExpectedV = IsExpected<T>::value;
++
+ template<typename E, typename T>
+ class Expected
+ {
+--- a/sdk/include/mega/common/unexpected_forward.h
++++ b/sdk/include/mega/common/unexpected_forward.h
+@@ -15,9 +17,6 @@
+ template<typename T>
+ class Unexpected;
+ 
+-template<typename T>
+-constexpr auto IsUnexpectedV = IsUnexpected<T>::value;
+-
+ template<typename T>
+ auto unexpected(T&& value);
+ 
+--- a/sdk/include/mega/common/unexpected.h
++++ b/sdk/include/mega/common/unexpected.h
+@@ -24,6 +24,9 @@
+ struct IsUnexpected: detail::IsUnexpected<std::decay_t<T>>
+ {};
+ 
++template<typename T>
++constexpr bool IsUnexpectedV = IsUnexpected<T>::value;
++
+ template<typename T>
+ class Unexpected
+ {
