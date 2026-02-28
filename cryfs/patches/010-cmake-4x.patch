@@ -1,0 +1,19 @@
+--- a/vendor/cryptopp/vendor_cryptopp/CMakeLists.txt
++++ b/vendor/cryptopp/vendor_cryptopp/CMakeLists.txt
+@@ -29,7 +29,7 @@ endif()
+ # Print useful information
+ message( STATUS "CMake version ${CMAKE_VERSION}" )
+ 
+-cmake_minimum_required(VERSION 2.8.6)
++cmake_minimum_required(VERSION 2.8.6...3.10)
+ if (${CMAKE_VERSION} VERSION_LESS "3.0.0")
+   project(cryptopp)
+   set(cryptopp_VERSION_MAJOR 8)
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.0...3.10 FATAL_ERROR)
+ cmake_policy(SET CMP0054 NEW)
+ 
+ # TODO Perf test:

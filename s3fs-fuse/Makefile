@@ -40,6 +40,10 @@ endef
 CONFIGURE_ARGS += \
 	--with-openssl
 
+ifeq ($(or $(CONFIG_mips),$(CONFIG_mipsel)),y)
+  TARGET_LDFLAGS += -latomic
+endif
+
 define Package/s3fs-fuse/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/s3fs $(1)/opt/bin

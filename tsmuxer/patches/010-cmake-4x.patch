@@ -1,0 +1,24 @@
+--- a/libmediation/CMakeLists.txt
++++ b/libmediation/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required (VERSION 3.1)
++cmake_minimum_required (VERSION 3.10)
+ project(mediation)
+ 
+ add_library(mediation STATIC
+--- a/tsMuxer/CMakeLists.txt
++++ b/tsMuxer/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required (VERSION 3.1)
++cmake_minimum_required (VERSION 3.10)
+ project (tsmuxer LANGUAGES CXX)
+ 
+ add_executable (tsmuxer
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required (VERSION 3.1)
++cmake_minimum_required (VERSION 3.10)
+ project (tsmuxer_main CXX)
+ 
+ set(CMAKE_CXX_STANDARD 17)

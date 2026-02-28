@@ -1,0 +1,8 @@
+--- a/Receivers/unix/CMakeLists.txt
++++ b/Receivers/unix/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.7)
++cmake_minimum_required(VERSION 3.10)
+ 
+ project(scream LANGUAGES C)
+ 

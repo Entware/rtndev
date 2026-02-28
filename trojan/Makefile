@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/trojan
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+boost-system +boost-program_options +libopenssl
+	DEPENDS:=+boost-program_options +libopenssl
 	TITLE:=GFW bypass tool
 	URL:=https://trojan-gfw.github.io/trojan/
 	MAINTAINER:=Entware team, https://entware.net

@@ -1,0 +1,32 @@
+CMake Error at .../opt/lib/cmake/Boost-1.89.0/BoostConfig.cmake:141 (find_package):
+  Could not find a package configuration file provided by "boost_system"
+  (requested version 1.89.0) with any of the following names:
+
+    boost_systemConfig.cmake
+    boost_system-config.cmake
+
+  Add the installation prefix of "boost_system" to CMAKE_PREFIX_PATH or set
+  "boost_system_DIR" to a directory containing one of the above files.  If
+  "boost_system" provides a separate development package or SDK, be sure it
+  has been installed.
+Call Stack (most recent call first):
+  .../opt/lib/cmake/Boost-1.89.0/BoostConfig.cmake:262 (boost_find_component)
+  .../staging_dir/host/share/cmake-3.31/Modules/FindBoost.cmake:610 (find_package)
+  CMakeLists.txt:39 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+
+---
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,7 +36,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
+ find_package(Threads REQUIRED)
+ target_link_libraries(trojan ${CMAKE_THREAD_LIBS_INIT})
+ 
+-find_package(Boost 1.66.0 REQUIRED COMPONENTS system program_options)
++find_package(Boost 1.66.0 REQUIRED COMPONENTS program_options)
+ include_directories(${Boost_INCLUDE_DIR})
+ target_link_libraries(trojan ${Boost_LIBRARIES})
+ if(MSVC)

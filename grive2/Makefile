@@ -28,7 +28,7 @@ define Package/grive2
 	CATEGORY:=Network
 	SUBMENU:=Filesystem
 	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libbfd +boost-filesystem \
-		+boost-program_options +boost-regex +boost-test +boost-system
+		+boost-program_options +boost-regex +boost-test
 	TITLE:=a fork of original Google Drive client
 	URL:=https://github.com/vitalif/grive2
 	MAINTAINER:=Entware team, https://entware.net

@@ -42,3 +42,14 @@
  			LinuxdynldMusl: musl,
  
  			Freebsddynld:   "XXX",
+--- a/src/cmd/link/internal/x86/obj.go
++++ b/src/cmd/link/internal/x86/obj.go
+@@ -59,7 +59,7 @@ func Init() (*sys.Arch, ld.Arch) {
+ 		PEreloc1:         pereloc1,
+ 
+ 		ELF: ld.ELFArch{
+-			Linuxdynld:     "/lib/ld-linux.so.2",
++			Linuxdynld:     "/opt/lib/ld-linux.so.2",
+ 			LinuxdynldMusl: "/lib/ld-musl-i386.so.1",
+ 			Freebsddynld:   "/usr/libexec/ld-elf.so.1",
+ 			Openbsddynld:   "/usr/libexec/ld.so",

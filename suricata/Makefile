@@ -1,20 +1,22 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2017-2026 Entware
+
 # The newer versions (5.0+)  requires Rust
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=suricata
-PKG_VERSION:=4.1.8
-PKG_RELEASE:=6
+PKG_VERSION:=4.1.10
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.openinfosecfoundation.org/download
-PKG_HASH:=c8a83a05f57cedc0ef81d833ddcfdbbfdcdb6f459a91b1b15dc2d5671f1aecbb
+PKG_HASH:=4013cb13a2f3f7854328cf072319bba41896fad86d6b85b1cff4004f82aa7276
+
+PKG_LICENSE:=GPL-2.0-only
+PKG_LICENSE_FILES:=COPYING LICENSE
+PKG_MAINTAINER:=Entware team, https://entware.net
 
 PKG_INSTALL:=1
 
@@ -23,18 +25,17 @@ include $(INCLUDE_DIR)/package.mk
 define Package/suricata
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=+jansson +liblz4 +libcap-ng +libmagic +libpcap +libpcre +libyaml
 	TITLE:=IDS, IPS, NSM engine
 	URL:=https://suricata-ids.org/
-	MAINTAINER:=Entware team, https://entware.net
+	DEPENDS:=+jansson +libcap-ng +liblz4 +libmagic +libpcap +libpcre +libyaml
 endef
 
 define Package/suricata/description
- The Suricata engine is capable of real time intrusion detection (IDS), inline
- intrusion prevention (IPS), network security monitoring (NSM) and offline pcap
- processing. Suricata inspects the network traffic using a powerful and
- extensive rules and signature language, and has powerful Lua scripting support
- for detection of complex threats.
+ The Suricata engine is capable of real time intrusion detection
+ (IDS), inline intrusion prevention (IPS), network security monitoring (NSM)
+ and offline pcap processing. Suricata inspects the network traffic using a
+ powerful and extensive rules and signature language, and has powerful Lua
+ scripting support for detection of complex threats.
 endef
 
 CONFIGURE_ARGS += \
@@ -69,7 +70,7 @@ define Package/suricata/postinst
 #!/bin/sh
 
 echo 'Current Suricata ruleset can be found at'
-echo 'https://rules.emergingthreats.net/open/suricata-4.0/emerging.rules.tar.gz'
+echo 'https://rules.emergingthreats.net/open/old/suricata-4.0/emerging.rules.tar.gz'
 endef
 
 $(eval $(call BuildPackage,suricata))

@@ -2,7 +2,7 @@
 +++ b/autogen.sh
 @@ -39,18 +39,18 @@ TODAY=`date +%y%m%d`
  MAJOR_RELEASE="6"
- MINOR_RELEASE="4"
+ MINOR_RELEASE="6"
  SHORT_VERSION="$MAJOR_RELEASE.$MINOR_RELEASE"
 -VERSION="$SHORT_VERSION.$TODAY"
 +VERSION="$SHORT_VERSION"
@@ -11,8 +11,8 @@
 -GIT_TAG=`git rev-parse HEAD`
 -GIT_DATE=`date +%Y%m%d`
 +#if test -d ".git"; then
-+GIT_TAG="e27e56a1ed4f16303a8e3c722e8d19b7039314e1"
-+GIT_DATE="20250519"
++GIT_TAG="9c034502dd7c389e840c09f05bcae0577780c716"
++GIT_DATE="20251117"
  GIT_RELEASE="$GIT_TAG:$GIT_DATE"
 -GIT_BRANCH=`git rev-parse --abbrev-ref HEAD | sed "s/heads\///g"`
 -else
@@ -31,7 +31,7 @@
  PRO_GIT_RELEASE=`cd pro; git log --pretty=oneline | wc -l`
 --- a/configure.ac.in
 +++ b/configure.ac.in
-@@ -132,7 +132,7 @@ NTOPNG_MINOR=`echo "${PACKAGE_VERSION}"
+@@ -136,7 +136,7 @@ NTOPNG_MINOR=`echo "${PACKAGE_VERSION}"
  NTOPNG_PATCH=`echo "${PACKAGE_VERSION}" | cut -d . -f 3`
  #NTOPNG_SHORT_VERSION="$NTOPNG_MAJOR.$NTOPNG_MINOR.$NTOPNG_PATCH"
  NTOPNG_SHORT_VERSION="$NTOPNG_MAJOR.$NTOPNG_MINOR"
@@ -40,7 +40,7 @@
  
  MACHINE=`uname -m`
  SYSTEM=`uname -s`
-@@ -487,7 +487,7 @@ else
+@@ -508,7 +508,7 @@ else
    AC_MSG_RESULT(not found)
  fi
  
