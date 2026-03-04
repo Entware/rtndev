@@ -1,0 +1,12 @@
+--- a/sdk/cmake/modules/sdklib_target.cmake
++++ b/sdk/cmake/modules/sdklib_target.cmake
+@@ -500,3 +500,9 @@ configure_file(
+     cmake/modules/sdklib.pc.in
+     ${CMAKE_CURRENT_BINARY_DIR}/sdklib.pc @ONLY
+     )
++
++install(TARGETS SDKlib
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++)

@@ -1,0 +1,72 @@
+--- a/sdk/cmake/modules/sdklib_libraries.cmake
++++ b/sdk/cmake/modules/sdklib_libraries.cmake
+@@ -98,33 +98,36 @@
+         endif()
+ 
+         pkg_check_modules(sodium REQUIRED IMPORTED_TARGET libsodium)
+-        target_link_libraries(SDKlib PRIVATE PkgConfig::sodium)
++        target_link_libraries(SDKlib PUBLIC PkgConfig::sodium)
+ 
+         pkg_check_modules(sqlite3 REQUIRED IMPORTED_TARGET sqlite3)
+-        target_link_libraries(SDKlib PRIVATE PkgConfig::sqlite3)
++        target_link_libraries(SDKlib PUBLIC PkgConfig::sqlite3)
+ 
+         pkg_check_modules(curl REQUIRED IMPORTED_TARGET libcurl)
+-        target_link_libraries(SDKlib PRIVATE PkgConfig::curl)
++        target_link_libraries(SDKlib PUBLIC PkgConfig::curl)
+ 
+         find_package(ICU COMPONENTS uc data REQUIRED)
+-        target_link_libraries(SDKlib PRIVATE ICU::uc ICU::data)
++        target_link_libraries(SDKlib PUBLIC ICU::uc ICU::data)
+ 
+         if(USE_OPENSSL)
+             find_package(OpenSSL REQUIRED)
+-            target_link_libraries(SDKlib PRIVATE OpenSSL::SSL OpenSSL::Crypto)
++            target_link_libraries(SDKlib PUBLIC OpenSSL::SSL OpenSSL::Crypto)
+         endif()
+ 
++        find_package(Threads REQUIRED)
++        target_link_libraries(SDKlib PUBLIC Threads::Threads)
++
+         if(ENABLE_MEDIA_FILE_METADATA)
+             pkg_check_modules(mediainfo REQUIRED IMPORTED_TARGET libmediainfo)
+-            target_link_libraries(SDKlib PRIVATE PkgConfig::mediainfo)
++            target_link_libraries(SDKlib PUBLIC PkgConfig::mediainfo)
+             set(USE_MEDIAINFO 1)
+         endif()
+ 
+         if(USE_FREEIMAGE)
+             # FreeImage has no pkg-config file. Use out own FindFreeImage.cmake to find the library.
+             find_package(FreeImage REQUIRED)
+-            target_link_libraries(SDKlib PRIVATE FreeImage::FreeImage)
++            target_link_libraries(SDKlib PUBLIC FreeImage::FreeImage)
+         endif()
+ 
+         if(USE_FFMPEG)
+             pkg_check_modules(ffmpeg REQUIRED IMPORTED_TARGET libavformat libavutil libavcodec libswscale libswresample)
+-            target_link_libraries(SDKlib PRIVATE PkgConfig::ffmpeg)
++            target_link_libraries(SDKlib PUBLIC PkgConfig::ffmpeg)
+             set(HAVE_FFMPEG 1)
+         endif()
+ 
+         if(USE_LIBUV)
+             pkg_check_modules(uv REQUIRED IMPORTED_TARGET libuv)
+-            target_link_libraries(SDKlib PRIVATE PkgConfig::uv)
++            target_link_libraries(SDKlib PUBLIC PkgConfig::uv)
+             set(HAVE_LIBUV 1)
+         endif()
+ 
+         if(USE_PDFIUM)
+             pkg_check_modules(pdfium REQUIRED IMPORTED_TARGET pdfium)
+-            target_link_libraries(SDKlib PRIVATE PkgConfig::pdfium)
++            target_link_libraries(SDKlib PUBLIC PkgConfig::pdfium)
+             set(HAVE_PDFIUM 1)
+         endif()
+ 
+         if(USE_READLINE)
+             pkg_check_modules(readline REQUIRED IMPORTED_TARGET readline)
+-            target_link_libraries(SDKlib PRIVATE PkgConfig::readline)
++            target_link_libraries(SDKlib PUBLIC PkgConfig::readline)
+         else()
+             set(NO_READLINE 1)
+         endif()
