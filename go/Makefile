@@ -5,8 +5,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go
-PKG_VERSION:=1.26.0
-PKG_RELEASE:=2
+PKG_VERSION:=1.26.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
 PKG_SOURCE_URL:= \
@@ -14,7 +14,7 @@ PKG_SOURCE_URL:= \
 		https://golang.google.cn/dl/ \
 		https://mirrors.nju.edu.cn/golang/ \
 		https://mirrors.ustc.edu.cn/golang/
-PKG_HASH:=c9132a8a1f6bd2aa4aad1d74b8231d95274950483a4950657ee6c56e6e817790
+PKG_HASH:=3172293d04b209dc1144698e7ba13f0477f6ba8c5ffd0be66c20fdbc9785dfbb
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
