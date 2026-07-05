@@ -31,3 +31,36 @@
  
  	serv.hnd.fd = socket(PF_INET, SOCK_STREAM, 0);
  	if (serv.hnd.fd < 0) {
+--- a/accel-pppd/ctrl/ipoe/ipoe_netlink.c
++++ b/accel-pppd/ctrl/ipoe/ipoe_netlink.c
+@@ -624,7 +624,7 @@ static void init(void)
+ {
+	int mcg_id;
+
+-	if (access("/sys/module/ipoe", F_OK) && system("modprobe -q ipoe"))
++	if (access("/sys/module/ipoe", F_OK))
+		log_warn("failed to load ipoe module\n");
+
+	mcg_id = genl_resolve_mcg(IPOE_GENL_NAME, IPOE_GENL_MCG_PKT, &ipoe_genl_id);
+--- a/accel-pppd/shaper/limiter.c
++++ b/accel-pppd/shaper/limiter.c
+@@ -636,8 +636,6 @@ static int init_htb(const char *name)
+		.qdisc = qdisc_htb_root,
+	};
+
+-	if (system("modprobe -q ifb"))
+-		log_warn("failed to load ifb kernel module\n");
+
+	memset(&ifr, 0, sizeof(ifr));
+	strcpy(ifr.ifr_name, name);
+--- a/accel-pppd/vlan-mon/vlan_mon.c
++++ b/accel-pppd/vlan-mon/vlan_mon.c
+@@ -522,7 +522,7 @@ static void init(void)
+ {
+	int mcg_id;
+
+-	if (access("/sys/module/vlan_mon", F_OK) && system("modprobe -q vlan_mon"))
++	if (access("/sys/module/vlan_mon", F_OK))
+		log_warn("failed to load vlan_mon module\n");
+
+	mcg_id = genl_resolve_mcg(VLAN_MON_GENL_NAME, VLAN_MON_GENL_MCG, &vlan_mon_genl_id);

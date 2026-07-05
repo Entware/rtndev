@@ -9,3 +9,37 @@
  static char *conf_chap_secrets;
  static int conf_encrypted;
  static in_addr_t conf_gw_ip_address = 0;
+--- a/accel-pppd/cli/telnet.c
++++ b/accel-pppd/cli/telnet.c
+@@ -69,7 +69,7 @@ static uint8_t *recv_buf;
+ static uint8_t *temp_buf;
+
+ static int conf_history_len = 100;
+-static const char *conf_history_file = "/var/lib/accel-ppp/history";
++static const char *conf_history_file = "/opt/var/lib/accel-ppp/history";
+ static int conf_verbose;
+
+ static LIST_HEAD(history);
+--- a/accel-pppd/net.c
++++ b/accel-pppd/net.c
+@@ -448,7 +448,7 @@ void net_init()
+	if (opt)
+		conf_netns_run_dir = opt;
+	else
+-		conf_netns_run_dir = "/var/run/netns";
++		conf_netns_run_dir = "/opt/var/run/netns";
+
+	def_net = net = alloc_net(NULL);
+ }
+--- a/accel-pppd/session.c
++++ b/accel-pppd/session.c
+@@ -541,7 +541,7 @@ void session_init()
+		conf_sid_source = SID_SOURCE_SEQ;
+
+	conf_seq_file = conf_get_opt("common", "seq-file");
+	if (!conf_seq_file)
+-		conf_seq_file = "/var/lib/accel-ppp/seq";
++		conf_seq_file = "/opt/var/lib/accel-ppp/seq";
+
+	opt = conf_get_opt("common", "max-sessions");
+	if (opt)
