@@ -7,6 +7,8 @@
 
 include $(TOPDIR)/rules.mk
 
+override CONFIG_AUTOREMOVE=
+
 PKG_NAME:=nethack
 PKG_VERSION:=3.6.7
 PKG_RELEASE:=1
