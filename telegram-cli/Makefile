@@ -8,6 +8,8 @@
 
 include $(TOPDIR)/rules.mk
 
+override CONFIG_AUTOREMOVE=
+
 PKG_NAME:=telegram-cli
 PKG_VERSION:=1.3.1-20160323
 PKG_REV:=6547c0b21b977b327b3c5e8142963f4bc246187a

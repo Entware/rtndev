@@ -6,6 +6,8 @@
 
 include $(TOPDIR)/rules.mk
 
+override CONFIG_AUTOREMOVE=
+
 PKG_NAME:=gutenprint
 PKG_VERSION:=5.3.5
 PKG_RELEASE:=1

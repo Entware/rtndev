@@ -10,6 +10,8 @@
 
 include $(TOPDIR)/rules.mk
 
+override CONFIG_AUTOREMOVE=
+
 PKG_NAME:=ghostscript
 PKG_VERSION:=10.01.2
 PKG_RELEASE:=1

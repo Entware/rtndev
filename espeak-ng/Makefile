@@ -4,6 +4,8 @@
 
 include $(TOPDIR)/rules.mk
 
+override CONFIG_AUTOREMOVE=
+
 PKG_NAME:=espeak-ng
 PKG_VERSION:=1.52
 PKG_REV:=4870adfa25b1a32b4361592f1be8a40337c58d6c
