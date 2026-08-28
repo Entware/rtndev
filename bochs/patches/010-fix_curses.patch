@@ -1,6 +1,6 @@
 --- a/bochs/configure
 +++ b/bochs/configure
-@@ -26798,7 +26798,7 @@ esac
+@@ -27485,7 +27485,7 @@ esac
  
  
  
