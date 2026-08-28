@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=chromaprint
-PKG_VERSION:=1.6.0
-PKG_REV:=655c26f0db4d54014c367e3e714a62e3714792ce
+PKG_VERSION:=1.6.1
+PKG_REV:=aed8eba2202dd9d7b3b0a56c77904cc805490d72
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/acoustid/chromaprint.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1119f34335c867e28d61c67befd7f67b493b478992f950c7323486f7d987da39
+PKG_MIRROR_HASH:=745104d712b81e70017dad5d0a328a4c3c7f2563b89e818828322eeded993a34
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
