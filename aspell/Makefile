@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aspell
-PKG_VERSION:=0.60.8.1
+PKG_VERSION:=0.60.8.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@GNU/$(PKG_NAME)
-PKG_HASH:=d6da12b34d42d457fa604e435ad484a74b2effcd120ff40acd6bb3fb2887d21b
+PKG_HASH:=57fe4863eae6048f72245a8575b44b718fb85ca14b9f8c0afc41b254dfd76919
 
 PKG_INSTALL:=1
 
