@@ -1,24 +1,18 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Abandoned in 2013
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=splix
-PKG_REV:=315
-PKG_VERSION:=2.0.0-r$(PKG_REV)
-PKG_RELEASE:=2
+PKG_VERSION:=2.0.2
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_PROTO:=svn
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=http://svn.code.sf.net/p/splix/code/splix
-PKG_MIRROR_HASH:=07318c2da9101f1acbd8e93444bb2d6394df4f63d9f18a1fed220cb86d6d0cc8
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=https://github.com/OpenPrinting/splix/releases/download/$(PKG_VERSION)
+PKG_HASH:=6271c35f8ab8d2565962c0a6140aa191226430f7c99cb3355f4d499a8938f068
 
 PKG_INSTALL:=1
 
@@ -30,7 +24,7 @@ define Package/splix
 	SUBMENU:=Printing
 	DEPENDS:=+cups +libjbig
 	TITLE:=Samsung CUPS drivers
-	URL:=http://splix.ap2c.org/
+	URL:=https://openprinting.github.io/splix/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
@@ -41,16 +35,25 @@ endef
 
 MAKE_VARS += \
 	THREADS=1 \
+	DRV_ONLY=1 \
+	CUPSFILTER=/opt/lib/cups/filter \
+	CUPSPPD=/opt/share/cups/model \
+	CUPSDRV=/opt/share/cups/drv \
+	CUPSPROFILE=/opt/share/cups/profiles
+
+TARGET_LDFLAGS += \
+	-Wl,-rpath-link=$(STAGING_DIR)/opt/lib/libiconv-full/lib \
+	-Wl,-rpath-link=$(STAGING_DIR)/opt/lib/libintl-full/lib
 
 define Build/Configure
-	$(CP) $(PKG_BUILD_DIR)/*.ppd $(PKG_BUILD_DIR)/ppd
+	$(MAKE) -C $(PKG_BUILD_DIR)/ppd drv
 endef
 define Package/splix/install
 	$(INSTALL_DIR) $(1)/opt/lib/cups/filter
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/cups/filter/{raster,ps}toqpdl \
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/filter/{raster,ps}toqpdl \
 	    $(1)/opt/lib/cups/filter
-	$(INSTALL_DIR) $(1)/opt/share/cups/model
-	$(CP) $(PKG_INSTALL_DIR)/opt/share/cups/model/* $(1)/opt/share/cups/model
+	$(INSTALL_DIR) $(1)/opt/share/cups/drv
+	$(CP) $(PKG_INSTALL_DIR)/opt/share/cups/drv/* $(1)/opt/share/cups/drv
 endef
 
 $(eval $(call BuildPackage,splix))
