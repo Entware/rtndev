@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2009 Brice DUBOST
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,12 +10,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=transcode
-PKG_VERSION:=1.1.5
+PKG_VERSION:=1.1.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=@SF/tcforge.berlios
-PKG_HASH:=7e01665079eef81625c4761cc5c08a3b53b97de90fb0728d64f5a86a3bc59009
+PKG_SOURCE_URL:=https://distfiles.macports.org/transcode
+PKG_HASH:=1e4e72d8e0dd62a80b8dd90699f5ca64c9b0cb37a5c9325c184166a9654f0a92
 
 PKG_INSTALL:=1
 
@@ -26,7 +26,7 @@ define Package/transcode
 	CATEGORY:=Multimedia
 	DEPENDS:=+zlib +libpthread
 	TITLE:=A/V transcoding suite
-	URL:=http://tcforge.berlios.de/
+	URL:=https://sourceforge.net/projects/tcforge.berlios/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
