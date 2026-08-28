@@ -9,15 +9,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=accel-ppp
 PKG_VERSION:=1.14.0
-PKG_REV:=6afbc5075a3cf88a47f01c9051dd0a7fdcb06299
+PKG_REV:=048d31cb446879e0d1a1471b4ab99135a92bf289
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/accel-ppp/accel-ppp.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=f14eff62c05629bb1f622fd17513d2eb4d3214f08ceb7f5fac0d40c29b647011
+PKG_MIRROR_HASH:=89d74e5c951d65637f26a06b6668ba1299dc6a9a8a1decf241ce3a0e032253b1
 
 CMAKE_BINARY_SUBDIR:=openwrt-build
 
@@ -28,7 +28,7 @@ define Package/accel-ppp
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=VPN
-	DEPENDS:=+libopenssl +libpcre +libpthread +librt
+	DEPENDS:=+libopenssl +libpcre2 +libpthread +librt
 	TITLE:=accel-ppp VPN server
 	URL:=https://accel-ppp.org/
 	MAINTAINER:=Entware team, https://entware.net
