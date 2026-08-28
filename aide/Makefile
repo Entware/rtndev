@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/1135
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aide
-PKG_VERSION:=0.19.2
+PKG_VERSION:=0.19.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/aide/aide/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=0ed7d22881fe7474e9c650104c7689c468afd0a7fc97cd629b980fd5b5e9376b
+PKG_HASH:=aaa4c6032ab6597496a61290b400bf1a9d175a2212f6db86bd75897231d6bfa4
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-or-later
