@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kronosnet
-PKG_VERSION:=1.32
+PKG_VERSION:=1.35
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://kronosnet.org/releases
-PKG_HASH:=2b6a5e0036936a31a169017a2afb12a97e6d0ad8c9d18b6d7e9ef537ac1ffe0c
+PKG_HASH:=9d03b41001d64b4fa016f0e7aa309e52a0ef5b0ff63cea686be99b8f1b18e4d9
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-or-later LGPL-2.1-or-later
@@ -88,6 +88,7 @@ CONFIGURE_ARGS += \
 	--$(if $(CONFIG_KRONOSNET_CRIPTO_OPENSSL),en,dis)able-crypto-openssl \
 	--$(if $(CONFIG_KRONOSNET_INSTALL_TESTS),en,dis)able-install-tests \
 	--disable-functional-tests \
+	--disable-wireshark-dissector \
 	--disable-man
 
 define Build/InstallDev
