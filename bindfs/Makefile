@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bindfs
-PKG_VERSION:=1.18.3
+PKG_VERSION:=1.18.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://bindfs.org/downloads
-PKG_HASH:=178a723d7039bae3ab1cef2fc93e5e8693c4184f52519c0e9a1deee93b838df1
+PKG_HASH:=3266d0aab787a9328bbb0ed561a371e19f1ff077273e6684ca92a90fedb2fe24
 
 PKG_INSTALL:=1
 
