@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2025 Entware
+# Copyright (C) 2017-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cmake
-PKG_VERSION:=4.2.1
+PKG_VERSION:=4.4.3
 PKG_VERSION_MAJOR:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/Kitware/CMake/releases/download/v$(PKG_VERSION)/ \
 		https://cmake.org/files/v$(PKG_VERSION_MAJOR)/
-PKG_HASH:=414aacfac54ba0e78e64a018720b64ed6bfca14b587047b8b3489f407a14a070
+PKG_HASH:=c46400618b4f1f2b43507f24fb22f3ae830c3416cf23b776e16e1d413aa892f0
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=Copyright.txt
