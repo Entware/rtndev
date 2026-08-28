@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022-2025 Entware
+# Copyright (C) 2022-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=7-zip
-PKG_VERSION:=25.01
+PKG_VERSION:=26.02
 PKG_RELEASE:=1
 
-PKG_SOURCE:=7z2501-src.tar.xz
+PKG_SOURCE:=7z2602-src.tar.xz
 PKG_SOURCE_URL:=https://www.7-zip.org/a
-PKG_HASH:=ed087f83ee789c1ea5f39c464c55a5c9d4008deb0efe900814f2df262b82c36e
+PKG_HASH:=cf967c98bca02a4b8b16375f441825a8e141362f14be1969bbec8e1ca0bff9dd
 
 include $(INCLUDE_DIR)/package.mk
 
