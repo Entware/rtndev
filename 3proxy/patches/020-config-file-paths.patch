@@ -1,27 +1,48 @@
---- a/scripts/3proxy.cfg
-+++ b/scripts/3proxy.cfg
-@@ -2,17 +2,17 @@ nscache 65536
- nserver 8.8.8.8
- nserver 8.8.4.4
+--- a/scripts/3proxy.cfg.in
++++ b/scripts/3proxy.cfg.in
+@@ -1,29 +1,29 @@
+ #!@CMAKE_INSTALL_FULL_BINDIR@/3proxy
  
--config /conf/3proxy.cfg
--monitor /conf/3proxy.cfg
+ # use standard syslog logging
+-log @3proxy
+-pidfile /var/run/3proxy/3proxy.pid
+-#log /logs/3proxy-%y%m%d.log D
+-#rotate 60
++#log @3proxy
++pidfile /opt/var/run/3proxy.pid
++log /opt/var/log/3proxy-%y%m%d.log D
++rotate 60
+ 
+ 
+-#nscache 65536
+-#nserver 8.8.8.8
+-#nserver 8.8.4.4
++nscache 65536
++nserver 8.8.8.8
++nserver 8.8.4.4
+ 
+-#config @CMAKE_INSTALL_FULL_SYSCONFDIR@/3proxy/3proxy.cfg
+-#monitor @CMAKE_INSTALL_FULL_SYSCONFDIR@/3proxy/3proxy.cfg
+-#monitor @3PROXY_CONFDIR@/passwd
 +config /opt/etc/3proxy/3proxy.cfg
 +monitor /opt/etc/3proxy/3proxy.cfg
++monitor /opt/etc/3proxy/passwd
  
--log /logs/3proxy-%y%m%d.log D
-+log /opt/var/log/3proxy-%y%m%d.log D
- rotate 60
--counter /count/3proxy.3cf
+-#counter @3PROXY_COUNTERDIR@/3proxy.3cf
 +counter /opt/var/3proxy.3cf
  
--users $/conf/passwd
+-#users $@3PROXY_CONFDIR@/passwd
 +users $/opt/etc/3proxy/passwd
  
--include /conf/counters
--include /conf/bandlimiters
+-#include @3PROXY_CONFDIR@/counters
+-#include @3PROXY_CONFDIR@/bandlimiters
 +include /opt/etc/3proxy/counters
 +include /opt/etc/3proxy/bandlimiters
  
- auth strong
- deny * * 127.0.0.1
+-#auth strong
+-#deny * * 127.0.0.0/8
++auth strong
++deny * * 127.0.0.0/8
+ #allow *
+ #proxy -n
+ #socks

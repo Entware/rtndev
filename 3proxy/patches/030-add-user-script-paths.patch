@@ -1,17 +1,17 @@
---- a/scripts/add3proxyuser.sh
-+++ b/scripts/add3proxyuser.sh
+--- a/scripts/add3proxyuser.sh.in
++++ b/scripts/add3proxyuser.sh.in
 @@ -1,12 +1,12 @@
  #!/bin/sh
- if [ $4 ]; then  
--	echo bandlimin $4 $1 >> /etc/3proxy/conf/bandlimiters
+ if [ $4 ]; then
+-	echo bandlimin $4 $1 >> @3PROXY_CONFDIR@/bandlimiters
 +	echo bandlimin $4 $1 >> /opt/etc/3proxy/bandlimiters
  fi
- if [ $3 ]; then  
--	echo countin \"`wc -l /etc/3proxy/conf/counters|awk '{print $1}'`/$1\" D $3 $1 >> /etc/3proxy/conf/counters
-+	echo countin \"`wc -l /opt/etc/3proxy/counters|awk '{print $1}'`/$1\" D $3 $1 >> /opt/etc/3proxy/counters
+ if [ $3 ]; then
+-	echo countall \"`wc -l @3PROXY_CONFDIR@/counters|awk '{print $1}'`/$1\" D $3 $1 >> @3PROXY_CONFDIR@/counters
++	echo countall \"`wc -l /opt/etc/3proxy/counters|awk '{print $1}'`/$1\" D $3 $1 >> /opt/etc/3proxy/counters
  fi
- if [ $2 ]; then  
--	echo $1:`/bin/mycrypt $$ $2` >> /etc/3proxy/conf/passwd
+ if [ $2 ]; then
+-	echo $1:`@CMAKE_INSTALL_FULL_BINDIR@/@CRYPT_PREFIX@crypt $$ $2` >> @3PROXY_CONFDIR@/passwd
 +	echo $1:`/opt/bin/mycrypt $$ $2` >> /opt/etc/3proxy/passwd
  else
  	echo usage: $0 username password [day_limit] [bandwidth]
