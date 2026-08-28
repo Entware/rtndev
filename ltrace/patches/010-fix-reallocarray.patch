@@ -1,0 +1,59 @@
+--- a/libltrace.c
++++ b/libltrace.c
+@@ -142,7 +142,8 @@ static callback_func * ltrace_callbacks[
+ 
+ void
+ ltrace_add_callback(callback_func func, Event_type type) {
+-	ltrace_callbacks[type] = reallocarray(ltrace_callbacks[type], num_ltrace_callbacks[type] + 1, sizeof(callback_func));
++	ltrace_callbacks[type] = realloc(ltrace_callbacks[type],
++		(num_ltrace_callbacks[type] + 1) * sizeof(callback_func));
+ 	ltrace_callbacks[type][num_ltrace_callbacks[type]++] = func;
+ }
+ 
+--- a/options.c
++++ b/options.c
+@@ -648,7 +648,8 @@ process_options(int argc, char **argv)
+ 			setvbuf(options.output, NULL, _IOLBF, 0);
+ 			break;
+ 		case 'p':
+-			if (!(opt_p = reallocarray(opt_p, ++opt_p_len, sizeof(*opt_p)))) {
++			if (!(opt_p = realloc(opt_p,
++					++opt_p_len * sizeof(*opt_p)))) {
+ 				perror("ltrace: malloc");
+ 				exit(1);
+ 			}
+--- a/lens_default.c
++++ b/lens_default.c
+@@ -61,6 +61,23 @@ READER(read_double, double)
+ 
+ #undef READER
+ 
++static int
++print_binary(FILE *stream, uint64_t value)
++{
++	char buf[2 + sizeof(value) * 8 + 1];
++	char *p = &buf[sizeof(buf)];
++
++	*--p = '\0';
++	do {
++		*--p = '0' + (value & 1);
++		value >>= 1;
++	} while (value != 0);
++	*--p = 'b';
++	*--p = '0';
++
++	return fputs(p, stream);
++}
++
+ #ifndef PRIb64  // Underlying format supported by bookworm glibc, but macros not exposed until 2.38
+ #ifndef __PRI64_PREFIX
+ #define __PRI64_PREFIX "ll"
+@@ -87,7 +104,7 @@ READER(read_double, double)
+ 		case INT_FMT_o:						\
+ 			return fprintf(stream, "0%"PRIo64, v);		\
+ 		case INT_FMT_b:						\
+-			return fprintf(stream, "%#"PRIb64, v);		\
++			return print_binary(stream, v);			\
+ 		}							\
+ 	} while (0)
+ 
