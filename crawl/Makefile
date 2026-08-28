@@ -5,12 +5,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=crawl
-PKG_VERSION:=0.33.1
+PKG_VERSION:=0.34.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/crawl/crawl/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=c9b998dc7d3247c3ac68be6ac81fa8c2e743a232a7bbd6b1aff3011478e7e3d9
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=https://github.com/crawl/crawl.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=1eebc1a2892e1c89776a0d7a10691f8dac8d9796
+PKG_MIRROR_HASH:=d278ddafdead1a460696d58372405a7fd3965a3c36e236d09698688773780024
 
 PKG_BUILD_DEPENDS:=python-yaml/host
 
@@ -19,7 +21,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/crawl
 	SECTION:=games
 	CATEGORY:=Games
-	DEPENDS:=+liblua +libncursesw +libsqlite3 +libstdcpp +zlib
+	DEPENDS:=+libncursesw +libsqlite3 +libstdcpp +zlib
 	TITLE:=Dungeon Crawl Stone Soup is a role-playing roguelike game
 	URL:=https://crawl.develz.org
 	MAINTAINER:=Entware team, https://entware.net
@@ -39,6 +41,7 @@ define Build/Configure
 endef
 
 MAKE_FLAGS += \
+	BUILD_LUA=yes \
 	prefix=/opt \
 	DESTDIR=$(PKG_INSTALL_DIR) \
 	DATADIR=/opt/share/crawl/ \

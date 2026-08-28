@@ -1,0 +1,26 @@
+--- a/crawl-ref/source/AppHdr.h
++++ b/crawl-ref/source/AppHdr.h
+@@ -15,6 +15,12 @@
+ 
+ #pragma once
+ 
++extern "C" {
++#include <lua.h>
++#include <lauxlib.h>
++#include <lualib.h>
++}
++
+ /* Fix annoying precompiled header compile errors caused by unused Objective-C variant. */
+ #if !defined(__OBJC__)
+ 
+--- a/crawl-ref/source/Makefile
++++ b/crawl-ref/source/Makefile
+@@ -1225,7 +1225,7 @@ endif
+ EXTRA_OBJECTS += version.o
+ 
+ ifdef CONTRIBS
+-INCLUDES_L += -isystem contrib/install/$(ARCH)/include
++INCLUDES_L := -Icontrib/install/$(ARCH)/include $(INCLUDES_L)
+ LIBS += -Lcontrib/install/$(ARCH)/lib
+ endif
+ 
