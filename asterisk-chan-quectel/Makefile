@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: WTFPL
 #
-# Copyright (C) 2023 Entware.net
+# Copyright (C) 2023-2026 Entware.net
 
 include $(TOPDIR)/rules.mk
 
@@ -9,11 +9,11 @@ PKG_VERSION:=3.5
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE=2022-09-08
-PKG_SOURCE_VERSION:=b3534eaedce52819ee3f61db6d191ed35177b955
+PKG_SOURCE_DATE:=2025-03-24
+PKG_SOURCE_VERSION:=3d45c7f072131296a7e3c1a4faf5bb18751dbd87
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_DATE).tar.xz
 PKG_SOURCE_URL:=https://github.com/IchthysMaranatha/asterisk-chan-quectel
-PKG_MIRROR_HASH:=5a556e2041ced9393ab71c4bd6d3f24c53df9c68a697ce24bde6da018e4a72ec
+PKG_MIRROR_HASH:=e563dc49020eb7139dfaa1a481b0c0679b91e7da68e463f3e925f4ff6597f672
 
 PKG_FIXUP:=autoreconf
 
