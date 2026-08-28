@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,16 +9,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=istgt
-PKG_VERSION:=20150713
-PKG_REV:=14b0bacacedc9ac7e96fc34cf720800047f6194a
-PKG_RELEASE:=3
+PKG_VERSION:=20170104
+PKG_REV:=2d570c91e0e25161490016fc126bced1c321bb21
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/elastocloud/istgt.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=85f22a4cc4bbdbe53f6aed1988e7703df7ed41fd7125556c59608778eaf4cd08
+PKG_MIRROR_HASH:=b801f6cf6cc90b1932996ba73e01ec1492be0a2e7abd4a3ae19036cb454bebca
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
