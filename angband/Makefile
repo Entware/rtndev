@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=angband
-PKG_VERSION:=4.2.5
+PKG_VERSION:=4.2.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Angband-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/angband/angband/releases/download/$(PKG_VERSION)
-PKG_HASH:=c4cacbdf28f726fcb1a0b30b8763100fb06f88dbb570e955232e41d83e0718a6
+PKG_HASH:=8c0ffa2b85d74bd0cc273752f61c0440dba93323cd790be460f90c8dced7cbf4
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
