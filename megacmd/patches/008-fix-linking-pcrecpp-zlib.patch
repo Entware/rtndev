@@ -1,0 +1,23 @@
+--- a/build/cmake/modules/megacmd_libraries.cmake
++++ b/build/cmake/modules/megacmd_libraries.cmake
+@@ -15,11 +15,17 @@
+     else() # No VCPKG usage. Use pkg-config
+         find_package(PkgConfig REQUIRED) # For libraries loaded using pkg-config
+ 
+-        if(USE_PCRE) #TODO: UNTESTED!
+-            pkg_check_modules(pcre REQUIRED IMPORTED_TARGET libpcre)
+-            target_link_libraries(LMegacmdServer PRIVATE PkgConfig::pcre)
++        if(USE_PCRE)
++            pkg_check_modules(pcrecpp REQUIRED IMPORTED_TARGET libpcrecpp)
++            target_link_libraries(LMegacmdServer PUBLIC PkgConfig::pcrecpp)
+             set(USE_PCRE 1)
+         endif()
++
++        pkg_check_modules(readline REQUIRED IMPORTED_TARGET readline)
++        target_link_libraries(LMegacmdServer PUBLIC PkgConfig::readline)
++
++        find_package(ZLIB REQUIRED)
++        target_link_libraries(LMegacmdServer PUBLIC ZLIB::ZLIB)
+     endif()
+ 
+ endmacro()

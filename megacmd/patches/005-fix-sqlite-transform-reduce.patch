@@ -1,0 +1,27 @@
+--- a/sdk/src/db/sqlite.cpp
++++ b/sdk/src/db/sqlite.cpp
+@@ -535,16 +535,15 @@
+ 
+         std::vector<std::unique_ptr<MigrateType>> migrateElement;
+         migrateElement.reserve(cols.size());
+-        bool hasValues = std::transform_reduce(
+-            cols.begin(),
+-            cols.end(),
+-            false,
+-            std::logical_or{},
+-            [&migrateElement, &nd](const NewColumn& c) -> bool
++        bool hasValues = false;
++        for (const auto& c : cols)
++        {
++            assert(c.migrateOperation);
++            if (c.migrateOperation(nd, migrateElement))
+             {
+-                assert(c.migrateOperation);
+-                return c.migrateOperation(nd, migrateElement);
+-            });
++                hasValues = true;
++            }
++        }
+ 
+ 
+         ++numRows;

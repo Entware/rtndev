@@ -1,0 +1,11 @@
+--- a/sdk/include/mega/raid.h
++++ b/sdk/include/mega/raid.h
+@@ -281,7 +281,7 @@
+         const CloudRaidImpl* mPimpl() const { return m_pImpl.get(); }
+         CloudRaidImpl* mPimpl() { return m_pImpl.get(); }
+ 
+-        std::unique_ptr<CloudRaidImpl> m_pImpl{};
++        std::unique_ptr<CloudRaidImpl> m_pImpl;
+         bool mShown{};
+ 
+     public:

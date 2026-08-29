@@ -1,0 +1,35 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -215,6 +215,10 @@
+     "${ProjectDir}/src/megacmdplatform.mm"
+ )
+ 
++# Load 3rd parties
++load_megacmdserver_libraries()
++
++
+ # Given we are no longer including the sdk, and some sources use certain defines without including SDK's config.h,
+ # We need to explicitly pass the compiling options.
+ target_compile_definitions(LMegacmdServer
+@@ -381,9 +385,9 @@
+ endif()
+ 
+ target_link_libraries(LMegacmdClient PUBLIC MEGA::SDKlib LMEGAcmdCommonUtils)
+-target_link_libraries(mega-exec LMegacmdClient)
+-target_link_libraries(mega-cmd PUBLIC MEGA::SDKlib LMEGAcmdCommonUtils)
+-target_link_libraries(mega-cmd-updater PUBLIC MEGA::SDKlib LMEGAcmdCommonUtils)
++target_link_libraries(mega-exec LMegacmdClient PkgConfig::pcrecpp ZLIB::ZLIB)
++target_link_libraries(mega-cmd PUBLIC MEGA::SDKlib LMEGAcmdCommonUtils PkgConfig::pcrecpp ZLIB::ZLIB PkgConfig::readline)
++target_link_libraries(mega-cmd-updater PUBLIC MEGA::SDKlib LMEGAcmdCommonUtils PkgConfig::pcrecpp ZLIB::ZLIB)
+ target_link_libraries(LMegacmdServer PUBLIC MEGA::SDKlib LMEGAcmdCommonUtils)
+ 
+ if (ENABLE_MEGACMD_TESTS)
+@@ -401,8 +405,6 @@
+     target_link_libraries(mega-cmd-tests-unit PUBLIC LMegacmdServer LMegacmdTestsCommon)
+ endif()
+ 
+-# Load 3rd parties #TODO: consider splitting by target?
+-load_megacmdserver_libraries()
+ 
+ #file(GET_RUNTIME_DEPENDENCIES ... _deps)
+ #foreach(_dep IN LISTS _deps)

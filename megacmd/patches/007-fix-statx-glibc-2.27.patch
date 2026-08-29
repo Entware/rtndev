@@ -1,0 +1,28 @@
+--- a/sdk/src/fuse/supported/platform/posix/linux/utility.cpp.orig	2026-02-09 09:48:35.533895629 +0000
++++ b/sdk/src/fuse/supported/platform/posix/linux/utility.cpp	2026-02-09 09:48:35.563895239 +0000
+@@ -24,14 +24,11 @@
+ bool abort(const std::string& path)
+ {
+     // Clarity.
+-    constexpr auto flags = AT_STATX_DONT_SYNC;
+-    constexpr auto mask = STATX_BASIC_STATS;
+ 
+-    // Try and retrieve information about path.
+-    struct statx attributes;
++    struct stat attributes;
+ 
+     // Couldn't retrieve information about path.
+-    if (statx(0, path.c_str(), flags, mask, &attributes))
++    if (stat(path.c_str(), &attributes))
+     {
+         FUSEErrorF("Couldn't retrieve information about %s: %s",
+                    path.c_str(),
+@@ -41,7 +38,7 @@
+     }
+ 
+     // Compute absolute device number.
+-    auto device = makedev(attributes.stx_dev_major, attributes.stx_dev_minor);
++    auto device = attributes.st_dev;
+ 
+     // Compute abort file path.
+     auto abortPath = format("/sys/fs/fuse/connections/%lu/abort", device);

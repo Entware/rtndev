@@ -1,0 +1,19 @@
+--- a/sdk/cmake/modules/sdklib_libraries.cmake
++++ b/sdk/cmake/modules/sdklib_libraries.cmake
+@@ -49,8 +49,14 @@ macro(load_sdklib_libraries)
+ 
+         find_package(PkgConfig REQUIRED) # For libraries loaded using pkg-config
+ 
+-        pkg_check_modules(cryptopp REQUIRED IMPORTED_TARGET libcrypto++)
+-        target_link_libraries(SDKlib PUBLIC PkgConfig::cryptopp) # TODO: Private for SDK core
++        if(CRYPTOPP_LIBRARY)
++            include_directories(${CRYPTOPP_INCLUDE_DIR})
++            target_link_libraries(SDKlib PUBLIC ${CRYPTOPP_LIBRARY})
++            message(STATUS "Using provided CRYPTOPP_LIBRARY: ${CRYPTOPP_LIBRARY}")
++        else()
++            pkg_check_modules(cryptopp REQUIRED IMPORTED_TARGET libcrypto++)
++            target_link_libraries(SDKlib PUBLIC PkgConfig::cryptopp) # TODO: Private for SDK core
++        endif()
+ 
+         pkg_check_modules(sodium REQUIRED IMPORTED_TARGET libsodium)
+         target_link_libraries(SDKlib PRIVATE PkgConfig::sodium)

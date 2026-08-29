@@ -1,0 +1,32 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -134,8 +134,6 @@
+     # If CMAKE_INSTALL_PREFIX is not set, it will set rpath to /opt/....
+     # Note: using cmake --install --prefix /some/prefix will not set rpath relative to that prefix
+     # The above can be used for building packages: in which install dir is a path construction folder that will not be there in packages
+-    set(CMAKE_INSTALL_LIBDIR "opt/megacmd/lib")
+-    set(CMAKE_INSTALL_BINDIR "usr/bin") #override default "bin"
+ 
+     if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+         message(STATUS "Overriding default CMAKE_INSTALL_PREFIX to /")
+@@ -475,11 +473,13 @@
+     else()
+         SET(vcpkg_lib_folder "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib/")
+     endif()
+-    install(DIRECTORY "${vcpkg_lib_folder}"
+-            DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-            FILES_MATCHING
+-            PATTERN "lib*.so*"
+-            PATTERN "*dylib*" #macOS
+-            PATTERN "manual-link" EXCLUDE
+-            PATTERN "pkgconfig" EXCLUDE)
++    if(VCPKG_INSTALLED_DIR AND VCPKG_TARGET_TRIPLET)
++        install(DIRECTORY "${vcpkg_lib_folder}"
++                DESTINATION ${CMAKE_INSTALL_LIBDIR}
++                FILES_MATCHING
++                PATTERN "lib*.so*"
++                PATTERN "*dylib*" #macOS
++                PATTERN "manual-link" EXCLUDE
++                PATTERN "pkgconfig" EXCLUDE)
++    endif()
+ endif() #not WIN32

@@ -1,0 +1,11 @@
+--- a/src/comunicationsmanager.h
++++ b/src/comunicationsmanager.h
+@@ -47,7 +47,7 @@
+ 
+     mega::MegaThread *getPetitionThread() const;
+     void setPetitionThread(mega::MegaThread *value);
+-    virtual std::string getPetitionDetails() const { return {}; }
++    virtual std::string getPetitionDetails() const { return std::string(); }
+ };
+ 
+ class ComunicationsManager
