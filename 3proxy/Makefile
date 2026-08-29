@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=3proxy
 PKG_VERSION:=1.0.0
 PKG_REV:=f6963ea302bd01209dc94f8677c3dba9f3504b4e
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -32,7 +32,7 @@ define Package/3proxy/description
  3proxy is universal proxy server. It can be used to provide internal users
  with fully controllable access to external resources or to provide external
  users with access to internal resources.
- Note: SSL plugin requires libopenssl to be installed.
+ This package is built without SSL support.
 endef
 
 define Package/3proxy/conffiles
@@ -48,7 +48,9 @@ endef
 
 MAKE_FLAGS += \
 	PREFIX="" \
-	CRYPT_PREFIX="my"
+	CRYPT_PREFIX="my" \
+	WOLFSSL_CHECK=false \
+	OPENSSL_CHECK=false
 
 define Package/3proxy/install
 	$(INSTALL_DIR) $(1)/opt/bin
