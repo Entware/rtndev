@@ -1,0 +1,20 @@
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -553,8 +553,6 @@ dependencies = [
+ [[package]]
+ name = "getrandom"
+ version = "0.2.16"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "335ff9f135e4384c8150d6f27c6daed433577f86b4750418338c01a1a2528592"
+ dependencies = [
+  "cfg-if",
+  "js-sys",
+@@ -566,8 +564,6 @@ dependencies = [
+ [[package]]
+ name = "getrandom"
+ version = "0.3.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "26145e563e54f2cadc477553f1ec5ee650b00862f0a58bcd12cbdc5f0ea2d2f4"
+ dependencies = [
+  "cfg-if",
+  "js-sys",

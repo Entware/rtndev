@@ -1,0 +1,11 @@
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -67,7 +67,7 @@ impl Config {
+             .set_default("playback.speed", None::<Option<f64>>)?
+             .set_default("session.capture_input", false)?
+             .set_default("notifications.enabled", true)?
+-            .add_source(File::with_name("/etc/asciinema/config.toml").required(false))
++            .add_source(File::with_name("/opt/etc/asciinema/config.toml").required(false))
+             .add_source(File::with_name(&user_defaults_path()?.to_string_lossy()).required(false))
+             .add_source(File::with_name(&user_config_path()?.to_string_lossy()).required(false));
+ 

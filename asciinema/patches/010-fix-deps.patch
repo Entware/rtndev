@@ -1,0 +1,11 @@
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -66,3 +66,8 @@ overflow-checks = false
+ 
+ [features]
+ macos-tty = []
++
++[patch.crates-io]
++# all: no SYS_getrandom
++getrandom2 = { path = "../getrandom-0.2.16", package = "getrandom", version = "0.2.16" }
++getrandom3 = { path = "../getrandom-0.3.3", package = "getrandom", version = "0.3.3" }
