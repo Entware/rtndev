@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=accel-ppp
 PKG_VERSION:=1.14.0
 PKG_REV:=048d31cb446879e0d1a1471b4ab99135a92bf289
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -28,7 +28,7 @@ define Package/accel-ppp
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=VPN
-	DEPENDS:=+libopenssl +libpcre2 +libpthread +librt
+	DEPENDS:=+libatomic +libopenssl +libpcre2 +libpthread +librt
 	TITLE:=accel-ppp VPN server
 	URL:=https://accel-ppp.org/
 	MAINTAINER:=Entware team, https://entware.net
