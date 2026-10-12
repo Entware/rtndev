@@ -124,7 +124,7 @@ decode()
 			    filename);
 			return(1);
 		}
-		*p++ = NULL;
+		*p++ = '\0';
 		if (!(pw = getpwnam(buf + 1))) {
 			(void)fprintf(stderr, "uudecode: %s: no user %s.\n",
 			    filename, buf);
