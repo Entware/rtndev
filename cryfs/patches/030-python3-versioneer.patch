@@ -1,0 +1,27 @@
+--- a/src/gitversion/gitversion.cmake
++++ b/src/gitversion/gitversion.cmake
+@@ -1,7 +1,9 @@
+ set(DIR_OF_GITVERSION_TOOL "${CMAKE_CURRENT_LIST_DIR}" CACHE INTERNAL "DIR_OF_GITVERSION_TOOL")
+ 
+ function (get_git_version OUTPUT_VARIABLE)
+-    EXECUTE_PROCESS(COMMAND python ${DIR_OF_GITVERSION_TOOL}/getversion.py
++    find_package(Python3 REQUIRED COMPONENTS Interpreter)
++
++    EXECUTE_PROCESS(COMMAND "${Python3_EXECUTABLE}" ${DIR_OF_GITVERSION_TOOL}/getversion.py
+         WORKING_DIRECTORY ${DIR_OF_GITVERSION_TOOL}
+         OUTPUT_VARIABLE VERSION
+         ERROR_VARIABLE error
+--- a/src/gitversion/versioneer.py
++++ b/src/gitversion/versioneer.py
+@@ -406,9 +406,9 @@ def get_config_from_root(root):
+     # configparser.NoOptionError (if it lacks "VCS="). See the docstring at
+     # the top of versioneer.py for instructions on writing your setup.cfg .
+     setup_cfg = os.path.join(root, "setup.cfg")
+-    parser = configparser.SafeConfigParser()
++    parser = configparser.ConfigParser()
+     with open(setup_cfg, "r") as f:
+-        parser.readfp(f)
++        parser.read_file(f)
+     VCS = parser.get("versioneer", "VCS")  # mandatory
+ 
+     def get(parser, name):
