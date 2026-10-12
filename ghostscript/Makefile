@@ -43,6 +43,8 @@ endef
 
 GS_AUX_BINARIES:=echogs genarch genconf packps
 
+HOST_CFLAGS += -std=gnu17
+
 HOST_CONFIGURE_ARGS += \
 	--without-libtiff \
 	--disable-contrib \
