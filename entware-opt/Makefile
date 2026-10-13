@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -21,7 +21,7 @@ define Package/entware-opt
 	CATEGORY:=Base system
 	DEPENDS:=+libc +libgcc +libstdcpp +libpthread +librt \
 		+entware-release \
-		+zoneinfo-asia +zoneinfo-europe \
+		+zoneinfo-core \
 		+findutils +terminfo +locales +opkg \
 		+entware-upgrade
 	TITLE:=provides basic toolchain libraries (dummy)
