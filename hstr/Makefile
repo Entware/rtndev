@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2023 Entware
+# Copyright (C) 2023-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=hstr
-PKG_VERSION:=3.1.0
+PKG_VERSION:=3.2.0
 PKG_RELEASE:=1
 
 SHORT_VERSION:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 
 PKG_SOURCE:=$(PKG_NAME)-$(SHORT_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/dvorka/hstr/tar.gz/refs/tags/$(SHORT_VERSION)?
-PKG_HASH:=e5293d4fe2502662f19c793bef416e05ac020490218e71c75a5e92919c466071
+PKG_SOURCE_URL:=https://codeload.github.com/dvorka/hstr/tar.gz/refs/tags/v$(SHORT_VERSION)?
+PKG_HASH:=bceab1cb3c3b636d9ff4dfbaf8b035530e76a36d948767ed1735c4e79d7473eb
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(SHORT_VERSION)
 
@@ -31,7 +31,7 @@ define Package/hstr
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=bash and zsh shell history suggest box
-  URL:=http://me.mindforger.com/
+  URL:=https://me.mindforger.com/
   MAINTAINER:=Entware team, https://entware.net
   DEPENDS:=+libncursesw +libreadline
 endef
