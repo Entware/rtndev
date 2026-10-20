@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2024 Entware
+# Copyright (C) 2020-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zbar
-PKG_VERSION:=0.23.93
-PKG_REV:=bb05ec54eec57f8397cb13fb9161372a281a1219
+PKG_VERSION:=0.23.95
+PKG_REV:=dc19fcc7da58e8cf84ba1ec417e24b04609feb23
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,12 +14,12 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/mchehab/zbar
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=f678cf14b03b49a5fa395c18916fdc9e7c0c92a335a9387d10dff19a2ec9bc1c
+PKG_MIRROR_HASH:=2881e059c3765ac462bb8eb01cf0e64a3e07f7fe123d29389092307dd4bac855
 
-PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/meson.mk
 
 define Package/zbar
 	SECTION:=utils
@@ -37,17 +37,21 @@ define Package/zbar/description
  Codabar, Interleaved 2 of 5, QR Code and SQ Code.
 endef
 
-CONFIGURE_ARGS += \
-	--disable-doc \
-	--disable-video \
-	--with-graphicsmagick \
-	--without-gtk \
-	--without-imagemagick \
-	--without-java \
-	--without-python \
-	--without-qt \
-	--without-qt5 \
-	--without-dbus
+MESON_ARGS += \
+	-Dbuild_tests=false \
+	-Ddbus=disabled \
+	-Ddoc=false \
+	-Dgir=false \
+	-Dgraphicsmagick=enabled \
+	-Dgtk=no \
+	-Dimagemagick=auto \
+	-Djava=disabled \
+	-Dlibrary_type=shared \
+	-Dnls=disabled \
+	-Dpython=no \
+	-Dqt=false \
+	-Dvideo=false \
+	-Dx11=disabled
 
 define Package/zbar/install
 	$(INSTALL_DIR) $(1)/opt/bin
