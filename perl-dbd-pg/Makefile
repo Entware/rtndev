@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2021-2024 Entware
+# Copyright (C) 2021-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-dbd-pg
-PKG_VERSION:=3.18.0
-PKG_RELEASE:=2
+PKG_VERSION:=3.21.2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=DBD-Pg-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP
-PKG_HASH:=92bbe8a363040f8ce6a3f1963f128132e245861a9b4dc5a84178b42d625a7807
+PKG_HASH:=d79179255ccb0c87b029db2eecaea56828e581255c48445d5fc0e79fa4e9245b
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/DBD-Pg-$(PKG_VERSION)
 
@@ -32,7 +32,7 @@ define Package/perl-dbd-pg
 	DEPENDS:=+libpq +perl-dbi +perlbase-test
 endef
 
-MOD_CFLAGS_PERL += -DPGLIBVERSION=\"130400\" -DPGDEFPORT=\"5432\"
+MOD_CFLAGS_PERL += -DPGLIBVERSION=\"170500\" -DPGDEFPORT=\"5432\"
 
 define Build/Configure
 	$(call perlmod/Configure,,POSTGRES_HOME="$(STAGING_DIR)/opt",)
