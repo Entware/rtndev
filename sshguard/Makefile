@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sshguard
-PKG_VERSION:=2.5.1
+PKG_VERSION:=2.6.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/sshguard
-PKG_HASH:=997a1e0ec2b2165b4757c42f8948162eb534183946af52efc406885d97cb89fc
+PKG_HASH:=17cf44e29ce7853bd2df1425785947a097eda1d4f87ffb03a92d4c98bae4654d
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
