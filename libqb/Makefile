@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libqb
-PKG_VERSION:=2.0.9
+PKG_VERSION:=2.0.10
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ClusterLabs/libqb/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=499379e9d7c684c7919373eb041ca5bffd2bdec74ee41a8c489f8be925d0498b
+PKG_HASH:=d062eb6b1da9981a5516fc49c3049da09e874712b2698361c3a73488785cd4ad
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=LGPL-2.1-or-later
@@ -30,7 +30,7 @@ define Package/libqb
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=An IPC library for high performance servers
-  URL:=http://clusterlabs.github.io/libqb
+  URL:=https://clusterlabs.github.io/libqb/
 endef
 
 define Package/libqb/description
