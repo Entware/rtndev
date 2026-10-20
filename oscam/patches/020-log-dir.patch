@@ -13,7 +13,7 @@
  
  # monitor
  
-@@ -35,7 +35,7 @@ numusers      = 1
+@@ -36,7 +36,7 @@ numusers      = 1
  sampletime    = 2
  samples       = 5
  penalty       = 1

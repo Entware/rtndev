@@ -6,8 +6,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam
-PKG_REV:=165afcc0c836516164ee74cc0e92de1071350124
-PKG_VERSION:=2.26.01
+PKG_REV:=39e78a4688b30abaab62b5c9e13672b4e34bfca0
+PKG_VERSION:=2.26.09
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -15,7 +15,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://git.streamboard.tv/common/oscam.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=410a6db77eae19128fe8077ebee08d7050c11c0fb692e39b391f1be4ef5084c6
+PKG_MIRROR_HASH:=fe6ce2dc11dfd108bad60311ee7214f57666da63a4fc5a91424d9822aa9e96b3
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -25,7 +25,7 @@ define Package/oscam
 	CATEGORY:=Network
 	DEPENDS:=+libpcsclite +libopenssl
 	TITLE:=CAM software
-	URL:=http://www.streamboard.tv/oscam/wiki
+	URL:=https://git.streamboard.tv/common/oscam/-/wikis/home
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
@@ -41,6 +41,7 @@ endef
 CMAKE_OPTIONS += \
 	-DCS_CONFDIR=/opt/etc/oscam \
 	-DLIBUSBDIR=$(STAGING_DIR)/opt \
+	-DPCSCDIR=$(STAGING_DIR)/opt \
 	-DOPTIONAL_INCLUDE_DIR=$(STAGING_DIR)/opt/include \
 	-DOPTIONAL_LINK_DIR=$(STAGING_DIR)/opt/lib \
 	-DOPENSSL_INCLUDE_DIR=$(STAGING_DIR)/opt/include \
