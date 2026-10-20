@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2024 Entware
+# Copyright (C) 2017-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=httrack
-PKG_VERSION:=3.49.5
-PKG_REV:=70d43d42b5bef9057b5387c0d80556ecb9045779
+PKG_VERSION:=3.50.5
+PKG_REV:=16c91fac556b3a06ce72ab0f1307de311b535b54
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/xroche/httrack.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=97f49f3df36aec68ef8afd9aa568477c98e96b502422ae0155b14005ee36fb01
+PKG_MIRROR_HASH:=1a333976ebfa31b82e8da8bb51f157f1b4c093bd5994d5625a1bfc6ef34c1037
 
 PKG_BUILD_FLAGS:=no-mips16
 PKG_FIXUP:=autoreconf
@@ -28,7 +28,7 @@ define Package/httrack
 	SUBMENU:=File Transfer
 	DEPENDS:=+libopenssl +libpthread
 	TITLE:=website copier
-	URL:=http://www.httrack.com
+	URL:=https://www.httrack.com/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
