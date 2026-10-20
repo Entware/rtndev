@@ -1,15 +1,15 @@
 --- a/conf/config.php
 +++ b/conf/config.php
-@@ -28,7 +28,7 @@
+@@ -52,7 +52,7 @@
  	$do_diagnostic = true;			// Diagnose ruTorrent. Recommended to keep enabled, unless otherwise required.
  	$al_diagnostic = true;			// Diagnose auto-loader. Set to "false" to make composer plugins work.
  
--	$log_file = $_ENV['RU_LOG_FILE'] ?? '/tmp/errors.log'; // path to log file (comment or leave blank to disable logging)
-+	$log_file = $_ENV['RU_LOG_FILE'] ?? '/opt/var/log/rutorrent_errors.log'; // path to log file (comment or leave blank to disable logging)
+-	$log_file = $_ENV['RU_LOG_FILE'] ?? '/tmp/errors.log'; // absolute path or stream URI (comment or leave blank to disable logging)
++	$log_file = $_ENV['RU_LOG_FILE'] ?? '/opt/var/log/rutorrent_errors.log'; // absolute path or stream URI (comment or leave blank to disable logging)
  
  	$saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
  	$overwriteUploadedTorrents = false;	// Overwrite existing uploaded torrents in profile/torrents directory or make unique name
-@@ -36,8 +36,8 @@
+@@ -60,8 +60,8 @@
  	$topDirectory = $_ENV['RU_TOP_DIR'] ?? '/';			// Upper available directory. Absolute path with trail slash.
  	$forbidUserSettings = false;
  
@@ -20,7 +20,7 @@
  
  	// For web->rtorrent link through unix domain socket
  	// (scgi_local in rtorrent conf file), change variables
-@@ -52,11 +52,11 @@
+@@ -76,11 +76,11 @@
  	// Can't be greater then 327625*1024 due to limitation in libtorrent ResourceManager::set_max_upload_unchoked function.
  
  	$pathToExternals = array(

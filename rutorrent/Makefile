@@ -5,16 +5,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rutorrent
-PKG_VERSION:=5.2.10
+PKG_VERSION:=5.3.18
 PKG_RELEASE:=1
-PKG_REV:=e839191876b8d950dc2c6617cdfb2b726979d44e
+PKG_REV:=a315bd637eef6c90a4928c60559ad8926e38f534
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Novik/ruTorrent.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=795f05ee1c6de423f8640584d45349f99c19cc2d7b32764a243738c3a9f1cad4
+PKG_MIRROR_HASH:=d6010145f7b1618173c6680ff7b176a74c5239c0db47094dddb7fde143c02fb6
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -42,9 +42,11 @@ _getdir \
 history \
 httprpc \
 ipad \
+log_history \
 loginmgr \
 lookat \
 mediainfo \
+mobile \
 _noty \
 _noty2 \
 ratio \
@@ -61,6 +63,7 @@ spectrogram \
 _task \
 theme \
 throttle \
+trackerstatus \
 tracklabels \
 trafic \
 unpack \
