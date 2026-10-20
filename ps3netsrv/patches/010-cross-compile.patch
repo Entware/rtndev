@@ -4,10 +4,10 @@
  OS =  linux
 -BUILD_TYPE = release_static
 +BUILD_TYPE = release
+
+ BUILD_DATE ?= $(shell date +%Y%m%d 2>/dev/null || echo unknown)
  
- OUTPUT := ps3netsrv
- OBJS = src/main.o src/padlock.o src/aes.o src/compat.o src/mem.o src/File.o src/VIsoFile.o
-@@ -22,7 +22,7 @@ CPPFLAGS += -Doff64_t=off_t
+@@ -28,7 +28,7 @@ CPPFLAGS += -Doff64_t=off_t
  #CPPFLAGS +=-DNOSSL
  #OBJS = src/main.o src/compat.o src/mem.o src/File.o src/VIsoFile.o
  
