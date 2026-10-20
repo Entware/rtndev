@@ -6,7 +6,7 @@
  # SPDX-License-Identifier: GPL-2.0
  #
  # Copyright (C) 2015-2020 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
-@@ -40,7 +40,7 @@
+@@ -40,7 +40,7 @@ die() {
  parse_options() {
  	local interface_section=0 line key value stripped v
  	CONFIG_FILE="$1"

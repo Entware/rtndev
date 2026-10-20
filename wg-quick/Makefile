@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wg-quick
-PKG_VERSION:=1.0.20250521
+PKG_VERSION:=1.0.20260223
 PKG_RELEASE:=1
 
-PKG_SOURCE:=wireguard-tools-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://git.zx2c4.com/wireguard-tools/snapshot
-PKG_HASH:=b6f2628b85b1b23cc06517ec9c74f82d52c4cdbd020f3dd2f00c972a1782950e
+PKG_SOURCE:=wireguard-tools-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/WireGuard/wireguard-tools/tar.gz/refs/tags/v$(PKG_VERSION)?
+PKG_HASH:=859f8af03702db5e5c43f8ece77f5ebef40a2f4627c3e03997a031d4940ea9bc
 
 include $(INCLUDE_DIR)/package.mk
 
