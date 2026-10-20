@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups-pdf
-PKG_VERSION:=3.0.2
+PKG_VERSION:=3.0.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.cups-pdf.de/src
-PKG_HASH:=56284001f40da9854e56215527e292de4811ce349e27d7a3e8add35c72da2f95
+PKG_SOURCE_URL:=https://www.cups-pdf.de/src
+PKG_HASH:=4a66e16976b30f3c6df5ed113ed9d6e13f7f34617eab349f70b0382fce54e08b
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -21,7 +21,7 @@ define Package/cups-pdf
 	SUBMENU:=Printing
 	DEPENDS:=+ghostscript +libcups
 	TITLE:=PDF printer software
-	URL:=http://www.cups-pdf.de/
+	URL:=https://www.cups-pdf.de/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 

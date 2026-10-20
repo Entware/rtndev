@@ -1,6 +1,6 @@
 --- a/src/cups-pdf.h
 +++ b/src/cups-pdf.h
-@@ -18,7 +18,7 @@
+@@ -19,7 +19,7 @@
  /  they are reasonable for most systems.			     */
  
  /* location of the configuration file */
@@ -9,7 +9,7 @@
  
  
  /* --- DO NOT EDIT BELOW THIS LINE --- */
-@@ -55,17 +55,17 @@ struct {
+@@ -56,17 +56,17 @@ struct {
      mode_t modval;
    } value;
  } configData[] = {
