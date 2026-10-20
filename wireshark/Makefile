@@ -5,14 +5,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=4.6.2
+PKG_VERSION:=4.6.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://ftp.uni-kl.de/pub/wireshark/src/all-versions \
 	http://ftp.uni-kl.de/pub/wireshark/src/all-versions \
 	https://wireshark.org/download/src/all-versions
-PKG_HASH:=e218e3b3899e5d6e35a5fe95eeeabead587ed084cbf5fc330ac827f9a3137de8
+PKG_HASH:=d062d416a1ab3a49975aafe3a671c882dde0562ccd71b078808ceb59d465fc0f
 
 # FIXME FAILED: ... run/lemon: Exec format error
 PKG_USE_NINJA:=0
