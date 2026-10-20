@@ -4,16 +4,18 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# 1.0.8: cythonize is mandatory
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rencode
-PKG_VERSION:=1.0.6
-PKG_RELEASE:=3
+PKG_VERSION:=1.0.9
+PKG_RELEASE:=1
 
 PYPI_NAME:=rencode
-PKG_HASH:=2586435c4ea7d45f74e26765ad33d75309de7cf47c4d762e8efabd39905c0718
+PKG_HASH:=ca3afe8d09d26fb48ac0ad6773e35ec0ae1b92d038d217685c54c5a86577e2f2
+
+PKG_LICENSE:=GPL-3.0-only
+PKG_LICENSE_FILES:=COPYING
+PKG_BUILD_DEPENDS:=python-cython/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
