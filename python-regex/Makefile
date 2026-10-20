@@ -1,17 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
-#
-# 2025.11.3 requires setuptools>77.0.3
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-regex
-PKG_VERSION:=2024.11.6
+PKG_VERSION:=2026.9.29
 PKG_RELEASE:=1
 
 PYPI_NAME:=regex
-PKG_HASH:=7ab159b063c52a0333c884e4679f8d7a85112ee3078fe3d9004b2dd875585519
+PKG_HASH:=8b5fcc4771732191b2b7d1dd68d8f0353f47f8d90b6150f6dce58bf1112442cb
+
+PKG_LICENSE:=Apache-2.0 CNRI-Python
+PKG_LICENSE_FILES:=LICENSE.txt
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -22,7 +23,7 @@ define Package/python3-regex
 	CATEGORY:=Languages
 	SUBMENU:=Python
 	TITLE:=python-regexp
-	URL:=https://bitbucket.org/mrabarnett/mrab-regex
+	URL:=https://github.com/mrabarnett/mrab-regex
 	MAINTAINER:=Entware team, https://entware.net
 	DEPENDS:=+python3-light +python3-codecs +python3-urllib
 endef
