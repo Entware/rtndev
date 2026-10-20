@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-image-exiftool
-PKG_VERSION:=13.50
+PKG_VERSION:=13.55
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=https://exiftool.org
+PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/E/EX/EXIFTOOL
 PKG_SOURCE:=Image-ExifTool-$(PKG_VERSION).tar.gz
-PKG_HASH:=27e2d66eb21568cc0d59520f89afcaaa50735e1ad9fa4b36d0a4ccf916c70d31
+PKG_HASH:=5f4c81d34ad406538c2871ad72dbfceb5d9b412b2f16cbbeb4d712d270846667
 
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
@@ -24,7 +24,7 @@ define Package/perl-image-exiftool
 	CATEGORY:=Multimedia
 	DEPENDS:=+perl +perlbase-base +perlbase-encode +perlbase-essential +perlbase-file +perlbase-time
 	TITLE:=Perl library and command-line application for reading, writing and editing meta information
-	URL:=https://www.sno.phy.queensu.ca/~phil/exiftool/
+	URL:=https://exiftool.org/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
