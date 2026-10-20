@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # only build static library (neovim)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=utf8proc
-PKG_VERSION:=2.10.0
+PKG_VERSION:=2.12.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/JuliaStrings/utf8proc/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=6f4f1b639daa6dca9f80bc5db1233e9cbaa31a67790887106160b33ef743f136
+PKG_HASH:=f564011d38b2888d583d510b08e69ffa15aa117155db1b9b49ef1dfe1fa25111
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE.md
@@ -33,7 +33,7 @@ endef
 define Package/libutf8proc/description
   utf8proc is a small, clean C library that provides Unicode
  normalization, case-folding, and other operations for data in the UTF-8
- encoding, supporting Unicode version 16.0.
+ encoding, supporting Unicode version 18.0.
 endef
 
 Build/Configure:=:

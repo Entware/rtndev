@@ -26,5 +26,5 @@
 +#	ln -f -s libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)/libutf8proc.so.$(MAJOR)
 +#endif
  
- MANIFEST.new:
- 	rm -rf tmp
+ uninstall:
+ 	$(RM) $(DESTDIR)$(includedir)/utf8proc.h
