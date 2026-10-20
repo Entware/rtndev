@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/956
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vifm
-PKG_VERSION:=0.14.3
+PKG_VERSION:=0.14.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/vifm/vifm/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=9e21e69f0bfa00a470c01f4b83e011af6a4e69626237a8d12afc0d79a7819be8
+PKG_HASH:=eaabff68da048620e30b3131c8fbb0cdd60177591409acd28a7ad5339c166e80
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-or-later

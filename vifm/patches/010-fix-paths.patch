@@ -1,6 +1,6 @@
 --- a/src/int/file_magic.c
 +++ b/src/int/file_magic.c
-@@ -290,6 +290,7 @@ get_handlers(const char mime_type[])
+@@ -307,6 +307,7 @@ get_handlers(const char mime_type[])
  	}
  
  #if !defined(_WIN32) && defined(ENABLE_DESKTOP_FILES)
