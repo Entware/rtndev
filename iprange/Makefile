@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=iprange
-PKG_VERSION:=1.0.4
+PKG_VERSION:=2.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/firehol/iprange/releases/download/v$(PKG_VERSION)
-PKG_HASH:=296ff1813ff4b3448c686c03cf3af8826e328baaa19dc8e40778dccf27c71b16
+PKG_HASH:=34237002ffc47f2d20f18db0117a60663d099419132ad2cf307336479b3d7db5
 
 include $(INCLUDE_DIR)/package.mk
 
