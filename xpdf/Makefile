@@ -1,17 +1,17 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2024 Entware
+# Copyright (C) 2011-2026 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xpdf
-PKG_VERSION:=4.05
+PKG_VERSION:=4.06
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://dl.xpdfreader.com
-PKG_HASH:=92707ed5acb6584fbd73f34091fda91365654ded1f31ba72f0970022cf2a5cea
+PKG_HASH:=1c38f527c46caee0f712386d42a885b96a31ed9ce11904e872559859894d137e
 
 PKG_BUILD_FLAGS:=no-mips16
 
