@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2024 Entware
+# Copyright (C) 2017-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-pages
-PKG_VERSION:=6.9
+PKG_VERSION:=6.19
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/docs/man-pages
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=9508887dccbb7e77e42532a0bb7af18400769c78a5b9d13b2f982e579e0e2752
+PKG_HASH:=fc0c620f07b4eba8ede128fbc267db5ebb4a67bab1aca3b01e5734956baf5572
 
 include $(INCLUDE_DIR)/package.mk
 
