@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aide
-PKG_VERSION:=0.19.3
+PKG_VERSION:=0.19.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/aide/aide/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=aaa4c6032ab6597496a61290b400bf1a9d175a2212f6db86bd75897231d6bfa4
+PKG_HASH:=a019dba676133f895029be98dc765480fc671a868d4b3654908ccb562e3cc7fc
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-or-later
