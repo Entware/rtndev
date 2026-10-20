@@ -9,7 +9,7 @@
  
    #if defined(__thumb__) || defined(__THUMBEL__) || defined(_M_ARMT)
      #define MY_CPU_ARMT
-@@ -228,7 +228,7 @@ MY_CPU_64BIT means that processor can wo
+@@ -239,7 +239,7 @@ MY_CPU_64BIT means that processor can wo
  #endif
  
  

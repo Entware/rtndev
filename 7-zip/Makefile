@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=7-zip
-PKG_VERSION:=26.02
+PKG_VERSION:=26.04
 PKG_RELEASE:=1
 
-PKG_SOURCE:=7z2602-src.tar.xz
+PKG_SOURCE:=7z2604-src.tar.xz
 PKG_SOURCE_URL:=https://www.7-zip.org/a
-PKG_HASH:=cf967c98bca02a4b8b16375f441825a8e141362f14be1969bbec8e1ca0bff9dd
+PKG_HASH:=9691944c0fe0d01bb49373a704fb983fd33bc98b1738695179dfbf99ac1734f6
 
 include $(INCLUDE_DIR)/package.mk
 
