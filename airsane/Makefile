@@ -5,8 +5,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=airsane
-PKG_VERSION:=0.4.12
-PKG_REV:=129cc3bf7258251a0a694dee7741285b59d88f9f
+PKG_VERSION:=0.4.15
+PKG_REV:=ac117f185e06afc7c3557f9839a42d8fd9fd18fa
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/SimulPiscator/AirSane.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=1675f066e53f218319a1a634f751af4b4a3c9f5527d0641863c62eef553b9e8d
+PKG_MIRROR_HASH:=7bc4b1e193e03d4c36a6543b2c7bb56741174e119967fea78c16e0993b98368e
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -34,6 +34,7 @@ define Package/airsane/description
 endef
 
 define Package/airsane/conffiles
+/opt/etc/airsane/access.conf
 /opt/etc/airsane/ignore.conf
 /opt/etc/airsane/options.conf
 /opt/etc/config/airsaned.conf

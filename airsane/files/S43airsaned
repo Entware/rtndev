@@ -4,7 +4,7 @@
 
 ENABLED=yes
 PROCS=airsaned
-ARGS="--interface=${INTERFACE} --base-port=${BASE_PORT} --access-log=${ACCESS_LOG} --hotplug=${HOTPLUG} --mdns-announce=${MDNS_ANNOUNCE} --local-scanners-only=${LOCAL_SCANNERS_ONLY} --options-file=${OPTIONS_FILE} --ignore-list=${IGNORE_LIST}"
+ARGS="--listen-port=${LISTEN_PORT} --interface=${INTERFACE} --unix-socket=${UNIX_SOCKET} --access-log=${ACCESS_LOG} --hotplug=${HOTPLUG} --reload-delay=${RELOAD_DELAY} --mdns-announce=${MDNS_ANNOUNCE} --announce-secure=${ANNOUNCE_SECURE} --announce-base-url=${ANNOUNCE_BASE_URL} --web-interface=${WEB_INTERFACE} --reset-option=${RESET_OPTION} --disclose-version=${DISCLOSE_VERSION} --random-paths=${RANDOM_PATHS} --compatible-path=${COMPATIBLE_PATH} --local-scanners-only=${LOCAL_SCANNERS_ONLY} --options-file=${OPTIONS_FILE} --ignore-list=${IGNORE_LIST} --access-file=${ACCESS_FILE}"
 PREARGS=""
 DESC=$PROCS
 PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
