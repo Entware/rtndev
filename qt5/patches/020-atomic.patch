@@ -1,6 +1,6 @@
 --- a/qtbase/src/corelib/configure.json
 +++ b/qtbase/src/corelib/configure.json
-@@ -309,7 +309,8 @@
+@@ -315,7 +315,8 @@
                      "test(fptr);"
                  ],
                  "qmake": "CONFIG += c++11"
