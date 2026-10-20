@@ -1,70 +1,70 @@
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -4658,10 +4658,10 @@ grap2graph_srcdir = $(top_srcdir)/contri
+@@ -5751,14 +5751,14 @@ grap2graph_srcdir = $(top_srcdir)/contri
  hdtbl_srcdir = $(top_srcdir)/contrib/hdtbl
  
  # Groff command used to generate .ps files
 -HDTBLGROFF = \
 -  GROFF_COMMAND_PREFIX= \
 -  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
--  $(GROFFBIN) $(FFLAG) $(MFLAG) -M$(hdtbl_srcdir) -t -p -e -U
+-  $(GROFFBIN) $(FFLAG) \
+-    -dfontpath=$(top_srcdir)/font \
+-    -dsopath=$(hdtbl_srcdir)/ \
+-    -I $(doc_builddir) -I $(doc_srcdir) \
+-     $(MFLAG) -M$(hdtbl_srcdir) -mhdtbl -t -p -e -U -b -wall
 +HDTBLGROFF = /bin/true
 +#  GROFF_COMMAND_PREFIX= \
 +#  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
-+#  $(GROFFBIN) $(FFLAG) $(MFLAG) -M$(hdtbl_srcdir) -t -p -e -U
++#  $(GROFFBIN) $(FFLAG) \
++#    -dfontpath=$(top_srcdir)/font \
++#    -dsopath=$(hdtbl_srcdir)/ \
++#    -I $(doc_builddir) -I $(doc_srcdir) \
++#     $(MFLAG) -M$(hdtbl_srcdir) -mhdtbl -t -p -e -U -b -wall
  
  HDTBLTMACFILES = \
    contrib/hdtbl/hdtbl.tmac \
-@@ -4752,11 +4752,11 @@ mom_srcdir = $(top_srcdir)/contrib/mom
+@@ -5874,12 +5874,12 @@ mom_srcdir = $(top_srcdir)/contrib/mom
  # pdfmom command used to generate .pdf
  #
  # Use '-K utf8', not '-k', in case 'configure' didn't find uchardet.
 -MOMPDFMOM = \
+-  GROFF_COMMAND=test-groff \
 -  GROFF_COMMAND_PREFIX= \
 -  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
--  PDFMOM_BIN_PATH="$(top_builddir)" \
--  $(PDFMOMBIN) $(FFLAG) $(MFLAG) -M$(mom_srcdir) -K utf8 -p -e -t
+-  $(PDFMOMBIN) $(FFLAG) $(MFLAG) -M$(mom_srcdir) -K utf8 -p -e -t \
+-  -wall -b -P-W
 +MOMPDFMOM = /bin/true
++#  GROFF_COMMAND=test-groff \
 +#  GROFF_COMMAND_PREFIX= \
 +#  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
-+#  PDFMOM_BIN_PATH="$(top_builddir)" \
-+#  $(PDFMOMBIN) $(FFLAG) $(MFLAG) -M$(mom_srcdir) -K utf8 -p -e -t
++#  $(PDFMOMBIN) $(FFLAG) $(MFLAG) -M$(mom_srcdir) -K utf8 -p -e -t \
++#  -wall -b -P-W
  
  
  # Files installed in $(tmacdir).
-@@ -4855,13 +4855,13 @@ PDFDOCFILES = \
- 
- @USE_PDFROFF_TRUE@pdfmarkpdfdocdir = $(pdfdocdir)
- @USE_PDFROFF_TRUE@nodist_pdfmarkpdfdoc_DATA = $(PDFDOCFILES)
--PDFROFF = \
--  GROFF_TMPDIR=. \
--  GROFF_COMMAND_PREFIX= \
--  GROFF_BIN_DIR="$(GROFF_BIN_DIR)" \
--  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
--  ./pdfroff \
--  $(FFLAG) $(MFLAG) -dpaper=$(PAGE) -P-p$(PAGE) -M$(pdfmark_srcdir)
-+PDFROFF = /bin/true
-+#  GROFF_TMPDIR=. \
-+#  GROFF_COMMAND_PREFIX= \
-+#  GROFF_BIN_DIR="$(GROFF_BIN_DIR)" \
-+#  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
-+#  ./pdfroff \
-+#  $(FFLAG) $(MFLAG) -dpaper=$(PAGE) -P-p$(PAGE) -M$(pdfmark_srcdir)
- 
- pic2graph_srcdir = $(top_srcdir)/contrib/pic2graph
- rfc1345_srcdir = $(top_srcdir)/contrib/rfc1345
-@@ -4899,10 +4899,10 @@ DOC_SED = $(SED) \
- # It includes flags to locate its tmac and device/font description
- # directories and to produce verbose diagnostics in the event of syntax
- # or formatting problems.
+@@ -6005,4 +6005,4 @@
 -DOC_GROFF = \
 -  GROFF_COMMAND_PREFIX= \
 -  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
--  $(GROFFBIN) -M $(doc_srcdir) $(MFLAG) $(FFLAG) -ww -b
+-  $(GROFFBIN) $(MFLAG) $(FFLAG) -ww -b
 +DOC_GROFF = /bin/true
 +#  GROFF_COMMAND_PREFIX= \
 +#  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
-+#  $(GROFFBIN) -M $(doc_srcdir) $(MFLAG) $(FFLAG) -ww -b
++#  $(GROFFBIN) $(MFLAG) $(FFLAG) -ww -b
+@@ -6017,11 +6017,11 @@ DOC_GROFF = \
+ # exercise this feature of gropdf.
+ @HAVE_URW_FONTS_TRUE@pdfmomoption = -P-W
+ @HAVE_URW_FONTS_TRUE@groffmanpagesoption = -P-e
+-DOC_PDFMOM = \
+-  GROFF_COMMAND=test-groff \
+-  GROFF_COMMAND_PREFIX= \
+-  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
+-  $(PDFMOMBIN) $(MFLAG) $(FFLAG) -ww -b $(pdfmomoption) --roff
++DOC_PDFMOM = /bin/true
++#  GROFF_COMMAND=test-groff \
++#  GROFF_COMMAND_PREFIX= \
++#  GROFF_BIN_PATH="$(GROFF_BIN_PATH)" \
++#  $(PDFMOMBIN) $(MFLAG) $(FFLAG) -ww -b $(pdfmomoption) --roff
  
  
  # This image file is used by several documents in the groff source tree.

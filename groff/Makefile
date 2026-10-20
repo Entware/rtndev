@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2021 Entware
+# Copyright (C) 2017-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=groff
-PKG_VERSION:=1.23.0
+PKG_VERSION:=1.24.2
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=@GNU/groff
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=6b9757f592b7518b4902eb6af7e54570bdccba37a871fddb2d30ae3863511c13
+PKG_HASH:=f9c1efd5bebbe37fc6e1063db7473ce8df1e3e0be4ff0f43ce04fce57e9c5dd9
 
 PKG_INSTALL:=1
 
