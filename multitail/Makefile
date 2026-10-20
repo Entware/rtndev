@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=multitail
-PKG_VERSION:=7.1.5
-PKG_REV:=f24eb8d7706a87504acbeb860906528a4f58dd31
+PKG_VERSION:=7.1.6
+PKG_REV:=1bf273ec425a047d278023d6c197a939243a9eb3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/folkertvanheusden/multitail.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=fb5a6d5b22cc2f69ef418348f249281dda1891c63d72ed2a192b2c12891e4909
+PKG_MIRROR_HASH:=97ff541aaf323b847181a8decf5ede916af669ded83b5855a57108733f7ca899
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
