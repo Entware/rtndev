@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=pnpm
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=10.28.0
+PKG_VERSION:=12.14.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9b0b04e6e79945566917f8411bb6f65fd2f3e1590426904e8500e1acc4b33561
+PKG_HASH:=ea206e35474bf87be9564a85ca70ed1c8ebdc45da55aafb0a3bf09d1ba69b179
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -63,13 +63,13 @@ endef
 
 define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
-	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE,*.md} \
+	$(CP) $(HOST_BUILD_DIR)/{package.json,*.md,native-binary.mjs} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{bin,dist} \
+	$(CP) $(HOST_BUILD_DIR)/{bin,dist,pn,pnpm,pnpx,pnx} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/pnpm.cjs $(1)/bin/pnpm
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/pnpx.cjs $(1)/bin/pnpx
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/pnpm $(1)/bin/pnpm
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/pnpx $(1)/bin/pnpx
 endef
 
 define Host/Clean
