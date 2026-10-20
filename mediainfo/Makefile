@@ -5,8 +5,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mediainfo
-PKG_VERSION:=26.05
-PKG_REV:=4728f24b666117a19d36515d95b9367fbb37aaf6
+PKG_VERSION:=26.10
+PKG_REV:=f057dd3649bc8692a83863b67770e22c9b9dd81a
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/MediaArea/MediaInfo.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=9f4d96925c38267123c100cb0d0a2d85fae4ad9988986f552cc51108992ce403
+PKG_MIRROR_HASH:=e2d5079137a8bfd8d1db6358c49e264b47a800ca777efa790c6f7837bcab2da4
 
 PKG_FIXUP:=autoreconf
 
@@ -25,7 +25,7 @@ define Package/mediainfo
 	CATEGORY:=Multimedia
 	DEPENDS:=+libmediainfo
 	TITLE:=Mediainfo
-	URL:=http://mediaarea.net/
+	URL:=https://mediaarea.net/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
