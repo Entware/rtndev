@@ -1,11 +1,11 @@
 --- a/src/common/backend/pipe_backend.c
 +++ b/src/common/backend/pipe_backend.c
-@@ -8,7 +8,7 @@
- #include <unistd.h>
+@@ -9,7 +9,7 @@
  #include "common/logger.h"
  
+ #ifndef _WIN32
 -#define FIFO_FILENAME   "/tmp/vban_0"
 +#define FIFO_FILENAME   "/opt/tmp/vban_0"
- 
- struct pipe_backend_t
- {
+ #else
+ // name of named pipe is \\.\pipe\vban_0
+ #include <windef.h> // for DWORD and others

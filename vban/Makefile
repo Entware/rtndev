@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2025 Entware
+# Copyright (C) 2025-2026 Entware
 
 # https://github.com/Entware/Entware/issues/970
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vban
-PKG_VERSION:=2.1.0
+PKG_VERSION:=2.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/quiniouben/vban/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=cae691a9fadbb800c5c8680f0b7405c6479dc6dc5fd9f9113fb2893d53e80a73
+PKG_HASH:=fbb7e4e4e662dfdb4e08a07cfa8392e5bb09252e9b0dcfe2bbbe98fe7531778a
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-3.0-or-later
