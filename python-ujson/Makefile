@@ -5,13 +5,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ujson
-PKG_VERSION:=5.11.0
+PKG_VERSION:=6.0.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=ujson
-PKG_HASH:=e204ae6f909f099ba6b6b942131cee359ddda2b6e4ea39c12eb8b991fe2010e0
+PKG_HASH:=80e23393feb707582e0ad495c397a4477b646d08094d2df64f7316f9fafd8aae
 
-PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE:=BSD-3-Clause TCL
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_MAINTAINER:=Entware team, https://entware.net
 
@@ -32,7 +32,7 @@ endef
 
 define Package/python3-ujson/description
   UltraJSON is an ultra fast JSON encoder and decoder written in pure
-  C with bindings for Python 3.7+.
+  C with bindings for Python 3.10+.
 endef
 
 define Package/python3-ujson/postrm
