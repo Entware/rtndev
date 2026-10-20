@@ -5,8 +5,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=exiv2
-PKG_VERSION:=0.28.7
-PKG_REV:=afcb7a8ba84a7de36d2f1ee7689394e078697956
+PKG_VERSION:=0.28.9
+PKG_REV:=b0859fc61fea5dedfc898aece6b15893ddf4314e
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -14,7 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/Exiv2/exiv2.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=ec372d6b7e663c004a093ac93aaccc563af8df1a3d535cdc7d2f29a9dfa3d379
+PKG_MIRROR_HASH:=a5622b3fbecb744e721c3c68946c315d63e29a216701f51ff10d079a23860a27
 
 CMAKE_INSTALL:=1
 
@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/cmake.mk
 
 define Package/exiv2/Default
 	TITLE:=Image metadata library and tools
-	URL:=http://www.exiv2.org/
+	URL:=https://exiv2.org/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
