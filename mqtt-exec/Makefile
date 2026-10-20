@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mqtt-exec
-PKG_VERSION:=0.5
-PKG_REV:=da665e304315bc0f60069bf5bf7d610b7eaebb02
+PKG_VERSION:=0.7.1
+PKG_REV:=043dc93a988a4936cc33bd5e79dddefe773c4e08
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/ncopa/mqtt-exec.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=050239802792e8781b880745877f2b7e0ea4a9bf222bb5c41f51b4fe8351dfa0
+PKG_MIRROR_HASH:=e41c5a9059547bd6ebf34d4ac2236ed8f6aa7348596e8721f9fae66280cdcad5
 
 include $(INCLUDE_DIR)/package.mk
 
