@@ -3,9 +3,9 @@
  
 ---
 
---- a/multiarc/src/formats/7z/C/CpuArch.h
-+++ b/multiarc/src/formats/7z/C/CpuArch.h
-@@ -88,7 +88,7 @@ MY_CPU_64BIT means that processor can wo
+--- a/plugins/multiarc/src/formats/7z/C/CpuArch.h
++++ b/plugins/multiarc/src/formats/7z/C/CpuArch.h
+@@ -93,7 +93,7 @@ MY_CPU_64BIT means that processor can wo
    || defined(__ARMEB__) \
    || defined(__THUMBEL__) \
    || defined(__THUMBEB__)

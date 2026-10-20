@@ -7,14 +7,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=far2l
-PKG_VERSION:=2.7.0
+PKG_VERSION:=2.9.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE:=2025-03-30
-PKG_SOURCE_VERSION:=1e7b03e21ab67bd7f6d78b9a2794583a9d8bd996
+PKG_SOURCE_DATE:=2026-10-07
+PKG_SOURCE_VERSION:=3591802e656cdc0c835882651a7460732dd471f4
 PKG_SOURCE_URL:=https://github.com/elfmz/far2l
-PKG_MIRROR_HASH:=5b0a848cce78e51dee49f94599fb425ebce432416151fd21f47a08b112601f37
+PKG_MIRROR_HASH:=248ff825a65fce6cf821dddcedb05a080711dc39463415bbca25d4a9c4c14328
 
 PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-only
@@ -28,7 +28,7 @@ define Package/far2l
   CATEGORY:=Utilities
   TITLE:=FAR Manager v2
   URL:=https://github.com/elfmz/far2l
-  DEPENDS:=+libarchive +libneon +libopenssl +libssh +libstdcpp +libxml2 +libnfs +libgnutls
+  DEPENDS:=+libarchive +libneon +libopenssl +libssh +libstdcpp +libxml2 +libnfs +libgnutls +libusb-1.0
 endef
 
 define Package/far2l/description
