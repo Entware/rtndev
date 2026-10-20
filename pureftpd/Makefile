@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pureftpd
-PKG_VERSION:=1.0.52
-PKG_REV:=15246910744807685fe00e1b301bd8e68123ed16
+PKG_VERSION:=1.0.54
+PKG_REV:=3fe02789c4f0e5756f3f612e32edee9aa5d49455
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
@@ -15,7 +15,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/jedisct1/pure-ftpd.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_MIRROR_HASH:=9a43faecbc80b7338618e7da1e9280a5052cb026dd6d6465f1bf98edc7db956f
+PKG_MIRROR_HASH:=616c438cd1bd5a41a75920ca9df9648b591126a46dae38dac56b6a5a9403cf99
 
 PKG_BUILD_DEPENDS:=mariadb
 
@@ -32,7 +32,7 @@ define Package/pureftpd
 	SUBMENU:=File Transfer
 	DEPENDS:=+libsodium +libopenssl +libmysqlclient
 	TITLE:=Pure FTP server
-	URL:=http://www.pureftpd.org/
+	URL:=https://www.pureftpd.org/project/pure-ftpd/
 	MAINTAINER:=Entware team, https://entware.net
 endef
 
