@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2011-2021 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-# Slightly modified Openwrt package by Yousong Zhou, now abandoned
+# Slightly modified Openwrt package by Yousong Zhou
 #
 
 include $(TOPDIR)/rules.mk
@@ -15,12 +15,16 @@ include $(TOPDIR)/rules.mk
 # - check if default mode has changed from being tcp_only
 #
 PKG_NAME:=shadowsocks-libev
-PKG_VERSION:=3.3.5
-PKG_RELEASE:=11
+PKG_VERSION:=3.3.6
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$(PKG_VERSION)
-PKG_HASH:=cfc8eded35360f4b67e18dc447b0c00cddb29cc57a3cec48b135e5fb87433488
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/shadowsocks/shadowsocks-libev.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=c5e8788013a37afe54ea1c2b7c03395cccc663cf
+PKG_SOURCE_SUBMODULES:=libcork libipset libbloom
+PKG_MIRROR_HASH:=eeece36c497f8b72c3038cab9b0bc11e00329ab5b7dfe955be9c16530eb9d799
 
 PKG_MAINTAINER:=Yousong Zhou <yszhou4tech@gmail.com>
 
@@ -28,13 +32,13 @@ PKG_LICENSE:=GPL-3.0-or-later
 PKG_LICENSE_FILES:=LICENSE
 PKG_CPE_ID:=cpe:/a:shadowsocks:shadowsocks-libev
 
-PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 PKG_BUILD_FLAGS:=no-mips16 lto
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_DEPENDS:=c-ares pcre2
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 
 define Package/shadowsocks-libev-config
@@ -96,11 +100,11 @@ define Build/Prepare
 		| $(XARGS) rm -rvf
 endef
 
-CONFIGURE_ARGS += \
-	--disable-documentation \
-	--disable-silent-rules \
-	--disable-assert \
-	--disable-ssp \
+CMAKE_OPTIONS += \
+	-DWITH_STATIC=OFF \
+	-DWITH_DOC_MAN=OFF \
+	-DWITH_DOC_HTML=OFF \
+	-DBUILD_TESTING=OFF
 
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 
