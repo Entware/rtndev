@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=httrack
 PKG_VERSION:=3.50.5
 PKG_REV:=16c91fac556b3a06ce72ab0f1307de311b535b54
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -26,7 +26,7 @@ define Package/httrack
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=File Transfer
-	DEPENDS:=+libopenssl +libpthread
+	DEPENDS:=+libopenssl +libpthread +libzstd
 	TITLE:=website copier
 	URL:=https://www.httrack.com/
 	MAINTAINER:=Entware team, https://entware.net
