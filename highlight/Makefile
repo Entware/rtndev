@@ -28,7 +28,7 @@ define Package/highlight
   CATEGORY:=Utilities
   TITLE:=an universal sourcecode to formatted text converter
   URL:=http://andre-simon.de/
-  DEPENDS:=+libstdcpp +lua
+  DEPENDS:=+libstdcpp +lua5.4
 endef
 
 define Package/highlight/description
