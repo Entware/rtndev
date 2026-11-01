@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2025 Entware
+# Copyright (C) 2011-2026 Entware
 #
 # This is the last version without qtcore dependency
 
@@ -8,7 +8,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mkvtoolnix
 PKG_VERSION:=58.0.0
-PKG_RELEASE:=5
+# boost bumped
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
