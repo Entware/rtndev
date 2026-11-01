@@ -6,7 +6,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ntopng
 PKG_VERSION:=6.6
-PKG_RELEASE:=1
+# net-snmp (libnetsnmp) bumped
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
