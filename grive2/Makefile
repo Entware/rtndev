@@ -1,16 +1,14 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=grive2
 PKG_VERSION:=0.5.3
 PKG_REV:=d03c4a24ceb179d0fdb4c47e3d144d547ffcc8b6
-PKG_RELEASE:=5
+# boost bumped
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -24,14 +22,13 @@ include $(INCLUDE_DIR)/cmake.mk
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/grive2
-	SECTION:=net
-	CATEGORY:=Network
-	SUBMENU:=Filesystem
-	DEPENDS:=+libcurl +yajl +libstdcpp +libgcrypt +libbfd +boost-filesystem \
-		+boost-program_options +boost-regex +boost-test
-	TITLE:=a fork of original Google Drive client
-	URL:=https://github.com/vitalif/grive2
-	MAINTAINER:=Entware team, https://entware.net
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Filesystem
+  TITLE:=a fork of original Google Drive client
+  URL:=https://github.com/vitalif/grive2
+  DEPENDS:=+boost-atomic +boost-filesystem +boost-program_options +boost-regex
+  DEPENDS+=+libbfd +libcurl +libgcrypt +libgpg-error +libstdcpp +yajl $(INTL_DEPENDS)
 endef
 
 define Package/grive2/description
@@ -42,7 +39,7 @@ endef
 TARGET_CXXFLAGS += -fpermissive -DBOOST_BIND_GLOBAL_PLACEHOLDERS
 TARGET_LDFLAGS += $(if $(INTL_FULL),-lintl)
 
-ifneq ($(CONFIG_USE_UCLIBC),)
+ifneq ($(CONFIG_USE_GLIBC),y)
 define Build/Prepare
 	$(Build/Prepare/Default)
 	$(SED) 's,find_package(BFD),#find_package(BFD),g' $(PKG_BUILD_DIR)/libgrive/CMakeLists.txt
@@ -51,9 +48,7 @@ endif
 
 define Package/grive2/install
 	$(INSTALL_DIR) $(1)/opt/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/grive \
-		$(1)/opt/bin
-	$(INSTALL_DIR) $(1)/opt/lib
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/grive $(1)/opt/bin
 endef
 
 $(eval $(call BuildPackage,grive2))
