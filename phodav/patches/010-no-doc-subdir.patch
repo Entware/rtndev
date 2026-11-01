@@ -1,0 +1,11 @@
+--- a/meson.build
++++ b/meson.build
+@@ -52,7 +52,7 @@ endif
+ subdir('po')
+ subdir('libphodav')
+ subdir('bin')
+-subdir('doc')
++#subdir('doc')
+ subdir('data')
+ subdir('tests')
+ 
