@@ -1,9 +1,7 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2011-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2011-2026 Entware
+
 # Abandoned in 2016
 
 include $(TOPDIR)/rules.mk
@@ -13,7 +11,8 @@ override CONFIG_AUTOREMOVE=
 PKG_NAME:=telegram-cli
 PKG_VERSION:=1.3.1-20160323
 PKG_REV:=6547c0b21b977b327b3c5e8142963f4bc246187a
-PKG_RELEASE:=3
+# libconfig bumped
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
