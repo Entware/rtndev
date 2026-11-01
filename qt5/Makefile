@@ -25,16 +25,6 @@ PKG_BUILD_FLAGS:=no-mips16
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
-ifndef CONFIG_USE_GLIBC
-# not using sstrip here as this screw up the .so's somehow
-STRIP:=/bin/true
-RSTRIP:= \
-	NM="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)nm" \
-	STRIP="$(STRIP)" \
-	STRIP_KMOD="$(STRIP)" \
-	$(SCRIPT_DIR)/rstrip.sh
-endif
-
 define Package/qt5/Default
 	SECTION:=libs
 	CATEGORY:=Libraries
@@ -248,8 +238,8 @@ define Build/Configure
 	$(SED) 's,^QMAKE_CC\s*=.*,QMAKE_CC = $(HOSTCC_NOCACHE),; \
 		s,^QMAKE_CXX\s*=.*,QMAKE_CXX = $(HOSTCXX_NOCACHE),' \
 			$(PKG_BUILD_DIR)/qtbase/mkspecs/common/g++-base.conf
-	$(SED) 's,@TARGET_CFLAGS@,$(TARGET_CFLAGS),g; \
-		s,@TARGET_CXXFLAGS@,$(TARGET_CXXFLAGS),g' \
+	$(SED) 's|@TARGET_CFLAGS@|$(TARGET_CFLAGS)|g; \
+		s|@TARGET_CXXFLAGS@|$(TARGET_CXXFLAGS)|g' \
 			$(PKG_BUILD_DIR)/qtbase/mkspecs/devices/linux-entware-g++/qmake.conf
 	$(SED) 's,@ICONV_PREFIX@,$(ICONV_PREFIX),g; \
 		s,@INTL_PREFIX@,$(INTL_PREFIX),' \
