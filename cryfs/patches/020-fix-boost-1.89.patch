@@ -1,51 +1,33 @@
---- a/src/blobstore/CMakeLists.txt
-+++ b/src/blobstore/CMakeLists.txt
-@@ -23,6 +23,6 @@ add_library(${PROJECT_NAME} STATIC ${SOU
- 
- target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils blockstore)
- 
--target_add_boost(${PROJECT_NAME} filesystem system thread)
-+target_add_boost(${PROJECT_NAME} filesystem thread)
- target_enable_style_warnings(${PROJECT_NAME})
- target_activate_cpp14(${PROJECT_NAME})
---- a/src/blockstore/CMakeLists.txt
-+++ b/src/blockstore/CMakeLists.txt
-@@ -35,6 +35,6 @@ add_library(${PROJECT_NAME} STATIC ${SOU
- 
- target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils)
- 
--target_add_boost(${PROJECT_NAME} filesystem system thread)
-+target_add_boost(${PROJECT_NAME} filesystem thread)
- target_enable_style_warnings(${PROJECT_NAME})
- target_activate_cpp14(${PROJECT_NAME})
---- a/src/cpp-utils/CMakeLists.txt
-+++ b/src/cpp-utils/CMakeLists.txt
-@@ -91,6 +91,6 @@ target_link_libraries(${PROJECT_NAME} PU
- 
- target_link_libraries(${PROJECT_NAME} PUBLIC spdlog cryptopp)
- 
--target_add_boost(${PROJECT_NAME} filesystem system thread chrono)
-+target_add_boost(${PROJECT_NAME} filesystem thread chrono)
- target_enable_style_warnings(${PROJECT_NAME})
- target_activate_cpp14(${PROJECT_NAME})
---- a/src/fspp/fs_interface/CMakeLists.txt
-+++ b/src/fspp/fs_interface/CMakeLists.txt
-@@ -13,6 +13,6 @@ add_library(${PROJECT_NAME} STATIC ${SOU
- 
- target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils)
- 
--target_add_boost(${PROJECT_NAME} filesystem system)
-+target_add_boost(${PROJECT_NAME} filesystem)
- target_enable_style_warnings(${PROJECT_NAME})
- target_activate_cpp14(${PROJECT_NAME})
---- a/src/fspp/fuse/CMakeLists.txt
-+++ b/src/fspp/fuse/CMakeLists.txt
-@@ -11,7 +11,7 @@ add_library(${PROJECT_NAME} STATIC ${SOU
- target_compile_definitions(${PROJECT_NAME} PUBLIC _FILE_OFFSET_BITS=64)
- target_link_libraries(${PROJECT_NAME} PUBLIC cpp-utils fspp-interface)
- 
--target_add_boost(${PROJECT_NAME} filesystem system thread chrono)
-+target_add_boost(${PROJECT_NAME} filesystem thread chrono)
- target_enable_style_warnings(${PROJECT_NAME})
- target_activate_cpp14(${PROJECT_NAME})
- 
+CMake Error at .../opt/lib/cmake/Boost-1.89.0/BoostConfig.cmake:141 (find_package):
+  Could not find a package configuration file provided by "boost_system"
+  (requested version 1.89.0) with any of the following names:
+
+    boost_systemConfig.cmake
+    boost_system-config.cmake
+
+  Add the installation prefix of "boost_system" to CMAKE_PREFIX_PATH or set
+  "boost_system_DIR" to a directory containing one of the above files.  If
+  "boost_system" provides a separate development package or SDK, be sure it
+  has been installed.
+Call Stack (most recent call first):
+  .../opt/lib/cmake/Boost-1.89.0/BoostConfig.cmake:262 (boost_find_component)
+  .../staging_dir/host/share/cmake-3.31/Modules/FindBoost.cmake:610 (find_package)
+  cmake-utils/Dependencies.cmake:8 (find_package)
+  CMakeLists.txt:42 (include)
+
+
+-- Configuring incomplete, errors occurred!
+
+---
+
+--- a/cmake-utils/Dependencies.cmake
++++ b/cmake-utils/Dependencies.cmake
+@@ -7,7 +7,7 @@ target_link_libraries(CryfsDependencies_
+ set(Boost_USE_STATIC_LIBS OFF)
+ find_package(Boost 1.84.0
+         REQUIRED
+-        COMPONENTS filesystem system thread chrono program_options)
++        COMPONENTS filesystem thread chrono program_options)
+ add_library(CryfsDependencies_boost INTERFACE)
+ target_link_libraries(CryfsDependencies_boost INTERFACE Boost::boost Boost::filesystem Boost::thread Boost::chrono Boost::program_options)
+ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
