@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qpdf
 PKG_VERSION:=12.2.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/qpdf/qpdf/releases/download/v$(PKG_VERSION)
@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/cmake.mk
 define Package/qpdf
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libjpeg +libgnutls +zlib +libstdcpp
+	DEPENDS:=+libjpeg +libgnutls +zlib +libstdcpp $(ATOMIC64_DEPENDS)
 	TITLE:=PDF transformations utility
 	URL:=http://qpdf.sourceforge.net/
 	MAINTAINER:=Entware team, https://entware.net
@@ -33,9 +33,9 @@ define Package/qpdf/description
  QPDF is a command-line program for transformations on PDF files.
 endef
 
-CMAKE_BINARY_SUBDIR:=build
+CMAKE_BINARY_SUBDIR:=openwrt-build
 
-TARGET_LDFLAGS += -latomic
+TARGET_LDFLAGS += -Wl,--as-needed
 
 CMAKE_OPTIONS += \
 	-DUSE_IMPLICIT_CRYPTO=0 \
