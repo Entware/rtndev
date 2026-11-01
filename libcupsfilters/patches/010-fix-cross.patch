@@ -1,0 +1,16 @@
+./gen-lorem-text > cupsfilters/test_files/test_text_lorem.txt
+/bin/bash: line 1: ./gen-lorem-text: cannot execute binary file: Exec format error
+
+---
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -350,7 +350,7 @@ CLEANFILES   = cupsfilters/test_files/te
+ 
+ cupsfilters/test_files/test_text_lorem.txt: gen-lorem-text
+ 	$(MKDIR_P) $(@D)
+-	$(AM_V_GEN)./gen-lorem-text > $@
++	$(AM_V_GEN)./gen-lorem-text > $@ || true
+ 
+ EXTRA_DIST += \
+ 	$(check_SCRIPTS) \
