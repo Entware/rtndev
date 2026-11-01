@@ -23,7 +23,7 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/airsane
 	SECTION:=utils
 	CATEGORY:=Utilities
-	DEPENDS:=+libavahi-client +sane-libs
+	DEPENDS:=+libavahi-client +sane-libs $(ATOMIC64_DEPENDS)
 	TITLE:=AirScan Scanner publisher
 	URL:=$(PKG_SOURCE_URL)
 	MAINTAINER:=Entware team, https://entware.net
@@ -39,6 +39,8 @@ define Package/airsane/conffiles
 /opt/etc/airsane/options.conf
 /opt/etc/config/airsaned.conf
 endef
+
+TARGET_LDFLAGS += -Wl,--as-needed
 
 define Package/airsane/install
 	$(INSTALL_DIR) $(1)/opt/bin
