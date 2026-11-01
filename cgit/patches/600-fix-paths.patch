@@ -93,7 +93,7 @@
  # for this to work.
 --- a/git/ident.c
 +++ b/git/ident.c
-@@ -77,13 +77,13 @@ static int add_mailname_host(struct strb
+@@ -82,13 +82,13 @@ static int add_mailname_host(struct strb
  	FILE *mailname;
  	struct strbuf mailnamebuf = STRBUF_INIT;
  

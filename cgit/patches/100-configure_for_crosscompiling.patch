@@ -1,6 +1,6 @@
 --- a/git/configure.ac
 +++ b/git/configure.ac
-@@ -852,7 +852,8 @@ AC_RUN_IFELSE(
+@@ -850,7 +850,8 @@ AC_RUN_IFELSE(
  	return v != 0xfe + 0xff;
  	]])],
  	[ac_cv_iconv_omits_bom=no],
@@ -10,7 +10,7 @@
  
  LIBS="$old_LIBS"
  ])
-@@ -966,7 +967,8 @@ AC_RUN_IFELSE(
+@@ -964,7 +965,8 @@ AC_RUN_IFELSE(
  		FILE *f = fopen(".", "r");
  		return f != NULL;]])],
  	[ac_cv_fread_reads_directories=no],
@@ -20,7 +20,7 @@
  ])
  if test $ac_cv_fread_reads_directories = yes; then
  	FREAD_READS_DIRECTORIES=UnfortunatelyYes
-@@ -1000,7 +1002,8 @@ AC_RUN_IFELSE(
+@@ -998,7 +1000,8 @@ AC_RUN_IFELSE(
  		  if (snprintf(buf, 3, "%s", "12345") != 5
  		      || strcmp(buf, "12")) return 1]])],
  	[ac_cv_snprintf_returns_bogus=no],
@@ -30,7 +30,7 @@
  ])
  if test $ac_cv_snprintf_returns_bogus = yes; then
  	SNPRINTF_RETURNS_BOGUS=UnfortunatelyYes
-@@ -1021,9 +1024,10 @@ AC_EGREP_CPP(yippeeyeswehaveit,
+@@ -1019,9 +1022,10 @@ AC_EGREP_CPP(yippeeyeswehaveit,
  	S_IFIFO == 0010000 && S_IFSOCK == 0140000
  yippeeyeswehaveit
  #endif

@@ -1,0 +1,31 @@
+From c4426a27a82140e424a37bff777d50fbea6dca17 Mon Sep 17 00:00:00 2001
+From: Kian Kasad <kian@kasad.com>
+Date: Sun, 4 Aug 2024 11:43:57 -0700
+Subject: scan-tree: fix error caused by missing parameter name
+
+This fixes an error which was introduced by
+2f50b47c72cbc4270bbd12ae7f520486d5f42736. Git 2.42.0 added a new argument
+to config_fn_t, and it was added to gitconfig_config(), but not named.
+This causes compile warnings/errors. This commit fixes that by naming the
+new parameter, and marking it unused.
+---
+ scan-tree.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/scan-tree.c b/scan-tree.c
+index 84da86e..8858b74 100644
+--- a/scan-tree.c
++++ b/scan-tree.c
+@@ -54,7 +54,8 @@ static void scan_tree_repo_config(const char *name, const char *value)
+ 	config_fn(repo, name, value);
+ }
+ 
+-static int gitconfig_config(const char *key, const char *value, const struct config_context *, void *cb)
++static int gitconfig_config(const char *key, const char *value,
++		const __attribute__((unused)) struct config_context *ctx, void *cb)
+ {
+ 	const char *name;
+ 
+-- 
+cgit v1.2.3-59-g8ed1b
+

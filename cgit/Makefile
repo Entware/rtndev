@@ -1,25 +1,23 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
 # Copyright (C) 2009-2018 OpenWrt.org
-# Copyright (C) 2018-2022 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2018-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cgit
-PKG_VERSION:=1.2.3
-PKG_RELEASE:=3
-PKG_SOURCE_DATE:=2021-06-08
-PKG_SOURCE_VERSION:=5258c297ba6fb604ae1415fbc19a3fe42457e49e
+PKG_REAL_VERSION:=1.2.3
+PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
+PKG_SOURCE_DATE:=2024-08-02
+PKG_SOURCE_VERSION:=09d24d7cd0b7e85633f2f43808b12871bb209d69
 PKG_SOURCE_URL:=https://git.zx2c4.com/cgit
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_DATE).tar.xz
-PKG_MIRROR_HASH:=4cc56d39e5ef73eca843f8d431c249e7aef2ef551f07968317b2cb719a56f866
+PKG_MIRROR_HASH:=3c0249555f62b894f32eeded3254d7ac550755324387ddcdcded508f2c052cec
 
+PKG_VERSION:=$(PKG_REAL_VERSION)_git$(subst -,,$(PKG_SOURCE_DATE))~$(call version_abbrev,$(PKG_SOURCE_VERSION))
+
+PKG_MAINTAINER:=Entware team, https://entware.net
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
@@ -30,13 +28,14 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/cgit
-	TITLE:=Web interface (cgi) for Git repositories, written in C
-	SECTION:=net
-	CATEGORY:=Network
-	SUBMENU:=Version Control Systems
-	DEPENDS:=+libcharset @HAS_LUAJIT_ARCH +luajit +libopenssl +libpcre2 +zlib $(ICONV_DEPENDS) $(INTL_DEPENDS)
-	URL:=https://git.zx2c4.com/cgit/
-	MAINTAINER:=Troels Gram [https://github.com/tgram75]
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Version Control Systems
+  TITLE:=Web interface (cgi) for Git repositories, written in C
+  URL:=https://git.zx2c4.com/cgit/
+  DEPENDS:= \
+	+libcharset +libopenssl +libpcre2 +luajit +zlib \
+	@HAS_LUAJIT_ARCH $(ICONV_DEPENDS) $(INTL_DEPENDS)
 endef
 
 define Package/cgit/description
