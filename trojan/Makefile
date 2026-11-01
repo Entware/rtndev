@@ -1,16 +1,14 @@
+# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2020-2021 Entware
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
+# Copyright (C) 2020-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=trojan
 PKG_VERSION:=1.16.0
 PKG_REV:=8606b7110fe79f8ab02d60c897f87ffb0a9b23f0
-PKG_RELEASE:=5
+# boost bumped
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
