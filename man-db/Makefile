@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2025 Entware
+# Copyright (C) 2017-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=man-db
 PKG_VERSION:=2.13.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=@SAVANNAH/man-db
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -35,15 +35,22 @@ endef
 CONFIGURE_ARGS += \
 	--mandir=/opt/share/man \
 	--disable-setuid \
-	--with-device=latin1 \
 	--enable-mb-groff \
 	--with-pager=less \
+	--with-nroff=nroff \
+	--with-tbl=tbl \
 	--disable-cache-owner \
 	--disable-manual \
 	--disable-nls \
 	--disable-year2038 \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
 	--with-libintl-prefix="$(INTL_PREFIX)"
+
+CONFIGURE_VARS += \
+	ac_cv_prog_preconv=preconv \
+	man_cv_prog_gnu_nroff=yes \
+	man_cv_prog_nroff_macro=-mandoc \
+	man_cv_prog_nroff_warnings=yes
 
 define Package/man-db/conffiles
 /opt/etc/man_db.conf
