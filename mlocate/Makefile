@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2021 Entware
+# Copyright (C) 2015-2026 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mlocate
 PKG_VERSION:=0.26
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://releases.pagure.org/mlocate
@@ -40,6 +40,14 @@ define Package/mlocate/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin
 	$(INSTALL_DIR) $(1)/opt/var/mlocate
+endef
+
+define Package/mlocate/postinst
+#!/bin/sh
+
+if command -v addgroup >/dev/null 2>&1; then
+	grep -q '^mlocate:' /opt/etc/group || addgroup mlocate
+fi
 endef
 
 $(eval $(call BuildPackage,mlocate))
