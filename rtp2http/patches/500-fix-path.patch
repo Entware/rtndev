@@ -1,0 +1,38 @@
+--- a/rtp2httpd.conf
++++ b/rtp2httpd.conf
+@@ -9,7 +9,7 @@
+ verbosity = 1
+ 
+ # Access log file path (default none, disabled)
+-;access-log = /tmp/rtp2httpd-access.log
++;access-log = /opt/var/log/rtp2httpd-access.log
+ 
+ # Access log format (nginx-style $variables)
+ ;log-format = $client_addr [$time_iso8601] "$service_url" $service_type "$upstream_url"
+@@ -17,7 +17,7 @@
+ # Supervisor PID file path (default none, disabled)
+ # The supervisor locks this file, writes its PID, and removes it on graceful exit.
+ # Relative paths are resolved from the process working directory.
+-;pid-file = /var/run/rtp2httpd.pid
++;pid-file = /opt/var/run/rtp2httpd.pid
+ 
+ #maximum paralell clients (default 5)
+ ;maxclients = 5
+@@ -131,7 +131,7 @@
+ 
+ # FFmpeg executable path (default: ffmpeg, which uses system PATH)
+ # Specify full path if ffmpeg is not in PATH or you want to use a specific version
+-;ffmpeg-path = /usr/bin/ffmpeg
++;ffmpeg-path = /opt/bin/ffmpeg
+ 
+ # Additional FFmpeg arguments (default: -hwaccel none)
+ # These arguments are passed to ffmpeg when generating snapshots
+@@ -143,7 +143,7 @@
+ ;mybox.example.net 5140
+ ;mybox2.example.net 8000
+ ;2001::1 http-alt
+-;/var/run/rtp2httpd.sock
++;/opt/var/run/rtp2httpd.sock
+ 
+ #Note that binding to port number < 1024 will
+ #require root privelegies and therefore is
