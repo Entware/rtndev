@@ -1,0 +1,21 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,9 @@
+ cmake_minimum_required(VERSION 3.14)
+ 
+ # Extract version from environment or use default
+-if(DEFINED ENV{RELEASE_VERSION} AND NOT "$ENV{RELEASE_VERSION}" STREQUAL "")
++if(DEFINED PROJECT_VERSION_STRING AND NOT "${PROJECT_VERSION_STRING}" STREQUAL "")
++  # Use version supplied by the build system.
++elseif(DEFINED ENV{RELEASE_VERSION} AND NOT "$ENV{RELEASE_VERSION}" STREQUAL "")
+   set(PROJECT_VERSION_STRING $ENV{RELEASE_VERSION})
+ else()
+   set(PROJECT_VERSION_STRING "1.0.0-snapshot")
+@@ -144,7 +146,6 @@ endif()
+ 
+ # ── Security hardening ──────────────────────────────────────────────
+ if(PLATFORM_LINUX OR PLATFORM_FREEBSD)
+-  target_compile_options(rtp2httpd PRIVATE -fstack-protector-strong)
+   # _FORTIFY_SOURCE requires optimization >= -O1
+   if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+     target_compile_definitions(rtp2httpd PRIVATE _FORTIFY_SOURCE=2)

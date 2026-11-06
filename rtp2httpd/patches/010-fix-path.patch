@@ -9,7 +9,7 @@
  
  # Access log format (nginx-style $variables)
  ;log-format = $client_addr [$time_iso8601] "$service_url" $service_type "$upstream_url"
-@@ -17,7 +17,7 @@
+@@ -17,7 +17,7 @@ verbosity = 1
  # Supervisor PID file path (default none, disabled)
  # The supervisor locks this file, writes its PID, and removes it on graceful exit.
  # Relative paths are resolved from the process working directory.
@@ -18,7 +18,7 @@
  
  #maximum paralell clients (default 5)
  ;maxclients = 5
-@@ -131,7 +131,7 @@
+@@ -131,7 +131,7 @@ verbosity = 1
  
  # FFmpeg executable path (default: ffmpeg, which uses system PATH)
  # Specify full path if ffmpeg is not in PATH or you want to use a specific version
@@ -27,7 +27,7 @@
  
  # Additional FFmpeg arguments (default: -hwaccel none)
  # These arguments are passed to ffmpeg when generating snapshots
-@@ -143,7 +143,7 @@
+@@ -143,7 +143,7 @@ verbosity = 1
  ;mybox.example.net 5140
  ;mybox2.example.net 8000
  ;2001::1 http-alt
