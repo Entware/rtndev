@@ -90,10 +90,12 @@ endif
 CONFIGURE_VARS += \
 	ac_cv_lib_mysqlclient_mysql_info=no
 
+# CompileParseRules needs host flags and signed char for portable generated tables.
 define PreCompile
 	( cd $(PKG_BUILD_DIR)/src/tscore; \
-		HOST_CXX_FOR_BUILD="$(HOSTCXX)" \
+		HOST_CC_FOR_BUILD="$(HOSTCC)" \
 		CPPFLAGS_FOR_BUILD="$(HOST_CPPFLAGS)" \
+		CXXFLAGS_FOR_BUILD="$(HOST_CXXFLAGS) -std=c++17 -fsigned-char" \
 		$(MAKE) CompileParseRules; \
 	)
 endef
