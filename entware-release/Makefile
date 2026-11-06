@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2017-2025 Entware
+# Copyright (C) 2017-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=entware-release
-PKG_VERSION:=2025.05
+PKG_VERSION:=2026.11
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
