@@ -11,7 +11,7 @@ override CONFIG_AUTOREMOVE=
 
 PKG_NAME:=nethack
 PKG_VERSION:=3.6.7
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-367-src.tgz
 PKG_SOURCE_URL:=https://nethack.org/download/$(PKG_VERSION)
