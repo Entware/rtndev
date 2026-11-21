@@ -1,0 +1,12 @@
+--- a/util/cpuinfo-aarch64.c
++++ b/util/cpuinfo-aarch64.c
+@@ -13,6 +13,9 @@
+ #  include <asm/hwcap.h>
+ #  include "elf.h"
+ # endif
++# ifndef HWCAP_USCAT
++#  define HWCAP_USCAT (1UL << 25)
++# endif
+ # ifndef HWCAP2_BTI
+ #  define HWCAP2_BTI 0  /* added in glibc 2.32 */
+ # endif
