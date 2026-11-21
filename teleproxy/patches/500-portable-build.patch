@@ -1,0 +1,30 @@
+--- a/Makefile
++++ b/Makefile
+@@ -58,10 +58,8 @@
+ # Architecture-specific CFLAGS
+ ifeq ($(HOST_ARCH), x86_64)
+ CFLAGS := $(COMMON_CFLAGS) -mpclmul -march=core2 -mfpmath=sse -mssse3 $(BITNESS_FLAGS)
+-else ifeq ($(HOST_ARCH), aarch64)
+-CFLAGS := $(COMMON_CFLAGS) $(BITNESS_FLAGS)
+-else ifeq ($(HOST_ARCH), arm64)
++else
+ CFLAGS := $(COMMON_CFLAGS) $(BITNESS_FLAGS)
+ endif
+ 
+ # Architecture-specific LDFLAGS (if needed, here kept same for simplicity)
+--- a/src/common/precise-time.h
++++ b/src/common/precise-time.h
+@@ -40,6 +40,13 @@
+   __asm__ __volatile__ ("mrs %0, cntvct_el0" : "=r" (val));
+   return val;
+ }
++#else
++static __inline__ unsigned long long rdtsc(void) {
++  struct timespec ts;
++  if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0)
++    return 0;
++  return (unsigned long long)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
++}
+ #endif
+ 
+ /* net-event.h */

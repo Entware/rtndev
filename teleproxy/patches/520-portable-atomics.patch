@@ -1,0 +1,154 @@
+--- a/src/net/net-connections.c
++++ b/src/net/net-connections.c
+@@ -1091,7 +1091,7 @@
+   assert_main_thread ();
+   if (!data) { return EVA_REMOVE; }
+ 
+-  assert ((int)ev->refcnt);
++  assert ((int)__atomic_load_n (&ev->refcnt, __ATOMIC_SEQ_CST));
+  
+   socket_connection_job_t C = (socket_connection_job_t) data;
+   assert (C);
+@@ -1201,7 +1201,7 @@
+   
+   struct event_descr *ev = Events + s->fd;
+   assert (!ev->data);
+-  assert (!ev->refcnt);
++  assert (!__atomic_load_n (&ev->refcnt, __ATOMIC_SEQ_CST));
+ 
+   s->ev = ev;
+     
+@@ -1352,7 +1352,7 @@
+ 
+   struct event_descr *ev = Events + fd;
+   assert (!ev->data);
+-  assert (!ev->refcnt);
++  assert (!__atomic_load_n (&ev->refcnt, __ATOMIC_SEQ_CST));
+   LC->ev = ev;
+ 
+   LC->generation = new_conn_generation ();
+@@ -1407,7 +1407,7 @@
+ void connection_event_incref (int fd, long long val) {
+   struct event_descr *ev = &Events[fd];
+ 
+-  if (!__sync_add_and_fetch (&ev->refcnt, val) && ev->data) {
++  if (!__atomic_add_fetch (&ev->refcnt, val, __ATOMIC_SEQ_CST) && ev->data) {
+     socket_connection_job_t C = ev->data;
+     ev->data = NULL;
+     job_decref (JOB_REF_PASS (C));
+@@ -1417,15 +1417,15 @@
+ connection_job_t connection_get_by_fd (int fd) {
+   struct event_descr *ev = &Events[fd];  
+-  if (!(int)(ev->refcnt) || !ev->data) { return NULL; }
++  if (!(int)__atomic_load_n (&ev->refcnt, __ATOMIC_SEQ_CST) || !ev->data) { return NULL; }
+ 
+   while (1) {
+-    long long v = __sync_fetch_and_add (&ev->refcnt, (1ll << 32));
++    long long v = __atomic_fetch_add (&ev->refcnt, (1ll << 32), __ATOMIC_SEQ_CST);
+     if (((int)v) != 0) { break; }
+-    v = __sync_fetch_and_add (&ev->refcnt, -(1ll << 32));
++    v = __atomic_fetch_add (&ev->refcnt, -(1ll << 32), __ATOMIC_SEQ_CST);
+     if (((int)v) != 0) { continue; }
+     return NULL;
+   }
+-  __sync_fetch_and_add (&ev->refcnt, 1 - (1ll << 32));
++  __atomic_fetch_add (&ev->refcnt, 1 - (1ll << 32), __ATOMIC_SEQ_CST);
+   socket_connection_job_t C = job_incref (ev->data);
+   
+   connection_event_incref (fd, -1);
+--- a/src/net/net-events.c
++++ b/src/net/net-events.c
+@@ -189,8 +189,8 @@
+     memset (ev, 0, sizeof (*ev));
+     ev->fd = fd;
+   }
+-  assert (!ev->refcnt);
+-  __sync_fetch_and_add (&ev->refcnt, 1);
++  assert (!__atomic_load_n (&ev->refcnt, __ATOMIC_SEQ_CST));
++  __atomic_fetch_add (&ev->refcnt, 1, __ATOMIC_SEQ_CST);
+   ev->priority = prio;
+   ev->data = data;
+   ev->work = handler;
+--- a/src/vv/vv-tree.c
++++ b/src/vv/vv-tree.c
+@@ -579,7 +579,7 @@
+   T->refcnt = 1;
+   #endif
+   T->left = T->right = NULL;
+-  __sync_fetch_and_add (&total_vv_tree_nodes, 1);
++  __atomic_fetch_add (&total_vv_tree_nodes, 1, __ATOMIC_SEQ_CST);
+   return T;
+ }
+ 
+@@ -604,7 +604,7 @@
+   #else
+     free (T);
+   #endif
+-  __sync_fetch_and_add (&total_vv_tree_nodes, -1);
++  __atomic_fetch_add (&total_vv_tree_nodes, -1, __ATOMIC_SEQ_CST);
+ }
+ 
+ #ifdef TREE_PTHREAD
+--- a/src/engine/engine-signals.c
++++ b/src/engine/engine-signals.c
+@@ -34,7 +34,15 @@
+ #include "engine/engine.h"
+ #include "engine/engine-signals.h"
+ 
+-volatile static unsigned long long pending_signals;
++/* Use lock-free 32-bit atomics even on 32-bit hosts. Signal handlers
++ * must not acquire a libatomic lock that the interrupted thread may hold. */
++static unsigned int pending_signals[2];
++
++static unsigned long long pending_signal_mask (void) {
++  unsigned int lo = __atomic_load_n (&pending_signals[0], __ATOMIC_SEQ_CST);
++  unsigned int hi = __atomic_load_n (&pending_signals[1], __ATOMIC_SEQ_CST);
++  return lo | ((unsigned long long)hi << 32);
++}
+ 
+ void engine_set_terminal_attributes (void) __attribute__ ((weak));
+ void engine_set_terminal_attributes (void) {}
+@@ -42,19 +50,18 @@
+ /* {{{ PENDING SIGNALS */
+ 
+ void signal_set_pending (int sig) {
+-  __sync_fetch_and_or (&pending_signals, SIG2INT(sig));
++  unsigned int bit = (unsigned int)sig & 63;
++  __atomic_fetch_or (&pending_signals[bit / 32], 1U << (bit % 32), __ATOMIC_SEQ_CST);
+ }
+ 
+ int signal_check_pending (int sig) {
+-  return (pending_signals & SIG2INT(sig)) != 0;
++  return (pending_signal_mask () & SIG2INT(sig)) != 0;
+ }
+ 
+ int signal_check_pending_and_clear (int sig) {
+-  int res = (pending_signals & SIG2INT(sig)) != 0;
+-  if (res) {
+-    __sync_fetch_and_and (&pending_signals, ~SIG2INT(sig));
+-  }
+-  return res;
++  unsigned int bit = (unsigned int)sig & 63;
++  unsigned int mask = 1U << (bit % 32);
++  return (__atomic_fetch_and (&pending_signals[bit / 32], ~mask, __ATOMIC_SEQ_CST) & mask) != 0;
+ }
+ /* }}} */
+ 
+@@ -125,7 +132,7 @@
+ void empty_signal_handler (const int sig) {}
+ 
+ int interrupt_signal_raised (void) /* {{{ */ {
+-  return (pending_signals & SIG_INTERRUPT_MASK) != 0;
++  return (pending_signal_mask () & SIG_INTERRUPT_MASK) != 0;
+ }
+ /* }}} */
+ 
+@@ -137,7 +144,7 @@
+   long long allowed = F->allowed_signals;
+   long long forbidden = 0;
+   while (1) {
+-    long long t = allowed & pending_signals & ~forbidden;
++    long long t = allowed & pending_signal_mask () & ~forbidden;
+     if (!t) {
+       break;
+     }

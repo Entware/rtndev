@@ -1,0 +1,15 @@
+--- a/src/mtproto/mtproto-proxy-stats.c
++++ b/src/mtproto/mtproto-proxy-stats.c
+@@ -653,9 +653,9 @@
+       if (_quota > 0) {
+         sb_printf (sb, "secret_%s_quota\t%lld\n", _lbl, _quota);
+       }
+-      int _mips = tcp_rpcs_get_ext_secret_max_ips (_i);
+-      if (_mips > 0) {
+-        sb_printf (sb, "secret_%s_max_ips\t%d\n", _lbl, _mips);
++      int max_ips = tcp_rpcs_get_ext_secret_max_ips (_i);
++      if (max_ips > 0) {
++        sb_printf (sb, "secret_%s_max_ips\t%d\n", _lbl, max_ips);
+       }
+       int64_t _exp = tcp_rpcs_get_ext_secret_expires (_i);
+       if (_exp > 0) {
