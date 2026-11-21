@@ -1,0 +1,37 @@
+--- a/meson.build
++++ b/meson.build
+@@ -1,7 +1,7 @@
+ project('plocate', 'cpp', default_options: ['buildtype=debugoptimized','cpp_std=c++17'], version: '1.1.25')
+ 
+ add_project_arguments('-DGROUPNAME="' + get_option('locategroup') + '"', language: 'cpp')
+-add_project_arguments('-DUPDATEDB_CONF="/etc/updatedb.conf"', language: 'cpp')
++add_project_arguments('-DUPDATEDB_CONF="/opt/etc/updatedb.conf"', language: 'cpp')
+ dbfile = join_paths(get_option('sharedstatedir'), get_option('dbpath'))
+ add_project_arguments('-DDBFILE="' + dbfile + '"', language: 'cpp')
+ add_project_arguments('-DPACKAGE_NAME="plocate"', language: 'cpp')
+@@ -9,14 +9,12 @@ add_project_arguments('-DPACKAGE_VERSION
+ add_project_arguments('-DPACKAGE_BUGREPORT="steinar+plocate@gunderson.no"', language: 'cpp')
+ 
+ cxx = meson.get_compiler('cpp')
+-uringdep = dependency('liburing', required: false)
++uringdep = declare_dependency()
+ zstddep = dependency('libzstd')
+ threaddep = dependency('threads')
+ atomicdep = cxx.find_library('atomic', required: false)
+ 
+-if not uringdep.found()
+-	add_project_arguments('-DWITHOUT_URING', language: 'cpp')
+-endif
++add_project_arguments('-DWITHOUT_URING', language: 'cpp')
+ if cxx.has_header('endian.h')
+ 	add_project_arguments('-DHAS_ENDIAN_H', language: 'cpp')
+ endif
+@@ -49,7 +47,7 @@ conf_data.set('PROCESSED_BY_MESON', '1')
+ conf_data.set('sbindir', join_paths(get_option('prefix'), get_option('sbindir')))
+ conf_data.set('groupname', get_option('locategroup'))
+ conf_data.set('dbfile', dbfile)
+-conf_data.set('updatedb_conf', '/etc/updatedb.conf')
++conf_data.set('updatedb_conf', '/opt/etc/updatedb.conf')
+ conf_data.set('updatedb_progname', updatedb_progname)
+ update_script = configure_file(input: 'update-plocate.sh',
+                output: 'update-plocate.sh',
