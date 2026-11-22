@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=mkvtoolnix
 PKG_VERSION:=58.0.0
 # boost bumped
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mkvtoolnix.download/sources
