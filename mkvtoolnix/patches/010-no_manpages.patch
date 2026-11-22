@@ -1,32 +1,6 @@
---- a/Rakefile
-+++ b/Rakefile
-@@ -273,23 +273,6 @@ def define_default_task
-     targets << "BROWSE" if !c(:EBROWSE).empty?
-   end
- 
--  # Build developer documentation?
--  targets << "doc/development.html" if !c(:PANDOC).empty?
--
--  # Build man pages and translations?
--  targets << "manpages"
--  targets << "translations:manpages" if c?(:PO4A_WORKS)
--
--  # Build translations for the programs
--  targets << "translations:programs"
--
--  # The Qt translation files: only for Windows
--  targets << "translations:qt" if $building_for[:windows] && !c(:LCONVERT).blank?
--
--  # Build ebml_validator by default when not cross-compiling as it is
--  # needed for running the tests.
--  targets << "apps:tools:ebml_validator" if c(:host) == c(:build)
--
-   targets << "src/benchmark/benchmark" if c?(:GOOGLE_BENCHMARK) && !$benchmark_sources.empty?
- 
-   task :default => targets do
 --- a/configure.ac
 +++ b/configure.ac
-@@ -45,7 +45,6 @@ m4_include(ac/boost.m4)
+@@ -46,7 +46,6 @@ m4_include(ac/boost.m4)
  m4_include(ac/gtest.m4)
  m4_include(ac/benchmark.m4)
  m4_include(ac/pandoc.m4)

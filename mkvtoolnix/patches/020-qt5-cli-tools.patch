@@ -1,0 +1,25 @@
+--- a/ac/qt5.m4
++++ b/ac/qt5.m4
+@@ -53,19 +53,10 @@ check_qt5() {
+   AC_PATH_PROG(RCC, rcc,, [$qt_searchpath])
+   AC_PATH_PROG(UIC, uic,, [$qt_searchpath])
+ 
+-  if test x"$MOC" = x; then
++  if test x"$enable_gui" = xyes &&
++     { test -z "$MOC" || test -z "$RCC" || test -z "$UIC"; }; then
+     AC_MSG_CHECKING(for Qt 5)
+-    AC_MSG_RESULT(no: could not find the moc executable)
+-    return
+-
+-  elif test x"$RCC" = x; then
+-    AC_MSG_CHECKING(for Qt 5)
+-    AC_MSG_RESULT(no: could not find the rcc executable)
+-    return
+-
+-  elif test x"$UIC" = x; then
+-    AC_MSG_CHECKING(for Qt 5)
+-    AC_MSG_RESULT(no: could not find the uic executable)
++    AC_MSG_RESULT(no: could not find moc, rcc or uic)
+     return
+   fi
+ 

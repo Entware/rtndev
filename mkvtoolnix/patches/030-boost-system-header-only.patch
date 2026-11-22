@@ -1,0 +1,27 @@
+--- a/ac/boost.m4
++++ b/ac/boost.m4
+@@ -36,8 +36,11 @@ if test "x$am_cv_bmp_gmp" != xyes; then
+ fi
+ AC_MSG_RESULT([yes])
+ 
+-# boost::system must be present.
+-AX_BOOST_SYSTEM()
++# Boost.System is header-only.
++AC_SUBST([BOOST_SYSTEM_LIB], [])
++AX_BOOST_CHECK_HEADERS([boost/system/error_code.hpp],,[
++  AC_MSG_ERROR([Boost.System headers are required])
++])
+ 
+ # boost::filesystem must be present.
+ AX_BOOST_FILESYSTEM()
+@@ -46,10 +49,6 @@ if test x"$ax_cv_boost_filesystem" != "x
+   AC_MSG_ERROR(The Boost Filesystem Library was not found.)
+ fi
+ 
+-if test x"$ax_cv_boost_system" != "xyes"; then
+-  AC_MSG_ERROR(The Boost System Library was not found.)
+-fi
+-
+ AX_BOOST_CHECK_HEADERS([boost/operators.hpp],,[
+   AC_MSG_ERROR([Boost's Operators library is required but wasn't found])
+ ])
