@@ -24,7 +24,8 @@ define Package/wg-obfuscator
 endef
 
 define Package/wg-obfuscator/description
- Command line version of 7-zip for POSIX systems.
+ WireGuard Obfuscator - simple obfuscator for WireGuard.
+ Useful if your ISP/government blocks WireGuard traffic.
 endef
 
 MAKE_FLAGS += \
